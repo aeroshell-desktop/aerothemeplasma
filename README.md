@@ -2,7 +2,8 @@
 
 ## TABLE OF CONTENTS
 1. [Introduction](#introduction)  
-2. [Installation](#installation)  
+2. [Screenshots](#screenshots)
+3. [Installation](#installation)  
     1. [Prerequisites](#installation)
     2. [KDE Plasma Theme](#plasma-theme)
     3. [KDE Application Theme](#application-theme)
@@ -13,11 +14,11 @@
     8. [Workspace Behavior](#behaviour)
     9. [GTK3](#gtk)
     10. [Sounds](#sounds)
-3. [Shortcomings](#shortcomings)
+4. [Shortcomings](#shortcomings)
     1. [KDE-specific problems](#kde-problems)
     2. [Lack of features problem](#feature-problems)
-4. [TODO List](#todo-list)
-5. [Credits](#credits)
+5. [TODO List](#todo-list)
+6. [Credits](#credits)
 
 
 ## Introduction <a name="introduction"></a>
@@ -41,6 +42,39 @@ who really wants to keep the Aero visual style alive.
 Feel free to take this theme pack and modify it for yourself or share it with others, or if 
 there are any improvements to be made here, any and all effort would be greatly appreciated.
 
+## Screenshots <a name="screenshots"></a>
+
+### Example Desktop
+<img src="Screenshots/Desktop.png">
+
+### Start Menu
+<img src="Screenshots/Start_Menu.png">
+
+### Dolphin
+<img src="Screenshots/Dolphin_2.png">
+
+### Context Menu
+
+<img src="Screenshots/Context_Menu.png">
+<img src="Screenshots/Context_Menu_2.png">
+
+### Taskbar
+
+<img src="Screenshots/Taskbar.png">
+
+### Plasma Style
+
+<img src="Screenshots/Notification.png">
+
+<img src="Screenshots/Media_Controls.png">
+
+### Window Style
+
+<img src="Screenshots/Window_Decorations.png">
+
+
+
+
 ## Installation <a name="installation"></a>
 
 ### Prerequisites
@@ -62,6 +96,8 @@ The Seven-Black Plasma theme is the main theme for KDE Plasma's shell. Put it in
 ~/.local/share/plasma/desktoptheme/Seven-Black
 
 This theme is a modified version of the following theme: https://www.kde-look.org/p/998614
+
+Since this is a Plasma Style, to apply it simply go to System Settings -> Appearance -> Plasma Style to find it and select it.
 
 ### KDE Application Theme <a name="application-theme"></a>
 
@@ -117,8 +153,7 @@ settings:
 - Small: Segoe UI 8pt
 - Toolbar: Segoe UI 9pt
 - Menu: Segoe UI 9pt
-- Window title: Segoe UI 9pt
-
+- Window title: Segoe UI 9pt <br>
 - Anti-aliasing: Enable
 - Sub-pixel rendering: RGB
 - Hinting: Medium
@@ -173,19 +208,26 @@ Manager" widget to make it look closer to Windows 7.
 
 Install the widget "Digital Clock Lite" (https://www.kde-look.org/p/1225135/) and replace the ugly large clock widget with 
 it. By default it should already look a lot like Windows 7's clock, but if it doesn't, change the following settings:
-Font size px: 9
-Font style: Segoe UI
+
+- Font size px: 9
+- Font style: Segoe UI
 You can tweak the other settings to your liking. 
 
 Lastly, install the "Show Desktop (Win7)" widget (https://www.kde-look.org/p/1100895/) and configure it to these settings:
+
 In Look:
-Size: 8px;
+
+- Size: 8px;
+ 
 In Click:
-Run Command: qdbus org.kde.kglobalaccel /component/kwin invokeShortcut "MinimizeAll"
-(Note: in order for this to work, the "MinimizeAll" KWin script must be installed and enabled)
+
+ - Run Command: qdbus org.kde.kglobalaccel /component/kwin invokeShortcut "MinimizeAll" <br>
+    (Note: in order for this to work, the "MinimizeAll" KWin script must be installed and enabled)
+
 In Peek:
-Show desktop on hover: Enable
-Peek threshold: 750ms
+
+- Show desktop on hover: Enable
+- Peek threshold: 750ms
 
 ### Workspace Behavior <a name="behaviour"></a>
 In KDE System Settings, under Workspace Behavior -> Desktop Effects, check the following settings:
@@ -281,7 +323,8 @@ fairly confusing, so I don't know how I would fix this issue.
 ### Lack of features problem <a name="feature-problems"></a>
 
 As for features that are lacking compared to Windows 7, there's a few that I'd like to point out:
-1.  The window manager
+
+1.  <b>The window manager</b><br>
     This theme collection uses smaragd, a KWin decoration engine that essentially uses emerald themes for its
     decorations. While this has enabled Kwin to get a very detailed and close feeling of the Aero visual style,
     it's not perfect. The decorations look a bit weird when maximised, especially when out of focus, but this is
@@ -289,13 +332,13 @@ As for features that are lacking compared to Windows 7, there's a few that I'd l
     to look at. The last feature that is missing is the white blur behind the window title. This actually does 
     work under emerald, however smaragd has this feature implemented in a bugged way, where the blurry cloud gets
     stretched across the entire width of the titlebar, instead of fitting just the text. 
-2.  True Aero peek and Aero shake
+2.  <b>True Aero peek and Aero shake</b><br>
     There's a widget called Show Desktop (Win7) (https://store.kde.org/p/1100895/) which implements a Windows 7-like
     Show desktop button, with a working Aero Peek. Of course, though, the Aero peek animation depends on KDE's
     settings. KDE comes with two animations for this effect, however neither one really accomplishes the Aero effect,
     so this is something that is left to be desired. Aero shake to my knowledge is also not a thing, but in all honesty
     I've always found it to be a niche feature, so it's not a real priority to recreate. 
-3.  Hover animations
+3.  <b>Hover animations</b><br>
     Hover animations for things such as system tray icons, task manager indicators, and most notably the start menu orb.
     Latte dock has Windows 7 task manager indicators, which look pretty good, however Latte dock is pretty bloated, and
     also breaks the aforementioned Show Desktop (Win7) widget for some unknown reason, thus I don't use it. The start menu
@@ -306,10 +349,7 @@ As for features that are lacking compared to Windows 7, there's a few that I'd l
     
 ## TODO List <a name="todo-list"></a>
 
-1. Create a GitHub repository
-    1. Create proper documentation with markdown (Recreate this README in md)
-    2. Properly credit everyone
-2. Improve the Seven Start menu plasmoid
+1. Improve the Seven Start menu plasmoid
     1. Create orb animations if possible
     2. Add separator lines and more sidebar entries
         1. If possible, make these entries editable
@@ -317,7 +357,7 @@ As for features that are lacking compared to Windows 7, there's a few that I'd l
     4. Add a button "All programs" which lists all programs alphabetically
     5. If possible, make the top-right icon stick out of the Start menu (I have not found a way to make this happen yet sadly)
     6. If possible, make the top-right icon change depending on which sidebar is hovered over.
-3. Improve the icon theme
+2. Improve the icon theme
 
 ## Credits <a name="credits"></a>
 
