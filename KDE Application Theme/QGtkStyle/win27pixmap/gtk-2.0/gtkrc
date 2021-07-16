@@ -1,0 +1,526 @@
+#Win2-7(Pixmap)
+
+style "default"
+{
+    
+  GtkNotebook::tab-overlap 		= 0  #no tab overlap; default is 2
+  GtkNotebook::tab-curvature 		= 4  #pixels between text and border
+
+   GtkButton::default-border         = {1, 1, 1, 1}
+   GtkButton::default-spacing        = 6
+
+
+  GtkWidget::interior_focus			= 0	
+  GtkWidget::focus_padding			= 0
+
+  GtkCheckButton::indicator_size		= 13
+  GtkCheckButton::indicator_spacing		= 3
+
+  GtkPaned::handle_size				= 6
+
+  GtkRange::trough-border           = 0
+  GtkRange::slider-width            = 8 #15
+  GtkRange::stepper-size            = 15
+  GtkRange::stepper-spacing         = 0
+  #GtkRange::trough-side-details    = 1
+  #GtkRange::trough_border	    = 1
+  #GtkRange::slider_width	    = 15
+  #GtkRange::stepper_size	    = 15 
+
+
+  GtkScrollbar::min-slider-length   = 20
+  GtkScrollbar::slider-width        = 15
+  GtkScrollbar::trough-side-details     = 0
+
+
+  GtkButton::default_border			= { 0, 0, 0, 0 }
+  GtkButton::default_outside_border		= { 0, 0, 0, 0 }
+ 
+
+#  GtkVScale::slider_length = 11
+#  GtkVScale::slider_width = 21
+#  GtkHScale::slider_length = 11
+#  GtkHScale::slider_width = 21
+
+
+
+  GtkMenuBar::internal_padding			= 1
+  GtkOptionMenu::indicator_size			= { 15, 8 }
+  GtkOptionMenu::indicator_spacing		= { 8, 2, 0, 0 }
+  #GtkStatusbar::shadow_type			= GTK_SHADOW_TRUE
+  GtkSpinButton::shadow_type 			= GTK_SHADOW_TRUE
+
+
+	GtkTreeView    ::expander-size        = 14
+	GtkTreeView    ::vertical-separator   = 1
+	GtkTreeView    ::horizontal-separator = 2
+	GtkTreeView    ::allow-rules 	      = 0 # Don't use different color for odd rows
+	GtkTreeView    ::row-ending-details   = 1 # Allow for rounded endings and transparent active rows
+
+
+  xthickness            	= 2
+  ythickness            	= 2
+
+  fg[NORMAL]       	 = "#171D4F" # Metacity and mouseover, Most text
+  fg[ACTIVE]       	 = "#171D4F" # Texto en pestañas sin foco, botones tambien
+  fg[PRELIGHT]     	 = "#000" # Texto en botones hover
+  fg[SELECTED]     	 = "#000" # Texto seleccionado en listas
+  fg[INSENSITIVE]  	 = "#c8c8c8" # Texto deshabilitado menu
+
+  bg[NORMAL]       	 = "#e5e5e6" # Fondo ventana superior
+  bg[ACTIVE]       	 = "#e5e5e6" # Items de barra de tareas seleccionados
+  bg[PRELIGHT]     	 = "#a0a0a0" # Boton prelight
+  bg[SELECTED]     	 = "#3399FF"#"#a4d2ff" # Borde de pestaña, boton check, borde ejemplo en apariencia, controla metacity
+  bg[INSENSITIVE]  	 = "#d8def0" # Botones inactivos
+
+  base[NORMAL]     	 = "#f8fafd" # Fondo de Ventana #ffffdc
+  base[ACTIVE]     	 = "#3399FF" # Elemento Seleccionado en ventana inactiva
+  base[PRELIGHT]   	 = "#a0a0a0" # Linea exterior barra menu
+  base[INSENSITIVE]	 = "#a0a0a0" # Entrada inactiva
+  base[SELECTED]     	 = "#3399FF" # Fondo seleccionado Escritorio
+
+  text[NORMAL]	 	 = "#000" # Texto en ventanas
+  text[INSENSITIVE]	 = "#000" # Texto insensitivo ventana
+  text[SELECTED]   	 = "#000" # Texto seleccionado
+  text[ACTIVE]     	 = "#000" # Texto activo en ventana inactiva
+  text[PRELIGHT]   	 = "#000" # Mouse sobre texto
+
+  engine "pixmap"
+  {
+    image
+    {
+      function				= HANDLE
+      recolorable			= TRUE
+      overlay_file			= "Panel/handle-v1.png"
+      overlay_stretch	= FALSE
+      orientation			= HORIZONTAL
+    }
+    image
+    {
+      function				= HANDLE
+      recolorable			= TRUE
+      overlay_file			= "Panel/handle-h1.png"
+      overlay_stretch	= FALSE
+      orientation			= VERTICAL
+    }
+
+####################### Shadows ############################x
+
+    image
+    {
+      function			= SHADOW
+      shadow			= IN
+      recolorable		= FALSE
+      file				= "Shadows/shadow-in.png"
+      border			= { 3, 3, 3, 3 }
+      stretch			= TRUE
+    }
+    image
+    {
+       function		= SHADOW
+       shadow			= OUT
+       recolorable		= TRUE
+       file				= "Shadows/shadow-out.png"
+       stretch			= TRUE
+    }
+
+    image
+    {
+       function		= SHADOW
+       shadow			= ETCHED_IN
+       recolorable		= TRUE
+       file				= "Frame-Gap/frame1.png"				
+       border			= { 3, 3, 3, 3 }
+       stretch			= TRUE
+    }
+    image
+    {
+       function		= SHADOW
+       shadow			= ETCHED_OUT
+       recolorable		= TRUE
+       file				= "Shadows/shadow-none.png"
+       border			= { 3, 3, 3, 3 }
+       stretch			= TRUE
+    }
+    image
+    {
+       function			= SHADOW_GAP
+       recolorable			= TRUE
+       file					= "Frame-Gap/frame1.png"
+       border				= { 3, 3, 3, 3 }
+       stretch				= TRUE
+       gap_start_file		= "Frame-Gap/frame-gap-start.png"
+       gap_start_border	= { 2, 0, 2, 0 }
+       gap_end_file		= "Frame-Gap/frame-gap-end.png"
+       gap_end_border	= { 0, 2, 2, 0 }
+       gap_side			= TOP
+    }
+
+    image
+    {
+       function		= VLINE
+       recolorable		= TRUE
+       file				= "Lines/line-v.png"
+       border			= { 1, 1, 0, 0 }
+       stretch			= TRUE
+    }
+    image
+    {
+      function			= HLINE
+      recolorable		= TRUE
+      file				= "Lines/line-h.png"
+      border			= { 21, 0, 1, 1 }
+      stretch			= TRUE
+    }
+
+    # foco
+
+    image
+    {
+      function			= FOCUS
+      recolorable		= TRUE
+      file				= "Others/focus.png"
+      border			= { 6, 0, 6, 0 }
+      stretch			= TRUE
+    }	
+
+    # flechas
+
+    image
+    {
+      function				= ARROW
+      recolorable			= TRUE
+      overlay_file			= "Arrows/arrow-up.png"
+      overlay_border	= { 0, 0, 0, 0 }
+      overlay_stretch	= FALSE
+      arrow_direction	= UP
+    }
+    image
+    {
+      function				= ARROW
+      state				= NORMAL
+      recolorable			= TRUE
+      overlay_file			= "Arrows/arrow-down.png"
+      overlay_border	= { 0, 0, 0, 0 }
+      overlay_stretch	= FALSE
+      arrow_direction	= DOWN
+    }
+    image
+    {
+      function				= ARROW
+      state				= PRELIGHT
+      recolorable			= TRUE
+      overlay_file			= "Arrows/arrow-down-prelight.png"
+      overlay_border	= { 0, 0, 0, 0 }
+      overlay_stretch	= FALSE
+      arrow_direction	= DOWN
+    }
+    image
+    {
+      function				= ARROW
+      state				= ACTIVE
+      recolorable			= TRUE
+      overlay_file			= "Arrows/arrow-down-pressed.png"
+      overlay_border	= { 0, 0, 0, 0 }
+      overlay_stretch	= FALSE
+      arrow_direction	= DOWN
+    }
+
+    image
+    {
+      function				= ARROW
+      state				= INSENSITIVE
+      recolorable			= TRUE
+      overlay_file			= "Arrows/arrow-down-insens.png"
+      overlay_border	= { 0, 0, 0, 0 }
+      overlay_stretch	= FALSE
+      arrow_direction	= DOWN
+    }
+
+    image
+    {
+      function				= ARROW
+      recolorable			= TRUE
+      overlay_file			= "Arrows/arrow-left.png"
+      overlay_border	= { 0, 0, 0, 0 }
+      overlay_stretch	= FALSE
+      arrow_direction	= LEFT
+    }
+    image
+    {
+      function				= ARROW
+      recolorable			= TRUE
+      overlay_file			= "Arrows/arrow-right.png"
+      overlay_border	= { 0, 0, 0, 0 }
+      overlay_stretch	= FALSE
+      arrow_direction	= RIGHT
+    }
+ #   image 
+#      {
+#     function			= BOX
+#	recolorable		= TRUE
+#	file        			= "Others/null.png"
+#	border      		= { 3, 3, 3, 3 }
+#	stretch         	= TRUE
+#      }
+  }
+
+}
+
+
+##################### RULER ##################
+
+style "ruler"		= "default"
+{
+  engine "pixmap" 
+  {
+    image 
+    {
+        function		= BOX
+	recolorable		= TRUE
+	detail			= "vruler"
+	file			= "Others/ruler.png"
+	border			= { 2, 2, 2, 2 }
+	stretch			= TRUE
+    }
+    image 
+    {
+        function		= BOX
+	recolorable		= TRUE
+	detail			= "hruler"
+	file			= "Others/ruler.png"
+	border			= { 2, 2, 2, 2 }
+	stretch			= TRUE
+    }
+  }
+}
+
+
+style "flat" 		= "default"
+{
+  engine "pixmap"
+  {
+    image
+    {
+      function		= SHADOW
+    }
+  }
+}
+
+style "layout"	= "default"
+{
+  engine "pixmap"
+  {
+   image
+   {
+     function		= SHADOW
+     detail			= "entry"
+     shadow		= IN
+     recolorable	= FALSE
+     file			= "Shadows/text.png"
+     border		= { 1, 1, 1, 1 }
+     stretch		= TRUE
+   }
+    image
+    {
+      function		= BOX
+      detail		= "button"
+      state			= NORMAL
+      file			= "Buttons/button-normal.png"
+      recolorable	= TRUE
+      border		= { 2, 3, 2, 3 }
+      stretch		= TRUE
+    }
+  }
+}
+
+
+
+# SPIcons seem to erase the background first. That's why I can't use
+# the button style.
+
+style "SPbutton"
+{
+  engine "pixmap"
+  {
+    image
+    {
+      function		= BOX
+      shadow		= IN
+      recolorable	= TRUE
+      file			= "Shadows/shadow-out.png"
+      border		= { 2, 2, 2, 2 }
+      stretch		= TRUE
+    }
+    image
+    {
+      function		= BOX
+    }
+  }
+}
+
+style "unstyle"
+{
+  engine ""
+  {
+  }
+}
+
+
+
+# included styles
+
+include	"Styles/terminal"
+include	"Styles/treeview"
+include	"Styles/listheader"
+include	"Styles/statusbar"
+include	"Styles/notebook"
+include	"Styles/menu-menubar"
+include	"Styles/button"
+include	"Styles/toolbar"
+include	"Styles/entry"
+include	"Styles/range"
+include	"Styles/progressbar"
+include	"Styles/scrollbar"
+include	"Styles/spin"
+include	"Styles/checkbutton"
+include	"Styles/combo"
+include	"Styles/optionmenu"
+include	"Styles/radiobutton"
+include	"Styles/tooltips"
+include	"Styles/panel"
+include	"Styles/handlebox"
+include	"Styles/inactivetext"
+
+
+# widget styles
+class "GtkTreeView*" 			style "gtktreeview"
+
+widget_class "*GtkCList*" 		style "list-header"
+widget_class "*GtkTree*" 		style "progressbar"
+
+# Treeview header
+widget_class "*.<GtkTreeView>.<GtkButton>" 	style "list-header"
+widget_class "*.<GtkCTree>.<GtkButton>"    	style "list-header"
+widget_class "*.<GtkList>.<GtkButton>"     	style "list-header"
+widget_class "*.<GtkCList>.<GtkButton>"    	style "list-header"
+
+# Workarounds for Evolution
+widget_class "*.ETable.ECanvas"    		style "list-header"
+widget_class "*.ETree.ECanvas"    		style "list-header"
+
+
+class "GtkStatusbar"			style "statusbar"
+
+class "GtkNotebook"      		style "notebook"
+
+class "GtkMenu"       			style "menu"
+class "GtkMenuBar*" 		     	style "menubar"
+widget_class "*MenuBar.*" 		style "menubar"
+widget_class "*.<MenuItem>."		style "menuitem"
+class "GtkMenuItem"           		style "menuitem"
+class "GtkTearoffMenuItem"		style "menuitem"
+widget_class "*.<GtkMenuItem>.*" 	style "TextoMenu"
+
+
+class "GtkButton"          		style "button"
+
+widget_class "*BonoboDockItem" 		style "toolbar"
+class "*BonoboDockItem" 		style "toolbar"
+widget_class "*HandleBox" 		style "toolbar"
+class "*HandleBox" 			style "toolbar"
+widget_class "*Toolbar" 		style "toolbar"
+class "*Toolbar" 			style "toolbar"
+widget_class "*Tool*GtkToggleButton" 	style "toolbuttons"
+widget_class "*Tool*GtkButton" 		style "toolbuttons"
+
+class "GtkEntry"           		style "entry"
+class "GtkOldEditable" 			style "entry"
+
+class "GtkRange"         		style "range"
+
+class "GtkProgressBar"     		style "progressbar"
+
+class "GtkScrollbar"       		style "scrollbar"
+
+class "GtkSpinButton"   	 	style "spinbutton"
+
+class "GtkCheckButton"     		style "checkbutton"
+class "GtkCheckMenuItem"   		style "checkbutton"
+
+
+class "GtkOptionMenu"			style "optionmenu"
+class "GtkComboBox"			style "optionmenu"
+widget_class "*GtkCombo.*Button*" 	style "ComboButton"
+
+class "GtkComboBoxEntry*"		style "ComboBox"
+class "GtkCombo*"      			style "ComboBox"
+class "*Font*"      			style "ComboBox"
+widget_class "*Combo*Entry*"    	style "ComboBox"
+
+class "GtkRadioButton"     		style "radiobutton"
+class "GtkRadioMenuItem"    		style "radiobutton"
+
+widget "gtk-tooltips"  			style "tooltips"
+
+
+#class "*Panel*" 			style "fix"
+class "*Panel*" 			style "panelbg"
+widget_class "*notif*" 			style "panelbg"
+widget_class "*Notif*" 			style "panelbg"
+widget_class "*Tray*" 			style "panelbg"
+widget_class "*tray*" 			style "panelbg"
+widget "*PanelWidget*" 			style "panelbuttons"
+widget "*PanelApplet*" 			style "panelbuttons"
+widget_class "*Panel*GtkToggleButton*" 	style "button"
+widget_class "*Panel*GtkButton" 	style "button"
+widget_class "*PanelButton*." 		style "button"
+
+class "GtkHandleBox"    		style "handlebox"
+class "GtkPaned"       			style "handlebox"
+
+widget_class "*.<GtkLabel>" 		 style "inactivetext"
+widget_class "*.<GtkCellLayout>" 	 style "inactivetext"
+#widget_class "*.<Combo>" 		 style "inactivetext"
+
+
+
+
+class "GtkWidget"		        style "default"
+
+class "GtkRuler"           		style "ruler"
+
+class "GtkToolbar"       		style "flat"					
+class "GtkEventBox"    			style "flat"
+
+class "GtkLayout"     			style "layout"
+class "SPButton"         		style "SPbutton"
+
+class "SPColorSlider" 			style "unstyle"
+
+class "PanelAppletFrame"		style "panel-handle"
+class "TerminalScreen"                  style "terminal"
+
+
+widget "*IdoScaleMenuItem*" 				style "range"
+widget "*IdoEntryMenuItem*" 				style "entry"
+widget_class "*<GtkNotebook>*<GtkViewport>"		style "notebook"
+
+#widget_class "*<GtkButton>"      			style "button"
+
+widget_class "*<GtkProgress>"				style "progressbar"
+#widget "*fast-user-switch*"				style "panelbg" # workaround for Fast User Switch applet
+class "PanelApp*" 					style "panelbg"
+widget "*fast-user-switch-applet*" 			style "panelbg"
+
+
+widget_class "*notif*"					style "panelbg"
+widget_class "*Notif*"					style "panelbg"
+
+widget "*Xfce*Panel*"					style "panelbg"
+class "*Xfce*Panel*"					style "panelbg"
+# Nautilus sidebar
+#widget_class "*Nautilus*Places*Sidebar*"    		style "nautilus-sidebar"
+#widget_class "*Nautilus*Side*.GtkWidget"    		style "nautilus-sidebar"
+
+

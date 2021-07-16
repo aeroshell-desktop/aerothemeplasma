@@ -1,0 +1,15 @@
+    Requirements:
+
+cmake
+kdebase-workspace
+cairo
+glib2
+
+    To Install:
+
+cd smaragd
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` ..
+make
+sudo make install

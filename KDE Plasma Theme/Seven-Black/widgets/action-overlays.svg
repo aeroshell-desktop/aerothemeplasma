@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="22" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" height="76">
+ <metadata id="metadata7">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1" transform="translate(-212.37 -455.3)">
+  <g id="remove-normal" transform="translate(-.0000045605 24)">
+   <rect id="rect4154" ry="2" width="16" y="434.3" height="16" x="215.37" fill="#12bcfa"/>
+   <polygon id="polygon8" transform="matrix(.20599 0 0 .20599 213 432.14)" points="28.4 50.8 23.6 57.2 42.5 71.4 77 32.7 71 27.3 41.5 60.6" fill="#f4f4f4"/>
+   <rect id="rect4231" ry="0" width="22" y="431.3" height="22" x="212.37" fill-opacity="0"/>
+  </g>
+  <g id="add-normal" transform="translate(-.0000045605 52)">
+   <rect id="rect4238" ry="2" width="16" y="434.3" height="16" x="215.37" fill="#a4a4a4"/>
+   <rect id="rect4240" ry="1.4241" width="14" y="435.3" height="14" x="216.37" fill="#f4f4f4"/>
+   <rect id="rect4242" ry="2.0142" width="22" y="431.3" height="22" x="212.37" fill-opacity="0"/>
+  </g>
+  <g id="open-normal" transform="translate(-.0000045605 78)">
+   <g id="g4713" transform="translate(-200.92 -293.68)">
+    <circle id="circle4715" cx="424.29" r="8" fill="#26c940" cy="735.98"/>
+    <path id="rect4717" fill="#fbfbfb" d="m419.29 734.98h10v2h-10z"/>
+    <path id="rect4719" transform="rotate(90)" d="m730.98-425.29h10v2h-10z" fill="#fbfbfb"/>
+   </g>
+   <rect id="rect4721" width="22" y="431.3" height="22" x="212.37" fill-opacity="0"/>
+  </g>
+  <rect id="open-hover" width="22" y="507.86" height="22" x="240.94" fill-opacity="0"/>
+  <rect id="open-pressed" width="22" y="507.86" height="22" x="184.94" fill-opacity="0"/>
+  <rect id="remove-hover" width="22" y="539.86" height="22" x="240.94" fill-opacity="0"/>
+  <rect id="remove-pressed" width="22" y="539.86" height="22" x="184.94" fill-opacity="0"/>
+  <rect id="add-hover" width="22" y="573.86" height="22" x="240.94" fill-opacity="0"/>
+  <rect id="add-pressed" width="22" y="573.86" height="22" x="184.94" fill-opacity="0"/>
+ </g>
+</svg>

@@ -1,0 +1,208 @@
+style "ComboButton" = "default"
+{
+  xthickness            			= 0
+  ythickness            			= 0
+
+  base[NORMAL] =      "#fff"
+  base[INSENSITIVE] = "#fafafa"
+  text[INSENSITIVE] = "#bfbfbf"
+
+engine "pixmap"
+{
+
+ 	image
+	{
+		function	= BOX
+		state		= NORMAL
+		file		= "/Combo/combo-normal.png"
+		border		= { 4 ,4 , 4 ,4}
+		stretch		= TRUE
+	}
+
+	image
+	{
+		function	= BOX
+		recolorable	= TRUE
+		state		= PRELIGHT
+		shadow		= OUT
+		file		= "/Combo/combo-prelight.png"
+		border		= { 4 ,4 , 4 ,4}
+		stretch		= TRUE
+	}
+
+	image
+	{
+		function	= BOX
+		recolorable	= TRUE
+		state		= PRELIGHT
+		shadow		= IN
+		file		= "/Combo/combo-prelight.png"
+		border		= { 4 ,4 , 4 ,4}
+		stretch		= TRUE
+	}
+
+	image
+	{
+		function	= BOX
+		state		= INSENSITIVE
+		file		= "/Combo/combo-inactive.png"
+		border		= { 4 ,4 , 4 ,4}
+		stretch		= TRUE
+	}
+
+
+	image
+	{
+		function	= BOX
+		state		= ACTIVE
+		file		= "/Combo/combo-prelight.png"
+		border		= { 4 ,4 , 4 ,4}
+		stretch		= TRUE
+	}
+
+
+    image
+    {
+      function			= FOCUS
+      recolorable		= TRUE
+      file			= "Combo/combo-prelight.png"
+      border			= { 3,3,3,3 }
+      stretch			= TRUE
+    }	
+ image
+    {
+      function			= BOX
+      recolorable		= TRUE
+	 shadow			= IN
+      state			= NORMAL
+      file			= "Combo/combo-prelight.png"
+      border			= { 3,3,3,3 }
+      stretch			= TRUE
+    }	
+  }
+}
+
+
+
+
+
+style "ComboBox"	= "default"
+{
+
+  xthickness            			= 0
+  ythickness            			= 0
+
+  base[NORMAL] =      "#fff"
+  base[INSENSITIVE] = "#fafafa"
+  text[INSENSITIVE] = "#bfbfbf"
+
+  engine "pixmap"
+  {
+    image
+    {
+      function			= BOX
+      recolorable		= TRUE
+      state				= PRELIGHT
+      file				= "Combo/combo-prelight.png"
+      border			= { 5, 5, 5, 5}
+      stretch			= TRUE
+    }
+
+    image
+    {
+      function			= BOX
+      recolorable		= TRUE
+      state				= NORMAL
+      file				= "Combo/combo-normal.png"
+      border			= { 5, 5, 5, 5}
+      stretch			= TRUE
+    }
+
+  image
+    {
+      function			= BOX
+      recolorable		= TRUE
+      state				= ACTIVE
+      file				= "Combo/combo-pressed.png"
+      border			= { 5, 5, 5, 5}
+      stretch			= TRUE
+    }
+ image
+    {
+      function			= BOX
+      recolorable		= TRUE
+      state				= INSENSITIVE
+      file				= "Combo/combo-inactive.png"
+      border			= { 5, 5, 5, 5}
+      stretch			= TRUE
+    }
+
+
+    image
+    {
+      function			= TAB
+      state				= INSENSITIVE
+      recolorable		= TRUE
+      overlay_file		= "Combo/combo-arrow-insens.png"
+      overlay_stretch	= FALSE
+    }
+    image
+    {
+      function				= TAB
+      recolorable			= TRUE
+      state					= NORMAL
+      overlay_file			= "Combo/combo-arrow.png"
+      overlay_border	= { 0, 0, 0, 0 }
+      overlay_stretch	= FALSE
+    }
+  image
+    {
+      function				= TAB
+      recolorable			= TRUE
+      state					= PRELIGHT
+      overlay_file			= "Combo/combo-arrow-prelight.png"
+      overlay_border	= { 0, 0, 0, 0 }
+      overlay_stretch	= FALSE
+    }
+
+
+
+    image
+    {
+      function			= FOCUS
+      recolorable		= TRUE
+      file			= "Combo/entry-shadow-in.png"
+      border			= { 3,3,3,3 }
+      stretch			= TRUE
+    }	
+ image
+    {
+      function			= BOX
+      recolorable		= TRUE
+	 shadow			= IN
+      state			= NORMAL
+      file			= "Combo/entry-shadow-in.png"
+      border			= { 3,3,3,3 }
+      stretch			= TRUE
+    }	
+image
+    {
+      function			= BOX
+      recolorable		= TRUE
+	 shadow			= OUT
+      state			= NORMAL
+      file			= "Combo/text-entry.png"
+      border			= { 3,3,3,3 }
+      stretch			= TRUE
+    }	
+  image
+   {
+     function			= SHADOW
+     detail			= "entry"
+     shadow			= IN
+     recolorable		= FALSE
+     file			= "Combo/text-entry.png"
+     border			= { 3,3,3,3 }
+     stretch			= TRUE
+    }
+  }}

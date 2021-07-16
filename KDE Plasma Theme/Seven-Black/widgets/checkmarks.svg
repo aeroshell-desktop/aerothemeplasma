@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2" width="36" version="1.0" height="16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#">
+ <metadata id="metadata7">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1" transform="translate(0,-64)">
+  <g id="g4209" transform="translate(-24)">
+   <rect id="rect3811" y="0" transform="translate(0,64)" width="16" height="16" x="0" opacity="0" rx="87.767" ry="0"/>
+   <g id="g3803" transform="translate(0 -.5)">
+    <circle id="path3013" cx="8" cy="72.5" fill="#1a1a1a" r="4"/>
+   </g>
+  </g>
+  <g id="g4207" transform="translate(-36)">
+   <g id="g3831" transform="translate(1.7424e-7 -.50006)">
+    <path id="path3003" d="m12 68.566c-0.35251 0.009-0.723 0.1605-1 0.4375l-4 4-2-2c-0.554-0.554-1.411-0.58896-1.9375-0.0625l-0.125 0.125c-0.52646 0.52646-0.4915 1.3835 0.0625 1.9375l2.7812 2.75c0.0487 0.07525 0.09044 0.12169 0.15625 0.1875l0.0625 0.0625 0.0625 0.0625c0.05008 0.04454 0.10222 0.08849 0.15625 0.125 0.0133 0.0093 0.01768 0.02247 0.03125 0.03125 0.06706 0.04258 0.14749 0.06325 0.21875 0.09375 0.06237 0.02626 0.12219 0.04626 0.1875 0.0625 0.02255 0.0061 0.03979 0.02628 0.0625 0.03125 0.17276 0.03346 0.35558 0.03464 0.53125 0 0.03304-0.0056 0.06122-0.02316 0.09375-0.03125 0.23733-0.0643 0.46652-0.18527 0.65625-0.375l0.0625-0.0625c0.06581-0.06581 0.10755-0.11225 0.15625-0.1875l4.7814-4.751c0.554-0.554 0.58896-1.411 0.0625-1.9375l-0.125-0.125c-0.263-0.264-0.584-0.384-0.937-0.375z" fill="#1a1a1a"/>
+   </g>
+   <rect id="rect3837" y="64" height="16" width="16" rx="0" x="0" opacity="0"/>
+  </g>
+  <g id="radiobutton">
+   <path id="path4176" d="m7.9956 79a7 7 0 0 1 -6.9956 -7.003 7 7 0 0 1 7.0022 -6.997 7 7 0 0 1 6.9978 7.001 7 7 0 0 1 -7 6.999v-7z" fill="#12bcfa"/>
+   <path id="path4178" d="m7.9981 75a3 3 0 0 1 -2.9981 -3.001 3 3 0 0 1 3.0009 -2.999 3 3 0 0 1 2.9991 3 3 3 0 0 1 -3 3v-3z" fill="#f4f4f4"/>
+   <rect id="rect4180" y="64" height="16" width="16" fill-opacity="0" ry="1" x="0"/>
+  </g>
+  <g id="checkbox" transform="translate(20)">
+   <rect id="rect4154" y="65" height="14" width="14" fill="#12bcfa" ry="1" x="1"/>
+   <rect id="rect4156" y="66" height="12" width="12" fill="#12bcfa" ry="0" x="2"/>
+   <rect id="rect4165" y="64" height="16" width="16" fill-opacity="0" x="0"/>
+   <polygon id="polygon8" points="41.5 60.6 28.4 50.8 23.6 57.2 42.5 71.4 77 32.7 71 27.3" transform="matrix(.19663 0 0 .19663 -1.8904 62.296)" fill="#f4f4f4"/>
+  </g>
+ </g>
+</svg>

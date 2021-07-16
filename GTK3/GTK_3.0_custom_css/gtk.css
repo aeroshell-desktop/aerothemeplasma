@@ -1,0 +1,261 @@
+/* Add Scrollbar buttons */
+/*
+.scrollbar,
+scrollbar {
+-GtkScrollbar-has-backward-stepper: 1;
+-GtkScrollbar-has-forward-stepper: 1;
+}
+.scrollbar.vertical slider,
+scrollbar.vertical slider {
+    min-height:20px;
+    min-width: 10px;
+}
+.scrollbar.horizontal.slider,
+scrollbar.horizontal slider {
+min-width: 40px;
+min-height: 10px;
+}
+scrollbar.vertical button,
+scrollbar.vertical .button {
+    min-width:12px;
+    min-height: 25px;
+    padding: 0px;
+    border: 1px solid gray;
+    border-radius: 2px;
+}
+scrollbar.horizontal button,
+scrollbar.horizontal .button {
+    min-width:25px;
+    min-height: 12px;
+    padding: 0px;
+    border: 1px solid gray;
+    border-radius: 2px;
+    background-color: gray;
+}
+*/
+
+/*
+scrollbar.vertical button,
+scrollbar.vertical .button:hover {
+    background-color: #888;
+}
+
+
+scrollbar.horizontal button,
+scrollbar.horizontal .button:hover {
+    background-color: #888;
+}
+
+scrollbar.vertical button,
+scrollbar.vertical .button:active {
+    background-color: #44F;
+}
+
+
+scrollbar.horizontal button,
+scrollbar.horizontal .button:active {
+    background-color: #44F;
+}*/
+* {
+ -GtkScrollbar-has-backward-stepper: true;
+  -GtkScrollbar-has-forward-stepper: true;
+  -GtkScrollbar-has-secondary-backward-stepper: false;
+  -GtkScrollbar-has-secondary-forward-stepper: false;
+  -GtkScrolledwindow-scrollbar-spacing: 0;
+  -GtkScrolledwindow-scrollbars-within-bevel: 1;   
+    
+}
+
+.titlebutton.close {
+	margin-left: -2px;
+	min-width: 50px;
+	min-height: 18px;
+	background-size: 100% 100%;
+}
+.titlebutton.maximize {
+	margin-left: -5px;
+	margin-right: -5px;
+	min-width: 24px;
+	min-height: 18px;
+	background-size: 100% 100%;
+}
+.titlebutton.minimize {
+	margin-right: -2px;
+	min-width: 25px;
+	min-height: 18px;
+	background-size: 100% 100%;
+}
+
+
+.titlebar .titlebutton.close, .titlebar .titlebutton.maximize, .titlebar .titlebutton.minimize, .titlebar .titlebutton:not(separator) {
+    padding: 0px 0px;
+    min-height: 17px;
+    min-width: 31px;
+    border: none;
+    border-radius: 0;
+    color: transparent;
+    background-color: transparent;
+    -gtk-icon-shadow: none;
+    box-shadow: none;
+    background-position: center;
+    background-repeat: no-repeat;
+    }
+
+  .titlebar .titlebutton.close {
+    background: url("assets/close-normal.png") 100% 100%; }
+    .titlebar .titlebutton.close:hover {
+      background: url("assets/close-hover.png") 100% 100%; }
+    .titlebar .titlebutton.close:active {
+      background: url("assets/close-active.png") 100% 100%; }
+    .titlebar .titlebutton.close:backdrop {
+      background: url("assets/close-backdrop.png") 100% 100%; }
+      .titlebar .titlebutton.close:backdrop:hover {
+        background: url("assets/close-hover.png") 100% 100%; }
+      .titlebar .titlebutton.close:backdrop:active {
+        background: url("assets/close-active.png") 100% 100%; }
+  .titlebar .titlebutton.minimize {
+    background: url("assets/minimize-normal.png") 100% 100%; }
+    .titlebar .titlebutton.minimize:hover {
+      background: url("assets/minimize-hover.png") 100% 100%; }
+    .titlebar .titlebutton.minimize:active {
+      background: url("assets/minimize-active.png") 100% 100%; }
+    .titlebar .titlebutton.minimize:backdrop {
+      background: url("assets/minimize-backdrop.png") 100% 100%; }
+      .titlebar .titlebutton.minimize:backdrop:hover {
+        background: url("assets/minimize-hover.png") 100% 100%; }
+      .titlebar .titlebutton.minimize:backdrop:active {
+        background: url("assets/minimize-active.png") 100% 100%; }
+  .titlebar .titlebutton.maximize {
+    background: url("assets/maximize-normal.png") 100% 100%; }
+    .titlebar .titlebutton.maximize:hover {
+      background: url("assets/maximize-hover.png") 100% 100%; }
+    .titlebar .titlebutton.maximize:active {
+      background: url("assets/maximize-active.png") 100% 100%; }
+    .titlebar .titlebutton.maximize:backdrop {
+      background: url("assets/maximize-backdrop.png") 100% 100%; }
+      .titlebar .titlebutton.maximize:backdrop:hover {
+        background: url("assets/maximize-hover.png") 100% 100%; }
+      .titlebar .titlebutton.maximize:backdrop:active {
+        background: url("assets/maximize-active.png") 100% 100%; }
+  .maximized .titlebar .titlebutton.maximize {
+    background: url("assets/restore-normal.png") 100% 100%; }
+    .maximized .titlebar .titlebutton.maximize:hover {
+      background: url("assets/restore-hover.png") 100% 100%; }
+    .maximized .titlebar .titlebutton.maximize:active {
+      background: url("assets/restore-active.png") 100% 100%; }
+    .maximized .titlebar .titlebutton.maximize:backdrop {
+      background: url("assets/restore-backdrop.png") 100% 100%; }
+      .maximized .titlebar .titlebutton.maximize:backdrop:hover {
+        background: url("assets/restore-hover.png") 100% 100%; }
+      .maximized .titlebar .titlebutton.maximize:backdrop:active {
+        background: url("assets/restore-active.png") 100% 100%; }
+scrollbar {
+  transition: all 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  scrollbar:backdrop {
+    transition: 200ms ease-out; }
+  scrollbar slider {
+    transition: 200ms ease-out; }
+scrollbar {
+  border: none;
+  background-color: shade(#F0F0F0, 0.9); }
+  scrollbar trough {
+    border: none;
+    border-radius: 0; }
+  scrollbar:backdrop {
+    background-color: shade(#F0F0F0, 0.9); }
+  scrollbar button, scrollbar button:backdrop, scrollbar button:hover, scrollbar button:hover:backdrop, scrollbar button:active, scrollbar button:active:backdrop, scrollbar button:disabled, scrollbar button:disabled:backdrop {
+    padding: 3px;
+    border: none;
+    background-color: transparent;
+    background-image: none;
+    background-size: 100% 100%;
+    box-shadow: none;
+    color: transparent; }
+  scrollbar.overlay-indicator {
+    opacity: 1; }
+  scrollbar.horizontal {
+    background-image: linear-gradient(to bottom, #F0F0F0, shade(#F0F0F0, 1.1)); }
+    scrollbar.horizontal slider {
+      min-width: 45px;
+      min-height: 14px;
+      margin: 0;
+      border: 1px solid shade(#F0F0F0, 0.75);
+      border-radius: 3px;
+      background-clip: padding-box;
+      background-color: shade(#F0F0F0, 0.6);
+      background: url("assets/handle-vert.png") no-repeat center center, linear-gradient(to bottom, #F0F0F0 50%, shade(#F0F0F0, 0.95) 51%, shade(#F0F0F0, 0.94)); }
+      scrollbar.horizontal slider:hover {
+        border-color: shade(#CCE8FF, 0.7);
+        background-color: shade(#F0F0F0, 0.6);
+        background: url("assets/handle-horiz-hover.png") no-repeat center center, linear-gradient(to bottom, shade(#CCE8FF, 1.12), #CCE8FF 50%, shade(#CCE8FF, 0.95) 51%); }
+        scrollbar.horizontal slider:hover:active {
+          border-color: shade(#CCE8FF, 0.6);
+          background-color: shade(#F0F0F0, 0.55);
+          background: url("assets/handle-horiz-hover.png") no-repeat center center, linear-gradient(to bottom, shade(#CCE8FF, 1.07), shade(#CCE8FF, 0.95) 50%, shade(#CCE8FF, 0.9) 51%); }
+      scrollbar.horizontal slider:backdrop {
+        background-color: shade(#F0F0F0, 0.55); }
+      scrollbar.horizontal slider:disabled {
+        background-color: transparent; }
+    scrollbar.horizontal button {
+      min-height: 6px;
+      min-width: 10px; }
+      scrollbar.horizontal button.down {
+        background-image: url("assets/stepper-right.png"); }
+        scrollbar.horizontal button.down:hover, scrollbar.horizontal button.down:active {
+          background-image: url("assets/stepper-right-hover.png"); }
+      scrollbar.horizontal button.up {
+        background-image: url("assets/stepper-left.png"); }
+        scrollbar.horizontal button.up:hover, scrollbar.horizontal button.up:active {
+          background-image: url("assets/stepper-left-hover.png"); }
+  scrollbar.vertical {
+    background-image: linear-gradient(to right, #F0F0F0, shade(#F0F0F0, 1.1)); }
+    scrollbar.vertical slider {
+      min-width: 14px;
+      min-height: 45px;
+      margin: 0;
+      border: 1px solid shade(#F0F0F0, 0.75);
+      border-radius: 3px;
+      background-clip: padding-box;
+      background-color: shade(#F0F0F0, 0.6);
+      background: url("assets/handle-vert.png") no-repeat center center, linear-gradient(to right, #F0F0F0 50%, shade(#F0F0F0, 0.95) 51%, shade(#F0F0F0, 0.94)); }
+      scrollbar.vertical slider:hover {
+        border-color: shade(#CCE8FF, 0.7);
+        background-color: shade(#F0F0F0, 0.6);
+        background: url("assets/handle-vert-hover.png") no-repeat center center, linear-gradient(to right, shade(#CCE8FF, 1.12), #CCE8FF 50%, shade(#CCE8FF, 0.95) 51%); }
+        scrollbar.vertical slider:hover:active {
+          border-color: shade(#CCE8FF, 0.6);
+          background-color: shade(#F0F0F0, 0.55);
+          background: url("assets/handle-vert-hover.png") no-repeat center center, linear-gradient(to right, shade(#CCE8FF, 1.07), shade(#CCE8FF, 0.95) 50%, shade(#CCE8FF, 0.9) 51%); }
+      scrollbar.vertical slider:backdrop {
+        background-color: shade(#F0F0F0, 0.55); }
+      scrollbar.vertical slider:disabled {
+        background-color: transparent; }
+    scrollbar.vertical button {
+      min-height: 10px;
+      min-width: 6px; }
+      scrollbar.vertical button.down {
+        background-image: url("assets/stepper-down.png"); }
+        scrollbar.vertical button.down:hover, scrollbar.vertical button.down:active {
+          background-image: url("assets/stepper-down-hover.png"); }
+      scrollbar.vertical button.up {
+        background-image: url("assets/stepper-up.png"); }
+        scrollbar.vertical button.up:hover, scrollbar.vertical button.up:active {
+          background-image: url("assets/stepper-up-hover.png"); }
+  treeview ~ scrollbar.vertical {
+    border-top: 1px solid shade(#F0F0F0, 0.75);
+    margin-top: -1px; }
+.osd scrollbar trough, scrollbar.osd trough {
+  background-color: transparent; }
+.osd scrollbar slider, scrollbar.osd slider {
+  border-width: 0px;
+  border-radius: 6px;
+  background-color: mix(#F0F0F0, #000000, 0.21); }
+  .osd scrollbar slider:hover, scrollbar.osd slider:hover {
+    border-color: mix(#F0F0F0, #000000, 0.31);
+    background-color: mix(#F0F0F0, #000000, 0.31); }
+  .osd scrollbar slider:active, scrollbar.osd slider:active {
+    border-color: mix(#F0F0F0, #000000, 0.31);
+    background-color: mix(#F0F0F0, #000000, 0.1); }
+@import 'colors.css';
+/**/
+@import 'window_decorations.css';

@@ -1,0 +1,5 @@
+#define get_meta_info		truglass_get_meta_info
+#define engine_draw_frame	truglass_engine_draw_frame
+#define load_engine_settings	truglass_load_engine_settings
+#define init_engine		truglass_init_engine
+#define fini_engine		truglass_fini_engine

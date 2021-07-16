@@ -1,0 +1,128 @@
+{
+	"BUILD_DIR" : "/home/boki/Downloads/smaragd-0.1.1/build/src/kwin_smaragd_autogen",
+	"CMAKE_BINARY_DIR" : "/home/boki/Downloads/smaragd-0.1.1/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/boki/Downloads/smaragd-0.1.1/build/src",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/boki/Downloads/smaragd-0.1.1/src",
+	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
+	"CMAKE_LIST_FILES" : [ "/home/boki/Downloads/smaragd-0.1.1/src/CMakeLists.txt" ],
+	"CMAKE_SOURCE_DIR" : "/home/boki/Downloads/smaragd-0.1.1",
+	"DEP_FILE" : "",
+	"DEP_FILE_RULE_NAME" : "",
+	"HEADERS" : 
+	[
+		[
+			"/home/boki/Downloads/smaragd-0.1.1/src/kwin_smaragd.h",
+			"Mu",
+			"EWIEGA46WW/moc_kwin_smaragd.cpp"
+		],
+		[
+			"/home/boki/Downloads/smaragd-0.1.1/src/shadowengine.h",
+			"Mu",
+			"EWIEGA46WW/moc_shadowengine.cpp"
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/home/boki/Downloads/smaragd-0.1.1/build/src/kwin_smaragd_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/boki/Downloads/smaragd-0.1.1/build/src/kwin_smaragd_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : 
+	[
+		"KCOREADDONS_LIB",
+		"QT_CORE_LIB",
+		"QT_GUI_LIB",
+		"QT_NO_DEBUG",
+		"QT_WIDGETS_LIB",
+		"_GNU_SOURCE",
+		"_LARGEFILE64_SOURCE",
+		"kwin_smaragd_EXPORTS"
+	],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		],
+		[
+			"K_PLUGIN_FACTORY_WITH_JSON",
+			"[\n^][ \t]*K_PLUGIN_FACTORY_WITH_JSON[ \t\n]*\\([^,]*,[ \t\n]*\"([^\"]+)\""
+		],
+		[
+			"K_PLUGIN_CLASS_WITH_JSON",
+			"[\n^][ \t]*K_PLUGIN_CLASS_WITH_JSON[ \t\n]*\\([^,]*,[ \t\n]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/home/boki/Downloads/smaragd-0.1.1/build/src",
+		"/home/boki/Downloads/smaragd-0.1.1/src",
+		"/home/boki/Downloads/smaragd-0.1.1/build",
+		"/home/boki/Downloads/smaragd-0.1.1/src/include",
+		"/home/boki/Downloads/smaragd-0.1.1/src/engines",
+		"/usr/include/cairo",
+		"/usr/include/glib-2.0",
+		"/usr/lib/glib-2.0/include",
+		"/usr/include/qt",
+		"/usr/include/qt/QtCore",
+		"/usr/lib/qt/mkspecs/linux-g++",
+		"/usr/include/qt/QtGui",
+		"/usr/include/qt/QtWidgets",
+		"/usr/include/KF5/KConfigCore",
+		"/usr/include/KF5",
+		"/usr/include/KF5/KCoreAddons",
+		"/usr/include/KF5/KI18n",
+		"/usr/include/KF5/KWidgetsAddons",
+		"/usr/include/KDecoration2",
+		"/usr/include/c++/10.2.0",
+		"/usr/include/c++/10.2.0/x86_64-pc-linux-gnu",
+		"/usr/include/c++/10.2.0/backward",
+		"/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include",
+		"/usr/local/include",
+		"/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed",
+		"/usr/include"
+	],
+	"MOC_MACRO_NAMES" : 
+	[
+		"Q_OBJECT",
+		"Q_GADGET",
+		"Q_NAMESPACE",
+		"Q_NAMESPACE_EXPORT",
+		"K_PLUGIN_FACTORY",
+		"K_PLUGIN_FACTORY_WITH_JSON",
+		"K_PLUGIN_CLASS_WITH_JSON"
+	],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : false,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/bin/c++",
+		"-dM",
+		"-E",
+		"-c",
+		"/usr/share/cmake-3.19/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/home/boki/Downloads/smaragd-0.1.1/build/src/kwin_smaragd_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 2,
+	"PARSE_CACHE_FILE" : "/home/boki/Downloads/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/bin/moc",
+	"QT_UIC_EXECUTABLE" : "",
+	"QT_VERSION_MAJOR" : 5,
+	"QT_VERSION_MINOR" : 15,
+	"SETTINGS_FILE" : "/home/boki/Downloads/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[ "/home/boki/Downloads/smaragd-0.1.1/src/emerald.c", "Mu" ],
+		[ "/home/boki/Downloads/smaragd-0.1.1/src/engines/legacy.c", "Mu" ],
+		[ "/home/boki/Downloads/smaragd-0.1.1/src/engines/line.c", "Mu" ],
+		[ "/home/boki/Downloads/smaragd-0.1.1/src/engines/oxygen.c", "Mu" ],
+		[ "/home/boki/Downloads/smaragd-0.1.1/src/engines/pixmap.c", "Mu" ],
+		[ "/home/boki/Downloads/smaragd-0.1.1/src/engines/truglass.c", "Mu" ],
+		[ "/home/boki/Downloads/smaragd-0.1.1/src/engines/vrunner.c", "Mu" ],
+		[ "/home/boki/Downloads/smaragd-0.1.1/src/engines/zootreeves.c", "Mu" ],
+		[ "/home/boki/Downloads/smaragd-0.1.1/src/kwin_smaragd.cpp", "Mu" ],
+		[ "/home/boki/Downloads/smaragd-0.1.1/src/main.c", "Mu" ],
+		[ "/home/boki/Downloads/smaragd-0.1.1/src/shadowengine.cpp", "Mu" ]
+	],
+	"VERBOSITY" : 0
+}

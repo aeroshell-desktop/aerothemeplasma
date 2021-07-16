@@ -1,0 +1,9 @@
+[Installation Instructions]
+
+System-wide install:
+Extract this folder to ~/usr/share/plasma/desktoptheme/ directory
+
+User-only install:
+Extract this folder to ~/.local/share/plasma/desktoptheme/ directory
+
+Select and apply the theme in KDE System Settings > Workspace Appearance > Desktop Theme > Seven Black

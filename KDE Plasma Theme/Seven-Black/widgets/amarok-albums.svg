@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 13.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 14948)  -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   width="768.166px"
+   height="337.377px"
+   viewBox="0 0 768.166 337.377"
+   enable-background="new 0 0 768.166 337.377"
+   xml:space="preserve"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="amarok-albums.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"><metadata
+   id="metadata111"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+   id="defs109"><inkscape:perspective
+     sodipodi:type="inkscape:persp3d"
+     inkscape:vp_x="0 : 168.68851 : 1"
+     inkscape:vp_y="0 : 1000 : 0"
+     inkscape:vp_z="768.16602 : 168.68851 : 1"
+     inkscape:persp3d-origin="384.08301 : 112.459 : 1"
+     id="perspective113" /></defs><sodipodi:namedview
+   inkscape:window-height="728"
+   inkscape:window-width="1280"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0.0"
+   guidetolerance="10.0"
+   gridtolerance="10.0"
+   objecttolerance="10.0"
+   borderopacity="1.0"
+   bordercolor="#666666"
+   pagecolor="#ffffff"
+   id="base"
+   showgrid="false"
+   inkscape:zoom="0.70818025"
+   inkscape:cx="384.08301"
+   inkscape:cy="168.68851"
+   inkscape:window-x="0"
+   inkscape:window-y="87"
+   inkscape:current-layer="Layer_1" />
+<linearGradient
+   id="SVGID_1_"
+   gradientUnits="userSpaceOnUse"
+   x1="24.5718"
+   y1="34.5947"
+   x2="24.5718"
+   y2="336.8898">
+	<stop
+   offset="0"
+   style="stop-color:#666666"
+   id="stop4" />
+	<stop
+   offset="1"
+   style="stop-color:#000000"
+   id="stop6" />
+</linearGradient>
+<path
+   fill="url(#SVGID_1_)"
+   stroke="#1A1A1A"
+   stroke-width="0.9737"
+   d="M48.657,336.89h-5.062  c-23.809,0-43.109-19.012-43.109-42.456V43.463c0-23.451,19.3-42.457,43.109-42.457h5.062"
+   id="left-border"
+   inkscape:label="#path8" />
+<linearGradient
+   id="SVGID_2_"
+   gradientUnits="userSpaceOnUse"
+   x1="-50.9038"
+   y1="34.5947"
+   x2="-50.9038"
+   y2="336.8885"
+   gradientTransform="matrix(-1 0 0 1 108.4141 0)">
+	<stop
+   offset="0"
+   style="stop-color:#666666"
+   id="stop11" />
+	<stop
+   offset="1"
+   style="stop-color:#000000"
+   id="stop13" />
+</linearGradient>
+<path
+   fill="url(#SVGID_2_)"
+   stroke="#1A1A1A"
+   stroke-width="0.9737"
+   d="M135.232,336.89h5.062c23.809,0,43.109-19.012,43.109-42.456  V43.463c0-23.451-19.3-42.457-43.109-42.457h-5.062"
+   id="right-border"
+   inkscape:label="#path15" />
+<g
+   id="cd-box"
+   inkscape:label="#g17">
+	<rect
+   x="214.488"
+   y="59.942"
+   width="23.886"
+   height="266.284"
+   id="rect19"
+   stroke-width="0.2433"
+   stroke="#231F20"
+   fill="#231F20" />
+	<g
+   id="g21">
+		<rect
+   x="214.488"
+   y="59.942"
+   width="283.437"
+   height="266.839"
+   id="rect23"
+   stroke-width="1.1852"
+   stroke="#231F20"
+   fill="none" />
+	</g>
+</g>
+<g
+   id="XMLID_2_"
+   opacity="0.31">
+	<g
+   id="g26">
+		<path
+   fill="#FFFFFF"
+   d="M506.947,326.074c5.483-2.131,23.047-9.027,46.649-19.061c23.595-10.026,53.23-23.202,82.872-37.882    c16.41-8.135,32.827-16.733,48.225-25.522c15.39-8.788,29.761-17.76,42.086-26.646c10.835-7.832,20.102-15.58,27.076-23.089    c6.981-7.51,11.685-14.786,13.387-21.662c0.007,6.412,0.014,17.415,0.027,30.696c0.015,13.281,0.028,28.833,0.043,44.344    c0.035,37.523,0.07,74.772,0.07,78.822H506.947z"
+   id="path28" />
+	</g>
+	<g
+   id="g30">
+	</g>
+</g>
+
+
+<g
+   id="track"
+   inkscape:label="#g42">
+	<path
+   fill="#1A1A1A"
+   stroke="#1A1A1A"
+   stroke-width="0.6288"
+   d="M435.189,35.45c0,1.688-0.755,3.101-2.274,4.245   c-1.404,1.027-2.978,1.542-4.717,1.542c-2.18,0-3.559-0.824-4.136-2.483c-0.138-0.375-0.206-0.761-0.206-1.158   c0-1.459,0.783-2.732,2.356-3.819c1.487-1.058,3.087-1.587,4.801-1.587c2.042,0,3.363,0.801,3.97,2.403V10.7l-22.135,6.82v0.775   l22.092-6.736l0.04,0.209l-22.132,6.788v20.026c0,0.112,0.006,0.312,0.022,0.598c0.012,0.289,0.006,0.515-0.022,0.687   c-0.108,1.027-0.601,1.985-1.479,2.872c-0.77,0.772-1.686,1.356-2.752,1.759c-0.821,0.314-1.696,0.472-2.629,0.472   c-2.249,0-3.645-0.829-4.188-2.485c-0.14-0.372-0.206-0.761-0.206-1.159c0-1.427,0.784-2.704,2.357-3.819   c1.462-1.056,3.047-1.585,4.76-1.585c1.902,0,3.21,0.715,3.931,2.143l0.04-20.756l22.384-6.819l0.123,0.083V35.45z M434.983,35.493   v0.429C434.983,35.767,434.983,35.621,434.983,35.493z"
+   id="path44" />
+</g>
+
+
+
+<g
+   id="album"
+   inkscape:label="#g72">
+	<rect
+   x="464.804"
+   y="11.279"
+   fill="#4D4D4D"
+   stroke="#231F20"
+   stroke-width="0.144"
+   width="33.854"
+   height="32.908"
+   id="rect74" />
+	<g
+   id="g76">
+		<path
+   fill="#999999"
+   d="M498.129,27.942c0,8.33-6.751,15.081-15.081,15.081c-8.324,0-15.075-6.751-15.075-15.081    c0-8.327,6.751-15.078,15.075-15.078C491.378,12.864,498.129,19.615,498.129,27.942z"
+   id="path78" />
+		<path
+   fill="#4D4D4D"
+   d="M485.7,27.942c0,1.462-1.188,2.652-2.646,2.652c-1.464,0-2.648-1.19-2.648-2.652    c0-1.456,1.185-2.646,2.648-2.646C484.513,25.296,485.7,26.486,485.7,27.942z"
+   id="path80" />
+	</g>
+	<g
+   id="XMLID_1_"
+   opacity="0.31">
+		<g
+   id="g83">
+			<path
+   fill="#FFFFFF"
+   d="M493.664,30.473c1.271-0.967,2.354-1.922,3.173-2.85c0.817-0.927,1.367-1.824,1.569-2.673     c0,0.791,0.001,2.149,0.002,3.787c0.002,1.638,0.004,3.557,0.007,5.469c0.006,4.628,0.012,9.223,0.012,9.723h-30.539     c0.641-0.264,2.698-1.114,5.465-2.353c2.768-1.238,6.243-2.863,9.719-4.673c1.926-1.001,3.851-2.062,5.656-3.146     C490.532,32.674,492.218,31.567,493.664,30.473z"
+   id="path85" />
+		</g>
+		<g
+   id="g87">
+		</g>
+	</g>
+	<rect
+   x="464.804"
+   y="11.271"
+   fill="#231F20"
+   stroke="#231F20"
+   stroke-width="0.0295"
+   width="2.854"
+   height="32.845"
+   id="rect89" />
+</g>
+<g
+   id="background"
+   inkscape:label="#g91">
+	<g
+   id="g93">
+		<linearGradient
+   id="SVGID_3_"
+   gradientUnits="userSpaceOnUse"
+   x1="93.3037"
+   y1="33.6748"
+   x2="93.3037"
+   y2="336.7521">
+			<stop
+   offset="0"
+   style="stop-color:#666666"
+   id="stop96" />
+			<stop
+   offset="1"
+   style="stop-color:#000000"
+   id="stop98" />
+		</linearGradient>
+		<rect
+   x="47.695"
+   fill="url(#SVGID_3_)"
+   width="91.218"
+   height="336.752"
+   id="rect100" />
+	</g>
+	<line
+   fill="none"
+   stroke="#1A1A1A"
+   stroke-width="0.9737"
+   x1="47.695"
+   y1="1.007"
+   x2="138.913"
+   y2="1.007"
+   id="line102" />
+	<line
+   fill="none"
+   stroke="#1A1A1A"
+   stroke-width="0.9737"
+   x1="47.695"
+   y1="336.89"
+   x2="138.913"
+   y2="336.89"
+   id="line104" />
+</g>
+<polygon
+   fill="#FFFFFF"
+   points="297.274,21.911 309.624,23.907 300.53,32.495 302.447,44.852 291.468,38.856 280.306,44.503   282.617,32.208 273.801,23.335 286.204,21.733 291.92,10.605 "
+   id="star-white"
+   inkscape:label="#polygon106" />
+</svg>

@@ -1,0 +1,5 @@
+#define get_meta_info		oxygen_get_meta_info
+#define engine_draw_frame	oxygen_engine_draw_frame
+#define load_engine_settings	oxygen_load_engine_settings
+#define init_engine		oxygen_init_engine
+#define fini_engine		oxygen_fini_engine

@@ -1,0 +1,331 @@
+style "scrollbar" = "default"
+{
+  engine "pixmap" 
+  {
+
+    image 
+    {
+      function			= BOX
+      recolorable		= TRUE
+      detail			= "trough"
+      file			= "Scrollbars/trough-scrollbar-horiz.png"
+      border			= { 19, 19, 2, 2 }
+      stretch			= TRUE
+      orientation		= HORIZONTAL
+    }
+    image 
+    {
+      function			= BOX
+      recolorable		= TRUE
+      detail			= "trough"
+      file			= "Scrollbars/trough-scrollbar-vert.png"
+      border			= { 2, 2, 19, 19 }
+      stretch			= TRUE
+      orientation		= VERTICAL
+    }
+
+
+###########x SLIDERS ##################x
+
+  image 
+    {
+      function			= SLIDER
+      recolorable		= TRUE
+      state           		= NORMAL
+      file			= "Scrollbars/slider-horiz.png" 
+      border			= { 4, 4, 4, 4 }
+      stretch			= TRUE
+      orientation		= HORIZONTAL
+      overlay_file		= "Scrollbars/scroll-thumb-horiz.png"
+      overlay_stretch	= FALSE
+      orientation		= HORIZONTAL
+
+
+    }
+
+  image 
+    {
+      function			= SLIDER
+      recolorable		= TRUE
+      state           		= ACTIVE
+      shadow			= IN
+      file				= "Scrollbars/slider-horiz.png" 
+      border			= { 4, 4, 4, 4 }
+      stretch			= TRUE
+      orientation		= HORIZONTAL
+      overlay_file		= "Scrollbars/scroll-thumb-horiz.png"
+      overlay_stretch	= FALSE
+      orientation		= HORIZONTAL
+
+    }
+
+    image 
+    {
+      function			= SLIDER
+      recolorable		= TRUE
+      state           		= PRELIGHT
+      file				= "Scrollbars/slider-horiz-prelight.png" 
+      border			= { 4, 4, 4, 4 }
+      stretch			= TRUE
+      orientation		= HORIZONTAL
+      overlay_file		= "Scrollbars/scroll-thumb-horiz-prelight.png"
+      overlay_stretch	= FALSE
+      orientation		= HORIZONTAL
+
+    }
+    image 
+    {
+      function			= SLIDER
+      recolorable		= TRUE
+      state           		= INSENSITIVE
+      file				= "Scrollbars/slider-horiz-insens.png"
+      border			= { 4, 4, 4, 4 }
+      stretch			= TRUE
+      orientation		= HORIZONTAL
+      overlay_file		= "Scrollbars/scroll-thumb-horiz.png"
+      overlay_stretch	= FALSE
+      orientation		= HORIZONTAL
+
+    }
+
+#############x verticals################xx
+
+ image 
+    {
+      function			= SLIDER
+      recolorable		= TRUE
+      state           		= NORMAL
+      file				= "Scrollbars/slider-vert.png" 
+      border			= { 4, 4, 4, 4 }
+      stretch			= TRUE
+      orientation		= VERTICAL
+      overlay_file		= "Scrollbars/scroll-thumb-vert.png"
+      overlay_stretch	= FALSE
+      orientation		= VERTICAL
+
+    }
+
+   image 
+    {
+      function			= SLIDER
+      recolorable		= TRUE
+      state           		= ACTIVE
+      shadow			= IN
+      file				= "Scrollbars/slider-vert.png" 
+      border			= { 4, 4, 4, 4 }
+      stretch			= TRUE
+      orientation		= VERTICAL
+      overlay_file		= "Scrollbars/scroll-thumb-vert.png"
+      overlay_stretch	= FALSE
+      orientation		= VERTICAL
+
+    }
+
+    image 
+    {
+      function			= SLIDER
+      recolorable		= TRUE
+      state           		= PRELIGHT
+      file				= "Scrollbars/slider-vert-prelight.png" 
+      border			= { 4, 4, 4, 4 }
+      stretch			= TRUE
+      orientation		= VERTICAL
+      overlay_file		= "Scrollbars/scroll-thumb-vert-prelight.png"
+      overlay_stretch	= FALSE
+      orientation		= VERTICAL
+
+    }
+    image 
+    {
+      function			= SLIDER
+      recolorable		= TRUE
+      state           		= INSENSITIVE
+      file				= "Scrollbars/slider-vert-insens.png"
+      border			= { 4, 4, 4, 4 }
+      stretch			= TRUE
+      orientation		= VERTICAL
+      overlay_file		= "Scrollbars/scroll-thumb-vert.png"
+      overlay_stretch	= FALSE
+      orientation		= VERTICAL
+
+    }
+
+
+###########x END SLIDERS ##################x
+
+########### Steppers ######################
+#### UP #######
+    image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= NORMAL
+      file				= "Scrollbars/stepper-up.png"
+      #border			= { 12, 2, 2, 9 }
+      stretch			= TRUE
+      arrow_direction	= UP
+    }
+ image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= PRELIGHT
+      file				= "Scrollbars/stepper-up-prelight.png"
+      #border			= { 12, 2, 2, 9 }
+      stretch			= TRUE
+      arrow_direction	= UP
+    }
+ image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= ACTIVE
+      file				= "Scrollbars/stepper-up-prelight.png"
+      #border			= { 12, 2, 2, 9 }
+      stretch			= TRUE
+      arrow_direction	= UP
+    }
+ image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= INSENSITIVE
+      file				= "Scrollbars/stepper-up-insens.png"
+      #border			= { 12, 2, 2, 9 }
+      stretch			= TRUE
+      arrow_direction	= UP
+    }
+
+ ######### DOWN ############
+
+
+    image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= NORMAL
+      file				= "Scrollbars/stepper-down.png"
+      #border			= { 12, 2, 10, 2 }
+      stretch			= TRUE
+      arrow_direction	= DOWN
+    }
+ image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= PRELIGHT
+      file				= "Scrollbars/stepper-down-prelight.png"
+      #border			= { 12, 2, 10, 2 }
+      stretch			= TRUE
+      arrow_direction	= DOWN
+    }
+ image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= ACTIVE
+      file				= "Scrollbars/stepper-down-prelight.png"
+      #border			= { 12, 2, 10, 2 }
+      stretch			= TRUE
+      arrow_direction	= DOWN
+    }
+ image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= INSENSITIVE
+      file				= "Scrollbars/stepper-down-insens.png"
+      #border			= { 12, 2, 10, 2 }
+      stretch			= TRUE
+      arrow_direction	= DOWN
+    }
+
+############ RIGHT ################
+
+    image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= NORMAL
+      file				= "Scrollbars/stepper-right.png"
+      #border			= { 2, 9, 2, 13 }
+      stretch			= TRUE
+      arrow_direction	= RIGHT
+    }
+ image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= PRELIGHT
+      file				= "Scrollbars/stepper-right-prelight.png"
+      #border			= { 2, 9, 2, 13 }
+      stretch			= TRUE
+      arrow_direction	= RIGHT
+    }
+ image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= ACTIVE
+      file				= "Scrollbars/stepper-right-prelight.png"
+      #border			= { 2, 9, 2, 13 }
+      stretch			= TRUE
+      arrow_direction	= RIGHT
+    }
+ image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= INSENSITIVE
+      file				= "Scrollbars/stepper-right-insens.png"
+      #border			= { 2, 9, 2, 13 }
+      stretch			= TRUE
+      arrow_direction	= RIGHT
+    }
+
+############### LEFT ###################
+
+
+    image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= NORMAL
+      file				= "Scrollbars/stepper-left.png"
+      #border			= { 2, 9, 2, 13 }
+      stretch			= TRUE
+      arrow_direction	= LEFT
+    }
+  image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= PRELIGHT
+      file				= "Scrollbars/stepper-left-prelight.png"
+      #border			= { 2, 9, 2, 13 }
+      stretch			= TRUE
+      arrow_direction	= LEFT
+    }
+  image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= ACTIVE
+      file				= "Scrollbars/stepper-left-prelight.png"
+      #border			= { 2, 9, 2, 13 }
+      stretch			= TRUE
+      arrow_direction	= LEFT
+    }
+  image 
+    {
+      function			= STEPPER
+      recolorable		= TRUE
+      state				= INSENSITIVE
+      file				= "Scrollbars/stepper-left-insens.png"
+      #border			= { 2, 9, 2, 13 }
+      stretch			= TRUE
+      arrow_direction	= LEFT
+    }
+  }
+}
+

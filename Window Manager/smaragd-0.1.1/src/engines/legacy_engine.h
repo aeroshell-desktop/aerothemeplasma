@@ -1,0 +1,5 @@
+#define get_meta_info		legacy_get_meta_info
+#define engine_draw_frame	legacy_engine_draw_frame
+#define load_engine_settings	legacy_load_engine_settings
+#define init_engine		legacy_init_engine
+#define fini_engine		legacy_fini_engine

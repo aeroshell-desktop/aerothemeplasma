@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="585"
+   height="507.62378"
+   id="svg2581"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="amarok-serviceinfo.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   sodipodi:docbase="/home/amarok-dev/amarok/src/context/applets/serviceinfo">
+  <metadata
+     id="metadata77">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     inkscape:window-height="977"
+     inkscape:window-width="1670"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     guidetolerance="10.0"
+     gridtolerance="10.0"
+     objecttolerance="10.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     inkscape:zoom="1.247774"
+     inkscape:cx="196.65417"
+     inkscape:cy="357.35043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:current-layer="background"
+     height="509px"
+     width="588.5px"
+     showgrid="true" />
+  <defs
+     id="defs2583">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 254.52139 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="585 : 254.52139 : 1"
+       inkscape:persp3d-origin="292.5 : 169.68093 : 1"
+       id="perspective9" />
+  </defs>
+  <g
+     id="background"
+     transform="translate(0,-1.9429127)">
+    <rect
+       style="opacity:0;fill:#0000ff;fill-opacity:0.78191457;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="main_info"
+       y="1.9429127"
+       x="-8.3488771e-14"
+       height="507.62378"
+       width="585"
+       inkscape:label="#rect2499" />
+  </g>
+</svg>

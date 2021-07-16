@@ -1,0 +1,5 @@
+#define get_meta_info		vrunner_get_meta_info
+#define engine_draw_frame	vrunner_engine_draw_frame
+#define load_engine_settings	vrunner_load_engine_settings
+#define init_engine		vrunner_init_engine
+#define fini_engine		vrunner_fini_engine

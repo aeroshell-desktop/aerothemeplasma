@@ -1,0 +1,14 @@
+Smaragd
+
+Smaragd is a themable window decoration engine for KDE's KWin window manager.
+It uses the original Emerald engines to render the decorations to support all
+current Emerald themes.
+
+Read INSTALL for installation and NOTES for usage hints.
+
+See individual files for Copyright information.
+
+
+To install the theme, you should put the kwin_smaragd.so file into the following directory
+(This works on Arch Linux, I haven't tested on other distros)
+/usr/lib/qt/plugins/org.kde.kdecoration2/kwin_smaragd.so

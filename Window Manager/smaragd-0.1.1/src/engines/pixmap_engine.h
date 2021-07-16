@@ -1,0 +1,5 @@
+#define get_meta_info		pixmap_get_meta_info
+#define engine_draw_frame	pixmap_engine_draw_frame
+#define load_engine_settings	pixmap_load_engine_settings
+#define init_engine		pixmap_init_engine
+#define fini_engine		pixmap_fini_engine

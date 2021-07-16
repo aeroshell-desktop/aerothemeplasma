@@ -1,0 +1,13 @@
+.header { font-size:11pt; font-weight:bold; color:#fcfcfc; background-color:#4f4f4f; }
+.date { font-size:10pt; font-weight:bold; color:#fcfcfc; background-color:#333333; }
+.line-0 { font-size:10pt; color:#fcfcfc; background-color:#0f0f0f; }
+.line-1 { font-size:10pt; color:#fcfcfc; background-color:#2f2f2f; }
+.time { font-size:7pt; color:#cccccc; padding-top:3px; }
+.title, .description { }
+.description { font-size:9pt; }
+.text { width:100%; }
+.title_with_description { font-weight:bold; }
+a { text-decoration:none; color:#fcfcfc; }
+table { width:100%; border-spacing:0px; }
+td { vertical-align: top; }
+body { margin:0px; background-color:#000000 }

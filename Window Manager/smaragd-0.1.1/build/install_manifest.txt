@@ -1,0 +1,2 @@
+/usr/lib/qt/plugins/org.kde.kdecoration2/kwin_smaragd.so
+/etc/xdg/smaragd.knsrc

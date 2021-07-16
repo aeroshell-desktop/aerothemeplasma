@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg3229"
+   height="24"
+   width="24"
+   version="1.0"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="kmail.svgz">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#646464"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0.58823529"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1546"
+     inkscape:window-height="841"
+     id="namedview6"
+     showgrid="false"
+     inkscape:zoom="7.5853275"
+     inkscape:cx="-6.052625"
+     inkscape:cy="1.9978485"
+     inkscape:window-x="54"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3229">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2990"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata9">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="mail-unread-new">
+    <rect
+       y="0"
+       x="28"
+       height="24"
+       width="24"
+       id="rect2991-3"
+       style="opacity:0.01000001;fill:#000000;fill-opacity:0.00392157;stroke:none" />
+    <path
+       id="rect3088-4"
+       d="m 33,7 c -0.554,0 -1,0.446 -1,1 l 0,10 c 0,0.554 0.446,1 1,1 l 14,0 c 0.554,0 1,-0.446 1,-1 L 48,8 C 48,7.446 47.554,7 47,7 L 33,7 z m 0,1 7,7 7,-7 0,1 -7,7 -7,-7 0,-1 z M 36.5,13.5 37,14 33.03125,18 33,16.9375 36.5,13.5 z m 7,0 L 47,16.9375 46.96875,18 43,14 43.5,13.5 z"
+       style="opacity:0.3;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:connector-curvature="0" />
+    <path
+       id="rect3088"
+       d="m 33,6 c -0.554,0 -1,0.446 -1,1 l 0,10 c 0,0.554 0.446,1 1,1 l 14,0 c 0.554,0 1,-0.446 1,-1 L 48,7 C 48,6.446 47.554,6 47,6 L 33,6 z m 0,1 7,7 7,-7 0,1 -7,7 -7,-7 0,-1 z M 36.5,12.5 37,13 33.03125,17 33,15.9375 36.5,12.5 z m 7,0 L 47,15.9375 46.96875,17 43,13 43.5,12.5 z"
+       style="color:#000000;fill:#19b6ee;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:connector-curvature="0" />
+  </g>
+  <g
+     id="kmail">
+    <rect
+       y="0"
+       x="0"
+       height="24"
+       width="24"
+       id="rect2991"
+       style="opacity:0.01000001;fill:#000000;fill-opacity:0.00392157;stroke:none" />
+    <path
+       id="rect3088-4-0"
+       d="M 5,7 C 4.446,7 4,7.446 4,8 l 0,10 c 0,0.554 0.446,1 1,1 l 14,0 c 0.554,0 1,-0.446 1,-1 L 20,8 C 20,7.446 19.554,7 19,7 L 5,7 z m 0,1 7,7 7,-7 0,1 -7,7 L 5,9 5,8 z M 8.5,13.5 9,14 5.03125,18 5,16.9375 8.5,13.5 z m 7,0 L 19,16.9375 18.96875,18 15,14 15.5,13.5 z"
+       style="opacity:0.3;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:connector-curvature="0" />
+    <path
+       id="rect3088-6"
+       d="M 5,6 C 4.446,6 4,6.446 4,7 l 0,10 c 0,0.554 0.446,1 1,1 l 14,0 c 0.554,0 1,-0.446 1,-1 L 20,7 C 20,6.446 19.554,6 19,6 L 5,6 z m 0,1 7,7 7,-7 0,1 -7,7 L 5,8 5,7 z M 8.5,12.5 9,13 5.03125,17 5,15.9375 8.5,12.5 z m 7,0 L 19,15.9375 18.96875,17 15,13 15.5,12.5 z"
+       style="color:#000000;fill:#ebebeb;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.5;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

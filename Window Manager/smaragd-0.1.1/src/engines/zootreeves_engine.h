@@ -1,0 +1,5 @@
+#define get_meta_info		zootreeves_get_meta_info
+#define engine_draw_frame	zootreeves_engine_draw_frame
+#define load_engine_settings	zootreeves_load_engine_settings
+#define init_engine		zootreeves_init_engine
+#define fini_engine		zootreeves_fini_engine

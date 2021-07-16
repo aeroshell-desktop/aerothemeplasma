@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:ns="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="575.61975"
+   height="495.35239"
+   id="svg2581"
+   sodipodi:version="0.32"
+   inkscape:version="0.45.1"
+   sodipodi:docname="amarok-wikipedia.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   sodipodi:docbase="/home/amarok-dev/amarok/src/context/applets/wikipedia">
+  <metadata
+     id="metadata77">
+    <rdf:RDF>
+      <ns:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </ns:Work>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     inkscape:window-height="972"
+     inkscape:window-width="1680"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     guidetolerance="10.0"
+     gridtolerance="10.0"
+     objecttolerance="10.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     inkscape:zoom="1.7646189"
+     inkscape:cx="364.27956"
+     inkscape:cy="146.5083"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:current-layer="background"
+     height="509px"
+     width="588.5px"
+     showgrid="true" />
+  <defs
+     id="defs2583" />
+  <g
+     id="background"
+     transform="translate(-5,-5.924231)">
+    <rect
+       style="opacity:0;fill:#0000ff;fill-opacity:0.78191457;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="wikipediainformation"
+       y="36.276619"
+       x="5"
+       height="455"
+       width="565"
+       inkscape:label="#rect2499" />
+    <rect
+       style="opacity:0;fill:#ffffff;fill-opacity:1;stroke-width:3.76300001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.763, 3.763;stroke-dashoffset:0"
+       id="wikipedialabel"
+       y="6.2766175"
+       x="10"
+       height="20"
+       width="565" />
+  </g>
+</svg>
