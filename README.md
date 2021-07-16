@@ -34,7 +34,7 @@ relevant specifications:
 This theme has NOT been tested on HiDPI monitors. Contributors who are able to test it on HiDPI scaling are
 greatly welcome. Your mileage may vary in terms of results, depending on your distro and other specifications.
 
-####A word from the author: 
+###A word from the author: 
 
 Keep in mind that I'm not a designer, and that the most I've done is modify the themes I've come across the
 Internet. I'll put a link to all the themes I've included and modified in this theme pack. I'm just a passionate user
