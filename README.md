@@ -171,7 +171,11 @@ Aurorae has an extremely annoying graphical glitch which heavily distorts the wi
 window title, by stretching/shrinking them upon resizing. Strangely enough, this also happens on compiz 0.8.
 If, however, you still want to use Aurorae instead of smaragd, use this theme: https://www.kde-look.org/p/1002615
 
-In the folder "./smaragd-0.1.1/build/bin/" there is a precompiled binary of smaragd, because actually compiling
+In the directory: 
+
+./Window Manager/smaragd-0.1.1/build/bin/
+
+there is a precompiled binary of smaragd, because actually compiling
 it takes forever and requires a bunch of old deprecated dependencies. To save everyone the trouble of compiling it,
 I've included them there, along with the source code and everything. I've edited the source code to fix a few 
 annoying bugs, most notably the maximised decorations being really weird - the caption buttons being slightly off
