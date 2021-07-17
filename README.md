@@ -86,7 +86,10 @@ my machine, so I choose not to use it.
 In the previous release of this theme pack a QtCurve theme was provided and recommended as the main widget
 style to replicate the look of Aero. However, since I've discovered QGtkStyle, QtCurve is no longer a 
 requirement to have for this theme pack. Instead, you'll need GTK2, an application that can
-switch between GTK2 themes, and the .so file for the widget style itself. More on that in Section 2.3.
+switch between GTK2 themes, and the .so file for the widget style itself. More on that in [KDE Application Theme](#application-theme).
+
+Lastly, in order to have blur effects, animations and transparency, it is important that you are able to have compositing enabled on your system.
+
 
 ### KDE Plasma Theme <a name="plasma-theme"></a>
 The Seven-Black Plasma theme is the main theme for KDE Plasma's shell. Put it in the following directory:
