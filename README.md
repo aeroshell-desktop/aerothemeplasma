@@ -12,8 +12,9 @@
     6. [Window Manager](#wm)
     7. [Plasma Widgets](#widgets)
     8. [Workspace Behavior](#behaviour)
-    9. [GTK3](#gtk)
-    10. [Sounds](#sounds)
+    9. [Task Switcher](#task-switcher)
+    10. [GTK3](#gtk)
+    11. [Sounds](#sounds)
 4. [Shortcomings](#shortcomings)
     1. [KDE-specific problems](#kde-problems)
     2. [Lack of features problem](#feature-problems)
@@ -241,8 +242,31 @@ In KDE System Settings, under Workspace Behavior -> Desktop Effects, check the f
 - Translucency
 - Squash
 - Window Aperture
-- Flip Switch (Note: Set the shortcut "Toggle Flip Switch (Current Desktop)" with Meta + Tab)
 - Scale
+
+### Task Switcher <a name="task-switcher"></a>
+
+<img src="https://upload.wikimedia.org/wikipedia/en/5/59/Windows7_flip.png">
+
+This section will talk about how to make the Task Switcher in KDE look more like Windows 7. It will also recreate the look and behaviour of the "Flip 3D" feature. In KDE System Settings, under Window Management -> Task Switcher, set the following:
+
+In Main:
+
+- Visualization: Set "Thumbnails" as the visualization style.
+- Shortcuts (for All Windows): 
+    - Forward: Alt + Tab 
+    - Backward: Alt + Shift + Tab
+- Check the "Include "Show Desktop" icon" checkbox
+
+In Alternative: 
+
+- Visualization: Set "Flip Switch" as the visualization style.
+- Shortcuts (for All Windows):
+    - Forward: Meta + Tab
+    - Backward: Meta + Shift + Tab 
+- Check the "Include "Show Desktop" icon" checkbox
+
+For the Flip Switch visualization style, you can configure it to your liking. Personally, I like to have the "Flip Animation Duration" set to 200. 
 
 ### GTK3 <a name="gtk"></a>
 This theme doesn't touch upon GTK3 all that much, mainly because I feel that there's no good looking theme
