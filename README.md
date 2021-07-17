@@ -356,6 +356,7 @@ As for features that are lacking compared to Windows 7, there's a few that I'd l
     5. If possible, make the top-right icon stick out of the Start menu (I have not found a way to make this happen yet sadly)
     6. If possible, make the top-right icon change depending on which sidebar is hovered over.
 2. Improve the icon theme
+3. Add 32 bit support (QGtkStyle and Smaragd)
 
 ## Credits <a name="credits"></a>
 
