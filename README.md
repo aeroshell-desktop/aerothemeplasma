@@ -400,6 +400,7 @@ As for features that are lacking compared to Windows 7, there's a few that I'd l
 9. [Digital Clock Lite](https://www.kde-look.org/p/1225135/)
 10. [Show Desktop (Win7)](https://www.kde-look.org/p/1100895/)
 11. [Equilibrium GTK3](https://store.kde.org/p/1493643/)
+12. [Aero Mouse Cursors with Drop Shadow](https://store.kde.org/p/999972/)
     
 
 
