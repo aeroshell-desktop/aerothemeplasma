@@ -215,6 +215,7 @@ it. By default it should already look a lot like Windows 7's clock, but if it do
 
 - Font size px: 9
 - Font style: Segoe UI
+
 You can tweak the other settings to your liking. 
 
 Lastly, install the "Show Desktop (Win7)" widget (https://www.kde-look.org/p/1100895/) and configure it to these settings:
