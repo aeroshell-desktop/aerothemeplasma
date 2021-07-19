@@ -135,7 +135,7 @@ the following directory:
 Select the icon and cursor themes in the settings.
 
 ### Fonts <a name="fonts"></a>
-For the sake of keeping this theme pack relatively compact, I won't include the full Microsoft Windows font pack.
+For the sake of keeping this theme pack relatively compact, and for legal issues, I won't include the Microsoft Windows font pack, but you can get them if you have a Windows installation.
 Windows fonts are stored in the following directory:
 
 C:\Windows\Fonts\
@@ -145,8 +145,6 @@ If you have an existing Windows installation, you can simply copy them over to t
 /usr/share/fonts
 
 Make sure to keep them all tidy in a separate folder from the rest.
-I've included the Segoe UI font which is the default font used in Windows Vista and Windows 7, which also belongs
-in /usr/share/fonts directory. 
 As for the actual font configurations, in KDE settings, go to Appearance -> Fonts, and then apply the following
 settings:
 
