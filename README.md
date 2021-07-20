@@ -28,7 +28,7 @@ This is a theme which aims to recreate the look and feel of Windows 7 as much as
 The theme is still in active early development and testing, and has only been tested on the following
 relevant specifications:
 
- - Arch Linux x64
+ - Arch Linux, Kubuntu 20.04
  - Intel integrated Graphics
  - 96 DPI scaling
 
