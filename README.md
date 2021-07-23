@@ -1,5 +1,25 @@
 # AERO THEME FOR KDE VERSION 1.2
 
+
+## Credits
+
+
+1. [Seven-Black](https://www.kde-look.org/p/998614)
+2. [Win2-7(Pixmap)](https://www.opendesktop.org/p/1014539)
+3. [Win2-7](https://www.gnome-look.org/p/1012465)
+4. [Seven Black Aurorae](https://store.kde.org/p/1002615)
+5. [Smaragd](https://www.pling.com/p/1167274)
+6. [Aero for Emerald](https://store.kde.org/p/1003826/)
+7. [Windows 7 GTK3 Theme](https://b00merang.weebly.com/windows-7.html)
+8. [Avalon Menu](https://store.kde.org/p/1386465/)
+9. [Digital Clock Lite](https://www.kde-look.org/p/1225135/)
+10. [Show Desktop (Win7)](https://www.kde-look.org/p/1100895/)
+11. [Equilibrium GTK3](https://store.kde.org/p/1493643/)
+12. [Aero Mouse Cursors with Drop Shadow](https://store.kde.org/p/999972/)
+    
+These are all the projects mentioned which I have forked into this theme pack. Please consider checking them out and checking out the authors who created these themes.
+
+
 ## TABLE OF CONTENTS
 1. [Introduction](#introduction)  
 2. [Screenshots](#screenshots)
@@ -19,7 +39,6 @@
     1. [KDE-specific problems](#kde-problems)
     2. [Lack of features problem](#feature-problems)
 5. [TODO List](#todo-list)
-6. [Credits](#credits)
 
 
 ## Introduction <a name="introduction"></a>
@@ -388,21 +407,6 @@ As for features that are lacking compared to Windows 7, there's a few that I'd l
 2. Improve the icon theme
 3. Add 32 bit support (QGtkStyle and Smaragd)
 
-## Credits <a name="credits"></a>
-
-1. [Seven-Black](https://www.kde-look.org/p/998614)
-2. [Win2-7(Pixmap)](https://www.opendesktop.org/p/1014539)
-3. [Win2-7](https://www.gnome-look.org/p/1012465)
-4. [Seven Black Aurorae](https://store.kde.org/p/1002615)
-5. [Smaragd](https://www.pling.com/p/1167274)
-6. [Aero for Emerald](https://store.kde.org/p/1003826/)
-7. [Windows 7 GTK3 Theme](https://b00merang.weebly.com/windows-7.html)
-8. [Avalon Menu](https://store.kde.org/p/1386465/)
-9. [Digital Clock Lite](https://www.kde-look.org/p/1225135/)
-10. [Show Desktop (Win7)](https://www.kde-look.org/p/1100895/)
-11. [Equilibrium GTK3](https://store.kde.org/p/1493643/)
-12. [Aero Mouse Cursors with Drop Shadow](https://store.kde.org/p/999972/)
-    
 
 
 
