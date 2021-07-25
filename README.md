@@ -68,6 +68,8 @@ there are any improvements to be made here, any and all effort would be greatly 
 ### Start Menu
 <img src="Screenshots/Start_Menu.png">
 
+<img src="Screenshots/Orb.GIF">
+
 ### Dolphin
 <img src="Screenshots/Dolphin_2.png">
 
@@ -220,7 +222,13 @@ To install it, simply move this to the following directory:
 
 ~/.local/share/plasma/plasmoids/
 
-If needed, restart Plasma to see it installed. Set the launcher icon to "startmenuorb.png" to make it look more like Windows 7.
+If needed, restart Plasma to see it installed. This launcher features three Start Menu buttons, which are animated just like in Windows 7. To properly configure this plasmoid, move the following folder to /opt/.
+
+./Plasma Widgets/AeroTheme
+
+Then restart Plasma in order to see the effect.
+(This is because compact representations of plasmoids seem to only accept absolute file paths. This only serves as a quick workaround. A more sophisticated solution should come out in later releases)
+
 
 NOTE: This Start menu is a WIP. I have not tested this plasmoid on other machines or distributions, and I haven't tested it on
 HiDPI monitors because I do not own one, or on other DPI scalings. The only DPI scaling I've tested this on is 96. For any issues

@@ -71,16 +71,43 @@ Item {
     }
 
     PlasmaCore.IconItem {
-        id: buttonIcon
-
+        id: buttonIconHovered
+        z: 1
+        source: "/opt/AeroTheme/hovered.png"
+        opacity: 0
         anchors.fill: parent
-
         readonly property double aspectRatio: (vertical ? implicitHeight / implicitWidth
             : implicitWidth / implicitHeight)
+        smooth: true
 
-        source: useCustomButtonImage ? plasmoid.configuration.customButtonImage : plasmoid.configuration.icon
+        // A custom icon could also be rectangular. However, if a square, custom, icon is given, assume it
+        // to be an icon and round it to the nearest icon size again to avoid scaling artefacts.
+        roundToIconSize: !useCustomButtonImage || aspectRatio === 1
 
-        active: mouseArea.containsMouse
+        onSourceChanged: updateSizeHints()
+    }
+    PlasmaCore.IconItem {
+        id: buttonIcon
+        anchors.fill: parent
+        opacity: 1
+        readonly property double aspectRatio: (vertical ? implicitHeight / implicitWidth
+            : implicitWidth / implicitHeight)
+        
+        
+        //source: useCustomButtonImage ? plasmoid.configuration.customButtonImage : plasmoid.configuration.icon
+        source: dashWindow.visible ? "/opt/AeroTheme/selected.png" : "/opt/AeroTheme/normal.png" 
+        
+        states: State {
+            name: "mouse-over"; when: mouseArea.containsMouse && !dashWindow.visible
+            //PropertyChanges { target: buttonIcon; opacity: dashWindow.visible ? 1 : 0}
+            PropertyChanges { target: buttonIconHovered; opacity: dashWindow.visible ? 0 : 1}
+        }
+
+        transitions: Transition {
+            NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; duration: 250  }
+        }
+
+        //active: mouseArea.containsMouse
 
         smooth: true
 
