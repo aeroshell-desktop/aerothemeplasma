@@ -229,6 +229,8 @@ If needed, restart Plasma to see it installed. This launcher features three Star
 Then restart Plasma in order to see the effect.
 (This is because compact representations of plasmoids seem to only accept absolute file paths. This only serves as a quick workaround. A more sophisticated solution should come out in later releases)
 
+You may notice that the Start menu orb is small. In order to fix this, right click on the plasmoid and click on "Configure Seven Start...". Then set the icon of the plasmoid to any of the three icons contained within the AeroTheme folder. Click OK and the Start menu orb should look normal now.
+
 
 NOTE: This Start menu is a WIP. I have not tested this plasmoid on other machines or distributions, and I haven't tested it on
 HiDPI monitors because I do not own one, or on other DPI scalings. The only DPI scaling I've tested this on is 96. For any issues
@@ -405,7 +407,6 @@ As for features that are lacking compared to Windows 7, there's a few that I'd l
 ## TODO List <a name="todo-list"></a>
 
 1. Improve the Seven Start menu plasmoid
-    1. Create orb animations if possible
     2. Add separator lines and more sidebar entries
         1. If possible, make these entries editable
     3. Add proper Recents support and Favourite application support

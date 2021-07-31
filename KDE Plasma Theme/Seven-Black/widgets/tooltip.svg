@@ -5,7 +5,7 @@
    id="svg1000"
    sodipodi:version="0.32"
    inkscape:version="1.1 (c4e8f9ed74, 2021-05-24)"
-   sodipodi:docname="tooltip.svgz"
+   sodipodi:docname="tooltip.svg"
    inkscape:output_extension="org.inkscape.output.svgz.inkscape"
    version="1.0"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -23,7 +23,7 @@
     fill:#7f7f7f;
     opacity:1;
 }
-#rect4860 { fill-opacity:0.38;    fill:#74b8fc;    opacity:1;    stroke:none; }
+#rect4860 { fill-opacity:0.18;    fill:#07b0ff;    opacity:1;    stroke:none; }
 </style>
   <sodipodi:namedview
      id="base"
@@ -64,7 +64,7 @@
     <linearGradient
        id="linearGradient1863">
       <stop
-         style="stop-color:#000000;stop-opacity:0"
+         style="stop-color:#000000;stop-opacity:0.32827458"
          offset="0"
          id="stop1859" />
       <stop
