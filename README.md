@@ -219,6 +219,7 @@ The current theme is a modified theme taken from https://www.kde-look.org/p/1003
 
 ### Plasma widgets <a name="widgets"></a>
 
+#### Seven Start
 In the "Plasma Widgets" folder you will find the plasmoid "SevenStart". This is a fork of Avalon Menu. (https://store.kde.org/p/1386465/)
 
 To install it, simply move this to the following directory:
@@ -241,6 +242,8 @@ or inconsistencies, for now post them in the next desktop threads.
 
 Make sure that your panel's width is set to 40. Also make sure that you're using the "Icons-only Task 
 Manager" widget to make it look closer to Windows 7.
+
+#### Digital Clock Lite
 
 Install the widget "Digital Clock Lite" (https://www.kde-look.org/p/1225135/) and replace the ugly large clock widget with 
 it. By default it should already look a lot like Windows 7's clock, but if it doesn't, change the following settings:
