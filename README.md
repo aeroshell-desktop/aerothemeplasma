@@ -1,5 +1,9 @@
 # AERO THEME FOR KDE VERSION 1.2
 
+## Donate
+
+BTC: bc1qfs0w6xstcgkjggu9e7gqucrpqvshwfj73h4d4t
+
 
 ## Credits
 
