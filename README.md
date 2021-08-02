@@ -113,7 +113,7 @@ there are any improvements to be made here, any and all effort would be greatly 
 
 In order to have this theme truly work, you'll need to have KDE Plasma installed on your system.
 This theme also assumes that you're using KDE provided programs and other Qt programs (Dolphin, Konsole, etc.).
-This theme collection also assumes that you're using Kwin as the window manager. You can technically run
+This theme collection also assumes that you're using KWin as the window manager. You can technically run
 compiz on KDE for marginally better results, however I've found that compiz is really buggy and crashes on
 my machine, so I choose not to use it. 
 
@@ -139,7 +139,7 @@ In the ```KDE Plasma Theme``` folder there is also a QtWidgets program called <b
 
 - The configuration file is stored in ```~/.aerorc```, which contains information about the custom color, whether or not transparency is enabled, and which color is currently applied
 - Enabling/disabling transparency through this program does not affect the compositing settings in KWin's settings. 
-- This program applies the colors to both the standard theme, the "translucent" variant of the theme, and the "opaque" variant of the theme (which is applied when compositing is disabled)
+- This program applies the colors to the standard theme, the "translucent" variant of the theme, and the "opaque" variant of the theme (which is applied when compositing is disabled)
 - This program does not yet change the color of text in the theme for better readability. This will hopefully be worked on in the future updates
 - By default, the Plasma theme and program are configured with the Sky color scheme.
 
