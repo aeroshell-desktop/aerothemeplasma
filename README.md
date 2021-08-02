@@ -31,14 +31,15 @@ These are all the projects mentioned which I have forked into this theme pack. P
     1. [Prerequisites](#installation)
     2. [KDE Plasma Theme](#plasma-theme)
     3. [KDE Application Theme](#application-theme)
-    4. [Icons and cursors](#icons)
-    5. [Fonts](#fonts)
-    6. [Window Manager](#wm)
-    7. [Plasma Widgets](#widgets)
-    8. [Workspace Behavior](#behaviour)
-    9. [Task Switcher](#task-switcher)
-    10. [GTK3](#gtk)
-    11. [Sounds](#sounds)
+    4. [Aero Color Mixer](#aeromixer)
+    5. [Icons and cursors](#icons)
+    6. [Fonts](#fonts)
+    7. [Window Manager](#wm)
+    8. [Plasma Widgets](#widgets)
+    9. [Workspace Behavior](#behaviour)
+    10. [Task Switcher](#task-switcher)
+    11. [GTK3](#gtk)
+    12. [Sounds](#sounds)
 4. [Shortcomings](#shortcomings)
     1. [KDE-specific problems](#kde-problems)
     2. [Lack of features problem](#feature-problems)
@@ -95,6 +96,10 @@ there are any improvements to be made here, any and all effort would be greatly 
 
 <img src="Screenshots/Media_Controls.png">
 
+### AeroColorMixer
+
+<img src="Screenshots/AeroColorMixer.png">
+
 ### Window Style
 
 <img src="Screenshots/Window_Decorations.png">
@@ -123,11 +128,23 @@ Lastly, in order to have blur effects, animations and transparency, it is import
 ### KDE Plasma Theme <a name="plasma-theme"></a>
 The Seven-Black Plasma theme is the main theme for KDE Plasma's shell. Put it in the following directory:
 
-~/.local/share/plasma/desktoptheme/Seven-Black
+```~/.local/share/plasma/desktoptheme/Seven-Black```
 
-This theme is a modified version of the following theme: https://www.kde-look.org/p/998614
 
-Since this is a Plasma Style, to apply it simply go to System Settings -> Appearance -> Plasma Style to find it and select it.
+Since this is a Plasma Style, to apply it simply go to ```System Settings -> Appearance -> Plasma Style``` to find it and select it.
+
+### Aero Color Mixer <a name="aeromixer"></a>
+
+In the ```KDE Plasma Theme``` folder there is also a QtWidgets program called <b>AeroColorMixer</b>. It is a utility for changing the colors of the Plasma theme and the Emerald decorator theme. It is meant to look and feel similar to the color mixer featured in Windows 7 and Windows 8/8.1. The colors included are pulled directly from Windows 7. Some important notes about AeroColorMixer:
+
+- The configuration file is stored in ```~/.aerorc```, which contains information about the custom color, whether or not transparency is enabled, and which color is currently applied
+- Enabling/disabling transparency through this program does not affect the compositing settings in KWin's settings. 
+- This program applies the colors to both the standard theme, the "translucent" variant of the theme, and the "opaque" variant of the theme (which is applied when compositing is disabled)
+- This program does not yet change the color of text in the theme for better readability. This will hopefully be worked on in the future updates
+
+Both the source code and binaries are provided, and the binary is compiled with Qt version 5.15.2, glibc 2.33 and on the x86_64 architecture. 
+
+NOTE: This program is meant to work only with this theme, and it assumes that you have both the Plasma theme and the Emerald theme installed on your system. This program has only been tested so far on two machines so YMMV.
 
 ### KDE Application Theme <a name="application-theme"></a>
 
@@ -138,26 +155,33 @@ won't provide any support, though there are themes on opendesktop.org that accom
 Arch users can install the "qt5-styleplugins" package from the AUR to get QGtkStyle, however I found this to
 be a buggy package which makes certain parts of KDE completely flip out.
 KDE's system settings would get a really messed up theme if you have this package installed on your
-system. As a workaround, I'll be providing only the libqgtk2style.so file which is the only thing required
+system. As a workaround, I'll be providing only the ```libqgtk2style.so``` file which is the only thing required
 anyway. To install it, simply move it to the following directory:
 
-/usr/lib/qt/plugins/styles
+```/usr/lib/qt/plugins/styles```
 
 This directory may vary depending on your distro. 
 
-After this, take the win27pixmap folder and move it to the ~/.themes directory. This is the GTK2 theme based off
+After this, take the win27pixmap folder and move it to the ```~/.themes``` directory. This is the GTK2 theme based off
 of the Win2-7 (Pixmap) theme (https://www.opendesktop.org/p/1014539 and https://www.gnome-look.org/p/1012465). 
-By selecting QGtkStyle in KDE's System Settings, and setting the GTK2 theme with something like gtk-chtheme, your 
-Qt programs should look a lot more like Windows 7 now. You should also set a light colour theme for all of this. 
+By selecting QGtkStyle in ```System Settings -> Appearance -> Application Style```, and setting the GTK2 theme with something like ```gtk-chtheme```, your 
+Qt programs should look a lot more like Windows 7 now. You should also set a light color theme for all of this. My personal recommendations are ```KvCurvesLight``` and ```Oxygen Cold```.
+
+In case the GTK2 theme isn't persistent throughout sessions, in order to keep it applied, add the following line:
+
+```GTK2_RC_FILES=/home/[username]/.themes/win27pixmap/gtk-2.0/gtkrc```
+
+in ```/etc/environment```. Restart your Plasma session to see the effect.
+ 
 The downside of this theme is that it is a light theme, whereas the QtCurve approach can be both a light and dark
 theme depending on your liking. Maybe in a future release I'll release a followup GTK2 theme which is just an Aero
 dark theme. 
 
 ### Icons and cursors <a name="icons"></a>
-The folder "windows_eight" is the icon theme, while "aero-cursors" is the cursor theme. Both of these belong in
+The folder ```windowsicon``` is the icon theme, while ```aero-cursors``` is the cursor theme. Both of these belong in
 the following directory:
 
-/usr/share/icons
+```/usr/share/icons```
 
 
 Select the icon and cursor themes in the settings.
@@ -166,14 +190,14 @@ Select the icon and cursor themes in the settings.
 For the sake of keeping this theme pack relatively compact, and for legal issues, I won't include the Microsoft Windows font pack, but you can get them if you have a Windows installation.
 Windows fonts are stored in the following directory:
 
-C:\Windows\Fonts\
+```C:\Windows\Fonts\```
 
 If you have an existing Windows installation, you can simply copy them over to the following directory:
 
-/usr/share/fonts
+```/usr/share/fonts```
 
 Make sure to keep them all tidy in a separate folder from the rest.
-As for the actual font configurations, in KDE settings, go to Appearance -> Fonts, and then apply the following
+As for the actual font configurations, in System settings, go to ```Appearance -> Fonts```, and then apply the following
 settings:
 
 - General: Segoe UI 9pt
@@ -199,7 +223,7 @@ If, however, you still want to use Aurorae instead of smaragd, use this theme: h
 
 In the directory: 
 
-./Window Manager/smaragd-0.1.1/build/bin/
+```./Window Manager/smaragd-0.1.1/build/bin/```
 
 there is a precompiled binary of smaragd, because actually compiling
 it takes forever and requires a bunch of old deprecated dependencies. To save everyone the trouble of compiling it,
@@ -208,48 +232,47 @@ annoying bugs, most notably the maximised decorations being really weird - the c
 from the corner of the screen, and there was also an annoying feature/bug where clicking and moving your mouse from the
 topmost pixel of the screen would actually resize the window instead of restoring it, most likely due to margin errors.
 
-To install smaragd, simply move the kwin_smaragd.so file to the following directory:
+To install smaragd, simply move the ```kwin_smaragd.so``` file to the following directory:
 
-/usr/lib/qt/plugins/org.kde.kdecoration2/kwin_smaragd.so
+```/usr/lib/qt/plugins/org.kde.kdecoration2/kwin_smaragd.so```
 
 I've seen other similar directories on other distros, so if you can't exactly find this directory, my apologies.
 
 Smaragd pulls its theme from Emerald, the Compiz decoration engine. However, you do not actually need to install Emerald
 in order to get Smaragd to work (it does greatly help if you want to edit the theme to your liking, however).
-If you don't have emerald, simply put the ".emerald" folder in your home directory, and then apply Smaragd in KDE's
-System settings -> Appearance -> Window Decorations. Any changes you make to the emerald theme will be nearly instant.
+If you don't have emerald, simply put the ".emerald" folder in your home directory, and then apply Smaragd in
+```System settings -> Appearance -> Window Decorations```. Any changes you make to the emerald theme will be nearly instant. The changes are applied as soon as the window is updated (resizing, maximizing/restoring the window).
 The current theme is a modified theme taken from https://www.kde-look.org/p/1003826/
 
 
 ### Plasma widgets <a name="widgets"></a>
 
 #### Seven Start
-In the "Plasma Widgets" folder you will find the plasmoid "SevenStart". This is a fork of Avalon Menu. (https://store.kde.org/p/1386465/)
+In the ```Plasma Widgets``` folder you will find the plasmoid ```SevenStart```. This is a fork of Avalon Menu. (https://store.kde.org/p/1386465/)
 
 To install it, simply move this to the following directory:
 
-~/.local/share/plasma/plasmoids/
+```~/.local/share/plasma/plasmoids/```
 
-If needed, restart Plasma to see it installed. This launcher features three Start Menu buttons, which are animated just like in Windows 7. To properly configure this plasmoid, move the following folder to /opt/.
+If needed, restart Plasma to see it installed. This launcher features three Start Menu buttons, which are animated just like in Windows 7. To properly configure this plasmoid, move the following folder to ```/opt```.
 
-./Plasma Widgets/AeroTheme
+```./Plasma Widgets/AeroTheme```
 
 Then restart Plasma in order to see the effect.
 (This is because compact representations of plasmoids seem to only accept absolute file paths. This only serves as a quick workaround. A more sophisticated solution should come out in later releases)
 
-You may notice that the Start menu orb is small. In order to fix this, right click on the plasmoid and click on "Configure Seven Start...". Then set the icon of the plasmoid to any of the three icons contained within the AeroTheme folder. Click OK and the Start menu orb should look normal now.
+You may notice that the Start menu orb is small. In order to fix this, right click on the plasmoid and click on ```Configure Seven Start...```. Then set the icon of the plasmoid to any of the three icons contained within the AeroTheme folder. Click OK and the Start menu orb should look normal now.
 
 
 NOTE: This Start menu is a WIP. I have not tested this plasmoid on other machines or distributions, and I haven't tested it on
 HiDPI monitors because I do not own one, or on other DPI scalings. The only DPI scaling I've tested this on is 96. For any issues
 or inconsistencies, for now post them in the next desktop threads. 
 
-Make sure that your panel's width is set to 40. Also make sure that you're using the "Icons-only Task 
-Manager" widget to make it look closer to Windows 7.
+Make sure that your panel's width is set to 40. Also make sure that you're using the ```Icons-only Task Manager``` widget to make it look closer to Windows 7.
 
 #### Digital Clock Lite
 
-Install the widget "Digital Clock Lite" (https://www.kde-look.org/p/1225135/) and replace the ugly large clock widget with 
+Install the widget ```Digital Clock Lite``` (https://www.kde-look.org/p/1225135/) and replace the ugly large clock widget with 
 it. By default it should already look a lot like Windows 7's clock, but if it doesn't, change the following settings:
 
 - Font size px: 9
@@ -257,7 +280,7 @@ it. By default it should already look a lot like Windows 7's clock, but if it do
 
 You can tweak the other settings to your liking. 
 
-Lastly, install the "Show Desktop (Win7)" widget (https://www.kde-look.org/p/1100895/) and configure it to these settings:
+Lastly, install the ```Show Desktop (Win7)``` widget (https://www.kde-look.org/p/1100895/) and configure it to these settings:
 
 In Look:
 
@@ -265,8 +288,8 @@ In Look:
  
 In Click:
 
- - Run Command: qdbus org.kde.kglobalaccel /component/kwin invokeShortcut "MinimizeAll" <br>
-    (Note: in order for this to work, the "MinimizeAll" KWin script must be installed and enabled)
+ - Run Command: ```qdbus org.kde.kglobalaccel /component/kwin invokeShortcut "MinimizeAll"``` <br>
+    (Note: in order for this to work, the ```MinimizeAll``` KWin script must be installed and enabled)
 
 In Peek:
 
@@ -274,7 +297,7 @@ In Peek:
 - Peek threshold: 750ms
 
 ### Workspace Behavior <a name="behaviour"></a>
-In KDE System Settings, under Workspace Behavior -> Desktop Effects, check the following settings:
+In ```System Settings -> Workspace Behavior -> Desktop Effects```, check the following settings:
 
 - Blur (Note: set the Blur strength and Noise strength to 3 to make it look somewhat accurately blurry)
 - Desaturate Unresponsive Applications 
@@ -290,7 +313,7 @@ In KDE System Settings, under Workspace Behavior -> Desktop Effects, check the f
 
 <img src="https://upload.wikimedia.org/wikipedia/en/5/59/Windows7_flip.png">
 
-This section will talk about how to make the Task Switcher in KDE look more like Windows 7. It will also recreate the look and behaviour of the "Flip 3D" feature. In KDE System Settings, under Window Management -> Task Switcher, set the following:
+This section will talk about how to make the Task Switcher in KDE look more like Windows 7. It will also recreate the look and behaviour of the "Flip 3D" feature. In ```System Settings -> Window Management -> Task Switcher```, set the following:
 
 In Main:
 
@@ -321,7 +344,7 @@ Use the provided GTK css modification to include some small elements from Window
 and caption buttons, which will appear in client-side decorations from GTK3. To install, simply put the assets
 folder and the gtk.css folder inside the following directory: 
 
-  ~/.config/gtk-3.0/ 
+  ```~/.config/gtk-3.0/ ```
 
   You can also rename the gtk.css file and include it in the already existing gtk.css file.
 I don't use applications that use GTK3 all that much, and it will likely just keep breaking support with 
@@ -330,34 +353,34 @@ upcoming updates, so I don't bother trying to keep up with it. Sorry once again.
 ### Sounds <a name="sounds"></a>
 This theme isn't complete without sounds. On Windows, the sound files are located in the following directory:
 
-C:\Windows\Media
+```C:\Windows\Media```
 
 In my folder I've included the sound files for the default Windows Aero theme, along with other themes from
 Windows 7. To install them, simply move the two folders to the following directory:
 
-/usr/share/sounds
+```/usr/share/sounds```
 
-With that done, you need to go to KDE System Settings, under Notifications. There, click on the "Configure..."
-button on the bottom. Scroll down to "Plasma Workspace", and click on the "Configure Events..." button.
+With that done, you need to go to ```System Settings -> Notifications```. There, click on the ```Configure...```
+button on the bottom. Scroll down to ```Plasma Workspace```, and click on the ```Configure Events...``` button.
 Set the sounds for the following notifications:
 
- - Notification:             /usr/share/sounds/stereo_windows/dialog-information.ogg
- - Warning Message:          /usr/share/sounds/stereo_windows/dialog-warning.ogg
- - Fatal Error, Catastrophe: /usr/share/sounds/stereo_windows/dialog-error.ogg
- - Logout:                   /usr/share/sounds/stereo_windows/desktop-logout.ogg
- - Question:                 /usr/share/sounds/stereo_windows/dialog-question.ogg
- - Login:                    /usr/share/sounds/stereo_windows/desktop-login.ogg
- - Warning:                  /usr/share/sounds/stereo_windows/dialog-warning.ogg
- - Trash: Emptied:           /usr/share/sounds/media_windows/Windows Recycle.wav
- - Critical Message:         /usr/share/sounds/stereo_windows/dialog-warning.ogg
- - Information Message:      /usr/share/sounds/stereo_windows/dialog-information.ogg
- - Beep:                     /usr/share/sounds/stereo_windows/button-pressed.ogg
+ - Notification:             ```/usr/share/sounds/stereo_windows/dialog-information.ogg```
+ - Warning Message:          ```/usr/share/sounds/stereo_windows/dialog-warning.ogg```
+ - Fatal Error, Catastrophe: ```/usr/share/sounds/stereo_windows/dialog-error.ogg```
+ - Logout:                   ```/usr/share/sounds/stereo_windows/desktop-logout.ogg```
+ - Question:                 ```/usr/share/sounds/stereo_windows/dialog-question.ogg```
+ - Login:                    ```/usr/share/sounds/stereo_windows/desktop-login.ogg```
+ - Warning:                  ```/usr/share/sounds/stereo_windows/dialog-warning.ogg```
+ - Trash: Emptied:           ```/usr/share/sounds/media_windows/Windows Recycle.wav```
+ - Critical Message:         ```/usr/share/sounds/stereo_windows/dialog-warning.ogg```
+ - Information Message:      ```/usr/share/sounds/stereo_windows/dialog-information.ogg```
+ - Beep:                     ```/usr/share/sounds/stereo_windows/button-pressed.ogg```
 
-Then, under "Power Management", click on the "Configure Events..." button. Set the sounds for the following
+Then, under ```Power Management```, click on the ```Configure Events...``` button. Set the sounds for the following
 notifications:
 
- - Battery Low, Peripheral Battery Low: /usr/share/sounds/media_windows/Windows Battery Low.wav
- - Battery Critical:                    /usr/share/sounds/media_windows/Windows Battery Critical.wav
+ - Battery Low, Peripheral Battery Low: ```/usr/share/sounds/media_windows/Windows Battery Low.wav```
+ - Battery Critical:                    ```/usr/share/sounds/media_windows/Windows Battery Critical.wav```
 
 There are probably sounds that I haven't configured or missed out on, but these are the most commonly heard
 sounds in Windows 7 anyway. 
