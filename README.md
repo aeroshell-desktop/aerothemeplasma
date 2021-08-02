@@ -141,6 +141,7 @@ In the ```KDE Plasma Theme``` folder there is also a QtWidgets program called <b
 - Enabling/disabling transparency through this program does not affect the compositing settings in KWin's settings. 
 - This program applies the colors to both the standard theme, the "translucent" variant of the theme, and the "opaque" variant of the theme (which is applied when compositing is disabled)
 - This program does not yet change the color of text in the theme for better readability. This will hopefully be worked on in the future updates
+- By default, the Plasma theme and program are configured with the Sky color scheme.
 
 Both the source code and binaries are provided, and the binary is compiled with Qt version 5.15.2, glibc 2.33 and on the x86_64 architecture. 
 
