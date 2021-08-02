@@ -2,7 +2,7 @@
 
 ## Donate
 
-BTC: bc1qfs0w6xstcgkjggu9e7gqucrpqvshwfj73h4d4t
+```BTC: bc1qfs0w6xstcgkjggu9e7gqucrpqvshwfj73h4d4t```
 
 
 ## Credits
