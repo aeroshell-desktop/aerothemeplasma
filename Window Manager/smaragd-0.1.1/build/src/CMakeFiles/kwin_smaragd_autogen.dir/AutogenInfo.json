@@ -1,29 +1,34 @@
 {
-	"BUILD_DIR" : "/home/boki/Downloads/smaragd-0.1.1/build/src/kwin_smaragd_autogen",
-	"CMAKE_BINARY_DIR" : "/home/boki/Downloads/smaragd-0.1.1/build",
-	"CMAKE_CURRENT_BINARY_DIR" : "/home/boki/Downloads/smaragd-0.1.1/build/src",
-	"CMAKE_CURRENT_SOURCE_DIR" : "/home/boki/Downloads/smaragd-0.1.1/src",
+	"BUILD_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen",
+	"CMAKE_BINARY_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src",
 	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
-	"CMAKE_LIST_FILES" : [ "/home/boki/Downloads/smaragd-0.1.1/src/CMakeLists.txt" ],
-	"CMAKE_SOURCE_DIR" : "/home/boki/Downloads/smaragd-0.1.1",
+	"CMAKE_LIST_FILES" : 
+	[
+		"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/CMakeLists.txt"
+	],
+	"CMAKE_SOURCE_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1",
 	"DEP_FILE" : "",
 	"DEP_FILE_RULE_NAME" : "",
 	"HEADERS" : 
 	[
 		[
-			"/home/boki/Downloads/smaragd-0.1.1/src/kwin_smaragd.h",
+			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/kwin_smaragd.h",
 			"Mu",
-			"EWIEGA46WW/moc_kwin_smaragd.cpp"
+			"EWIEGA46WW/moc_kwin_smaragd.cpp",
+			null
 		],
 		[
-			"/home/boki/Downloads/smaragd-0.1.1/src/shadowengine.h",
+			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/shadowengine.h",
 			"Mu",
-			"EWIEGA46WW/moc_shadowengine.cpp"
+			"EWIEGA46WW/moc_shadowengine.cpp",
+			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "/home/boki/Downloads/smaragd-0.1.1/build/src/kwin_smaragd_autogen/include",
-	"MOC_COMPILATION_FILE" : "/home/boki/Downloads/smaragd-0.1.1/build/src/kwin_smaragd_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen/include",
+	"MOC_COMPILATION_FILE" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : 
 	[
 		"KCOREADDONS_LIB",
@@ -52,11 +57,11 @@
 	],
 	"MOC_INCLUDES" : 
 	[
-		"/home/boki/Downloads/smaragd-0.1.1/build/src",
-		"/home/boki/Downloads/smaragd-0.1.1/src",
-		"/home/boki/Downloads/smaragd-0.1.1/build",
-		"/home/boki/Downloads/smaragd-0.1.1/src/include",
-		"/home/boki/Downloads/smaragd-0.1.1/src/engines",
+		"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src",
+		"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src",
+		"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build",
+		"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/include",
+		"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines",
 		"/usr/include/cairo",
 		"/usr/include/glib-2.0",
 		"/usr/lib/glib-2.0/include",
@@ -71,12 +76,12 @@
 		"/usr/include/KF5/KI18n",
 		"/usr/include/KF5/KWidgetsAddons",
 		"/usr/include/KDecoration2",
-		"/usr/include/c++/10.2.0",
-		"/usr/include/c++/10.2.0/x86_64-pc-linux-gnu",
-		"/usr/include/c++/10.2.0/backward",
-		"/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include",
+		"/usr/include/c++/11.1.0",
+		"/usr/include/c++/11.1.0/x86_64-pc-linux-gnu",
+		"/usr/include/c++/11.1.0/backward",
+		"/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include",
 		"/usr/local/include",
-		"/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed",
+		"/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed",
 		"/usr/include"
 	],
 	"MOC_MACRO_NAMES" : 
@@ -97,32 +102,79 @@
 		"-dM",
 		"-E",
 		"-c",
-		"/usr/share/cmake-3.19/Modules/CMakeCXXCompilerABI.cpp"
+		"/usr/share/cmake-3.21/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "/home/boki/Downloads/smaragd-0.1.1/build/src/kwin_smaragd_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
-	"MOC_SKIP" : [],
+	"MOC_SKIP" : 
+	[
+		"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/ui_kwin_smaragd_dialog.h"
+	],
 	"MULTI_CONFIG" : false,
 	"PARALLEL" : 2,
-	"PARSE_CACHE_FILE" : "/home/boki/Downloads/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd_autogen.dir/ParseCache.txt",
+	"PARSE_CACHE_FILE" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "/usr/bin/moc",
 	"QT_UIC_EXECUTABLE" : "",
 	"QT_VERSION_MAJOR" : 5,
 	"QT_VERSION_MINOR" : 15,
-	"SETTINGS_FILE" : "/home/boki/Downloads/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
-		[ "/home/boki/Downloads/smaragd-0.1.1/src/emerald.c", "Mu" ],
-		[ "/home/boki/Downloads/smaragd-0.1.1/src/engines/legacy.c", "Mu" ],
-		[ "/home/boki/Downloads/smaragd-0.1.1/src/engines/line.c", "Mu" ],
-		[ "/home/boki/Downloads/smaragd-0.1.1/src/engines/oxygen.c", "Mu" ],
-		[ "/home/boki/Downloads/smaragd-0.1.1/src/engines/pixmap.c", "Mu" ],
-		[ "/home/boki/Downloads/smaragd-0.1.1/src/engines/truglass.c", "Mu" ],
-		[ "/home/boki/Downloads/smaragd-0.1.1/src/engines/vrunner.c", "Mu" ],
-		[ "/home/boki/Downloads/smaragd-0.1.1/src/engines/zootreeves.c", "Mu" ],
-		[ "/home/boki/Downloads/smaragd-0.1.1/src/kwin_smaragd.cpp", "Mu" ],
-		[ "/home/boki/Downloads/smaragd-0.1.1/src/main.c", "Mu" ],
-		[ "/home/boki/Downloads/smaragd-0.1.1/src/shadowengine.cpp", "Mu" ]
+		[
+			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/emerald.c",
+			"Mu",
+			null
+		],
+		[
+			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines/legacy.c",
+			"Mu",
+			null
+		],
+		[
+			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines/line.c",
+			"Mu",
+			null
+		],
+		[
+			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines/oxygen.c",
+			"Mu",
+			null
+		],
+		[
+			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines/pixmap.c",
+			"Mu",
+			null
+		],
+		[
+			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines/truglass.c",
+			"Mu",
+			null
+		],
+		[
+			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines/vrunner.c",
+			"Mu",
+			null
+		],
+		[
+			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines/zootreeves.c",
+			"Mu",
+			null
+		],
+		[
+			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/kwin_smaragd.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/main.c",
+			"Mu",
+			null
+		],
+		[
+			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/shadowengine.cpp",
+			"Mu",
+			null
+		]
 	],
 	"VERBOSITY" : 0
 }

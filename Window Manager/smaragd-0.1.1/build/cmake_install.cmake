@@ -1,4 +1,4 @@
-# Install script for directory: /home/boki/Downloads/smaragd-0.1.1
+# Install script for directory: /mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/boki/Downloads/smaragd-0.1.1/build/src/cmake_install.cmake")
+  include("/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/cmake_install.cmake")
 
 endif()
 
@@ -56,5 +56,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/boki/Downloads/smaragd-0.1.1/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

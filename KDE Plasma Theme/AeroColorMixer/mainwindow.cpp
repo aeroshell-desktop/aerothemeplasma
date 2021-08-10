@@ -253,12 +253,16 @@ void MainWindow::applyChanges()
     QString fillOpacityMatch 			  = R"(fill-opacity:(\d*\.?\d+;))";
     QString fillMatch 					  = R"(fill:#(?:[0-9a-fA-F]{3}){1,2};)";
     //Emerald
-    QString baseColourMatch 			  = R"(^active_(base|sides)=#(?:[0-9a-fA-F]{3}){1,2})";
-    QString baseGlowMatch 			  	  = R"(^active_glow=#(?:[0-9a-fA-F]{3}){1,2})";
-    QString baseColourAlphaMatch		  = R"(^active_(base|sides)_alpha=(\d*\.?\d+))";
-    QString baseGlowAlpha 				  = R"(^active_glow_alpha=(\d*\.?\d+))";
-    QString inactive_baseColourAlphaMatch = R"(^inactive_(base|sides)_alpha=(\d*\.?\d+))";
-    QString inactive_baseGlowAlpha 		  = R"(^inactive_glow_alpha=(\d*\.?\d+))";
+    //left, right, middle, alpha
+    //baseColourAlphaMatch
+    //baseGlowAlpha
+    QString baseGlowMatch 			      = R"(^active_title_(left|right)=#(?:[0-9a-fA-F]{3}){1,2})";
+    QString baseColourMatch 			  = R"(^active_title_middle=#(?:[0-9a-fA-F]{3}){1,2})";
+    QString baseGlowAlpha		  		  = R"(^active_title_(left|right)_alpha=(\d*\.?\d+))";
+    QString baseColourAlphaMatch 	      = R"(^active_title_middle_alpha=(\d*\.?\d+))";
+    QString inactive_baseGlowAlpha 		  = R"(^inactive_title_(left|right)_alpha=(\d*\.?\d+))";
+    QString inactive_baseColourAlphaMatch = R"(^inactive_title_middle_alpha=(\d*\.?\d+))";
+    QString inactive_baseGlowMatch 		  = R"(^inactive_title_(left|right)=#(?:[0-9a-fA-F]{3}){1,2})";
     QRegularExpression regex(fillOpacityMatch, QRegularExpression::MultilineOption | QRegularExpression::DotMatchesEverythingOption);
     int pos = 0;
     QStringList matches;
@@ -323,15 +327,15 @@ void MainWindow::applyChanges()
         QTextStream reader(&f);
         reader.setAutoDetectUnicode(true);
         QString rawData = "";
-        QString oxygenSettings = "";
+        QString vrunnerSettings = "";
         bool foundSettings = false;
         QString line = "";
         while(!foundSettings)
         {
             line = reader.readLine();
-            if(line.startsWith("[oxygen_settings]"))
+            if(line.startsWith("[vrunner_settings]"))
             {
-                oxygenSettings += line + "\n";
+                vrunnerSettings += line + "\n";
                 break;
             }
             rawData += line + "\n";
@@ -341,20 +345,24 @@ void MainWindow::applyChanges()
             line = reader.readLine();
             if(line.startsWith("["))
                 break;
-            oxygenSettings += line + "\n";
+            vrunnerSettings += line + "\n";
         }
         //Setting colour alpha
-        getMatches(baseColourAlphaMatch, oxygenSettings);
+        getMatches(baseColourAlphaMatch, vrunnerSettings);
         float baseOpacity = map(ui->alpha_slider->value(), 0, 255, 0.01, 0.75);
         float glowOpacity = map(ui->alpha_slider->value(), 0, 255, 0.45, 0.85);
         for(int i = 0; i < matches.length(); i++)
         {
             QStringList temp = matches[i].split("=");
-            oxygenSettings.replace(matches[i], temp[0] + "=" + (ui->enableTransparency_CheckBox->isChecked() ? QString::number(baseOpacity, 'f', 2) : "1.00"));
+            vrunnerSettings.replace(matches[i], temp[0] + "=" + (ui->enableTransparency_CheckBox->isChecked() ? QString::number(baseOpacity, 'f', 2) : "1.00"));
         }
         //Setting glow alpha
-        getMatches(baseGlowAlpha, oxygenSettings);
-        oxygenSettings.replace(matches[0], "active_glow_alpha=" + (ui->enableTransparency_CheckBox->isChecked() ? QString::number(glowOpacity, 'f', 2) : "1.00"));
+        getMatches(baseGlowAlpha, vrunnerSettings);
+        for(int i = 0; i < matches.length(); i++)
+        {
+            QStringList temp = matches[i].split("=");
+            vrunnerSettings.replace(matches[i], temp[0] + "=" + (ui->enableTransparency_CheckBox->isChecked() ? QString::number(glowOpacity, 'f', 2) : "1.00"));
+        }
         //Setting color
         QString colorName;
         if(ui->enableTransparency_CheckBox->isChecked())
@@ -368,27 +376,39 @@ void MainWindow::applyChanges()
             tempColor.setHsv(tempColor.hsvHue(), tempColor.hsvSaturation() * mult, tempColor.value());
             colorName = tempColor.name(QColor::HexRgb);
         }
-        getMatches(baseColourMatch, oxygenSettings);
+        getMatches(baseColourMatch, vrunnerSettings);
         for(int i = 0; i < matches.length(); i++)
         {
             QStringList temp = matches[i].split("=");
-            oxygenSettings.replace(matches[i], temp[0] + "=" + colorName);
+            vrunnerSettings.replace(matches[i], temp[0] + "=" + colorName);
         }
 
-        getMatches(baseGlowMatch, oxygenSettings);
-        oxygenSettings.replace(matches[0], "active_glow=" + mixColor(QColor(colorName)).name(QColor::HexRgb));
-        oxygenSettings.replace("in" + matches[0], QString("inactive_glow=") + "#ffffff");
-
-        getMatches(inactive_baseColourAlphaMatch, oxygenSettings);
+        getMatches(baseGlowMatch, vrunnerSettings);
         for(int i = 0; i < matches.length(); i++)
         {
             QStringList temp = matches[i].split("=");
-            oxygenSettings.replace(matches[i], temp[0] + "=" + (ui->enableTransparency_CheckBox->isChecked() ? "0.25" : "1.00"));
+            vrunnerSettings.replace(matches[i], temp[0] + "=" + mixColor(QColor(colorName)).name(QColor::HexRgb));
         }
-        getMatches(inactive_baseGlowAlpha, oxygenSettings);
-        oxygenSettings.replace(matches[0], QString("inactive_glow_alpha=") + (ui->enableTransparency_CheckBox->isChecked() ? "0.40" : "1.00"));
-        rawData += oxygenSettings;
+        getMatches(inactive_baseGlowMatch, vrunnerSettings);
+        for(int i = 0; i < matches.length(); i++)
+        {
+            QStringList temp = matches[i].split("=");
+            vrunnerSettings.replace(matches[i], temp[0] + "=" + "#ffffff");
+        }
 
+        getMatches(inactive_baseColourAlphaMatch, vrunnerSettings);
+        for(int i = 0; i < matches.length(); i++)
+        {
+            QStringList temp = matches[i].split("=");
+            vrunnerSettings.replace(matches[i], temp[0] + "=" + (ui->enableTransparency_CheckBox->isChecked() ? "0.25" : "1.00"));
+        }
+        getMatches(inactive_baseGlowAlpha, vrunnerSettings);
+        for(int i = 0; i < matches.length(); i++)
+        {
+            QStringList temp = matches[i].split("=");
+            vrunnerSettings.replace(matches[i], temp[0] + "=" + (ui->enableTransparency_CheckBox->isChecked() ? "0.40" : "1.00"));
+        }
+        rawData += vrunnerSettings;
         f.seek(0);
         f.write(rawData.toStdString().c_str(), rawData.length());
         f.close();

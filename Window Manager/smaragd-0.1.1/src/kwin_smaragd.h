@@ -66,12 +66,16 @@ public:
     QImage buttonImage(const QSize &size, bool active, int button, int state) const;
 
     void setFontHeight(int fontHeight);
+    void setTitleTextWidth(int ttw);
+    void setTitleTextHeight(int tth);
 
 private:
     window_settings *ws; // must be first entry because of inline method to access it
     Config m_config;
 
     QRegion cornerRegion[4];
+    int titletext_width;
+	int titletext_height;
 };
 
 class Decoration : public KDecoration2::Decoration

@@ -98,11 +98,12 @@ extern void line_engine_draw_frame(decor_t * d, cairo_t * cr);
 extern void oxygen_engine_draw_frame(decor_t * d, cairo_t * cr);
 extern void pixmap_engine_draw_frame(decor_t * d, cairo_t * cr);
 extern void truglass_engine_draw_frame(decor_t * d, cairo_t * cr);
-extern void vrunner_engine_draw_frame(decor_t * d, cairo_t * cr);
+extern void vrunner_engine_draw_frame(decor_t * d, cairo_t * cr, int titletext_width, int titletext_height);
 extern void zootreeves_engine_draw_frame(decor_t * d, cairo_t * cr);
 
 static init_engine_proc init_engine;
 static draw_frame_proc draw_frame;
+static vrunner_draw_frame vrunner_drawframe;
 static load_settings_proc load_settings;
 
 gboolean load_engine(gchar *engine, window_settings *ws)
@@ -129,7 +130,8 @@ gboolean load_engine(gchar *engine, window_settings *ws)
         load_settings = truglass_load_engine_settings;
     } else if (!strcmp(engine, "vrunner")) {
         init_engine = vrunner_init_engine;
-        draw_frame = vrunner_engine_draw_frame;
+        draw_frame = NULL;
+		vrunner_drawframe = vrunner_engine_draw_frame;
         load_settings = vrunner_load_engine_settings;
     } else if (!strcmp(engine, "zootreeves")) {
         init_engine = zootreeves_init_engine;
@@ -631,6 +633,15 @@ QImage DecorationFactory::buttonImage(const QSize &size, bool active, int button
     return image;
 }
 
+void DecorationFactory::setTitleTextWidth(int ttw)
+{
+	this->titletext_width = ttw;
+}
+void DecorationFactory::setTitleTextHeight(int tth)
+{
+	this->titletext_height = tth;
+}
+
 QImage DecorationFactory::decorationImage(const QSize &size, bool active, int state, const QRect &titleRect) const
 {
     decor_t deco, *d = &deco;
@@ -694,7 +705,14 @@ QImage DecorationFactory::decorationImage(const QSize &size, bool active, int st
     cr = cairo_create(surface);
     cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
     cairo_set_line_width(cr, 1.0);
-    draw_frame(d, cr);
+	if(draw_frame == NULL)
+	{
+		vrunner_drawframe(d, cr, titletext_width, titletext_height);
+	}
+	else
+	{
+    	draw_frame(d, cr);
+	}
     cairo_destroy(cr);
     cairo_surface_destroy(surface);
 
@@ -738,6 +756,9 @@ void Decoration::paint(QPainter *painter, const QRect &repaintArea)
     QSize decoSize = size();
 
     QRect captionRect(m_buttonGroup[0]->geometry().right() + 2, 0, m_buttonGroup[2]->geometry().left() - m_buttonGroup[0]->geometry().right() - 4, borderTop());
+    QString caption = settings()->fontMetrics().elidedText(client().data()->caption(), Qt::ElideMiddle, captionRect.width());
+	factory()->setTitleTextWidth(settings()->fontMetrics().width(caption));
+	factory()->setTitleTextHeight(settings()->fontMetrics().height());
     QImage decoImage = factory()->decorationImage(size(), active, 0, captionRect);
     window_settings *ws = factory()->windowSettings();
     const Config *config = factory()->config();
@@ -757,7 +778,6 @@ void Decoration::paint(QPainter *painter, const QRect &repaintArea)
         c = fs->text;
         textColor = QColor::fromRgbF(c.color.r, c.color.g, c.color.b, c.alpha);
     }
-    QString caption = settings()->fontMetrics().elidedText(client().data()->caption(), Qt::ElideMiddle, captionRect.width());
     captionRect.setHeight(captionRect.height() & -2);
     painter->setFont(settings()->font());
     painter->setPen(shadowColor);

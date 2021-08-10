@@ -208,7 +208,7 @@ static gint get_real_pos(window_settings * ws, gint tobj, decor_t * d)
     return base + d->tobj_item_pos[tobj];
 }
 
-void engine_draw_frame (decor_t * d, cairo_t * cr)
+void engine_draw_frame (decor_t * d, cairo_t * cr, int titletext_width, int titletext_height)
 {
     double        x1, y1, x2, y2, h, 
                   top_title_height, bottom_title_height, 
@@ -346,8 +346,8 @@ void engine_draw_frame (decor_t * d, cairo_t * cr)
        if(PANGO_IS_LAYOUT(d->layout))
           pango_layout_get_pixel_size(d->layout, &title_width, &title_height);
        title_pos = get_real_pos(ws, TBT_TITLE, d);
-       create_glow (d, cr, title_pos, y1 + top/2.0 - title_height/2.0,
-                           title_width, title_height,
+       create_glow (d, cr, title_pos, y1 + top/2.0 - titletext_height/2.0,
+                           titletext_width, titletext_height,
                            &pfs->glow_inner, pfs->glow_radius);
     }
 

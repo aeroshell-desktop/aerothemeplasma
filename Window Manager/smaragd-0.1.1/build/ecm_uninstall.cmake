@@ -1,8 +1,8 @@
-if(NOT EXISTS "/home/boki/Downloads/smaragd-0.1.1/build/install_manifest.txt")
-    message(FATAL_ERROR "Cannot find install manifest: /home/boki/Downloads/smaragd-0.1.1/build/install_manifest.txt")
+if(NOT EXISTS "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/install_manifest.txt")
+    message(FATAL_ERROR "Cannot find install manifest: /mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/install_manifest.txt")
 endif()
 
-file(READ "/home/boki/Downloads/smaragd-0.1.1/build/install_manifest.txt" files)
+file(READ "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/install_manifest.txt" files)
 string(REGEX REPLACE "\n" ";" files "${files}")
 foreach(file ${files})
     message(STATUS "Uninstalling $ENV{DESTDIR}${file}")

@@ -67,13 +67,13 @@ void Smaragd::Decoration::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         auto *_t = static_cast<Decoration *>(_o);
-        Q_UNUSED(_t)
+        (void)_t;
         switch (_id) {
         case 0: _t->updateLayout(); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
+    (void)_a;
 }
 
 QT_INIT_METAOBJECT const QMetaObject Smaragd::Decoration::staticMetaObject = { {
@@ -159,7 +159,7 @@ void Smaragd::DecorationButton::qt_static_metacall(QObject *_o, QMetaObject::Cal
 #ifndef QT_NO_PROPERTIES
     if (_c == QMetaObject::ReadProperty) {
         auto *_t = static_cast<DecorationButton *>(_o);
-        Q_UNUSED(_t)
+        (void)_t;
         void *_v = _a[0];
         switch (_id) {
         case 0: *reinterpret_cast< qreal*>(_v) = _t->hoverProgress(); break;
@@ -167,7 +167,7 @@ void Smaragd::DecorationButton::qt_static_metacall(QObject *_o, QMetaObject::Cal
         }
     } else if (_c == QMetaObject::WriteProperty) {
         auto *_t = static_cast<DecorationButton *>(_o);
-        Q_UNUSED(_t)
+        (void)_t;
         void *_v = _a[0];
         switch (_id) {
         case 0: _t->setHoverProgress(*reinterpret_cast< qreal*>(_v)); break;
@@ -176,10 +176,10 @@ void Smaragd::DecorationButton::qt_static_metacall(QObject *_o, QMetaObject::Cal
     } else if (_c == QMetaObject::ResetProperty) {
     }
 #endif // QT_NO_PROPERTIES
-    Q_UNUSED(_o);
-    Q_UNUSED(_id);
-    Q_UNUSED(_c);
-    Q_UNUSED(_a);
+    (void)_o;
+    (void)_id;
+    (void)_c;
+    (void)_a;
 }
 
 QT_INIT_METAOBJECT const QMetaObject Smaragd::DecorationButton::staticMetaObject = { {
