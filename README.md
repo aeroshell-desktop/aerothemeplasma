@@ -56,11 +56,12 @@ relevant specifications:
  - X11
  - KDE Plasma 5.22.3, KDE Frameworks 5.84.0
  - Qt 5.15.2
- - Intel integrated Graphics
+ - Intel integrated Graphics, AMD GPUs
  - 96 DPI scaling
 
 This theme has NOT been tested on HiDPI monitors. Contributors who are able to test it on HiDPI scaling are
 greatly welcome. Your mileage may vary in terms of results, depending on your distro and other specifications.
+This theme has also not been tested on Wayland, and I do not intend to test or support this theme on Wayland. 
 
 Keep in mind that I'm not a designer, and that the most I've done is modify the themes I've come across the
 Internet. I'll put a link to all the themes I've included and modified in this theme pack. I'm just a passionate user
