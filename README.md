@@ -420,9 +420,7 @@ As for features that are lacking compared to Windows 7, there's a few that I'd l
     decorations. While this has enabled Kwin to get a very detailed and close feeling of the Aero visual style,
     it's not perfect. The decorations look a bit weird when maximised, especially when out of focus, but this is
     pretty minor. The second issue is that it doesn't feature window reflections, which makes it pretty jarring
-    to look at. The last feature that is missing is the white blur behind the window title. This actually does 
-    work under emerald, however smaragd has this feature implemented in a bugged way, where the blurry cloud gets
-    stretched across the entire width of the titlebar, instead of fitting just the text. 
+    to look at. 
 2.  <b>True Aero peek and Aero shake</b><br>
     There's a widget called Show Desktop (Win7) (https://store.kde.org/p/1100895/) which implements a Windows 7-like
     Show desktop button, with a working Aero Peek. Of course, though, the Aero peek animation depends on KDE's
@@ -433,8 +431,7 @@ As for features that are lacking compared to Windows 7, there's a few that I'd l
     Hover animations for things such as system tray icons, task manager indicators, and most notably the start menu orb.
     Latte dock has Windows 7 task manager indicators, which look pretty good, however Latte dock is pretty bloated, and
     also breaks the aforementioned Show Desktop (Win7) widget for some unknown reason, thus I don't use it. The start menu
-    orb glowing animations are also unobtainable, which is quite unfortunate. Another thing that is missing is window
-    highlighting upon hovering over a task icon tooltip. (This feature has actually been implemented in Plasma 5.21)
+    orb glowing animations are also unobtainable, which is quite unfortunate. 
     This complaint also applies to Qtcurve/QGtkStyle, as it doesn't feature any animations of any kind, sadly. All the hovers and
     presses are instant, without the smooth animations of Aero. 
     
