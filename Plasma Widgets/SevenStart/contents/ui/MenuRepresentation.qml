@@ -511,6 +511,10 @@ PlasmaCore.Dialog {
                         return shortcuts.home
                     else if (val === 5)
                         return shortcuts.movies
+                    else if (val === 6)
+                        return "~/Downloads"
+                    else if (val === 7)
+                        return "/"
                 }
             }
 
@@ -643,36 +647,7 @@ PlasmaCore.Dialog {
                     size: iconSizeSide
                     //onClicked: executable.exec("dolphin --new-window "+folderDialog.getPath(2))
                 }
-                ListDelegate {
-                    text: "Music"
-                    Image {
-                        property bool hovered: false
-                        source: "../pics/menu_select.png"
-                        smooth: true
-                        opacity: hovered ? 1.0 : 0.0
-                        width: parent.width
-                        height: parent.height
-                        MouseArea {
-                            enabled: !root.hoverDisabled
-                            acceptedButtons: Qt.LeftButton
-                            onEntered: {
-                                parent.hovered = true
-                            }
-                            onExited: {
-                                parent.hovered = false
-                            }
-                            onClicked: {
-                                root.visible = false;
-                                executable.exec("dolphin --new-window "+folderDialog.getPath(3))
-                            }
-                            hoverEnabled: true
-                            anchors.fill: parent
-                            }
-                    }
-                    icon: "folder-music"
-                    size: iconSizeSide
-                    //onClicked: executable.exec("dolphin --new-window "+folderDialog.getPath(3))
-                }
+                
                 ListDelegate {
                     text: "Pictures"
                     Image {
@@ -704,6 +679,36 @@ PlasmaCore.Dialog {
                     //onClicked: executable.exec("dolphin --new-window "+folderDialog.getPath(1))
                 }
                 ListDelegate {
+                    text: "Music"
+                    Image {
+                        property bool hovered: false
+                        source: "../pics/menu_select.png"
+                        smooth: true
+                        opacity: hovered ? 1.0 : 0.0
+                        width: parent.width
+                        height: parent.height
+                        MouseArea {
+                            enabled: !root.hoverDisabled
+                            acceptedButtons: Qt.LeftButton
+                            onEntered: {
+                                parent.hovered = true
+                            }
+                            onExited: {
+                                parent.hovered = false
+                            }
+                            onClicked: {
+                                root.visible = false;
+                                executable.exec("dolphin --new-window "+folderDialog.getPath(3))
+                            }
+                            hoverEnabled: true
+                            anchors.fill: parent
+                            }
+                    }
+                    icon: "folder-music"
+                    size: iconSizeSide
+                    //onClicked: executable.exec("dolphin --new-window "+folderDialog.getPath(3))
+                }
+                ListDelegate {
                     text: "Videos"
                     Image {
                         property bool hovered: false
@@ -724,6 +729,66 @@ PlasmaCore.Dialog {
                             onClicked: {
                                 root.visible = false;
                                 executable.exec("dolphin --new-window "+folderDialog.getPath(5))
+                            }
+                            hoverEnabled: true
+                            anchors.fill: parent
+                            }
+                    }
+                    icon: "folder-music"
+                    size: iconSizeSide
+                    //onClicked: executable.exec("dolphin --new-window "+folderDialog.getPath(5))
+                }
+                ListDelegate {
+                    text: "Downloads"
+                    Image {
+                        property bool hovered: false
+                        source: "../pics/menu_select.png"
+                        smooth: true
+                        opacity: hovered ? 1.0 : 0.0
+                        width: parent.width
+                        height: parent.height
+                        MouseArea {
+                            enabled: !root.hoverDisabled
+                            acceptedButtons: Qt.LeftButton
+                            onEntered: {
+                                parent.hovered = true
+                            }
+                            onExited: {
+                                parent.hovered = false
+                            }
+                            onClicked: {
+                                root.visible = false;
+                                executable.exec("dolphin --new-window "+folderDialog.getPath(6))
+                            }
+                            hoverEnabled: true
+                            anchors.fill: parent
+                            }
+                    }
+                    icon: "folder-music"
+                    size: iconSizeSide
+                    //onClicked: executable.exec("dolphin --new-window "+folderDialog.getPath(5))
+                }
+                ListDelegate {
+                    text: "Computer"
+                    Image {
+                        property bool hovered: false
+                        source: "../pics/menu_select.png"
+                        smooth: true
+                        opacity: hovered ? 1.0 : 0.0
+                        width: parent.width
+                        height: parent.height
+                        MouseArea {
+                            enabled: !root.hoverDisabled
+                            acceptedButtons: Qt.LeftButton
+                            onEntered: {
+                                parent.hovered = true
+                            }
+                            onExited: {
+                                parent.hovered = false
+                            }
+                            onClicked: {
+                                root.visible = false;
+                                executable.exec("dolphin --new-window "+folderDialog.getPath(7))
                             }
                             hoverEnabled: true
                             anchors.fill: parent
@@ -754,7 +819,37 @@ PlasmaCore.Dialog {
                             }
                             onClicked: {
                                 root.visible = false;
-                                logic.openUrl("file:///usr/share/applications/systemsettings.desktop")
+                                executable.exec("systemsettings5")
+                            }
+                            hoverEnabled: true
+                            anchors.fill: parent
+                            }
+                    }
+                    icon: "configure"
+                    size: iconSizeSide
+                    //onClicked: logic.openUrl("file:///usr/share/applications/systemsettings.desktop")
+                }
+                ListDelegate {
+                    text: "Default Programs"
+                    Image {
+                        property bool hovered: false
+                        source: "../pics/menu_select.png"
+                        smooth: true
+                        opacity: hovered ? 1.0 : 0.0
+                        width: parent.width
+                        height: parent.height
+                        MouseArea {
+                            enabled: !root.hoverDisabled
+                            acceptedButtons: Qt.LeftButton
+                            onEntered: {
+                                parent.hovered = true
+                            }
+                            onExited: {
+                                parent.hovered = false
+                            }
+                            onClicked: {
+                                root.visible = false;
+                                executable.exec("systemsettings5 componentchooser")
                             }
                             hoverEnabled: true
                             anchors.fill: parent

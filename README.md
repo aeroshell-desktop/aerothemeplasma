@@ -91,6 +91,10 @@ there are any improvements to be made here, any and all effort would be greatly 
 
 <img src="Screenshots/Taskbar.png">
 
+### System Tray
+
+<img src="Screenshots/System_Tray.png">
+
 ### Plasma Style
 
 <img src="Screenshots/Notification.png">
@@ -272,6 +276,16 @@ or inconsistencies, for now post them in the next desktop threads.
 
 Make sure that your panel's width is set to 40. Also make sure that you're using the ```Icons-only Task Manager``` widget to make it look closer to Windows 7.
 
+#### Modified System Tray
+
+This modification will add hover animations to the default system tray plasmoid, as well as remove the annoying popup animation which happens upon clicking on an item. 
+Since the system tray is a complex plasmoid, its files have to be replaced with a modified version provided in this theme. To do this, copy the ```org.kde.plasma.private.systemtray``` found in the ```Plasma Widgets``` folder to the following directory:
+
+```/usr/share/plasma/plasmoids/```
+
+This will override the default System Tray plasmoid. It is not recommended to edit this particular plasmoid, so proceed with caution. Make sure to back up the original plasmoid somewhere safe. 
+
+
 #### Digital Clock Lite
 
 Install the widget ```Digital Clock Lite``` (https://www.kde-look.org/p/1225135/) and replace the ugly large clock widget with 
@@ -281,6 +295,8 @@ it. By default it should already look a lot like Windows 7's clock, but if it do
 - Font style: Segoe UI
 
 You can tweak the other settings to your liking. 
+
+#### Show Desktop (Win7)
 
 Lastly, install the ```Show Desktop (Win7)``` widget (https://www.kde-look.org/p/1100895/) and configure it to these settings:
 

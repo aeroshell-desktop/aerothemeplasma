@@ -44,11 +44,33 @@ Item {
 
     property QtObject globalFavorites: rootModel.favoritesModel
     property QtObject systemFavorites: rootModel.systemFavoritesModel
+PlasmaCore.DataSource {
+            id: menu_executable
+            engine: "executable"
+            connectedSources: []
+            onNewData: {
+                var exitCode = data["exit code"]
+                var exitStatus = data["exit status"]
+                var stdout = data["stdout"]
+                var stderr = data["stderr"]
+                exited(sourceName, exitCode, exitStatus, stdout, stderr)
+                disconnectSource(sourceName)
+            }
+            function exec(cmd) {
+                if (cmd) {
+                    connectSource(cmd)
+                }
+            }
+            signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
+        }
 
     function action_menuedit() {
         processRunner.runMenuEditor();
     }
-
+    function action_taskman() {
+        menu_executable.exec("ksysguard");
+    }
+  
     Component {
         id: compactRepresentation
         CompactRepresentation {}
@@ -197,6 +219,7 @@ Item {
 
     Component.onCompleted: {
         plasmoid.setAction("menuedit", i18n("Edit Applications..."));
+        plasmoid.setAction("taskman", i18n("Task Manager"));
 
         rootModel.refreshed.connect(reset);
 
