@@ -236,7 +236,7 @@ void MainWindow::on_Lightness_Slider_valueChanged(int value)
     changeCustomColor();
 }
 
-void MainWindow::on_horizontalSlider_valueChanged(int value)
+void MainWindow::on_alpha_slider_valueChanged(int value)
 {
     ui->alpha_label->setText(QString::number(ui->alpha_slider->value()));
     changeCustomColor();
@@ -439,10 +439,6 @@ void MainWindow::on_cancel_Button_clicked()
     this->close();
 }
 
-void MainWindow::on_alpha_slider_valueChanged(int value)
-{
-    ui->alpha_label->setText(QString::number(ui->alpha_slider->value()));
-}
 
 void MainWindow::on_saveChanges_Button_clicked()
 {

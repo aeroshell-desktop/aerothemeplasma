@@ -115,7 +115,6 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 2: _t->on_pushButton_3_clicked(); break;
         case 3: _t->on_saturation_Slider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 4: _t->on_Lightness_Slider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 5: _t->on_horizontalSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 6: _t->on_colorWindow_Clicked(); break;
         case 7: _t->on_apply_Button_clicked(); break;
         case 8: _t->on_cancel_Button_clicked(); break;
