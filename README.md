@@ -77,9 +77,7 @@ there are any improvements to be made here, any and all effort would be greatly 
 ### Start Menu
 <img src="Screenshots/Start_Menu.png">
 
-<video controls="true" allowfullscreen="true">
-    <source src="Screenshots/starthover.webm" type="video/webm">
-</video>
+![](Screenshots/starthover.webm)
 
 ### Dolphin
 <img src="Screenshots/Dolphin_2.png">
@@ -91,9 +89,8 @@ there are any improvements to be made here, any and all effort would be greatly 
 
 ### Taskbar
 
-<video controls="true" allowfullscreen="true">
-    <source src="Screenshots/hovertask.webm" type="video/webm">
-</video>
+![](Screenshots/hovertask.webm)
+
 <img src="Screenshots/Taskbar.png">
 
 ### System Tray
