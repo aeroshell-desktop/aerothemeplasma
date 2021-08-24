@@ -73,7 +73,7 @@ Item {
     PlasmaCore.IconItem {
         id: buttonIconHovered
         z: 1
-        source: "/opt/AeroTheme/hovered.png"
+        source: plasmoid.configuration.customButtonImageHover
         opacity: 0
         anchors.fill: parent
         readonly property double aspectRatio: (vertical ? implicitHeight / implicitWidth
@@ -95,7 +95,7 @@ Item {
         
         
         //source: useCustomButtonImage ? plasmoid.configuration.customButtonImage : plasmoid.configuration.icon
-        source: dashWindow.visible ? "/opt/AeroTheme/selected.png" : "/opt/AeroTheme/normal.png" 
+        source: dashWindow.visible ? plasmoid.configuration.customButtonImageActive : plasmoid.configuration.customButtonImage
         
         states: State {
             name: "mouse-over"; when: mouseArea.containsMouse && !dashWindow.visible

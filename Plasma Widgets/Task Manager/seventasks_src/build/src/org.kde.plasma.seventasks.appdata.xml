@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component>
+    <id>org.kde.plasma.seventasks</id>
+    <name>SevenTasks</name>
+    <name xml:lang="ar">SevenTasks</name>
+    <name xml:lang="az">SevenTasks</name>
+    <name xml:lang="ca@valencia">SevenTasks</name>
+    <name xml:lang="ca">SevenTasks</name>
+    <name xml:lang="cs">SevenTasks</name>
+    <name xml:lang="da">SevenTasks</name>
+    <name xml:lang="de">SevenTasks</name>
+    <name xml:lang="en_GB">SevenTasks</name>
+    <name xml:lang="es">SevenTasks</name>
+    <name xml:lang="et">SevenTasks</name>
+    <name xml:lang="eu">SevenTasks</name>
+    <name xml:lang="fi">SevenTasks</name>
+    <name xml:lang="fr">SevenTasks</name>
+    <name xml:lang="gd">SevenTasks</name>
+    <name xml:lang="gl">SevenTasks</name>
+    <name xml:lang="hu">SevenTasks</name>
+    <name xml:lang="ia">SevenTasks</name>
+    <name xml:lang="id">SevenTasks</name>
+    <name xml:lang="it">SevenTasks</name>
+    <name xml:lang="ko">SevenTasks</name>
+    <name xml:lang="lt">SevenTasks</name>
+    <name xml:lang="nb">SevenTasks</name>
+    <name xml:lang="nl">SevenTasks</name>
+    <name xml:lang="nn">SevenTasks</name>
+    <name xml:lang="pa">SevenTasks</name>
+    <name xml:lang="pl">SevenTasks</name>
+    <name xml:lang="pt">SevenTasks</name>
+    <name xml:lang="pt_BR">SevenTasks</name>
+    <name xml:lang="ro">SevenTasks</name>
+    <name xml:lang="ru">SevenTasks</name>
+    <name xml:lang="sk">SevenTasks</name>
+    <name xml:lang="sl">SevenTasks</name>
+    <name xml:lang="sr@ijekavian">SevenTasks</name>
+    <name xml:lang="sr@ijekavianlatin">SevenTasks</name>
+    <name xml:lang="sr@latin">SevenTasks</name>
+    <name xml:lang="sr">SevenTasks</name>
+    <name xml:lang="sv">SevenTasks</name>
+    <name xml:lang="tg">SevenTasks</name>
+    <name xml:lang="tr">SevenTasks</name>
+    <name xml:lang="uk">SevenTasks</name>
+    <name xml:lang="vi">SevenTasks</name>
+    <name xml:lang="x-test">xxSevenTasksxx</name>
+    <name xml:lang="zh_CN">SevenTasks</name>
+    <name xml:lang="zh_TW">SevenTasks</name>
+    <summary>what your app does in a few words</summary>
+    <summary xml:lang="ar">ما يفعله تطبيقك ببضع كلمات</summary>
+    <summary xml:lang="az">Bu proqramın nə işə yaradığı haqqında bir neçə söz</summary>
+    <summary xml:lang="ca@valencia">Què fa aquesta aplicació en poques paraules</summary>
+    <summary xml:lang="ca">Què fa aquesta aplicació en poques paraules</summary>
+    <summary xml:lang="da">nogle få ord om hvad din app gør</summary>
+    <summary xml:lang="de">In ein paar Worten, was Ihre Anwendung tut</summary>
+    <summary xml:lang="en_GB">what your app does in a few words</summary>
+    <summary xml:lang="es">lo que hace su aplicación, en pocas palabras</summary>
+    <summary xml:lang="et">Mõne sõnaga, mida rakendus teeb</summary>
+    <summary xml:lang="eu">zure aplikazioak egiten duena hitz gutxitan</summary>
+    <summary xml:lang="fi">ohjelmasi toiminta muutamalla sanalla</summary>
+    <summary xml:lang="fr">que fait votre application en quelques mots</summary>
+    <summary xml:lang="gd">na nì an aplacaid agad ann am beagan fhaclan</summary>
+    <summary xml:lang="gl">o que fai o seu aplicativo en poucas palabras</summary>
+    <summary xml:lang="hu">Írja le néhány szóba, mit csinál az alkalmazása!</summary>
+    <summary xml:lang="ia">cosa tu app face in pauc parolas</summary>
+    <summary xml:lang="id">app apa yang kamu lakukan dalam beberapa kata</summary>
+    <summary xml:lang="it">Cosa fa la tua applicazione in poche parole</summary>
+    <summary xml:lang="ko">프로그램이 하는 일에 대한 간단한 설명</summary>
+    <summary xml:lang="nb">hva programmet gjør, med noen få ord</summary>
+    <summary xml:lang="nl">wat uw app doet in een paar woorden</summary>
+    <summary xml:lang="nn">nokre få ord om kva programmet gjer</summary>
+    <summary xml:lang="pl">w kilku słowach opis co robi twój program</summary>
+    <summary xml:lang="pt">o que faz a sua aplicação, em poucas palavras</summary>
+    <summary xml:lang="pt_BR">breve descrição do que o seu aplicativo faz</summary>
+    <summary xml:lang="ro">ce face aplicația, în câteva cuvinte</summary>
+    <summary xml:lang="ru">Несколько слов о том, что делает ваша программа</summary>
+    <summary xml:lang="sk">čo vaša aplikácia robí v niekoľkých slovách</summary>
+    <summary xml:lang="sl">kaj vaš program dela, v nekaj besedah</summary>
+    <summary xml:lang="sr@ijekavian">Укратко о томе шта ваш програм ради</summary>
+    <summary xml:lang="sr@ijekavianlatin">Ukratko o tome šta vaš program radi</summary>
+    <summary xml:lang="sr@latin">Ukratko o tome šta vaš program radi</summary>
+    <summary xml:lang="sr">Укратко о томе шта ваш програм ради</summary>
+    <summary xml:lang="sv">vad programmet gör med några få ord</summary>
+    <summary xml:lang="tg">Тавсифи мухтасареро нависед, ки барномаи шумо чӣ кор мекунад</summary>
+    <summary xml:lang="tr">uygulamanızın yaptığı şey, birkaç sözcükte</summary>
+    <summary xml:lang="uk">призначення вашої програми у декількох словах</summary>
+    <summary xml:lang="vi">dùng vài từ để mô tả ứng dụng của bạn làm việc gì</summary>
+    <summary xml:lang="x-test">xxwhat your app does in a few wordsxx</summary>
+    <summary xml:lang="zh_CN">简单几个词概括您的小程序的功能</summary>
+    <summary xml:lang="zh_TW">以數個字描述您的應用程式的用途</summary>
+    <url type="homepage">https://plasma.kde.org/</url>
+    <url type="donation">https://www.kde.org/donate.php?app=org.kde.plasma.seventasks</url>
+    <icon type="stock">applications-system</icon>
+    <project_license>LGPL-2.1+</project_license>
+    <metadata_license>CC0-1.0</metadata_license>
+</component>

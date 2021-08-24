@@ -39,6 +39,8 @@ Item {
     property string cfg_icon: plasmoid.configuration.icon
     property bool cfg_useCustomButtonImage: plasmoid.configuration.useCustomButtonImage
     property string cfg_customButtonImage: plasmoid.configuration.customButtonImage
+    property string cfg_customButtonImageHover: plasmoid.configuration.customButtonImageHover
+    property string cfg_customButtonImageActive: plasmoid.configuration.customButtonImageActive
 
     property alias cfg_appNameFormat: appNameFormat.currentIndex
     property alias cfg_switchCategoriesOnHover: switchCategoriesOnHover.checked
@@ -57,7 +59,37 @@ Item {
                 text: i18n("Icon:")
             }
 
-            Button {
+            IconPicker {
+                id: iconPickerNormal
+                currentIcon: cfg_customButtonImage
+                defaultIcon: "start-here-kde"
+                onIconChanged: cfg_customButtonImage = iconName
+                enabled: cfg_useCustomButtonImage
+                
+            }
+            Label {
+                text: i18n("Hover Icon:")
+            }
+            IconPicker {
+                id: iconPickerHover
+                currentIcon: cfg_customButtonImageHover
+                defaultIcon: "start-here-kde"
+                onIconChanged: cfg_customButtonImageHover = iconName
+                enabled: cfg_useCustomButtonImage
+                
+            }
+            Label {
+                text: i18n("Active Icon:")
+            }
+            IconPicker {
+                id: iconPickerActive
+                currentIcon: cfg_customButtonImageActive
+                defaultIcon: "start-here-kde"
+                onIconChanged: cfg_customButtonImageActive = iconName
+                enabled: cfg_useCustomButtonImage
+                
+            }
+            /*Button {
                 id: iconButton
                 Layout.minimumWidth: previewFrame.width + units.smallSpacing * 2
                 Layout.maximumWidth: Layout.minimumWidth
@@ -152,7 +184,7 @@ Item {
                         cfg_useCustomButtonImage = false;
                     }
                 }
-            }
+            }*/
         }
 
         GroupBox {

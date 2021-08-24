@@ -217,19 +217,56 @@ PlasmaCore.Dialog {
         
         Rectangle {
                 id: backgroundRect
-                anchors.fill: pageListScrollArea
+                //anchors.fill: pageListScrollArea
+                anchors.top: pageListScrollArea.top
+                anchors.topMargin: -4
                 anchors.left: pageListScrollArea.left
+                //anchors.leftMargin: units.smallSpacing
                 width:  root.cellWidth
-                height: (root.cellHeight * plasmoid.configuration.numberRows)
+                height: (root.cellHeight * plasmoid.configuration.numberRows)  + searchBackground.height + 4
                 color: "white"
+                border.color: "#44000000"
+                border.width: 1
                 radius: 3
+                 Rectangle {
+                color: "#cddbea"
+                radius: 3
+                 anchors { 
+                    top: searchBackground.top
+                    topMargin: 1
+                    //bottomMargin: units.smallSpacing
+                    left: parent.left
+                    leftMargin: 1
+                }
+                width: backgroundRect.width-2
+                height: 2
+                //height: backgroundRect
+                z: 5
+                
+                
+        }
+        Rectangle {
+                id: searchBackground
+                color: "#F3F7FB"
+                radius: 3
+                anchors { 
+                    bottom: parent.bottom 
+                    bottomMargin: units.smallSpacing-2
+                    left: parent.left
+                    leftMargin: 1
+                }
+                width: backgroundRect.width - 2
+                height: searchField.height + units.smallSpacing * 4.5
+                
+            }
             }
         PlasmaExtras.ScrollArea {
             id: pageListScrollArea
             //color: "white";
             anchors {
                 //left: root.left
-                //leftMargin: -units.smallSpacing *2
+                leftMargin: units.smallSpacing
+                rightMargin: units.smallSpacing
                 top: parent.top
                 topMargin: units.smallSpacing
             }
@@ -386,34 +423,14 @@ PlasmaCore.Dialog {
                 }
             }
         }
-         Rectangle {
-                color: "#cddbea"
-                 anchors { 
-                    bottom: parent.bottom 
-                    bottomMargin: units.smallSpacing
-                    left: parent.left
-                }
-                width: backgroundRect.width
-                height: searchField.height + units.smallSpacing * 4.5 + 2
-        }
-        Rectangle {
-                color: "#F3F7FB"
-                radius: 3
-                anchors { 
-                    bottom: parent.bottom 
-                    bottomMargin: units.smallSpacing-2
-                    left: parent.left
-                }
-                width: backgroundRect.width
-                height: searchField.height + units.smallSpacing * 4.5
-            }
+        
            
         TextField {
             id: searchField
             anchors{
                 //top: leaveButtons.top
                 bottom: parent.bottom
-                bottomMargin: units.smallSpacing * 3
+                bottomMargin: units.smallSpacing * 2.5
                 left: parent.left
                 right: sidePanel.left + units.largeSpacing
                 rightMargin: units.largeSpacing * 3
@@ -593,7 +610,7 @@ PlasmaCore.Dialog {
                     Image {
                         property bool hovered: false
                         source: "../pics/menu_select.png"
-                        smooth: true
+                        smooth: false
                         opacity: hovered ? 1.0 : 0.0
                         width: parent.width
                         height: parent.height
@@ -622,7 +639,7 @@ PlasmaCore.Dialog {
                     Image {
                         property bool hovered: false
                         source: "../pics/menu_select.png"
-                        smooth: true
+                        smooth: false
                         opacity: hovered ? 1.0 : 0.0
                         width: parent.width
                         height: parent.height
@@ -653,7 +670,7 @@ PlasmaCore.Dialog {
                     Image {
                         property bool hovered: false
                         source: "../pics/menu_select.png"
-                        smooth: true
+                        smooth: false
                         opacity: hovered ? 1.0 : 0.0
                         width: parent.width
                         height: parent.height
@@ -683,7 +700,7 @@ PlasmaCore.Dialog {
                     Image {
                         property bool hovered: false
                         source: "../pics/menu_select.png"
-                        smooth: true
+                        smooth: false
                         opacity: hovered ? 1.0 : 0.0
                         width: parent.width
                         height: parent.height
@@ -713,7 +730,7 @@ PlasmaCore.Dialog {
                     Image {
                         property bool hovered: false
                         source: "../pics/menu_select.png"
-                        smooth: true
+                        smooth: false
                         opacity: hovered ? 1.0 : 0.0
                         width: parent.width
                         height: parent.height
@@ -743,7 +760,7 @@ PlasmaCore.Dialog {
                     Image {
                         property bool hovered: false
                         source: "../pics/menu_select.png"
-                        smooth: true
+                        smooth: false
                         opacity: hovered ? 1.0 : 0.0
                         width: parent.width
                         height: parent.height
@@ -773,7 +790,7 @@ PlasmaCore.Dialog {
                     Image {
                         property bool hovered: false
                         source: "../pics/menu_select.png"
-                        smooth: true
+                        smooth: false
                         opacity: hovered ? 1.0 : 0.0
                         width: parent.width
                         height: parent.height
@@ -804,8 +821,9 @@ PlasmaCore.Dialog {
                     Image {
                         property bool hovered: false
                         source: "../pics/menu_select.png"
-                        smooth: true
+                        smooth: false
                         opacity: hovered ? 1.0 : 0.0
+                        fillMode: Image.PreserveAspectFit
                         width: parent.width
                         height: parent.height
                         MouseArea {
@@ -834,7 +852,7 @@ PlasmaCore.Dialog {
                     Image {
                         property bool hovered: false
                         source: "../pics/menu_select.png"
-                        smooth: true
+                        smooth: false
                         opacity: hovered ? 1.0 : 0.0
                         width: parent.width
                         height: parent.height
@@ -873,9 +891,15 @@ PlasmaCore.Dialog {
                     id: leaveButtons
                     width: parent.width
                     
-                    anchors.top: parent.bottom
-                    anchors.topMargin: units.smallSpacing * -4.8
-                    anchors.left: parent.left
+                    anchors{
+                //top: leaveButtons.top
+                //bottom: searchField.bottom
+                        bottom: parent.bottom
+                        bottomMargin: -units.smallSpacing * 3.0 + 1
+                        left: parent.left
+                    }
+                    //anchors.top: searchField.top
+                    //anchors.topMargin: searchField.topMargin 
                     Layout.fillWidth: false
                     ListDelegate {
                         //text: i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Shut Down")
@@ -933,6 +957,7 @@ PlasmaCore.Dialog {
                         //text: i18nc("@action", "Lock Screen")
                         width: units.smallSpacing * 8
                         anchors.left: shutdown.right
+                        anchors.leftMargin: -units.smallSpacing
                         anchors.top: shutdown.top
                         height: shutdown.height 
                         
@@ -964,7 +989,7 @@ PlasmaCore.Dialog {
                                         }
                                         //source: ma.containsMouse ? "../pics/shutdown_hover.png" : "../pics/shutdown.png"
                                         source: "../pics/shutdown_small.png"
-                                        //fillMode: Image.PreserveAspectFit
+                                        fillMode: Image.PreserveAspectFit
                                         width: parent.width
                                         height: parent.height - units.smallSpacing / 2
                                         anchors.left: parent.left

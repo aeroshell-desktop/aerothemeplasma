@@ -1,0 +1,31 @@
+/*
+    SPDX-FileCopyrightText: 2012-2013 Eike Hein <hein@kde.org>
+
+    SPDX-License-Identifier: GPL-2.0-or-later
+*/
+
+import QtQuick 2.0
+import org.kde.plasma.core 2.0 as PlasmaCore
+
+Flow {
+    property bool animating: false
+
+    layoutDirection: Qt.application.layoutDirection
+
+    property int rows: Math.floor(height / children[0].height)
+    property int columns: Math.floor(width / children[0].width)
+
+    move: Transition {
+        SequentialAnimation {
+            PropertyAction { target: taskList; property: "animating"; value: true }
+
+            NumberAnimation {
+                properties: "x, y"
+                easing.type: Easing.OutQuad
+                duration: PlasmaCore.Units.longDuration
+            }
+
+            PropertyAction { target: taskList; property: "animating"; value: false }
+        }
+    }
+}

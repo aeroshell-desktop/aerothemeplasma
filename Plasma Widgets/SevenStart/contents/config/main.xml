@@ -13,7 +13,13 @@
       <default>false</default>
     </entry>
     <entry name="customButtonImage" type="Url">
-      <default></default>
+      <default>start-here-kde</default>
+    </entry>
+    <entry name="customButtonImageHover" type="Url">
+      <default>start-here-kde</default>
+    </entry>
+    <entry name="customButtonImageActive" type="Url">
+      <default>start-here-kde</default>
     </entry>
 
     <entry name="showFilterList" type="Bool">
