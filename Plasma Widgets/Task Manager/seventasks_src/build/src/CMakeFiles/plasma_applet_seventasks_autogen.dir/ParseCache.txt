@@ -38,8 +38,6 @@
  mdp:/usr/include/KF5/plasma/plasma_export.h
  mdp:/usr/include/KF5/plasma/svg.h
  mdp:/usr/include/KF5/plasma/theme.h
- mdp:/usr/include/KF5/plasma/version.h
- mdp:/usr/include/KF5/plasma_version.h
  mdp:/usr/include/asm-generic/errno-base.h
  mdp:/usr/include/asm-generic/errno.h
  mdp:/usr/include/asm/errno.h
@@ -480,8 +478,6 @@
  mdp:/usr/include/KF5/plasma/plasma_export.h
  mdp:/usr/include/KF5/plasma/svg.h
  mdp:/usr/include/KF5/plasma/theme.h
- mdp:/usr/include/KF5/plasma/version.h
- mdp:/usr/include/KF5/plasma_version.h
  mdp:/usr/include/asm-generic/errno-base.h
  mdp:/usr/include/asm-generic/errno.h
  mdp:/usr/include/asm/errno.h

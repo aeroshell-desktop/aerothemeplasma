@@ -38,6 +38,7 @@ MouseArea {
 
     Plasmoid.onUserConfiguringChanged: {
         if (plasmoid.userConfiguring) {
+            LayoutManager.layout(taskRepeater);
             groupDialog.visible = false;
         }
     }
@@ -63,6 +64,15 @@ MouseArea {
         StateChangeScript {
         script: taskList.updateHoverFunc();
         }
+        StateChangeScript {
+            script: LayoutManager.layout(taskRepeater);
+        }
+        PropertyChanges {
+            target: taskList; firstTimeHover: false
+        }
+        /*PropertyChanges {
+            target: tasks; needLayoutRefresh: true
+        }*/
         
     }
     onWidthChanged: {
@@ -470,7 +480,7 @@ MouseArea {
             
             delegate: Task { id: task }
             onItemAdded: {
-                taskList.layout()
+                taskList.layout();
                 taskList.updateHoverFunc();
             }
             onItemRemoved: {

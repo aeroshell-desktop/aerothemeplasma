@@ -100,7 +100,7 @@ Item {
         states: State {
             name: "mouse-over"; when: mouseArea.containsMouse && !dashWindow.visible
             //PropertyChanges { target: buttonIcon; opacity: dashWindow.visible ? 1 : 0}
-            PropertyChanges { target: buttonIconHovered; opacity: dashWindow.visible ? 0 : 1}
+            PropertyChanges { target: buttonIconHovered; opacity: 1}
         }
 
         transitions: Transition {
@@ -128,6 +128,7 @@ Item {
 
         onClicked: {
             dashWindow.visible = !dashWindow.visible;
+            dashWindow.showingAllPrograms = false;
         }
     }
 

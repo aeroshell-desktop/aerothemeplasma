@@ -73,5 +73,8 @@
       <label>Are the favorites ported to use KActivitiesStats to allow per-activity favorites</label>
       <default>false</default>
     </entry>
+    <entry name="showRecentsView" type="Bool">
+      <default>true</default>
+    </entry>
   </group>
 </kcfg>

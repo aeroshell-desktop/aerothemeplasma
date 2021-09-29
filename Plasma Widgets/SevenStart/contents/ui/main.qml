@@ -92,11 +92,11 @@ PlasmaCore.DataSource {
         showSeparators: true
         appletInterface: plasmoid
 
-        paginate: true
+        paginate: false
         pageSize: plasmoid.configuration.numberColumns *  plasmoid.configuration.numberRows
 
-        showAllApps: true
-        showRecentApps: false
+        showAllApps: false
+        showRecentApps: true
         showRecentDocs: false
         showRecentContacts: false
         showPowerSession: false
@@ -201,7 +201,12 @@ PlasmaCore.DataSource {
 
         imagePath: "widgets/panel-background"
     }
+    PlasmaCore.Svg {
+        id: arrowsSvg
 
+        imagePath: "widgets/arrows"
+        size: "16x16"
+    }
     PlasmaComponents.Label {
         id: toolTipDelegate
 

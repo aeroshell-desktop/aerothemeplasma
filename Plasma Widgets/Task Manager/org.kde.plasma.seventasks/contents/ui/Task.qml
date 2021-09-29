@@ -132,6 +132,7 @@ MouseArea {
     }
 
     onContainsMouseChanged:  {
+        updateMousePosition(ma.mouseX);
         if(taskList.firstTimeHover === false) {
             taskList.updateHoverFunc();
             taskList.firstTimeHover = true;
@@ -397,9 +398,9 @@ MouseArea {
                 }
                 gradient: Gradient {
                     id: radialGrad
-                    GradientStop { position: 0.0; color: "#CCEAEAEA" }
+                    GradientStop { position: 0.0; color: Qt.lighter(hoverColor, 1.8) }
                     GradientStop { position: 0.4; color: hoverColor }
-                    GradientStop { position: 0.8; color: "transparent" }
+                    GradientStop { position: 0.9; color: "transparent" }
                 }
                 verticalOffset: hoverRect.height/2.2
                 horizontalOffset: 0
@@ -419,7 +420,13 @@ MouseArea {
                anchors.fill: parent
                onPositionChanged: {
                    task.updateMousePosition(ma.mouseX);
-		   task.positionChanged(mouse);
+                   task.positionChanged(mouse);
+               }
+               onContainsMouseChanged: {
+                    task.updateMousePosition(ma.mouseX);
+                    //task.onContainsMouseChanged();
+                    //toolTipArea.onContainsMouseChanged();
+                    //mouse.accepted = false;
                }
                onPressed: mouse.accepted = false;
                onReleased: mouse.accepted = false;

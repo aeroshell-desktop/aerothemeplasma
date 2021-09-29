@@ -18,6 +18,10 @@ MouseArea {
                 
                    task.updateMousePosition(position.x);
                }
+    onContainsMouseChanged:  {
+            var position = audioStreamIconBox.mapToItem(task, audioStreamIconBox.mouseX, audioStreamIconBox.mouseY);
+            task.updateMousePosition(position.x);
+    }
     // Using States rather than a simple Behavior we can apply different transitions,
     // which allows us to delay showing the icon but hide it instantly still.
     states: [

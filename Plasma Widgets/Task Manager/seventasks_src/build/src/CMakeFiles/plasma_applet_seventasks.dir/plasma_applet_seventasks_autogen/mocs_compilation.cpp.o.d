@@ -276,7 +276,6 @@ src/CMakeFiles/plasma_applet_seventasks.dir/plasma_applet_seventasks_autogen/moc
  /usr/include/qt/QtCore/qbytearray.h \
  /usr/include/qt/QtCore/QStandardPaths \
  /usr/include/qt/QtCore/qstandardpaths.h \
- /usr/include/KF5/plasma/version.h /usr/include/KF5/plasma_version.h \
  /usr/include/KF5/KPackage/KPackage/Package \
  /usr/include/KF5/KPackage/kpackage/package.h \
  /usr/include/qt/QtCore/QCryptographicHash \

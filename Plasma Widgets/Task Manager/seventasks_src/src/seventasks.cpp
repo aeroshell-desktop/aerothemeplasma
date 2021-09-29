@@ -37,6 +37,7 @@ QRgb averageColor(QRgb a, QRgb b)
 }
 QColor SevenTasks::getDominantColor(QVariant src)
 {
+	QColor defaultHighlight(67, 160, 214, 170);
     QIcon ico = qvariant_cast<QIcon>(src);
     if(ico.isNull()) return QColor(255,255,255,170);
     //if(ico.name().isNull()) return QColor(255,255,255,170);
@@ -64,6 +65,8 @@ QColor SevenTasks::getDominantColor(QVariant src)
             int y = mapColorChannel(qGreen(line[j]));
             int z = mapColorChannel(qBlue(line[j]));
             if((x == y && y == z)) continue;
+            /*if(QColor(qRed(line[j]), qGreen(line[j]), qBlue(line[j])).value() < 32) continue;
+            if(QColor(qRed(line[j]), qGreen(line[j]), qBlue(line[j])).hsvSaturation() < 32) continue;*/
             histogram[x][y][z].append(line[j]);
         }
     }
@@ -92,7 +95,7 @@ QColor SevenTasks::getDominantColor(QVariant src)
     }
     if(maxX == maxY && maxY == maxZ)
     {
-        return QColor(16, 140, 195, 170);
+        return defaultHighlight;
     }
     QRgb minCol = qRgb(255, 255, 255);
     QRgb maxCol = qRgb(0, 0, 0);
@@ -109,8 +112,8 @@ QColor SevenTasks::getDominantColor(QVariant src)
     }
     QRgb avg = averageColor(minCol, maxCol);
     QColor finalCol = QColor(avg);
-	if(finalCol.hsvSaturation() < 32) return QColor(16, 140, 195, 170);
-	if(finalCol.value() < 32) return QColor(16, 140, 195, 170);
+	if(finalCol.hsvSaturation() < 32) return defaultHighlight;
+	if(finalCol.value() < 85) return defaultHighlight;
     int saturation = finalCol.hsvSaturation() * 1.5;
     int value = finalCol.value() * 1.5;
     if(saturation > 255) saturation = 255;

@@ -41,7 +41,7 @@ CMAKE_BUILD_TYPE:STRING=
 CMAKE_COLOR_MAKEFILE:BOOL=ON
 
 //CXX compiler
-CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/c++
+CMAKE_CXX_COMPILER:STRING=/usr/bin/c++
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -67,7 +67,7 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
 //C compiler
-CMAKE_C_COMPILER:FILEPATH=/usr/bin/cc
+CMAKE_C_COMPILER:STRING=/usr/bin/cc
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -224,6 +224,9 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
 //The directory containing a CMake configuration file for ECM.
 ECM_DIR:PATH=/usr/share/ECM/cmake
+
+//Make use of -Bsymbolic-functions
+ENABLE_BSYMBOLICFUNCTIONS:BOOL=OFF
 
 //Path to a program.
 FISH_EXECUTABLE:FILEPATH=FISH_EXECUTABLE-NOTFOUND
@@ -482,7 +485,7 @@ CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
 //Minor version of cmake used to create the current loaded cache
 CMAKE_CACHE_MINOR_VERSION:INTERNAL=21
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=0
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=2
 //ADVANCED property for variable: CMAKE_COLOR_MAKEFILE
 CMAKE_COLOR_MAKEFILE-ADVANCED:INTERNAL=1
 //Path to CMake executable.
@@ -619,11 +622,11 @@ CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding Gettext
 FIND_PACKAGE_MESSAGE_DETAILS_Gettext:INTERNAL=[/usr/bin/msgmerge][/usr/bin/msgfmt][v0.21()]
 //Details about finding KF5
-FIND_PACKAGE_MESSAGE_DETAILS_KF5:INTERNAL=[success][cfound components: Plasma I18n ][v5.84.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_KF5:INTERNAL=[success][cfound components: Plasma I18n ][v5.85.0()]
 //Details about finding KF5I18n
-FIND_PACKAGE_MESSAGE_DETAILS_KF5I18n:INTERNAL=[/usr/lib64/cmake/KF5I18n/KF5I18nConfig.cmake][v5.84.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_KF5I18n:INTERNAL=[/usr/lib64/cmake/KF5I18n/KF5I18nConfig.cmake][v5.85.0()]
 //Details about finding KF5Plasma
-FIND_PACKAGE_MESSAGE_DETAILS_KF5Plasma:INTERNAL=[/usr/lib64/cmake/KF5Plasma/KF5PlasmaConfig.cmake][v5.84.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_KF5Plasma:INTERNAL=[/usr/lib64/cmake/KF5Plasma/KF5PlasmaConfig.cmake][v5.85.0()]
 //Test HAVE_DATE_TIME
 HAVE_DATE_TIME:INTERNAL=1
 //ADVANCED property for variable: KDE_INSTALL_APPDIR

@@ -113,6 +113,14 @@ MouseArea {
 
         flow: vertical ? GridLayout.TopToBottom : GridLayout.LeftToRight
 
+        
+        ExpanderArrow {
+            id: expander
+            Layout.fillWidth: vertical
+            Layout.fillHeight: !vertical
+            Layout.alignment: vertical ? Qt.AlignVCenter : Qt.AlignHCenter
+            visible: root.hiddenLayout.itemCount > 0
+        }
         GridView {
             id: tasksGrid
 
@@ -122,7 +130,7 @@ MouseArea {
             flow: vertical ? GridView.LeftToRight : GridView.TopToBottom
 
             // The icon size to display when not using the auto-scaling setting
-            readonly property int smallIconSize: PlasmaCore.Units.iconSizes.smallMedium
+            readonly property int smallIconSize: PlasmaCore.Units.iconSizes.small
             readonly property bool autoSize: plasmoid.configuration.scaleIconsToFit
 
             readonly property int gridThickness: root.vertical ? root.width : root.height
@@ -203,13 +211,6 @@ MouseArea {
             }
         }
 
-        ExpanderArrow {
-            id: expander
-            Layout.fillWidth: vertical
-            Layout.fillHeight: !vertical
-            Layout.alignment: vertical ? Qt.AlignVCenter : Qt.AlignHCenter
-            visible: root.hiddenLayout.itemCount > 0
-        }
     }
 
     //Main popup

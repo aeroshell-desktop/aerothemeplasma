@@ -40,12 +40,13 @@ import org.kde.plasma.private.quicklaunch 1.0
 
 
 import QtQuick.Dialogs 1.2
+
 PlasmaCore.Dialog {
     id: root
     objectName: "popupWindow"
     flags: Qt.WindowStaysOnTopHint
     location: PlasmaCore.Types.BottomEdge
-    
+    //clip: true
     hideOnWindowDeactivate: true
     property int iconSize: units.iconSizes.medium
     property int iconSizeSide: units.iconSizes.smallMedium
@@ -54,6 +55,7 @@ PlasmaCore.Dialog {
     property int cellHeight: iconSize +  ( Math.max(highlightItemSvg.margins.top + highlightItemSvg.margins.bottom,
                                                     highlightItemSvg.margins.left + highlightItemSvg.margins.right))
     property bool searching: (searchField.text != "")
+    property bool showingAllPrograms: false
 
     onVisibleChanged: {
         if (!visible) {
@@ -80,7 +82,7 @@ PlasmaCore.Dialog {
 
     onSearchingChanged: {
         if (searching) {
-            pageList.model = runnerModel;
+            //pageList.model = runnerModel;
 
         } else {
             reset();
@@ -89,12 +91,12 @@ PlasmaCore.Dialog {
 
     function reset() {
         if (!searching) {
-            pageList.model = rootModel.modelForRow(0);
-            pageList.currentIndex = 1;
+            //pageList.model = rootModel.modelForRow(0);
+            //pageList.currentIndex = 1;
         }
         searchField.text = "";
-        pageListScrollArea.focus = true;
-        pageList.currentItem.itemGrid.currentIndex = -1;
+        //pageListScrollArea.focus = true;
+        //pageList.currentItem.itemGrid.currentIndex = -1;
     }
 
     function popupPosition(width, height) {
@@ -138,21 +140,25 @@ PlasmaCore.Dialog {
 
         return Qt.point(x, y);
     }
-
-
     FocusScope {
         
         //clip: true
         Layout.minimumWidth:  root.cellWidth + root.cellWidthSide// + units.smallSpacing*3
         Layout.maximumWidth:  root.cellWidth + root.cellWidthSide// + units.smallSpacing*3
-        Layout.minimumHeight: (cellHeight *  plasmoid.configuration.numberRows) + searchField.height +  units.iconSizes.smallMedium
-        Layout.maximumHeight: (cellHeight *  plasmoid.configuration.numberRows) + searchField.height +  units.iconSizes.smallMedium
+        Layout.minimumHeight: (cellHeight * plasmoid.configuration.numberRows) + searchField.height +  units.iconSizes.smallMedium
+        Layout.maximumHeight: (cellHeight * plasmoid.configuration.numberRows) + searchField.height +  units.iconSizes.smallMedium
         
         focus: true
 
         KCoreAddons.KUser {   id: kuser  }
         Logic {   id: logic }
         
+        Connections {
+        target: plasmoid.configuration
+            onNumberRowsChanged: {
+                recents.model = rootModel.modelForRow(0);
+            }
+        }
 
         PlasmaCore.DataSource {
             id: pmEngine
@@ -207,9 +213,9 @@ PlasmaCore.Dialog {
             id: actionMenu
             onActionClicked: visualParent.actionTriggered(actionId, actionArgument)
             onClosed: {
-                if (pageList.currentItem) {
+                /*if (pageList.currentItem) {
                     pageList.currentItem.itemGrid.currentIndex = -1;
-                }
+                }*/
             }
         }
 
@@ -218,9 +224,9 @@ PlasmaCore.Dialog {
         Rectangle {
                 id: backgroundRect
                 //anchors.fill: pageListScrollArea
-                anchors.top: pageListScrollArea.top
+                anchors.top: faves.top
                 anchors.topMargin: -4
-                anchors.left: pageListScrollArea.left
+                anchors.left: faves.left
                 //anchors.leftMargin: units.smallSpacing
                 width:  root.cellWidth
                 height: (root.cellHeight * plasmoid.configuration.numberRows)  + searchBackground.height + 4
@@ -228,7 +234,13 @@ PlasmaCore.Dialog {
                 border.color: "#44000000"
                 border.width: 1
                 radius: 3
+                z: 5
+                Behavior on width {
+                    NumberAnimation { easing.type: Easing.Linear; duration: 150 }
+            //NumberAnimation { duration: 1000 }
+                }
                  Rectangle {
+                     id: backgroundBorderLine
                 color: "#cddbea"
                 radius: 3
                  anchors { 
@@ -237,16 +249,20 @@ PlasmaCore.Dialog {
                     //bottomMargin: units.smallSpacing
                     left: parent.left
                     leftMargin: 1
+                    
                 }
                 width: backgroundRect.width-2
                 height: 2
                 //height: backgroundRect
                 z: 5
                 
-                
         }
         Rectangle {
                 id: searchBackground
+                 Behavior on width {
+                    NumberAnimation { easing.type: Easing.Linear; duration: 150 }
+            //NumberAnimation { duration: 1000 }
+                }
                 color: "#F3F7FB"
                 radius: 3
                 anchors { 
@@ -255,227 +271,340 @@ PlasmaCore.Dialog {
                     left: parent.left
                     leftMargin: 1
                 }
-                width: backgroundRect.width - 2
+                width: root.cellWidth - 2
                 height: searchField.height + units.smallSpacing * 4.5
-                
             }
             }
-        PlasmaExtras.ScrollArea {
-            id: pageListScrollArea
-            //color: "white";
-            anchors {
-                //left: root.left
-                leftMargin: units.smallSpacing
-                rightMargin: units.smallSpacing
-                top: parent.top
-                topMargin: units.smallSpacing
-            }
-            
-            width:  root.cellWidth
-            height: (root.cellHeight * plasmoid.configuration.numberRows)
-            focus: true;
-            frameVisible: true;
-            horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
-            verticalScrollBarPolicy: Qt.ScrollBarAsNeeded
-            
-            ListView {
-                
-                id: pageList
-                anchors.fill: parent
-
-                snapMode: ListView.SnapOneItem
-                //color: "white";
-                onCurrentIndexChanged: {
-                    positionViewAtIndex(currentIndex, ListView.Contain);
+        FavoritesView {
+            id: faves
+            anchors.left: parent.left
+            anchors.top: parent.top
+            //anchors.bottom: pageListScrollAreabottom
+            //anchors.right: pageListScrollArea.right
+            width: root.cellWidth
+            height: plasmoid.configuration.showRecentsView ? ((root.cellHeight * (faves.getFavoritesCount() > 9 ? 9 : faves.getFavoritesCount())) - units.smallSpacing * 2) : (root.cellHeight * plasmoid.configuration.numberRows - units.smallSpacing*2 - allProgramsButton.height - allProgramsSeparator.height)
+            visible: !showingAllPrograms && !searching
+            z: 8
+        }
+        Rectangle {
+        id: tabBarSeparator
+        anchors.top: faves.bottom
+        anchors.topMargin: units.smallSpacing
+        anchors.left: parent.left
+        anchors.leftMargin: units.smallSpacing*4
+        anchors.right: faves.right
+        anchors.rightMargin: units.smallSpacing*4
+        
+        height: 1
+        color: "#d6e5f5"
+        opacity: 1
+        visible: plasmoid.configuration.showRecentsView && (!showingAllPrograms && !searching)
+        z: 6
+        
+        }
+        OftenUsedView {
+            id: recents
+            anchors.left: parent.left
+            anchors.top: faves.bottom
+            anchors.topMargin: units.smallSpacing*2
+            anchors.bottomMargin: units.smallSpacing
+            width: root.cellWidth
+            height: (root.cellHeight * plasmoid.configuration.numberRows) - (root.cellHeight * (faves.getFavoritesCount() > 9 ? 9 : faves.getFavoritesCount())) - units.smallSpacing*2 - allProgramsButton.height
+            visible: plasmoid.configuration.showRecentsView && (!showingAllPrograms && !searching)
+            z: 8
+        }
+        Rectangle {
+        id: allProgramsSeparator
+        anchors.top: plasmoid.configuration.showRecentsView ? recents.bottom : faves.bottom
+        //anchors.topMargin: units.smallSpacing
+        anchors.left: parent.left
+        anchors.leftMargin: units.smallSpacing*4
+        //anchors.right: faves.right
+        anchors.rightMargin: units.smallSpacing*4
+        width: root.cellWidth - units.smallSpacing*8
+        Behavior on width {
+                    NumberAnimation { easing.type: Easing.Linear; duration: 150 }
                 }
-
-                onCurrentItemChanged: {
-                    if (!currentItem) {
-                        return;
+        height: 1
+        color: "#d6e5f5"
+        opacity: 1
+        //visible: !showingAllPrograms && !searching
+        z: 6
+        
+        }
+         MouseArea {
+                id: allButtonsArea
+                hoverEnabled: true
+                anchors.top: plasmoid.configuration.showRecentsView ? recents.bottom : faves.bottom
+                anchors.topMargin: units.smallSpacing
+                anchors.left: parent.left
+                anchors.leftMargin: units.smallSpacing
+                anchors.rightMargin: units.smallSpacing
+                onClicked: {
+                    if(searching)
+                    {
+                        searchField.text = "";
+                        //searching = false;
+                        console.log("stopped searching");
                     }
-
-                    currentItem.itemGrid.focus = true;
-                }
-
-                onModelChanged: {
-                    currentIndex = 0;
-                }
-
-                onFlickingChanged: {
-                    if (!flicking) {
-                        var pos = mapToItem(contentItem, root.width / 2, root.height / 2);
-                        var itemIndex = indexAt(pos.x, pos.y);
-                        currentIndex = itemIndex;
+                    else if(showingAllPrograms)
+                    {
+                        showingAllPrograms = false;
+                        appsView.reset();
+                        console.log("showing normal view");
+                    }
+                    else if(!searching && !showingAllPrograms)
+                    {
+                        showingAllPrograms = true;
+                        console.log("showing all apps");
                     }
                 }
-
-                function cycle() {
-                    enabled = false;
-                    enabled = true;
+                height: 25
+                width: root.cellWidth - units.smallSpacing*2
+                Behavior on width {
+                    NumberAnimation { easing.type: Easing.Linear; duration: 150 }
                 }
-
-                function activateNextPrev(next) {
-                    var newIndex
-                    if (next) {
-                        newIndex = pageList.currentIndex + 1;
-                        if (newIndex === pageList.count) {
-                            return
-                        }
-                        pageList.currentIndex = newIndex;
-                    } else {
-                        newIndex = pageList.currentIndex - 1;
-                        if (newIndex < 0) {
-                            return
-                        }
-                        pageList.currentIndex = newIndex;
-                    }
-                }
-
-                delegate: Item {
-                    //color: "white";
-                    width:  root.cellWidth
-                    height: gridView.model.count >  plasmoid.configuration.numberRows ? plasmoid.configuration.numberRows * root.cellHeight : gridView.model.count * root.cellHeight
-                    property Item itemGrid: gridView
-                    
-                    ItemGridView {
-                        id: gridView
-
-                        anchors.fill: parent
-
-                        cellWidth:  root.cellWidth
-                        cellHeight: root.cellHeight
-
-                        horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
-                        verticalScrollBarPolicy: Qt.ScrollBarAlwaysOff
-                        dragEnabled: (index == 0)
-                        //color: "white";
-                        model: searching ? runnerModel.modelForRow(index) : rootModel.modelForRow(0).modelForRow(index)
+                z: 8
+                PlasmaCore.FrameSvgItem {
+                        id : allProgramsButton
                         
-                        onCurrentIndexChanged: {
-                            if (currentIndex != -1 && !searching) {
-                                pageListScrollArea.focus = true;
-                                focus = true;
-                            }
-                        }
-
-                        onCountChanged: {
-                            if (searching && index == 0) {
-                                currentIndex = 0;
-                            }
-                        }
-
-                        onKeyNavUp: {
-                            var newIndex = pageList.currentIndex - 1;
-                            if (!searching && newIndex === 0) {
-                                currentIndex = -1;
-                                searchField.focus = true;
-                                return
-                            }
-                            if(searching && newIndex < 0) {
-                                currentIndex = -1;
-                                searchField.focus = true;
-                                return
-                            }
-                            pageList.currentIndex = newIndex;
-                            pageList.currentItem.itemGrid.tryActivate(pageList.currentItem.itemGrid.model.count-1, 0);
-
-                        }
-
-                        onKeyNavDown: {
-                            var newIndex = pageList.currentIndex + 1;
-                            if (newIndex === pageList.count) {
-                                return
-                            }
-                            pageList.currentIndex = newIndex;
-                            pageList.currentItem.itemGrid.tryActivate(0, 0);
-                        }
-                    }
-
-                    Kicker.WheelInterceptor {
-                        anchors.fill: parent
-                        z: 1
-                        property int wheelDelta: 0
-                        function scrollByWheel(wheelDelta, eventDelta) {
-                            // magic number 120 for common "one click"
-                            // See: http://qt-project.org/doc/qt-5/qml-qtquick-wheelevent.html#angleDelta-prop
-                            wheelDelta += eventDelta;
-                            var increment = 0;
-                            while (wheelDelta >= 120) {
-                                wheelDelta -= 120;
-                                increment++;
-                            }
-                            while (wheelDelta <= -120) {
-                                wheelDelta += 120;
-                                increment--;
-                            }
-                            while (increment != 0) {
-                                pageList.activateNextPrev(increment < 0);
-                                increment += (increment < 0) ? 1 : -1;
-                            }
-                            return wheelDelta;
-                        }
-                        onWheelMoved: {
-                            wheelDelta = scrollByWheel(wheelDelta, delta.y);
-                        }
-                    }
-
-
-                }
+                
+        
+        //visible: true
+        anchors.fill: parent
+        imagePath: "widgets/viewitem"
+        
+        prefix: "hover"
+        visible: allButtonsArea.containsMouse ? true : false
+        //z:7
+       
+        
+            
+        }
+        PlasmaCore.SvgItem {
+            id: arrowDirection
+            svg: arrowsSvg
+            elementId: (searching || showingAllPrograms) ? "left-arrow" : "right-arrow"
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.leftMargin: units.smallSpacing
+            width: 16
+            height: 16
+            Colorize {
+                    anchors.fill: arrowDirection
+                    source: arrowDirection
+                    hue: 0.0
+                    saturation: 0.0
+                    lightness: -0.6
+            }
+        }
+            Text {
+                            text: showingAllPrograms || searching ? "Back" : "All programs"
+                            font.pixelSize: 12
+                            //color: searching ? "#202020" : "white"
+                            anchors.left: arrowDirection.right
+                            anchors.leftMargin: units.smallSpacing
+                            //anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.verticalCenter: parent.verticalCenter
+            }
+            
+        }
+        
+        
+        SearchView {
+            id: searchView
+            anchors.top: parent.top
+            anchors.topMargin: units.smallSpacing*2 -4
+            anchors.left: parent.left
+            anchors.right: parent.right
+            //anchors.rightMargin: units.smallSpacing -2
+            anchors.bottom: allProgramsSeparator.top
+            height: root.cellHeight * plasmoid.configuration.numberRows - units.smallSpacing*2 - allProgramsButton.height
+            //Layout.fillWidth: true
+            opacity: 0
+            Behavior on opacity {
+                NumberAnimation { easing.type: Easing.OutQuart; duration: 450 }
+            }
+            z: 7
+            //visible: !showingAllPrograms && searching
+        }
+        ApplicationsView {
+            id: appsView
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: faves.right
+            width: root.cellWidth
+            height: (root.cellHeight * plasmoid.configuration.numberRows) - units.smallSpacing*2 - allProgramsButton.height
+            opacity: 0
+            z: 1
+            function resetIndex() {
+                appsView.listView.currentIndex = -1;
             }
         }
         
-           
-        TextField {
+        states: [
+
+            State {
+                name: "AllPrograms"; when: !searching && showingAllPrograms
+                PropertyChanges {
+                    target: faves; opacity: 0;
+                }
+                PropertyChanges {
+                    target: recents; opacity: 0;
+                }
+                PropertyChanges {
+                    target: tabBarSeparator; opacity: 0;
+                }
+                PropertyChanges {
+                    target: appsView; opacity: 1;
+                }
+                PropertyChanges { 
+                    target: appsView; z: 7;
+                }
+                StateChangeScript {
+                    script: appsView.resetIndex();
+                    //target: appsView.applicationsView.listView; currentIndex: -1;
+                }
+                
+            },
+            State {
+                name: "Searching"; when: searching// && !showingAllPrograms
+                PropertyChanges {
+                    target: searchView; opacity: (backgroundRect.width === searchView.width ? 1 : 0);
+                }
+                PropertyChanges {
+                    target: faves; opacity: 0;
+                }
+                PropertyChanges {
+                    target: recents; opacity: 0;
+                }
+                PropertyChanges {
+                    target: tabBarSeparator; opacity: 0;
+                }
+                PropertyChanges {
+                    target: searchBackground; width: searchView.width - units.smallSpacing;
+                }
+                PropertyChanges {
+                    target: backgroundRect; width: searchView.width;
+                }
+                PropertyChanges {
+                    target: allProgramsButton; width: searchView.width - units.smallSpacing*2;
+                }
+                PropertyChanges {
+                    target: allProgramsSeparator; width: searchView.width - units.smallSpacing*8;
+                }
+                PropertyChanges {
+                    target: allButtonsArea; width: searchView.width - units.smallSpacing*2;
+                }
+                PropertyChanges {
+                    target: sidePanel; opacity: 0;
+                }
+                /*PropertyChanges {
+                    target: appsView; opacity: 0;
+                }*/
+                PropertyChanges {
+                    target: sidePanel; enabled: false
+                }
+                /*PropertyChanges {
+                    target: searchBackground; width: searchView.width
+                }*/
+            }
+        ]
+        transitions: [ 
+        Transition {
+            PropertyAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; duration: 350 }
+        }
+        /*Transition {
+            NumberAnimation { properties: "width"; easing.type: Easing.OutQuad; duration: 250 }
+        }*/
+        ]
+        
+        
+        PlasmaComponents.TextField {
             id: searchField
             anchors{
                 //top: leaveButtons.top
                 bottom: parent.bottom
                 bottomMargin: units.smallSpacing * 2.5
                 left: parent.left
-                right: sidePanel.left + units.largeSpacing
-                rightMargin: units.largeSpacing * 3
+                right: faves.right// + units.largeSpacing
+                rightMargin: units.smallSpacing * 2
                 leftMargin:  units.smallSpacing * 2
             }  
+            
             style: TextFieldStyle {
                  textColor: "black"
+                 placeholderTextColor: "#707070"
+                 font.italic: searchField.length == 0 ? true : false
                  
             Rectangle { 
                 anchors.fill: parent
                 color: "white" } 
             }
-           
-           
-            width: backgroundRect.width - units.smallSpacing * 4
+            z: 7
+            clearButtonShown: true
+            width: root.cellWidth - units.smallSpacing * 4
             height: shutdown.height - units.smallSpacing
             placeholderText: i18n("Search programs and files")
             text: ""
             onTextChanged: {
-                runnerModel.query = text;
+                
+                searchView.onQueryChanged();
+                //runnerModel.query = text;
             }
             Keys.onPressed: {
-                if (event.key == Qt.Key_Down) {
-                    event.accepted = true;
-                    console.log("$ ",pageList.currentItem.itemGrid.model.count, pageList.currentItem.itemGrid.currentIndex)
-                    if(pageList.currentItem.itemGrid.model.count > 1 && pageList.currentItem.itemGrid.currentIndex !== -1)
-                        pageList.currentItem.itemGrid.tryActivate(1, 0);
-                    else // @todo query next group
-                        pageList.currentItem.itemGrid.tryActivate(0, 0);
-                } else if (event.key == Qt.Key_Right) {
-
-                } else if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter) {
-                    if (text != "" && pageList.currentItem.itemGrid.count > 0) {
-                        event.accepted = true;
-                        pageList.currentItem.itemGrid.tryActivate(0, 0);
-                        pageList.currentItem.itemGrid.model.trigger(0, "", null);
-                        root.visible = false;
+                if(searching)
+                {
+                var currentView = searchView;
+              switch(event.key) {
+            case Qt.Key_Up: {
+                currentView.decrementCurrentIndex();
+                event.accepted = true;
+                break;
+            }
+            case Qt.Key_Down: {
+                currentView.incrementCurrentIndex();
+                event.accepted = true;
+                break;
+            }
+            /*case Qt.Key_Left: {
+                if (searchField.focus && header.state == "query") {
+                    break;
+                }
+                if (!currentView.deactivateCurrentIndex()) {
+                    if (root.state == "Applications") {
+                        mainTabGroup.currentTab = firstButton.tab;
+                        tabBar.currentTab = firstButton;
                     }
-                } else if (event.key == Qt.Key_Tab) {
-                    event.accepted = true;
-                } else if (event.key == Qt.Key_Backtab) {
-                    event.accepted = true;
-                    if (!searching) {
-                        filterList.forceActiveFocus();
-                    }
+                    root.state = "Normal"
+                }
+                event.accepted = true;
+                break;
+            }
+            case Qt.Key_Right: {
+                if (header.input.focus && header.state == "query") {
+                    break;
+                }
+                currentView.activateCurrentIndex();
+                event.accepted = true;
+                break;
+            }*/
+            /*case Qt.Key_Tab: {
+                root.state == "Applications" ? root.state = "Normal" : root.state = "Applications";
+                event.accepted = true;
+                break;
+            }*/
+            case Qt.Key_Enter:
+            case Qt.Key_Return: {
+                currentView.activateCurrentIndex(1);
+                event.accepted = true;
+                break;
+            }
+             default:
+                if (!searchField.focus) {
+                    searchField.forceActiveFocus();
+                }
+            }
                 }
             }
 
@@ -502,8 +631,9 @@ PlasmaCore.Dialog {
             id: sidePanel
             width: root.cellWidthSide
             height: parent.height
+            z: 7
             anchors{
-                left: pageListScrollArea.right
+                left: faves.right
                 right: parent.right
                 top: parent.top
                 bottom: parent.bottom 
@@ -540,12 +670,12 @@ PlasmaCore.Dialog {
                 height: units.iconSizes.huge
                 width: height
                 color: "transparent"
-                anchors.left: parent.width
+                clip: true
+                //anchors.left: parent.width
                 anchors.leftMargin: units.smallSpacing
                 anchors.top: parent.top
-                anchors.topMargin: units.smallSpacing * 0.5
+                anchors.topMargin: -units.smallSpacing
                 anchors.horizontalCenter: parent.horizontalCenter
-                
                // Image {
                   Image {
                     source: "../pics/user.png"
@@ -553,22 +683,29 @@ PlasmaCore.Dialog {
                     z: 1
                     //anchors.fill: parent
                     anchors.left: parent.left
-                    anchors.leftMargin: -units.smallSpacing*2.2
+                    //anchors.leftMargin: -units.smallSpacing*2.2
                     anchors.right: parent.right
-                    anchors.rightMargin: -units.smallSpacing*2.2
+                    //anchors.rightMargin: -units.smallSpacing*2.2
                     anchors.bottom: parent.bottom
-                    anchors.bottomMargin: -units.smallSpacing*1.7
+                    //anchors.bottomMargin: -units.smallSpacing*1.7
                     anchors.top: parent.top
-                    anchors.topMargin: -units.smallSpacing*2.2
+                    //anchors.topMargin: -units.smallSpacing*2.2
                     //width: parent.width + units.smallSpacing * 2
                     //height: parent.height + units.smallSpacing * 2
                    
                 }
                 PlasmaCore.IconItem {
                     id: imgAuthor
-                    anchors.fill: parent
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                    anchors.topMargin: 2
+                    anchors.leftMargin: 2
+                    anchors.rightMargin: 2
+                    anchors.bottomMargin: 2
                     source: kuser.faceIconUrl.toString() || "user-identity"
-                
+                    smooth: true
                     visible: false
                      usesPlasmaTheme: false
                    
@@ -579,7 +716,7 @@ PlasmaCore.Dialog {
                     maskSource: Rectangle {
                         width: imgAuthor.width
                         height: imgAuthor.height
-                        radius: iconUser.width*0.5
+                        //radius: iconUser.width*0.5
                         visible: false
                     }
                 }
@@ -593,7 +730,8 @@ PlasmaCore.Dialog {
                     }
                 }
             }
-            ColumnLayout{
+            ColumnLayout {
+                id: columnItems
                 spacing: units.smallSpacing
                 anchors.top: iconUser.bottom
                 anchors.topMargin: units.largeSpacing
@@ -602,8 +740,7 @@ PlasmaCore.Dialog {
                 anchors.right: parent.right
 
                 ListDelegate {
-                    
-                    text: "Home"
+                    text: kuser.loginName
                     //highlight: delegateHighlight
                     icon: "user-home"
                     size: iconSizeSide
@@ -887,16 +1024,24 @@ PlasmaCore.Dialog {
                     height: units.smallSpacing
                 }
 
-                RowLayout{
+                
+            }
+        }
+        
+        RowLayout{
                     id: leaveButtons
-                    width: parent.width
-                    
+                    width: units.smallSpacing*28
+                    height: units.smallSpacing * 7
+                    z: 7
                     anchors{
                 //top: leaveButtons.top
                 //bottom: searchField.bottom
-                        bottom: parent.bottom
-                        bottomMargin: -units.smallSpacing * 3.0 + 1
-                        left: parent.left
+                        top: searchField.top
+                        topMargin: -units.smallSpacing/2
+                        //bottom: searchField.bottom
+                        //bottomMargin: -units.smallSpacing * 3
+                        left: searchField.right
+                        leftMargin: units.smallSpacing*4-1
                     }
                     //anchors.top: searchField.top
                     //anchors.topMargin: searchField.topMargin 
@@ -905,20 +1050,15 @@ PlasmaCore.Dialog {
                         //text: i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Shut Down")
                         id: shutdown
                         width: units.smallSpacing * 20
-                        height: units.smallSpacing * 7
+                        height: units.smallSpacing * 7-2
                         Text {
                             text: i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Shut Down")
                             font.pixelSize: 12
-                            color: "white"
+                            color: searching ? "#202020" : PlasmaCore.Theme.textColor
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.verticalCenter: parent.verticalCenter
-                            //anchors.fill: parent
                         }
-                        //highlight: delegateHighlight
-                        //icon: "system-log-out"
                         size: iconSizeSide
-                        //showIcon: false
-                        //onClicked: pmEngine.performOperation("requestShutDown")
                         Image {
                                         id: shutdownButton
                                         MouseArea {
@@ -957,7 +1097,7 @@ PlasmaCore.Dialog {
                         //text: i18nc("@action", "Lock Screen")
                         width: units.smallSpacing * 8
                         anchors.left: shutdown.right
-                        anchors.leftMargin: -units.smallSpacing
+                        anchors.leftMargin: -1
                         anchors.top: shutdown.top
                         height: shutdown.height 
                         
@@ -999,7 +1139,17 @@ PlasmaCore.Dialog {
                             source: "../pics/system-lock-screen.svg"
                             width: parent.height - units.smallSpacing
                             height: parent.height - units.smallSpacing
-                            anchors.horizontalCenter: parent.horizontalCenter
+                            //anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.left: parent.left
+                            anchors.leftMargin: units.smallSpacing
+                            ColorOverlay {
+                            anchors.fill: lockScreenSvg
+                            source: lockScreenSvg
+                            /*hue: 0.0
+                            saturation: 0.0
+                            lightness: searching ? -0.5 : 1.0*/
+                            color: searching ? "#FF202020" : PlasmaCore.Theme.textColor 
+                        }
                         }
                         //highlight: delegateHighlight
                         enabled: pmEngine.data["Sleep States"]["LockScreen"]
@@ -1008,8 +1158,6 @@ PlasmaCore.Dialog {
                         onClicked: pmEngine.performOperation("lockScreen")
                     }
                 }
-            }
-        }
 
 
         Keys.onPressed: {
@@ -1018,6 +1166,9 @@ PlasmaCore.Dialog {
 
                 if (searching) {
                     reset();
+                } else if(showingAllPrograms) {
+                    showingAllPrograms = false;
+                    appsView.reset();
                 } else {
                     root.visible = false;
                 }
@@ -1032,11 +1183,11 @@ PlasmaCore.Dialog {
             if (event.key == Qt.Key_Backspace) {
                 event.accepted = true;
                 searchField.backspace();
-            } else if (event.key == Qt.Key_Tab || event.key == Qt.Key_Backtab) {
+            /*} else if (event.key == Qt.Key_Tab || event.key == Qt.Key_Backtab) {
                 if (pageListScrollArea.focus == true && pageList.currentItem.itemGrid.currentIndex == -1) {
                     event.accepted = true;
                     pageList.currentItem.itemGrid.tryActivate(0, 0);
-                }
+                }*/
             } else if (event.text != "") {
                 event.accepted = true;
                 searchField.appendText(event.text);
@@ -1047,7 +1198,8 @@ PlasmaCore.Dialog {
 
     Component.onCompleted: {
         kicker.reset.connect(reset);
-        dragHelper.dropped.connect(pageList.cycle);
+        //dragHelper.dropped.connect(pageList.cycle);
         reset();
+        faves.listView.currentIndex = -1;
     }
 }

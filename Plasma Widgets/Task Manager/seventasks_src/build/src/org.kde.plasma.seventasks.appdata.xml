@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component>
+<component type="addon">
     <id>org.kde.plasma.seventasks</id>
+    <extends>org.kde.plasmashell</extends>
     <name>SevenTasks</name>
     <name xml:lang="ar">SevenTasks</name>
     <name xml:lang="az">SevenTasks</name>

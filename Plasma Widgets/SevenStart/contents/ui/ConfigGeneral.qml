@@ -41,6 +41,8 @@ Item {
     property string cfg_customButtonImage: plasmoid.configuration.customButtonImage
     property string cfg_customButtonImageHover: plasmoid.configuration.customButtonImageHover
     property string cfg_customButtonImageActive: plasmoid.configuration.customButtonImageActive
+    
+    property alias cfg_showRecentsView: showRecentsView.checked
 
     property alias cfg_appNameFormat: appNameFormat.currentIndex
     property alias cfg_switchCategoriesOnHover: switchCategoriesOnHover.checked
@@ -244,11 +246,31 @@ Item {
                             id: numberRows
                             minimumValue: 10
                             maximumValue: 15
+                            //onValueChanged: root.recents.model = kicker.rootModel.modelForRow(0);
                         }
                         Label {
                             Layout.leftMargin: units.smallSpacing
                             text: i18n("Number of rows")
                         }
+                    }
+                }
+            }
+        }
+        GroupBox {
+            title: i18n("View")
+            flat: true
+            ColumnLayout {
+                RowLayout{
+                    Layout.fillWidth: true
+
+                    RowLayout{
+                        Layout.fillWidth: true
+                        CheckBox {
+                            id: showRecentsView
+                            text: i18n("Show recent programs")
+                        }
+                        
+                        
                     }
                 }
             }

@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="svg"
+   version="1.1"
+   viewBox="0 0 22 22"
+   sodipodi:docname="preferences.svg"
+   inkscape:version="1.1 (c4e8f9ed74, 2021-05-24)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview40"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     showgrid="true"
+     inkscape:zoom="31.523148"
+     inkscape:cx="72.534"
+     inkscape:cy="75.706272"
+     inkscape:window-width="1600"
+     inkscape:window-height="832"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg">
+    <inkscape:grid
+       type="xygrid"
+       id="grid969" />
+  </sodipodi:namedview>
+  <defs
+     id="defs81">
+    <style
+       id="current-color-scheme"
+       type="text/css">.ColorScheme-Text {
+            color:#232629;
+        }
+        .ColorScheme-Background {
+            color:#eff0f1;
+        }
+        .ColorScheme-ViewBackground {
+            color:#fcfcfc;
+        }
+        .ColorScheme-ButtonFocus {
+            color:#3daee9;
+        }
+        .ColorScheme-PositiveText {
+            color:#27ae60;
+        }
+        .ColorScheme-NeutralText {
+            color:#f67400;
+        }
+        .ColorScheme-NegativeText {
+            color:#da4453;
+        }</style>
+  </defs>
+  <rect
+     style="fill:#ffffff;stroke:#000000;stroke-width:0.567;stroke-opacity:0.15;paint-order:stroke fill markers"
+     id="rect887"
+     width="239.54628"
+     height="235.21776"
+     x="-44.700169"
+     y="-28.940018" />
+  <g
+     id="22-22-preferences-desktop-display-randr"
+     transform="translate(-1,-1)">
+    <rect
+       id="rect3832"
+       x="1"
+       y="1"
+       width="22"
+       height="22"
+       fill-opacity="0" />
+    <path
+       id="rect7235"
+       class="ColorScheme-Text"
+       d="m7 19h10v1h-10zm3-2h4v2h-4zm-6-13v13h16v-13zm1 1h14v9h-14z"
+       fill="currentColor" />
+    <path
+       id="rect3018"
+       class="ColorScheme-Text"
+       d="m6 9 4 4h-4z"
+       fill="currentColor" />
+    <path
+       id="path3028"
+       class="ColorScheme-Text"
+       d="m18 10-4-4h4z"
+       fill="currentColor" />
+  </g>
+  <g
+     id="16-16-preferences-desktop-display-randr"
+     transform="matrix(0.72727273,0,0,0.72727273,-22.727273,-0.72727273)">
+    <rect
+       id="rect2651"
+       x="1"
+       y="1"
+       width="22"
+       height="22"
+       fill-opacity="0" />
+    <path
+       id="path2653"
+       class="ColorScheme-Text"
+       d="M 6.5000004,18.875 H 17.5 V 20.25 H 6.5000004 Z M 10.625,17.5 h 2.75 v 1.375 h -2.75 z M 3.7500004,3.75 V 17.5 H 20.25 V 3.75 Z m 1.375,1.375 H 18.875 V 14.75 H 5.1250004 Z"
+       fill="currentColor"
+       sodipodi:nodetypes="cccccccccccccccccccc" />
+    <path
+       id="path2655"
+       class="ColorScheme-Text"
+       d="M 6.5000004,9.25 10.625,13.375 H 6.5000004 Z"
+       fill="currentColor"
+       sodipodi:nodetypes="cccc" />
+    <path
+       id="path2657"
+       class="ColorScheme-Text"
+       d="M 17.5,10.625 13.375,6.5 H 17.5 Z"
+       fill="currentColor"
+       sodipodi:nodetypes="cccc" />
+  </g>
+  <g
+     id="preferences-desktop-notification"
+     transform="translate(-1,39)">
+    <rect
+       id="rect3068"
+       x="1"
+       y="1"
+       width="22"
+       height="22"
+       fill-opacity="0" />
+    <rect
+       id="rect4130-82-0"
+       x="4.000011"
+       y="4"
+       width="15.999978"
+       height="15.999987"
+       ry="7.999989"
+       fill="#3daee9" />
+    <path
+       id="rect4142-6"
+       d="m11.202644 7.1999826-0.0026 7.2000124h1.599998l0.0026-7.2000124zm0.799999 7.9999894c-0.441822 0-0.799999 0.358171-0.799999 0.799999 0 0.441827 0.358177 0.799999 0.799999 0.799999s0.799999-0.358172 0.799999-0.799999c0-0.441828-0.358177-0.799999-0.799999-0.799999z"
+       fill="#fcfcfc" />
+  </g>
+  <g
+     id="16-16-preferences-desktop-notification"
+     transform="matrix(0.72727273,0,0,0.72727273,21.272727,39.272727)">
+    <rect
+       id="rect857"
+       x="1"
+       y="1"
+       width="22"
+       height="22"
+       fill-opacity="0" />
+    <rect
+       id="rect859"
+       x="2.3750005"
+       y="2.3750005"
+       width="19.25"
+       height="19.25"
+       ry="9.6249952"
+       fill="#3daee9"
+       style="stroke-width:1.20312" />
+    <path
+       id="path861"
+       d="m 10.625,5.1250004 -0.0046,9.6250246 h 2.7454 L 13.375,5.1250004 Z m 1.3727,11.0000246 c -1.3819,0 -1.3727,1.375 -1.3727,1.375 -0.0092,0 -0.0092,1.375 1.3727,1.375 1.3681,0 1.3727,-1.375 1.3727,-1.375 0,0 -0.0046,-1.375 -1.3727,-1.375 z"
+       fill="#fcfcfc"
+       style="stroke-width:1.40218"
+       sodipodi:nodetypes="cccccscscs" />
+  </g>
+  <g
+     id="22-22-preferences-system-bluetooth"
+     transform="translate(-22,94)">
+    <rect
+       id="rect4645"
+       x="66"
+       width="22"
+       height="22"
+       fill="none" />
+    <path
+       id="rect4163-9"
+       class="ColorScheme-Text"
+       d="m76.998047 3v7.041013l-3.292969-3.2929692-2e-3 0.00195c-0.355749-0.3559538-0.996047-0.9960876-0.996047-0.9960876l-0.707031 0.7070313 4.544922 4.5410155-4.544922 4.541016 0.707031 0.707031s0.640351-0.640094 0.996094-0.996094h2e-3l3.294875-3.292968v7.039062h1l4-4-4-4 4-4-4-4zm1.001953 1.4160156 2.585938 2.5859375-2.585938 2.5859375zm0 8.0000004 2.585938 2.585937-2.585938 2.585938z"
+       fill="currentColor" />
+  </g>
+  <g
+     id="16-16-preferences-system-bluetooth"
+     transform="matrix(0.72727273,0,0,0.72727273,-3.0000002,68)">
+    <rect
+       id="rect4060"
+       x="66"
+       width="22"
+       height="22"
+       fill="none"
+       y="0" />
+    <path
+       id="path4062"
+       class="ColorScheme-Text"
+       d="m 77,2.75 v 6.875 l -2.75,-2.75 v 0 C 73.894251,6.5190462 72.875,5.5 72.875,5.5 L 71.5,6.875 77,11 71.5,15.125 72.875,16.5 c 0,0 1.019257,-1.019 1.375,-1.375 v 0 l 2.75,-2.75 0,6.875 h 1.375 L 82.5,15.125 78.375,11 82.5,6.875 78.375,2.75 Z m 1.375,1.375 2.75,2.75 -2.75,2.75 z m 0,8.25 2.75,2.75 -2.75,2.75 z"
+       fill="currentColor"
+       sodipodi:nodetypes="ccccccccccccccccccccccccccc" />
+  </g>
+  <g
+     id="22-22-preferences-system-bluetooth-activated"
+     transform="translate(0,94)">
+    <rect
+       id="rect4674"
+       x="66"
+       width="22"
+       height="22"
+       fill="none" />
+    <path
+       id="path4676"
+       class="ColorScheme-Text"
+       d="m76.998047 3v7.041013l-3.292969-3.2929692-2e-3 0.00195c-0.355749-0.3559538-0.996047-0.9960876-0.996047-0.9960876l-0.707031 0.7070313 4.544922 4.5410155-4.544922 4.541016 0.707031 0.707031s0.640351-0.640094 0.996094-0.996094h2e-3l3.294875-3.292968v7.039062h1l4-4-4-4 4-4-4-4h-1.001953zm1.001953 1.4160156 2.585938 2.5859375-2.585938 2.5859375v-5.171875zm-11 5.5839844a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1zm4 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1zm12 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1zm4 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1zm-9 2.416016 2.585938 2.585937-2.585938 2.585938v-5.171875z"
+       fill="currentColor" />
+  </g>
+  <g
+     id="16-16-preferences-system-bluetooth-activated"
+     transform="matrix(0.72727273,0,0,0.72727273,20,70)">
+    <rect
+       id="rect4152"
+       x="66"
+       width="22"
+       height="22"
+       fill="none"
+       y="0" />
+    <path
+       id="path4154"
+       class="ColorScheme-Text"
+       d="M 77,2.75 76.998,10.041013 74.25,6.875 v 0 C 73.894251,6.5190462 72.875,5.5 72.875,5.5 L 71.5,6.875 77,11 71.5,15.125 72.875,16.5 c 0,0 1.019257,-1.019 1.375,-1.375 v 0 L 77,11.960938 V 19.25 h 1.375 L 82.5,15.125 78.375,11 82.5,6.875 78.375,2.75 Z m 1.375,1.375 2.75,2.75 -2.75,2.75 z m -11,5.5 c 0,0 -1.375,0 -1.375,1.375 0,0 0,1.375 1.375,1.375 0,0 1.375,0 1.375,-1.375 0,0 0,-1.375 -1.375,-1.375 z m 4.125,0 c 0,0 -1.375,0 -1.374611,1.375 0,0 -3.89e-4,1.375 1.374611,1.375 0,0 1.375,0 1.375,-1.375 0,0 0,-1.375 -1.375,-1.375 z m 6.875,2.75 2.75,2.75 -2.75,2.75 z"
+       fill="currentColor"
+       sodipodi:nodetypes="cccccccccccccccccccccccsssssssssscccc" />
+    <path
+       d="m 83.875,9.625 c 0,0 -1.375,0 -1.375,1.375 0,0 0,1.375 1.375,1.375 0,0 1.375,0 1.375,-1.375 0,0 0,-1.375 -1.375,-1.375 z m 4.125,0 c 0,0 -1.375,0 -1.374612,1.375 0,0 -3.88e-4,1.375 1.374612,1.375 0,0 1.375,0 1.375,-1.375 0,0 0,-1.375 -1.375,-1.375 z"
+       style="color:#232629;fill:currentColor;stroke-width:1.37499"
+       id="path9944" />
+  </g>
+  <g
+     id="22-22-preferences-system-bluetooth-inactive"
+     transform="translate(-44,94)">
+    <rect
+       id="rect4162"
+       x="66"
+       width="22"
+       height="22"
+       fill="none" />
+    <path
+       id="path4164"
+       class="ColorScheme-Text"
+       d="m76.998047 3v7.041013l-3.292969-3.2929692-2e-3 0.00195c-0.355749-0.3559538-0.996047-0.9960876-0.996047-0.9960876l-0.707031 0.7070313 4.544922 4.5410155-4.544922 4.541016 0.707031 0.707031s0.640351-0.640094 0.996094-0.996094h2e-3l3.294875-3.292968v7.039062h1l4-4-4-4 4-4-4-4zm1.001953 1.4160156 2.585938 2.5859375-2.585938 2.5859375zm0 8.0000004 2.585938 2.585937-2.585938 2.585938z"
+       fill="currentColor"
+       opacity=".5" />
+  </g>
+  <g
+     id="16-16-preferences-system-bluetooth-inactive"
+     transform="matrix(0.72727273,0,0,0.72727273,-25,70)">
+    <rect
+       id="rect4146"
+       x="66"
+       width="22"
+       height="22"
+       fill="none"
+       y="0" />
+    <path
+       id="path4148"
+       class="ColorScheme-Text"
+       d="m 77,2.75 v 6.875 l -2.75,-2.75 v 0 C 73.894251,6.5190462 72.875,5.5 72.875,5.5 L 71.5,6.875 77,11 71.5,15.125 72.875,16.5 c 0,0 1.019257,-1.019 1.375,-1.375 l 0,0 L 77,11.960938 V 19.25 h 1.375 L 82.5,15.125 78.375,11 82.5,6.875 78.375,2.75 Z m 1.375,1.375 2.75,2.75 -2.75,2.75 z m 0,8.25 2.75,2.75 -2.75,2.75 z"
+       fill="currentColor"
+       opacity="0.5"
+       sodipodi:nodetypes="ccccccccccccccccccccccccccc" />
+  </g>
+  <g
+     id="preferences-system-bluetooth"
+     transform="translate(44,94)">
+    <rect
+       id="rect4168"
+       x="-5"
+       y="22"
+       width="32"
+       height="32"
+       fill="none" />
+    <path
+       id="rect4331"
+       class="ColorScheme-Text"
+       d="m 11,26 0,0.410156 0,10.587891 L 5.0019531,31 4.296875,31.705078 10.589844,38 4.296875,44.294922 5.0019531,45 11,39.001953 11,50 12,50 12.002,50 18,44.001953 18,44 18,43.998047 12.001953,38 18,32.001953 18,32 18,31.998047 12.001953,26 12,26 11,26 z M 12,27.410156 16.587891,32 12,36.589844 12,27.410156 z m 0,12 L 16.587891,44 12,48.589844 12,39.410156 z"
+       fill="currentColor" />
+  </g>
+  <g
+     id="preferences-system-bluetooth-activated"
+     transform="translate(44,94)">
+    <rect
+       id="rect4422"
+       x="27"
+       y="22"
+       width="32"
+       height="32"
+       fill="none" />
+    <path
+       id="path4424"
+       class="ColorScheme-Text"
+       d="m43 26v10.998047l-5.998047-5.998047-0.705078 0.705078 6.292969 6.294922-6.292969 6.294922 0.705078 0.705078 5.998047-5.998047v10.998047h1.002l5.998-5.998047v-0.003906l-5.998047-5.998047 5.998047-5.998047v-0.003906l-5.998047-5.998047h-1.001953zm1 1.410156 4.587891 4.589844-4.587891 4.589844v-9.179688zm-14 9.589844a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1zm6 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1zm14 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1zm6 0a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1zm-12 2.410156 4.587891 4.589844-4.587891 4.589844v-9.179688z"
+       fill="currentColor" />
+  </g>
+  <g
+     id="preferences-system-bluetooth-inactive"
+     transform="translate(44,94)">
+    <rect
+       id="rect4426"
+       x="-37"
+       y="22"
+       width="32"
+       height="32"
+       fill="none" />
+    <path
+       id="path4428"
+       class="ColorScheme-Text"
+       d="m-21 26v10.998047l-5.998047-5.998047-0.705078 0.705078 6.292969 6.294922-6.292969 6.294922 0.705078 0.705078 5.998047-5.998047v10.998047h1.002l5.998-5.998047v-4e-3l-5.998047-5.997953 5.998047-5.998047v-0.003953l-5.998047-5.998h-1.001953zm1 1.410156 4.587891 4.589844-4.587891 4.589844v-9.179688zm0 12 4.587891 4.589844-4.587891 4.589844v-9.179688z"
+       fill="currentColor"
+       opacity=".5" />
+  </g>
+  <g
+     id="preferences-system-bluetooth-battery"
+     transform="translate(44,126)">
+    <rect
+       id="rect4168-3"
+       x="-5"
+       y="22"
+       width="32"
+       height="32"
+       fill="none" />
+    <path
+       id="rect4331-5"
+       class="ColorScheme-Text"
+       d="m 11,26 v 0.410156 10.587891 L 5.0019531,31 4.296875,31.705078 10.589844,38 4.296875,44.294922 5.0019531,45 11,39.001953 V 50 h 1 0.002 L 18,44.001953 V 44 43.998 L 12.001953,38 18,32.001953 V 32 31.998 L 12.001953,26 H 12 Z M 12,27.410156 16.587891,32 12,36.589844 Z m 0,12 L 16.587891,44 12,48.589844 Z"
+       fill="currentColor" />
+  </g>
+  <g
+     id="preferences-desktop-display-randr">
+    <rect
+       id="rect3832-6"
+       x="26"
+       y="-10"
+       width="32"
+       height="32"
+       fill-opacity="0" />
+    <path
+       id="rect7235-7"
+       class="ColorScheme-Text"
+       d="m35.011249 15h11.977502l0.011249 2h-11.977502zm3.988751-2h4v2h-4zm-9-18v18h22v-18zm1 1h20v14h-20z"
+       fill="currentColor" />
+    <path
+       id="rect3018-5"
+       class="ColorScheme-Text"
+       d="m32 4 5 5h-5z"
+       fill="currentColor" />
+    <path
+       id="path3028-3"
+       class="ColorScheme-Text"
+       d="m50 2-5-5h5z"
+       fill="currentColor" />
+  </g>
+</svg>

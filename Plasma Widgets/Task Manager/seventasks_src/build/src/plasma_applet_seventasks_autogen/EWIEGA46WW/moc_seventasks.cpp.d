@@ -35,8 +35,6 @@
   /usr/include/KF5/plasma/plasma_export.h \
   /usr/include/KF5/plasma/svg.h \
   /usr/include/KF5/plasma/theme.h \
-  /usr/include/KF5/plasma/version.h \
-  /usr/include/KF5/plasma_version.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
   /usr/include/asm/errno.h \
