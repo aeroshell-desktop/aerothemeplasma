@@ -20,6 +20,7 @@
 10. [Show Desktop (Win7)](https://www.kde-look.org/p/1100895/)
 11. [Equilibrium GTK3](https://store.kde.org/p/1493643/)
 12. [Aero Mouse Cursors with Drop Shadow](https://store.kde.org/p/999972/)
+13. [Volatile](https://www.pling.com/p/998823)
     
 These are all the projects mentioned which I have forked into this theme pack. Please consider checking them out and checking out the authors who created these themes.
 
