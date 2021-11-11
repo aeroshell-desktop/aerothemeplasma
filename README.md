@@ -452,15 +452,14 @@ As for features that are lacking compared to Windows 7, there's a few that I'd l
 ## TODO List <a name="todo-list"></a>
 
 1. Improve the Seven Start menu plasmoid
-    1. Add separator lines and more sidebar entries
-        1. If possible, make the sidebar entries configurable
-    2. Add proper Recents support and Favourite application support
-    3. Add a button "All programs" which lists all programs alphabetically
-    4. If possible, make the top-right icon stick out of the Start menu (I have not found a way to make this happen yet sadly)
-    5. If possible, make the top-right icon change depending on which sidebar is hovered over.
+    1. If possible, make the sidebar entries configurable
+    2. If possible, make the top-right icon stick out of the Start menu (I have not found a way to make this happen yet sadly)
+    3. If possible, make the top-right icon change depending on which sidebar is hovered over.
 2. Improve the icon theme
 3. Implement window reflections
 4. Add 32 bit support (QGtkStyle and Smaragd)
+5. Replace QGtkStyle with a better Widget visual style, ideally a QWindowsVistaStyle Linux port if possible
+6. Give the Show Desktop plasmoid a proper button texture from Windows 7
 
 
 
