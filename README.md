@@ -455,11 +455,13 @@ As for features that are lacking compared to Windows 7, there's a few that I'd l
     1. If possible, make the sidebar entries configurable
     2. If possible, make the top-right icon stick out of the Start menu (I have not found a way to make this happen yet sadly)
     3. If possible, make the top-right icon change depending on which sidebar is hovered over.
+	4. If possible, make the plasmoid menu representation use custom SVGs for skinning support, and more accurate theming
 2. Improve the icon theme
 3. Implement window reflections
 4. Add 32 bit support (QGtkStyle and Smaragd)
 5. Replace QGtkStyle with a better Widget visual style, ideally a QWindowsVistaStyle Linux port if possible
 6. Give the Show Desktop plasmoid a proper button texture from Windows 7
+7. Improve plasma theme to look more accurate (plasmoid representations, notifications, tooltips, etc)
 
 
 
