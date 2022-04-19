@@ -342,7 +342,7 @@ In ```System Settings -> Workspace Behavior -> Desktop Effects```, check the fol
 
 <img src="https://upload.wikimedia.org/wikipedia/en/5/59/Windows7_flip.png">
 
-## NOTE: The old Flip switch effect has been deprecated by Plasma, and has been replaced with a rewritten version using QML. However, that version is slower, buggier, not customisable and features undesirable visual features compared to the older version. As a result, I suggest to use KWinFT instead of the regular KWin, which provides this old effect (It is generally also much more stable and performant than regular KWin).
+## NOTE: The old Flip switch effect has been deprecated by Plasma, and has been replaced with a rewritten version using QML. However, that version is slower, buggier, not customisable and features undesirable visual features compared to the older version. As a result, I suggest using KWinFT instead of the regular KWin, which provides this old effect (It is generally also much more stable and performant than regular KWin).
 
 This section will talk about how to make the Task Switcher in KDE look more like Windows 7. It will also recreate the look and behaviour of the "Flip 3D" feature. In ```System Settings -> Window Management -> Task Switcher```, set the following:
 
