@@ -207,7 +207,7 @@ Make sure to keep them all tidy in a separate folder from the rest.
 As for the actual font configurations, in System settings, go to ```Appearance -> Fonts```, and then apply the following
 settings:
 
-###Note: Since last year or so, developers of certain programs responsible for font rendering (Pango, Harfbuzz) have broken support for hinting in favour of exclusively supporting HiDPI resolutions. As a result, all font hinting options are broken except for the Slight option. Unfortunately, this regression has taken away the font rendering which allowed for font rendering that is nearly identical to ClearType.
+##Note: Since last year or so, developers of certain programs responsible for font rendering (Pango, Harfbuzz) have broken support for hinting in favour of exclusively supporting HiDPI resolutions. As a result, all font hinting options are broken except for the Slight option. Unfortunately, this regression has taken away the font rendering which was nearly identical to ClearType. 
 
 - General: Segoe UI 9pt
 - Fixed width: Fixedsys 11pt (Can be any monospace font)
