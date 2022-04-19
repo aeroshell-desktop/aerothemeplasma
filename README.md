@@ -207,7 +207,7 @@ Make sure to keep them all tidy in a separate folder from the rest.
 As for the actual font configurations, in System settings, go to ```Appearance -> Fonts```, and then apply the following
 settings:
 
-##Note: Since last year or so, developers of certain programs responsible for font rendering (Pango, Harfbuzz) have broken support for hinting in favour of exclusively supporting HiDPI resolutions. As a result, all font hinting options are broken except for the Slight option. Unfortunately, this regression has taken away the font rendering which was nearly identical to ClearType. 
+## Note: Since last year or so, developers of certain programs responsible for font rendering (Pango, Harfbuzz) have broken support for hinting in favour of exclusively supporting HiDPI resolutions. As a result, all font hinting options are broken except for the Slight option. Unfortunately, this regression has taken away the font rendering which was nearly identical to ClearType. 
 
 - General: Segoe UI 9pt
 - Fixed width: Fixedsys 11pt (Can be any monospace font)
@@ -338,9 +338,11 @@ In ```System Settings -> Workspace Behavior -> Desktop Effects```, check the fol
 - Window Aperture
 - Scale
 
-### Task Switcher (Deprecated by Plasma)<a name="task-switcher"></a>
+### Task Switcher <a name="task-switcher"></a>
 
 <img src="https://upload.wikimedia.org/wikipedia/en/5/59/Windows7_flip.png">
+
+## NOTE: The old Flip switch effect has been deprecated by Plasma, and has been replaced with a rewritten version using QML. However, that version is slower, buggier, not customisable and features undesirable visual features compared to the older version. As a result, I suggest to use KWinFT instead of the regular KWin, which provides this old effect (It is generally also much more stable and performant than regular KWin).
 
 This section will talk about how to make the Task Switcher in KDE look more like Windows 7. It will also recreate the look and behaviour of the "Flip 3D" feature. In ```System Settings -> Window Management -> Task Switcher```, set the following:
 
