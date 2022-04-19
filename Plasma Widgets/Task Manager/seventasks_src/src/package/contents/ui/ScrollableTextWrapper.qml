@@ -14,6 +14,7 @@ MouseArea {
     clip: textItem.elide === Text.ElideNone
     hoverEnabled: true
 
+    
     onContainsMouseChanged: {
         if (!containsMouse) {
             state = ""

@@ -235,6 +235,30 @@ MouseArea {
             //Here too
         }
     }
+    
+    PlasmaCore.DataSource {
+            id: menu_executable
+            engine: "executable"
+            connectedSources: []
+            onNewData: {
+                var exitCode = data["exit code"]
+                var exitStatus = data["exit status"]
+                var stdout = data["stdout"]
+                var stderr = data["stderr"]
+                exited(sourceName, exitCode, exitStatus, stdout, stderr)
+                disconnectSource(sourceName)
+            }
+            function exec(cmd) {
+                if (cmd) {
+                    connectSource(cmd)
+                }
+            }
+            signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
+        }
+
+        function action_taskman() {
+        menu_executable.exec("ksysguard");
+    }
 
     PlasmaCore.DataSource {
         id: mpris2Source
@@ -484,6 +508,7 @@ MouseArea {
                 taskList.updateHoverFunc();
             }
             onItemRemoved: {
+                
                 if (tasks.containsMouse && index != taskRepeater.count &&
                     item.winIdList && item.winIdList.length > 0 &&
                     taskClosedWithMouseMiddleButton.indexOf(item.winIdList[0]) > -1) {
@@ -536,6 +561,10 @@ MouseArea {
     }
 
     Component.onCompleted: {
+        plasmoid.setAction("taskman", i18n("Task Manager"));
+        function action_taskman() {
+            menu_executable.exec("ksysguard");
+        }
         tasks.requestLayout.connect(layoutTimer.restart);
         tasks.requestLayout.connect(iconGeometryTimer.restart);
         tasks.windowsHovered.connect(backend.windowsHovered);

@@ -115,6 +115,25 @@ PlasmaCore.ToolTipArea {
             //easing.type: systemTrayState.expanded ? Easing.OutCubic : Easing.InCubic
         }
     }
+    Rectangle {
+        id: pressRect
+        property alias activatedPress: pressRect.opacity
+        anchors.fill: parent
+        anchors.leftMargin: 2;
+        anchors.rightMargin: 2;
+        gradient: Gradient {
+            GradientStop { position: 0.1; color: "transparent"; }
+            GradientStop { position: 0.5; color: "#66000000"; }
+            GradientStop { position: 0.9; color: "transparent"; }
+        }
+        opacity: 0
+        Behavior on opacity {
+        NumberAnimation {
+            duration: PlasmaCore.Units.shortDuration
+            easing.type: Easing.InOutQuad
+        }
+    }
+    }
     }
     PulseAnimation {
         targetItem: iconContainer
@@ -149,6 +168,8 @@ PlasmaCore.ToolTipArea {
     }
 
     MouseArea {
+        id: ma
+        z: 5
         anchors.fill: abstractItem
         hoverEnabled: true
         drag.filterChildren: true
@@ -157,9 +178,14 @@ PlasmaCore.ToolTipArea {
         onPressed: {
             abstractItem.hideToolTip()
             abstractItem.pressed(mouse)
+            pressRect.activatedPress = ma.pressedButtons & Qt.LeftButton;
+        }
+        onReleased: {
+            pressRect.activatedPress = 0;
         }
         onPressAndHold: {
             abstractItem.contextMenu(mouse)
+            pressRect.activatedPress = 0;
         }
         onWheel: {
             abstractItem.wheel(wheel);

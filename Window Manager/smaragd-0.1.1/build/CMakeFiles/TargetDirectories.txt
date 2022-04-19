@@ -19,4 +19,5 @@
 /mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/CMakeFiles/edit_cache.dir
 /mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/CMakeFiles/test.dir
 /mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd.dir
+/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/CMakeFiles/KF5WindowSystem_QCH.dir
 /mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd_autogen.dir

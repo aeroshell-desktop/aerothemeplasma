@@ -190,7 +190,7 @@ PlasmaCore.DataSource {
 
         visible: false
 
-        imagePath: "widgets/viewitem"
+        imagePath: "widgets/menuitem"
         prefix: "hover"
     }
 

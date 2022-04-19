@@ -1,5 +1,8 @@
 # AERO THEME FOR KDE PLASMA
 
+# WARNING: THIS PROJECT IS NOT ACTIVE
+## Due to real life circumstances, I don't have much time to work on this project (for now). I will most definitely continue to work on it in my spare time, and the project will also eventually become active again. 
+
 ## Donate
 
 ```BTC: bc1qfs0w6xstcgkjggu9e7gqucrpqvshwfj73h4d4t```
@@ -21,8 +24,9 @@
 11. [Equilibrium GTK3](https://store.kde.org/p/1493643/)
 12. [Aero Mouse Cursors with Drop Shadow](https://store.kde.org/p/999972/)
 13. [Volatile](https://www.pling.com/p/998823)
+14. [Expose Air Tweaked](https://store.kde.org/p/1722560/)
     
-These are all the projects mentioned which I have forked into this theme pack. Please consider checking them out and checking out the authors who created these themes.
+These are all the projects which I have either mentioned or forked for the purposes of this theme pack. Please consider checking them out and checking out the authors who created these themes, plasmoids and other tweaks.
 
 
 ## TABLE OF CONTENTS
@@ -50,22 +54,24 @@ These are all the projects mentioned which I have forked into this theme pack. P
 ## Introduction <a name="introduction"></a>
 
 This is a theme which aims to recreate the look and feel of Windows 7 as much as possible on KDE Plasma.
-The theme is still in active early development and testing, and has only been tested on the following
-relevant specifications:
+The theme is still in active early development and testing. This theme pack currently supports the following platforms and specifications:
 
- - Arch Linux (5.10.43-1 LTS, 64-bit), Artix (5.13.10-artix1-1, 64-bit), Kubuntu 20.04
+ - Arch Linux (Up to date LTS kernel, 64-bit), Artix (Up to date LTS kernel, 64-bit)
  - X11 
- - KDE Plasma 5.22.3, KDE Frameworks 5.84.0
- - Qt 5.15.2
+ - Latest stable KDE Plasma release, latest KDE Frameworks version
+ - Qt 5.15.3
  - Intel integrated Graphics, AMD GPUs
  - 96 DPI scaling
+  
+A few notes regarding compatibility:
 
 This theme has NOT been tested on HiDPI monitors. Contributors who are able to test it on HiDPI scaling are
-greatly welcome. Your mileage may vary in terms of results, depending on your distro and other specifications.
-This theme has also not been tested on Wayland, and I do not intend to test or support this theme on Wayland. 
+greatly welcome. YMMV in terms of results, depending on your distro and other specifications.
+This theme pack has also not been tested on Wayland, and some features might not work due to X11 specific implementations. I do not intend to test or support this theme on Wayland.  
 
-Keep in mind that I'm not a designer, and that the most I've done is modify the themes I've come across the
-Internet. I'll put a link to all the themes I've included and modified in this theme pack. I'm just a passionate user
+Also, due to some specificity of this project, as well as the use of non-standard conventions regarding KDE theming, some parts of the theme pack are not meant to be used separately with other themes.
+
+Keep in mind that I'm not a designer, and that this theme pack mostly features modified themes, plasmoids and other tweaks that I've discovered on the Internet.  I'm just a passionate user
 who really wants to keep the Aero visual style alive. 
 Feel free to take this theme pack and modify it for yourself or share it with others, or if 
 there are any improvements to be made here, any and all effort would be greatly appreciated.
@@ -119,18 +125,16 @@ there are any improvements to be made here, any and all effort would be greatly 
 
 ### Prerequisites
 
-In order to have this theme truly work, you'll need to have KDE Plasma installed on your system.
-This theme also assumes that you're using KDE provided programs and other Qt programs (Dolphin, Konsole, etc.).
-This theme collection also assumes that you're using KWin as the window manager. You can technically run
-compiz on KDE for marginally better results, however I've found that compiz is really buggy and crashes on
-my machine, so I choose not to use it. 
+This theme pack was created exclusively for KDE Plasma, and thus is a mandatory requirement.
+It also assumes that you're using KDE provided programs and other Qt programs (Dolphin, Konsole, etc) and that you're using KWin as the window manager. Running Compiz on KDE is technically possible, and might offer marginally better results, however I've found that Compiz is really buggy and crashes on
+my machine, and thus will not be supported here.
 
-In the previous release of this theme pack a QtCurve theme was provided and recommended as the main widget
-style to replicate the look of Aero. However, since I've discovered QGtkStyle, QtCurve is no longer a 
+In the earliest release of this theme pack a QtCurve theme was provided and recommended as the main widget
+style to replicate the look of Aero. However, since the inclusion of GTK2 styles via QGtkStyle, QtCurve is no longer a 
 requirement to have for this theme pack. Instead, you'll need GTK2, an application that can
-switch between GTK2 themes, and the .so file for the widget style itself. More on that in [KDE Application Theme](#application-theme).
+switch between GTK2 themes, and the QGtkStyle widget style itself. More on that in [KDE Application Theme](#application-theme).
 
-Lastly, in order to have blur effects, animations and transparency, it is important that your hardware supports compositing and that it is enabled.
+Lastly, in order to have blur effects, animations and transparency, it is important that your hardware supports compositing and that it is enabled in your settings.
 
 
 ### KDE Plasma Theme <a name="plasma-theme"></a>
@@ -141,9 +145,9 @@ The Seven-Black Plasma theme is the main theme for KDE Plasma's shell. Put it in
 
 Since this is a Plasma Style, to apply it simply go to ```System Settings -> Appearance -> Plasma Style``` to find it and select it.
 
-Make sure that your panel's width is set to 40.
+Make sure that your panel's width is set to 40 and set to either the top or bottom of your environment. Vertical taskbars are not yet supported, but they will be in the future. 
 
-### Aero Color Mixer <a name="aeromixer"></a>
+### Aero Color Mixer (CURRENTLY BROKEN, WILL FIX IN FUTURE RELEASE)<a name="aeromixer"></a>
 
 In the ```KDE Plasma Theme``` folder there is also a QtWidgets program called <b>AeroColorMixer</b>. It is a utility for changing the colors of the Plasma theme and the Emerald decorator theme. It is meant to look and feel similar to the color mixer featured in Windows 7 and Windows 8/8.1. The colors included are pulled directly from Windows 7. Some important notes about AeroColorMixer:
 
@@ -161,20 +165,12 @@ NOTE: This program is meant to work only with this theme, and it assumes that yo
 
 As previously mentioned, this theme now uses the QGtkStyle widget style to theme Qt programs. This solution is
 also advantageous since GTK2 programs and Qt programs will now look unified. As for GTK 3/4 programs, this theme 
-won't provide any support, though there are themes on opendesktop.org that accomplish this for GTK 3. 
+won't provide any support, though there are themes on the Internet that accomplish this for GTK 3. 
 
-Arch users can install the "qt5-styleplugins" package from the AUR to get QGtkStyle, however I found this to
-be a buggy package which makes certain parts of KDE completely flip out.
-KDE's system settings would get a really messed up theme if you have this package installed on your
-system. As a workaround, I'll be providing only the ```libqgtk2style.so``` file which is the only thing required
-anyway. To install it, simply move it to the following directory:
-
-```/usr/lib/qt/plugins/styles```
-
-This directory may vary depending on your distro. 
+Arch users can install the "qt5-styleplugins" package from the AUR to get QGtkStyle.
 
 After this, take the win27pixmap folder and move it to the ```~/.themes``` directory. This is the GTK2 theme based off
-of the Win2-7 (Pixmap) theme (https://www.opendesktop.org/p/1014539 and https://www.gnome-look.org/p/1012465). 
+of the [Win2-7](https://www.gnome-look.org/p/1012465) [(Pixmap)](https://www.opendesktop.org/p/1014539) theme. 
 By selecting QGtkStyle in ```System Settings -> Appearance -> Application Style```, and setting the GTK2 theme with something like ```gtk-chtheme```, your 
 Qt programs should look a lot more like Windows 7 now. You should also set a light color theme for all of this. My personal recommendations are ```KvCurvesLight``` and ```Oxygen Cold```.
 
@@ -186,7 +182,7 @@ in ```/etc/environment```. Restart your Plasma session to see the effect.
  
 The downside of this theme is that it is a light theme, whereas the QtCurve approach can be both a light and dark
 theme depending on your liking. Maybe in a future release I'll release a followup GTK2 theme which is just an Aero
-dark theme. 
+dark theme. Also, some parts of using QGtkStyle is that certain minor parts of the GUI are broken (Such as white text on a light background). Animations and other effects from the original Aero style are also missing unfortunately. 
 
 ### Icons and cursors <a name="icons"></a>
 The folder ```windowsicon``` is the icon theme, while ```aero-cursors``` is the cursor theme. Both of these belong in
@@ -211,6 +207,8 @@ Make sure to keep them all tidy in a separate folder from the rest.
 As for the actual font configurations, in System settings, go to ```Appearance -> Fonts```, and then apply the following
 settings:
 
+###Note: Since last year or so, developers of certain programs responsible for font rendering (Pango, Harfbuzz) have broken support for hinting in favour of exclusively supporting HiDPI resolutions. As a result, all font hinting options are broken except for the Slight option. Unfortunately, this regression has taken away the font rendering which allowed for font rendering that is nearly identical to ClearType.
+
 - General: Segoe UI 9pt
 - Fixed width: Fixedsys 11pt (Can be any monospace font)
 - Small: Segoe UI 8pt
@@ -219,12 +217,13 @@ settings:
 - Window title: Segoe UI 9pt <br>
 - Anti-aliasing: Enable
 - Sub-pixel rendering: RGB
-- Hinting: Medium
-- Force font DPI: 99
+- Hinting: Slight
 
 Tweak these settings around as you'd like. 
 Since KDE isn't that stable you may have to restart it in order to actually see the real results - KDE tends to
 butcher font rendering upon changing settings. I don't know why.
+
+
 
 ### Window Manager <a name="wm"></a>
 I have decided to use smaragd instead of Aurorae decoration engine for the window manager theme, mainly because
@@ -259,7 +258,7 @@ The current theme is a modified theme taken from https://www.kde-look.org/p/1003
 ### Plasma widgets <a name="widgets"></a>
 
 #### Seven Start
-In the ```Plasma Widgets``` folder you will find the plasmoid ```SevenStart```. This is a fork of Avalon Menu. (https://store.kde.org/p/1386465/)
+In the ```Plasma Widgets``` folder you will find the plasmoid ```SevenStart```. This is a fork of [Avalon Menu](https://store.kde.org/p/1386465/). This plasmoid aims to recreate the look, feel and functionality of the Windows 7 start menu.
 
 To install it, simply move this to the following directory:
 
@@ -273,7 +272,7 @@ The icons are located in ```./Plasma Widgets/AeroTheme/```. The usage of three s
 
 #### Seven Tasks
 
-Seven Tasks is a fork of KDE Plasma's Task manager. This fork morphs both the regular task manager and the Icons-only task manager into one plasmoid for convenience, and they can be switched out on the fly in the configuration. By default, this plasmoid acts as an Icons-only task manager. 
+Seven Tasks is a fork of KDE Plasma's Task manager. This fork combines both the regular task manager and the Icons-only task manager into one plasmoid for convenience, and they can be switched out on the fly in the plasmoid configuration. By default, this plasmoid acts as an Icons-only task manager. The plasmoid features the hot-tracking feature of Aero, and a reimplementation of the dominant colour picking algorithm based on the icon. Additionally, right clicking on the taskbar will prop up an option to open the task manager (KSysGuard). 
 
 <img src="Screenshots/SevenTasksConfig.png">
 
@@ -290,17 +289,17 @@ You will need root permissions to do this. When that's done, replace your curren
 
 #### Modified System Tray
 
-This modification will add hover animations to the default system tray plasmoid, as well as remove the annoying popup animation which happens upon clicking on an item. 
-Since the system tray is a complex plasmoid, its files have to be replaced with a modified version provided in this theme, instead of it acting as a standalone plasmoid. To do this, copy the ```org.kde.plasma.private.systemtray``` found in the ```Plasma Widgets``` folder to the following directory:
+This modified system tray will add hover and press animations to the default system tray plasmoid, as well as remove the annoying popup animation which happens upon clicking on an item. 
+Since the system tray is a complex plasmoid, its files have to be replaced, instead of it acting as a standalone plasmoid. To do this, copy the ```org.kde.plasma.private.systemtray``` found in the ```Plasma Widgets``` folder to the following directory:
 
 ```/usr/share/plasma/plasmoids/```
 
-This will override the default System Tray plasmoid. It is not recommended to edit this particular plasmoid, so proceed with caution. Make sure to back up the original plasmoid somewhere safe before trying this.
+This will override the default System Tray plasmoid. It is not recommended to edit this particular plasmoid, so proceed with caution. Make sure to back up the original plasmoid somewhere safe before trying this. Another thing to keep in mind is that this plasmoid will reset itself every time KDE Plasma is updated, so the plasmoid has to be reinstalled each time. 
 
 
 #### Digital Clock Lite
 
-Install the widget ```Digital Clock Lite``` (https://www.kde-look.org/p/1225135/) and replace the ugly large clock widget with 
+Install the widget [Digital Clock Lite](https://www.kde-look.org/p/1225135/) and replace the ugly large clock widget with 
 it. By default it should already look a lot like Windows 7's clock, but if it doesn't, change the following settings:
 
 - Font size px: 9
@@ -308,13 +307,13 @@ it. By default it should already look a lot like Windows 7's clock, but if it do
 
 You can tweak the other settings to your liking. 
 
-#### Show Desktop (Win7)
+#### Show Desktop (Win7, custom)
 
-Lastly, install the ```Show Desktop (Win7)``` widget (https://www.kde-look.org/p/1100895/) and configure it to these settings:
+This plasmoid is a fork of Zren's [Show Desktop (Win7)](https://www.kde-look.org/p/1100895/) plasmoid, which features a glass Show Desktop button instead of a plain colour one. After installing this widget, configure it to these settings:
 
 In Look:
 
-- Size: 8px;
+- Size: 13px;
  
 In Click:
 
@@ -339,7 +338,7 @@ In ```System Settings -> Workspace Behavior -> Desktop Effects```, check the fol
 - Window Aperture
 - Scale
 
-### Task Switcher <a name="task-switcher"></a>
+### Task Switcher (Deprecated by Plasma)<a name="task-switcher"></a>
 
 <img src="https://upload.wikimedia.org/wikipedia/en/5/59/Windows7_flip.png">
 
@@ -364,14 +363,7 @@ In Alternative:
 For the Flip Switch visualization style, you can configure it to your liking. Personally, I like to have the "Flip Animation Duration" set to 200. 
 
 ### GTK3/4 <a name="gtk"></a>
-This theme doesn't touch upon GTK3/4 all that much, mainly because I feel that there's no good looking theme
-for GTK3/4, but I've still decided to give some tips on how to make GTK3/4 look a bit less ugly:
-
-- Use this theme: https://b00merang.weebly.com/windows-7.html
-- If you want a dark theme, My personal pick is this one: https://store.kde.org/p/1493643/
-
-I don't use applications that use GTK3/4 all that much, and it will likely just keep breaking support with 
-upcoming updates, so I don't bother trying to keep up with it. GTK3/4 tends to break compatibility, and it never integrates well with the rest of your system regardless of how you theme it. For those reasons, GTK3 and GTK4 are **not** supported, and will likely never be supported for this theme. Sorry once again. 
+This theme pack doesn't support GTK3/4 at all, due to both subjective taste but also because it is very inconvenient, does not integrate well with the rest of the system and it is very tedious to try and support such an unstable environment.
 
 ### Sounds <a name="sounds"></a>
 This theme isn't complete without sounds. On Windows, the sound files are located in the following directory:
@@ -428,9 +420,6 @@ The closest I was able to find was a Windows 8 icon theme. (https://b00merang.we
 
 I modified the icon theme by replacing a few minimalist icons with the Win7 alternatives, though it's not complete. 
 
-The last KDE-specific defect is the text-only tooltips, which for some reason have insane padding. This used to
-not be a problem, but after a specific update it started happening. I'm not very familiar with KDE theming as it's
-fairly confusing, so I don't know how I would fix this issue.
 
 ### Lack of features problem <a name="feature-problems"></a>
 
@@ -439,11 +428,10 @@ As for features that are lacking compared to Windows 7, there's a few that I'd l
 1.  <b>The window manager</b><br>
     This theme collection uses smaragd, a KWin decoration engine that essentially uses emerald themes for its
     decorations. While this has enabled Kwin to get a very detailed and close feeling of the Aero visual style,
-    it's not perfect. The decorations look a bit weird when maximised, especially when out of focus, but this is
-    pretty minor. The second issue is that it doesn't feature window reflections, which makes it pretty jarring
+    it's not perfect. The second issue is that it doesn't feature window reflections, which makes it pretty jarring
     to look at. 
 2.  <b>True Aero peek and Aero shake</b><br>
-    There's a widget called Show Desktop (Win7) (https://store.kde.org/p/1100895/) which implements a Windows 7-like
+    There's a widget called [Show Desktop (Win7)](https://store.kde.org/p/1100895/) which implements a Windows 7-like
     Show desktop button, with a working Aero Peek. Of course, though, the Aero peek animation depends on KDE's
     settings. KDE comes with two animations for this effect, however neither one really accomplishes the Aero effect,
     so this is something that is left to be desired. Aero shake to my knowledge is also not a thing, but in all honesty
@@ -454,14 +442,16 @@ As for features that are lacking compared to Windows 7, there's a few that I'd l
 1. Improve the Seven Start menu plasmoid
     1. If possible, make the sidebar entries configurable
     2. If possible, make the top-right icon stick out of the Start menu (I have not found a way to make this happen yet sadly)
-    3. If possible, make the top-right icon change depending on which sidebar is hovered over.
-	4. If possible, make the plasmoid menu representation use custom SVGs for skinning support, and more accurate theming
+    3. If possible, make the top-right icon change depending on which sidebar is hovered over
+	4. If possible, make the plasmoid menu representation use custom SVGs for skin support, and more accurate theming
+	5. Add a sidebar feature which includes recent items and actions for each application
 2. Improve the icon theme
 3. Implement window reflections
-4. Add 32 bit support (QGtkStyle and Smaragd)
-5. Replace QGtkStyle with a better Widget visual style, ideally a QWindowsVistaStyle Linux port if possible
-6. Give the Show Desktop plasmoid a proper button texture from Windows 7
-7. Improve plasma theme to look more accurate (plasmoid representations, notifications, tooltips, etc)
+4. Replace QGtkStyle with a better Widget visual style, ideally a QWindowsVistaStyle Linux port if possible
+6. Improve plasma theme to look more accurate (plasmoid representations, notifications, tooltips, etc)
+7. Fix AeroColorMixer
+8. Rework the SevenTasks context menu
+9. Add vertical taskbar support
 
 
 

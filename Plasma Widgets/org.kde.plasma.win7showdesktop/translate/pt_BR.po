@@ -1,0 +1,108 @@
+# Translation of win7showdesktop in brazilian portuguese
+# Copyright (C) 2019
+# This file is distributed under the same license as the win7showdesktop package.
+# Andrew Miranda <kryptusql@protonmail.com>, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: win7showdesktop \n"
+"Report-Msgid-Bugs-To: https://github.com/Zren/plasma-applet-win7showdesktop\n"
+"POT-Creation-Date: 2020-03-29 16:37-0400\n"
+"PO-Revision-Date: 2020-15-01 10:25-0300\n"
+"Last-Translator: Andrew Miranda <kryptusql@protonmail.com>\n"
+"Language-Team: Portuguese Brazilian <kryptusql@protonmail.com>\n"
+"Language: Portuguese Brazilian \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../contents/config/config.qml
+msgid "General"
+msgstr "Geral"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Look"
+msgstr "Aparência"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Size:"
+msgstr "Tamanho:"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "px"
+msgstr "px"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Edge Color:"
+msgstr "Cor da borda:"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Hovered Color:"
+msgstr "Cor de foco:"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Pressed Color:"
+msgstr "Cor de clique:"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Click"
+msgstr "Clique"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Run Command"
+msgstr "Executar comando:"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Mouse Wheel"
+msgstr "Roda do mouse"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Run Commands"
+msgstr "Executar comandos"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Scroll Up:"
+msgstr "Rolar para cima:"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Scroll Down:"
+msgstr "Rolar para baixo:"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Volume (No UI) (amixer)"
+msgstr "Volume (Sem UI) (amixer)"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Volume (UI) (qdbus)"
+msgstr "Volume (Com UI) (qdbus)"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Switch Desktop (qdbus)"
+msgstr "Alternar área de trabalho (qdbus)"
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Peek"
+msgstr ""
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Show desktop on hover:"
+msgstr ""
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Enable"
+msgstr ""
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "Peek threshold:"
+msgstr ""
+
+#: ../contents/ui/config/ConfigGeneral.qml
+msgid "ms"
+msgstr ""
+
+#: ../contents/ui/lib/AppletVersion.qml
+msgid "<b>Version:</b> %1"
+msgstr "<b>Versão:</b> %1"
+
+#: ../contents/ui/main.qml
+msgid "Toggle Lock Widgets (Plasma 5.18)"
+msgstr ""

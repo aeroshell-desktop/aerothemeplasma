@@ -208,7 +208,7 @@ static gint get_real_pos(window_settings * ws, gint tobj, decor_t * d)
     return base + d->tobj_item_pos[tobj];
 }
 
-void engine_draw_frame (decor_t * d, cairo_t * cr, int titletext_width, int titletext_height)
+void engine_draw_frame (decor_t * d, cairo_t * cr, int titletext_width, int titletext_height, int maximized)
 {
     double        x1, y1, x2, y2, h, 
                   top_title_height, bottom_title_height, 
@@ -223,6 +223,7 @@ void engine_draw_frame (decor_t * d, cairo_t * cr, int titletext_width, int titl
     gdouble ptop;
     gdouble pwidth;
     gdouble pheight;
+    double draw_corner_radius = maximized ? 0.0 : pws->corner_radius;
     top = ws->win_extents.top + ws->titlebar_height;
 
     x1 = ws->left_space - ws->win_extents.left;
@@ -255,10 +256,10 @@ void engine_draw_frame (decor_t * d, cairo_t * cr, int titletext_width, int titl
 
     top_left = ws->win_extents.left;
     top_right = ws->win_extents.right;
-    if((top_left < pws->corner_radius) && (corners & CORNER_TOPLEFT))
-		top_left = pws->corner_radius;
-    if((top_right < pws->corner_radius) && (corners & CORNER_TOPRIGHT))
-		top_right = pws->corner_radius;
+    if((top_left < draw_corner_radius) && (corners & CORNER_TOPLEFT))
+		top_left = draw_corner_radius;
+    if((top_right < draw_corner_radius) && (corners & CORNER_TOPRIGHT))
+		top_right = draw_corner_radius;
 
     // Main Top Titlebar
     rounded_rectangle (cr,
@@ -267,7 +268,7 @@ void engine_draw_frame (decor_t * d, cairo_t * cr, int titletext_width, int titl
             x2 - x1 - 1,
             top + 1,
             (CORNER_TOPLEFT | CORNER_TOPRIGHT) & corners, ws,
-            pws->corner_radius);
+            draw_corner_radius);
     cairo_clip(cr);
 
     draw_filled_closed_curve(cr,
@@ -303,7 +304,7 @@ void engine_draw_frame (decor_t * d, cairo_t * cr, int titletext_width, int titl
             0,
             &pfs->title_left_lower,&pfs->title_left_lower,
             SHADE_BOTTOM, ws,
-            pws->corner_radius);
+            draw_corner_radius);
 
     fill_rounded_rectangle (cr,
             x2 - ws->win_extents.right-0.5,
@@ -313,7 +314,7 @@ void engine_draw_frame (decor_t * d, cairo_t * cr, int titletext_width, int titl
             0,
             &pfs->title_right_lower,&pfs->title_right_lower,
             SHADE_BOTTOM, ws,
-            pws->corner_radius);
+            draw_corner_radius);
 
     // Bottom Frame
     rounded_rectangle (cr,
@@ -322,7 +323,7 @@ void engine_draw_frame (decor_t * d, cairo_t * cr, int titletext_width, int titl
             x2 - x1 - 1,
             ws->win_extents.bottom,
             (CORNER_BOTTOMLEFT | CORNER_BOTTOMRIGHT) & corners, ws,
-            pws->corner_radius);
+            draw_corner_radius);
 
     cairo_clip(cr);
 
@@ -370,7 +371,7 @@ void engine_draw_frame (decor_t * d, cairo_t * cr, int titletext_width, int titl
             x2 - x1 - 1.0, y2 - y1 - 1.0,
             (CORNER_TOPLEFT | CORNER_TOPRIGHT | CORNER_BOTTOMLEFT |
              CORNER_BOTTOMRIGHT) & corners, ws,
-            pws->corner_radius);
+            draw_corner_radius);
     cairo_clip (cr);
 
 	cairo_translate (cr, 1.0, 1.0);
@@ -381,7 +382,7 @@ void engine_draw_frame (decor_t * d, cairo_t * cr, int titletext_width, int titl
             x2 - x1 - 1.0, y2 - y1 - 1.0,
             (CORNER_TOPLEFT | CORNER_TOPRIGHT | CORNER_BOTTOMLEFT |
              CORNER_BOTTOMRIGHT) & corners, ws,
-            pws->corner_radius);
+            draw_corner_radius);
 
     cairo_set_source_alpha_color (cr, &pfs->window_highlight);
     cairo_stroke (cr);
@@ -394,7 +395,7 @@ void engine_draw_frame (decor_t * d, cairo_t * cr, int titletext_width, int titl
             x2 - x1 - 1.0, y2 - y1 - 1.0,
             (CORNER_TOPLEFT | CORNER_TOPRIGHT | CORNER_BOTTOMLEFT |
              CORNER_BOTTOMRIGHT) & corners, ws,
-            pws->corner_radius);
+            draw_corner_radius);
 
     cairo_set_source_alpha_color (cr, &pfs->window_shadow);
     cairo_stroke (cr);
@@ -409,7 +410,7 @@ void engine_draw_frame (decor_t * d, cairo_t * cr, int titletext_width, int titl
             x2 - x1 - 1.0, y2 - y1 - 1.0,
             (CORNER_TOPLEFT | CORNER_TOPRIGHT | CORNER_BOTTOMLEFT |
              CORNER_BOTTOMRIGHT) & corners, ws,
-            pws->corner_radius);
+            draw_corner_radius);
 
     cairo_set_source_alpha_color (cr, &pfs->window_halo);
     cairo_stroke (cr);

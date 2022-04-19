@@ -21,11 +21,76 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 
 Item {
+
+    id: highlight
+ 
+     /** true if the user is hovering over the component */
+     //in the case we are the highlight of a listview, it follows the mouse, so hover = true
+     property bool hover: ListView ? true : false
+ 
+     /** true if the mouse button is pressed over the component. */
+     property bool pressed: false
+     width: ListView.view ? ListView.view.width : undefined
+     property alias marginHints: background.margins;
+ 
+     Connections {
+         target: highlight.ListView.view
+         function onCurrentIndexChanged() {
+             if (highlight.ListView.view.currentIndex >= 0) {
+                 background.opacity = 1
+             } else {
+                 background.opacity = 0
+             }
+         }
+     }
+ 
+     Behavior on opacity {
+         NumberAnimation {
+             duration: PlasmaCore.Units.veryShortDuration
+             easing.type: Easing.OutQuad
+         }
+     }
+ 
+     PlasmaCore.FrameSvgItem {
+         id: background
+         imagePath: "widgets/menuitem"
+         prefix: {
+             if (pressed)
+                 return hover ? "selected+hover" : "selected";
+ 
+             if (hover)
+                 return "hover";
+ 
+             return "normal";
+         }
+ 
+         Behavior on opacity {
+             NumberAnimation {
+                 duration: PlasmaCore.Units.veryShortDuration
+                 easing.type: Easing.OutQuad
+             }
+         }
+ 
+         anchors {
+             fill: parent
+        leftMargin: PlasmaCore.Units.smallSpacing
+        rightMargin: PlasmaCore.Units.smallSpacing
+         //FIXME: breaks listviews and highlight item
+         //    topMargin: -background.margins.top
+         //    leftMargin: -background.margins.left
+         //    bottomMargin: -background.margins.bottom
+         //    rightMargin: -background.margins.right
+         }
+     }
+ }
+/*Item {
+    
     PlasmaComponents.Highlight {
+        id: hglight
         anchors {
             fill: parent
             leftMargin: PlasmaCore.Units.smallSpacing
             rightMargin: PlasmaCore.Units.smallSpacing
         }
     }
-}
+}*/

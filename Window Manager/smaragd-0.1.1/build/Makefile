@@ -263,6 +263,19 @@ kwin_smaragd/fast:
 .PHONY : kwin_smaragd/fast
 
 #=============================================================================
+# Target rules for targets named KF5WindowSystem_QCH
+
+# Build rule for target.
+KF5WindowSystem_QCH: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 KF5WindowSystem_QCH
+.PHONY : KF5WindowSystem_QCH
+
+# fast build rule for target.
+KF5WindowSystem_QCH/fast:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/KF5WindowSystem_QCH.dir/build.make src/CMakeFiles/KF5WindowSystem_QCH.dir/build
+.PHONY : KF5WindowSystem_QCH/fast
+
+#=============================================================================
 # Target rules for targets named kwin_smaragd_autogen
 
 # Build rule for target.
@@ -292,6 +305,7 @@ help:
 	@echo "... KF5CoreAddons_QCH"
 	@echo "... KF5I18n_QCH"
 	@echo "... KF5WidgetsAddons_QCH"
+	@echo "... KF5WindowSystem_QCH"
 	@echo "... fetch-translations"
 	@echo "... kwin_smaragd_autogen"
 	@echo "... uninstall"

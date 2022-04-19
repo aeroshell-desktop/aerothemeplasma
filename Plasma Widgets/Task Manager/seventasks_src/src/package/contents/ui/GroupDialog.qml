@@ -78,6 +78,9 @@ PlasmaCore.Dialog {
             readonly property bool overflowing: (viewport.height < contentItem.height)
 
             horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+            
+            /*ScrollBar.horizontal.visible: false;
+            ScrollBar.vertical.visible: false;*/
 
             function ensureItemVisible(item) {
                 var itemTop = item.y;

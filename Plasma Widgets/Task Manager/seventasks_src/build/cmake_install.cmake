@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks
+# Install script for directory: /mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/build/src/cmake_install.cmake")
+  include("/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/build/src/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -55,5 +55,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

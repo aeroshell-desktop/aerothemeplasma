@@ -18,7 +18,7 @@ import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
 
 import org.kde.taskmanager 0.1 as TaskManager
 
-PlasmaComponents3.ScrollView {
+ScrollViewTask {
     id: toolTipDelegate
 
     property Item parentTask
@@ -56,7 +56,9 @@ PlasmaComponents3.ScrollView {
 
     LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
-
+    /*scrollbarHorizontal.horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+    scrollbarVertical.verticalScrollBarPolicy: Qt.ScrollBarAlwaysOff*/
+    
     property int textWidth: PlasmaCore.Theme.mSize(PlasmaCore.Theme.defaultFont).width * 20
 
     Loader {
@@ -82,7 +84,7 @@ PlasmaComponents3.ScrollView {
                 rows: !isVerticalPanel
                 columns: isVerticalPanel
                 flow: isVerticalPanel ? Grid.TopToBottom : Grid.LeftToRight
-                spacing: PlasmaCore.Units.largeSpacing
+                spacing: PlasmaCore.Units.smallSpacing
 
                 Repeater {
                     id: groupRepeater

@@ -116,7 +116,11 @@ PlasmaCore.FrameSvgItem {
             if (systemTrayState.activeApplet && systemTrayState.activeApplet.parent && systemTrayState.activeApplet.parent.inVisibleLayout) {
                 changeHighlightedItem(systemTrayState.activeApplet.parent.container);
             } else { // 'Show hiden items' popup
-                changeHighlightedItem(parent);
+                highlightedItem = null;
+                width = 0;
+                height = 0;
+                //changeHighlightedItem(parent);
+        //console.log(highlightedItem);
             }
         } else {
             highlightedItem = null;
@@ -147,7 +151,7 @@ PlasmaCore.FrameSvgItem {
             easing.type: systemTrayState.expanded ? Easing.OutCubic : Easing.InCubic
         }
     }
-    Behavior on x {
+    /*Behavior on x {
         id: xAnim
         enabled: animationEnabled
         NumberAnimation {
@@ -178,5 +182,5 @@ PlasmaCore.FrameSvgItem {
             duration: PlasmaCore.Units.longDuration
             easing.type: Easing.InOutCubic
         }
-    }
+    }*/
 }

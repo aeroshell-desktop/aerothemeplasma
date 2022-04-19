@@ -45,19 +45,26 @@ PlasmaCore.Dialog {
     id: root
     objectName: "popupWindow"
     flags: Qt.WindowStaysOnTopHint
-    location: PlasmaCore.Types.BottomEdge
+    location: PlasmaCore.Types.Floating
+    
+    //backgroundHints: PlasmaCore.Types.NoBackground
+    
     //clip: true
     hideOnWindowDeactivate: true
     property int iconSize: units.iconSizes.medium
     property int iconSizeSide: units.iconSizes.smallMedium
-    property int cellWidth: units.gridUnit * 15
+    property int cellWidth: units.gridUnit * 14
     property int cellWidthSide: units.gridUnit * 9
-    property int cellHeight: iconSize +  ( Math.max(highlightItemSvg.margins.top + highlightItemSvg.margins.bottom,
+    property int cellHeight: iconSize + units.smallSpacing + (Math.max(highlightItemSvg.margins.top + highlightItemSvg.margins.bottom,
                                                     highlightItemSvg.margins.left + highlightItemSvg.margins.right))
     property bool searching: (searchField.text != "")
     property bool showingAllPrograms: false
 
+    
     onVisibleChanged: {
+        //root.flags = 
+        //root.type = 14; // SUPER FUCKING IMPORTANT I CAN CHANGE BACKGROUNDS WITH THIS SHIT
+        //console.log(root.type);
         if (!visible) {
             reset();
         } else {
@@ -65,6 +72,7 @@ PlasmaCore.Dialog {
             x = pos.x;
             y = pos.y;
             requestActivate();
+            resetRecents();
         }
     }
 
@@ -88,13 +96,19 @@ PlasmaCore.Dialog {
             reset();
         }
     }
-
+    
+    function resetRecents() {
+        recents.model = rootModel.modelForRow(0);
+        recents.model.refresh();
+        recents.currentIndex = -1;
+    }
     function reset() {
         if (!searching) {
             //pageList.model = rootModel.modelForRow(0);
             //pageList.currentIndex = 1;
         }
         searchField.text = "";
+        //resetRecents();
         //pageListScrollArea.focus = true;
         //pageList.currentItem.itemGrid.currentIndex = -1;
     }
@@ -142,6 +156,7 @@ PlasmaCore.Dialog {
     }
     FocusScope {
         
+        
         //clip: true
         Layout.minimumWidth:  root.cellWidth + root.cellWidthSide// + units.smallSpacing*3
         Layout.maximumWidth:  root.cellWidth + root.cellWidthSide// + units.smallSpacing*3
@@ -157,8 +172,10 @@ PlasmaCore.Dialog {
         target: plasmoid.configuration
             onNumberRowsChanged: {
                 recents.model = rootModel.modelForRow(0);
+                recents.model.refresh();
             }
         }
+        
 
         PlasmaCore.DataSource {
             id: pmEngine
@@ -229,7 +246,7 @@ PlasmaCore.Dialog {
                 anchors.left: faves.left
                 //anchors.leftMargin: units.smallSpacing
                 width:  root.cellWidth
-                height: (root.cellHeight * plasmoid.configuration.numberRows)  + searchBackground.height + 4
+                height: (root.cellHeight * plasmoid.configuration.numberRows)  + searchBackground.height + 2
                 color: "white"
                 border.color: "#44000000"
                 border.width: 1
@@ -272,13 +289,15 @@ PlasmaCore.Dialog {
                     leftMargin: 1
                 }
                 width: root.cellWidth - 2
-                height: searchField.height + units.smallSpacing * 4.5
+                height: searchField.height + units.smallSpacing * 4.5 - 2
             }
             }
         FavoritesView {
             id: faves
             anchors.left: parent.left
             anchors.top: parent.top
+            anchors.topMargin: 6
+            anchors.leftMargin: 2
             //anchors.bottom: pageListScrollAreabottom
             //anchors.right: pageListScrollArea.right
             width: root.cellWidth
@@ -289,9 +308,9 @@ PlasmaCore.Dialog {
         Rectangle {
         id: tabBarSeparator
         anchors.top: faves.bottom
-        anchors.topMargin: units.smallSpacing
+        //anchors.topMargin: units.smallSpacing
         anchors.left: parent.left
-        anchors.leftMargin: units.smallSpacing*4
+        anchors.leftMargin: units.smallSpacing*4+2
         anchors.right: faves.right
         anchors.rightMargin: units.smallSpacing*4
         
@@ -308,7 +327,8 @@ PlasmaCore.Dialog {
             anchors.top: faves.bottom
             anchors.topMargin: units.smallSpacing*2
             anchors.bottomMargin: units.smallSpacing
-            width: root.cellWidth
+            anchors.leftMargin: 3
+            width: root.cellWidth-2 
             height: (root.cellHeight * plasmoid.configuration.numberRows) - (root.cellHeight * (faves.getFavoritesCount() > 9 ? 9 : faves.getFavoritesCount())) - units.smallSpacing*2 - allProgramsButton.height
             visible: plasmoid.configuration.showRecentsView && (!showingAllPrograms && !searching)
             z: 8
@@ -318,7 +338,7 @@ PlasmaCore.Dialog {
         anchors.top: plasmoid.configuration.showRecentsView ? recents.bottom : faves.bottom
         //anchors.topMargin: units.smallSpacing
         anchors.left: parent.left
-        anchors.leftMargin: units.smallSpacing*4
+        anchors.leftMargin: units.smallSpacing*4+2
         //anchors.right: faves.right
         anchors.rightMargin: units.smallSpacing*4
         width: root.cellWidth - units.smallSpacing*8
@@ -336,9 +356,9 @@ PlasmaCore.Dialog {
                 id: allButtonsArea
                 hoverEnabled: true
                 anchors.top: plasmoid.configuration.showRecentsView ? recents.bottom : faves.bottom
-                anchors.topMargin: units.smallSpacing
+                anchors.topMargin: units.smallSpacing-1
                 anchors.left: parent.left
-                anchors.leftMargin: units.smallSpacing
+                anchors.leftMargin: units.smallSpacing +2 
                 anchors.rightMargin: units.smallSpacing
                 onClicked: {
                     if(searching)
@@ -372,7 +392,7 @@ PlasmaCore.Dialog {
         
         //visible: true
         anchors.fill: parent
-        imagePath: "widgets/viewitem"
+        imagePath: "widgets/menuitem"
         
         prefix: "hover"
         visible: allButtonsArea.containsMouse ? true : false
@@ -414,10 +434,11 @@ PlasmaCore.Dialog {
         SearchView {
             id: searchView
             anchors.top: parent.top
-            anchors.topMargin: units.smallSpacing*2 -4
+            anchors.topMargin: units.smallSpacing*2 -2
             anchors.left: parent.left
+            anchors.leftMargin: 2
             anchors.right: parent.right
-            //anchors.rightMargin: units.smallSpacing -2
+            anchors.rightMargin: 2
             anchors.bottom: allProgramsSeparator.top
             height: root.cellHeight * plasmoid.configuration.numberRows - units.smallSpacing*2 - allProgramsButton.height
             //Layout.fillWidth: true
@@ -431,7 +452,9 @@ PlasmaCore.Dialog {
         ApplicationsView {
             id: appsView
             anchors.top: parent.top
+            anchors.topMargin: 2
             anchors.left: parent.left
+            anchors.leftMargin: 2
             anchors.right: faves.right
             width: root.cellWidth
             height: (root.cellHeight * plasmoid.configuration.numberRows) - units.smallSpacing*2 - allProgramsButton.height
@@ -529,9 +552,8 @@ PlasmaCore.Dialog {
                 left: parent.left
                 right: faves.right// + units.largeSpacing
                 rightMargin: units.smallSpacing * 2
-                leftMargin:  units.smallSpacing * 2
+                leftMargin:  units.smallSpacing * 2 + 2
             }  
-            
             style: TextFieldStyle {
                  textColor: "black"
                  placeholderTextColor: "#707070"
@@ -543,7 +565,7 @@ PlasmaCore.Dialog {
             }
             z: 7
             clearButtonShown: true
-            width: root.cellWidth - units.smallSpacing * 4
+            width: root.cellWidth - units.smallSpacing * 4 - 2
             height: shutdown.height - units.smallSpacing
             placeholderText: i18n("Search programs and files")
             text: ""
@@ -728,6 +750,7 @@ PlasmaCore.Dialog {
                         root.visible = false;
                         KCMShell.open("kcm_users")
                     }
+                    cursorShape: Qt.PointingHandCursor
                 }
             }
             ColumnLayout {
@@ -735,22 +758,28 @@ PlasmaCore.Dialog {
                 spacing: units.smallSpacing
                 anchors.top: iconUser.bottom
                 anchors.topMargin: units.largeSpacing
-                anchors.bottom: parent.bottom
+                //anchors.bottom: parent.bottom
                 anchors.left: parent.left
-                anchors.right: parent.right
+                //anchors.right: parent.right
+                width: parent.width
+                
 
                 ListDelegate {
                     text: kuser.loginName
                     //highlight: delegateHighlight
                     icon: "user-home"
                     size: iconSizeSide
+                    anchors.left: parent.left;
+                    anchors.right: parent.right;
                     Image {
+                        z: 0
                         property bool hovered: false
                         source: "../pics/menu_select.png"
                         smooth: false
                         opacity: hovered ? 1.0 : 0.0
-                        width: parent.width
-                        height: parent.height
+                        anchors.fill: parent
+                        //width: parent.width
+                        //height: parent.height
                         MouseArea {
                             enabled: !root.hoverDisabled
                             acceptedButtons: Qt.LeftButton
@@ -773,7 +802,10 @@ PlasmaCore.Dialog {
                 }
                 ListDelegate {
                     text: "Documents"
+                    anchors.left: parent.left;
+                    anchors.right: parent.right;
                     Image {
+                        z: 0
                         property bool hovered: false
                         source: "../pics/menu_select.png"
                         smooth: false
@@ -804,7 +836,11 @@ PlasmaCore.Dialog {
                 
                 ListDelegate {
                     text: "Pictures"
+                    
+                    anchors.left: parent.left;
+                    anchors.right: parent.right;
                     Image {
+                        z: 0
                         property bool hovered: false
                         source: "../pics/menu_select.png"
                         smooth: false
@@ -833,8 +869,13 @@ PlasmaCore.Dialog {
                     //onClicked: executable.exec("dolphin --new-window "+folderDialog.getPath(1))
                 }
                 ListDelegate {
+                    
                     text: "Music"
+                    
+                    anchors.left: parent.left;
+                    anchors.right: parent.right;
                     Image {
+                        z: 0
                         property bool hovered: false
                         source: "../pics/menu_select.png"
                         smooth: false
@@ -864,7 +905,11 @@ PlasmaCore.Dialog {
                 }
                 ListDelegate {
                     text: "Videos"
+                    
+                    anchors.left: parent.left;
+                    anchors.right: parent.right;
                     Image {
+                        z: 0
                         property bool hovered: false
                         source: "../pics/menu_select.png"
                         smooth: false
@@ -894,7 +939,11 @@ PlasmaCore.Dialog {
                 }
                 ListDelegate {
                     text: "Downloads"
+                    
+                    anchors.left: parent.left;
+                    anchors.right: parent.right;
                     Image {
+                        z: 0
                         property bool hovered: false
                         source: "../pics/menu_select.png"
                         smooth: false
@@ -924,7 +973,11 @@ PlasmaCore.Dialog {
                 }
                 ListDelegate {
                     text: "Computer"
+                    
+                    anchors.left: parent.left;
+                    anchors.right: parent.right;
                     Image {
+                        z: 0
                         property bool hovered: false
                         source: "../pics/menu_select.png"
                         smooth: false
@@ -955,12 +1008,16 @@ PlasmaCore.Dialog {
 
                 ListDelegate {
                     text: "System Settings"
+                    
+                    anchors.left: parent.left;
+                    anchors.right: parent.right;
                     Image {
+                        z: 0
                         property bool hovered: false
                         source: "../pics/menu_select.png"
                         smooth: false
                         opacity: hovered ? 1.0 : 0.0
-                        fillMode: Image.PreserveAspectFit
+                        //fillMode: Image.PreserveAspectFit
                         width: parent.width
                         height: parent.height
                         MouseArea {
@@ -986,7 +1043,11 @@ PlasmaCore.Dialog {
                 }
                 ListDelegate {
                     text: "Default Programs"
+                    
+                    anchors.left: parent.left;
+                    anchors.right: parent.right;
                     Image {
+                        z: 0
                         property bool hovered: false
                         source: "../pics/menu_select.png"
                         smooth: false
@@ -1004,7 +1065,7 @@ PlasmaCore.Dialog {
                             }
                             onClicked: {
                                 root.visible = false;
-                                executable.exec("systemsettings5 componentchooser")
+                                executable.exec("systemsettings5 kcm_componentchooser")
                             }
                             hoverEnabled: true
                             anchors.fill: parent
@@ -1043,6 +1104,8 @@ PlasmaCore.Dialog {
                         left: searchField.right
                         leftMargin: units.smallSpacing*4-1
                     }
+                    
+                
                     //anchors.top: searchField.top
                     //anchors.topMargin: searchField.topMargin 
                     Layout.fillWidth: false
@@ -1057,6 +1120,7 @@ PlasmaCore.Dialog {
                             color: searching ? "#202020" : PlasmaCore.Theme.textColor
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.verticalCenter: parent.verticalCenter
+                            z: 5
                         }
                         size: iconSizeSide
                         Image {
@@ -1095,12 +1159,11 @@ PlasmaCore.Dialog {
                      ListDelegate {
                          id: lockScreenDelegate
                         //text: i18nc("@action", "Lock Screen")
-                        width: units.smallSpacing * 8
+                        //width: units.smallSpacing * 8
                         anchors.left: shutdown.right
-                        anchors.leftMargin: -1
+                        anchors.leftMargin: 1
                         anchors.top: shutdown.top
                         height: shutdown.height 
-                        
                         //icon: "system-lock-screen"
                         Image {
                                         id: lockButton
@@ -1137,11 +1200,13 @@ PlasmaCore.Dialog {
                         Image {
                             id: lockScreenSvg
                             source: "../pics/system-lock-screen.svg"
-                            width: parent.height - units.smallSpacing
-                            height: parent.height - units.smallSpacing
+                            //width: parent.height - units.smallSpacing
+                            //height: parent.height - units.smallSpacing
                             //anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.left: parent.left
-                            anchors.leftMargin: units.smallSpacing
+                            //anchors.left: parent.left
+                            anchors.fill: lockButton
+                            anchors.leftMargin: -1
+                            //anchors.leftMargin: units.smallSpacing
                             ColorOverlay {
                             anchors.fill: lockScreenSvg
                             source: lockScreenSvg

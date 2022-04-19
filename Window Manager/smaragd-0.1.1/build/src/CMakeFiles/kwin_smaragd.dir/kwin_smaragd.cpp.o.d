@@ -225,13 +225,31 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: \
  /usr/include/KDecoration2/kdecoration2/decorationbutton.h \
  /usr/include/KDecoration2/kdecoration2/decorationdefines.h \
  /usr/include/qt/QtCore/QVariantList /usr/include/qt/QtCore/qvariant.h \
- /usr/include/qt/QtCore/qmap.h \
+ /usr/include/qt/QtCore/qmap.h /usr/include/qt/QtGui/QPixmap \
+ /usr/include/qt/QtGui/qpixmap.h /usr/include/qt/QtGui/qimage.h \
+ /usr/include/qt/QtGui/QMouseEvent /usr/include/qt/QtGui/qevent.h \
+ /usr/include/qt/QtGui/qkeysequence.h /usr/include/qt/QtCore/qcoreevent.h \
+ /usr/include/qt/QtCore/qvariant.h /usr/include/qt/QtCore/qset.h \
+ /usr/include/qt/QtCore/qurl.h /usr/include/qt/QtCore/qfile.h \
+ /usr/include/qt/QtCore/qfiledevice.h /usr/include/qt/QtGui/qvector2d.h \
+ /usr/include/qt/QtGui/qtouchdevice.h /usr/include/qt/QtGui/QWheelEvent \
+ /usr/include/qt/QtGui/QHoverEvent /usr/include/qt/QtGui/QMoveEvent \
+ /usr/include/qt/QtCore/QEvent /usr/include/qt/QtCore/qcoreevent.h \
+ /usr/include/KF5/KWindowSystem/kwindowsystem.h \
+ /usr/include/qt/QtGui/QWidgetList /usr/include/qt/QtGui/qwindowdefs.h \
+ /usr/include/KF5/KWindowSystem/kwindowinfo.h \
+ /usr/include/qt/QtCore/QExplicitlySharedDataPointer \
+ /usr/include/qt/QtCore/qshareddata.h /usr/include/qt/QtCore/QStringList \
+ /usr/include/qt/QtCore/qstringlist.h \
+ /usr/include/KF5/KWindowSystem/kwindowsystem_export.h \
+ /usr/include/KF5/KWindowSystem/netwm_def.h /usr/include/qt/QtCore/QFlags \
+ /usr/include/qt/QtCore/qflags.h \
  /mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/shadowengine.h \
  /usr/include/qt/QtGui/QPainter /usr/include/qt/QtGui/qpainter.h \
- /usr/include/qt/QtGui/qpixmap.h /usr/include/qt/QtGui/qimage.h \
- /usr/include/qt/QtGui/qtextoption.h /usr/include/qt/QtGui/qpen.h \
- /usr/include/qt/QtGui/qbrush.h /usr/include/qt/QtGui/qfontinfo.h \
- /usr/include/qt/QtGui/qfont.h /usr/include/qt/QtGui/qfontmetrics.h \
+ /usr/include/qt/QtGui/qpixmap.h /usr/include/qt/QtGui/qtextoption.h \
+ /usr/include/qt/QtGui/qpen.h /usr/include/qt/QtGui/qbrush.h \
+ /usr/include/qt/QtGui/qfontinfo.h /usr/include/qt/QtGui/qfont.h \
+ /usr/include/qt/QtGui/qfontmetrics.h \
  /usr/include/KDecoration2/KDecoration2/DecoratedClient \
  /usr/include/KDecoration2/kdecoration2/decoratedclient.h \
  /usr/include/qt/QtGui/QFont /usr/include/qt/QtGui/qfont.h \
@@ -249,7 +267,6 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: \
  /usr/include/KF5/KConfigCore/kconfig.h \
  /usr/include/KF5/KConfigCore/kconfigbase.h \
  /usr/include/KF5/KConfigCore/kconfigcore_export.h \
- /usr/include/qt/QtCore/QStringList /usr/include/qt/QtCore/qstringlist.h \
  /usr/include/qt/QtCore/QtGlobal /usr/include/qt/QtCore/qglobal.h \
  /usr/include/qt/QtCore/QByteArray /usr/include/qt/QtCore/qbytearray.h \
  /usr/include/qt/QtCore/QList /usr/include/qt/QtCore/qlist.h \
@@ -258,8 +275,6 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: \
  /usr/include/qt/QtCore/qstring.h /usr/include/qt/QtCore/QVariant \
  /usr/include/KF5/KConfigCore/KConfigGroup \
  /usr/include/KF5/KConfigCore/kconfiggroup.h \
- /usr/include/qt/QtCore/QExplicitlySharedDataPointer \
- /usr/include/qt/QtCore/qshareddata.h \
  /usr/include/KF5/KConfigCore/conversioncheck.h \
  /usr/include/qt/QtCore/QDate /usr/include/qt/QtCore/qdatetime.h \
  /usr/include/qt/QtCore/QPoint /usr/include/qt/QtCore/qpoint.h \
@@ -267,24 +282,28 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: \
  /usr/include/KF5/KCoreAddons/KPluginFactory \
  /usr/include/KF5/KCoreAddons/kpluginfactory.h \
  /usr/include/KF5/KCoreAddons/kcoreaddons_export.h \
+ /usr/include/KF5/KCoreAddons/kpluginmetadata.h \
+ /usr/include/qt/QtCore/QJsonObject /usr/include/qt/QtCore/qjsonobject.h \
+ /usr/include/qt/QtCore/qjsonvalue.h /usr/include/qt/QtCore/qcborvalue.h \
+ /usr/include/qt/QtCore/qdatetime.h /usr/include/qt/QtCore/qcborcommon.h \
+ /usr/include/qt/QtCore/qdebug.h /usr/include/qt/QtCore/qtextstream.h \
+ /usr/include/qt/QtCore/qlocale.h \
+ /usr/include/qt/QtCore/qcontiguouscache.h \
+ /usr/include/qt/QtCore/qregularexpression.h \
+ /usr/include/qt/QtCore/quuid.h /usr/include/qt/QtCore/QMetaType \
+ /usr/include/qt/QtCore/qmetatype.h \
  /usr/include/KF5/KCoreAddons/kexportplugin.h \
  /usr/include/qt/QtCore/QPluginLoader \
  /usr/include/qt/QtCore/qpluginloader.h /usr/include/qt/QtCore/qlibrary.h \
  /usr/include/qt/QtCore/qplugin.h /usr/include/qt/QtCore/qpointer.h \
- /usr/include/qt/QtCore/qjsonobject.h /usr/include/qt/QtCore/qjsonvalue.h \
- /usr/include/qt/QtCore/qcborvalue.h /usr/include/qt/QtCore/qdatetime.h \
- /usr/include/qt/QtCore/qcborcommon.h /usr/include/qt/QtCore/qdebug.h \
- /usr/include/qt/QtCore/qtextstream.h /usr/include/qt/QtCore/qlocale.h \
- /usr/include/qt/QtCore/qvariant.h /usr/include/qt/QtCore/qset.h \
- /usr/include/qt/QtCore/qcontiguouscache.h \
- /usr/include/qt/QtCore/qregularexpression.h \
- /usr/include/qt/QtCore/qurl.h /usr/include/qt/QtCore/quuid.h \
- /usr/include/qt/QtCore/QtPlugin /usr/include/qt/QtCore/qplugin.h \
+ /usr/include/qt/QtCore/qjsonobject.h /usr/include/qt/QtCore/QtPlugin \
+ /usr/include/qt/QtCore/qplugin.h \
  /usr/include/KF5/KCoreAddons/kcoreaddons_export.h \
  /usr/include/qt/QtCore/QDebug /usr/include/qt/QtCore/qdebug.h \
  /usr/include/qt/QtGui/QPaintEngine /usr/include/qt/QtGui/qpaintengine.h \
- /usr/include/qt/QtGui/qpainter.h /usr/include/qt/QtGui/QBitmap \
- /usr/include/qt/QtGui/qbitmap.h \
+ /usr/include/qt/QtGui/qpainter.h /usr/include/qt/QtCore/QDir \
+ /usr/include/qt/QtCore/qdir.h /usr/include/qt/QtCore/qfileinfo.h \
+ /usr/include/qt/QtGui/QBitmap /usr/include/qt/QtGui/qbitmap.h \
  /usr/include/qt/QtCore/QPropertyAnimation \
  /usr/include/qt/QtCore/qpropertyanimation.h \
  /usr/include/qt/QtCore/qvariantanimation.h \

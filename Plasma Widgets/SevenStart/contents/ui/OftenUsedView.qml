@@ -55,7 +55,8 @@ BaseView {
 
     model: Kicker.RecentUsageModel { 
         favoritesModel: globalFavorites//rootModel.modelForRow(0)
-        ordering: 1
+        ordering: 0
         shownItems: Kicker.RecentUsageModel.OnlyApps
+        
     }
 }

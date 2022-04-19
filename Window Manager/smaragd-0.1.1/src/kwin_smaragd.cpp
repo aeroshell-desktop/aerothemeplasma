@@ -27,12 +27,16 @@
 #include <KDecoration2/DecorationSettings>
 #include <KDecoration2/DecorationShadow>
 
+#include <kwindowsystem.h>
+#include <kwindowinfo.h>
+
 #include <KConfig>
 #include <KConfigGroup>
 #include <KPluginFactory>
 
 #include <QDebug>
 #include <QPaintEngine>
+#include <QDir>
 
 #include <QBitmap>
 #include <QPainter>
@@ -98,7 +102,7 @@ extern void line_engine_draw_frame(decor_t * d, cairo_t * cr);
 extern void oxygen_engine_draw_frame(decor_t * d, cairo_t * cr);
 extern void pixmap_engine_draw_frame(decor_t * d, cairo_t * cr);
 extern void truglass_engine_draw_frame(decor_t * d, cairo_t * cr);
-extern void vrunner_engine_draw_frame(decor_t * d, cairo_t * cr, int titletext_width, int titletext_height);
+extern void vrunner_engine_draw_frame(decor_t * d, cairo_t * cr, int titletext_width, int titletext_height, int maximized);
 extern void zootreeves_engine_draw_frame(decor_t * d, cairo_t * cr);
 
 static init_engine_proc init_engine;
@@ -388,18 +392,27 @@ Decoration::~Decoration()
 {
 }
 
+void Decoration::onWindowChanged(WId id, NET::Properties properties, NET::Properties2 properties2)
+{
+	//printf("%x\n", properties);
+	/*if(id != client().data()->windowId()) return;
+	if((properties & NET::WMMoveResize) || (properties2 & NET::WM2MoveResizeWindow)) printf("KURAAAC\n");*/
+	//printf("%d\n");
+}
 void Decoration::init()
 {
     connect(client().data(), &KDecoration2::DecoratedClient::widthChanged, this, &Decoration::updateLayout);
+    connect(client().data(), &KDecoration2::DecoratedClient::desktopChanged, this, &Decoration::updateReflection);
     connect(client().data(), &KDecoration2::DecoratedClient::heightChanged, this, &Decoration::updateLayout);
     connect(client().data(), &KDecoration2::DecoratedClient::maximizedChanged, this, &Decoration::updateLayout);
     connect(client().data(), &KDecoration2::DecoratedClient::shadedChanged, this, &Decoration::updateLayout);
+
 
     connect(client().data(), &KDecoration2::DecoratedClient::paletteChanged, this, [this]() { update(); });
     connect(client().data(), &KDecoration2::DecoratedClient::iconChanged, this, [this]() { update(); });
     connect(client().data(), &KDecoration2::DecoratedClient::captionChanged, this, [this]() { update(); });
     connect(client().data(), &KDecoration2::DecoratedClient::activeChanged, this, [this]() { update(); });
-
+	
     window_settings *ws = factory()->windowSettings();
     factory()->setFontHeight(settings()->fontMetrics().height());
     parseButtonLayout(ws->tobj_layout ? ws->tobj_layout : (char *) "I:T:NXC");
@@ -431,9 +444,27 @@ void Decoration::init()
     shadow->setPadding(QMargins(p, p, p, p));
     setShadow(QSharedPointer<KDecoration2::DecorationShadow>(shadow));
 
-    updateLayout();
-}
+	sideglow_left.load(QDir::homePath() + "/.emerald/theme/sideglow_left.png");
+	sideglow_right.load(QDir::homePath() + "/.emerald/theme/sideglow_right.png");
+	sidebar_focus_original.load(QDir::homePath() + "/.emerald/theme/sidebar.png");
+	sidebar_unfocus_original.load(QDir::homePath() + "/.emerald/theme/sidebar_unfocus.png");
+	reflection.load(QDir::homePath() + "/.emerald/theme/reflection.png");
 
+	connect(KWindowSystem::self(), SIGNAL(windowChanged(WId, NET::Properties, NET::Properties2)),
+			this, SLOT(onWindowChanged(WId, NET::Properties, NET::Properties2)));
+
+
+    updateLayout();
+	updateReflection();
+}
+void Decoration::updateReflection()
+{
+	if(!reflection.isNull())
+	{
+		QRect deskpos = KWindowSystem::workArea(client().data()->windowId());
+		reflection_scaled = reflection.scaled(deskpos.width(), deskpos.height());
+	}
+}
 void Decoration::updateLayout()
 {
     window_settings *ws = factory()->windowSettings();
@@ -455,6 +486,19 @@ void Decoration::updateLayout()
 
     m_buttonGroup[0]->setPos(QPointF(titleEdgeLeft, 0));
     m_buttonGroup[2]->setPos(QPointF(size().width() - qRound(m_buttonGroup[2]->geometry().width()) - titleEdgeRight, 0));
+	
+	int borderWidth = borderLeft() - 2;
+	int borderHeight = (int)(client().data()->height() * 0.22f);
+	if(borderHeight < 32)
+		borderHeight = 32;
+	if(borderWidth < 1)
+		borderWidth = 1;
+	if(!sidebar_focus_original.isNull())
+		sidebar_focus = sidebar_focus_original.scaled(borderWidth, borderHeight/*, Qt::SmoothTransformation*/);
+	if(!sidebar_unfocus_original.isNull())
+		sidebar_unfocus = sidebar_unfocus_original.scaled(borderWidth, borderHeight/*, Qt::SmoothTransformation*/);
+	
+	win_pos = KWindowSystem::windowInfo(client().data()->decorationId(), NET::WMGeometry).geometry();
 }
 
 int Decoration::buttonGlyph(KDecoration2::DecorationButtonType type) const
@@ -707,7 +751,7 @@ QImage DecorationFactory::decorationImage(const QSize &size, bool active, int st
     cairo_set_line_width(cr, 1.0);
 	if(draw_frame == NULL)
 	{
-		vrunner_drawframe(d, cr, titletext_width, titletext_height);
+		vrunner_drawframe(d, cr, titletext_width, titletext_height, maximized);
 	}
 	else
 	{
@@ -744,7 +788,10 @@ static QImage hoverImage(const QImage &image, const QImage &hoverImage, qreal ho
     p.end();
     return result;
 }
-
+void DecorationFactory::setMaximized(bool max)
+{
+	this->maximized = max ? 1 : 0;
+}
 void Decoration::paint(QPainter *painter, const QRect &repaintArea)
 {
     painter->save();
@@ -755,15 +802,37 @@ void Decoration::paint(QPainter *painter, const QRect &repaintArea)
     const bool active = client().data()->isActive();
     QSize decoSize = size();
 
-    QRect captionRect(m_buttonGroup[0]->geometry().right() + 2, 0, m_buttonGroup[2]->geometry().left() - m_buttonGroup[0]->geometry().right() - 4, borderTop());
+    QRect captionRect(m_buttonGroup[0]->geometry().right() + 2 + (client().data()->isMaximized() ? 5 : 0), 0, m_buttonGroup[2]->geometry().left() - m_buttonGroup[0]->geometry().right() - 4, borderTop());
     QString caption = settings()->fontMetrics().elidedText(client().data()->caption(), Qt::ElideMiddle, captionRect.width());
+	QStringList programname = caption.split(" — ");
+	caption.remove(" — " + programname.at(programname.size()-1));
 	factory()->setTitleTextWidth(settings()->fontMetrics().width(caption));
 	factory()->setTitleTextHeight(settings()->fontMetrics().height());
+	factory()->setMaximized(client().data()->isMaximized());
     QImage decoImage = factory()->decorationImage(size(), active, 0, captionRect);
     window_settings *ws = factory()->windowSettings();
     const Config *config = factory()->config();
 
+
+	//QRect deskpos = KWindowSystem::workArea(client().data()->decorationId());
+	//printf("Desktop: %d, %d\nPosition: %d, %d\n", deskpos.width(), deskpos.height(), pos.x(), pos.y());
+	
+	if(!reflection_scaled.isNull() && client().data()->width() > 32)
+	{
+		painter->drawPixmap(2, 2, client().data()->width() + borderLeft() + borderRight() -4, client().data()->height(), reflection_scaled, win_pos.x(), win_pos.y(), client().data()->width() + borderLeft() + borderRight() - 4, client().data()->height());
+	}
+
+
+	if(!sideglow_left.isNull())
+		painter->drawImage(0, 0, sideglow_left);
+	if(!sideglow_right.isNull())
+		painter->drawImage(client().data()->width() - sideglow_right.width() + borderLeft() + borderRight(), 0, sideglow_right);
     painter->drawImage(0, 0, decoImage);
+	if(!sidebar_focus_original.isNull() && !sidebar_unfocus_original.isNull())
+	{
+		painter->drawImage(1, borderTop(), active ? sidebar_focus : sidebar_unfocus);
+		painter->drawImage(client().data()->width() - (active ? sidebar_focus.width() : sidebar_unfocus.width()) + borderLeft() + borderRight() - 1, borderTop(), active ? sidebar_focus : sidebar_unfocus);
+	}
 
     frame_settings *fs = active ? ws->fs_act : ws->fs_inact;
 
@@ -932,7 +1001,9 @@ void DecorationButton::paint(QPainter *painter, const QRect &repaintArea)
     }
 
     if (type() == KDecoration2::DecorationButtonType::Menu) {
-        client->icon().paint(painter, rect);
+		QRect rect_final = rect;
+		if(client->isMaximized()) rect_final.moveLeft(5);
+        client->icon().paint(painter, rect_final);
     } else {
         int glyph = decoration->buttonGlyph(type());
         if (glyph == -1) {

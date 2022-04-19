@@ -2354,11 +2354,41 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: ../src/kwin_smaragd.cpp \
   /usr/include/qt/QtCore/QVariantList \
   /usr/include/qt/QtCore/qvariant.h \
   /usr/include/qt/QtCore/qmap.h \
+  /usr/include/qt/QtGui/QPixmap \
+  /usr/include/qt/QtGui/qpixmap.h \
+  /usr/include/qt/QtGui/qimage.h \
+  /usr/include/qt/QtGui/QMouseEvent \
+  /usr/include/qt/QtGui/qevent.h \
+  /usr/include/qt/QtGui/qkeysequence.h \
+  /usr/include/qt/QtCore/qcoreevent.h \
+  /usr/include/qt/QtCore/qvariant.h \
+  /usr/include/qt/QtCore/qset.h \
+  /usr/include/qt/QtCore/qurl.h \
+  /usr/include/qt/QtCore/qfile.h \
+  /usr/include/qt/QtCore/qfiledevice.h \
+  /usr/include/qt/QtGui/qvector2d.h \
+  /usr/include/qt/QtGui/qtouchdevice.h \
+  /usr/include/qt/QtGui/QWheelEvent \
+  /usr/include/qt/QtGui/QHoverEvent \
+  /usr/include/qt/QtGui/QMoveEvent \
+  /usr/include/qt/QtCore/QEvent \
+  /usr/include/qt/QtCore/qcoreevent.h \
+  /usr/include/KF5/KWindowSystem/kwindowsystem.h \
+  /usr/include/qt/QtGui/QWidgetList \
+  /usr/include/qt/QtGui/qwindowdefs.h \
+  /usr/include/KF5/KWindowSystem/kwindowinfo.h \
+  /usr/include/qt/QtCore/QExplicitlySharedDataPointer \
+  /usr/include/qt/QtCore/qshareddata.h \
+  /usr/include/qt/QtCore/QStringList \
+  /usr/include/qt/QtCore/qstringlist.h \
+  /usr/include/KF5/KWindowSystem/kwindowsystem_export.h \
+  /usr/include/KF5/KWindowSystem/netwm_def.h \
+  /usr/include/qt/QtCore/QFlags \
+  /usr/include/qt/QtCore/qflags.h \
   ../src/shadowengine.h \
   /usr/include/qt/QtGui/QPainter \
   /usr/include/qt/QtGui/qpainter.h \
   /usr/include/qt/QtGui/qpixmap.h \
-  /usr/include/qt/QtGui/qimage.h \
   /usr/include/qt/QtGui/qtextoption.h \
   /usr/include/qt/QtGui/qpen.h \
   /usr/include/qt/QtGui/qbrush.h \
@@ -2386,8 +2416,6 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: ../src/kwin_smaragd.cpp \
   /usr/include/KF5/KConfigCore/kconfig.h \
   /usr/include/KF5/KConfigCore/kconfigbase.h \
   /usr/include/KF5/KConfigCore/kconfigcore_export.h \
-  /usr/include/qt/QtCore/QStringList \
-  /usr/include/qt/QtCore/qstringlist.h \
   /usr/include/qt/QtCore/QtGlobal \
   /usr/include/qt/QtCore/qglobal.h \
   /usr/include/qt/QtCore/QByteArray \
@@ -2401,8 +2429,6 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: ../src/kwin_smaragd.cpp \
   /usr/include/qt/QtCore/QVariant \
   /usr/include/KF5/KConfigCore/KConfigGroup \
   /usr/include/KF5/KConfigCore/kconfiggroup.h \
-  /usr/include/qt/QtCore/QExplicitlySharedDataPointer \
-  /usr/include/qt/QtCore/qshareddata.h \
   /usr/include/KF5/KConfigCore/conversioncheck.h \
   /usr/include/qt/QtCore/QDate \
   /usr/include/qt/QtCore/qdatetime.h \
@@ -2413,12 +2439,8 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: ../src/kwin_smaragd.cpp \
   /usr/include/KF5/KCoreAddons/KPluginFactory \
   /usr/include/KF5/KCoreAddons/kpluginfactory.h \
   /usr/include/KF5/KCoreAddons/kcoreaddons_export.h \
-  /usr/include/KF5/KCoreAddons/kexportplugin.h \
-  /usr/include/qt/QtCore/QPluginLoader \
-  /usr/include/qt/QtCore/qpluginloader.h \
-  /usr/include/qt/QtCore/qlibrary.h \
-  /usr/include/qt/QtCore/qplugin.h \
-  /usr/include/qt/QtCore/qpointer.h \
+  /usr/include/KF5/KCoreAddons/kpluginmetadata.h \
+  /usr/include/qt/QtCore/QJsonObject \
   /usr/include/qt/QtCore/qjsonobject.h \
   /usr/include/qt/QtCore/qjsonvalue.h \
   /usr/include/qt/QtCore/qcborvalue.h \
@@ -2427,12 +2449,18 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: ../src/kwin_smaragd.cpp \
   /usr/include/qt/QtCore/qdebug.h \
   /usr/include/qt/QtCore/qtextstream.h \
   /usr/include/qt/QtCore/qlocale.h \
-  /usr/include/qt/QtCore/qvariant.h \
-  /usr/include/qt/QtCore/qset.h \
   /usr/include/qt/QtCore/qcontiguouscache.h \
   /usr/include/qt/QtCore/qregularexpression.h \
-  /usr/include/qt/QtCore/qurl.h \
   /usr/include/qt/QtCore/quuid.h \
+  /usr/include/qt/QtCore/QMetaType \
+  /usr/include/qt/QtCore/qmetatype.h \
+  /usr/include/KF5/KCoreAddons/kexportplugin.h \
+  /usr/include/qt/QtCore/QPluginLoader \
+  /usr/include/qt/QtCore/qpluginloader.h \
+  /usr/include/qt/QtCore/qlibrary.h \
+  /usr/include/qt/QtCore/qplugin.h \
+  /usr/include/qt/QtCore/qpointer.h \
+  /usr/include/qt/QtCore/qjsonobject.h \
   /usr/include/qt/QtCore/QtPlugin \
   /usr/include/qt/QtCore/qplugin.h \
   /usr/include/KF5/KCoreAddons/kcoreaddons_export.h \
@@ -2441,6 +2469,9 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: ../src/kwin_smaragd.cpp \
   /usr/include/qt/QtGui/QPaintEngine \
   /usr/include/qt/QtGui/qpaintengine.h \
   /usr/include/qt/QtGui/qpainter.h \
+  /usr/include/qt/QtCore/QDir \
+  /usr/include/qt/QtCore/qdir.h \
+  /usr/include/qt/QtCore/qfileinfo.h \
   /usr/include/qt/QtGui/QBitmap \
   /usr/include/qt/QtGui/qbitmap.h \
   /usr/include/qt/QtCore/QPropertyAnimation \
@@ -2933,11 +2964,41 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd_autogen/mocs_compilation.cpp.o: src
   /usr/include/qt/QtCore/QVariantList \
   /usr/include/qt/QtCore/qvariant.h \
   /usr/include/qt/QtCore/qmap.h \
+  /usr/include/qt/QtGui/QPixmap \
+  /usr/include/qt/QtGui/qpixmap.h \
+  /usr/include/qt/QtGui/qimage.h \
+  /usr/include/qt/QtGui/QMouseEvent \
+  /usr/include/qt/QtGui/qevent.h \
+  /usr/include/qt/QtGui/qkeysequence.h \
+  /usr/include/qt/QtCore/qcoreevent.h \
+  /usr/include/qt/QtCore/qvariant.h \
+  /usr/include/qt/QtCore/qset.h \
+  /usr/include/qt/QtCore/qurl.h \
+  /usr/include/qt/QtCore/qfile.h \
+  /usr/include/qt/QtCore/qfiledevice.h \
+  /usr/include/qt/QtGui/qvector2d.h \
+  /usr/include/qt/QtGui/qtouchdevice.h \
+  /usr/include/qt/QtGui/QWheelEvent \
+  /usr/include/qt/QtGui/QHoverEvent \
+  /usr/include/qt/QtGui/QMoveEvent \
+  /usr/include/qt/QtCore/QEvent \
+  /usr/include/qt/QtCore/qcoreevent.h \
+  /usr/include/KF5/KWindowSystem/kwindowsystem.h \
+  /usr/include/qt/QtGui/QWidgetList \
+  /usr/include/qt/QtGui/qwindowdefs.h \
+  /usr/include/KF5/KWindowSystem/kwindowinfo.h \
+  /usr/include/qt/QtCore/QExplicitlySharedDataPointer \
+  /usr/include/qt/QtCore/qshareddata.h \
+  /usr/include/qt/QtCore/QStringList \
+  /usr/include/qt/QtCore/qstringlist.h \
+  /usr/include/KF5/KWindowSystem/kwindowsystem_export.h \
+  /usr/include/KF5/KWindowSystem/netwm_def.h \
+  /usr/include/qt/QtCore/QFlags \
+  /usr/include/qt/QtCore/qflags.h \
   ../src/shadowengine.h \
   /usr/include/qt/QtGui/QPainter \
   /usr/include/qt/QtGui/qpainter.h \
   /usr/include/qt/QtGui/qpixmap.h \
-  /usr/include/qt/QtGui/qimage.h \
   /usr/include/qt/QtGui/qtextoption.h \
   /usr/include/qt/QtGui/qpen.h \
   /usr/include/qt/QtGui/qbrush.h \
@@ -3534,21 +3595,53 @@ src/kwin_smaragd_autogen/include/kwin_smaragd.moc:
 
 /usr/include/qt/QtGui/QBitmap:
 
+/usr/include/qt/QtCore/qdir.h:
+
 /usr/include/qt/QtGui/qpaintengine.h:
 
 /usr/include/qt/QtGui/QPaintEngine:
 
 /usr/include/qt/QtCore/QDebug:
 
-/usr/include/qt/QtCore/quuid.h:
+/usr/include/qt/QtCore/qplugin.h:
 
-/usr/include/qt/QtCore/qurl.h:
+/usr/include/qt/QtCore/QPluginLoader:
+
+/usr/include/qt/QtCore/QMetaType:
+
+/usr/include/qt/QtCore/quuid.h:
 
 /usr/include/qt/QtCore/qdebug.h:
 
 /usr/include/qt/QtCore/qcborcommon.h:
 
 /usr/include/qt/QtCore/qcborvalue.h:
+
+/usr/include/qt/QtCore/qjsonvalue.h:
+
+/usr/include/qt/QtCore/qjsonobject.h:
+
+/usr/include/qt/QtCore/QJsonObject:
+
+/usr/include/KF5/KCoreAddons/kpluginmetadata.h:
+
+/usr/include/KF5/KCoreAddons/kpluginfactory.h:
+
+/usr/include/KF5/KCoreAddons/KPluginFactory:
+
+/usr/include/qt/QtCore/QSize:
+
+/usr/include/qt/QtCore/QPoint:
+
+/usr/include/qt/QtCore/qdatetime.h:
+
+/usr/include/KF5/KConfigCore/conversioncheck.h:
+
+/usr/include/KF5/KConfigCore/kconfiggroup.h:
+
+/usr/include/KF5/KConfigCore/KConfigGroup:
+
+/usr/include/qt/QtCore/qstandardpaths.h:
 
 ../src/engines/pixmap.c:
 
@@ -3567,8 +3660,6 @@ src/kwin_smaragd_autogen/include/kwin_smaragd.moc:
 /usr/include/bits/locale.h:
 
 /usr/include/locale.h:
-
-/usr/include/glib-2.0/glib/gshell.h:
 
 /usr/include/libintl.h:
 
@@ -3610,8 +3701,6 @@ src/kwin_smaragd_autogen/include/kwin_smaragd.moc:
 
 /usr/include/cairo/cairo-deprecated.h:
 
-/usr/include/bits/types/FILE.h:
-
 /usr/include/c++/11.1.0/bits/allocator.h:
 
 /usr/include/qt/QtCore/QMargins:
@@ -3650,6 +3739,8 @@ src/kwin_smaragd_autogen/include/kwin_smaragd.moc:
 
 /usr/include/qt/QtCore/QPropertyAnimation:
 
+/usr/include/KF5/KWindowSystem/kwindowsystem_export.h:
+
 /usr/include/bits/types/struct_sched_param.h:
 
 /usr/include/asm-generic/types.h:
@@ -3679,6 +3770,8 @@ src/kwin_smaragd_autogen/include/kwin_smaragd.moc:
 /usr/include/c++/11.1.0/bits/char_traits.h:
 
 /usr/include/bits/types/error_t.h:
+
+/usr/include/qt/QtCore/QEvent:
 
 /usr/include/linux/stddef.h:
 
@@ -3729,8 +3822,6 @@ src/kwin_smaragd_autogen/include/kwin_smaragd.moc:
 /usr/include/glib-2.0/glib/gmessages.h:
 
 /usr/include/qt/QtCore/qobject.h:
-
-/usr/include/KF5/KCoreAddons/KPluginFactory:
 
 /usr/include/math.h:
 
@@ -3830,8 +3921,6 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 /usr/include/bits/ss_flags.h:
 
-/usr/include/KF5/KCoreAddons/kpluginfactory.h:
-
 /usr/include/time.h:
 
 /usr/include/glib-2.0/glib/gtypes.h:
@@ -3860,12 +3949,6 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 /usr/include/bits/errno.h:
 
-/usr/include/qt/QtCore/qlocale.h:
-
-/usr/include/bits/flt-eval-method.h:
-
-/usr/include/qt/QtGui/qpalette.h:
-
 /usr/include/c++/11.1.0/bits/stl_iterator_base_types.h:
 
 /usr/include/c++/11.1.0/bits/shared_ptr.h:
@@ -3879,6 +3962,8 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 /usr/lib/glib-2.0/include/glibconfig.h:
 
 /usr/include/c++/11.1.0/bits/cxxabi_forced.h:
+
+/usr/include/qt/QtGui/QPixmap:
 
 /usr/include/glib-2.0/glib/gmacros.h:
 
@@ -3900,8 +3985,6 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 /usr/include/c++/11.1.0/iosfwd:
 
-/usr/include/qt/QtCore/qjsonvalue.h:
-
 ../src/engines/pixmap_engine.h:
 
 /usr/include/bits/wchar.h:
@@ -3915,8 +3998,6 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 /usr/include/qt/QtCore/qtcore-config.h:
 
 /usr/include/bits/uintn-identity.h:
-
-/usr/include/qt/QtCore/qplugin.h:
 
 /usr/include/c++/11.1.0/bits/basic_string.h:
 
@@ -3947,6 +4028,8 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 /usr/include/cairo/cairo-version.h:
 
 /usr/include/qt/QtGui/qbrush.h:
+
+/usr/include/qt/QtCore/qfile.h:
 
 /usr/include/bits/siginfo-consts.h:
 
@@ -3980,6 +4063,10 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 /usr/include/qt/QtCore/qrect.h:
 
+/usr/include/KF5/KCoreAddons/kexportplugin.h:
+
+../src/emerald.c:
+
 /usr/include/sys/cdefs.h:
 
 /usr/include/KDecoration2/kdecoration2/decorationshadow.h:
@@ -3988,8 +4075,6 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 ../src/include/emerald.h:
 
-/usr/include/qt/QtCore/qdatetime.h:
-
 ../src/include/decoration.h:
 
 /usr/include/c++/11.1.0/backward/auto_ptr.h:
@@ -3997,8 +4082,6 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 /usr/include/c++/11.1.0/ext/atomicity.h:
 
 /usr/include/bits/long-double.h:
-
-/usr/include/KF5/KConfigCore/conversioncheck.h:
 
 /usr/include/bits/dirent.h:
 
@@ -4044,9 +4127,21 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 ../src/kwin_smaragd.cpp:
 
+/usr/include/qt/QtCore/QString:
+
+/usr/include/glib-2.0/glib/gscanner.h:
+
+/usr/include/bits/types.h:
+
 /usr/include/qt/QtCore/QList:
 
 /usr/include/bits/siginfo-arch.h:
+
+/usr/include/qt/QtCore/QStandardPaths:
+
+/usr/include/glib-2.0/glib/gversionmacros.h:
+
+/usr/include/qt/QtCore/QStringList:
 
 /usr/include/glib-2.0/glib/deprecated/grel.h:
 
@@ -4061,6 +4156,12 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 /usr/include/c++/11.1.0/bits/functional_hash.h:
 
 /usr/include/glib-2.0/glib/gvariant.h:
+
+/usr/include/qt/QtCore/QVariant:
+
+/usr/include/asm-generic/errno-base.h:
+
+/usr/include/c++/11.1.0/bits/stl_bvector.h:
 
 /usr/include/bits/posix1_lim.h:
 
@@ -4077,8 +4178,6 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 /usr/include/glib-2.0/glib/gerror.h:
 
 /usr/include/bits/types/sigset_t.h:
-
-/usr/include/qt/QtCore/qsharedpointer_impl.h:
 
 /usr/include/qt/QtCore/qobject_impl.h:
 
@@ -4101,8 +4200,6 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 /usr/include/glib-2.0/glib/gspawn.h:
 
 /usr/include/c++/11.1.0/utility:
-
-/usr/include/glib-2.0/glib/gbacktrace.h:
 
 /usr/include/bits/posix2_lim.h:
 
@@ -4144,8 +4241,6 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 /usr/include/glib-2.0/glib/glib-autocleanups.h:
 
-/usr/include/glib-2.0/glib/gtimezone.h:
-
 /usr/include/c++/11.1.0/stdlib.h:
 
 /usr/include/glib-2.0/glib/grcbox.h:
@@ -4166,6 +4261,12 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 /usr/include/bits/dirent_ext.h:
 
+/usr/include/qt/QtCore/qlibrary.h:
+
+/usr/include/bits/types/__fpos_t.h:
+
+/usr/include/glib-2.0/glib/gprimes.h:
+
 /usr/include/c++/11.1.0/bits/std_abs.h:
 
 /usr/include/c++/11.1.0/bits/stream_iterator.h:
@@ -4185,8 +4286,6 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 /usr/include/bits/types/clockid_t.h:
 
 ../src/engines/legacy_engine.h:
-
-/usr/include/c++/11.1.0/bits/streambuf_iterator.h:
 
 /usr/include/qt/QtCore/qscopedpointer.h:
 
@@ -4221,8 +4320,6 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 /usr/include/glib-2.0/glib/gtree.h:
 
 /usr/include/KDecoration2/kdecoration2/decoration.h:
-
-/usr/include/KF5/KConfigCore/kconfiggroup.h:
 
 /usr/include/KDecoration2/kdecoration2/kdecoration2_export.h:
 
@@ -4296,6 +4393,8 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 /usr/include/c++/11.1.0/cstdlib:
 
+/usr/include/qt/QtCore/qfileinfo.h:
+
 /usr/include/qt/QtCore/qline.h:
 
 /usr/include/c++/11.1.0/bits/stl_construct.h:
@@ -4366,6 +4465,8 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 /usr/include/qt/QtCore/qrefcount.h:
 
+/usr/include/qt/QtCore/QFlags:
+
 /usr/include/qt/QtCore/qstring.h:
 
 /usr/include/qt/QtCore/qbytearray.h:
@@ -4381,6 +4482,8 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 /usr/include/c++/11.1.0/bits/ios_base.h:
 
 /usr/include/c++/11.1.0/bit:
+
+/usr/include/qt/QtCore/QDir:
 
 /usr/include/c++/11.1.0/ext/new_allocator.h:
 
@@ -4399,6 +4502,8 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 /usr/include/asm-generic/errno.h:
 
 /usr/include/sys/single_threaded.h:
+
+/usr/include/qt/QtCore/qurl.h:
 
 /usr/include/bits/time64.h:
 
@@ -4446,8 +4551,6 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 /usr/include/c++/11.1.0/bits/stl_numeric.h:
 
-/usr/include/c++/11.1.0/bits/stl_multimap.h:
-
 /usr/include/bits/types/time_t.h:
 
 /usr/include/c++/11.1.0/tuple:
@@ -4461,6 +4564,10 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 /usr/include/glib-2.0/glib/grefcount.h:
 
 /usr/include/c++/11.1.0/bits/refwrap.h:
+
+/usr/include/c++/11.1.0/bits/streambuf_iterator.h:
+
+/usr/include/qt/QtCore/qfiledevice.h:
 
 /usr/include/c++/11.1.0/bits/std_function.h:
 
@@ -4490,15 +4597,15 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 /usr/include/qt/QtCore/qobjectdefs.h:
 
-../src/emerald.c:
-
-/usr/include/KF5/KCoreAddons/kexportplugin.h:
-
 /usr/include/qt/QtGui/qrgba64.h:
 
 ../src/engines/legacy.c:
 
 /usr/include/qt/QtGui/qpaintdevice.h:
+
+/usr/include/qt/QtCore/qpluginloader.h:
+
+/usr/include/qt/QtCore/qmargins.h:
 
 /usr/include/c++/11.1.0/x86_64-pc-linux-gnu/bits/gthr-default.h:
 
@@ -4550,7 +4657,9 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 /usr/include/c++/11.1.0/bits/parse_numbers.h:
 
-/usr/include/qt/QtCore/qstandardpaths.h:
+/usr/include/KF5/KCoreAddons/kcoreaddons_export.h:
+
+/usr/include/qt/QtCore/qshareddata.h:
 
 /usr/include/qt/QtCore/qhash.h:
 
@@ -4576,9 +4685,57 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 /usr/include/qt/QtCore/qmap.h:
 
-/usr/include/qt/QtGui/QPainter:
-
 /usr/include/qt/QtGui/qpixmap.h:
+
+/usr/include/glib-2.0/glib/gbacktrace.h:
+
+/usr/include/qt/QtGui/QMouseEvent:
+
+/usr/include/qt/QtGui/qevent.h:
+
+/usr/include/glib-2.0/glib/gshell.h:
+
+/usr/include/qt/QtGui/qkeysequence.h:
+
+/usr/include/qt/QtCore/qcoreevent.h:
+
+/usr/include/c++/11.1.0/bits/stl_multimap.h:
+
+/usr/include/qt/QtGui/qvector2d.h:
+
+/usr/include/qt/QtCore/qlocale.h:
+
+/usr/include/bits/flt-eval-method.h:
+
+/usr/include/qt/QtGui/qpalette.h:
+
+/usr/include/qt/QtGui/qtouchdevice.h:
+
+/usr/include/qt/QtGui/QWheelEvent:
+
+/usr/include/glib-2.0/glib/gtimezone.h:
+
+/usr/include/qt/QtGui/QHoverEvent:
+
+/usr/include/qt/QtGui/QMoveEvent:
+
+/usr/include/qt/QtCore/qsharedpointer_impl.h:
+
+/usr/include/KF5/KWindowSystem/kwindowsystem.h:
+
+/usr/include/bits/types/FILE.h:
+
+/usr/include/qt/QtGui/QWidgetList:
+
+/usr/include/KF5/KWindowSystem/kwindowinfo.h:
+
+/usr/include/KF5/KConfigCore/kconfig.h:
+
+/usr/include/KF5/KWindowSystem/netwm_def.h:
+
+/usr/include/KDecoration2/kdecoration2/decoratedclient.h:
+
+/usr/include/qt/QtGui/QPainter:
 
 /usr/include/qt/QtGui/qtextoption.h:
 
@@ -4594,8 +4751,6 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 /usr/include/KF5/KConfigCore/kconfigcore_export.h:
 
-/usr/include/KDecoration2/kdecoration2/decoratedclient.h:
-
 /usr/include/qt/QtGui/QIcon:
 
 /usr/include/glib-2.0/glib/ghostutils.h:
@@ -4608,50 +4763,6 @@ src/kwin_smaragd_autogen/mocs_compilation.cpp:
 
 /usr/include/qt/QtGui/QFontMetricsF:
 
-/usr/include/KF5/KConfigCore/kconfig.h:
-
-/usr/include/glib-2.0/glib/gscanner.h:
-
-/usr/include/bits/types.h:
-
-/usr/include/qt/QtCore/QString:
-
 /usr/include/bits/sigaction.h:
 
 /usr/include/qt/QtCore/QtGlobal:
-
-/usr/include/glib-2.0/glib/gversionmacros.h:
-
-/usr/include/qt/QtCore/QStringList:
-
-/usr/include/qt/QtCore/QStandardPaths:
-
-/usr/include/asm-generic/errno-base.h:
-
-/usr/include/c++/11.1.0/bits/stl_bvector.h:
-
-/usr/include/qt/QtCore/QVariant:
-
-/usr/include/KF5/KConfigCore/KConfigGroup:
-
-/usr/include/qt/QtCore/QPoint:
-
-/usr/include/qt/QtCore/QSize:
-
-/usr/include/qt/QtCore/qshareddata.h:
-
-/usr/include/KF5/KCoreAddons/kcoreaddons_export.h:
-
-/usr/include/qt/QtCore/QPluginLoader:
-
-/usr/include/qt/QtCore/qmargins.h:
-
-/usr/include/qt/QtCore/qpluginloader.h:
-
-/usr/include/bits/types/__fpos_t.h:
-
-/usr/include/glib-2.0/glib/gprimes.h:
-
-/usr/include/qt/QtCore/qlibrary.h:
-
-/usr/include/qt/QtCore/qjsonobject.h:

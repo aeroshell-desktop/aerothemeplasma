@@ -93,6 +93,7 @@ src/preinstall:
 
 # Recursive "clean" directory target.
 src/clean: src/CMakeFiles/kwin_smaragd.dir/clean
+src/clean: src/CMakeFiles/KF5WindowSystem_QCH.dir/clean
 src/clean: src/CMakeFiles/kwin_smaragd_autogen.dir/clean
 .PHONY : src/clean
 
@@ -277,6 +278,32 @@ kwin_smaragd: src/CMakeFiles/kwin_smaragd.dir/rule
 src/CMakeFiles/kwin_smaragd.dir/clean:
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/clean
 .PHONY : src/CMakeFiles/kwin_smaragd.dir/clean
+
+#=============================================================================
+# Target rules for target src/CMakeFiles/KF5WindowSystem_QCH.dir
+
+# All Build rule for target.
+src/CMakeFiles/KF5WindowSystem_QCH.dir/all:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/KF5WindowSystem_QCH.dir/build.make src/CMakeFiles/KF5WindowSystem_QCH.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/KF5WindowSystem_QCH.dir/build.make src/CMakeFiles/KF5WindowSystem_QCH.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/CMakeFiles" --progress-num= "Built target KF5WindowSystem_QCH"
+.PHONY : src/CMakeFiles/KF5WindowSystem_QCH.dir/all
+
+# Build rule for subdir invocation for target.
+src/CMakeFiles/KF5WindowSystem_QCH.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/CMakeFiles" 0
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/KF5WindowSystem_QCH.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/CMakeFiles" 0
+.PHONY : src/CMakeFiles/KF5WindowSystem_QCH.dir/rule
+
+# Convenience name for target.
+KF5WindowSystem_QCH: src/CMakeFiles/KF5WindowSystem_QCH.dir/rule
+.PHONY : KF5WindowSystem_QCH
+
+# clean rule for target.
+src/CMakeFiles/KF5WindowSystem_QCH.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/KF5WindowSystem_QCH.dir/build.make src/CMakeFiles/KF5WindowSystem_QCH.dir/clean
+.PHONY : src/CMakeFiles/KF5WindowSystem_QCH.dir/clean
 
 #=============================================================================
 # Target rules for target src/CMakeFiles/kwin_smaragd_autogen.dir

@@ -11,6 +11,7 @@
 /usr/share/plasma/plasmoids/org.kde.plasma.seventasks/contents/ui/MouseHandler.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.seventasks/contents/ui/PipeWireThumbnail.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.seventasks/contents/ui/PulseAudio.qml
+/usr/share/plasma/plasmoids/org.kde.plasma.seventasks/contents/ui/ScrollViewTask.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.seventasks/contents/ui/ScrollableTextWrapper.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.seventasks/contents/ui/Task.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.seventasks/contents/ui/TaskBadgeOverlay.qml
@@ -25,3 +26,4 @@
 /usr/share/plasma/plasmoids/org.kde.plasma.seventasks/metadata.desktop
 /usr/share/plasma/plasmoids/org.kde.plasma.seventasks/metadata.json
 /usr/share/metainfo/org.kde.plasma.seventasks.appdata.xml
+/usr/share/kservices5/plasma-applet-org.kde.plasma.seventasks.desktop

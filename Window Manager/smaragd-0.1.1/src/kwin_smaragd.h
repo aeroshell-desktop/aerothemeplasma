@@ -26,6 +26,15 @@
 #include <KDecoration2/DecorationButton>
 
 #include <QVariantList>
+#include <QImage>
+#include <QPixmap>
+#include <QMouseEvent>
+#include <QWheelEvent>
+#include <QHoverEvent>
+#include <QMoveEvent>
+#include <QEvent>
+#include <kwindowsystem.h>
+#include <kwindowinfo.h>
 
 #include "shadowengine.h"
 
@@ -68,7 +77,9 @@ public:
     void setFontHeight(int fontHeight);
     void setTitleTextWidth(int ttw);
     void setTitleTextHeight(int tth);
+    void setMaximized(bool max);
 
+    
 private:
     window_settings *ws; // must be first entry because of inline method to access it
     Config m_config;
@@ -76,6 +87,7 @@ private:
     QRegion cornerRegion[4];
     int titletext_width;
 	int titletext_height;
+    int maximized;
 };
 
 class Decoration : public KDecoration2::Decoration
@@ -90,20 +102,29 @@ public:
     DecorationFactory *factory() { return &m_factory; }
     void init() Q_DECL_OVERRIDE;
     void paint(QPainter *painter, const QRect &repaintArea) Q_DECL_OVERRIDE;
-
     void parseButtonLayout(char *p);
-
+    void updateReflection();
 private Q_SLOTS:
     void updateLayout();
+    void onWindowChanged(WId id, NET::Properties properties, NET::Properties2 properties2);
 
 public:
     int buttonGlyph(KDecoration2::DecorationButtonType type) const;
-
 private:
     DecorationFactory m_factory;
     KDecoration2::DecorationButtonGroup *m_buttonGroup[3];
     int m_titleLeft;
     int m_titleRight;
+    QImage sideglow_left;
+    QImage sideglow_right;
+    QImage sidebar_focus;
+    QImage sidebar_unfocus;
+    QImage sidebar_focus_original;
+    QImage sidebar_unfocus_original;
+    QPixmap reflection;
+    QPixmap reflection_scaled;
+    QRect win_pos;
+    bool mouseDown;
 };
 
 class DecorationButton : public KDecoration2::DecorationButton

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0 http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+	<kcfgfile name=""/>
+
+	<group name="General">
+		<entry name="click_action" type="string">
+			<default>showdesktop</default>
+		</entry>
+		<entry name="click_command" type="string">
+			<default></default>
+		</entry>
+		<entry name="mousewheel_action" type="string">
+			<default>run_commands</default>
+		</entry>
+		<entry name="mousewheel_up" type="string">
+			<default>qdbus org.kde.kglobalaccel /component/kmix invokeShortcut "increase_volume"</default>
+		</entry>
+		<entry name="mousewheel_down" type="string">
+			<default>qdbus org.kde.kglobalaccel /component/kmix invokeShortcut "decrease_volume"</default>
+		</entry>
+		<entry name="size" type="int">
+			<default>3</default>
+		</entry>
+		<entry name="peekingEnabled" type="bool">
+			<default>false</default>
+		</entry>
+		<entry name="peekingThreshold" type="int">
+			<default>1000</default>
+		</entry>
+		<entry name="edgeColor" type="string">
+			<default></default>
+		</entry>
+		<entry name="hoveredColor" type="string">
+			<default></default>
+		</entry>
+		<entry name="pressedColor" type="string">
+			<default></default>
+		</entry>
+	</group>
+</kcfg>

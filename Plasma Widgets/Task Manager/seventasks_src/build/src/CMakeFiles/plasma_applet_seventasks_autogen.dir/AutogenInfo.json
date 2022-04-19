@@ -1,28 +1,28 @@
 {
-	"BUILD_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/build/src/plasma_applet_seventasks_autogen",
-	"CMAKE_BINARY_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/build",
-	"CMAKE_CURRENT_BINARY_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/build/src",
-	"CMAKE_CURRENT_SOURCE_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/src",
+	"BUILD_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/build/src/plasma_applet_seventasks_autogen",
+	"CMAKE_BINARY_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/build/src",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/src",
 	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
 	"CMAKE_LIST_FILES" : 
 	[
-		"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/src/CMakeLists.txt"
+		"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/src/CMakeLists.txt"
 	],
-	"CMAKE_SOURCE_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks",
+	"CMAKE_SOURCE_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src",
 	"DEP_FILE" : "",
 	"DEP_FILE_RULE_NAME" : "",
 	"HEADERS" : 
 	[
 		[
-			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/src/seventasks.h",
+			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/src/seventasks.h",
 			"Mu",
 			"EWIEGA46WW/moc_seventasks.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/build/src/plasma_applet_seventasks_autogen/include",
-	"MOC_COMPILATION_FILE" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/build/src/plasma_applet_seventasks_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/build/src/plasma_applet_seventasks_autogen/include",
+	"MOC_COMPILATION_FILE" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/build/src/plasma_applet_seventasks_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : 
 	[
 		"KCOREADDONS_LIB",
@@ -45,6 +45,10 @@
 			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
 		],
 		[
+			"K_PLUGIN_CLASS",
+			"[\n^][ \t]*K_PLUGIN_CLASS[ \t\n]*\\([ \t\n]*\"([^\"]+)\""
+		],
+		[
 			"K_PLUGIN_FACTORY_WITH_JSON",
 			"[\n^][ \t]*K_PLUGIN_FACTORY_WITH_JSON[ \t\n]*\\([^,]*,[ \t\n]*\"([^\"]+)\""
 		],
@@ -55,14 +59,6 @@
 		[
 			"K_EXPORT_KPACKAGE_PACKAGE_WITH_JSON",
 			"[\n^][ \t]*K_EXPORT_KPACKAGE_PACKAGE_WITH_JSON[ \t\n]*\\([^,]*,[ \t\n]*\"([^\"]+)\""
-		],
-		[
-			"K_PLUGIN_FACTORY_WITH_JSON",
-			"[\n^][ \t]*K_PLUGIN_FACTORY_WITH_JSON[ \t\n]*\\([^,]*,[ \t\n]*\"([^\"]+)\""
-		],
-		[
-			"K_PLUGIN_CLASS_WITH_JSON",
-			"[\n^][ \t]*K_PLUGIN_CLASS_WITH_JSON[ \t\n]*\\([^,]*,[ \t\n]*\"([^\"]+)\""
 		],
 		[
 			"K_EXPORT_PLASMA_PACKAGE_WITH_JSON",
@@ -95,8 +91,8 @@
 	],
 	"MOC_INCLUDES" : 
 	[
-		"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/build/src",
-		"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/src",
+		"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/build/src",
+		"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/src",
 		"/usr/include/qt",
 		"/usr/include/qt/QtGui",
 		"/usr/include/qt/QtCore",
@@ -108,16 +104,17 @@
 		"/usr/include/KF5",
 		"/usr/include/KF5/Plasma",
 		"/usr/include/KF5/KService",
+		"/usr/include/KF5/KConfig",
 		"/usr/include/KF5/KConfigCore",
 		"/usr/include/KF5/KCoreAddons",
 		"/usr/include/KF5/KPackage",
 		"/usr/include/KF5/KI18n",
-		"/usr/include/c++/11.1.0",
-		"/usr/include/c++/11.1.0/x86_64-pc-linux-gnu",
-		"/usr/include/c++/11.1.0/backward",
-		"/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include",
+		"/usr/include/c++/11.2.0",
+		"/usr/include/c++/11.2.0/x86_64-pc-linux-gnu",
+		"/usr/include/c++/11.2.0/backward",
+		"/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include",
 		"/usr/local/include",
-		"/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed",
+		"/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed",
 		"/usr/include"
 	],
 	"MOC_MACRO_NAMES" : 
@@ -127,12 +124,10 @@
 		"Q_NAMESPACE",
 		"Q_NAMESPACE_EXPORT",
 		"K_PLUGIN_FACTORY",
+		"K_PLUGIN_CLASS",
 		"K_PLUGIN_FACTORY_WITH_JSON",
 		"K_PLUGIN_CLASS_WITH_JSON",
 		"K_EXPORT_KPACKAGE_PACKAGE_WITH_JSON",
-		"K_PLUGIN_FACTORY",
-		"K_PLUGIN_FACTORY_WITH_JSON",
-		"K_PLUGIN_CLASS_WITH_JSON",
 		"K_EXPORT_PLASMA_SERVICE",
 		"K_EXPORT_PLASMA_APPLET",
 		"K_EXPORT_PLASMA_PACKAGE",
@@ -155,23 +150,23 @@
 		"-dM",
 		"-E",
 		"-c",
-		"/usr/share/cmake-3.21/Modules/CMakeCXXCompilerABI.cpp"
+		"/usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/build/src/plasma_applet_seventasks_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/build/src/plasma_applet_seventasks_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
 	"PARALLEL" : 2,
-	"PARSE_CACHE_FILE" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/build/src/CMakeFiles/plasma_applet_seventasks_autogen.dir/ParseCache.txt",
+	"PARSE_CACHE_FILE" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/build/src/CMakeFiles/plasma_applet_seventasks_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "/usr/bin/moc",
 	"QT_UIC_EXECUTABLE" : "",
 	"QT_VERSION_MAJOR" : 5,
 	"QT_VERSION_MINOR" : 15,
-	"SETTINGS_FILE" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/build/src/CMakeFiles/plasma_applet_seventasks_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/build/src/CMakeFiles/plasma_applet_seventasks_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
 		[
-			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks/src/seventasks.cpp",
+			"/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/gitgud-repositories/KDE/seventasks_src/src/seventasks.cpp",
 			"Mu",
 			null
 		]

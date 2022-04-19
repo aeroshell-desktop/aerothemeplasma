@@ -27,6 +27,7 @@ import org.kde.draganddrop 2.0
 Item {
     property alias model: baseView.model
     property alias delegate: baseView.delegate
+    property alias currentIndex: baseView.currentIndex;
 
     property ListView listView: baseView.listView
 
@@ -39,6 +40,7 @@ Item {
     }
 
     function activateCurrentIndex() {
+        
         baseView.currentItem.activate();
     }
 

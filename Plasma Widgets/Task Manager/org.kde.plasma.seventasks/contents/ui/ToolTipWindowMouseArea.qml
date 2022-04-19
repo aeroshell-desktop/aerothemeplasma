@@ -15,7 +15,10 @@ MouseArea {
     // winId won't be an int wayland
     property var winId // FIXME Legacy
     property Item rootTask
-
+    property double opacityHover: 0;
+    property ScrollableTextWrapper title1;
+    property ScrollableTextWrapper title2;
+    property bool firstHover: false
     acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
     hoverEnabled: true
     enabled: winId !== 0
@@ -32,8 +35,26 @@ MouseArea {
             tasks.createContextMenu(rootTask, modelIndex).show();
         }
     }
-
-    onContainsMouseChanged: {
-        tasks.windowsHovered([winId], containsMouse);
+    
+    
+    onEntered: {
+            tasks.windowsHovered([winId], 1);
+            opacityHover = 1;//containsMouse 
+            //mouse.accepted = false;
     }
+    onExited: {
+        tasks.windowsHovered([winId], 0);
+        opacityHover = 0;
+        //mouse.accepted = false;
+    }
+    
+    Component.onCompleted: {
+        tasks.windowsHovered([winId], 0);
+        opacityHover = 0;
+        
+    }
+    /*onContainsMouseChanged: {
+        tasks.windowsHovered([winId], containsMouse);
+        opacityHover = containsMouse ? 1 : 0;
+    }*/
 }

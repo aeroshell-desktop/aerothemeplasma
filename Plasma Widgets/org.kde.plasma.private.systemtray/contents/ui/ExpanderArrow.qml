@@ -29,12 +29,14 @@ PlasmaCore.ToolTipArea {
     implicitWidth: PlasmaCore.Units.iconSizes.smallMedium
     implicitHeight: implicitWidth
 
-    subText: systemTrayState.expanded ? i18n("Close popup") : i18n("Show hidden icons")
+    subText: systemTrayState.expanded ? i18n("Hide") : i18n("Show hidden icons")
 
     MouseArea {
         id: arrowMouseArea
         anchors.fill: parent
+        anchors.leftMargin: 2
         onClicked: systemTrayState.expanded = !systemTrayState.expanded
+        hoverEnabled: true
 
         readonly property int arrowAnimationDuration: PlasmaCore.Units.shortDuration
 
@@ -47,22 +49,36 @@ PlasmaCore.ToolTipArea {
             id: arrow
 
             anchors.centerIn: parent
-            width: Math.min(parent.width, parent.height)
-            height: width
+            width: Math.min(parent.width, parent.height)+1
+            height: width-1
 
-            rotation: systemTrayState.expanded ? 180 : 0
+            /*rotation: systemTrayState.expanded ? 180 : 0
             Behavior on rotation {
                 RotationAnimation {
                     duration: arrowMouseArea.arrowAnimationDuration
                 }
-            }
-            opacity: systemTrayState.expanded ? 0 : 1
+            }*/
+            /*opacity: systemTrayState.expanded ? 0 : 1
             Behavior on opacity {
                 NumberAnimation {
                     duration: arrowMouseArea.arrowAnimationDuration
                 }
+            }*/
+            PlasmaCore.FrameSvgItem {
+                id: hoverButton
+                z: -1
+                anchors.fill: parent
+                //anchors.leftMargin: 1
+                //anchors.rightMargin: 1
+                //anchors.topMargin: 2
+                imagePath: "widgets/systray"
+                //opacity: arrowMouseArea.containsMouse ? 1 : 0
+                prefix: {
+                if(arrowMouseArea.containsPress || systemTrayState.expanded) return "pressed";
+                if(arrowMouseArea.containsMouse) return "hover";
+                return "normal";
+                }
             }
-
             svg: arrowSvg
             elementId: {
                 if (plasmoid.location === PlasmaCore.Types.TopEdge) {
@@ -77,7 +93,7 @@ PlasmaCore.ToolTipArea {
             }
         }
 
-        PlasmaCore.SvgItem {
+        /*PlasmaCore.SvgItem {
             anchors.centerIn: parent
             width: arrow.width
             height: arrow.height
@@ -107,6 +123,6 @@ PlasmaCore.ToolTipArea {
                     return "down-arrow";
                 }
             }
-        }
+        }*/
     }
 }

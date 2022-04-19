@@ -38,8 +38,14 @@ Item {
         id: crumb
 
         anchors.left: arrowSvg.right
-        
-        Text {
+        Rectangle {
+            anchors.fill: parent
+            anchors.leftMargin: PlasmaCore.Units.smallSpacing;
+            anchors.topMargin: PlasmaCore.Units.smallSpacing;
+            anchors.rightMargin: PlasmaCore.Units.smallSpacing;
+            anchors.bottomMargin: PlasmaCore.Units.smallSpacing;
+            color: "white"
+            Text {
             id: textLabel
             //anchors.fill: parent
             anchors.left: parent.left
@@ -52,6 +58,8 @@ Item {
             font.pixelSize: 12
             color: "#404040"
         }
+        }
+        
         text: crumbRoot.text
         //width: textLabel.contentWidth + units.smallSpacing*2
         enabled: crumbRoot.depth < crumbModel.count

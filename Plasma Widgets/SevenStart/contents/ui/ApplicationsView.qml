@@ -41,6 +41,7 @@ Item {
     }
 
     function activateCurrentIndex(start) {
+        
         if (!applicationsView.currentItem.modelChildren) {
             if (!start) {
                 return;
@@ -65,6 +66,7 @@ Item {
     function reset() {
         applicationsView.model = rootModel;
         applicationsView.clearBreadcrumbs();
+        //root.resetRecents();
     }
 
     function refreshed() {
@@ -75,12 +77,13 @@ Item {
     Connections {
         target: plasmoid
         function onExpandedChanged() {
+            
             if (!plasmoid.expanded) {
                 reset();
             }
         }
     }
-
+    
     Item {
         id: crumbContainer
 

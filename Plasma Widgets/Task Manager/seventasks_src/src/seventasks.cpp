@@ -37,9 +37,10 @@ QRgb averageColor(QRgb a, QRgb b)
 }
 QColor SevenTasks::getDominantColor(QVariant src)
 {
-	QColor defaultHighlight(67, 160, 214, 170);
+	//83, 183, 228
+	QColor defaultHighlight(55, 202, 255, 200);
     QIcon ico = qvariant_cast<QIcon>(src);
-    if(ico.isNull()) return QColor(255,255,255,170);
+    if(ico.isNull()) ico = QIcon::fromTheme("exec");
     //if(ico.name().isNull()) return QColor(255,255,255,170);
     //printf("ICON: %s\n", ico.name().toStdString().c_str());
     
@@ -119,7 +120,7 @@ QColor SevenTasks::getDominantColor(QVariant src)
     if(saturation > 255) saturation = 255;
     if(value > 255) value = 255;
     
-    finalCol.setHsv(finalCol.hsvHue(), saturation, value, 170);
+    finalCol.setHsv(finalCol.hsvHue(), saturation, value, 200);
     return finalCol;
 }
 

@@ -90,6 +90,7 @@ FocusScope {
                 onReset: view.reset()
                 onAddBreadcrumb: view.addBreadcrumb(model, title)
             }
+            spacing: PlasmaCore.Units.smallSpacing
 
             section {
                 property: "group"
@@ -145,6 +146,7 @@ FocusScope {
                             view.state = "OutgoingLeft";
                         } else {
                             item.activate();
+                            root.visible = false;
                         }
 
                         listView.currentIndex = -1;

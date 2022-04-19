@@ -32,7 +32,8 @@ Item {
     enabled: !model.disabled && !(model.display === "" || model.display === "Recent Applications")
     visible: !(model.display === "" || model.display === "Recent Applications")
     width: ListView.view.width
-    height: model.display === "" || model.display === "Recent Applications" ? 0 : (PlasmaCore.Units.smallSpacing * 2) + Math.max(elementIcon.height, titleElement.implicitHeight + subTitleElement.implicitHeight)
+    height: model.display === "" || model.display === "Recent Applications" ? 0 : (PlasmaCore.Units.smallSpacing) + Math.max(elementIcon.height, titleElement.implicitHeight + subTitleElement.implicitHeight)
+    //height: 36
 
     signal reset
     signal actionTriggered(string actionId, variant actionArgument)
@@ -60,6 +61,8 @@ Item {
     }
 
     onActionTriggered: {
+        
+        plasmoid.expanded = false;
         if (Tools.triggerAction(ListView.view.model, model.index, actionId, actionArgument) === true) {
             plasmoid.expanded = false;
         }
@@ -78,10 +81,11 @@ Item {
             listItem.addBreadcrumb(childModel, display);
             view.model = childModel;
         } else {
-            view.model.trigger(index, "", null);
             plasmoid.expanded = false;
+            view.model.trigger(index, "", null);
             listItem.reset();
         }
+        
     }
 
     function openActionMenu(x, y) {

@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Smaragd__Decoration_t {
-    QByteArrayData data[3];
-    char stringdata0[34];
+    QByteArrayData data[10];
+    char stringdata0[113];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,10 +34,19 @@ static const qt_meta_stringdata_Smaragd__Decoration_t qt_meta_stringdata_Smaragd
     {
 QT_MOC_LITERAL(0, 0, 19), // "Smaragd::Decoration"
 QT_MOC_LITERAL(1, 20, 12), // "updateLayout"
-QT_MOC_LITERAL(2, 33, 0) // ""
+QT_MOC_LITERAL(2, 33, 0), // ""
+QT_MOC_LITERAL(3, 34, 15), // "onWindowChanged"
+QT_MOC_LITERAL(4, 50, 3), // "WId"
+QT_MOC_LITERAL(5, 54, 2), // "id"
+QT_MOC_LITERAL(6, 57, 15), // "NET::Properties"
+QT_MOC_LITERAL(7, 73, 10), // "properties"
+QT_MOC_LITERAL(8, 84, 16), // "NET::Properties2"
+QT_MOC_LITERAL(9, 101, 11) // "properties2"
 
     },
-    "Smaragd::Decoration\0updateLayout\0"
+    "Smaragd::Decoration\0updateLayout\0\0"
+    "onWindowChanged\0WId\0id\0NET::Properties\0"
+    "properties\0NET::Properties2\0properties2"
 };
 #undef QT_MOC_LITERAL
 
@@ -47,7 +56,7 @@ static const uint qt_meta_data_Smaragd__Decoration[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -55,10 +64,12 @@ static const uint qt_meta_data_Smaragd__Decoration[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   19,    2, 0x08 /* Private */,
+       1,    0,   24,    2, 0x08 /* Private */,
+       3,    3,   25,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 4, 0x80000000 | 6, 0x80000000 | 8,    5,    7,    9,
 
        0        // eod
 };
@@ -70,10 +81,10 @@ void Smaragd::Decoration::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
         (void)_t;
         switch (_id) {
         case 0: _t->updateLayout(); break;
+        case 1: _t->onWindowChanged((*reinterpret_cast< WId(*)>(_a[1])),(*reinterpret_cast< NET::Properties(*)>(_a[2])),(*reinterpret_cast< NET::Properties2(*)>(_a[3]))); break;
         default: ;
         }
     }
-    (void)_a;
 }
 
 QT_INIT_METAOBJECT const QMetaObject Smaragd::Decoration::staticMetaObject = { {
@@ -105,13 +116,13 @@ int Smaragd::Decoration::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 2)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 1;
+        _id -= 2;
     }
     return _id;
 }

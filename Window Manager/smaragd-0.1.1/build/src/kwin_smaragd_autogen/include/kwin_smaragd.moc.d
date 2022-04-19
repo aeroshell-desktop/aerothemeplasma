@@ -33,10 +33,16 @@
   /usr/include/KF5/KCoreAddons/kcoreaddons_export.h \
   /usr/include/KF5/KCoreAddons/kexportplugin.h \
   /usr/include/KF5/KCoreAddons/kpluginfactory.h \
+  /usr/include/KF5/KCoreAddons/kpluginmetadata.h \
+  /usr/include/KF5/KWindowSystem/kwindowinfo.h \
+  /usr/include/KF5/KWindowSystem/kwindowsystem.h \
+  /usr/include/KF5/KWindowSystem/kwindowsystem_export.h \
+  /usr/include/KF5/KWindowSystem/netwm_def.h \
   /usr/include/X11/X.h \
   /usr/include/X11/Xfuncproto.h \
   /usr/include/X11/Xlib.h \
   /usr/include/X11/Xosdefs.h \
+  /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
   /usr/include/asm/errno.h \
@@ -55,13 +61,23 @@
   /usr/include/bits/errno.h \
   /usr/include/bits/floatn-common.h \
   /usr/include/bits/floatn.h \
+  /usr/include/bits/flt-eval-method.h \
+  /usr/include/bits/fp-fast.h \
+  /usr/include/bits/fp-logb.h \
   /usr/include/bits/getopt_core.h \
   /usr/include/bits/getopt_posix.h \
+  /usr/include/bits/iscanonical.h \
   /usr/include/bits/libc-header-start.h \
+  /usr/include/bits/libm-simd-decl-stubs.h \
   /usr/include/bits/local_lim.h \
   /usr/include/bits/locale.h \
   /usr/include/bits/long-double.h \
+  /usr/include/bits/math-vector.h \
+  /usr/include/bits/mathcalls-helper-functions.h \
+  /usr/include/bits/mathcalls-narrow.h \
+  /usr/include/bits/mathcalls.h \
   /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/posix2_lim.h \
   /usr/include/bits/posix_opt.h \
   /usr/include/bits/pthreadtypes-arch.h \
   /usr/include/bits/pthreadtypes.h \
@@ -84,7 +100,9 @@
   /usr/include/bits/statx-generic.h \
   /usr/include/bits/statx.h \
   /usr/include/bits/stdint-intn.h \
+  /usr/include/bits/stdint-uintn.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdlib-float.h \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/bits/struct_stat.h \
@@ -130,12 +148,14 @@
   /usr/include/bits/types/wint_t.h \
   /usr/include/bits/typesizes.h \
   /usr/include/bits/uintn-identity.h \
+  /usr/include/bits/uio_lim.h \
   /usr/include/bits/unistd_ext.h \
   /usr/include/bits/waitflags.h \
   /usr/include/bits/waitstatus.h \
   /usr/include/bits/wchar.h \
   /usr/include/bits/wctype-wchar.h \
   /usr/include/bits/wordsize.h \
+  /usr/include/bits/xopen_lim.h \
   /usr/include/c++/11.1.0/algorithm \
   /usr/include/c++/11.1.0/array \
   /usr/include/c++/11.1.0/atomic \
@@ -198,7 +218,6 @@
   /usr/include/c++/11.1.0/bits/shared_ptr.h \
   /usr/include/c++/11.1.0/bits/shared_ptr_atomic.h \
   /usr/include/c++/11.1.0/bits/shared_ptr_base.h \
-  /usr/include/c++/11.1.0/bits/specfun.h \
   /usr/include/c++/11.1.0/bits/std_abs.h \
   /usr/include/c++/11.1.0/bits/std_function.h \
   /usr/include/c++/11.1.0/bits/std_mutex.h \
@@ -236,7 +255,6 @@
   /usr/include/c++/11.1.0/cerrno \
   /usr/include/c++/11.1.0/climits \
   /usr/include/c++/11.1.0/clocale \
-  /usr/include/c++/11.1.0/cmath \
   /usr/include/c++/11.1.0/compare \
   /usr/include/c++/11.1.0/concepts \
   /usr/include/c++/11.1.0/cstddef \
@@ -263,7 +281,6 @@
   /usr/include/c++/11.1.0/limits \
   /usr/include/c++/11.1.0/list \
   /usr/include/c++/11.1.0/map \
-  /usr/include/c++/11.1.0/math.h \
   /usr/include/c++/11.1.0/memory \
   /usr/include/c++/11.1.0/new \
   /usr/include/c++/11.1.0/numbers \
@@ -274,22 +291,9 @@
   /usr/include/c++/11.1.0/pstl/glue_memory_defs.h \
   /usr/include/c++/11.1.0/pstl/glue_numeric_defs.h \
   /usr/include/c++/11.1.0/stdexcept \
-  /usr/include/c++/11.1.0/stdlib.h \
   /usr/include/c++/11.1.0/streambuf \
   /usr/include/c++/11.1.0/string \
   /usr/include/c++/11.1.0/string_view \
-  /usr/include/c++/11.1.0/tr1/bessel_function.tcc \
-  /usr/include/c++/11.1.0/tr1/beta_function.tcc \
-  /usr/include/c++/11.1.0/tr1/ell_integral.tcc \
-  /usr/include/c++/11.1.0/tr1/exp_integral.tcc \
-  /usr/include/c++/11.1.0/tr1/gamma.tcc \
-  /usr/include/c++/11.1.0/tr1/hypergeometric.tcc \
-  /usr/include/c++/11.1.0/tr1/legendre_function.tcc \
-  /usr/include/c++/11.1.0/tr1/modified_bessel_func.tcc \
-  /usr/include/c++/11.1.0/tr1/poly_hermite.tcc \
-  /usr/include/c++/11.1.0/tr1/poly_laguerre.tcc \
-  /usr/include/c++/11.1.0/tr1/riemann_zeta.tcc \
-  /usr/include/c++/11.1.0/tr1/special_function_util.h \
   /usr/include/c++/11.1.0/tuple \
   /usr/include/c++/11.1.0/type_traits \
   /usr/include/c++/11.1.0/typeinfo \
@@ -402,16 +406,23 @@
   /usr/include/gnu/stubs-64.h \
   /usr/include/gnu/stubs.h \
   /usr/include/libintl.h \
+  /usr/include/limits.h \
   /usr/include/linux/errno.h \
   /usr/include/linux/limits.h \
   /usr/include/locale.h \
+  /usr/include/math.h \
   /usr/include/pthread.h \
   /usr/include/qt/QtCore/QByteArray \
   /usr/include/qt/QtCore/QDate \
   /usr/include/qt/QtCore/QDebug \
+  /usr/include/qt/QtCore/QDir \
+  /usr/include/qt/QtCore/QEvent \
   /usr/include/qt/QtCore/QExplicitlySharedDataPointer \
+  /usr/include/qt/QtCore/QFlags \
+  /usr/include/qt/QtCore/QJsonObject \
   /usr/include/qt/QtCore/QList \
   /usr/include/qt/QtCore/QMargins \
+  /usr/include/qt/QtCore/QMetaType \
   /usr/include/qt/QtCore/QObject \
   /usr/include/qt/QtCore/QPluginLoader \
   /usr/include/qt/QtCore/QPoint \
@@ -442,10 +453,15 @@
   /usr/include/qt/QtCore/qcontainerfwd.h \
   /usr/include/qt/QtCore/qcontainertools_impl.h \
   /usr/include/qt/QtCore/qcontiguouscache.h \
+  /usr/include/qt/QtCore/qcoreevent.h \
   /usr/include/qt/QtCore/qdatastream.h \
   /usr/include/qt/QtCore/qdatetime.h \
   /usr/include/qt/QtCore/qdebug.h \
+  /usr/include/qt/QtCore/qdir.h \
   /usr/include/qt/QtCore/qeasingcurve.h \
+  /usr/include/qt/QtCore/qfile.h \
+  /usr/include/qt/QtCore/qfiledevice.h \
+  /usr/include/qt/QtCore/qfileinfo.h \
   /usr/include/qt/QtCore/qflags.h \
   /usr/include/qt/QtCore/qgenericatomic.h \
   /usr/include/qt/QtCore/qglobal.h \
@@ -509,19 +525,27 @@
   /usr/include/qt/QtGui/QBitmap \
   /usr/include/qt/QtGui/QFont \
   /usr/include/qt/QtGui/QFontMetricsF \
+  /usr/include/qt/QtGui/QHoverEvent \
   /usr/include/qt/QtGui/QIcon \
   /usr/include/qt/QtGui/QImage \
+  /usr/include/qt/QtGui/QMouseEvent \
+  /usr/include/qt/QtGui/QMoveEvent \
   /usr/include/qt/QtGui/QPaintEngine \
   /usr/include/qt/QtGui/QPainter \
   /usr/include/qt/QtGui/QPalette \
+  /usr/include/qt/QtGui/QPixmap \
+  /usr/include/qt/QtGui/QWheelEvent \
+  /usr/include/qt/QtGui/QWidgetList \
   /usr/include/qt/QtGui/qbitmap.h \
   /usr/include/qt/QtGui/qbrush.h \
   /usr/include/qt/QtGui/qcolor.h \
+  /usr/include/qt/QtGui/qevent.h \
   /usr/include/qt/QtGui/qfont.h \
   /usr/include/qt/QtGui/qfontinfo.h \
   /usr/include/qt/QtGui/qfontmetrics.h \
   /usr/include/qt/QtGui/qicon.h \
   /usr/include/qt/QtGui/qimage.h \
+  /usr/include/qt/QtGui/qkeysequence.h \
   /usr/include/qt/QtGui/qmatrix.h \
   /usr/include/qt/QtGui/qpaintdevice.h \
   /usr/include/qt/QtGui/qpaintengine.h \
@@ -537,12 +561,16 @@
   /usr/include/qt/QtGui/qtextoption.h \
   /usr/include/qt/QtGui/qtgui-config.h \
   /usr/include/qt/QtGui/qtguiglobal.h \
+  /usr/include/qt/QtGui/qtouchdevice.h \
   /usr/include/qt/QtGui/qtransform.h \
+  /usr/include/qt/QtGui/qvector2d.h \
   /usr/include/qt/QtGui/qwindowdefs.h \
   /usr/include/sched.h \
   /usr/include/signal.h \
   /usr/include/stdc-predef.h \
+  /usr/include/stdint.h \
   /usr/include/stdio.h \
+  /usr/include/stdlib.h \
   /usr/include/string.h \
   /usr/include/strings.h \
   /usr/include/sys/cdefs.h \
@@ -557,10 +585,7 @@
   /usr/include/unistd.h \
   /usr/include/wchar.h \
   /usr/include/wctype.h \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed/limits.h \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed/syslimits.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include/float.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include/stdarg.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include/stddef.h \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include/stdint.h \
   /usr/lib/glib-2.0/include/glibconfig.h

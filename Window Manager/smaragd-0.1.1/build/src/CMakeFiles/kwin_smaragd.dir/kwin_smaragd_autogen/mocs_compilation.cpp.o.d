@@ -225,10 +225,28 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd_autogen/mocs_compilation.cpp.o: \
  /usr/include/KDecoration2/kdecoration2/decorationbutton.h \
  /usr/include/KDecoration2/kdecoration2/decorationdefines.h \
  /usr/include/qt/QtCore/QVariantList /usr/include/qt/QtCore/qvariant.h \
- /usr/include/qt/QtCore/qmap.h \
+ /usr/include/qt/QtCore/qmap.h /usr/include/qt/QtGui/QPixmap \
+ /usr/include/qt/QtGui/qpixmap.h /usr/include/qt/QtGui/qimage.h \
+ /usr/include/qt/QtGui/QMouseEvent /usr/include/qt/QtGui/qevent.h \
+ /usr/include/qt/QtGui/qkeysequence.h /usr/include/qt/QtCore/qcoreevent.h \
+ /usr/include/qt/QtCore/qvariant.h /usr/include/qt/QtCore/qset.h \
+ /usr/include/qt/QtCore/qurl.h /usr/include/qt/QtCore/qfile.h \
+ /usr/include/qt/QtCore/qfiledevice.h /usr/include/qt/QtGui/qvector2d.h \
+ /usr/include/qt/QtGui/qtouchdevice.h /usr/include/qt/QtGui/QWheelEvent \
+ /usr/include/qt/QtGui/QHoverEvent /usr/include/qt/QtGui/QMoveEvent \
+ /usr/include/qt/QtCore/QEvent /usr/include/qt/QtCore/qcoreevent.h \
+ /usr/include/KF5/KWindowSystem/kwindowsystem.h \
+ /usr/include/qt/QtGui/QWidgetList /usr/include/qt/QtGui/qwindowdefs.h \
+ /usr/include/KF5/KWindowSystem/kwindowinfo.h \
+ /usr/include/qt/QtCore/QExplicitlySharedDataPointer \
+ /usr/include/qt/QtCore/qshareddata.h /usr/include/qt/QtCore/QStringList \
+ /usr/include/qt/QtCore/qstringlist.h \
+ /usr/include/KF5/KWindowSystem/kwindowsystem_export.h \
+ /usr/include/KF5/KWindowSystem/netwm_def.h /usr/include/qt/QtCore/QFlags \
+ /usr/include/qt/QtCore/qflags.h \
  /mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen/EWIEGA46WW/../../../../src/shadowengine.h \
  /usr/include/qt/QtGui/QPainter /usr/include/qt/QtGui/qpainter.h \
- /usr/include/qt/QtGui/qpixmap.h /usr/include/qt/QtGui/qimage.h \
- /usr/include/qt/QtGui/qtextoption.h /usr/include/qt/QtGui/qpen.h \
- /usr/include/qt/QtGui/qbrush.h /usr/include/qt/QtGui/qfontinfo.h \
- /usr/include/qt/QtGui/qfont.h /usr/include/qt/QtGui/qfontmetrics.h
+ /usr/include/qt/QtGui/qpixmap.h /usr/include/qt/QtGui/qtextoption.h \
+ /usr/include/qt/QtGui/qpen.h /usr/include/qt/QtGui/qbrush.h \
+ /usr/include/qt/QtGui/qfontinfo.h /usr/include/qt/QtGui/qfont.h \
+ /usr/include/qt/QtGui/qfontmetrics.h

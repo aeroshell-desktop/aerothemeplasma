@@ -21,6 +21,7 @@ import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
 
 ColumnLayout {
+    id: tooltipInstance
     property var submodelIndex
     property int flatIndex: isGroup && index != undefined ? index : 0
 
@@ -56,31 +57,63 @@ ColumnLayout {
     readonly property string artist: currentMetadata["xesam:artist"] || ""
     readonly property string albumArt: currentMetadata["mpris:artUrl"] || ""
 
-    spacing: PlasmaCore.Units.smallSpacing
+    spacing: isWin ? PlasmaCore.Units.smallSpacing * 2 : 0
 
     // text labels + close button
     RowLayout {
         id: header
         // match spacing of DefaultToolTip.qml in plasma-framework
-        spacing: isWin ? PlasmaCore.Units.smallSpacing : PlasmaCore.Units.largeSpacing
-
+        spacing: isWin ? PlasmaCore.Units.smallSpacing : 0 //isWin ? PlasmaCore.Units.smallSpacing : PlasmaCore.Units.largeSpacing
+        
+        
         // This number controls the overall size of the window tooltips
-        Layout.maximumWidth: PlasmaCore.Units.gridUnit * 16
+        Layout.maximumWidth: PlasmaCore.Units.gridUnit * 12
         Layout.minimumWidth: isWin ? Layout.maximumWidth : 0
         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         // match margins of DefaultToolTip.qml in plasma-framework
         Layout.margins: isWin ? 0 : PlasmaCore.Units.gridUnit / 2
-
+        // There's no PlasmaComponents3 version
+        ToolTipWindowMouseArea {
+            id: hoverHandler
+            Layout.alignment: Qt.AlignTop
+            height: {
+                if(playerControls.visible)
+                    return tooltipInstance.height - parent.height;
+                else
+                    return tooltipInstance.height;
+            }
+            width: header.width
+            //anchors.fill: parent
+            rootTask: parentTask
+            modelIndex: submodelIndex
+            winId: thumbnailSourceItem.winId
+            //propagateComposedEvents: true
+            z: 5
+        }
+        PlasmaComponents.Highlight {
+            //anchors.top: parent.top
+            Layout.alignment: Qt.AlignTop
+            height: tooltipInstance.height //parent.height + thumbnailSourceItem.height + (playerControls.visible ? playerControls.height : 0)
+            width: header.width
+            opacity: (hoverHandler.opacityHover || closeButton.hovered) * (hoverHandler.containsPress ? 0.9 : 0.6);
+            Behavior on opacity {
+                NumberAnimation { duration: PlasmaCore.Units.shortDuration }
+            }
+            //visible: hoverHandler.containsMouse
+            //pressed: hoverHandler.containsPress
+        }
         // all textlabels
         ColumnLayout {
             spacing: 0
             // app name
             PlasmaExtras.Heading {
                 id: appNameHeading
-                level: 3
+                level: 5
                 maximumLineCount: 1
                 lineHeight: isWin ? 1 : appNameHeading.lineHeight
                 Layout.fillWidth: true
+                Layout.topMargin: isWin ? PlasmaCore.Units.smallSpacing : 0; 
+                Layout.leftMargin: isWin ? PlasmaCore.Units.smallSpacing : 0;
                 elide: Text.ElideRight
                 text: appName
                 opacity: flatIndex == 0
@@ -93,6 +126,7 @@ ColumnLayout {
                 id: winTitle
                 maximumLineCount: 1
                 Layout.fillWidth: true
+                Layout.leftMargin: isWin ? PlasmaCore.Units.smallSpacing : 0;
                 elide: Text.ElideRight
                 text: (!hasPlayer || !title.includes(songText.text)) ? title : ""
                 opacity: 0.75
@@ -104,9 +138,10 @@ ColumnLayout {
                 id: subtext
                 maximumLineCount: 1
                 Layout.fillWidth: true
+                Layout.leftMargin: isWin ? PlasmaCore.Units.smallSpacing : 0;
                 elide: Text.ElideRight
                 text: isWin ? generateSubText() : ""
-                opacity: 0.6
+                opacity: 0.7
                 visible: text.length !== 0 && text !== appNameHeading.text
                 textFormat: Text.PlainText
             }
@@ -137,6 +172,8 @@ ColumnLayout {
                 backend.cancelHighlightWindows();
                 tasksModel.requestClose(submodelIndex);
             }
+            hoverEnabled: true
+            z: 6
         }
     }
 
@@ -153,29 +190,27 @@ ColumnLayout {
         // TODO: this causes XCB error message when being visible the first time
         readonly property var winId: toolTipDelegate.isWin && toolTipDelegate.windows[flatIndex] !== undefined ? toolTipDelegate.windows[flatIndex] : 0
 
-        // There's no PlasmaComponents3 version
-        PlasmaComponents.Highlight {
-            anchors.fill: hoverHandler
-            visible: hoverHandler.containsMouse
-            pressed: hoverHandler.containsPress
-        }
+        
 
         PlasmaCore.WindowThumbnail {
             id: x11Thumbnail
 
-            anchors.fill: hoverHandler
+            anchors.fill: parent
             // Indent a little bit so that neither the thumbnail nor the drop
             // shadow can cover up the highlight
             anchors.margins: PlasmaCore.Units.smallSpacing * 2
 
 
+            //visible: true
+            //winId: thumbnailSourceItem.winId
             visible: !albumArtImage.visible && !thumbnailSourceItem.isMinimized && Number.isInteger(thumbnailSourceItem.winId)
             winId: Number.isInteger(thumbnailSourceItem.winId) ? thumbnailSourceItem.winId : 0
         }
 
         Loader {
             id: pipeWireLoader
-            anchors.fill: hoverHandler
+            Layout.alignment: Qt.AlignTop
+            //anchors.fill: hoverHandler
             // Indent a little bit so that neither the thumbnail nor the drop
             // shadow can cover up the highlight
             anchors.margins: PlasmaCore.Units.smallSpacing * 2
@@ -200,13 +235,13 @@ ColumnLayout {
         Image {
             id: albumArtBackground
             source: albumArt
-            sourceSize: Qt.size(parent.width, parent.height)
-            anchors.fill: parent
+            sourceSize: Qt.size(x11Thumbnail.width, x11Thumbnail.height)
+            anchors.fill: x11Thumbnail
             fillMode: Image.PreserveAspectCrop
             visible: albumArtImage.available
             asynchronous: true
             layer.enabled: true
-            opacity: 0.25
+            opacity: 0.35
             layer.effect: FastBlur {
                 source: albumArtBackground
                 anchors.fill: parent
@@ -220,7 +255,7 @@ ColumnLayout {
             // don't show album art if window title doesn't include media title (eg we're in a different browser tab)
             readonly property bool available: (status === Image.Ready || status === Image.Loading) && generateTitle().includes(track)
 
-            anchors.fill: hoverHandler
+            anchors.fill: x11Thumbnail
             // Indent by one pixel to make sure we never cover up the entire highlight
             anchors.margins: 1
             sourceSize: Qt.size(parent.width, parent.height)
@@ -242,17 +277,12 @@ ColumnLayout {
             visible: valid && !pipeWireLoader.active
         }
 
-        ToolTipWindowMouseArea {
-            id: hoverHandler
-            anchors.fill: parent
-            rootTask: parentTask
-            modelIndex: submodelIndex
-            winId: thumbnailSourceItem.winId
-        }
+        
     }
 
     // Player controls row
     RowLayout {
+        id: playerControls
         Layout.maximumWidth: header.Layout.maximumWidth
         // Match margins of header
         Layout.leftMargin: isWin ? 0 : PlasmaCore.Units.gridUnit / 2
@@ -260,21 +290,21 @@ ColumnLayout {
 
         visible: hasPlayer
         enabled: canControl
-
         ColumnLayout {
             Layout.fillWidth: true
             Layout.topMargin: PlasmaCore.Units.smallSpacing
             Layout.bottomMargin: PlasmaCore.Units.smallSpacing
             Layout.rightMargin: isWin ? PlasmaCore.Units.smallSpacing : PlasmaCore.Units.largeSpacing
             spacing: 0
-
+            z: -1
              ScrollableTextWrapper {
                 id: songTextWrapper
 
                 Layout.fillWidth: true
                 Layout.preferredHeight: songText.height
                 implicitWidth: songText.implicitWidth
-
+                Layout.leftMargin: PlasmaCore.Units.smallSpacing;
+        
                 PlasmaComponents3.Label {
                     id: songText
                     parent: songTextWrapper
@@ -292,12 +322,14 @@ ColumnLayout {
             ScrollableTextWrapper {
                 id: artistTextWrapper
 
+                z: -1
                 Layout.fillWidth: true
                 Layout.preferredHeight: artistText.height
+                Layout.leftMargin: PlasmaCore.Units.smallSpacing;
                 implicitWidth: artistText.implicitWidth
                 visible: artistText.text !== ""
-
-                PlasmaExtras.DescriptiveLabel {
+                
+                PlasmaComponents3.Label {
                     id: artistText
                     parent: artistTextWrapper
                     width: parent.width
@@ -308,6 +340,7 @@ ColumnLayout {
                     text: artist || ""
                     font: PlasmaCore.Theme.smallestFont
                     textFormat: Text.PlainText
+                    //color: "white";
                 }
             }
         }

@@ -2,7 +2,7 @@ include_directories (
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/engines
 )
-
+find_package(KF5WindowSystem)
 # Allow // comments in .c files
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
 
@@ -42,6 +42,7 @@ target_link_libraries (kwin_smaragd
     KF5::CoreAddons
     KF5::I18n
     KF5::WidgetsAddons
+    KF5::WindowSystem
     KDecoration2::KDecoration
     ${CAIRO_LIBRARIES}
     ${GLIB2_LIBRARIES}

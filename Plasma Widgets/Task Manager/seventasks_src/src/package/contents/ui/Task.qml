@@ -51,7 +51,10 @@ MouseArea {
     property alias toolTipAreaItem: toolTipArea
     property alias audioStreamIconLoaderItem: audioStreamIconLoader
     property color hoverColor
-
+    property real taskWidth: 0
+    property real taskHeight: 0
+    property string previousState: ""
+    
     property Item audioStreamOverlay
     property var audioStreams: []
     property bool delayAudioStreamIndicator: false
@@ -73,7 +76,9 @@ MouseArea {
         // ensure it doesn't get stuck with a window highlighted
         backend.cancelHighlightWindows();
     }
-
+    function closeTask() {
+        closingAnimation.start();
+    }
     function showToolTip() {
         toolTipArea.showToolTip();
     }
@@ -82,9 +87,12 @@ MouseArea {
     }
     function updateHoverColor() {
         hoverColor = plasmoid.nativeInterface.getDominantColor(icon.source);
+        hoverGradient.verticalRadius = LayoutManager.taskHeight();
+        hoverGradient.horizontalRadius = LayoutManager.taskWidth();
         
     }
     function updateMousePosition(pos) {
+        //console.log(frame.width), console.log(frame.height);
         if(!model.IsStartup)
             hoverGradient.horizontalOffset = pos - hoverRect.width/2;
     }
@@ -153,6 +161,7 @@ MouseArea {
             pressed = true;
             pressX = mouse.x;
             pressY = mouse.y;
+            
         } else if (mouse.button == Qt.RightButton) {
             // When we're a launcher, there's no window controls, so we can show all
             // places without the menu getting super huge.
@@ -169,6 +178,7 @@ MouseArea {
         if (pressed) {
             if (mouse.button == Qt.MidButton) {
                 if (plasmoid.configuration.middleClickAction === TaskManagerApplet.Backend.NewInstance) {
+                    hoverRect.state = "startup";
                     tasksModel.requestNewInstance(modelIndex());
                 } else if (plasmoid.configuration.middleClickAction === TaskManagerApplet.Backend.Close) {
                     tasks.taskClosedWithMouseMiddleButton = winIdList.slice()
@@ -185,6 +195,7 @@ MouseArea {
                     hideToolTipTemporarily();
                 }
                 TaskTools.activateTask(modelIndex(), model, mouse.modifiers, task);
+                
             } else if (mouse.button === Qt.BackButton || mouse.button === Qt.ForwardButton) {
                 var sourceName = mpris2Source.sourceNameForLauncherUrl(model.LauncherUrlWithoutIcon, model.AppPid);
                 if (sourceName) {
@@ -323,12 +334,10 @@ MouseArea {
 
             onTriggered: {
                 //parent.hoverEnabled = true;
-
                 if (parent.isWindow) {
                     tasksModel.requestPublishDelegateGeometry(parent.modelIndex(),
                         backend.globalRect(parent), parent);
                 }
-
                 timer.destroy();
             }
 
@@ -336,11 +345,23 @@ MouseArea {
                 
                 taskList.updateHoverFunc();
                 timer.start();
-                
             }
         }
     }
-    
+    NumberAnimation {
+        id: closingAnimation
+        target: frame
+        properties: "opacity"
+        from: 1
+        to: 0
+        duration: 200
+        
+        onRunningChanged: { if(!closingAnimation.running) {
+            opacity: 1;
+            //tasksModel.requestClose(modelIndex());
+        }
+        }
+    }
     PlasmaCore.FrameSvgItem {
         id: frame
         z: -1
@@ -352,14 +373,67 @@ MouseArea {
             leftMargin: ((inPopup || tasks.vertical) && taskList.columns > 1) ? PlasmaCore.Units.smallSpacing / 4 : PlasmaCore.Units.smallSpacing / 4
             rightMargin: ((inPopup || tasks.vertical) && taskList.columns > 1) ? PlasmaCore.Units.smallSpacing / 4 : PlasmaCore.Units.smallSpacing / 4
         }
-
-        imagePath: (isHovered && basePrefix === "active-tab") ? "widgets/tabbar" : "widgets/tasks"
+        PlasmaCore.FrameSvgItem {
+            id: stackFirst
+            imagePath: "widgets/tasks"
+            anchors.fill: parent
+            visible: frame.basePrefix != "active-tab"
+            opacity: {
+                if(childCount == 0) return 1;
+                else if(childCount == 2) return 0.6;
+                else return 0.25;
+            }
+            //imagePath: (frame.isHovered && frame.basePrefix === "active-tab") ? "widgets/tabbar" : "widgets/tasks"
+            prefix: childCount == 0 ? frame.prefix : TaskTools.taskPrefix("stacked+" + ((pressed) ? "focus" : frame.basePrefix));
+        }
+        PlasmaCore.FrameSvgItem {
+            id: stackSecond
+            imagePath: "widgets/tasks"
+            prefix: frame.prefix
+            anchors.fill: parent
+            opacity: 1
+            visible: childCount >= 2 ? true : false
+            anchors.rightMargin: PlasmaCore.Units.smallSpacing * (childCount >= 3 ? 2 : 1.2);
+        }
+        PlasmaCore.FrameSvgItem {
+            id: stackThird
+            imagePath: "widgets/tasks"
+            prefix: TaskTools.taskPrefix("stacked+" + ((pressed) ? "focus" : frame.basePrefix))
+            anchors.fill: parent
+            opacity: 0.6
+            visible: childCount >= 3 ? true : false
+            anchors.rightMargin: PlasmaCore.Units.smallSpacing
+            enabledBorders: Plasma.FrameSvg.EnabledBorders.RightBorder
+            
+        }
+        
+        LinearGradient {
+            
+            id: highlightGradient
+            opacity: (pressed && frame.isHovered && frame.basePrefix === "active-tab") ? 1 : 0
+            
+            anchors.fill: parent
+            anchors.leftMargin: 3
+            anchors.rightMargin: 3
+            anchors.topMargin: 2
+            
+            start: Qt.point(3, 3)
+            end: Qt.point(3, parent.height-3)
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: "#00000000"; }
+                GradientStop { position: 0.5; color: "#66000000"; }
+                GradientStop { position: 1.0; color: "#00000000"; }
+            } 
+        }
+        imagePath: (frame.isHovered && frame.basePrefix === "active-tab") ? "widgets/tabbar" : ""//"widgets/tasks"
         property bool isHovered: task.highlighted && plasmoid.configuration.taskHoverEffect
         property string basePrefix: "normal"
         //prefix: isHovered ? (TaskTools.taskPrefixHovered(basePrefix)) : TaskTools.taskPrefix(basePrefix)
-        prefix: TaskTools.taskPrefix(basePrefix)
+        //prefix: TaskTools.taskPrefix(basePrefix)
+        prefix: ((pressed) && frame.basePrefix != "active-tab") ? TaskTools.taskPrefix("focus") : TaskTools.taskPrefix(basePrefix)
         Rectangle {
             id: hoverRect
+            
         anchors {
             fill: parent
 
@@ -368,47 +442,207 @@ MouseArea {
             leftMargin: ((inPopup || tasks.vertical) && taskList.columns > 1) ? PlasmaCore.Units.smallSpacing / 4+1 : 1
             rightMargin: ((inPopup || tasks.vertical) && taskList.columns > 1) ? PlasmaCore.Units.smallSpacing / 4+1 : 1
         }
-        z: -2
+        z: -5
         clip: true
             states: [
             State {
-                name: "mouse-over"; when: ((frame.isHovered && frame.basePrefix != "active-tab") || model.IsStartup === true)
-                PropertyChanges { target: hoverRect; opacity: ((frame.isHovered && frame.basePrefix != "active-tab") || model.IsStartup === true) ? 1 : 0}
-                //PropertyChanges { target: hoverGradient; horizontalOffset: ((frame.isHovered && frame.basePrefix != "active-tab") || model.IsStartup === true) ? hoverRect.height/2.2 : hoverRect.height*2}
+                        name: "startup"; when: (model.IsStartup === true)
+                        
+                        PropertyChanges { target: hoverRect; opacity: 1}
+                        StateChangeScript {
+                    script:  { 
+                        if(previousState === "startup") {
+                            hoverGradient.verticalRadius = LayoutManager.taskHeight();
+                            hoverGradient.horizontalRadius = LayoutManager.taskWidth();
+                        }
+                        previousState = "startup";
+                        //console.log("\nTurned to startup state\n" + previousState);
+                    }
+                }
+                        
+                    },
+                    State {
+                        name: "startup-finished"; when: (model.IsStartup === false)
+                        
+                        PropertyChanges { target: hoverRect; opacity: 1}
+                        StateChangeScript {
+                    script:  { 
+                        if(previousState === "startup") {
+                            hoverGradient.verticalRadius = LayoutManager.taskHeight();
+                            hoverGradient.horizontalRadius = LayoutManager.taskWidth();
+                        }
+                        previousState = "startup";
+                    }
+                }
+                        
+                    },
+            State {
+                name: "mouse-over"; when: ((frame.isHovered && frame.basePrefix != "active-tab"))
+                PropertyChanges { target: hoverRect; opacity: 1}
+                StateChangeScript {
+                    script:  { 
+                        if(previousState === "startup") {
+                            hoverGradient.verticalRadius = LayoutManager.taskHeight();
+                            hoverGradient.horizontalRadius = LayoutManager.taskWidth();
+                        }
+                        previousState = "mouse-over";
+                        //console.log("\nTurned to mouseover state\n" + previousState);
+                    }
+                }
+                 
+            },
+            State {
+                name: ""; 
+                PropertyChanges { target: hoverRect; opacity: 0 }
+                StateChangeScript {
+                    script:  { 
+                        if(previousState === "startup") {
+                            hoverGradient.verticalRadius = LayoutManager.taskHeight();
+                            hoverGradient.horizontalRadius = LayoutManager.taskWidth();
+                        }
+                        previousState = "";
+                        //console.log("\nTurned to default state\n" + previousState);
+                    }
+                }
             }
             ]
-            transitions: Transition {
-                NumberAnimation { properties: "opacity,horizontalOffset"; easing.type: Easing.InOutQuad; duration: 250 }
-            }
+            transitions: [ Transition {
+                from: "*"; to: "*";
+                NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; duration: 250 }
+            },
+                Transition {
+                from: "*"; to: "startup";
+                NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; duration: 250 }
+                SequentialAnimation {
+                    id: horizRad
+                    NumberAnimation  {
+                        id: horizRad1
+                        target: hoverGradient
+                        property: "horizontalRadius"
+                        from: 0; to: LayoutManager.taskWidth();//task.height + taskFrame.margins.left + taskFrame.margins.right;
+                        easing.type: Easing.OutQuad; duration: 400
+                }
+                /*NumberAnimation  {
+                        id: horizRad11
+                        target: hoverGradient
+                        property: "horizontalRadius"
+                        from: LayoutManager.taskWidth(); to: LayoutManager.taskWidth();//task.height + taskFrame.margins.left + taskFrame.margins.right;
+                        easing.type: Easing.Linear; duration: 
+                }*/
+                NumberAnimation  {
+                        id: horizRad2
+                        target: hoverGradient
+                        property: "horizontalRadius"
+                        //to: 0;
+                        from: LayoutManager.taskWidth()/*task.height + taskFrame.margins.left + taskFrame.margins.right*/; to: 0;
+                        easing.type: Easing.InQuad; duration: 550
+                }
+                NumberAnimation  {
+                        id: horizRad3
+                        target: hoverGradient
+                        property: "horizontalRadius"
+                        //to: 0;
+                        from: 0; to: 0; //LayoutManager.taskWidth()/*task.height + taskFrame.margins.left + taskFrame.margins.right*/; to: 0;
+                        easing.type: Easing.Linear; duration: 3600
+                }
+                NumberAnimation {
+                        id: frameOpacity
+                        target: task
+                        property: "opacity"
+                        from: 1; to: 0;
+                        easing.type: Easing.OutCubic; duration: 650
+                }
+                //loops: 3
+                }
+                
+                 SequentialAnimation {
+                    id: vertiRad
+                    NumberAnimation  {
+                        id: vertiRad1
+                        target: hoverGradient
+                        property: "verticalRadius"
+                        from: 0; to: LayoutManager.taskHeight();
+                        easing.type: Easing.OutQuad; duration: 400
+                }
+                /*NumberAnimation  {
+                        id: vertiRad11
+                        target: hoverGradient
+                        property: "verticalRadius"
+                        from: LayoutManager.taskHeight(); to: LayoutManager.taskHeight();
+                        easing.type: Easing.Linear; duration: 50
+                }*/
+                NumberAnimation  {
+                        id: vertiRad2
+                        target: hoverGradient
+                        property: "verticalRadius"
+                        from: LayoutManager.taskHeight(); to: 0;
+                        easing.type: Easing.InQuad; duration: 550
+                }
+                NumberAnimation  {
+                        id: vertiRad3
+                        target: hoverGradient
+                        property: "verticalRadius"
+                        from: 0; to: 0;
+                        easing.type: Easing.Linear; duration: 1250
+                }
+                NumberAnimation  {
+                        id: hoverBorder
+                        target: hoverRect
+                        property: "opacity"
+                        from: 1; to: 0;
+                        easing.type: Easing.Linear; duration: 550
+                }
+                //loops: 3
+                }
+                 
+            } ] 
             opacity: 0//(frame.isHovered && frame.basePrefix != "") ? 1.0 : 0
             color: "#00000000"
-            border.color: Qt.rgba(hoverColor.r, hoverColor.g, hoverColor.b, 0.4);
-            border.width: 2
-            radius: 2
+            Rectangle {
+                id: borderRect
+                anchors {
+                    fill: parent
+                    topMargin: (!tasks.vertical && taskList.rows > 1) ? PlasmaCore.Units.smallSpacing / 4 : 0
+                    bottomMargin: (!tasks.vertical && taskList.rows > 1) ? PlasmaCore.Units.smallSpacing / 4 : 0
+                    leftMargin: ((inPopup || tasks.vertical) && taskList.columns > 1) ? PlasmaCore.Units.smallSpacing / 4 : 0
+                    rightMargin: ((inPopup || tasks.vertical) && taskList.columns > 1) ? PlasmaCore.Units.smallSpacing / 4 : 0
+                }
+                z: -5
+                border.color: Qt.rgba(hoverColor.r, hoverColor.g, hoverColor.b, 0.4);
+                border.width: 2
+                radius: 2
+                color: "#00000000"
+            }
             
             RadialGradient { 
                 id: hoverGradient
+                z: -3
                   anchors {
                 fill: parent
-
-                topMargin: (!tasks.vertical && taskList.rows > 1) ? PlasmaCore.Units.smallSpacing / 4 : 0
-                bottomMargin: (!tasks.vertical && taskList.rows > 1) ? PlasmaCore.Units.smallSpacing / 4 : 0
+                topMargin: -2 * PlasmaCore.Units.smallSpacing
+                leftMargin: -2 * PlasmaCore.Units.smallSpacing
+                bottomMargin: -2 * PlasmaCore.Units.smallSpacing
+                rightMargin: -2 * PlasmaCore.Units.smallSpacing
+                /*topMargin: (!tasks.vertical && taskList.rows > 1) ? -PlasmaCore.Units.smallSpacing / 4 : 0
+                bottomMargin: (!tasks.vertical && taskList.rows > 1) ? -PlasmaCore.Units.smallSpacing / 4 : 0
                 leftMargin: ((inPopup || tasks.vertical) && taskList.columns > 1) ? PlasmaCore.Units.smallSpacing / 4 : 0
-                rightMargin: ((inPopup || tasks.vertical) && taskList.columns > 1) ? PlasmaCore.Units.smallSpacing / 4 : 0
+                rightMargin: ((inPopup || tasks.vertical) && taskList.columns > 1) ? -PlasmaCore.Units.smallSpacing / 4 : 0*/
                 }
                 gradient: Gradient {
                     id: radialGrad
-                    GradientStop { position: 0.0; color: Qt.lighter(hoverColor, 1.8) }
-                    GradientStop { position: 0.4; color: hoverColor }
-                    GradientStop { position: 0.9; color: "transparent" }
+                    GradientStop { position: 0.0; color: Qt.tint(hoverColor, "#AADFDFDF") }
+                    GradientStop { position: 0.3; color: hoverColor }
+                    GradientStop { position: 1.0; color: Qt.rgba(hoverColor.r, hoverColor.g, hoverColor.b, 0.2) }
                 }
                 verticalOffset: hoverRect.height/2.2
                 horizontalOffset: 0
+            
+                
                 //hoverGradient.horizontalOffset = task.mouseX - hoverRect.width/2
                  
             }
             //z: -1
-            
+             
         }
         PlasmaCore.ToolTipArea {
             id: toolTipArea
@@ -442,6 +676,7 @@ MouseArea {
             interactive: model.IsWindow === true
 
             mainItem: (model.IsWindow === true) ? openWindowToolTipDelegate : pinnedAppToolTipDelegate
+            property alias mainToolTip: toolTipArea.mainItem
 
             onContainsMouseChanged:  {
                 if (containsMouse) {
@@ -511,7 +746,7 @@ MouseArea {
 
         anchors {
             left: parent.left
-            leftMargin: adjustMargin(true, parent.width, taskFrame.margins.left)
+            leftMargin: adjustMargin(true, parent.width, taskFrame.margins.left);
             top: parent.top
             topMargin: adjustMargin(false, parent.height, taskFrame.margins.top)
         }
@@ -539,17 +774,22 @@ MouseArea {
             id: icon
 
             anchors.fill: parent
-            anchors.leftMargin: (pressed ? PlasmaCore.Units.smallSpacing / 5 : 0)
-            anchors.topMargin: (pressed ? PlasmaCore.Units.smallSpacing / 5 : 0)
+            anchors.leftMargin: ((pressed) ? PlasmaCore.Units.smallSpacing / 5 : 0) - ((childCount > 0) ? PlasmaCore.Units.smallSpacing * ((childCount > 2) ? 2 : 1.2) : 0)
+            anchors.topMargin: ((pressed) ? PlasmaCore.Units.smallSpacing / 5 : 0)
 
             //active: task.highlighted
             enabled: true
             usesPlasmaTheme: false
 
             source: model.decoration
+            
+            onSourceChanged: {
+                if(!icon.valid /*&& !model.IsLauncher && !model.IsStartup*/) icon.source = "exec";
+                updateHoverColor();
+            }
         }
 
-        Loader {
+        /*Loader {
             // QTBUG anchors.fill in conjunction with the Loader doesn't reliably work on creation:
             // have a window with a badge, move it from one screen to another, the new task item on the
             // other screen will now have a glitched out badge mask.
@@ -559,7 +799,7 @@ MouseArea {
             source: "TaskBadgeOverlay.qml"
             active: height >= PlasmaCore.Units.iconSizes.small
                     && task.smartLauncherItem && task.smartLauncherItem.countVisible
-        }
+        }*/
 
         states: [
             // Using a state transition avoids a binding loop between label.visible and
@@ -689,16 +929,15 @@ MouseArea {
     ]
 
     Component.onCompleted: {
-        if (!inPopup && model.IsWindow === true) {
+        /*if (!inPopup && model.IsWindow === true) {
             var component = Qt.createComponent("GroupExpanderOverlay.qml");
             component.createObject(task);
-        }
+        }*/
 
         if (!inPopup && model.IsWindow !== true) {
             taskInitComponent.createObject(task);
         }
         taskList.updateHoverFunc();
-
         updateAudioStreams({delay: false});
     }
 }

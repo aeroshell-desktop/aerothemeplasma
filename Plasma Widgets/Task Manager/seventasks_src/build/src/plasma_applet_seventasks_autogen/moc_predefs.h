@@ -202,7 +202,7 @@
 #define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
 #define __FLT_MANT_DIG__ 24
 #define __LDBL_DECIMAL_DIG__ 21
-#define __VERSION__ "11.1.0"
+#define __VERSION__ "11.2.0"
 #define __UINT64_C(c) c ## UL
 #define __cpp_unicode_characters 201411L
 #define _STDC_PREDEF_H 1
@@ -213,6 +213,7 @@
 #define __FLT32_MANT_DIG__ 24
 #define __FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__
 #define SIZEOF_DPTR (sizeof(void*))
+#define __STDC_IEC_60559_COMPLEX__ 201404L
 #define __cpp_aggregate_bases 201603L
 #define __FLT128_HAS_DENORM__ 1
 #define __FLT32_DECIMAL_DIG__ 9
@@ -245,6 +246,7 @@
 #define __FLT32X_MIN__ 2.22507385850720138309023271733240406e-308F32x
 #define __SIG_ATOMIC_MAX__ 0x7fffffff
 #define __GCC_ATOMIC_WCHAR_T_LOCK_FREE 2
+#define __STDC_IEC_60559_BFP__ 201404L
 #define __SIZEOF_PTRDIFF_T__ 8
 #define __LDBL_DIG__ 18
 #define __FLT64_IS_IEC_60559__ 2
@@ -401,7 +403,7 @@
 #define __DEC128_MAX_EXP__ 6145
 #define __FLT32X_HAS_QUIET_NAN__ 1
 #define __ATOMIC_CONSUME 1
-#define __GNUC_MINOR__ 1
+#define __GNUC_MINOR__ 2
 #define __GLIBCXX_TYPE_INT_N_0 __int128
 #define __INT_FAST16_WIDTH__ 64
 #define __UINTMAX_MAX__ 0xffffffffffffffffUL

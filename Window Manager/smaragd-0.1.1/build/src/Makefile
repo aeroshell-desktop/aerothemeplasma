@@ -186,6 +186,20 @@ kwin_smaragd/fast:
 .PHONY : kwin_smaragd/fast
 
 # Convenience name for target.
+src/CMakeFiles/KF5WindowSystem_QCH.dir/rule:
+	cd "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/KF5WindowSystem_QCH.dir/rule
+.PHONY : src/CMakeFiles/KF5WindowSystem_QCH.dir/rule
+
+# Convenience name for target.
+KF5WindowSystem_QCH: src/CMakeFiles/KF5WindowSystem_QCH.dir/rule
+.PHONY : KF5WindowSystem_QCH
+
+# fast build rule for target.
+KF5WindowSystem_QCH/fast:
+	cd "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/KF5WindowSystem_QCH.dir/build.make src/CMakeFiles/KF5WindowSystem_QCH.dir/build
+.PHONY : KF5WindowSystem_QCH/fast
+
+# Convenience name for target.
 src/CMakeFiles/kwin_smaragd_autogen.dir/rule:
 	cd "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/kwin_smaragd_autogen.dir/rule
 .PHONY : src/CMakeFiles/kwin_smaragd_autogen.dir/rule
@@ -500,6 +514,7 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... KF5WindowSystem_QCH"
 	@echo "... kwin_smaragd_autogen"
 	@echo "... kwin_smaragd"
 	@echo "... emerald.o"

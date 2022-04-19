@@ -274,6 +274,7 @@ src/kwin_smaragd.so: src/CMakeFiles/kwin_smaragd.dir/engines/zootreeves.c.o
 src/kwin_smaragd.so: src/CMakeFiles/kwin_smaragd.dir/build.make
 src/kwin_smaragd.so: /usr/lib/libcairo.so
 src/kwin_smaragd.so: /usr/lib/libglib-2.0.so
+src/kwin_smaragd.so: /usr/lib/libX11.so
 src/kwin_smaragd.so: src/CMakeFiles/kwin_smaragd.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX shared module kwin_smaragd.so"
 	cd "/mnt/731b17da-2f45-4ded-b563-c94773bf847d/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src" && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/kwin_smaragd.dir/link.txt --verbose=$(VERBOSE)
