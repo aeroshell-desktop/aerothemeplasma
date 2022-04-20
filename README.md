@@ -454,7 +454,7 @@ As for features that are lacking compared to Windows 7, there's a few that I'd l
 7. Fix AeroColorMixer
 8. Rework the SevenTasks context menu
 9. Add vertical taskbar support
-
+10. Add more theme-specific documentation and KDE/QML documentation.
 
 
 
