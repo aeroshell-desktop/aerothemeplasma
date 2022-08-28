@@ -1,0 +1,8 @@
+# Hashes of file build rules.
+9c29d2312d389475f4e373b07eb41737 CMakeFiles/fetch-translations
+4c06325e82781eb5319e8306a553c12c CMakeFiles/uninstall
+b9d4076bd755c7016a68543cffef0c2c releaseme
+1a8172501487ab368fafde7866749027 src/CMakeFiles/org.kde.plasma.seventasks-plasmoids-metadata-json
+fb5fc7644df20228cc52f8bb2f93086f src/CMakeFiles/plasma_applet_seventasks_autogen
+dd1b7ae26733982264a4237750eb675a src/metadata.json
+11933541e8ead3209d07eb93cacff185 src/org.kde.plasma.seventasks-plasmoids-metadata.json

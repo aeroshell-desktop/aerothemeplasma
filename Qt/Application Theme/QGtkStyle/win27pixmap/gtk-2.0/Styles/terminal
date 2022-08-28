@@ -1,0 +1,7 @@
+style "terminal" 
+{
+	text[NORMAL] = "#bbbbbb"
+	base[NORMAL] = "#000000"
+	
+	TerminalScreen::background-darkness = 0.95
+}

@@ -1,0 +1,55 @@
+style "entry"			= "default"
+{
+
+  xthickness       		= 2
+  ythickness       		= 2
+  
+
+  base[INSENSITIVE] 		= "#fafafa"
+  base[NORMAL]      		= "#f8fafd"
+  text[INSENSITIVE] 		= "#bfbfbf"
+
+  GtkWidget::interior_focus	= 0 
+
+  engine "pixmap"
+  {
+    image
+    {
+      function			= FOCUS
+      recolorable		= TRUE
+      file			= "Shadows/entry-shadow-in.png"
+      border			= { 3,3,3,3 }
+      stretch			= TRUE
+    }	
+ image
+    {
+      function			= BOX
+      recolorable		= TRUE
+	 shadow			= IN
+      state			= NORMAL
+      file			= "Shadows/entry-shadow-in.png"
+      border			= { 3,3,3,3 }
+      stretch			= TRUE
+    }	
+image
+    {
+      function			= BOX
+      recolorable		= TRUE
+	 shadow			= OUT
+      state			= NORMAL
+      file			= "Shadows/text-entry.png"
+      border			= { 3,3,3,3 }
+      stretch			= TRUE
+    }	
+  image
+   {
+     function			= SHADOW
+     detail			= "entry"
+     shadow			= IN
+     recolorable		= FALSE
+     file			= "Shadows/text-entry.png"
+     border			= { 3,3,3,3 }
+     stretch			= TRUE
+    }
+  }
+}

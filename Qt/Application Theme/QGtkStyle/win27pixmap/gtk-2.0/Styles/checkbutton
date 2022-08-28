@@ -1,0 +1,96 @@
+style "checkbutton"	= "default"
+{
+  engine "pixmap" 
+    {
+ image 
+	{
+            function        		= CHECK
+            recolorable     		= TRUE
+            state 				= NORMAL
+            shadow          		= OUT
+            overlay_file    		= "Check-Radio/check1.png"
+            overlay_stretch 	= FALSE
+        }
+ image 
+	{
+            function        		= CHECK
+            recolorable     		= TRUE
+            state 				= PRELIGHT
+            shadow          		= OUT
+            overlay_file    		= "Check-Radio/check3.png"
+            overlay_stretch 	= FALSE
+        }
+ image 
+	{
+            function        		= CHECK
+            recolorable     		= TRUE
+            state 				= ACTIVE
+            shadow          		= OUT
+            overlay_file    		= "Check-Radio/check3.png"
+            overlay_stretch 	= FALSE
+        }
+ image 
+	{
+            function        		= CHECK
+            recolorable     		= TRUE
+            state 				= INSENSITIVE
+            shadow          		= OUT
+            overlay_file    		= "Check-Radio/check5.png"
+            overlay_stretch 	= FALSE
+        }
+ image 
+	{
+            function        		= CHECK
+            recolorable     		= TRUE
+	    	  state 				= NORMAL
+            shadow          		= IN
+            overlay_file    		= "Check-Radio/check2.png"
+            overlay_stretch 	= FALSE
+        }
+  image 
+	{
+            function        		= CHECK
+            recolorable     		= TRUE
+	    	  state 				= PRELIGHT
+            shadow          		= IN
+            overlay_file    		= "Check-Radio/check4.png"
+            overlay_stretch 	= FALSE
+        }
+ image 
+	{
+            function        		= CHECK
+            recolorable     		= TRUE
+	    	  state 				= ACTIVE
+            shadow          		= IN
+            overlay_file    		= "Check-Radio/check4.png"
+            overlay_stretch 	= FALSE
+        }
+ image 
+    {
+    function        		= CHECK
+    recolorable     		= TRUE
+       state 				= INSENSITIVE
+       shadow          		= IN
+       overlay_file   		= "Check-Radio/check6.png"
+       overlay_stretch 	= FALSE
+    }
+    image 
+    {
+      function        	= FLAT_BOX
+      recolorable     	= TRUE
+      stretch		= TRUE
+      file            	= "Check-Radio/checklight.png"
+      border          	= { 2, 2, 2, 2 }
+    }
+
+    image
+    {
+      function			= FOCUS
+      recolorable		= TRUE
+      file			= "Check-Radio/highlight.png"
+      border			= { 3,3,3,3 }
+      stretch			= TRUE
+    }	
+
+  }
+}

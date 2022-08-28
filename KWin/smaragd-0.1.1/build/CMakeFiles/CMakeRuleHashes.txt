@@ -1,0 +1,6 @@
+# Hashes of file build rules.
+68b0996f400a852affd9dc0e27b0f0c6 CMakeFiles/fetch-translations
+4739369518483f33a79421aacc8606c9 CMakeFiles/uninstall
+56dba92f18f7b85f11bdc0d4570f6e8e releaseme
+f9209c904d0602f019e6905137ee6a2e src/CMakeFiles/kwin_smaragd_autogen
+396eae67b4674e32e215c7f1feed3381 src/ui_kwin_smaragd_dialog.h

@@ -1,0 +1,60 @@
+style "progressbar" {
+  
+  
+  xthickness            		= 2
+  ythickness            		= 2
+
+  engine "pixmap" 
+  {
+    image
+    {
+      function				= BOX
+      detail					= "trough"
+#      recolorable			= TRUE
+      file					= "ProgressBar/trough-progressbar-horiz.png"
+      border				= { 3, 3, 3, 3 }
+      stretch				= TRUE
+      orientation                        = HORIZONTAL
+}
+    image
+    {
+      function				= BOX
+      detail					= "trough"
+#      recolorable			= TRUE 
+      file					= "ProgressBar/trough-progressbar-vert.png"
+      border				= { 3, 3, 3, 3 }
+      stretch				= TRUE
+      orientation                        = VERTICAL
+ }
+    image
+    {
+      function				= BOX
+      detail					= "bar"
+      file					= "ProgressBar/progressbar-horiz.png"
+      border				= { 3, 3, 3, 3 }
+      stretch				= TRUE
+      orientation			= HORIZONTAL
+    } 
+    image
+    {
+      function				= BOX
+      detail					= "bar"
+      file					= "ProgressBar/progressbar-vert.png"
+      border				= { 3, 3, 3, 3 }
+      stretch				= TRUE
+      orientation			= VERTICAL
+    }
+
+    	image
+      		{
+        		function        	= BOX
+			recolorable    	= TRUE
+			state				= NORMAL
+			file            		= "ProgressBar/trough-progressbar-horiz.png"
+			border          	= { 3, 3, 3, 3 }
+			stretch         	= TRUE
+      		}
+
+  }
+}
+

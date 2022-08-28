@@ -1,0 +1,162 @@
+style "gtktreeview" 
+{
+        # make unfocused items have different text color
+        text[ACTIVE]    = "#223249"
+	text[SELECTED]  = "#223249"
+	
+	bg[NORMAL]      = "#fcfcfc" 
+	text[PRELIGHT] = "#000"
+	
+        engine "pixmap"
+	{
+		
+
+    
+    		# Active Rows
+		#========================================================
+		
+		# Start Selected images
+		image
+		{
+			function        = FLAT_BOX
+			state           = SELECTED
+			detail		= "cell_even_start"
+			border          = {4, 4, 4, 4} #6, 2, 2, 2
+			file            = "Images/Tree/selected-start.png"
+			stretch		= TRUE
+		}
+		image
+		{
+			function        = FLAT_BOX
+			state           = SELECTED
+			detail		= "cell_odd_start"
+			border          = {4, 4, 4, 4}
+			file            = "Images/Tree/selected-start.png"
+			stretch		= TRUE
+		}
+		image
+		{
+			function        = FLAT_BOX
+			state           = SELECTED
+			detail		= "cell_even_sorted_start"
+			border          = {4, 4, 4, 4}
+			file            = "Images/Tree/selected-start.png"
+			stretch		= TRUE
+		}
+		image
+		{
+			function        = FLAT_BOX
+			state           = SELECTED
+			detail		= "cell_odd_sorted_start"
+			border          = {4, 4, 4, 4}
+			file            = "Images/Tree/selected-start.png"
+			stretch		= TRUE
+		}
+		
+		# Middle Selected images
+		image
+		{
+			function        = FLAT_BOX
+			state           = SELECTED
+			detail		= "cell_even_middle"
+			border          = {4, 4, 4, 4}
+			file            = "Images/Tree/selected-mid.png"
+			stretch		= TRUE
+		}
+		image
+		{
+			function        = FLAT_BOX
+			state           = SELECTED
+			detail		= "cell_odd_middle"
+			border          = {4, 4, 4, 4}
+			file            = "Images/Tree/selected-mid.png"
+			stretch		= TRUE
+		}
+		image
+		{
+			function        = FLAT_BOX
+			state           = SELECTED
+			detail		= "cell_even_sorted_middle"
+			border          = {4, 4, 4, 4}
+			file            = "Images/Tree/selected-mid-odd-sorted.png"
+			stretch		= TRUE
+		}
+		image
+		{
+			function        = FLAT_BOX
+			state           = SELECTED
+			detail		= "cell_odd_sorted_middle"
+			border          = {4, 4, 4, 4}
+			file            = "Images/Tree/selected-mid-odd-sorted.png"
+			stretch		= TRUE
+		}
+		
+		# End Selected images
+		image
+		{
+			function        = FLAT_BOX
+			state           = SELECTED
+			detail		= "cell_even_end"
+			border          = {4, 4, 4, 4} #2,6,2,2
+			file            = "Images/Tree/selected-end.png"
+			stretch		= TRUE
+		}
+		image
+		{
+			function        = FLAT_BOX
+			state           = SELECTED
+			detail		= "cell_odd_end"
+			border          = {4, 4, 4, 4}
+			file            = "Images/Tree/selected-end.png"
+			stretch		= TRUE
+		}
+		image
+		{
+			function        = FLAT_BOX
+			state           = SELECTED
+			detail		= "cell_even_sorted_end"
+			border          = {4, 4, 4, 4}
+			file            = "Images/Tree/selected-end-odd-sorted.png"
+			stretch		= TRUE
+		}
+		image
+		{
+			function        = FLAT_BOX
+			state           = SELECTED
+			detail		= "cell_odd_sorted_end"
+			border          = {4, 4, 4, 4}
+			file            = "Images/Tree/selected-end-odd-sorted.png"
+			stretch		= TRUE
+		}
+		
+		
+		# This is for treeviews with only one column
+		image
+		{
+			function        = FLAT_BOX
+			state           = SELECTED
+			border          = {4, 4, 4, 4}#6, 2, 2, 2
+			file            = "Images/Tree/selected.png"
+			stretch		= TRUE
+		}
+		
+		image
+		{
+			function        = BOX
+			state           = ACTIVE
+			border          = {4, 4, 4, 4}
+			file            = "Images/Tree/selected.png"
+			stretch		= TRUE
+		}
+
+	    	image
+		{
+     			function			= HLINE
+      			recolorable		= TRUE
+      			file				= "Lines/line-h-tree.png"
+      			border			= { 21, 0, 1, 1 }
+      		 	stretch			= TRUE
+    		}
+
+	}
+}

@@ -1,0 +1,71 @@
+style "optionmenu"		= "default"
+{
+
+  engine "pixmap"
+  {
+    image
+    {
+      function			= BOX
+      recolorable		= TRUE
+      state				= PRELIGHT
+      file				= "ComboBox/combo-prelight.png"
+      border			= { 5, 5, 5, 5}
+      stretch			= TRUE
+    }
+
+    image
+    {
+      function			= BOX
+      recolorable		= TRUE
+      state				= NORMAL
+      file				= "ComboBox/combo-normal.png"
+      border			= { 5, 5, 5, 5}
+      stretch			= TRUE
+    }
+
+  image
+    {
+      function			= BOX
+      recolorable		= TRUE
+      state				= ACTIVE
+      file				= "ComboBox/combo-pressed.png"
+      border			= { 5, 5, 5, 5}
+      stretch			= TRUE
+    }
+ image
+    {
+      function			= BOX
+      recolorable		= TRUE
+      state				= INSENSITIVE
+      file				= "ComboBox/combo-inactive.png"
+      border			= { 5, 5, 5, 5}
+      stretch			= TRUE
+    }
+    image
+    {
+      function			= TAB
+      state				= INSENSITIVE
+      recolorable		= TRUE
+      overlay_file		= "ComboBox/combo-arrow-insens.png"
+      overlay_stretch	= FALSE
+    }
+    image
+    {
+      function				= TAB
+      recolorable			= TRUE
+      state					= NORMAL
+      overlay_file			= "ComboBox/combo-arrow.png"
+      overlay_border	= { 0, 0, 0, 0 }
+      overlay_stretch	= FALSE
+    }
+  image
+    {
+      function				= TAB
+      recolorable			= TRUE
+      state					= PRELIGHT
+      overlay_file			= "ComboBox/combo-arrow-prelight.png"
+      overlay_border	= { 0, 0, 0, 0 }
+      overlay_stretch	= FALSE
+    }
+  }
+}
