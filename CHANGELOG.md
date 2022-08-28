@@ -1,6 +1,7 @@
-#Version 0.1 (Formal release)
 
-##SUMMARY:
+<h1>Version 0.1 (Formal release)</h1>
+
+<h2>SUMMARY:</h2>
 
 A lot of components have been added into this project, as well as some overhauled design, improvements in the themes, bug fixes that come from both the project and upstream development. Updated to work with KDE Plasma 5.25.4, and KWin 5.25.4 (KWinFT 5.25.0).
 
@@ -12,7 +13,7 @@ This release also features a new Qt visual style for Kvantum, which is supposed 
 
 The full list of all additions, changes and fixes:
 
-###NEW:
+<h3>NEW:</h3>
 
 - The following plasmoids have been added:
     - Added **DigitalClockLite Seven**, a fork of DigitalClockLite.
@@ -30,7 +31,7 @@ The full list of all additions, changes and fixes:
 - Added an Aero Wine theme.
 - Added **AeroColorMixer**, an application for configuring this theme.
 
-###CHANGED:
+<h3>CHANGED:</h3>
 
 - The following changes have been made to the System Tray:
     - The size of the popup dialog has been reduced.
@@ -67,7 +68,7 @@ The full list of all additions, changes and fixes:
 - Improved Seven Start's padding, layout, and sped up the animation to make it feel snappier.
 - Reorganised the entire repository to make it look and feel less cluttered.
 
-###FIXED:
+<h3>FIXED:</h3>
 
 - Fixed the state logic for the hover effect on desktop icons. The hover effect now properly implements the hover, selected, and hover+selected states. 
 - The taskbar hover preview is no longer enabled on startup, even if the user hasn't actually hovered over the preview.

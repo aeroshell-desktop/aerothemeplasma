@@ -70,13 +70,13 @@ Starting off with the simplest modifications, this is a list of recommended sett
         - Disable all 4 triggers
     - Under Virtual Desktops:
         - Remove all but one desktop, set maximum rows to 1
-- Under Window Management:
 
-        - Under Window Behaviour:
-            - Under Window Actions:
-                - Modifier key: Meta
-          - Under KWin Scripts:
-             - Enable MinimizeAll script
+- Under Window Management:
+    - Under Window Behaviour:
+       - Under Window Actions:
+            - Modifier key: Meta
+    - Under KWin Scripts:
+         - Enable MinimizeAll script
 
 When editing Plasma's bottom panel, make sure its width is set to 40 pixels. 
  

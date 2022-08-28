@@ -3,8 +3,7 @@
 # WARNING: THIS PROJECT IS NOT ACTIVE
 ## Due to real life circumstances, I don't have much time to work on this project. This project is developed in my spare time and updated when I feel it is good enough to be updated. In other words, updates are done when they are done.
 
-
-##Microsoft® Windows™ is a registered trademark of Microsoft® Corporation. This name is used for referential use only, and does not aim to usurp copyrights from Microsoft. Microsoft Ⓒ 2016 All rights reserved. All resources belong to Microsoft Corporation.
+<h2>Microsoft® Windows™ is a registered trademark of Microsoft® Corporation. This name is used for referential use only, and does not aim to usurp copyrights from Microsoft. Microsoft Ⓒ 2016 All rights reserved. All resources belong to Microsoft Corporation.</h2>
 
 
 ## Credits
@@ -66,7 +65,7 @@ The following will not be supported at all:
  - GTK4
  - Wayland
 
-###DISCLAIMER:
+<h3>DISCLAIMER:</h3>
 
 Certain plasmoids featured here make use of non-standard SVG items that are only available on this theme pack. Because of this, it is not recommended to use them outside of this theme.  More on this is written in the documentation file, which lists the technical details.
 
