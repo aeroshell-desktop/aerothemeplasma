@@ -44,11 +44,33 @@ Item {
 
     property QtObject globalFavorites: rootModel.favoritesModel
     property QtObject systemFavorites: rootModel.systemFavoritesModel
+PlasmaCore.DataSource {
+            id: menu_executable
+            engine: "executable"
+            connectedSources: []
+            onNewData: {
+                var exitCode = data["exit code"]
+                var exitStatus = data["exit status"]
+                var stdout = data["stdout"]
+                var stderr = data["stderr"]
+                exited(sourceName, exitCode, exitStatus, stdout, stderr)
+                disconnectSource(sourceName)
+            }
+            function exec(cmd) {
+                if (cmd) {
+                    connectSource(cmd)
+                }
+            }
+            signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
+        }
 
     function action_menuedit() {
         processRunner.runMenuEditor();
     }
-
+    function action_taskman() {
+        menu_executable.exec("ksysguard");
+    }
+  
     Component {
         id: compactRepresentation
         CompactRepresentation {}
@@ -56,7 +78,9 @@ Item {
 
     Component {
         id: menuRepresentation
-        MenuRepresentation {}
+        MenuRepresentation {
+            
+        }
     }
 
     Kicker.RootModel {
@@ -67,14 +91,14 @@ Item {
         appNameFormat: plasmoid.configuration.appNameFormat
         flat: true
         sorted: true
-        showSeparators: false
+        showSeparators: true
         appletInterface: plasmoid
 
-        paginate: true
+        paginate: false
         pageSize: plasmoid.configuration.numberColumns *  plasmoid.configuration.numberRows
 
-        showAllApps: true
-        showRecentApps: false
+        showAllApps: false
+        showRecentApps: true
         showRecentDocs: false
         showRecentContacts: false
         showPowerSession: false
@@ -168,7 +192,7 @@ Item {
 
         visible: false
 
-        imagePath: "widgets/viewitem"
+        imagePath: "widgets/menuitem"
         prefix: "hover"
     }
 
@@ -179,7 +203,12 @@ Item {
 
         imagePath: "widgets/panel-background"
     }
+    PlasmaCore.Svg {
+        id: arrowsSvg
 
+        imagePath: "widgets/arrows"
+        size: "16x16"
+    }
     PlasmaComponents.Label {
         id: toolTipDelegate
 
@@ -197,6 +226,7 @@ Item {
 
     Component.onCompleted: {
         plasmoid.setAction("menuedit", i18n("Edit Applications..."));
+        plasmoid.setAction("taskman", i18n("Task Manager"));
 
         rootModel.refreshed.connect(reset);
 
