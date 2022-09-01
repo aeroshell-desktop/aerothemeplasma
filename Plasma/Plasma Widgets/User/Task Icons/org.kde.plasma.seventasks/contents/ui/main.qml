@@ -104,6 +104,9 @@ MouseArea {
         }
     }
 
+    ContextMenu {
+        id: testMenu
+    }
 
     TaskManager.TasksModel {
         id: tasksModel
