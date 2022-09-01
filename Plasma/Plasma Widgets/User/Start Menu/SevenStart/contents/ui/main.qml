@@ -35,42 +35,20 @@ Item {
 
     property bool isDash: false
 
-    Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
+    Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
-    Plasmoid.compactRepresentation: compactRepresentation
-    Plasmoid.fullRepresentation: null
+    Plasmoid.compactRepresentation: null
+    Plasmoid.fullRepresentation: compactRepresentation
 
     property Item dragSource: null
 
     property QtObject globalFavorites: rootModel.favoritesModel
     property QtObject systemFavorites: rootModel.systemFavoritesModel
-PlasmaCore.DataSource {
-            id: menu_executable
-            engine: "executable"
-            connectedSources: []
-            onNewData: {
-                var exitCode = data["exit code"]
-                var exitStatus = data["exit status"]
-                var stdout = data["stdout"]
-                var stderr = data["stderr"]
-                exited(sourceName, exitCode, exitStatus, stdout, stderr)
-                disconnectSource(sourceName)
-            }
-            function exec(cmd) {
-                if (cmd) {
-                    connectSource(cmd)
-                }
-            }
-            signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
-        }
 
     function action_menuedit() {
         processRunner.runMenuEditor();
     }
-    function action_taskman() {
-        menu_executable.exec("ksysguard");
-    }
-  
+
     Component {
         id: compactRepresentation
         CompactRepresentation {}
@@ -78,9 +56,7 @@ PlasmaCore.DataSource {
 
     Component {
         id: menuRepresentation
-        MenuRepresentation {
-            
-        }
+        MenuRepresentation {}
     }
 
     Kicker.RootModel {
@@ -91,14 +67,14 @@ PlasmaCore.DataSource {
         appNameFormat: plasmoid.configuration.appNameFormat
         flat: true
         sorted: true
-        showSeparators: true
+        showSeparators: false
         appletInterface: plasmoid
 
-        paginate: false
+        paginate: true
         pageSize: plasmoid.configuration.numberColumns *  plasmoid.configuration.numberRows
 
-        showAllApps: false
-        showRecentApps: true
+        showAllApps: true
+        showRecentApps: false
         showRecentDocs: false
         showRecentContacts: false
         showPowerSession: false
@@ -192,7 +168,7 @@ PlasmaCore.DataSource {
 
         visible: false
 
-        imagePath: "widgets/menuitem"
+        imagePath: "widgets/viewitem"
         prefix: "hover"
     }
 
@@ -203,12 +179,7 @@ PlasmaCore.DataSource {
 
         imagePath: "widgets/panel-background"
     }
-    PlasmaCore.Svg {
-        id: arrowsSvg
 
-        imagePath: "widgets/arrows"
-        size: "16x16"
-    }
     PlasmaComponents.Label {
         id: toolTipDelegate
 
@@ -226,7 +197,6 @@ PlasmaCore.DataSource {
 
     Component.onCompleted: {
         plasmoid.setAction("menuedit", i18n("Edit Applications..."));
-        plasmoid.setAction("taskman", i18n("Task Manager"));
 
         rootModel.refreshed.connect(reset);
 
