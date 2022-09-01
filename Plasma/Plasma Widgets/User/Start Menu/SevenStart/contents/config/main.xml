@@ -10,7 +10,7 @@
       <default>start-here-kde</default>
     </entry>
     <entry name="useCustomButtonImage" type="Bool">
-      <default>false</default>
+      <default>true</default>
     </entry>
     <entry name="customButtonImage" type="Url">
       <default>start-here-kde</default>
