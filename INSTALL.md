@@ -53,6 +53,7 @@ Starting off with the simplest modifications, this is a list of recommended sett
     - Under General Behaviour:
         - Clicking files or folders: Selects them
     - Under Desktop Effects:
+        - Disable Background contrast *(This theme does not make use of this option #9)*
         - Blur, set Blur strength to 3, and Noise strength to 0
         - Desaturate Unresponsive Applications
         - Fading popups
