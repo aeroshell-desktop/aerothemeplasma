@@ -38,6 +38,9 @@ import QtGraphicalEffects 1.0
 import org.kde.kquickcontrolsaddons 2.0
 import org.kde.plasma.private.quicklaunch 1.0
 
+import org.kde.kirigami 2.13 as Kirigami
+import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
+
 
 import QtQuick.Dialogs 1.2
 
@@ -717,7 +720,7 @@ PlasmaCore.Dialog {
                    
                 }
                 PlasmaCore.IconItem {
-                    id: imgAuthor
+                    id: imgAuthorIcon
                     anchors.top: parent.top
                     anchors.left: parent.left
                     anchors.right: parent.right
@@ -726,15 +729,32 @@ PlasmaCore.Dialog {
                     anchors.leftMargin: 2
                     anchors.rightMargin: 2
                     anchors.bottomMargin: 2
-                    source: kuser.faceIconUrl.toString() || "user-identity"
+                    source: "user-identity"
                     smooth: true
                     visible: false
-                     usesPlasmaTheme: false
+
+                }
+
+                Image {
+                    id: imgAuthor
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                    anchors.topMargin: units.smallSpacing*2
+                    anchors.leftMargin: units.smallSpacing*2
+                    anchors.rightMargin: units.smallSpacing*2
+                    anchors.bottomMargin: units.smallSpacing*2
+                    source: kuser.faceIconUrl.toString()
+                    smooth: true
+                    mipmap: true
+                    visible: false
+
                    
                 }
                 OpacityMask {
                     anchors.fill: imgAuthor
-                    source: imgAuthor
+                    source: (kuser.faceIconUrl.toString() === "") ? imgAuthorIcon : imgAuthor;
                     maskSource: Rectangle {
                         width: imgAuthor.width
                         height: imgAuthor.height

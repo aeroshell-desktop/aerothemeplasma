@@ -106,12 +106,14 @@ PlasmaCore.Dialog {
     //y: 0
 
     // The "sensible" values
-    property int _minimumWidth: (showAgenda ? agendaViewWidth : 0) + monthViewWidth
-    property int _minimumHeight: PlasmaCore.Units.gridUnit * 12
+
     //Layout.preferredWidth: _minimumWidth
     //Layout.preferredHeight: _minimumHeight * 1.5
 
     readonly property bool showAgenda: PlasmaCalendar.EventPluginsManager.enabledPlugins.length > 0
+
+    property int _minimumWidth: (showAgenda ? agendaViewWidth : units.largeSpacing) + monthViewWidth
+    property int _minimumHeight: PlasmaCore.Units.gridUnit * 12
 
     readonly property int agendaViewWidth: _minimumHeight
     readonly property int monthViewWidth: monthView.showWeekNumbers ? Math.round(_minimumHeight * 1.25) : Math.round(_minimumHeight * 1.125)
