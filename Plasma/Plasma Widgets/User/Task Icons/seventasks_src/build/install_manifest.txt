@@ -23,8 +23,6 @@
 /usr/share/plasma/plasmoids/org.kde.plasma.seventasks/contents/ui/ToolTipInstance.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.seventasks/contents/ui/ToolTipWindowMouseArea.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.seventasks/contents/ui/main.qml
-/usr/share/plasma/plasmoids/org.kde.plasma.seventasks/contents/ui/MenuBackend.qml
-/usr/share/plasma/plasmoids/org.kde.plasma.seventasks/contents/ui/ContextMenuBackend.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.seventasks/metadata.desktop
 /usr/share/plasma/plasmoids/org.kde.plasma.seventasks/metadata.json
 /usr/share/metainfo/org.kde.plasma.seventasks.appdata.xml

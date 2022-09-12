@@ -151,9 +151,10 @@ MouseArea {
             }
         } else {
             pressed = false;
+            //if(!ma.pressed) tasks.dragSource = null;
         }
 	hoverEnabled = true;
-        
+
     }
 
     onPressed: {
@@ -216,13 +217,14 @@ MouseArea {
         pressX = -1;
         pressY = -1;
 	hoverEnabled = true;
+
     }
     
     onPressAndHold: {
     }
     onPositionChanged: { //hoverEnabled: true, but this event still doesn't fire at all
                          //unless i am pressing the left mouse button for a short period of time
-        if (pressX != -1 && mouse.buttons == Qt.LeftButton && dragHelper.isDrag(pressX, pressY, mouse.x, mouse.y)) { 
+        if (pressX != -1 && mouse.buttons == Qt.LeftButton && dragHelper.isDrag(pressX, pressY, mouse.x, mouse.y)) {
             
             tasks.dragSource = task;
             dragHelper.startDrag(task, model.MimeType, model.MimeData,
@@ -230,6 +232,10 @@ MouseArea {
             pressX = -1;
             pressY = -1;
             return;
+        }
+        else
+        {
+            tasks.dragSource = null;
         }
         
         //code for dragging the task around

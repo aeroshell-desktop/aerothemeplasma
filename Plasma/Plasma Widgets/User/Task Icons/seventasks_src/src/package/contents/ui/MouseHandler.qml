@@ -18,6 +18,7 @@ Item {
     property Item target
     property Item ignoredItem
     property bool moved: false
+    property bool isGroupDialog: false
 
     property alias hoveredItem: dropHandler.hoveredItem
     property alias handleWheelEvents: wheelHandler.active
@@ -65,12 +66,17 @@ Item {
                 return;
             }
 
-            var above = target.childAt(event.x, event.y);
+            //var above = target.childAt(event.x, event.y);
+            let above;
+            if (isGroupDialog) {
+                above = target.itemAt(event.x, event.y);
+            } else {
+                above = target.childAt(event.x, event.y);
+            }
 
             if (!above) {
                 hoveredItem = null;
                 activationTimer.stop();
-
                 return;
             }
 
@@ -101,9 +107,9 @@ Item {
                 var insertAt = TaskTools.insertIndexAt(above, event.x, event.y);
 
                 if (tasks.dragSource !== above && tasks.dragSource.itemIndex !== insertAt) {
-                    if (groupDialog.visible && groupDialog.visualParent) {
+                    if (!!tasks.groupDialog) {
                         tasksModel.move(tasks.dragSource.itemIndex, insertAt,
-                            tasksModel.makeModelIndex(groupDialog.visualParent.itemIndex));
+                            tasksModel.makeModelIndex(tasks.groupDialog.visualParent.itemIndex));
                     } else {
                         tasksModel.move(tasks.dragSource.itemIndex, insertAt);
                     }
@@ -115,6 +121,7 @@ Item {
                 hoveredItem = above;
                 activationTimer.restart();
             }
+            tasksModel.syncLaunchers();
         }
 
         onDragLeave: {
