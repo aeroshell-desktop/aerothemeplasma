@@ -209,6 +209,10 @@ PlasmaCore.DataSource {
         imagePath: "widgets/arrows"
         size: "16x16"
     }
+    PlasmaCore.Svg {
+        id: lockScreenSvg
+        imagePath: "widgets/system-lock-screen"
+    }
     PlasmaComponents.Label {
         id: toolTipDelegate
 

@@ -168,17 +168,17 @@ Item {
         height: width
 
         visible: (model.hasChildren === true)
-        opacity: (listItem.ListView.view.currentIndex === index) ? 1.0 : 0.8
+        opacity: (listItem.ListView.view.currentIndex === index) ? 1.0 : 1.0
 
         svg: arrowsSvg
-        elementId: (Qt.application.layoutDirection == Qt.RightToLeft) ? "left-arrow" : "right-arrow"
-        Colorize {
+        elementId: (Qt.application.layoutDirection == Qt.RightToLeft) ? "left-arrow-black" : "right-arrow-black"
+        /*Colorize {
             anchors.fill: arrow
             source: arrow
             hue: 0
             saturation: 0.0
             lightness: -0.6
-        }
+        }*/
     }
 
     Keys.onPressed: {

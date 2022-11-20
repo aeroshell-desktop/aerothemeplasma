@@ -407,19 +407,12 @@ PlasmaCore.Dialog {
         PlasmaCore.SvgItem {
             id: arrowDirection
             svg: arrowsSvg
-            elementId: (searching || showingAllPrograms) ? "left-arrow" : "right-arrow"
+            elementId: (searching || showingAllPrograms) ? "left-arrow-black" : "right-arrow-black"
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
             anchors.leftMargin: units.smallSpacing
             width: 16
             height: 16
-            Colorize {
-                    anchors.fill: arrowDirection
-                    source: arrowDirection
-                    hue: 0.0
-                    saturation: 0.0
-                    lightness: -0.6
-            }
         }
             Text {
                             text: showingAllPrograms || searching ? "Back" : "All programs"
@@ -1236,24 +1229,27 @@ PlasmaCore.Dialog {
                             hoverEnabled: true
                             anchors.fill: lockButton
                         }
-                        Image {
-                            id: lockScreenSvg
-                            source: "../pics/system-lock-screen.svg"
+                        PlasmaCore.SvgItem {
+                            id: lsSvg
+                            svg: lockScreenSvg
                             //width: parent.height - units.smallSpacing
                             //height: parent.height - units.smallSpacing
                             //anchors.horizontalCenter: parent.horizontalCenter
                             //anchors.left: parent.left
                             anchors.fill: lockButton
+                            anchors.leftMargin: units.smallSpacing*2
+                            anchors.rightMargin: units.smallSpacing*2
+                            anchors.topMargin: units.smallSpacing*1.5
+                            anchors.bottomMargin: units.smallSpacing*1.5
+                            elementId: searching ? "dark-lock" : "light-lock"
                            // anchors.leftMargin: -1
                             //anchors.leftMargin: units.smallSpacing
-                            ColorOverlay {
+                            /*ColorOverlay {
                             anchors.fill: lockScreenSvg
                             source: lockScreenSvg
-                            /*hue: 0.0
-                            saturation: 0.0
-                            lightness: searching ? -0.5 : 1.0*/
+
                             color: searching ? "#FF202020" : PlasmaCore.Theme.textColor 
-                        }
+                        }*/
                         }
                         //highlight: delegateHighlight
                         enabled: pmEngine.data["Sleep States"]["LockScreen"]
