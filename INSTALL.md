@@ -14,6 +14,7 @@
 10. [Task Switcher](#task-switcher)
 11. [Sounds](#sounds)
 12. [Wine](#wine)
+13. [Video Guide](#video-guide)
 
 ### Prerequisites <a name="preq"></a>
 
@@ -211,6 +212,28 @@ To apply Smaragd, select it in ```System settings -> Appearance -> Window Decora
 
 Any changes made to the theme will be nearly instant. The changes are applied as soon as the window is updated (resizing, maximizing/restoring the window). It is not recommended to edit the theme file by hand.
 
+#### Compiling instructions
+
+Compiling on Arch Linux requires a few dependencies to be present on your system:
+
+- cmake
+- cairo
+- glib2
+- kdebase-runtime
+- kdelibs 4.14.X
+
+The last two dependencies are available as prebuilt packages in this repository. The package `kdebase-runtime` doesn't exist anymore for Arch, not even the AUR, and so the only place to find it outside of this repository is through [this](https://archive.org/details/archlinux_pkg_kdebase-runtime) link. The package `kdelibs` can be installed through the AUR, however I recommend against it as compiling the package takes very long, and as of right now, building the package seems impossible. Other distributions will likely be better in terms of offering legacy packages.
+
+To compile Smaragd, do the following in the terminal:
+
+1. `cd smaragd-0.1.1`
+2. `mkdir build`
+3. `cd build`
+4. ```cmake -DCMAKE_INSTALL_PREFIX=`kf5-config --prefix` ..```
+5. `make`
+6. `sudo make install`
+
+If compiling multiple times, only the last step is required. Steps 1-4. are for setting the environment up for the first time. 
 
 ### Plasma widgets <a name="widgets"></a>
 
@@ -424,3 +447,8 @@ After that, go through all elements in the "Item" list, and change the font ever
 - Font: Segoe UI
 - Size: 9pt
 
+### Video Guide (Outdated but still useful)<a name="video-guide"></a>
+
+Video created by Bleeplo:
+
+[![Video guide](https://img.youtube.com/vi/QuiUwqHq-RU/0.jpg)](https://www.youtube.com/watch?v=QuiUwqHq-RU)

@@ -71,6 +71,8 @@ Certain plasmoids featured here make use of non-standard SVG items that are only
 
 Also, this project modifies certain system components of KDE Plasma which are not meant to be editable, and WILL be replaced if KDE Plasma is reinstalled or upgraded. **Modifying private system components can leave your desktop environment in a broken state**. Make sure to create backups before attempting to install this project. I am not responsible for broken KDE and/or Linux installs.
 
+Due to the fact that this project is under development and depends on upstream for a lot of things, things are subject to change and will likely break with updates from KDE and other components of the Linux desktop. As such, they may affect components of this theme. Keep an eye out on the issue tracker for further details when things inevitably happen to break. 
+
 Feel free to take this theme pack and modify it for yourself or share it with others, and if 
 there are any improvements to be made here, any and all effort would be greatly appreciated.
 
