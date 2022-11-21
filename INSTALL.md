@@ -227,13 +227,14 @@ The last two dependencies are available as prebuilt packages in this repository.
 To compile Smaragd, do the following in the terminal:
 
 1. `cd smaragd-0.1.1`
-2. `mkdir build`
+2. `mkdir build` (You can delete the build directory that already exists, or use a different name)
 3. `cd build`
 4. ```cmake -DCMAKE_INSTALL_PREFIX=`kf5-config --prefix` ..```
 5. `make`
 6. `sudo make install`
 
 If compiling multiple times, only the last step is required. Steps 1-4. are for setting the environment up for the first time. 
+To see new changes, restart KWin (Assuming Smaragd has been installed for the first time, and has been selected in the settings).
 
 ### Plasma widgets <a name="widgets"></a>
 

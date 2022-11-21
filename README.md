@@ -29,6 +29,7 @@
     
 These are all the projects which I have either mentioned or forked for the purposes of this theme pack. Please consider checking them out and checking out the authors who created these themes, plasmoids and other tweaks.
 
+XMR: `45WrFdAJvAaLTPA27xfqckPGiqphTBnbmELxdBrjpkpW7Bwuc9Rn2TT13QXm7eHZgVJKRPDBbJFLt4Crg9EXLxKp9E9AHJp`
 
 ## TABLE OF CONTENTS
 1. [Introduction](#introduction)  
