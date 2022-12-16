@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1"
+CMAKE_SOURCE_DIR = /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build"
+CMAKE_BINARY_DIR = /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -142,14 +142,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(CMAKE_COMMAND) -E cmake_progress_start "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/CMakeFiles" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src//CMakeFiles/progress.marks"
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/CMakeFiles" 0
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(CMAKE_COMMAND) -E cmake_progress_start /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/CMakeFiles /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src//CMakeFiles/progress.marks
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/clean
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/clean
 .PHONY : clean
 
 # The main clean target
@@ -158,22 +158,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/preinstall
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/preinstall
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/CMakeFiles/KF5WindowSystem_QCH.dir/rule:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/KF5WindowSystem_QCH.dir/rule
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/KF5WindowSystem_QCH.dir/rule
 .PHONY : src/CMakeFiles/KF5WindowSystem_QCH.dir/rule
 
 # Convenience name for target.
@@ -182,12 +182,12 @@ KF5WindowSystem_QCH: src/CMakeFiles/KF5WindowSystem_QCH.dir/rule
 
 # fast build rule for target.
 KF5WindowSystem_QCH/fast:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/KF5WindowSystem_QCH.dir/build.make src/CMakeFiles/KF5WindowSystem_QCH.dir/build
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/KF5WindowSystem_QCH.dir/build.make src/CMakeFiles/KF5WindowSystem_QCH.dir/build
 .PHONY : KF5WindowSystem_QCH/fast
 
 # Convenience name for target.
 src/CMakeFiles/kwin_smaragd.dir/rule:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/kwin_smaragd.dir/rule
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/kwin_smaragd.dir/rule
 .PHONY : src/CMakeFiles/kwin_smaragd.dir/rule
 
 # Convenience name for target.
@@ -196,12 +196,12 @@ kwin_smaragd: src/CMakeFiles/kwin_smaragd.dir/rule
 
 # fast build rule for target.
 kwin_smaragd/fast:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/build
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/build
 .PHONY : kwin_smaragd/fast
 
 # Convenience name for target.
 src/CMakeFiles/kwin_smaragd_autogen.dir/rule:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/kwin_smaragd_autogen.dir/rule
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/kwin_smaragd_autogen.dir/rule
 .PHONY : src/CMakeFiles/kwin_smaragd_autogen.dir/rule
 
 # Convenience name for target.
@@ -210,7 +210,7 @@ kwin_smaragd_autogen: src/CMakeFiles/kwin_smaragd_autogen.dir/rule
 
 # fast build rule for target.
 kwin_smaragd_autogen/fast:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd_autogen.dir/build.make src/CMakeFiles/kwin_smaragd_autogen.dir/build
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd_autogen.dir/build.make src/CMakeFiles/kwin_smaragd_autogen.dir/build
 .PHONY : kwin_smaragd_autogen/fast
 
 emerald.o: emerald.c.o
@@ -218,7 +218,7 @@ emerald.o: emerald.c.o
 
 # target to build an object file
 emerald.c.o:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/emerald.c.o
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/emerald.c.o
 .PHONY : emerald.c.o
 
 emerald.i: emerald.c.i
@@ -226,7 +226,7 @@ emerald.i: emerald.c.i
 
 # target to preprocess a source file
 emerald.c.i:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/emerald.c.i
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/emerald.c.i
 .PHONY : emerald.c.i
 
 emerald.s: emerald.c.s
@@ -234,7 +234,7 @@ emerald.s: emerald.c.s
 
 # target to generate assembly for a file
 emerald.c.s:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/emerald.c.s
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/emerald.c.s
 .PHONY : emerald.c.s
 
 engines/legacy.o: engines/legacy.c.o
@@ -242,7 +242,7 @@ engines/legacy.o: engines/legacy.c.o
 
 # target to build an object file
 engines/legacy.c.o:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/legacy.c.o
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/legacy.c.o
 .PHONY : engines/legacy.c.o
 
 engines/legacy.i: engines/legacy.c.i
@@ -250,7 +250,7 @@ engines/legacy.i: engines/legacy.c.i
 
 # target to preprocess a source file
 engines/legacy.c.i:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/legacy.c.i
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/legacy.c.i
 .PHONY : engines/legacy.c.i
 
 engines/legacy.s: engines/legacy.c.s
@@ -258,7 +258,7 @@ engines/legacy.s: engines/legacy.c.s
 
 # target to generate assembly for a file
 engines/legacy.c.s:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/legacy.c.s
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/legacy.c.s
 .PHONY : engines/legacy.c.s
 
 engines/line.o: engines/line.c.o
@@ -266,7 +266,7 @@ engines/line.o: engines/line.c.o
 
 # target to build an object file
 engines/line.c.o:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/line.c.o
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/line.c.o
 .PHONY : engines/line.c.o
 
 engines/line.i: engines/line.c.i
@@ -274,7 +274,7 @@ engines/line.i: engines/line.c.i
 
 # target to preprocess a source file
 engines/line.c.i:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/line.c.i
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/line.c.i
 .PHONY : engines/line.c.i
 
 engines/line.s: engines/line.c.s
@@ -282,7 +282,7 @@ engines/line.s: engines/line.c.s
 
 # target to generate assembly for a file
 engines/line.c.s:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/line.c.s
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/line.c.s
 .PHONY : engines/line.c.s
 
 engines/oxygen.o: engines/oxygen.c.o
@@ -290,7 +290,7 @@ engines/oxygen.o: engines/oxygen.c.o
 
 # target to build an object file
 engines/oxygen.c.o:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/oxygen.c.o
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/oxygen.c.o
 .PHONY : engines/oxygen.c.o
 
 engines/oxygen.i: engines/oxygen.c.i
@@ -298,7 +298,7 @@ engines/oxygen.i: engines/oxygen.c.i
 
 # target to preprocess a source file
 engines/oxygen.c.i:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/oxygen.c.i
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/oxygen.c.i
 .PHONY : engines/oxygen.c.i
 
 engines/oxygen.s: engines/oxygen.c.s
@@ -306,7 +306,7 @@ engines/oxygen.s: engines/oxygen.c.s
 
 # target to generate assembly for a file
 engines/oxygen.c.s:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/oxygen.c.s
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/oxygen.c.s
 .PHONY : engines/oxygen.c.s
 
 engines/pixmap.o: engines/pixmap.c.o
@@ -314,7 +314,7 @@ engines/pixmap.o: engines/pixmap.c.o
 
 # target to build an object file
 engines/pixmap.c.o:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/pixmap.c.o
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/pixmap.c.o
 .PHONY : engines/pixmap.c.o
 
 engines/pixmap.i: engines/pixmap.c.i
@@ -322,7 +322,7 @@ engines/pixmap.i: engines/pixmap.c.i
 
 # target to preprocess a source file
 engines/pixmap.c.i:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/pixmap.c.i
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/pixmap.c.i
 .PHONY : engines/pixmap.c.i
 
 engines/pixmap.s: engines/pixmap.c.s
@@ -330,7 +330,7 @@ engines/pixmap.s: engines/pixmap.c.s
 
 # target to generate assembly for a file
 engines/pixmap.c.s:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/pixmap.c.s
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/pixmap.c.s
 .PHONY : engines/pixmap.c.s
 
 engines/truglass.o: engines/truglass.c.o
@@ -338,7 +338,7 @@ engines/truglass.o: engines/truglass.c.o
 
 # target to build an object file
 engines/truglass.c.o:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/truglass.c.o
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/truglass.c.o
 .PHONY : engines/truglass.c.o
 
 engines/truglass.i: engines/truglass.c.i
@@ -346,7 +346,7 @@ engines/truglass.i: engines/truglass.c.i
 
 # target to preprocess a source file
 engines/truglass.c.i:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/truglass.c.i
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/truglass.c.i
 .PHONY : engines/truglass.c.i
 
 engines/truglass.s: engines/truglass.c.s
@@ -354,7 +354,7 @@ engines/truglass.s: engines/truglass.c.s
 
 # target to generate assembly for a file
 engines/truglass.c.s:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/truglass.c.s
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/truglass.c.s
 .PHONY : engines/truglass.c.s
 
 engines/vrunner.o: engines/vrunner.c.o
@@ -362,7 +362,7 @@ engines/vrunner.o: engines/vrunner.c.o
 
 # target to build an object file
 engines/vrunner.c.o:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/vrunner.c.o
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/vrunner.c.o
 .PHONY : engines/vrunner.c.o
 
 engines/vrunner.i: engines/vrunner.c.i
@@ -370,7 +370,7 @@ engines/vrunner.i: engines/vrunner.c.i
 
 # target to preprocess a source file
 engines/vrunner.c.i:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/vrunner.c.i
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/vrunner.c.i
 .PHONY : engines/vrunner.c.i
 
 engines/vrunner.s: engines/vrunner.c.s
@@ -378,7 +378,7 @@ engines/vrunner.s: engines/vrunner.c.s
 
 # target to generate assembly for a file
 engines/vrunner.c.s:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/vrunner.c.s
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/vrunner.c.s
 .PHONY : engines/vrunner.c.s
 
 engines/zootreeves.o: engines/zootreeves.c.o
@@ -386,7 +386,7 @@ engines/zootreeves.o: engines/zootreeves.c.o
 
 # target to build an object file
 engines/zootreeves.c.o:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/zootreeves.c.o
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/zootreeves.c.o
 .PHONY : engines/zootreeves.c.o
 
 engines/zootreeves.i: engines/zootreeves.c.i
@@ -394,7 +394,7 @@ engines/zootreeves.i: engines/zootreeves.c.i
 
 # target to preprocess a source file
 engines/zootreeves.c.i:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/zootreeves.c.i
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/zootreeves.c.i
 .PHONY : engines/zootreeves.c.i
 
 engines/zootreeves.s: engines/zootreeves.c.s
@@ -402,7 +402,7 @@ engines/zootreeves.s: engines/zootreeves.c.s
 
 # target to generate assembly for a file
 engines/zootreeves.c.s:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/zootreeves.c.s
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/engines/zootreeves.c.s
 .PHONY : engines/zootreeves.c.s
 
 kwin_smaragd.o: kwin_smaragd.cpp.o
@@ -410,7 +410,7 @@ kwin_smaragd.o: kwin_smaragd.cpp.o
 
 # target to build an object file
 kwin_smaragd.cpp.o:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o
 .PHONY : kwin_smaragd.cpp.o
 
 kwin_smaragd.i: kwin_smaragd.cpp.i
@@ -418,7 +418,7 @@ kwin_smaragd.i: kwin_smaragd.cpp.i
 
 # target to preprocess a source file
 kwin_smaragd.cpp.i:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.i
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.i
 .PHONY : kwin_smaragd.cpp.i
 
 kwin_smaragd.s: kwin_smaragd.cpp.s
@@ -426,7 +426,7 @@ kwin_smaragd.s: kwin_smaragd.cpp.s
 
 # target to generate assembly for a file
 kwin_smaragd.cpp.s:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.s
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.s
 .PHONY : kwin_smaragd.cpp.s
 
 kwin_smaragd_autogen/mocs_compilation.o: kwin_smaragd_autogen/mocs_compilation.cpp.o
@@ -434,7 +434,7 @@ kwin_smaragd_autogen/mocs_compilation.o: kwin_smaragd_autogen/mocs_compilation.c
 
 # target to build an object file
 kwin_smaragd_autogen/mocs_compilation.cpp.o:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd_autogen/mocs_compilation.cpp.o
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd_autogen/mocs_compilation.cpp.o
 .PHONY : kwin_smaragd_autogen/mocs_compilation.cpp.o
 
 kwin_smaragd_autogen/mocs_compilation.i: kwin_smaragd_autogen/mocs_compilation.cpp.i
@@ -442,7 +442,7 @@ kwin_smaragd_autogen/mocs_compilation.i: kwin_smaragd_autogen/mocs_compilation.c
 
 # target to preprocess a source file
 kwin_smaragd_autogen/mocs_compilation.cpp.i:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd_autogen/mocs_compilation.cpp.i
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd_autogen/mocs_compilation.cpp.i
 .PHONY : kwin_smaragd_autogen/mocs_compilation.cpp.i
 
 kwin_smaragd_autogen/mocs_compilation.s: kwin_smaragd_autogen/mocs_compilation.cpp.s
@@ -450,7 +450,7 @@ kwin_smaragd_autogen/mocs_compilation.s: kwin_smaragd_autogen/mocs_compilation.c
 
 # target to generate assembly for a file
 kwin_smaragd_autogen/mocs_compilation.cpp.s:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd_autogen/mocs_compilation.cpp.s
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd_autogen/mocs_compilation.cpp.s
 .PHONY : kwin_smaragd_autogen/mocs_compilation.cpp.s
 
 main.o: main.c.o
@@ -458,7 +458,7 @@ main.o: main.c.o
 
 # target to build an object file
 main.c.o:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/main.c.o
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/main.c.o
 .PHONY : main.c.o
 
 main.i: main.c.i
@@ -466,7 +466,7 @@ main.i: main.c.i
 
 # target to preprocess a source file
 main.c.i:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/main.c.i
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/main.c.i
 .PHONY : main.c.i
 
 main.s: main.c.s
@@ -474,7 +474,7 @@ main.s: main.c.s
 
 # target to generate assembly for a file
 main.c.s:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/main.c.s
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/main.c.s
 .PHONY : main.c.s
 
 qgraphicsgloweffect.o: qgraphicsgloweffect.cpp.o
@@ -482,7 +482,7 @@ qgraphicsgloweffect.o: qgraphicsgloweffect.cpp.o
 
 # target to build an object file
 qgraphicsgloweffect.cpp.o:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/qgraphicsgloweffect.cpp.o
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/qgraphicsgloweffect.cpp.o
 .PHONY : qgraphicsgloweffect.cpp.o
 
 qgraphicsgloweffect.i: qgraphicsgloweffect.cpp.i
@@ -490,7 +490,7 @@ qgraphicsgloweffect.i: qgraphicsgloweffect.cpp.i
 
 # target to preprocess a source file
 qgraphicsgloweffect.cpp.i:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/qgraphicsgloweffect.cpp.i
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/qgraphicsgloweffect.cpp.i
 .PHONY : qgraphicsgloweffect.cpp.i
 
 qgraphicsgloweffect.s: qgraphicsgloweffect.cpp.s
@@ -498,7 +498,7 @@ qgraphicsgloweffect.s: qgraphicsgloweffect.cpp.s
 
 # target to generate assembly for a file
 qgraphicsgloweffect.cpp.s:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/qgraphicsgloweffect.cpp.s
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/qgraphicsgloweffect.cpp.s
 .PHONY : qgraphicsgloweffect.cpp.s
 
 shadowengine.o: shadowengine.cpp.o
@@ -506,7 +506,7 @@ shadowengine.o: shadowengine.cpp.o
 
 # target to build an object file
 shadowengine.cpp.o:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/shadowengine.cpp.o
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/shadowengine.cpp.o
 .PHONY : shadowengine.cpp.o
 
 shadowengine.i: shadowengine.cpp.i
@@ -514,7 +514,7 @@ shadowengine.i: shadowengine.cpp.i
 
 # target to preprocess a source file
 shadowengine.cpp.i:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/shadowengine.cpp.i
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/shadowengine.cpp.i
 .PHONY : shadowengine.cpp.i
 
 shadowengine.s: shadowengine.cpp.s
@@ -522,7 +522,7 @@ shadowengine.s: shadowengine.cpp.s
 
 # target to generate assembly for a file
 shadowengine.cpp.s:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/shadowengine.cpp.s
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/kwin_smaragd.dir/build.make src/CMakeFiles/kwin_smaragd.dir/shadowengine.cpp.s
 .PHONY : shadowengine.cpp.s
 
 # Help Target
@@ -591,6 +591,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

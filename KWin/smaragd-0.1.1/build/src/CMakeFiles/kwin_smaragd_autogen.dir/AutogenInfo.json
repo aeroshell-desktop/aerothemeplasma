@@ -1,12 +1,12 @@
 {
-	"BUILD_DIR" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen",
-	"CMAKE_BINARY_DIR" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build",
-	"CMAKE_CURRENT_BINARY_DIR" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src",
-	"CMAKE_CURRENT_SOURCE_DIR" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src",
+	"BUILD_DIR" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/kwin_smaragd_autogen",
+	"CMAKE_BINARY_DIR" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src",
 	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
 	"CMAKE_LIST_FILES" : 
 	[
-		"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/CMakeLists.txt",
+		"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/CMakeLists.txt",
 		"/usr/lib64/cmake/KF5WindowSystem/KF5WindowSystemConfigVersion.cmake",
 		"/usr/lib64/cmake/KF5WindowSystem/KF5WindowSystemConfig.cmake",
 		"/usr/share/cmake/Modules/CMakeFindDependencyMacro.cmake",
@@ -29,37 +29,43 @@
 		"/usr/share/cmake/Modules/FindPackageMessage.cmake",
 		"/usr/share/cmake/Modules/CheckFunctionExists.cmake",
 		"/usr/share/cmake/Modules/CheckLibraryExists.cmake",
+		"/usr/share/cmake/Modules/CheckFunctionExists.c",
+		"/usr/share/cmake/Modules/CheckFunctionExists.c",
+		"/usr/share/cmake/Modules/CheckFunctionExists.c",
+		"/usr/share/cmake/Modules/CheckFunctionExists.c",
+		"/usr/share/cmake/Modules/CheckFunctionExists.c",
+		"/usr/share/cmake/Modules/CheckFunctionExists.c",
 		"/usr/lib64/cmake/KF5WindowSystem/KF5WindowSystemTargets.cmake",
 		"/usr/lib64/cmake/KF5WindowSystem/KF5WindowSystemTargets-noconfig.cmake",
 		"/usr/lib64/cmake/KF5WindowSystem/KF5WindowSystemQchTargets.cmake"
 	],
-	"CMAKE_SOURCE_DIR" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1",
+	"CMAKE_SOURCE_DIR" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1",
 	"DEP_FILE" : "",
 	"DEP_FILE_RULE_NAME" : "",
 	"HEADERS" : 
 	[
 		[
-			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/kwin_smaragd.h",
+			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/kwin_smaragd.h",
 			"Mu",
 			"EWIEGA46WW/moc_kwin_smaragd.cpp",
 			null
 		],
 		[
-			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/qgraphicsgloweffect.h",
+			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/qgraphicsgloweffect.h",
 			"Mu",
 			"EWIEGA46WW/moc_qgraphicsgloweffect.cpp",
 			null
 		],
 		[
-			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/shadowengine.h",
+			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/shadowengine.h",
 			"Mu",
 			"EWIEGA46WW/moc_shadowengine.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen/include",
-	"MOC_COMPILATION_FILE" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/kwin_smaragd_autogen/include",
+	"MOC_COMPILATION_FILE" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/kwin_smaragd_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : 
 	[
 		"KCOREADDONS_LIB",
@@ -92,11 +98,11 @@
 	],
 	"MOC_INCLUDES" : 
 	[
-		"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src",
-		"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src",
-		"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build",
-		"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/include",
-		"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines",
+		"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src",
+		"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src",
+		"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build",
+		"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include",
+		"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/engines",
 		"/usr/include/cairo",
 		"/usr/include/glib-2.0",
 		"/usr/lib/glib-2.0/include",
@@ -142,79 +148,79 @@
 		"-c",
 		"/usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/kwin_smaragd_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : 
 	[
-		"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/ui_kwin_smaragd_dialog.h"
+		"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/ui_kwin_smaragd_dialog.h"
 	],
 	"MULTI_CONFIG" : false,
 	"PARALLEL" : 4,
-	"PARSE_CACHE_FILE" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd_autogen.dir/ParseCache.txt",
+	"PARSE_CACHE_FILE" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "/usr/bin/moc",
 	"QT_UIC_EXECUTABLE" : "",
 	"QT_VERSION_MAJOR" : 5,
 	"QT_VERSION_MINOR" : 15,
-	"SETTINGS_FILE" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
 		[
-			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/emerald.c",
+			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/emerald.c",
 			"Mu",
 			null
 		],
 		[
-			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines/legacy.c",
+			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/engines/legacy.c",
 			"Mu",
 			null
 		],
 		[
-			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines/line.c",
+			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/engines/line.c",
 			"Mu",
 			null
 		],
 		[
-			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines/oxygen.c",
+			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/engines/oxygen.c",
 			"Mu",
 			null
 		],
 		[
-			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines/pixmap.c",
+			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/engines/pixmap.c",
 			"Mu",
 			null
 		],
 		[
-			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines/truglass.c",
+			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/engines/truglass.c",
 			"Mu",
 			null
 		],
 		[
-			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines/vrunner.c",
+			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/engines/vrunner.c",
 			"Mu",
 			null
 		],
 		[
-			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/engines/zootreeves.c",
+			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/engines/zootreeves.c",
 			"Mu",
 			null
 		],
 		[
-			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/kwin_smaragd.cpp",
+			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/kwin_smaragd.cpp",
 			"Mu",
 			null
 		],
 		[
-			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/main.c",
+			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/main.c",
 			"Mu",
 			null
 		],
 		[
-			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/qgraphicsgloweffect.cpp",
+			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/qgraphicsgloweffect.cpp",
 			"Mu",
 			null
 		],
 		[
-			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src/shadowengine.cpp",
+			"/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/shadowengine.cpp",
 			"Mu",
 			null
 		]

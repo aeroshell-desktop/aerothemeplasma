@@ -1,7 +1,7 @@
 src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/kwin_smaragd.cpp \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/kwin_smaragd.cpp \
  /usr/include/stdc-predef.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/kwin_smaragd.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/kwin_smaragd.h \
  /usr/include/KDecoration2/KDecoration2/Decoration \
  /usr/include/KDecoration2/kdecoration2/decoration.h \
  /usr/include/KDecoration2/kdecoration2/decorationshadow.h \
@@ -246,7 +246,7 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: \
  /usr/include/KF5/KWindowSystem/kwindowsystem_export.h \
  /usr/include/KF5/KWindowSystem/netwm_def.h /usr/include/qt/QtCore/QFlags \
  /usr/include/qt/QtCore/qflags.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/shadowengine.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/shadowengine.h \
  /usr/include/qt/QtGui/QPainter /usr/include/qt/QtGui/qpainter.h \
  /usr/include/qt/QtGui/qpixmap.h /usr/include/qt/QtGui/qtextoption.h \
  /usr/include/qt/QtGui/qpen.h /usr/include/qt/QtGui/qbrush.h \
@@ -309,7 +309,9 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: \
  /usr/include/qt/QtGui/qpainterpath.h /usr/include/qt/QtGui/QPolygonF \
  /usr/include/qt/QtGui/qpolygon.h /usr/include/qt/QtCore/QDir \
  /usr/include/qt/QtCore/qdir.h /usr/include/qt/QtCore/qfileinfo.h \
- /usr/include/qt/QtGui/QBitmap /usr/include/qt/QtGui/qbitmap.h \
+ /usr/include/qt/QtCore/QTimer /usr/include/qt/QtCore/qtimer.h \
+ /usr/include/qt/QtCore/qbasictimer.h /usr/include/qt/QtGui/QBitmap \
+ /usr/include/qt/QtGui/qbitmap.h \
  /usr/include/qt/QtCore/QPropertyAnimation \
  /usr/include/qt/QtCore/qpropertyanimation.h \
  /usr/include/qt/QtCore/qvariantanimation.h \
@@ -317,7 +319,7 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: \
  /usr/include/qt/QtCore/qabstractanimation.h /usr/include/cairo/cairo.h \
  /usr/include/cairo/cairo-version.h /usr/include/cairo/cairo-features.h \
  /usr/include/cairo/cairo-deprecated.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/qgraphicsgloweffect.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/qgraphicsgloweffect.h \
  /usr/include/qt/QtWidgets/QGraphicsEffect \
  /usr/include/qt/QtWidgets/qgraphicseffect.h \
  /usr/include/qt/QtWidgets/qtwidgetsglobal.h \
@@ -333,9 +335,9 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: \
  /usr/include/qt/QtWidgets/qframe.h /usr/include/qt/QtWidgets/qwidget.h \
  /usr/include/qt/QtGui/qpalette.h /usr/include/qt/QtWidgets/qsizepolicy.h \
  /usr/include/qt/QtGui/qcursor.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/include/engine.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/include/emerald.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/include/decoration.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include/engine.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include/emerald.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include/decoration.h \
  /usr/include/glib-2.0/glib.h /usr/include/glib-2.0/glib/galloca.h \
  /usr/include/glib-2.0/glib/gtypes.h \
  /usr/lib/glib-2.0/include/glibconfig.h \
@@ -448,6 +450,6 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: \
  /usr/include/bits/mathcalls.h /usr/include/bits/mathcalls-narrow.h \
  /usr/include/bits/iscanonical.h /usr/include/sys/wait.h \
  /usr/include/bits/types/idtype_t.h /usr/include/libintl.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/include/titlebar.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/include/libengine.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen/include/kwin_smaragd.moc
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include/titlebar.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include/libengine.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/kwin_smaragd_autogen/include/kwin_smaragd.moc

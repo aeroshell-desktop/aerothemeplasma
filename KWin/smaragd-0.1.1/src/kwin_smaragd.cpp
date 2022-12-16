@@ -39,6 +39,7 @@
 #include <QPainterPath>
 #include <QPolygonF>
 #include <QDir>
+#include <QTimer>
 
 #include <QBitmap>
 #include <QPainter>
@@ -399,8 +400,32 @@ void Decoration::onWindowChanged(WId id, NET::Properties properties, NET::Proper
 {
 	//printf("%x\n", properties);
 	/*if(id != client().data()->windowId()) return;
-	if((properties & NET::WMMoveResize) || (properties2 & NET::WM2MoveResizeWindow)) printf("KURAAAC\n");*/
+	if((properties & NET::WMMoveResize) || (properties2 & NET::WM2MoveResizeWindow)) printf("It works\n");*/
 	//printf("%d\n");
+}
+void Decoration::updateButtons()
+{
+	for(int i = 0; i < m_buttonGroup[2]->buttons().length(); i++)
+	{
+		int temp_w = m_buttonGroup[2]->buttons().at(i)->geometry().width();
+		if(!m_buttonGroup[2]->buttons().at(i)->isEnabled())
+		{
+			QRectF f = m_buttonGroup[2]->buttons().at(i)->geometry();
+			f.setWidth(0);
+			m_buttonGroup[2]->buttons().at(i)->setGeometry(f);
+		}
+		else if(m_buttonGroup[2]->buttons().at(i)->isEnabled() && temp_w == 0)
+		{
+			QRectF f = m_buttonGroup[2]->buttons().at(i)->geometry();
+			f.setWidth(button_widths[i]);
+			m_buttonGroup[2]->buttons().at(i)->setGeometry(f);
+		}
+	}
+	updateLayout();
+}
+void Decoration::updateButtonsDelayed()
+{
+	QTimer::singleShot( 0, this, &Decoration::updateButtons );	
 }
 void Decoration::init()
 {
@@ -416,7 +441,12 @@ void Decoration::init()
     connect(client().data(), &KDecoration2::DecoratedClient::captionChanged, this, [this]() { update(); });
     connect(client().data(), &KDecoration2::DecoratedClient::activeChanged, this, [this]() { update(); });
 
-
+    connect(client().data(), &KDecoration2::DecoratedClient::closeableChanged, this, &Decoration::updateButtonsDelayed);
+    connect(client().data(), &KDecoration2::DecoratedClient::maximizeableChanged, this, &Decoration::updateButtonsDelayed);
+    connect(client().data(), &KDecoration2::DecoratedClient::minimizeableChanged, this, &Decoration::updateButtonsDelayed);
+    connect(client().data(), &KDecoration2::DecoratedClient::providesContextHelpChanged, this, &Decoration::updateButtonsDelayed);
+    connect(client().data(), &KDecoration2::DecoratedClient::shadeableChanged, this, &Decoration::updateButtonsDelayed);
+    connect(client().data(), &KDecoration2::DecoratedClient::resizeableChanged, this, &Decoration::updateButtonsDelayed);
 	
     window_settings *ws = factory()->windowSettings();
     factory()->setFontHeight(settings()->fontMetrics().height());
@@ -458,7 +488,22 @@ void Decoration::init()
 	connect(KWindowSystem::self(), SIGNAL(windowChanged(WId, NET::Properties, NET::Properties2)),
 			this, SLOT(onWindowChanged(WId, NET::Properties, NET::Properties2)));
 
-
+	
+	for(int i = 0; i < m_buttonGroup[2]->buttons().length(); i++)
+	{
+		QRectF f = m_buttonGroup[2]->buttons().at(i)->geometry();
+		button_widths.push_back(f.width());
+	}
+	
+	for(int i = 0; i < m_buttonGroup[2]->buttons().length(); i++)
+	{
+		if(!m_buttonGroup[2]->buttons().at(i)->isEnabled())
+		{
+			QRectF f = m_buttonGroup[2]->buttons().at(i)->geometry();
+			f.setWidth(0);
+			m_buttonGroup[2]->buttons().at(i)->setGeometry(f);
+		}
+	}
     updateLayout();
 	updateReflection();
 }
@@ -496,7 +541,7 @@ void Decoration::updateLayout()
     setTitleBar(QRect(x, y, size().width() - 2 * 2, borderTop() - 4));
     int titleEdgeLeft = horizontalBorders ? ws->left_space + ws->button_hoffset + m_titleLeft : 0;
     int titleEdgeRight = horizontalBorders ? ws->right_space + ws->button_hoffset + m_titleRight : 0;
-
+	
     m_buttonGroup[0]->setPos(QPointF(titleEdgeLeft, 0));
     m_buttonGroup[2]->setPos(QPointF(size().width() - qRound(m_buttonGroup[2]->geometry().width()) - titleEdgeRight, 0));
 
@@ -514,6 +559,7 @@ void Decoration::updateLayout()
 		sidebar_unfocus = sidebar_unfocus_original.scaled(borderWidth, borderHeight/*, Qt::SmoothTransformation*/);
 	
 	win_pos = KWindowSystem::windowInfo(client().data()->decorationId(), NET::WMGeometry).geometry();
+	update();
 }
 
 int Decoration::buttonGlyph(KDecoration2::DecorationButtonType type) const
@@ -1037,7 +1083,7 @@ void DecorationButton::paint(QPainter *painter, const QRect &repaintArea)
     if (!active) {
         state += 3;
     }
-
+	if(!isEnabled()) return;
     if (type() == KDecoration2::DecorationButtonType::Menu) {
 		QRect rect_final = rect;
 		if(client->isMaximized()) rect_final.moveLeft(5);

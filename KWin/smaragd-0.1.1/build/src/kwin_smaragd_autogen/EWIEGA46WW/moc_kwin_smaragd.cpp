@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Smaragd__Decoration_t {
-    QByteArrayData data[10];
-    char stringdata0[113];
+    QByteArrayData data[12];
+    char stringdata0[148];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,16 +35,19 @@ static const qt_meta_stringdata_Smaragd__Decoration_t qt_meta_stringdata_Smaragd
 QT_MOC_LITERAL(0, 0, 19), // "Smaragd::Decoration"
 QT_MOC_LITERAL(1, 20, 12), // "updateLayout"
 QT_MOC_LITERAL(2, 33, 0), // ""
-QT_MOC_LITERAL(3, 34, 15), // "onWindowChanged"
-QT_MOC_LITERAL(4, 50, 3), // "WId"
-QT_MOC_LITERAL(5, 54, 2), // "id"
-QT_MOC_LITERAL(6, 57, 15), // "NET::Properties"
-QT_MOC_LITERAL(7, 73, 10), // "properties"
-QT_MOC_LITERAL(8, 84, 16), // "NET::Properties2"
-QT_MOC_LITERAL(9, 101, 11) // "properties2"
+QT_MOC_LITERAL(3, 34, 13), // "updateButtons"
+QT_MOC_LITERAL(4, 48, 20), // "updateButtonsDelayed"
+QT_MOC_LITERAL(5, 69, 15), // "onWindowChanged"
+QT_MOC_LITERAL(6, 85, 3), // "WId"
+QT_MOC_LITERAL(7, 89, 2), // "id"
+QT_MOC_LITERAL(8, 92, 15), // "NET::Properties"
+QT_MOC_LITERAL(9, 108, 10), // "properties"
+QT_MOC_LITERAL(10, 119, 16), // "NET::Properties2"
+QT_MOC_LITERAL(11, 136, 11) // "properties2"
 
     },
     "Smaragd::Decoration\0updateLayout\0\0"
+    "updateButtons\0updateButtonsDelayed\0"
     "onWindowChanged\0WId\0id\0NET::Properties\0"
     "properties\0NET::Properties2\0properties2"
 };
@@ -56,7 +59,7 @@ static const uint qt_meta_data_Smaragd__Decoration[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -64,12 +67,16 @@ static const uint qt_meta_data_Smaragd__Decoration[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x08 /* Private */,
-       3,    3,   25,    2, 0x08 /* Private */,
+       1,    0,   34,    2, 0x08 /* Private */,
+       3,    0,   35,    2, 0x08 /* Private */,
+       4,    0,   36,    2, 0x08 /* Private */,
+       5,    3,   37,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 4, 0x80000000 | 6, 0x80000000 | 8,    5,    7,    9,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 6, 0x80000000 | 8, 0x80000000 | 10,    7,    9,   11,
 
        0        // eod
 };
@@ -81,7 +88,9 @@ void Smaragd::Decoration::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
         (void)_t;
         switch (_id) {
         case 0: _t->updateLayout(); break;
-        case 1: _t->onWindowChanged((*reinterpret_cast< WId(*)>(_a[1])),(*reinterpret_cast< NET::Properties(*)>(_a[2])),(*reinterpret_cast< NET::Properties2(*)>(_a[3]))); break;
+        case 1: _t->updateButtons(); break;
+        case 2: _t->updateButtonsDelayed(); break;
+        case 3: _t->onWindowChanged((*reinterpret_cast< WId(*)>(_a[1])),(*reinterpret_cast< NET::Properties(*)>(_a[2])),(*reinterpret_cast< NET::Properties2(*)>(_a[3]))); break;
         default: ;
         }
     }
@@ -116,13 +125,13 @@ int Smaragd::Decoration::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 4)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 4;
     }
     return _id;
 }

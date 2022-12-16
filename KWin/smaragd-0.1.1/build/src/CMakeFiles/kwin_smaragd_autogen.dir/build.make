@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1"
+CMAKE_SOURCE_DIR = /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build"
+CMAKE_BINARY_DIR = /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build
 
 # Utility rule file for kwin_smaragd_autogen.
 
@@ -67,8 +67,8 @@ include src/CMakeFiles/kwin_smaragd_autogen.dir/compiler_depend.make
 include src/CMakeFiles/kwin_smaragd_autogen.dir/progress.make
 
 src/CMakeFiles/kwin_smaragd_autogen:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir="/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC for target kwin_smaragd"
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src" && /usr/bin/cmake -E cmake_autogen "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd_autogen.dir/AutogenInfo.json" ""
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC for target kwin_smaragd"
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src && /usr/bin/cmake -E cmake_autogen /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd_autogen.dir/AutogenInfo.json ""
 
 kwin_smaragd_autogen: src/CMakeFiles/kwin_smaragd_autogen
 kwin_smaragd_autogen: src/CMakeFiles/kwin_smaragd_autogen.dir/build.make
@@ -79,10 +79,10 @@ src/CMakeFiles/kwin_smaragd_autogen.dir/build: kwin_smaragd_autogen
 .PHONY : src/CMakeFiles/kwin_smaragd_autogen.dir/build
 
 src/CMakeFiles/kwin_smaragd_autogen.dir/clean:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src" && $(CMAKE_COMMAND) -P CMakeFiles/kwin_smaragd_autogen.dir/cmake_clean.cmake
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src && $(CMAKE_COMMAND) -P CMakeFiles/kwin_smaragd_autogen.dir/cmake_clean.cmake
 .PHONY : src/CMakeFiles/kwin_smaragd_autogen.dir/clean
 
 src/CMakeFiles/kwin_smaragd_autogen.dir/depend:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd_autogen.dir/DependInfo.cmake" --color=$(COLOR)
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1 /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/CMakeFiles/kwin_smaragd_autogen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : src/CMakeFiles/kwin_smaragd_autogen.dir/depend
 

@@ -1,8 +1,8 @@
-if(NOT EXISTS "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/install_manifest.txt")
-    message(FATAL_ERROR "Cannot find install manifest: /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/install_manifest.txt")
+if(NOT EXISTS "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/install_manifest.txt")
+    message(FATAL_ERROR "Cannot find install manifest: /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/install_manifest.txt")
 endif()
 
-file(READ "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/install_manifest.txt" files)
+file(READ "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/install_manifest.txt" files)
 string(REGEX REPLACE "\n" ";" files "${files}")
 foreach(file ${files})
     message(STATUS "Uninstalling $ENV{DESTDIR}${file}")

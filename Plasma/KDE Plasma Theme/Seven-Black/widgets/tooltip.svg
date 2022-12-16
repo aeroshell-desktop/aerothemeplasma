@@ -4,7 +4,7 @@
    height="100"
    id="svg1000"
    sodipodi:version="0.32"
-   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
    sodipodi:docname="tooltip.svg"
    inkscape:output_extension="org.inkscape.output.svgz.inkscape"
    version="1.0"
@@ -21,7 +21,7 @@
      id="style1022">
      #rect4860 { 
     fill:#e61f8c;
-    fill-opacity:0.308629;
+    fill-opacity:0.476081;
     opacity:1;
     stroke:none;
 }
@@ -37,14 +37,14 @@
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8097565"
-     inkscape:cx="-89.153633"
-     inkscape:cy="-71.002594"
+     inkscape:cx="-105.34721"
+     inkscape:cy="-119.04946"
      inkscape:current-layer="center"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
      inkscape:window-width="1600"
-     inkscape:window-height="832"
+     inkscape:window-height="834"
      inkscape:window-x="0"
      inkscape:window-y="0"
      width="48px"
@@ -70,15 +70,15 @@
     <linearGradient
        id="linearGradient1863">
       <stop
-         style="stop-color:#000000;stop-opacity:0.64999998"
+         style="stop-color:#000000;stop-opacity:0.34999999;"
          offset="0"
          id="stop1859" />
       <stop
-         style="stop-color:#000000;stop-opacity:0.34999999"
+         style="stop-color:#000000;stop-opacity:0.15000001;"
          offset="0.57142848"
          id="stop1986" />
       <stop
-         style="stop-color:#000000;stop-opacity:0.64999998"
+         style="stop-color:#000000;stop-opacity:0.34999999;"
          offset="1"
          id="stop1861" />
     </linearGradient>

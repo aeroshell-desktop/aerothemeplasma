@@ -1,7 +1,7 @@
 src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd_autogen/mocs_compilation.cpp.o: \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen/mocs_compilation.cpp \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/kwin_smaragd_autogen/mocs_compilation.cpp \
  /usr/include/stdc-predef.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen/EWIEGA46WW/moc_kwin_smaragd.cpp \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/kwin_smaragd_autogen/EWIEGA46WW/moc_kwin_smaragd.cpp \
  /usr/include/c++/12.1.1/memory \
  /usr/include/c++/12.1.1/bits/stl_algobase.h \
  /usr/include/c++/12.1.1/x86_64-pc-linux-gnu/bits/c++config.h \
@@ -98,7 +98,7 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd_autogen/mocs_compilation.cpp.o: \
  /usr/include/c++/12.1.1/bits/atomic_base.h \
  /usr/include/c++/12.1.1/bits/atomic_lockfree_defines.h \
  /usr/include/c++/12.1.1/backward/auto_ptr.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen/EWIEGA46WW/../../../../src/kwin_smaragd.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/kwin_smaragd_autogen/EWIEGA46WW/../../../../src/kwin_smaragd.h \
  /usr/include/KDecoration2/KDecoration2/Decoration \
  /usr/include/KDecoration2/kdecoration2/decoration.h \
  /usr/include/KDecoration2/kdecoration2/decorationshadow.h \
@@ -246,7 +246,7 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd_autogen/mocs_compilation.cpp.o: \
  /usr/include/KF5/KWindowSystem/kwindowsystem_export.h \
  /usr/include/KF5/KWindowSystem/netwm_def.h /usr/include/qt/QtCore/QFlags \
  /usr/include/qt/QtCore/qflags.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen/EWIEGA46WW/../../../../src/shadowengine.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/kwin_smaragd_autogen/EWIEGA46WW/../../../../src/shadowengine.h \
  /usr/include/qt/QtGui/QPainter /usr/include/qt/QtGui/qpainter.h \
  /usr/include/qt/QtGui/qpixmap.h /usr/include/qt/QtGui/qtextoption.h \
  /usr/include/qt/QtGui/qpen.h /usr/include/qt/QtGui/qbrush.h \

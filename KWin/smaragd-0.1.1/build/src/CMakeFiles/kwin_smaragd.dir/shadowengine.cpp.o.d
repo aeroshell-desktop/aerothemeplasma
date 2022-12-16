@@ -1,7 +1,7 @@
 src/CMakeFiles/kwin_smaragd.dir/shadowengine.cpp.o: \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/shadowengine.cpp \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/shadowengine.cpp \
  /usr/include/stdc-predef.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/shadowengine.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/shadowengine.h \
  /usr/include/qt/QtGui/QPainter /usr/include/qt/QtGui/qpainter.h \
  /usr/include/qt/QtGui/qtguiglobal.h /usr/include/qt/QtCore/qglobal.h \
  /usr/include/c++/12.1.1/type_traits \

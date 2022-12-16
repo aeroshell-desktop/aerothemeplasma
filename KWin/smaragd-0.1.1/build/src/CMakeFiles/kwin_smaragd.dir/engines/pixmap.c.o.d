@@ -1,8 +1,8 @@
 src/CMakeFiles/kwin_smaragd.dir/engines/pixmap.c.o: \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/engines/pixmap.c \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/engines/pixmap.c \
  /usr/include/stdc-predef.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/include/emerald.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/include/decoration.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include/emerald.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include/decoration.h \
  /usr/include/glib-2.0/glib.h /usr/include/glib-2.0/glib/galloca.h \
  /usr/include/glib-2.0/glib/gtypes.h \
  /usr/lib/glib-2.0/include/glibconfig.h \
@@ -165,7 +165,7 @@ src/CMakeFiles/kwin_smaragd.dir/engines/pixmap.c.o: \
  /usr/include/bits/iscanonical.h /usr/include/sys/wait.h \
  /usr/include/bits/types/idtype_t.h /usr/include/libintl.h \
  /usr/include/locale.h /usr/include/bits/locale.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/include/titlebar.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/include/engine.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/include/libengine.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/engines/pixmap_engine.h
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include/titlebar.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include/engine.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include/libengine.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/engines/pixmap_engine.h

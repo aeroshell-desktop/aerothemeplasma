@@ -106,7 +106,10 @@ public:
     void updateReflection();
 private Q_SLOTS:
     void updateLayout();
+    void updateButtons();
+    void updateButtonsDelayed();
     void onWindowChanged(WId id, NET::Properties properties, NET::Properties2 properties2);
+
 
 public:
     int buttonGlyph(KDecoration2::DecorationButtonType type) const;
@@ -125,6 +128,7 @@ private:
     QPixmap reflection_scaled;
     QRect win_pos;
     bool mouseDown;
+    std::vector<int> button_widths;
 };
 
 class DecorationButton : public KDecoration2::DecorationButton

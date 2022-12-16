@@ -55,14 +55,17 @@ Starting off with the simplest modifications, this is a list of recommended sett
         - Clicking files or folders: Selects them
     - Under Desktop Effects:
         - Disable Background contrast *(This theme does not make use of this option #9)*
-        - Blur, set Blur strength to 3, and Noise strength to 0
+        - Blur, set Blur strength to 2, and Noise strength to 0
         - Desaturate Unresponsive Applications
         - Fading popups
         - Login
         - Logout
         - Morphing popups
         - Translucency (Turn this off if it makes moving windows transparent)
-        - Scale
+        - Glide:
+            - Duration: 300ms
+            - Window Open Animation: Top, 8, 20
+            - Window Close Animation: Bottom, 15, 30
         - Window Aperture
         - If using KWinFT, enable Flip Switch; Set Flip animation duration to 200, and Angle to 45°.
         - Scale (Window Open/Close Animation)

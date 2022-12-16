@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1"
+CMAKE_SOURCE_DIR = /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build"
+CMAKE_BINARY_DIR = /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build
 
 # Utility rule file for KF5WindowSystem_QCH.
 
@@ -74,10 +74,10 @@ src/CMakeFiles/KF5WindowSystem_QCH.dir/build: KF5WindowSystem_QCH
 .PHONY : src/CMakeFiles/KF5WindowSystem_QCH.dir/build
 
 src/CMakeFiles/KF5WindowSystem_QCH.dir/clean:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src" && $(CMAKE_COMMAND) -P CMakeFiles/KF5WindowSystem_QCH.dir/cmake_clean.cmake
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src && $(CMAKE_COMMAND) -P CMakeFiles/KF5WindowSystem_QCH.dir/cmake_clean.cmake
 .PHONY : src/CMakeFiles/KF5WindowSystem_QCH.dir/clean
 
 src/CMakeFiles/KF5WindowSystem_QCH.dir/depend:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/src" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window Manager/smaragd-0.1.1/build/src/CMakeFiles/KF5WindowSystem_QCH.dir/DependInfo.cmake" --color=$(COLOR)
+	cd /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1 /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/CMakeFiles/KF5WindowSystem_QCH.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : src/CMakeFiles/KF5WindowSystem_QCH.dir/depend
 

@@ -123,9 +123,9 @@ ColumnLayout {
                 return "normal";
             }
             opacity: isWin ? (hoverHandler.containsPress ? 1.0 : ( (hoverHandler.opacityHover || closeButton.hovered) ? ((activeWindow) ? 1.0 : 0.7) : (activeWindow ? 0.7 : 0) )) : 0;
-            /*Behavior on opacity {
-                NumberAnimation { duration: PlasmaCore.Units.shortDuration }
-            }*/
+            Behavior on opacity {
+                NumberAnimation { duration: PlasmaCore.Units.shortDuration*2 }
+            }
             //visible: hoverHandler.containsMouse
             //pressed: hoverHandler.containsPress
         }

@@ -1,14 +1,14 @@
-/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen/include/kwin_smaragd.moc: /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/kwin_smaragd.cpp \
-  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/build/src/kwin_smaragd_autogen/moc_predefs.h \
-  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/smaragd.json \
-  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/include/decoration.h \
-  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/include/emerald.h \
-  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/include/engine.h \
-  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/include/libengine.h \
-  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/include/titlebar.h \
-  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/kwin_smaragd.h \
-  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/qgraphicsgloweffect.h \
-  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/shadowengine.h \
+/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/kwin_smaragd_autogen/include/kwin_smaragd.moc: /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/kwin_smaragd.cpp \
+  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/build/src/kwin_smaragd_autogen/moc_predefs.h \
+  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/smaragd.json \
+  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include/decoration.h \
+  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include/emerald.h \
+  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include/engine.h \
+  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include/libengine.h \
+  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/include/titlebar.h \
+  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/kwin_smaragd.h \
+  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/qgraphicsgloweffect.h \
+  /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/shadowengine.h \
   /usr/include/KDecoration2/KDecoration2/DecoratedClient \
   /usr/include/KDecoration2/KDecoration2/Decoration \
   /usr/include/KDecoration2/KDecoration2/DecorationButton \
@@ -444,6 +444,7 @@
   /usr/include/qt/QtCore/QStandardPaths \
   /usr/include/qt/QtCore/QString \
   /usr/include/qt/QtCore/QStringList \
+  /usr/include/qt/QtCore/QTimer \
   /usr/include/qt/QtCore/QUuid \
   /usr/include/qt/QtCore/QVariant \
   /usr/include/qt/QtCore/QVariantList \
@@ -455,6 +456,7 @@
   /usr/include/qt/QtCore/qatomic.h \
   /usr/include/qt/QtCore/qatomic_cxx11.h \
   /usr/include/qt/QtCore/qbasicatomic.h \
+  /usr/include/qt/QtCore/qbasictimer.h \
   /usr/include/qt/QtCore/qbytearray.h \
   /usr/include/qt/QtCore/qbytearraylist.h \
   /usr/include/qt/QtCore/qcborcommon.h \
@@ -526,6 +528,7 @@
   /usr/include/qt/QtCore/qsystemdetection.h \
   /usr/include/qt/QtCore/qtcore-config.h \
   /usr/include/qt/QtCore/qtextstream.h \
+  /usr/include/qt/QtCore/qtimer.h \
   /usr/include/qt/QtCore/qtypeinfo.h \
   /usr/include/qt/QtCore/qurl.h \
   /usr/include/qt/QtCore/quuid.h \

@@ -1,7 +1,7 @@
 src/CMakeFiles/kwin_smaragd.dir/qgraphicsgloweffect.cpp.o: \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/qgraphicsgloweffect.cpp \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/qgraphicsgloweffect.cpp \
  /usr/include/stdc-predef.h \
- /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Window\ Manager/smaragd-0.1.1/src/qgraphicsgloweffect.h \
+ /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/KWin/smaragd-0.1.1/src/qgraphicsgloweffect.h \
  /usr/include/qt/QtWidgets/QGraphicsEffect \
  /usr/include/qt/QtWidgets/qgraphicseffect.h \
  /usr/include/qt/QtWidgets/qtwidgetsglobal.h \

@@ -2547,6 +2547,9 @@ src/CMakeFiles/kwin_smaragd.dir/kwin_smaragd.cpp.o: ../src/kwin_smaragd.cpp \
   /usr/include/qt/QtCore/QDir \
   /usr/include/qt/QtCore/qdir.h \
   /usr/include/qt/QtCore/qfileinfo.h \
+  /usr/include/qt/QtCore/QTimer \
+  /usr/include/qt/QtCore/qtimer.h \
+  /usr/include/qt/QtCore/qbasictimer.h \
   /usr/include/qt/QtGui/QBitmap \
   /usr/include/qt/QtGui/qbitmap.h \
   /usr/include/qt/QtCore/QPropertyAnimation \
@@ -4083,6 +4086,12 @@ src/kwin_smaragd_autogen/include/kwin_smaragd.moc:
 /usr/include/qt/QtCore/qpropertyanimation.h:
 
 /usr/include/qt/QtGui/QBitmap:
+
+/usr/include/qt/QtCore/qbasictimer.h:
+
+/usr/include/qt/QtCore/qtimer.h:
+
+/usr/include/qt/QtCore/QTimer:
 
 /usr/include/qt/QtCore/qdir.h:
 
