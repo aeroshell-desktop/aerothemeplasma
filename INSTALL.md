@@ -451,8 +451,8 @@ After that, go through all elements in the "Item" list, and change the font ever
 - Font: Segoe UI
 - Size: 9pt
 
-### Video Guide (Outdated but still useful)<a name="video-guide"></a>
+### Video Guide <a name="video-guide"></a>
 
 Video created by Bleeplo:
 
-[![Video guide](https://img.youtube.com/vi/QuiUwqHq-RU/0.jpg)](https://www.youtube.com/watch?v=QuiUwqHq-RU)
+[![Video guide](https://i.ytimg.com/vi/KFr4tqk7Mvg/mqdefault.jpg)](https://youtu.be/KFr4tqk7Mvg)
