@@ -3,64 +3,46 @@
 # WARNING: THIS PROJECT IS NOT ACTIVE
 ## Due to real life circumstances, I don't have much time to work on this project. This project is developed in my spare time and updated when I feel it is good enough to be updated. In other words, updates are done when they are done.
 
-<h2>Microsoft® Windows™ is a registered trademark of Microsoft® Corporation. This name is used for referential use only, and does not aim to usurp copyrights from Microsoft. Microsoft Ⓒ 2016 All rights reserved. All resources belong to Microsoft Corporation.</h2>
+## Microsoft® Windows™ is a registered trademark of Microsoft® Corporation. This name is used for referential use only, and does not aim to usurp copyrights from Microsoft. Microsoft Ⓒ 2023 All rights reserved. All resources belong to Microsoft Corporation.
 
 
 ## Credits
 
-1. [Aero for Emerald](https://store.kde.org/p/1003826/)
-2. [Aero Mouse Cursors with Drop Shadow](https://store.kde.org/p/999972/)
-3. [Avalon Menu](https://store.kde.org/p/1386465/)
-4. [Digital Clock Lite](https://www.kde-look.org/p/1225135/)
-5. [Equilibrium GTK3](https://store.kde.org/p/1493643/)
-6. [Expose Air Tweaked](https://store.kde.org/p/1722560/)
-7. [MMcK Launcher](https://store.kde.org/p/1720532)
-8. [Seven-Black](https://www.kde-look.org/p/998614)
-9. [Seven Black Aurorae](https://store.kde.org/p/1002615)
-10. [Show Desktop (Win7)](https://www.kde-look.org/p/1100895/)
-11. [Smaragd](https://www.pling.com/p/1167274)
-12. [VistaVG Ultimate](https://www.deviantart.com/vishal-gupta/art/VistaVG-Ultimate-57715902)
-13. [Volatile](https://www.pling.com/p/998823)
-14. [Win2-7](https://www.gnome-look.org/p/1012465)
-15. [Win2-7(Pixmap)](https://www.opendesktop.org/p/1014539)
-16. [Windows 7 GTK3 Theme](https://b00merang.weebly.com/windows-7.html)
-17. [Windows 7 Kvantum Theme](https://www.pling.com/p/1679903)
-18. [Windows 8 Icon Theme](https://b00merang.weebly.com/icon-themes.html)
-    
-These are all the projects which I have either mentioned or forked for the purposes of this theme pack. Please consider checking them out and checking out the authors who created these themes, plasmoids and other tweaks.
+*See [DOCUMENTATION.md](./DOCUMENTATION.md)*
 
-XMR: `45WrFdAJvAaLTPA27xfqckPGiqphTBnbmELxdBrjpkpW7Bwuc9Rn2TT13QXm7eHZgVJKRPDBbJFLt4Crg9EXLxKp9E9AHJp`
+Buy me a loaf of bread (Monero): 
+`45WrFdAJvAaLTPA27xfqckPGiqphTBnbmELxdBrjpkpW7Bwuc9Rn2TT13QXm7eHZgVJKRPDBbJFLt4Crg9EXLxKp9E9AHJp`
+
+<a href='https://ko-fi.com/M4M2NJ9PJ' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 ## TABLE OF CONTENTS
 1. [Introduction](#introduction)  
 2. [Screenshots](#screenshots)
-3. [List of components and changes](#list-of-components)
-4. [Installation](#installation)  
-5. [Documentation](#documentation)
-6. [TODO List](#todo-list)
+3. [Installation](#installation)  
+4. [Documentation](#documentation)
+5. [FAQ](#questions)
 
 
 ## Introduction <a name="introduction"></a>
 
 This is a project which aims to recreate the look and feel of Windows 7 as much as possible on KDE Plasma.
-It is still in early development and testing. Currently supported platforms, features and specifications are:
+It is still in heavy development and testing. This project has been tested on:
 
  - Arch Linux (Up to date LTS kernel, 64-bit), Artix (Up to date LTS kernel, 64-bit)
  - X11 
  - Latest stable KDE Plasma release, latest KDE Frameworks version
  - Latest Qt version
  - GTK2
- - Intel integrated Graphics, AMD GPUs
+ - Intel integrated graphics, AMD dedicated graphics
  - 96 DPI scaling
   
-Features that are currently not supported but should be:
+Here's what's currently not supported but should be (see FAQ):
 
  - Multi-distro support (While this could work on other distros, I cannot provide help if something goes wrong)
- - Nvidia GPU support
- - HiDPi scaling
+ - HiDPI scaling
  - Multilanguage support
 
-The following will not be supported at all:
+The following will not be supported at all in the foreseeable future:
 
  - GTK3
  - GTK4
@@ -68,14 +50,11 @@ The following will not be supported at all:
 
 <h3>DISCLAIMER:</h3>
 
-Certain plasmoids featured here make use of non-standard SVG items that are only available on this theme pack. Because of this, it is not recommended to use them outside of this theme.  More on this is written in the documentation file, which lists the technical details.
+This project modifies certain system components of KDE Plasma which are not meant to be modified. Reinstalling or updating KDE plasma through the package manager will bring back the original upstream components back, so it's required to redo certain parts of the installation process. **Modifying private system components can leave your desktop environment in a broken state**. Make sure to create backups before attempting to install this project. I am not responsible for broken KDE and/or Linux installs.
 
-Also, this project modifies certain system components of KDE Plasma which are not meant to be editable, and WILL be replaced if KDE Plasma is reinstalled or upgraded. **Modifying private system components can leave your desktop environment in a broken state**. Make sure to create backups before attempting to install this project. I am not responsible for broken KDE and/or Linux installs.
+Due to the fact that this project is under development and depends on upstream for a lot of things, many things are subject to change and will likely break as KDE Plasma gets updated over time. Keep an eye out on the issue tracker for further details when things inevitably happen to break. 
 
-Due to the fact that this project is under development and depends on upstream for a lot of things, things are subject to change and will likely break with updates from KDE and other components of the Linux desktop. As such, they may affect components of this theme. Keep an eye out on the issue tracker for further details when things inevitably happen to break. 
-
-Feel free to take this theme pack and modify it for yourself or share it with others, and if 
-there are any improvements to be made here, any and all effort would be greatly appreciated.
+Lastly, feel free to fork this project and/or contribute to it in any way. Any and all effort is greatly appreciated.
 
 ## Screenshots <a name="screenshots"></a>
 
@@ -85,7 +64,6 @@ there are any improvements to be made here, any and all effort would be greatly 
 ### Start Menu
 <img src="Screenshots/Start_Menu.png">
 <img src="Screenshots/Start_Menu_2.png">
-
 <img src="Screenshots/Start_Menu_3.png">
 <img src="Screenshots/Start_Menu_4.png">
 
@@ -100,6 +78,7 @@ there are any improvements to be made here, any and all effort would be greatly 
 
 <img src="Screenshots/Kvantum/Context_Menu.png">
 <img src="Screenshots/Kvantum/Context_Menu_2.png">
+<img src="Screenshots/Context_Menu_Taskbar.png">
 
 ### Taskbar
 
@@ -131,65 +110,17 @@ there are any improvements to be made here, any and all effort would be greatly 
 
 <img src="Screenshots/Shutdown.png">
 
+<img src="Screenshots/Switcher.png">
 
-
-### AeroColorMixer
+### Reflections and accent colors
 
 <img src="Screenshots/Kvantum/AeroColorMixer.png">
+
+<img src="Screenshots/Reflections.png">
 
 ### Window Style
 
 <img src="Screenshots/Window_Decorations.png">
-
-
-## List of components and changes <a name="list-of-components"></a>
-
-*Full changelog can be read at [CHANGELOG.md](./CHANGELOG.md) of this repository.*
-
-The full scope of this project has become bigger than I had initially expected when I started working on it. Having a comprehensive list of components that have been added to the project, as well as a list of planned components, is something that needed to be fleshed out a long time ago. This is a list of components that are included in this project, as well as their feature completion status (Note: finished components are still subject to bugs, general enhancements and maintenance, but they are more or less feature complete.)
-
-### Plasmoids
-
-User plasmoids:
-
-- **DigitalClockLite Seven**: A clock and calendar plasmoid based on DigitalClockLite, with aesthetic changes. Originally written by INTIKA. [Finshed]
-- **SevenStart**: An application launcher based on the Start Menu from Windows 7. Fork of Avalon Menu, written by ADHE. [Unfinished]
-- **SevenTasks**: Task manager based on Windows 7's taskbar. [Unfinished]
-- **Show Desktop (Win 7)**: Fork of the plasmoid with the same name written by Zren. Purely visual changes were done to the plasmoid. [Finished] 
-
-System plasmoids and modifications:
-
-- **DefaultToolTip.qml**: Edited QML component used for displaying tooltips, now with less padding and smaller font sizes. [Finished]
-- **Desktop shell**: Reduced padding and fixed hover selections. [Finished]
-- **Keyboard layout switcher**: Smaller, better aligned text with a button for better visuals. [Finished]
-- **System tray**: Major redesign and different placement, with more aesthetic differences than functional ones. [Finished]
-
-### Themes
-
-- **Aero Cursors**: Created by MOONY. [Unfinished]
-- **SevenBlack**: Heavily edited fork of the Plasma theme with the same name by MIRKOGENNARI. [Unfinished]
-- **Sound collection**: Sound effects used in Windows 7. [Finished]
-- **Win2-7**: Fork of a GTK2 theme written by JUANDEJESUSS. Adapted to work better with QGtkStyle. [Finished]
-- **Windows 7 Kvantum**: Fork of a Kvantum theme written by DRGORDBORD. [Finished]
-- **WindowsIcons**: Fork of the Windows 8 icon pack created by the B00merang team. Adapted to fit KDE better, importing Windows 7 icons. [Unfinished]
-
-### KWin
-
-- **Smaragd Seven**: Fork of Smaragd, an implementation of Emerald for KWin. Fixes some bugs and fixes the text glow effect. Used in conjunction with a fork of an Emerald theme written by nicu96. [Unfinished]
-
-### Utility programs
-
-- **AeroColorMixer**: Program designed for changing colours within this project. [Finished]
-
-### Components yet to be implemented
-
-These components are listed from highest priority to lowest priority.
-
-- **Qt visual style based on reading Msstyle themes (Like QWindowsVistaStyle)**
-- **KWin effect for Window reflections**
-- **KWin task switcher**
-- **SDDM Login theme and lock screen**
-- **Plymouth theme(?)**
 
 ## Installation <a name="installation"></a>
 
@@ -197,20 +128,35 @@ These components are listed from highest priority to lowest priority.
 
 ## Documentation <a name="documentation"></a>
 
-*See DOCUMENTATION.md (Coming soon)* 
+*See [DOCUMENTATION.md](./DOCUMENTATION.md)* 
 
-## TODO List <a name="todo-list"></a>
+## FAQ <a name="questions"></a>
 
-1. Improve the Seven Start menu plasmoid
-    1. If possible, make the sidebar entries configurable
-    2. Make the top-right icon stick out of the Start menu 
-    3. If possible, make the top-right icon change depending on which sidebar is hovered over and more accurate theming
-	5. Add a sidebar feature which includes recent items and actions for each application
-2. Improve the icon theme
-3. Rework the SevenTasks context menu
-4. Add vertical taskbar support
-5. Add more theme-specific documentation and KDE/QML documentation.
-
-
-
+### What do you mean by support? Can I not use this if I have an unsupported setup?
     
+You can still use this project, and it will most likely work, but any errors and bugs caused by the unsupported parts of your setup I most likely cannot debug or fix easily or in a reasonable amount of time, or at all. If it's a simple fix, I don't mind doing it, but anything more is likely out of my scope.
+
+The main factor that decides whether something is supported or not is availability. I either don't have the hardware required to test things (I don't have a HiDPI monitor or a large variety of Nvidia GPUs, for example), or I simply don't and/or can't use certain software (Wayland).
+
+### Is this project designed to help Windows users migrate to Linux?
+
+In short: No.
+
+Ultimately, this project doesn't change the fact that the underlying operating system is still Linux. The goal of this project isn't to act as a full Windows desktop replacement, or to provide any easy way for Windows users to migrate to Linux.
+
+The main goal is to maintain the Aero visual style and keep it as authentic as possible while adapting it for Linux where it's necessary. This project is most likely not for people who want Aero but do not want to deal with Linux. There are many resources online that provide guides on how to bring back Aero into Windows 10 and 11, more or less, for those who aren't willing to migrate over to Linux, and that's totally fine.
+
+### Will there be a Vista variant of this theme?
+
+I'd like to make it, but this project has already gone up too much in scope for one person to handle :)
+
+Still, there's enough demand for it to warrant development, so I don't want to say no, but it's not happening soon. 
+
+### Why do certain details of this theme still look inaccurate and wrong?
+
+A list of possible reasons:
+
+- This is a work in progress, so I simply haven't come down to fixing it.
+- The details can be fixed but it's incredibly time consuming and tedious to do so (for example, icons and the Qt widget style). Thus they're low priority on my end. These little wrong details burn my eyes too, don't worry. 
+- I have no control over how certain parts of the desktop look like (for example, font rendering, KDE system plasmoids and shortcut/symlink icon placement, and other totally not overly specific things I tried to fix already)
+- I simply didn't notice it, so thank you for pointing it out. :)

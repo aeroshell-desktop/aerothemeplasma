@@ -1,0 +1,11 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/effects/blur/">
+  <file>shaders/color.frag</file>
+  <file>shaders/color_core.frag</file>
+  <file>shaders/reflect.frag</file>
+  <file>shaders/reflect_core.frag</file>
+  <file>shaders/vertex.vert</file>
+  <file>shaders/vertex_core.vert</file>
+  <file>reflection.png</file>
+</qresource>
+</RCC>

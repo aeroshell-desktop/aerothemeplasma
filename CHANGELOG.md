@@ -1,3 +1,100 @@
+<h1>Version 0.2</h1>
+
+<h2>SUMMARY:</h2>
+
+The folder structure has been modified to simplify things and prepare it for an eventual install script. Most changes are internal, fixing bugs and cleaning up the codebase. Updated to work with KDE Plasma 5.27.7.
+
+Major changes in this release include the addition of documentation, the reflection effect for KWin, a login splash screen, and a complete redesign of Seven Tasks' context menu. An important change is that AeroColorMixer has been deprecated in this release, and most of the codebase has been merged with the reflection effect. This change simplifies the process of applying accent colors to windows and eliminates the need to directly edit config files and SVG textures. Additionally, this change now lets the user see the accent color changing in real time as they configure the effect.
+
+An effort is being made to standardize the internal codebase as well as the internal folder structure. The documentation is not complete, but I feel that it's a good start.
+
+The install script is a very early WIP, and I don't recommend using it, I'm not particularly happy with its current state so I have chosen to leave it in the "Testing" folder. Initially I wanted to include an install script for this release of AeroThemePlasma, but ultimately I decided it would be best to keep working on it and hopefully come up with a more sophisticated solution than whatever this is right now. The same goes for the Global/Look and feel theme, it's still early in development and probably broken right now.
+
+Lastly, I'd like to apologize for the radio silence and for taking so long. I haven't been in the right space for a while now, and recovery has taken up most of my time and energy, I hope that's understandable. Regardless, thank you for your patience if you've waited this long.
+
+<h2>NEW:</h2>
+
+- Added Aero Splash Screen (io.gitgud.wackyideas.aerosplashscreen).
+- Added documentation for various components of this project.
+- Added a KWin reflection effect.
+- Added a KWin task switcher (Thumbnail Seven).
+- Added a new color in the list of predefined accent colors (Sunset).
+- Deprecated AeroColorMixer, code has been merged with the reflection effect.
+
+<h2>CHANGED:</h2>
+
+<h3>Meta:</h3>
+
+- [INSTALL.md](./INSTALL.md) has been updated to reflect the new changes in the internal folder structure.
+- Most folders now have underscores instead of spaces in their names for easier handling for the future install script.
+- Most plasmoids have been renamed in a more standardized fashion.
+- Most plasmoids no longer have their own folder, and they're now only separated between User and System widgets.
+- Color scheme has been renamed to AeroColorScheme.
+- The icon and cursor themes are provided as tar archives.
+- Most plasmoids now use their own internal SVG textures instead of pulling them from Seven-Black. In the future, Seven-Black will get rid of these non-standard SVG elements.
+- Removed the accent color in all SVG textures from Seven-Black, as that is now handled by the reflection effect.
+- Most plasmoids now have updated default configs, reducing the amount of work needed during installation.
+- Minor changes done to the Plasma style.
+
+<h3>Icon theme:</h3>
+
+- The icon theme now optionally depends on the [Oxygen icon theme](https://invent.kde.org/frameworks/oxygen-icons5).
+- Updated a lot of icons, mainly related to icons related to Office and development.
+
+<h3>Seven Start:</h3>
+
+- Start menu orbs are now included within the project itself and are provided as a default option.
+- Start menu orbs now behave more like Windows 7's menu orbs, removing the animated transition between hovered and pressed states, as it was causing weird visual bugs.
+- Sidebar items can now be toggled on or off.
+- When adding the widget, it won't add default favorite items anymore.
+- The entire start menu now has basic keyboard navigation support. It's still a bit rough around the edges, but everything works.
+- The profile icon now sticks out of the start menu when compositing is enabled. When compositing is disabled, the icon is moved fully inside the start menu.
+- The profile icon now crossfades into icons depending on the selected sidebar item.
+- The search text box now has a decorative magnifying glass icon on the right.
+
+<h3>Desktop containment:</h3>
+
+- Tooltips no longer show the icon of the hovered item.
+- Reduced padding as a result of text alignment.
+- The textbox that appears when renaming an item is now properly aligned.
+
+<h3>DigitalClockLite:</h3>
+
+- Added a link label at the top of the expanded representation representing the currently selected date. Clicking on it will select the current day.
+
+<h3>Kvantum:</h3>
+
+- Changed the tooltip to look more like Windows 7's tooltip design.
+
+<h3>Seven Tasks:</h3>
+
+- Completely redesigned the context menu to match the appearance from Windows Vista and 7.
+- The context menu won't aggressively grab key inputs anymore, unlike standard context menus.
+- Seven Tasks will no longer create pinned tasks when adding the plasmoid to a panel.
+- Tooltips now have a dedicated SVG texture for the close button.
+- Tooltips that display cover art now have a textured frame around the blurred background of the cover art.
+
+<h3>Smaragd Seven:</h3>
+
+- Updated to provide a correct blur region.
+- Smaragd Seven no longer requires the reflection texture to function, as that is now handled by KWin's reflection effect.
+
+<h2>FIXED:</h2>
+
+- Added higher resolution icons so certain plasmoids don't display their low resolution counterparts.
+- In the expanded view of the system tray, the icon highlight won't get stuck anymore when the mouse exits an icon.
+- Clicking on an icon in the compact view of the system tray will now always close the expanded representation, if applicable.
+- Seven Start now accepts key inputs more consistently and will no longer accept unprintable characters to the search text box.
+- Seven Start will no longer try to open Dolphin when opening sidebar entries. Instead, it will open the directories using the default file manager on the system.
+- Fixed bug in the Desktop containment where the symlink icon in the corner is drawn smaller than it should be when the icon is provided by a thumbnailer plugin.
+- Smaragd Seven no longer renders the fake reflection effect.
+- Kvantum will no longer attempt to blur certain elements like tooltips.
+- Updated plasmoids to work with the latest version of KDE.
+- Minor visual enhancements in various aspects of this project.
+- Certain tooltips are no longer rendered incorrectly (this could have just been a problem on my machine)
+- Seven-Black has updated panel margins so that panels now render correctly on newer versions of KDE.
+- Minor bugfixes and fixing deprecated code.
+- The color mixer window (formerly AeroColorMixer) has been fixed to work with Wayland.
 
 <h1>Version 0.1 (Formal release)</h1>
 
@@ -8,10 +105,6 @@ A lot of components have been added into this project, as well as some overhaule
 The biggest changes were made to the Start Menu, System Tray, the Date & Time, and general Plasma look and feel to make it more compact and use up less visual space, as well as improve readability in many areas.
 
 This release also features a new Qt visual style for Kvantum, which is supposed to replace QGtkStyle for Qt applications. The GTK2 theme is still available for GTK2 applications, and can optionally still be used for Qt applications as well. 
-
-**Authors of forked projects are all credited in the README.md file. **
-
-The full list of all additions, changes and fixes:
 
 <h3>NEW:</h3>
 

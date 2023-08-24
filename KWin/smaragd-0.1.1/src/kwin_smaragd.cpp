@@ -398,10 +398,6 @@ Decoration::~Decoration()
 
 void Decoration::onWindowChanged(WId id, NET::Properties properties, NET::Properties2 properties2)
 {
-	//printf("%x\n", properties);
-	/*if(id != client().data()->windowId()) return;
-	if((properties & NET::WMMoveResize) || (properties2 & NET::WM2MoveResizeWindow)) printf("It works\n");*/
-	//printf("%d\n");
 }
 void Decoration::updateButtons()
 {
@@ -876,16 +872,13 @@ void Decoration::paint(QPainter *painter, const QRect &repaintArea)
     window_settings *ws = factory()->windowSettings();
     const Config *config = factory()->config();
 
-
-	//QRect deskpos = KWindowSystem::workArea(client().data()->decorationId());
-	//printf("Desktop: %d, %d\nPosition: %d, %d\n", deskpos.width(), deskpos.height(), pos.x(), pos.y());
     painter->drawImage(0, 0, decoImage);
 
 	
-	if(!reflection_scaled.isNull() && client().data()->width() > 32)
+	/*if(!reflection_scaled.isNull() && client().data()->width() > 32)
 	{
 		painter->drawPixmap(2, 2, client().data()->width() + borderLeft() + borderRight() -4, client().data()->height(), reflection_scaled, win_pos.x(), win_pos.y(), client().data()->width() + borderLeft() + borderRight() - 4, client().data()->height());
-	}
+	}*/
 
 
 	if(!sideglow_left.isNull())

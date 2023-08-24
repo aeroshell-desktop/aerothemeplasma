@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="addon">
+    <id>io.gitgud.wackyideas.seventasks</id>
+    <extends>org.kde.plasmashell</extends>
+    <name>SevenTasks</name>
+    <name xml:lang="ar">SevenTasks</name>
+    <name xml:lang="az">SevenTasks</name>
+    <name xml:lang="ca@valencia">SevenTasks</name>
+    <name xml:lang="ca">SevenTasks</name>
+    <name xml:lang="cs">SevenTasks</name>
+    <name xml:lang="da">SevenTasks</name>
+    <name xml:lang="de">SevenTasks</name>
+    <name xml:lang="en_GB">SevenTasks</name>
+    <name xml:lang="es">SevenTasks</name>
+    <name xml:lang="et">SevenTasks</name>
+    <name xml:lang="eu">SevenTasks</name>
+    <name xml:lang="fi">SevenTasks</name>
+    <name xml:lang="fr">SevenTasks</name>
+    <name xml:lang="gd">SevenTasks</name>
+    <name xml:lang="gl">SevenTasks</name>
+    <name xml:lang="hu">SevenTasks</name>
+    <name xml:lang="ia">SevenTasks</name>
+    <name xml:lang="id">SevenTasks</name>
+    <name xml:lang="it">SevenTasks</name>
+    <name xml:lang="ko">SevenTasks</name>
+    <name xml:lang="lt">SevenTasks</name>
+    <name xml:lang="nb">SevenTasks</name>
+    <name xml:lang="nl">SevenTasks</name>
+    <name xml:lang="nn">SevenTasks</name>
+    <name xml:lang="pa">SevenTasks</name>
+    <name xml:lang="pl">SevenTasks</name>
+    <name xml:lang="pt">SevenTasks</name>
+    <name xml:lang="pt_BR">SevenTasks</name>
+    <name xml:lang="ro">SevenTasks</name>
+    <name xml:lang="ru">SevenTasks</name>
+    <name xml:lang="sk">SevenTasks</name>
+    <name xml:lang="sl">SevenTasks</name>
+    <name xml:lang="sr@ijekavian">SevenTasks</name>
+    <name xml:lang="sr@ijekavianlatin">SevenTasks</name>
+    <name xml:lang="sr@latin">SevenTasks</name>
+    <name xml:lang="sr">SevenTasks</name>
+    <name xml:lang="sv">SevenTasks</name>
+    <name xml:lang="tg">SevenTasks</name>
+    <name xml:lang="tr">SevenTasks</name>
+    <name xml:lang="uk">SevenTasks</name>
+    <name xml:lang="vi">SevenTasks</name>
+    <name xml:lang="x-test">xxSevenTasksxx</name>
+    <name xml:lang="zh_CN">SevenTasks</name>
+    <name xml:lang="zh_TW">SevenTasks</name>
+    <summary>Classic taskbar-style window switcher displaying icons and text</summary>
+    <summary xml:lang="ar">مبدل نوافذ تقليدي بنمط شريط المهام يعرض الأيقونات والنص</summary>
+    <summary xml:lang="az">Nişanlar və mətn göstərən klassik tapşırıq paneli üslubunda pəncərə dəyişdirici</summary>
+    <summary xml:lang="bg">Класически превключвател на прозорци в стил лента на задачите, показващ икони и текст</summary>
+    <summary xml:lang="ca@valencia">Commutador de finestres clàssic d'estil barra de tasques que mostra les icones i text</summary>
+    <summary xml:lang="ca">Commutador de finestres clàssic d'estil barra de tasques que mostra les icones i text</summary>
+    <summary xml:lang="en_GB">Classic taskbar-style window switcher displaying icons and text</summary>
+    <summary xml:lang="es">Selector de ventanas al estilo de la barra de tareas clásica que muestra iconos y texto</summary>
+    <summary xml:lang="eu">Ataza-barra tankerako leiho aldatzaile klasikoa ikonoak eta testua azaltzen dituena</summary>
+    <summary xml:lang="fi">Perinteinen tehtäväpalkkimainen ikkunavaihto kuvakkein ja tekstein</summary>
+    <summary xml:lang="fr">Sélecteur classique de fenêtres en barre des tâches, affichant des icônes et du texte</summary>
+    <summary xml:lang="ia">Moderne Commutator de fenestra de stilo a barra de carga monstrante  icones e texto</summary>
+    <summary xml:lang="id">Pengalih window gaya taskbar klasik yang menampilkan ikon dan teks</summary>
+    <summary xml:lang="it">Scambiatore di finestre classico in stile barra delle applicazioni che mostra icone e testo</summary>
+    <summary xml:lang="ko">아이콘과 텍스트를 표시하는 고전 작업 표시줄 스타일 창 전환기</summary>
+    <summary xml:lang="nl">Klassieke taakbalkstijl vensterschakelaar met tonen van pictogrammen en tekst</summary>
+    <summary xml:lang="nn">Klassisk vindaugsbytar med oppgåvelinje med ikon og tekst</summary>
+    <summary xml:lang="pl">Klasyczny przełącznik okien, wyświetlający ikony i tekst na pasku zadań</summary>
+    <summary xml:lang="pt">Selector de janelas clássico em tarefas que mostra ícones e texto</summary>
+    <summary xml:lang="pt_BR">Seletor de janelas estilo barra de tarefas clássico mostrando ícones e texto</summary>
+    <summary xml:lang="ro">Comutator de ferestre clasic cu bară de sarcini, afișând pictograme și text</summary>
+    <summary xml:lang="ru">Классический вариант панели задач, использующий значки и текст</summary>
+    <summary xml:lang="sk">Klasický prepínač okien v štýle panela úloh zobrazujúci ikony a text</summary>
+    <summary xml:lang="sl">Klasični preklopnik oken z vrstico opravil, ki prikazuje ikone in besedilo</summary>
+    <summary xml:lang="sv">Klassiskt fönsterbytare med aktivitetsliknande fönster som visar ikoner och text</summary>
+    <summary xml:lang="ta">சின்னங்களையும் பெயர்களையும் காட்டும் சாளர மாற்றி</summary>
+    <summary xml:lang="tr">Klasik görev çubuğu tarzı, simgeler ve metin görüntüleyen pencere değiştiricisi</summary>
+    <summary xml:lang="uk">Класичний перемикач вікон у стилі панелі задач з показом піктограм і тексту</summary>
+    <summary xml:lang="vi">Trình chuyển cửa sổ phong cách thanh tác vụ cổ điển, hiển thị biểu tượng và chữ</summary>
+    <summary xml:lang="x-test">xxClassic taskbar-style window switcher displaying icons and textxx</summary>
+    <summary xml:lang="zh_CN">经典风格的同时显示图标和文本的任务栏式窗口切换器</summary>
+    <url type="homepage">https://plasma.kde.org/</url>
+    <developer_name>WackyIdeas &lt;wackyideas@disroot.org&gt;</developer_name>
+    <icon type="stock">applications-system</icon>
+    <project_license>LGPL-2.1+</project_license>
+    <metadata_license>CC0-1.0</metadata_license>
+</component>

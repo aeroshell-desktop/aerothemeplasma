@@ -1,0 +1,23 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "wackyideas@disroot.org",
+                "Name": "WackyIdeas"
+            }
+        ],
+        "Category": "Appearance",
+        "Description": "Renders a texture behind windows",
+        "EnabledByDefault": true,
+        "Id": "reflection",
+        "License": "AGPLv3",
+        "Name": "Reflection",
+        "ServiceTypes": [
+            "KWin/Effect"
+        ]
+    },
+    "X-KDE-ConfigModule": "kwin4_effect_reflect_config",
+    "org.kde.kwin.effect": {
+        "enabledByDefaultMethod": true
+    }
+}

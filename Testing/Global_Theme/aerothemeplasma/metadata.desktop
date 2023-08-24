@@ -1,0 +1,13 @@
+[Desktop Entry]
+Comment=A KDE Plasma theme that aims to replicate the look and feel of Windows 7.
+Name=AeroThemePlasma
+Id=aerothemeplasma
+X-KDE-PluginInfo-Author=WackyIdeas
+X-KDE-PluginInfo-Category=Plasma Look And Feel
+X-KDE-PluginInfo-Email=wackyideas@disroot.org
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-PluginInfo-License=AGPLv3
+X-KDE-PluginInfo-Name=aerothemeplasma
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=https://gitgud.io/wackyideas/aerothemeplasma
+X-KDE-ServiceTypes=Plasma/LookAndFeel

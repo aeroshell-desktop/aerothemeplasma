@@ -1,0 +1,21 @@
+[Desktop Entry]
+Comment=aero-splash-screen
+
+Encoding=UTF-8
+Keywords=Desktop;Workspace;Appearance;Look and Feel;Logout;Lock;Suspend;Shutdown;Hibernate;
+Name=Aero Splash Screen
+
+Type=Service
+
+X-KDE-ServiceTypes=Plasma/LookAndFeel
+X-KDE-ParentApp=
+X-KDE-PluginInfo-Author=MS
+X-KDE-PluginInfo-Category=
+X-KDE-PluginInfo-Email=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-Name=io.gitgud.wackyideas.aerosplashscreen
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=
+X-KDE-fallbackPackage=
+X-Plasma-MainScript=
+X-KPackage-Dependencies=

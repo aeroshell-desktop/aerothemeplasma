@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+    http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+    <kcfgfile arg="true"/>
+    <group name="Effect-Reflection">
+        <entry name="BlurStrength" type="Int">
+            <default>1</default>
+        </entry>
+        <entry name="NoiseStrength" type="Int">
+            <default>0</default>
+        </entry>
+        <entry name="TranslateTexture" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="EnableColorization" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="TextureLocation" type="String">
+            <default></default>
+        </entry>
+        <entry name="ExcludedWindows" type="String">
+            <default></default>
+        </entry>
+        <entry name="ExcludedColorization" type="String">
+            <default></default>
+        </entry>
+        <entry name="CustomColor" type="String">
+            <default>#89e61f8c</default>
+        </entry>
+        <entry name="AccentColor" type="String">
+            <default>#89e61f8c</default>
+        </entry>
+        <entry name="AccentColorName" type="Int">
+            <default>17</default>
+        </entry>
+        <entry name="EnableTransparency" type="Bool">
+            <default>true</default>
+        </entry>
+    </group>
+</kcfg>
