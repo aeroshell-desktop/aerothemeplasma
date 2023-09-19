@@ -123,7 +123,7 @@ It doesn't have any states other than the default, as it is only visible when ho
 
 Used in: SevenStart (io.gitgud.wackyideas.SevenStart)
 
-This is a set of two 9 segment textures used as FrameSvgItems. Both textures have the following states, with the right-oriented button additionally having a ```rtl-``` prefix:
+This is a set of two 9-segment textures used as FrameSvgItems. Both textures have the following states, with the right-oriented button additionally having a ```rtl-``` prefix:
 
 - Normal (normal-)
 - Hovered (hover-)
@@ -163,7 +163,7 @@ Used in the application view and in other minor graphical elements.
 
 Used in: Keyboard Layout (org.kde.plasma.keyboardlayout)
 
-A 9 segment button texture has been added with two states:
+A 9-segment button texture has been added with two states:
 
 - Hover (keyboard-hover-)
 - Pressed (keyboard-pressed-)
@@ -176,7 +176,7 @@ Used to give the layout switcher a button appearance.
 
 Used in: SevenTasks (io.gitgud.wackyideas.seventasks), DigitalClockLite (io.gitgud.wackyideas.digitalclocklite)
 
-This SVG contains 9 segment textures with three states:
+This SVG contains 9-segment textures with three states:
 
 - Active (active-)
 - Pressed (pressed-)
@@ -191,9 +191,42 @@ The north active state is typically used for actual tabs, which is why it has a 
 
 Used in: SevenTasks (io.gitgud.wackyideas.seventasks)
 
-The biggest modification to this SVG file is the addition of a stacked modifier to each state, defined with the "stacked+" suffix. These are mostly blank 9 segment textures with the right borders kept visible. Used for grouping multiple tasks together, achieving a graphical effect of "stacking" multiple elements on top of each other.
+The biggest modification to this SVG file is the addition of a stacked modifier to each state, defined with the "stacked+" suffix. These are mostly blank 9-segment textures with the right borders kept visible. Used for grouping multiple tasks together, achieving a graphical effect of "stacking" multiple elements on top of each other.
 
-<img src="./img/tasks.png"> 
+<img src="./img/tasks.png">
+
+### button-media.svg
+
+Used in: SevenTasks (io.gitgud.wackyideas.seventasks)
+
+States:
+
+- Normal (-normal-)
+- Hover (-hover-)
+- Pressed (-pressed-)
+
+Orientations:
+
+- Left (left-)
+- Center (center-)
+- Right (right-)
+
+Used for media controls in task tooltips. There are three button states in three different orientations, which makes for nine states in total. There is also a fourth orientation which isn't used that has all four rounded corners.
+
+<img src="./img/mediabuttons.png">
+
+### media-icons.svg
+
+Used in: SevenTasks (io.gitgud.wackyideas.seventasks)
+
+- Pause (pause)
+- Play (play)
+- Next media (skip)
+- Previous media (previous)
+
+Used for media controls in task tooltips.
+
+<img src="./img/mediaicons.png">
 
 ### viewitem.svg
 

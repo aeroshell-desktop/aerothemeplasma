@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src"
+CMAKE_SOURCE_DIR = /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build"
+CMAKE_BINARY_DIR = /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build
 
 # Utility rule file for plasma_applet_seventasks_autogen.
 
@@ -67,12 +67,12 @@ include src/CMakeFiles/plasma_applet_seventasks_autogen.dir/compiler_depend.make
 include src/CMakeFiles/plasma_applet_seventasks_autogen.dir/progress.make
 
 src/CMakeFiles/plasma_applet_seventasks_autogen: src/metadata.json
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir="/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC for target plasma_applet_seventasks"
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build/src" && /usr/bin/cmake -E cmake_autogen "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build/src/CMakeFiles/plasma_applet_seventasks_autogen.dir/AutogenInfo.json" ""
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC for target plasma_applet_seventasks"
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src && /usr/bin/cmake -E cmake_autogen /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/CMakeFiles/plasma_applet_seventasks_autogen.dir/AutogenInfo.json ""
 
-src/metadata.json: /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma\ Widgets/User/seventasks_src/src/package/metadata.desktop
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir="/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Generating metadata.json"
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/src" && /usr/bin/desktoptojson -i package/metadata.desktop -o /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma\ Widgets/User/seventasks_src/build/src/metadata.json -s /usr/share/kservicetypes5/plasma-applet.desktop
+src/metadata.json: /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/src/package/metadata.desktop
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating metadata.json"
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/src && /usr/bin/desktoptojson -i package/metadata.desktop -o /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/metadata.json -s /usr/share/kservicetypes5/plasma-applet.desktop
 
 plasma_applet_seventasks_autogen: src/CMakeFiles/plasma_applet_seventasks_autogen
 plasma_applet_seventasks_autogen: src/metadata.json
@@ -84,10 +84,10 @@ src/CMakeFiles/plasma_applet_seventasks_autogen.dir/build: plasma_applet_seventa
 .PHONY : src/CMakeFiles/plasma_applet_seventasks_autogen.dir/build
 
 src/CMakeFiles/plasma_applet_seventasks_autogen.dir/clean:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build/src" && $(CMAKE_COMMAND) -P CMakeFiles/plasma_applet_seventasks_autogen.dir/cmake_clean.cmake
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src && $(CMAKE_COMMAND) -P CMakeFiles/plasma_applet_seventasks_autogen.dir/cmake_clean.cmake
 .PHONY : src/CMakeFiles/plasma_applet_seventasks_autogen.dir/clean
 
 src/CMakeFiles/plasma_applet_seventasks_autogen.dir/depend:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/src" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build/src" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build/src/CMakeFiles/plasma_applet_seventasks_autogen.dir/DependInfo.cmake" "--color=$(COLOR)"
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/src /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/CMakeFiles/plasma_applet_seventasks_autogen.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : src/CMakeFiles/plasma_applet_seventasks_autogen.dir/depend
 

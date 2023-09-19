@@ -61,8 +61,9 @@ ColumnLayout {
 
     spacing: isWin ? PlasmaCore.Units.smallSpacing * 2 : 0
 
+
     // text labels + close button
-    
+
     RowLayout {
         id: header
         // match spacing of DefaultToolTip.qml in plasma-framework
@@ -75,7 +76,7 @@ ColumnLayout {
         // match margins of DefaultToolTip.qml in plasma-framework
         Layout.margins: isWin ? 0 : PlasmaCore.Units.smallSpacing / 2
         // There's no PlasmaComponents3 version
-        
+
         // This component tracks the mouse and highlights the tooltip when it's hovered over or clicked on.
         ToolTipWindowMouseArea {
             id: hoverHandler
@@ -93,9 +94,9 @@ ColumnLayout {
             z: 0
             enabled: visible
             closeBtn: closeButtonMA
-            
+
             PlasmaCore.FrameSvgItem {
-                imagePath: "widgets/taskbarhover"
+                imagePath: Qt.resolvedUrl("svgs/taskbarhover.svg")
                 z: -1
 
                 anchors {
@@ -115,10 +116,13 @@ ColumnLayout {
                     if(activeWindow) return "active";
                     return "normal";
                 }
+                Behavior on opacity {
+                    NumberAnimation { duration: 150 }
+                }
                 opacity: isWin ? (hoverHandler.containsPress ? 1.0 : ( (hoverHandler.opacityHover || closeButton.hovered) ? ((activeWindow) ? 1.0 : 0.7) : (activeWindow ? 0.7 : 0) )) : 0;
             }
         }
-        
+
         // The icon in the corner of the tooltip.
         PlasmaCore.IconItem {
             id: iconSmall
@@ -211,7 +215,7 @@ ColumnLayout {
             Layout.rightMargin: PlasmaCore.Units.smallSpacing*3-1;
             Layout.topMargin: PlasmaCore.Units.smallSpacing*3-1;
             visible: isWin && hoverHandler.opacityHover
-            imagePath: "widgets/button-close"
+            imagePath: Qt.resolvedUrl("svgs/button-close.svg")
             prefix: closeButtonMA.containsPress ? "pressed" : (closeButtonMA.containsMouse ? "hover" : "normal");
             MouseArea {
                 id: closeButtonMA
@@ -238,6 +242,7 @@ ColumnLayout {
         Layout.minimumWidth: header.width - PlasmaCore.Units.smallSpacing*4;
         Layout.preferredHeight: header.width / 2
         Layout.leftMargin: PlasmaCore.Units.smallSpacing*2;
+        Layout.bottomMargin: albumArtImage.visible || hasPlayer ? 0 : PlasmaCore.Units.smallSpacing*2;
 
         visible: toolTipDelegate.isWin
 
@@ -245,19 +250,12 @@ ColumnLayout {
         // TODO: this causes XCB error message when being visible the first time
         readonly property var winId: toolTipDelegate.isWin && toolTipDelegate.windows[flatIndex] !== undefined ? toolTipDelegate.windows[flatIndex] : 0
 
-        
-
         PlasmaCore.WindowThumbnail {
             id: x11Thumbnail
 
             anchors {
                 fill: parent
-                // Indent a little bit so that neither the thumbnail nor the drop
-                // shadow can cover up the highlight
-                topMargin: PlasmaCore.Units.smallSpacing * 2
-                leftMargin: PlasmaCore.Units.smallSpacing * 4
-                rightMargin: PlasmaCore.Units.smallSpacing * 4
-                bottomMargin: PlasmaCore.Units.smallSpacing * 4
+                bottomMargin: PlasmaCore.Units.smallSpacing
             }
 
             visible: !albumArtImage.visible && !thumbnailSourceItem.isMinimized && Number.isInteger(thumbnailSourceItem.winId)
@@ -283,7 +281,7 @@ ColumnLayout {
             visible: pipeWireLoader.active ? pipeWireLoader.item.visible : x11Thumbnail.visible
             horizontalOffset: 0
             verticalOffset: Math.round(3 * PlasmaCore.Units.devicePixelRatio)
-            radius: Math.round(8.0 * PlasmaCore.Units.devicePixelRatio)
+            radius: Math.round(2 * PlasmaCore.Units.devicePixelRatio)
             samples: Math.round(radius * 1.5)
             color: "Black"
             source: pipeWireLoader.active ? pipeWireLoader.item : x11Thumbnail
@@ -356,7 +354,7 @@ ColumnLayout {
             visible: valid && !pipeWireLoader.active
         }
 
-        
+
     }
 
     // Player controls row
@@ -366,6 +364,7 @@ ColumnLayout {
         // Match margins of header
         Layout.leftMargin: isWin ? 0 : PlasmaCore.Units.gridUnit / 2
         Layout.rightMargin: isWin ? 0 : PlasmaCore.Units.gridUnit / 2
+        //Layout.bottomMargin: isWin ? 0 : PlasmaCore.Units.gridUnit
 
         visible: hasPlayer
         enabled: canControl
@@ -385,7 +384,7 @@ ColumnLayout {
                 Layout.preferredHeight: songText.height
                 implicitWidth: songText.implicitWidth
                 Layout.leftMargin: PlasmaCore.Units.smallSpacing*2;
-        
+
                 PlasmaComponents3.Label {
                     id: songText
                     parent: songTextWrapper
@@ -409,7 +408,7 @@ ColumnLayout {
                 Layout.leftMargin: PlasmaCore.Units.smallSpacing*2;
                 implicitWidth: artistText.implicitWidth
                 visible: artistText.text !== ""
-                
+
                 PlasmaComponents3.Label {
                     id: artistText
                     parent: artistTextWrapper
@@ -429,27 +428,26 @@ ColumnLayout {
 
             Layout.fillWidth: true
             //Layout.topMargin: PlasmaCore.Units.smallSpacing
-            Layout.bottomMargin: PlasmaCore.Units.smallSpacing*2
+            Layout.bottomMargin: PlasmaCore.Units.smallSpacing
             Layout.rightMargin: isWin ? PlasmaCore.Units.smallSpacing*2 : PlasmaCore.Units.largeSpacing
-            spacing: 0//PlasmaCore.Units.smallSpacing / 4
+            spacing: -1//PlasmaCore.Units.smallSpacing / 4
 
-        PlasmaComponents3.ToolButton {
-            enabled: canGoBack
-            Layout.maximumWidth: PlasmaCore.Units.gridUnit*1.5;
-            Layout.maximumHeight: PlasmaCore.Units.gridUnit*1.5;
-            //Layout.leftMargin: PlasmaCore.Units.smallSpacing*8;
-            //Layout.bottomMargin: PlasmaCore.Units.smallSpacing*2;
-            icon.name: LayoutMirroring.enabled ? "media-skip-forward" : "media-skip-backward"
-            onClicked: mpris2Source.goPrevious(mprisSourceName)
+        MediaButton {
+            id: canGoBackMedia
+            orientation: "left"
+            mediaIcon: "previous"
+            enableButton: canGoBack
+            onClicked: {
+                mpris2Source.goPrevious(mprisSourceName)
+            }
         }
-
-        PlasmaComponents3.ToolButton {
-            enabled: playing ? canPause : canPlay
-            Layout.maximumWidth: PlasmaCore.Units.gridUnit*1.5;
-            Layout.maximumHeight: PlasmaCore.Units.gridUnit*1.5;
-            //Layout.leftMargin: PlasmaCore.Units.smallSpacing*3;
-            //Layout.bottomMargin: PlasmaCore.Units.smallSpacing*2;
-            icon.name: playing ? "media-playback-pause" : "media-playback-start"
+        MediaButton {
+            id: playPauseMedia
+            orientation: "center"
+            mediaIcon: "pause"
+            fallbackMediaIcon: "play"
+            togglePlayPause: playing
+            enableButton: playing ? canPause : canPlay
             onClicked: {
                 if (!playing) {
                     mpris2Source.play(mprisSourceName);
@@ -458,14 +456,11 @@ ColumnLayout {
                 }
             }
         }
-
-        PlasmaComponents3.ToolButton {
-            enabled: canGoNext
-            Layout.maximumWidth: PlasmaCore.Units.gridUnit*1.5;
-            Layout.maximumHeight: PlasmaCore.Units.gridUnit*1.5;
-            //Layout.rightMargin: PlasmaCore.Units.smallSpacing*2;
-            //Layout.bottomMargin: PlasmaCore.Units.smallSpacing*2;
-            icon.name: LayoutMirroring.enabled ? "media-skip-backward" : "media-skip-forward"
+        MediaButton {
+            id: canGoForwardMedia
+            enableButton: canGoNext
+            orientation: "right"
+            mediaIcon: "skip"
             onClicked: mpris2Source.goNext(mprisSourceName)
         }
         }
@@ -511,7 +506,6 @@ ColumnLayout {
         if (text === "") {
             text = appName;
         }
-        //console.log(text);
         return text.toString();
     }
 
@@ -579,4 +573,5 @@ ColumnLayout {
 
         return subTextEntries.join("\n");
     }
+
 }

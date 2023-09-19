@@ -28,7 +28,7 @@ MouseArea {
     // Previously, this property was determined by the value of (plasmoid.pluginName === "org.kde.plasma.icontasks")
     property bool iconsOnly: !plasmoid.configuration.labelVisible
 
-    property QtObject contextMenuComponent: Qt.createComponent("ContextMenu.qml");
+    //property QtObject contextMenuComponent: Qt.createComponent("ContextMenu.qml");
     property QtObject tasksMenuComponent: Qt.createComponent("TasksMenu.qml");
     property QtObject pulseAudioComponent: Qt.createComponent("PulseAudio.qml");
 
@@ -109,9 +109,9 @@ MouseArea {
         }
     }
 
-    ContextMenu {
+    /*ContextMenu {
         id: testMenu
-    }
+    }*/
 
     // TasksModel which acts as a data source of currently present tasks.
     TaskManager.TasksModel {
@@ -229,6 +229,7 @@ MouseArea {
 
     TaskManager.ActivityInfo {
         id: activityInfo
+        readonly property string nullUuid: "00000000-0000-0000-0000-000000000000"
     }
 
     TaskManagerApplet.Backend {
@@ -416,6 +417,10 @@ MouseArea {
 
         imagePath: "widgets/tasks"
     }
+    PlasmaCore.Svg {
+        id: mediaIcons
+        imagePath: Qt.resolvedUrl("svgs/media-icons.svg")
+    }
 
     MouseHandler {
         id: mouseHandler
@@ -509,6 +514,7 @@ MouseArea {
                 taskRepeater.itemAt(i).updateHoverColor();
             }
             tasks.state = "";
+            console.log("Updated hovers");
         }
 
         Timer {

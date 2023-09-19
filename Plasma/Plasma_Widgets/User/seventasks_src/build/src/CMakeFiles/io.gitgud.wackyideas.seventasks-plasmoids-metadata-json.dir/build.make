@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src"
+CMAKE_SOURCE_DIR = /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build"
+CMAKE_BINARY_DIR = /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build
 
 # Utility rule file for io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.
 
@@ -68,9 +68,9 @@ include src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.d
 
 src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json: src/io.gitgud.wackyideas.seventasks-plasmoids-metadata.json
 
-src/io.gitgud.wackyideas.seventasks-plasmoids-metadata.json: /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma\ Widgets/User/seventasks_src/src/package/metadata.desktop
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir="/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Generating io.gitgud.wackyideas.seventasks-plasmoids-metadata.json"
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/src" && /usr/bin/desktoptojson -i /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma\ Widgets/User/seventasks_src/src/package/metadata.desktop -o /mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma\ Widgets/User/seventasks_src/build/src/io.gitgud.wackyideas.seventasks-plasmoids-metadata.json
+src/io.gitgud.wackyideas.seventasks-plasmoids-metadata.json: /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/src/package/metadata.desktop
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating io.gitgud.wackyideas.seventasks-plasmoids-metadata.json"
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/src && /usr/bin/desktoptojson -i /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/src/package/metadata.desktop -o /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/io.gitgud.wackyideas.seventasks-plasmoids-metadata.json
 
 io.gitgud.wackyideas.seventasks-plasmoids-metadata-json: src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json
 io.gitgud.wackyideas.seventasks-plasmoids-metadata-json: src/io.gitgud.wackyideas.seventasks-plasmoids-metadata.json
@@ -82,10 +82,10 @@ src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/build
 .PHONY : src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/build
 
 src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/clean:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build/src" && $(CMAKE_COMMAND) -P CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/cmake_clean.cmake
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src && $(CMAKE_COMMAND) -P CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/cmake_clean.cmake
 .PHONY : src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/clean
 
 src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/depend:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/src" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build/src" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build/src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/DependInfo.cmake" "--color=$(COLOR)"
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/src /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/depend
 

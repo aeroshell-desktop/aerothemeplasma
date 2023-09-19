@@ -1,0 +1,14 @@
+# Hashes of file build rules.
+549ae95b488149d6d6ef701b1a2d4bbc CMakeFiles/fetch-translations
+02461798ec97601c872ff8c02731d21e CMakeFiles/uninstall
+539e1041d17945de8d7c3d5cf530ef72 releaseme
+fd54549b732227b3cb96c8060fece644 src/CMakeFiles/kwin4_effect_reflect_autogen
+1b1a51cb696fede093d857d042cd5cd0 src/blurconfig.h
+2fe6e04b8198b1e6e1ce76729863a9d6 src/kcm/CMakeFiles/kwin4_effect_reflect_config_autogen
+f9391dae99befd963926c7e0c1fde572 src/kcm/blur_config.json
+00b779b157d2d84eb142663e86fd3fa1 src/kcm/blurconfig.h
+d67b251882b33de362834c19a64d19ed src/kcm/kwineffects_interface.cpp
+0b0adf7363e964f2982e03fd337f7398 src/kcm/kwineffects_interface.moc
+6cbe5a04ebdb4804ffe40d48fb6ff027 src/kcm/ui_blur_config.h
+0f83b8de9f974dc41ab0d390e49d65be src/kcm/ui_mainwindow.h
+7e6d1141fc2dfafe323814fb37c79add src/kwin4_effect_reflect_autogen/EWIEGA46WW/qrc_blur.cpp

@@ -143,7 +143,7 @@ PlasmaCore.Dialog {
     onVisibleChanged: {
         if(visible) {
             var diff = parent.mapToGlobal(tasksMenu.x, tasksMenu.y).x - tasksMenu.x;
-            xpos = visualParent.x + diff + visualParent.width/2;
+            xpos = visualParent.x + diff + visualParent.width/2 - PlasmaCore.Units.smallSpacing;
             xpos -= menuWidth / 2;
 
             if(xpos < 0) xpos = 0;
@@ -688,6 +688,7 @@ PlasmaCore.Dialog {
                         return activity === activityInfo.currentActivity || activity === activityInfo.nullUuid;
                     });
                 }
+
                 onClicked: {
                     tasksModel.requestAddLauncher(get(atm.LauncherUrl));
                     tasksMenu.closeMenu();
@@ -788,7 +789,10 @@ PlasmaCore.Dialog {
                 text: i18n("Unpin this program from taskbar")
                 icon: "window-unpin"
                 onClicked: {
-                    delayedMenu(150, function() { tasksModel.requestRemoveLauncher(get(atm.LauncherUrlWithoutIcon)); });
+                    delayedMenu(150, function() {
+                        tasksModel.requestRemoveLauncher(get(atm.LauncherUrlWithoutIcon));
+                        tasksMenu.destroy();
+                    });
                 }
 
             }

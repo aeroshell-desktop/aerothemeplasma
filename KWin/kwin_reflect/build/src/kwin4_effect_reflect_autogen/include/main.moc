@@ -1,0 +1,164 @@
+/****************************************************************************
+** Meta object code from reading C++ file 'main.cpp'
+**
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.10)
+**
+** WARNING! All changes made in this file will be lost!
+*****************************************************************************/
+
+#include <memory>
+#include <QtCore/qbytearray.h>
+#include <QtCore/qmetatype.h>
+#include <QtCore/qplugin.h>
+#if !defined(Q_MOC_OUTPUT_REVISION)
+#error "The header file 'main.cpp' doesn't include <QObject>."
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.15.10. It"
+#error "cannot be used with the include files from this version of Qt."
+#error "(The moc has changed too much.)"
+#endif
+
+QT_BEGIN_MOC_NAMESPACE
+QT_WARNING_PUSH
+QT_WARNING_DISABLE_DEPRECATED
+struct qt_meta_stringdata_KWin__KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME_t {
+    QByteArrayData data[1];
+    char stringdata0[48];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_KWin__KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_KWin__KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME_t qt_meta_stringdata_KWin__KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME = {
+    {
+QT_MOC_LITERAL(0, 0, 47) // "KWin::KPLUGINFACTORY_PLUGIN_C..."
+
+    },
+    "KWin::KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_KWin__KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME[] = {
+
+ // content:
+       8,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void KWin::KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    (void)_o;
+    (void)_id;
+    (void)_c;
+    (void)_a;
+}
+
+QT_INIT_METAOBJECT const QMetaObject KWin::KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME::staticMetaObject = { {
+    QMetaObject::SuperData::link<KWin::EffectPluginFactory::staticMetaObject>(),
+    qt_meta_stringdata_KWin__KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME.data,
+    qt_meta_data_KWin__KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
+
+const QMetaObject *KWin::KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *KWin::KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_KWin__KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME.stringdata0))
+        return static_cast<void*>(this);
+    if (!strcmp(_clname, "org.kde.KPluginFactory"))
+        return static_cast< KPluginFactory*>(this);
+    return KWin::EffectPluginFactory::qt_metacast(_clname);
+}
+
+int KWin::KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = KWin::EffectPluginFactory::qt_metacall(_c, _id, _a);
+    return _id;
+}
+
+QT_PLUGIN_METADATA_SECTION
+static constexpr unsigned char qt_pluginMetaData[] = {
+    'Q', 'T', 'M', 'E', 'T', 'A', 'D', 'A', 'T', 'A', ' ', '!',
+    // metadata version, Qt version, architectural requirements
+    0, QT_VERSION_MAJOR, QT_VERSION_MINOR, qPluginArchRequirements(),
+    0xbf, 
+    // "IID"
+    0x02,  0x78,  0x26,  'o',  'r',  'g',  '.',  'k', 
+    'd',  'e',  '.',  'k',  'w',  'i',  'n',  '.', 
+    'E',  'f',  'f',  'e',  'c',  't',  'P',  'l', 
+    'u',  'g',  'i',  'n',  'F',  'a',  'c',  't', 
+    'o',  'r',  'y',  '5',  '.',  '2',  '7',  '.', 
+    '7', 
+    // "className"
+    0x03,  0x78,  0x29,  'K',  'P',  'L',  'U',  'G', 
+    'I',  'N',  'F',  'A',  'C',  'T',  'O',  'R', 
+    'Y',  '_',  'P',  'L',  'U',  'G',  'I',  'N', 
+    '_',  'C',  'L',  'A',  'S',  'S',  '_',  'I', 
+    'N',  'T',  'E',  'R',  'N',  'A',  'L',  '_', 
+    'N',  'A',  'M',  'E', 
+    // "MetaData"
+    0x04,  0xa3,  0x67,  'K',  'P',  'l',  'u',  'g', 
+    'i',  'n',  0xa8,  0x67,  'A',  'u',  't',  'h', 
+    'o',  'r',  's',  0x81,  0xa2,  0x65,  'E',  'm', 
+    'a',  'i',  'l',  0x76,  'w',  'a',  'c',  'k', 
+    'y',  'i',  'd',  'e',  'a',  's',  '@',  'd', 
+    'i',  's',  'r',  'o',  'o',  't',  '.',  'o', 
+    'r',  'g',  0x64,  'N',  'a',  'm',  'e',  0x6a, 
+    'W',  'a',  'c',  'k',  'y',  'I',  'd',  'e', 
+    'a',  's',  0x68,  'C',  'a',  't',  'e',  'g', 
+    'o',  'r',  'y',  0x6a,  'A',  'p',  'p',  'e', 
+    'a',  'r',  'a',  'n',  'c',  'e',  0x6b,  'D', 
+    'e',  's',  'c',  'r',  'i',  'p',  't',  'i', 
+    'o',  'n',  0x78,  0x20,  'R',  'e',  'n',  'd', 
+    'e',  'r',  's',  ' ',  'a',  ' ',  't',  'e', 
+    'x',  't',  'u',  'r',  'e',  ' ',  'b',  'e', 
+    'h',  'i',  'n',  'd',  ' ',  'w',  'i',  'n', 
+    'd',  'o',  'w',  's',  0x70,  'E',  'n',  'a', 
+    'b',  'l',  'e',  'd',  'B',  'y',  'D',  'e', 
+    'f',  'a',  'u',  'l',  't',  0xf5,  0x62,  'I', 
+    'd',  0x6a,  'r',  'e',  'f',  'l',  'e',  'c', 
+    't',  'i',  'o',  'n',  0x67,  'L',  'i',  'c', 
+    'e',  'n',  's',  'e',  0x66,  'A',  'G',  'P', 
+    'L',  'v',  '3',  0x64,  'N',  'a',  'm',  'e', 
+    0x6a,  'R',  'e',  'f',  'l',  'e',  'c',  't', 
+    'i',  'o',  'n',  0x6c,  'S',  'e',  'r',  'v', 
+    'i',  'c',  'e',  'T',  'y',  'p',  'e',  's', 
+    0x81,  0x6b,  'K',  'W',  'i',  'n',  '/',  'E', 
+    'f',  'f',  'e',  'c',  't',  0x72,  'X',  '-', 
+    'K',  'D',  'E',  '-',  'C',  'o',  'n',  'f', 
+    'i',  'g',  'M',  'o',  'd',  'u',  'l',  'e', 
+    0x78,  0x1b,  'k',  'w',  'i',  'n',  '4',  '_', 
+    'e',  'f',  'f',  'e',  'c',  't',  '_',  'r', 
+    'e',  'f',  'l',  'e',  'c',  't',  '_',  'c', 
+    'o',  'n',  'f',  'i',  'g',  0x73,  'o',  'r', 
+    'g',  '.',  'k',  'd',  'e',  '.',  'k',  'w', 
+    'i',  'n',  '.',  'e',  'f',  'f',  'e',  'c', 
+    't',  0xa1,  0x76,  'e',  'n',  'a',  'b',  'l', 
+    'e',  'd',  'B',  'y',  'D',  'e',  'f',  'a', 
+    'u',  'l',  't',  'M',  'e',  't',  'h',  'o', 
+    'd',  0xf5, 
+    0xff, 
+};
+using namespace KWin;
+QT_MOC_EXPORT_PLUGIN(KWin::KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME, KPLUGINFACTORY_PLUGIN_CLASS_INTERNAL_NAME)
+
+QT_WARNING_POP
+QT_END_MOC_NAMESPACE

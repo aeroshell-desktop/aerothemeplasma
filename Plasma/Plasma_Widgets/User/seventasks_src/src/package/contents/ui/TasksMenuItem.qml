@@ -32,7 +32,8 @@ Item {
         id: texture
         z: -1
         anchors.fill: parent
-        imagePath: "widgets/menuitem"
+        imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
+        //imagePath: "widgets/menuitem"
         prefix: "hover"
         visible: (tasksMA.containsMouse || selected) && parent.enabled
         opacity: selected ? 1.0 : 0.6

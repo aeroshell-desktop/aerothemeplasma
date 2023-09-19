@@ -424,7 +424,7 @@ MouseArea {
         PlasmaCore.FrameSvgItem {
             id: stackFirst
             z: 2
-            imagePath: "widgets/tasks"
+            imagePath: Qt.resolvedUrl("svgs/tasks.svg")
             anchors.fill: parent
             visible: frame.basePrefix != "active-tab"
             opacity: {
@@ -437,7 +437,7 @@ MouseArea {
         }
         PlasmaCore.FrameSvgItem {
             id: stackSecond
-            imagePath: "widgets/tasks"
+            imagePath: Qt.resolvedUrl("svgs/tasks.svg")
             prefix: frame.prefix
             anchors.fill: parent
             opacity: 1
@@ -446,7 +446,7 @@ MouseArea {
         }
         PlasmaCore.FrameSvgItem {
             id: stackThird
-            imagePath: "widgets/tasks"
+            imagePath: Qt.resolvedUrl("svgs/tasks.svg")
             prefix: TaskTools.taskPrefix("stacked+" + ((pressed) ? "focus" : frame.basePrefix))
             anchors.fill: parent
             opacity: 0.6
@@ -474,7 +474,7 @@ MouseArea {
                 GradientStop { position: 1.0; color: "#00000000"; }
             } 
         }
-        imagePath: (frame.isHovered && frame.basePrefix === "active-tab") ? "widgets/tabbar" : ""//"widgets/tasks"
+        imagePath: (frame.isHovered && frame.basePrefix === "active-tab") ? Qt.resolvedUrl("svgs/tabbar.svgz") : ""//"widgets/tasks"
         property bool isHovered: task.highlighted && plasmoid.configuration.taskHoverEffect && !rightClickDragging
         property string basePrefix: "normal"
         //prefix: isHovered ? (TaskTools.taskPrefixHovered(basePrefix)) : TaskTools.taskPrefix(basePrefix)

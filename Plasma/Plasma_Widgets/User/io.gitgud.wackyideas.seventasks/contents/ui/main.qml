@@ -417,6 +417,10 @@ MouseArea {
 
         imagePath: "widgets/tasks"
     }
+    PlasmaCore.Svg {
+        id: mediaIcons
+        imagePath: Qt.resolvedUrl("svgs/media-icons.svg")
+    }
 
     MouseHandler {
         id: mouseHandler
@@ -510,6 +514,7 @@ MouseArea {
                 taskRepeater.itemAt(i).updateHoverColor();
             }
             tasks.state = "";
+            console.log("Updated hovers");
         }
 
         Timer {

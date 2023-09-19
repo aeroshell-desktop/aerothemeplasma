@@ -24,10 +24,10 @@
 /usr/share/plasma/plasmoids/io.gitgud.wackyideas.seventasks/contents/ui/main.qml
 /usr/share/plasma/plasmoids/io.gitgud.wackyideas.seventasks/contents/ui/ContextMenu.qml
 /usr/share/plasma/plasmoids/io.gitgud.wackyideas.seventasks/contents/ui/PlasmaMenu.qml
-/usr/share/plasma/plasmoids/io.gitgud.wackyideas.seventasks/contents/ui/TasksMenu.qml
 /usr/share/plasma/plasmoids/io.gitgud.wackyideas.seventasks/contents/ui/TasksMenuItem.qml
 /usr/share/plasma/plasmoids/io.gitgud.wackyideas.seventasks/contents/ui/TasksMenuItemSeparator.qml
 /usr/share/plasma/plasmoids/io.gitgud.wackyideas.seventasks/contents/ui/TasksMenuItemWrapper.qml
+/usr/share/plasma/plasmoids/io.gitgud.wackyideas.seventasks/contents/ui/TasksMenu.qml
 /usr/share/plasma/plasmoids/io.gitgud.wackyideas.seventasks/metadata.desktop
 /usr/share/plasma/plasmoids/io.gitgud.wackyideas.seventasks/metadata.json
 /usr/share/metainfo/io.gitgud.wackyideas.seventasks.appdata.xml

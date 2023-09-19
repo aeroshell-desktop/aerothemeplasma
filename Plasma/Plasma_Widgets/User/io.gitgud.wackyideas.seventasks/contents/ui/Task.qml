@@ -511,6 +511,7 @@ MouseArea {
                             hoverGradient.horizontalRadius = LayoutManager.taskWidth();
                         }
                         previousState = "startup";
+                        //console.log("\nTurned to startup state\n" + previousState);
                     }
                 }
                         
@@ -540,6 +541,7 @@ MouseArea {
                             hoverGradient.horizontalRadius = LayoutManager.taskWidth();
                         }
                         previousState = "mouse-over";
+                        //console.log("\nTurned to mouseover state\n" + previousState);
                     }
                 }
                  
@@ -554,6 +556,7 @@ MouseArea {
                             hoverGradient.horizontalRadius = LayoutManager.taskWidth();
                         }
                         previousState = "";
+                        //console.log("\nTurned to default state\n" + previousState);
                     }
                 }
             }

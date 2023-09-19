@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src"
+CMAKE_SOURCE_DIR = /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build"
+CMAKE_BINARY_DIR = /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -142,14 +142,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(CMAKE_COMMAND) -E cmake_progress_start "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build/CMakeFiles" "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build/src//CMakeFiles/progress.marks"
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build/CMakeFiles" 0
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(CMAKE_COMMAND) -E cmake_progress_start /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src//CMakeFiles/progress.marks
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/clean
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/clean
 .PHONY : clean
 
 # The main clean target
@@ -158,22 +158,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/preinstall
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/preinstall
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/CMakeFiles/plasma_applet_seventasks.dir/rule:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/plasma_applet_seventasks.dir/rule
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/plasma_applet_seventasks.dir/rule
 .PHONY : src/CMakeFiles/plasma_applet_seventasks.dir/rule
 
 # Convenience name for target.
@@ -182,12 +182,12 @@ plasma_applet_seventasks: src/CMakeFiles/plasma_applet_seventasks.dir/rule
 
 # fast build rule for target.
 plasma_applet_seventasks/fast:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks.dir/build.make src/CMakeFiles/plasma_applet_seventasks.dir/build
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks.dir/build.make src/CMakeFiles/plasma_applet_seventasks.dir/build
 .PHONY : plasma_applet_seventasks/fast
 
 # Convenience name for target.
 src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/rule:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/rule
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/rule
 .PHONY : src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/rule
 
 # Convenience name for target.
@@ -196,12 +196,12 @@ io.gitgud.wackyideas.seventasks-plasmoids-metadata-json: src/CMakeFiles/io.gitgu
 
 # fast build rule for target.
 io.gitgud.wackyideas.seventasks-plasmoids-metadata-json/fast:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/build.make src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/build
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/build.make src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir/build
 .PHONY : io.gitgud.wackyideas.seventasks-plasmoids-metadata-json/fast
 
 # Convenience name for target.
 src/CMakeFiles/plasma_applet_seventasks_autogen.dir/rule:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/plasma_applet_seventasks_autogen.dir/rule
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/plasma_applet_seventasks_autogen.dir/rule
 .PHONY : src/CMakeFiles/plasma_applet_seventasks_autogen.dir/rule
 
 # Convenience name for target.
@@ -210,7 +210,7 @@ plasma_applet_seventasks_autogen: src/CMakeFiles/plasma_applet_seventasks_autoge
 
 # fast build rule for target.
 plasma_applet_seventasks_autogen/fast:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks_autogen.dir/build.make src/CMakeFiles/plasma_applet_seventasks_autogen.dir/build
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks_autogen.dir/build.make src/CMakeFiles/plasma_applet_seventasks_autogen.dir/build
 .PHONY : plasma_applet_seventasks_autogen/fast
 
 plasma_applet_seventasks_autogen/mocs_compilation.o: plasma_applet_seventasks_autogen/mocs_compilation.cpp.o
@@ -218,7 +218,7 @@ plasma_applet_seventasks_autogen/mocs_compilation.o: plasma_applet_seventasks_au
 
 # target to build an object file
 plasma_applet_seventasks_autogen/mocs_compilation.cpp.o:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks.dir/build.make src/CMakeFiles/plasma_applet_seventasks.dir/plasma_applet_seventasks_autogen/mocs_compilation.cpp.o
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks.dir/build.make src/CMakeFiles/plasma_applet_seventasks.dir/plasma_applet_seventasks_autogen/mocs_compilation.cpp.o
 .PHONY : plasma_applet_seventasks_autogen/mocs_compilation.cpp.o
 
 plasma_applet_seventasks_autogen/mocs_compilation.i: plasma_applet_seventasks_autogen/mocs_compilation.cpp.i
@@ -226,7 +226,7 @@ plasma_applet_seventasks_autogen/mocs_compilation.i: plasma_applet_seventasks_au
 
 # target to preprocess a source file
 plasma_applet_seventasks_autogen/mocs_compilation.cpp.i:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks.dir/build.make src/CMakeFiles/plasma_applet_seventasks.dir/plasma_applet_seventasks_autogen/mocs_compilation.cpp.i
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks.dir/build.make src/CMakeFiles/plasma_applet_seventasks.dir/plasma_applet_seventasks_autogen/mocs_compilation.cpp.i
 .PHONY : plasma_applet_seventasks_autogen/mocs_compilation.cpp.i
 
 plasma_applet_seventasks_autogen/mocs_compilation.s: plasma_applet_seventasks_autogen/mocs_compilation.cpp.s
@@ -234,7 +234,7 @@ plasma_applet_seventasks_autogen/mocs_compilation.s: plasma_applet_seventasks_au
 
 # target to generate assembly for a file
 plasma_applet_seventasks_autogen/mocs_compilation.cpp.s:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks.dir/build.make src/CMakeFiles/plasma_applet_seventasks.dir/plasma_applet_seventasks_autogen/mocs_compilation.cpp.s
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks.dir/build.make src/CMakeFiles/plasma_applet_seventasks.dir/plasma_applet_seventasks_autogen/mocs_compilation.cpp.s
 .PHONY : plasma_applet_seventasks_autogen/mocs_compilation.cpp.s
 
 seventasks.o: seventasks.cpp.o
@@ -242,7 +242,7 @@ seventasks.o: seventasks.cpp.o
 
 # target to build an object file
 seventasks.cpp.o:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks.dir/build.make src/CMakeFiles/plasma_applet_seventasks.dir/seventasks.cpp.o
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks.dir/build.make src/CMakeFiles/plasma_applet_seventasks.dir/seventasks.cpp.o
 .PHONY : seventasks.cpp.o
 
 seventasks.i: seventasks.cpp.i
@@ -250,7 +250,7 @@ seventasks.i: seventasks.cpp.i
 
 # target to preprocess a source file
 seventasks.cpp.i:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks.dir/build.make src/CMakeFiles/plasma_applet_seventasks.dir/seventasks.cpp.i
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks.dir/build.make src/CMakeFiles/plasma_applet_seventasks.dir/seventasks.cpp.i
 .PHONY : seventasks.cpp.i
 
 seventasks.s: seventasks.cpp.s
@@ -258,7 +258,7 @@ seventasks.s: seventasks.cpp.s
 
 # target to generate assembly for a file
 seventasks.cpp.s:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks.dir/build.make src/CMakeFiles/plasma_applet_seventasks.dir/seventasks.cpp.s
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/plasma_applet_seventasks.dir/build.make src/CMakeFiles/plasma_applet_seventasks.dir/seventasks.cpp.s
 .PHONY : seventasks.cpp.s
 
 # Help Target
@@ -294,6 +294,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd "/mnt/792afca2-ecd6-4e41-938a-2e818d0f60d1/home/anon/Desktop/Aero_Theme/Plasma/Plasma Widgets/User/seventasks_src/build" && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
