@@ -1,7 +1,7 @@
 # AERO THEME FOR KDE PLASMA
 
-# WARNING: THIS PROJECT IS NOT ACTIVE
-## Due to real life circumstances, I don't have much time to work on this project. This project is developed in my spare time and updated when I feel it is good enough to be updated. In other words, updates are done when they are done.
+# WARNING: THIS PROJECT IS NOT REGULARLY UPDATED
+## This doesn't mean it's abandoned, however. This project is developed in my spare time and updated when I feel it is good enough to be updated. In other words, updates are done when they are done.
 
 ## Microsoft® Windows™ is a registered trademark of Microsoft® Corporation. This name is used for referential use only, and does not aim to usurp copyrights from Microsoft. Microsoft Ⓒ 2023 All rights reserved. All resources belong to Microsoft Corporation.
 
@@ -32,7 +32,6 @@ It is still in heavy development and testing. This project has been tested on:
  - X11 
  - Latest stable KDE Plasma release, latest KDE Frameworks version
  - Latest Qt version
- - GTK2
  - Intel integrated graphics, AMD dedicated graphics
  - 96 DPI scaling
   
@@ -41,6 +40,11 @@ Here's what's currently not supported but should be (see FAQ):
  - Multi-distro support (While this could work on other distros, I cannot provide help if something goes wrong)
  - HiDPI scaling
  - Multilanguage support
+
+The following used to be supported but is now deprecated: 
+
+ - GTK2
+ - QtCurve
 
 The following will not be supported at all in the foreseeable future:
 
