@@ -22,10 +22,10 @@ import QtQuick.Layouts 1.1
 
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.kwindowsystem 1.0
 
 Item {
     id: root
-
     readonly property var screenGeometry: plasmoid.screenGeometry
     readonly property bool inPanel: (plasmoid.location == PlasmaCore.Types.TopEdge
 								  || plasmoid.location == PlasmaCore.Types.RightEdge
@@ -33,23 +33,28 @@ Item {
 								  || plasmoid.location == PlasmaCore.Types.LeftEdge)
     readonly property bool vertical: (plasmoid.formFactor == PlasmaCore.Types.Vertical)
     readonly property bool useCustomButtonImage: (plasmoid.configuration.useCustomButtonImage)
+
+    // Should the orb be rendered in its own dialog window so that it can stick out of the panel?
+    readonly property bool stickOutOrb: plasmoid.configuration.stickOutOrb && inPanel && !editMode
     property QtObject dashWindow: null
+    property QtObject orb: null
+    property QtObject contextMenu: null
 
     Plasmoid.status: dashWindow && dashWindow.visible ? PlasmaCore.Types.RequiresAttentionStatus : PlasmaCore.Types.PassiveStatus
 
     onWidthChanged: updateSizeHints()
     onHeightChanged: updateSizeHints()
-
+    clip: true
     function updateSizeHints() {
         if (useCustomButtonImage) {
             if (vertical) {
-                var scaledHeight = Math.floor(parent.width * (buttonIcon.implicitHeight / buttonIcon.implicitWidth));
+                var scaledHeight = Math.floor(parent.width * (floatingOrbPanel.buttonIcon.implicitHeight / floatingOrbPanel.buttonIcon.implicitWidth));
                 root.Layout.minimumHeight = scaledHeight;
                 root.Layout.maximumHeight = scaledHeight;
                 root.Layout.minimumWidth = units.iconSizes.small;
                 root.Layout.maximumWidth = inPanel ? units.iconSizeHints.panel : -1;
             } else {
-                var scaledWidth = Math.floor(parent.height * (buttonIcon.implicitWidth / buttonIcon.implicitHeight));
+                var scaledWidth = Math.floor(parent.height * (floatingOrbPanel.buttonIcon.implicitWidth / floatingOrbPanel.buttonIcon.implicitHeight));
                 root.Layout.minimumWidth = scaledWidth;
                 root.Layout.maximumWidth = scaledWidth;
                 root.Layout.minimumHeight = units.iconSizes.small;
@@ -61,15 +66,89 @@ Item {
             root.Layout.minimumHeight = units.iconSizes.small
             root.Layout.maximumHeight = inPanel ? units.iconSizeHints.panel : -1;
         }
+        if(stickOutOrb && orb) {
+            root.Layout.minimumWidth =  orb.width + panelSvg.margins.right*(compositing ? 0 : 1);
+            root.Layout.maximumWidth =  orb.width + panelSvg.margins.right*(compositing ? 0 : 1);
+            root.Layout.minimumHeight = orb.height;
+            root.Layout.maximumHeight = orb.height;
+        }
     }
 
+    onStickOutOrbChanged: {
+        updateSizeHints();
+        positionOrb();
+    }
+
+
+    /* The following code gets the ContainmentInterface instance which is used for two things:
+     * 1. Getting context menu actions for entering edit mode and adding plasmoids
+     * 2. Keeping track on when edit mode is enabled. This allows us to hide the StartOrb
+     *    object so the user can actually highlight and select this plasmoid during edit mode.
+     */
+    property var containmentInterface: null
+	readonly property bool editMode: containmentInterface ? containmentInterface.editMode : false
+	onParentChanged: {
+		if (parent) {
+			for (var obj = root, depth = 0; !!obj; obj = obj.parent, depth++) {
+				if (obj.toString().startsWith('ContainmentInterface')) {
+					// desktop containment / plasmoidviewer
+					// Note: This doesn't always work. FolderViewDropArea may not yet have
+					//       ContainmentInterface as a parent when this loop runs.
+					if (typeof obj['editMode'] === 'boolean') {
+						root.containmentInterface = obj
+						break
+					}
+				} else if (obj.toString().startsWith('DeclarativeDropArea')) {
+					// panel containment
+					if (typeof obj['Plasmoid'] !== 'undefined' && obj['Plasmoid'].toString().startsWith('ContainmentInterface')) {
+						if (typeof obj['Plasmoid']['editMode'] === 'boolean') {
+							root.containmentInterface = obj.Plasmoid
+							break
+						}
+					}
+				}
+			}
+		}
+	}
     Connections {
         target: units.iconSizeHints
 
         function onPanelChanged() { updateSizeHints(); }
     }
+    property bool compositing: kwindowsystem.compositingActive
 
-    // If the url is empty (default value), then use the fallback url.
+    /* We want to change the background hint for the orb dialog window depending
+     * on the compositing state. In this case, 0 refers to NoBackground, while
+     * 2 refers to SolidBackground.
+     */
+    onCompositingChanged: {
+        if(compositing) {
+            orb.backgroundHints = 0;
+        } else {
+            orb.backgroundHints = 2;
+        }
+        updateSizeHints();
+        positionOrb();
+
+        // Add a little padding to the orb.
+        if(compositing)
+            orb.x += panelSvg.margins.left;
+    }
+
+    function positionOrb() {
+        var pos = plasmoid.mapToGlobal(kicker.x, kicker.y); // Gets the global position of this plasmoid, in screen coordinates.
+        orb.width = floatingOrbPanel.buttonIcon.implicitWidth + panelSvg.margins.left;
+        orb.height = floatingOrbPanel.buttonIcon.implicitHeight;
+        orb.x = pos.x;
+        orb.y = pos.y + panelSvg.margins.bottom;
+
+        // Keep the orb positioned exactly on the bottom if it is rendered out of bounds (beyond the screen geometry)
+        if(orb.y + orb.height > plasmoid.screenGeometry.height) {
+            orb.y -= orb.y + orb.height - plasmoid.screenGeometry.height;
+        }
+    }
+    // If the url is empty (default value), then use the fallback url. Otherwise, return the url path relative to
+    // the location of the source code.
     function getResolvedUrl(url, fallback) {
         if(url.toString() === "") {
             return Qt.resolvedUrl(fallback);
@@ -78,6 +157,12 @@ Item {
     }
     property int opacityDuration: 250
 
+    function createContextMenu(pos) {
+        contextMenu = Qt.createQmlObject("ContextMenu {}", root);
+        contextMenu.fillActions();
+        contextMenu.show();
+    }
+
     /*
      * Three IconItems are used in order to achieve the same look and feel as Windows 7's
      * orbs. When the menu is closed, hovering over the orb results in the hovered icon
@@ -85,73 +170,48 @@ Item {
      * visibility, where the normal and hovered icons are invisible, and the pressed icon
      * is visible.
      *
-     * These icons will by default try to fill up as much space as they can in the compact
-     * representation.
+     * When they're bounded by the panel, these icons will by default try to fill up as
+     * much space as they can in the compact representation while preserving their aspect
+     * ratio.
      */
-    PlasmaCore.IconItem {
-        id: buttonIcon
-        anchors.fill: parent
-        opacity: 1
-        readonly property double aspectRatio: (vertical ? implicitHeight / implicitWidth
-            : implicitWidth / implicitHeight)
-        
-        source: getResolvedUrl(plasmoid.configuration.customButtonImage, "orbs/normal.png")
-        
-        smooth: true
-        roundToIconSize: !useCustomButtonImage || aspectRatio === 1
-        onSourceChanged: updateSizeHints()
-    }
-    PlasmaCore.IconItem {
-        id: buttonIconPressed
-        anchors.fill: parent
-        opacity: 1
-        visible: dashWindow.visible
-        readonly property double aspectRatio: (vertical ? implicitHeight / implicitWidth
-            : implicitWidth / implicitHeight)
 
-        source: getResolvedUrl(plasmoid.configuration.customButtonImageActive, "orbs/selected.png") //
-
-        smooth: true
-        roundToIconSize: !useCustomButtonImage || aspectRatio === 1
-        onSourceChanged: updateSizeHints()
-    }
-    PlasmaCore.IconItem {
-        id: buttonIconHovered
-        z: 1
-        source: getResolvedUrl(plasmoid.configuration.customButtonImageHover, "orbs/hovered.png");
-        opacity: mouseArea.containsMouse
-        visible:  !dashWindow.visible
+    FloatingOrb {
+        id: floatingOrbPanel
+        visible: (!stickOutOrb)
         anchors.fill: parent
-        readonly property double aspectRatio: (vertical ? implicitHeight / implicitWidth
-            : implicitWidth / implicitHeight)
-        smooth: true
-        Behavior on opacity {
-            NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; duration: opacityDuration  }
-        }
-        // A custom icon could also be rectangular. However, if a square, custom, icon is given, assume it
-        // to be an icon and round it to the nearest icon size again to avoid scaling artifacts.
-        roundToIconSize: !useCustomButtonImage || aspectRatio === 1
-
-        onSourceChanged: updateSizeHints()
+        objectName: "innerorb"
     }
 
-    // Clicking on the plasmoid or activating it in any way causes the Full representation
-    // to show/hide.
+    // Covers the entire compact representation just in case the orb dialog doesn't cover
+    // the entire area by itself.
     MouseArea
     {
-        id: mouseArea
+        id: mouseAreaCompositingOff
         anchors.fill: parent
         hoverEnabled: true
+        visible: stickOutOrb
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClicked: {
-            dashWindow.visible = !dashWindow.visible;
-            dashWindow.showingAllPrograms = false;
+            if(mouse.button == Qt.RightButton) {
+                var pos = plasmoid.mapToGlobal(mouse.x, mouse.y);
+                createContextMenu(pos);
+
+
+            } else {
+                dashWindow.visible = !dashWindow.visible;
+                dashWindow.showingAllPrograms = false;
+            }
         }
     }
+
 
     Component.onCompleted: {
         dashWindow = Qt.createQmlObject("MenuRepresentation {}", root);
+        orb = Qt.createQmlObject("StartOrb {}", root);
         plasmoid.activated.connect(function() {
             dashWindow.visible = !dashWindow.visible;
+            dashWindow.showingAllPrograms = false;
         });
+        positionOrb();
     }
 }

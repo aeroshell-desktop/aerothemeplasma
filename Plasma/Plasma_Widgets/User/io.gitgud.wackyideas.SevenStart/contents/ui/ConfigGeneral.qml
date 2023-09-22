@@ -48,6 +48,7 @@ Item {
 
     property alias cfg_appNameFormat: appNameFormat.currentIndex
     property alias cfg_switchCategoriesOnHover: switchCategoriesOnHover.checked
+    property alias cfg_stickOutOrb: stickOutOrb.checked
 
     property alias cfg_useExtraRunners: useExtraRunners.checked
 
@@ -61,7 +62,7 @@ Item {
             spacing: units.smallSpacing
 
             Label {
-                text: i18n("Icon:")
+                text: i18n("Orb:")
             }
 
             IconPicker {
@@ -73,7 +74,7 @@ Item {
                 
             }
             Label {
-                text: i18n("Hover Icon:")
+                text: i18n("Hover Orb:")
             }
             IconPicker {
                 id: iconPickerHover
@@ -84,7 +85,7 @@ Item {
                 
             }
             Label {
-                text: i18n("Active Icon:")
+                text: i18n("Clicked Orb:")
             }
             IconPicker {
                 id: iconPickerActive
@@ -122,6 +123,11 @@ Item {
                     id: switchCategoriesOnHover
 
                     text: i18n("Switch categories on hover")
+                }
+                CheckBox {
+                    id: stickOutOrb
+
+                    text: i18n("Force constant orb size")
                 }
             }
         }

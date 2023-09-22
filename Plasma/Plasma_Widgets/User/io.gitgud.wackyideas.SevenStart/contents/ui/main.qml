@@ -24,6 +24,8 @@ import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.private.kicker 0.1 as Kicker
+import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
+import org.kde.kwindowsystem 1.0
 
 Item {
     id: kicker
@@ -33,6 +35,7 @@ Item {
     anchors.fill: parent
     property bool isDash: false
     property Item dragSource: null
+    clip: true
 
     // With this we can make the compact representation be any
     // item we want.
@@ -42,6 +45,7 @@ Item {
 
     property QtObject globalFavorites: rootModel.favoritesModel
     property QtObject systemFavorites: rootModel.systemFavoritesModel
+    property bool compositingEnabled: kwindowsystem.compositingActive
 
     // Runs KMenuEdit.
     function action_menuedit() {
@@ -82,7 +86,7 @@ Item {
     	}
     	signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
     }
-
+    KWindowSystem { id: kwindowsystem } // Used for detecting compositing changes.
     Kicker.RootModel {
         id: rootModel
 
@@ -230,5 +234,6 @@ Item {
         rootModel.refreshed.connect(reset);
 
         dragHelper.dropped.connect(resetDragSource);
+
     }
 }

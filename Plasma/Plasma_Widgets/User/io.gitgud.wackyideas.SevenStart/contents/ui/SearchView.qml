@@ -57,7 +57,7 @@ Item {
             if (!searchField.text) {
                 repeaterModelIndex = 0;
                 runnerGrid.repeater.currentModelIndex = 0;
-                runnerModel.model = null;
+                if(runnerModel.model) runnerModel.model = null;
             } else {
                 if(runnerGrid.count != 0) {
                     runnerGrid.repeater.currentModelIndex = 0;
@@ -72,6 +72,7 @@ Item {
             if(!focus) repeaterModelIndex = runnerGrid.repeater.currentModelIndex;
             else {
                 runnerGrid.repeater.currentModelIndex = repeaterModelIndex;
+                console.log("home.");
             }
         }
     }

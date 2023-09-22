@@ -42,7 +42,7 @@ import org.kde.plasma.private.quicklaunch 1.0
 import org.kde.kirigami 2.13 as Kirigami
 import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
 
-import org.kde.kwindowsystem 1.0
+
 
 
 PlasmaCore.Dialog {
@@ -61,7 +61,7 @@ PlasmaCore.Dialog {
     property bool searching: (searchField.text != "")
     property bool showingAllPrograms: false
     property bool firstTimePopup: false // To make sure the user icon is displayed properly.
-    property bool compositingEnabled: kwindowsystem.compositingActive
+
     
     property int slideAnimationDuration: 105
 
@@ -182,7 +182,7 @@ PlasmaCore.Dialog {
         focus: true
 		clip: true
 
-		KWindowSystem { id: kwindowsystem } // Used for detecting compositing changes.
+
         KCoreAddons.KUser {   id: kuser  }  // Used for getting the username and icon.
         Logic {   id: logic }				// Probably useful.
         

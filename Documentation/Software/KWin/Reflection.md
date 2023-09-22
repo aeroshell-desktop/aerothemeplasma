@@ -86,7 +86,7 @@ This only applies to regular windows (most windows with server-side decorations)
 
 ## Configuration menu <a name="config"></a>
 
-The accent color can be edited in real time through the configuration menu. Internally, the color is stored in the RGB color model as that's what OpenGL expects during rendering. The color mixer window is designed to look and function like Windows 7's Personalization menu, and includes the accent colors found on Windows 7, which were directly pulled from the following registry key:  
+The accent color can be edited in real time through the configuration menu. Real time editing was made possible through the use of [QSharedMemory](https://doc.qt.io/qt-6/qsharedmemory.html) and calling the ```reconfigure()``` method through qdbus whenever a change occurs. Internally, the color is stored in the RGB color model as that's what OpenGL expects during rendering. The color mixer window is designed to look and function like Windows 7's Personalization menu, and includes the accent colors found on Windows 7, which were directly pulled from the following registry key:
 
 
 ```[ HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM\ColorizationColor ]```

@@ -34,6 +34,8 @@ Regular textures are used for all other windows (plasmoids, OSD popups, task swi
 
 The opaque appearance state aims to be a recreation of Aero Basic (WIP). Currently, only plasmoids using solid textures and the window manager don't comply with the aesthetic, but everything else does. A potential solution is to detect a change in compositing in plasmoids that use solid textures, change the dialog type to ```NoBackground``` and display a custom texture as the background while compositing is disabled. A similar solution can also be applied to the window manager.
 
+Another important note is that the tooltip SVG used in the solid appearance is now used as a workaround to allow orb transparency in SevenStart. For more information, go to [SevenStart](../Software/Plasmoids/SevenStart.md)'s documentation.
+
 ### Icons
 
 This theme also features a small set of icons used mainly by plasmoids like the system tray. Most of these icons are simply just scaled down variants of icons taken from Breeze, while other icons are taken directly from the main icon theme of this project.
@@ -54,7 +56,7 @@ The "Unique" column describes if the file itself is exclusive to Seven-Black.
 |panel-background.svg  |widgets/       |Default taskbar texture.                            |Y               |Y       |N     |
 |tooltip.svg           |widgets/       |Default tooltip texture.                            |Y               |Y       |N     |
 |button-close.svg      |widgets/       |Close button icon used in SevenTasks.               |N               |N       |Y     |
-|menuitem.svg          |widgets/       |Texture used for menu items in SevenStart and SevenTasks|N               |N       |Y     |
+|menuitem.svg          |widgets/       |Texture used for menu items in SevenStart and SevenTasks.|N               |N       |Y     |
 |showdesktop.svg       |widgets/       |Texture used for the Show desktop plasmoid.         |N               |N       |Y     |
 |sidebaritem.svg       |widgets/       |Texture used for sidebar entries in SevenStart.     |N               |N       |Y     |
 |startmenu-buttons.svg |widgets/       |Texture used for the shut down button in SevenStart.|N               |N       |Y     |
@@ -70,6 +72,7 @@ The "Unique" column describes if the file itself is exclusive to Seven-Black.
 |panel-background.svg  |opaque/widgets/|Used when compositing is disabled.                  |N               |Y       |N     |
 |tooltip.svg           |opaque/widgets/|Used when compositing is disabled.                  |N               |Y       |N     |
 |background.svg        |solid/dialogs/ |Used by the system tray and date and time plasmoid. |Y               |Y       |N     |
+|tooltip.svg        |solid/widgets/ |Used to provide an opacity mask to SevenStart's orb.   |Y               |Y       |N     |
 
 ## Nonstandard SVGs <a name="svgs"></a>
 

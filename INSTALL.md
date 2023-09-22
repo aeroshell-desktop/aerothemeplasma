@@ -72,7 +72,7 @@ Starting off with the simplest modifications, this is a list of recommended sett
     - Under KWin Scripts:
          - Enable 'MinimizeAll'
 
-When editing Plasma's bottom panel, make sure its width is set to 40 pixels. 
+When editing Plasma's bottom panel, make sure its width is set to 40 pixels (30 if using a small panel).
  
 ### KDE Plasma Theme <a name="plasma-theme"></a>
 

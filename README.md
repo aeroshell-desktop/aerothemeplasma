@@ -86,6 +86,7 @@ Lastly, feel free to fork this project and/or contribute to it in any way. Any a
 
 <img src="Screenshots/Taskbar.png">
 <img src="Screenshots/Taskbar_2.png">
+<img src="Screenshots/Taskbar_3.png">
 
 ### Clock
 

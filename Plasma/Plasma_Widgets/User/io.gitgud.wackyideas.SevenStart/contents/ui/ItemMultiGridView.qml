@@ -126,7 +126,10 @@ PlasmaExtras.ScrollArea {
             delegate: Item {
                 width: itemColumn.width
                 height:  gridViewLabel.height + gridView.height + (index == repeater.count - 1 ? 0 : units.smallSpacing)
-                visible:  repeater.model.modelForRow(index).count > 0
+                visible:  {
+                    if(!repeater.model.modelForRow(index)) return false;
+                    return repeater.model.modelForRow(index).count > 0
+                }
 
                 property alias currentIndex: gridView.currentIndex
                 property alias count: gridView.count
@@ -143,7 +146,10 @@ PlasmaExtras.ScrollArea {
                     color: "#1d3287";
                     level: 4
                     verticalAlignment: Qt.AlignVCenter
-                    text: repeater.model.modelForRow(index).description + " (" + repeater.model.modelForRow(index).count +")"
+                    text: {
+                        if(!repeater.model.modelForRow(index)) return "";
+                        return repeater.model.modelForRow(index).description + " (" + repeater.model.modelForRow(index).count +")";
+                    }
                 }
 				
 				//Line that extends from the header to the right of the search view. 

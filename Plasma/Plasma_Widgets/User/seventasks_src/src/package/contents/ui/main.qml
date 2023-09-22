@@ -27,7 +27,8 @@ MouseArea {
     // This property tells the plasmoid to render labels next to task icons.
     // Previously, this property was determined by the value of (plasmoid.pluginName === "org.kde.plasma.icontasks")
     property bool iconsOnly: !plasmoid.configuration.labelVisible
-
+    property var toolTipOpenedByClick: null
+    property var toolTipAreaItem: null
     //property QtObject contextMenuComponent: Qt.createComponent("ContextMenu.qml");
     property QtObject tasksMenuComponent: Qt.createComponent("TasksMenu.qml");
     property QtObject pulseAudioComponent: Qt.createComponent("PulseAudio.qml");
@@ -60,6 +61,7 @@ MouseArea {
 
     signal requestLayout
     signal windowsHovered(variant winIds, bool hovered)
+    signal activateWindowView(variant winIds)
     signal presentWindows(variant winIds)
 
     states: State {
@@ -511,10 +513,12 @@ MouseArea {
         // With this, we can update each task icon pretty much globally.
         function updateHoverFunc() {
             for(var i = 0; i < taskRepeater.count; i++) {
-                taskRepeater.itemAt(i).updateHoverColor();
+                if(taskRepeater.itemAt(i)) {
+                    taskRepeater.itemAt(i).updateHoverColor();
+                }
             }
             tasks.state = "";
-            console.log("Updated hovers");
+            //console.log("Updated hovers");
         }
 
         Timer {
@@ -604,7 +608,8 @@ MouseArea {
         tasks.requestLayout.connect(layoutTimer.restart);
         tasks.requestLayout.connect(iconGeometryTimer.restart);
         tasks.windowsHovered.connect(backend.windowsHovered);
-        tasks.presentWindows.connect(backend.presentWindows);
+        //tasks.presentWindows.connect(backend.presentWindows);
+        tasks.activateWindowView.connect(backend.activateWindowView);
         dragHelper.dropped.connect(resetDragSource);
         taskList.updateHoverFunc();
     }

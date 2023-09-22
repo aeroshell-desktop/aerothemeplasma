@@ -58,6 +58,7 @@ MouseArea {
     property real taskHeight: 0
     property string previousState: ""
     property bool rightClickDragging: false
+    property bool toolTipOpen: false
     
     property Item audioStreamOverlay
     property var audioStreams: []
@@ -153,6 +154,7 @@ MouseArea {
         }
         hoverEnabled = true;
         taskList.updateHoverFunc();
+        toolTipArea.tooltipClicked = true;
     }
 
     onContainsMouseChanged:  {
@@ -176,6 +178,7 @@ MouseArea {
         hoverEnabled = true;
 
         updateMousePosition(ma.mouseX);
+        toolTipArea.tooltipClicked = true;
 
     }
 
@@ -226,8 +229,11 @@ MouseArea {
                 if (plasmoid.configuration.showToolTips && toolTipArea.active) {
                     hideToolTipTemporarily();
                 }
+                /*if(childCount >= 2 && plasmoid.configuration.showToolTips && toolTipArea.active) {
+                    toolTipArea.tooltipClicked = !toolTipArea.tooltipClicked;
+                }*/
                 TaskTools.activateTask(modelIndex(), model, mouse.modifiers, task);
-                
+
             } else if (mouse.button === Qt.BackButton || mouse.button === Qt.ForwardButton) {
                 var sourceName = mpris2Source.sourceNameForLauncherUrl(model.LauncherUrlWithoutIcon, model.AppPid);
                 if (sourceName) {
@@ -452,7 +458,7 @@ MouseArea {
             opacity: 0.6
             visible: childCount >= 3 ? true : false
             anchors.rightMargin: PlasmaCore.Units.smallSpacing
-            enabledBorders: Plasma.FrameSvg.EnabledBorders.RightBorder
+            enabledBorders: PlasmaCore.FrameSvg.RightBorder
             
         }
         
@@ -711,8 +717,8 @@ MouseArea {
         PlasmaCore.ToolTipArea {
             id: toolTipArea
             z: -1
-            //backgroundHints: "SolidBackground"
-	    MouseArea {
+
+            MouseArea {
                id: ma
                hoverEnabled: true
     	       propagateComposedEvents: true
@@ -720,34 +726,32 @@ MouseArea {
                onPositionChanged: {
                    task.updateMousePosition(ma.mouseX);
                    task.positionChanged(mouse);
-                   //var xtr = toolTipArea.backgroundHints();
-                   
                }
                onContainsMouseChanged: {
-
                     task.updateMousePosition(ma.mouseX);
-                    //task.onContainsMouseChanged();
-                    //toolTipArea.onContainsMouseChanged();
-                    //mouse.accepted = false;
                }
                onPressed: mouse.accepted = false;
                onReleased: mouse.accepted = false;
                onWheel: wheel.accepted = false;
-               //onExited: { hoverGradient.horizontalOffset = 0;
-               //task.onExited();
-               //}
             }
             anchors.fill: parent
             location: plasmoid.location
-
-            active: !inPopup && !groupDialog.visible && plasmoid.configuration.showToolTips
+            property bool tooltipClicked: true
+            active: !inPopup && !groupDialog.visible && (plasmoid.configuration.showToolTips || tasks.toolTipOpenedByClick === toolTipArea)
             interactive: model.IsWindow === true
 
             mainItem: (model.IsWindow === true) ? openWindowToolTipDelegate : pinnedAppToolTipDelegate
             property alias mainToolTip: toolTipArea.mainItem
+            onToolTipVisibleChanged: {
+                task.toolTipOpen = toolTipVisible;
+                if(!toolTipVisible) {
+                    tasks.toolTipOpenedByClick = null;
+                } else {
+                    tasks.toolTipAreaItem = toolTipArea;
+                }
 
+            }
             onContainsMouseChanged:  {
-
                 updateMousePosition(ma.mouseX);
                 if (containsMouse) {
                     mainItem.parentTask = task;
@@ -802,6 +806,9 @@ MouseArea {
                     mainItem.smartLauncherCount = Qt.binding(function() {
                         return mainItem.smartLauncherCountVisible ? task.smartLauncherItem.count : 0;
                     });
+                    tasks.toolTipAreaItem = toolTipArea;
+                } else {
+                    tasks.toolTipOpenedByClick = null;
                 }
             }
         }
