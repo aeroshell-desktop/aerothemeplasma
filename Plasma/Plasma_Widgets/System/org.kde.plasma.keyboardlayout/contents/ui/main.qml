@@ -23,10 +23,17 @@ Item {
     function actionTriggered(selectedLayout) {
         layoutSelected(selectedLayout)
     }
+    PlasmaCore.FrameSvgItem {
+        id: panelSvg
+        visible: false
+        imagePath: "widgets/panel-background"
+    }
 
     Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
 
     Plasmoid.compactRepresentation: KeyboardLayoutSwitcher {
+
+        id: keySwitcher
         Plasmoid.toolTipSubText: layoutNames.longName
         Plasmoid.status: hasMultipleKeyboardLayouts ? PlasmaCore.Types.ActiveStatus : PlasmaCore.Types.HiddenStatus
 
@@ -72,42 +79,44 @@ Item {
         }
 
         PlasmaComponents3.Label {
+            id: keyLabel
             text: layoutNames.displayName || layoutNames.shortName
             visible: !icon.visible
             anchors.fill: parent
             anchors.margins: PlasmaCore.Units.smallSpacing*2
-            //anchors.bottomMargin: PlasmaCore.Units.smallSpacing
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             fontSizeMode: Text.Fit
-            minimumPointSize: 9;
+            minimumPointSize: 8;
             rightPadding: PlasmaCore.Units.smallSpacing
             leftPadding: PlasmaCore.Units.smallSpacing
             font.pointSize: height
             font.capitalization: Font.AllUppercase
-            MouseArea {
-                id: ma
-                anchors.fill: parent
-                hoverEnabled: true
-                propagateComposedEvents: true
-                onClicked: {
-                    mouse.accepted = false;
-                }
-            }
-            PlasmaCore.FrameSvgItem {
-                id: decorationButton
-                z: -1
-                anchors.fill: parent
-                imagePath: Qt.resolvedUrl("svgs/button.svg")
-                visible: ma.containsMouse
-                prefix: {
-                    var x = "keyboard-";
-                    if(ma.containsMouse && !ma.containsPress) return x+"hover";
-                    else if(ma.containsMouse && ma.containsPress) return x+"pressed";
-                    else return "keyboard-hover";
-                }
+
+        }
+        MouseArea {
+            id: ma
+            anchors.fill: parent
+            anchors.margins: PlasmaCore.Units.smallSpacing+((0.3*keySwitcher.height) - 6.8)
+            hoverEnabled: true
+            propagateComposedEvents: true
+            onClicked: {
+                mouse.accepted = false;
             }
         }
-        
+        PlasmaCore.FrameSvgItem {
+            id: decorationButton
+            z: -1
+            anchors.fill: parent
+            anchors.margins: PlasmaCore.Units.smallSpacing+((0.3*keySwitcher.height) - 6.8)
+            imagePath: Qt.resolvedUrl("svgs/button.svg")
+            visible: ma.containsMouse
+            prefix: {
+                var x = "keyboard-";
+                if(ma.containsMouse && !ma.containsPress) return x+"hover";
+                else if(ma.containsMouse && ma.containsPress) return x+"pressed";
+                else return "keyboard-hover";
+            }
+        }
     }
 }
