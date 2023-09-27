@@ -60,11 +60,13 @@ Item {
 	onParentChanged: {
 		if (parent) {
 			for (var obj = widget, depth = 0; !!obj; obj = obj.parent, depth++) {
+				// console.log('depth', depth, 'obj', obj)
 				if (obj.toString().startsWith('ContainmentInterface')) {
 					// desktop containment / plasmoidviewer
 					// Note: This doesn't always work. FolderViewDropArea may not yet have
 					//       ContainmentInterface as a parent when this loop runs.
 					if (typeof obj['editMode'] === 'boolean') {
+						// console.log('\t', 'obj.editMode', obj.editMode, typeof obj['editMode'])
 						widget.containmentInterface = obj
 						break
 					}
@@ -72,6 +74,8 @@ Item {
 					// panel containment
 					if (typeof obj['Plasmoid'] !== 'undefined' && obj['Plasmoid'].toString().startsWith('ContainmentInterface')) {
 						if (typeof obj['Plasmoid']['editMode'] === 'boolean') {
+							// console.log('\t', 'obj.Plasmoid', obj.Plasmoid, typeof obj['Plasmoid']) // ContainmentInterface
+							// console.log('\t', 'obj.Plasmoid.editMode', obj.Plasmoid.editMode, typeof obj['Plasmoid']['editMode'])
 							widget.containmentInterface = obj.Plasmoid
 							break
 						}

@@ -92,11 +92,8 @@ Item {
             if(mouse.button == Qt.RightButton) {
                 var pos = plasmoid.mapToGlobal(mouse.x, mouse.y);
                 createContextMenu(pos);
-
-
             } else {
-                dashWindow.visible = !dashWindow.visible;
-                dashWindow.showingAllPrograms = false;
+                root.showMenu();
             }
         }
     }

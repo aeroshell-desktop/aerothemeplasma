@@ -50,7 +50,7 @@ PlasmaCore.Dialog {
     objectName: "popupWindow"
     location: "Floating" // To make the panel display all 4 borders, the panel will be positioned at a corner.
     flags: Qt.WindowStaysOnTopHint | Qt.Popup // Set to popup so that it is still considered a plasmoid popup, despite being a floating dialog window.
-    hideOnWindowDeactivate: true
+	hideOnWindowDeactivate: true
     
     property int iconSize: units.iconSizes.medium
     property int iconSizeSide: units.iconSizes.smallMedium
@@ -98,7 +98,6 @@ PlasmaCore.Dialog {
         }
 		resetRecents(); // Resets the recents model to prevent errors and crashes.
     }
-
     onHeightChanged: {
         var pos = popupPosition(width, height);
         x = pos.x;
@@ -169,6 +168,9 @@ PlasmaCore.Dialog {
 
         return Qt.point(x, y);
     }
+    function raiseOrb() {
+		orb.raise();
+	}
 
     FocusScope {
 		id: mainFocusScope
@@ -181,7 +183,6 @@ PlasmaCore.Dialog {
         
         focus: true
 		clip: true
-
 
         KCoreAddons.KUser {   id: kuser  }  // Used for getting the username and icon.
         Logic {   id: logic }				// Probably useful.

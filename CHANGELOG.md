@@ -1,3 +1,35 @@
+<h1>Version 0.2.1</h1>
+
+<h2>CHANGED:</h2>
+
+<h3>Meta:</h3>
+
+- Updated install guide.
+- Updated the documentation.
+- Deprecated GTK2 support.
+
+<h3>Seven Start:</h3>
+
+- Introduced a WIP Vista-style orb button that sticks out of the panel.
+- Included a C++ compiled component for the above mentioned feature.
+- Slightly changed the default orb button textures.
+
+<h3>Seven Tasks:</h3>
+
+- Media control buttons have been revamped to look more like Windows 7's counterpart.
+
+<h3>Plasma theme</h3>
+
+- Redesigned the clock widget. Design heavily inspired by [this](http://win7gadgets.com/calendar/aero-x-sky-clock-and-calendar.html) Windows 7 gadget.
+
+<h2>FIXED:</h2>
+
+- The popup orb will no longer appear in fullscreen applications or other areas where it's not supposed to be.
+- Fixed some QML errors in various plasmoids.
+- Fixed task tooltips not disappearing when clicking on a grouped task twice.
+- Task hot tracking dimensions now update properly when tasks change in size.
+- Keyboard switcher now scales the button texture depending on the panel size.
+
 <h1>Version 0.2</h1>
 
 <h2>SUMMARY:</h2>
@@ -96,7 +128,7 @@ Lastly, I'd like to apologize for the radio silence and for taking so long. I ha
 - Minor bugfixes and fixing deprecated code.
 - The color mixer window (formerly AeroColorMixer) has been fixed to work with Wayland.
 
-<h1>Version 0.1 (Formal release)</h1>
+<h1>Version 0.1</h1>
 
 <h2>SUMMARY:</h2>
 
@@ -105,6 +137,8 @@ A lot of components have been added into this project, as well as some overhaule
 The biggest changes were made to the Start Menu, System Tray, the Date & Time, and general Plasma look and feel to make it more compact and use up less visual space, as well as improve readability in many areas.
 
 This release also features a new Qt visual style for Kvantum, which is supposed to replace QGtkStyle for Qt applications. The GTK2 theme is still available for GTK2 applications, and can optionally still be used for Qt applications as well. 
+
+(The reason why this version's changelog feels a bit weird is because there were plenty of additions and changes before this project started being versioned.)
 
 <h3>NEW:</h3>
 

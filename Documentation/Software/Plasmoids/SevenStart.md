@@ -31,15 +31,22 @@ Users can also force the orb to have a constant size, which allows the orb to st
 1. Right clicking on this dialog window won't open the standard context menu as expected, as it actually isn't part of the compact or full representation.
 2. When compositing is disabled, even with the NoBackground hint, this dialog window will simply be drawn with an opaque, black background.
 
-The first problem is solved by implementing a separate context menu that pulls the appropriate actions from [ContainmentInterface](https://api.kde.org/frameworks/plasma-framework/html/classContainmentInterface.html) and [AppletInterface](https://api.kde.org/frameworks/plasma-framework/html/classAppletInterface.html), which is actually the ```plasmoid``` object.
+Originally, the first problem was solved by reimplementing the context menu that pulls the appropriate actions from [ContainmentInterface](https://api.kde.org/frameworks/plasma-framework/html/classContainmentInterface.html) and [AppletInterface](https://api.kde.org/frameworks/plasma-framework/html/classAppletInterface.html), which is actually the ```plasmoid``` object. However, a much simpler solution was to make the orb window output-only, which would prevent it from accepting any inputs. The orb is then made interactable again using a ```MouseArea``` from within the panel. The consequence of this is that the topmost part of the orb is not interactable at all, but this is a conscious decision made to prevent the user from accidentally opening the menu when clicking on an element that's close to the orb. 
 
 Potential solutions to the second problem are far less trivial, as all of them require some sort of compromise. The potential solutions are:
 
 1. Reverting to the regular orb while compositing is disabled, which is embedded within the panel, and/or resizing the orb back to its unaltered scale. This solution is aesthetically not pleasing at all, and it pretty much defeats the purpose of even enabling this feature to begin with.
-2. Adding a compiled component to this plasmoid, which would expose more Qt and KDE API methods that can define an opacity mask around the orb. The downside to this solution is that a compiled component reduces portability and makes the installation process slightly more complicated. To see how such an implementation would work however, see this [link](https://github.com/ryanmcalister/donutwindow).
-3. Applying an opacity mask through an already existing SVG file which can be applied to the dialog window. The downside to this solution is that it feels pretty much like a hack/workaround, and because it uses the provided frameworks in an unintended way.
+2. Applying an opacity mask through an already existing SVG file which can be applied to the dialog window. The downside to this solution is that it feels pretty much like a hack/workaround, and because it uses the provided frameworks in an unintended way.
+3. Adding a compiled component to this plasmoid, which would expose more Qt and KDE API methods that can define an opacity mask around the orb. The downside to this solution is that a compiled component reduces portability and makes the installation process slightly more complicated.
 
-This implementation goes for the third solution, which takes advantage of the solid appearance variant found in Plasma themes. The dialog window loads in a completely transparent tooltip SVG that has a customized opacity mask that is created based on the orb texture. This does mean that if the user wants to have a different kind of orb texture that's not spherical in shape, they would also need to provide a correct SVG that represents the opacity mask of the orb. See the source code for more implementation details.
+This plasmoid originally implemented the second solution, however this resulted in the orb being constantly visible and on top of everything, even when applications go into fullscreen mode. Because of this, there was no other choice but to include a C++ component. The main advantage of this approach is that applying an input mask is really simple. The input mask has to be:
+
+1. A PNG file
+2. Same dimensions as the orb images
+
+Black (#000) pixels define the area where input is accepted (and thus, is fully opaque). It's recommended to define the transparent portions of the mask with white (#fff). This input mask is only applied to the orb when compositing is disabled. When compositing is enabled, the mask is simply a blank ```QRegion```, and it lets the compositor figure out transparency. 
+
+Fixed orbs are still a WIP, and have only been tested for one particular configuration. For now, expect the feature to be unstable and to have small visual bugs.
 
 Another notable thing about the compact representation is that it is used in an unusual way compared to how plasmoids are generally designed to behave. Plasmoids have two representations:
 
@@ -106,3 +113,38 @@ Files:
 |StartOrb.qml|Dialog window representing the orb that is used for the small taskbar layout.|
 |FloatingOrb.qml|The actual orb button that handles the visual animations and functionality.|
 |ContextMenu.qml|Reimplemented context menu for StartOrb to bypass Dialog limitations.|
+
+## Native interface (C++)
+
+Public methods:
+<br>
+
+|Type|Name|Description|
+|----|----|-----------|
+|void|setDashWindow(QQuickWindow* w)|Sets a pointer to the menu representation instance.|
+|void|setOrb(QQuickWindow* w)|Sets a pointer to the popup orb instance.|
+|void|setMask(QString mask, bool overrideMask)|Sets an input mask to the popup orb. It's loaded in as a QBitmap and cached until overriden.|
+|void|setWinState(QQuickWindow* w)|Sets certain window states to the provided window. Used for the popup orb during initialization.|
+|void|setWinType(QQuickWindow* w)|Sets the provided window's type to ```NET::Dock```. Used for the popup orb during initialization.|
+|void|setTransparentWindow(bool enable)|Sets or unsets the input mask for the popup orb. If compositing is enabled, the input mask is unset, and similarly is set if compositing is disabled.|
+|void|setActiveWin(QQuickWindow* w)|Forces the provided window to be active, which raises the window and gives it keyboard focus.|
+
+Public slots:
+<br>
+
+|Type|Name|Description|
+|----|----|-----------|
+|void|onCompositingChanged(bool enabled)|Calls ```setTransparentWindow(bool)``` when compositing has been changed.|
+|void|onShowingDesktopChanged(bool enabled)|Raises the popup orb whenever the desktop is being shown, to prevent it from going under the panel.|
+|void|onStackingOrderChanged()|This event happens whenever two or more windows change their visible order. If the menu representation has been shown, it will be raised to the front, which would partially obscure the orb. This method immediately raises the orb as well, to prevent that visual bug from happening.|
+
+Protected properties:
+<br>
+
+|Type|Name|Description|
+|----|----|-----------|
+|QBitmap*|inputMaskCache|The cached instance of the provided input mask.|
+|QQuickWindow*|orb|Popup orb instance.|
+|QQuickWindow*|dashWindow|Menu representation instance.|
+
+

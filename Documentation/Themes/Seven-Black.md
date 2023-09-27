@@ -34,7 +34,6 @@ Regular textures are used for all other windows (plasmoids, OSD popups, task swi
 
 The opaque appearance state aims to be a recreation of Aero Basic (WIP). Currently, only plasmoids using solid textures and the window manager don't comply with the aesthetic, but everything else does. A potential solution is to detect a change in compositing in plasmoids that use solid textures, change the dialog type to ```NoBackground``` and display a custom texture as the background while compositing is disabled. A similar solution can also be applied to the window manager.
 
-Another important note is that the tooltip SVG used in the solid appearance is now used as a workaround to allow orb transparency in SevenStart. For more information, go to [SevenStart](../Software/Plasmoids/SevenStart.md)'s documentation.
 
 ### Icons
 
@@ -72,7 +71,6 @@ The "Unique" column describes if the file itself is exclusive to Seven-Black.
 |panel-background.svg  |opaque/widgets/|Used when compositing is disabled.                  |N               |Y       |N     |
 |tooltip.svg           |opaque/widgets/|Used when compositing is disabled.                  |N               |Y       |N     |
 |background.svg        |solid/dialogs/ |Used by the system tray and date and time plasmoid. |Y               |Y       |N     |
-|tooltip.svg        |solid/widgets/ |Used to provide an opacity mask to SevenStart's orb.   |Y               |Y       |N     |
 
 ## Nonstandard SVGs <a name="svgs"></a>
 

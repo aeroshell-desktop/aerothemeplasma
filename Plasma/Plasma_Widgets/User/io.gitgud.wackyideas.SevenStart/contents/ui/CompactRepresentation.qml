@@ -39,6 +39,7 @@ Item {
     property QtObject dashWindow: null
     property QtObject orb: null
     property QtObject contextMenu: null
+    property alias orbTimer: orbTimer
 
     Plasmoid.status: dashWindow && dashWindow.visible ? PlasmaCore.Types.RequiresAttentionStatus : PlasmaCore.Types.PassiveStatus
 
@@ -72,6 +73,10 @@ Item {
             root.Layout.minimumHeight = orb.height;
             root.Layout.maximumHeight = orb.height;
         }
+
+        // This has to be done, or else the orb won't be positioned correctly. ??????????
+        orb.y += 5;
+        orb.y -= 5; // ??????????????????????????????????????
     }
 
     onStickOutOrbChanged: {
@@ -80,10 +85,9 @@ Item {
     }
 
 
-    /* The following code gets the ContainmentInterface instance which is used for two things:
-     * 1. Getting context menu actions for entering edit mode and adding plasmoids
-     * 2. Keeping track on when edit mode is enabled. This allows us to hide the StartOrb
-     *    object so the user can actually highlight and select this plasmoid during edit mode.
+    /*
+     * The following code gets the ContainmentInterface instance which is used for keeping track of edit mode's state.
+     * This allows us to hide the StartOrb object so the user can actually highlight and select this plasmoid during edit mode.
      */
     property var containmentInterface: null
 	readonly property bool editMode: containmentInterface ? containmentInterface.editMode : false
@@ -117,22 +121,14 @@ Item {
     }
     property bool compositing: kwindowsystem.compositingActive
 
-    /* We want to change the background hint for the orb dialog window depending
-     * on the compositing state. In this case, 0 refers to NoBackground, while
-     * 2 refers to SolidBackground.
-     */
     onCompositingChanged: {
-        if(compositing) {
-            orb.backgroundHints = 0;
-        } else {
-            orb.backgroundHints = 2;
-        }
         updateSizeHints();
         positionOrb();
 
-        // Add a little padding to the orb.
-        if(compositing)
+        if(compositing) {
             orb.x += panelSvg.margins.left;
+        }
+        compositingFix.start();
     }
 
     function positionOrb() {
@@ -155,6 +151,15 @@ Item {
         }
         return url;
     }
+    function showMenu() {
+        dashWindow.visible = !dashWindow.visible;
+        dashWindow.showingAllPrograms = false;
+        plasmoid.nativeInterface.setActiveWin(dashWindow);
+        dashWindow.m_searchField.focus = true;
+        orb.raise();
+    }
+    property bool menuShown: dashWindow.visible
+
     property int opacityDuration: 250
 
     function createContextMenu(pos) {
@@ -182,36 +187,57 @@ Item {
         objectName: "innerorb"
     }
 
-    // Covers the entire compact representation just in case the orb dialog doesn't cover
-    // the entire area by itself.
+    // Handles all mouse events for the popup orb
     MouseArea
     {
         id: mouseAreaCompositingOff
         anchors.fill: parent
         hoverEnabled: true
         visible: stickOutOrb
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        acceptedButtons: Qt.LeftButton
         onClicked: {
-            if(mouse.button == Qt.RightButton) {
-                var pos = plasmoid.mapToGlobal(mouse.x, mouse.y);
-                createContextMenu(pos);
+            showMenu();
+        }
+    }
 
 
-            } else {
-                dashWindow.visible = !dashWindow.visible;
-                dashWindow.showingAllPrograms = false;
+    // I hate this
+
+    // So the only way I could reasonably think of to make this work is running the function
+    // with a delay.
+    Timer {
+        id: compositingFix
+        interval: 150
+        onTriggered: {
+            if(!compositing) {
+                plasmoid.nativeInterface.setTransparentWindow();
             }
         }
     }
 
+    // Even worse, this just makes things even more unsophisticated. If someone has a better
+    // way of solving this, I would love to know.
+    Timer {
+        id: orbTimer
+        interval: 15
+        onTriggered: {
+            plasmoid.nativeInterface.setOrb(orb);
+            // Currently hardcoded, will make it configurable soon, when it's been properly tested and hopefully slightly refactored.
+            plasmoid.nativeInterface.setMask(Qt.resolvedUrl("./orbs/mask.png"), false);
+            plasmoid.nativeInterface.setWinState(orb);
+            plasmoid.nativeInterface.setWinType(orb);
+            plasmoid.nativeInterface.setDashWindow(dashWindow);
+            updateSizeHints();
+            positionOrb();
+        }
+    }
 
     Component.onCompleted: {
         dashWindow = Qt.createQmlObject("MenuRepresentation {}", root);
         orb = Qt.createQmlObject("StartOrb {}", root);
         plasmoid.activated.connect(function() {
-            dashWindow.visible = !dashWindow.visible;
-            dashWindow.showingAllPrograms = false;
+            showMenu();
         });
-        positionOrb();
+
     }
 }

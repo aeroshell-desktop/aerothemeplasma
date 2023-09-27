@@ -125,7 +125,7 @@ CheckBox {
 }
 ```
 
-### seventasks.h & seventasks.cpp
+### Native interface (C++)
 
 Public methods:
 <br>

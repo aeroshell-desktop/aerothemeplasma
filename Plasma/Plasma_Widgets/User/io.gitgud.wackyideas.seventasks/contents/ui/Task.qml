@@ -99,9 +99,12 @@ MouseArea {
         hoverColor = plasmoid.nativeInterface.getDominantColor(icon.source);
         // When label visibility is toggled, that changes the size of each task item,
         // so we need to update the size of the hot tracking effect too.
+        updateHoverSize();
+        
+    }
+    function updateHoverSize() {
         hoverGradient.verticalRadius = LayoutManager.taskHeight();
         hoverGradient.horizontalRadius = LayoutManager.taskWidth();
-        
     }
 
     // Updates the hot tracking gradient with the mouse position.

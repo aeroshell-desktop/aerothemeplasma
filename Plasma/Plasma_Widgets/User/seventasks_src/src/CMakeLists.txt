@@ -23,4 +23,4 @@ target_link_libraries(plasma_applet_seventasks
 
 install(TARGETS plasma_applet_seventasks DESTINATION ${KDE_INSTALL_PLUGINDIR}/plasma/applets)
 
-plasma_install_package(package io.gitgud.wackyideas.seventasks)
+#plasma_install_package(package io.gitgud.wackyideas.seventasks)

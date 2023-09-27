@@ -266,10 +266,10 @@ $ ~/.local/share/plasma/plasmoids/
 
 Example:
 
-To install Seven Start, move the directory:
+To install Show Desktop (Aero), move the directory:
 
 ```
-$ ./Plasma/Plasma_Widgets/User/io.wackyideas.SevenStart/
+$ ./Plasma/Plasma_Widgets/User/io.wackyideas.win7showdesktop/
 ```
 
 to:
@@ -278,9 +278,24 @@ to:
 $ ~/.local/share/plasma/plasmoids/
 ```
 
+#### Seven Start
+
+Seven Start has a feature that allows the orb button to stick out of the panel, which requires a natively compiled component. Before installing Seven Start normally, move the following file:
+
+```
+$ ./Plasma/Plasma_Widgets/User/plasma_applet_SevenStart.so
+```
+
+to:
+
+```
+# /usr/lib/qt/plugins/plasma/applets/plasma_applet_SevenStart.so
+```
+
+
 #### Seven Tasks
 
-Before installing this plasmoid normally, it requires moving a file to a directory which requires root privileges. Move this file:
+Just like Seven Start, Seven Tasks also requires a similar installation process. Move the file:
 
 ```
 $ ./Plasma/Plasma_Widgets/User/plasma_applet_seventasks.so
