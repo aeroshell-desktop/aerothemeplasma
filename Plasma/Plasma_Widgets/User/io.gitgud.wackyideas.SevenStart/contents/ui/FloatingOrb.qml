@@ -87,14 +87,9 @@ Item {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: true
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        acceptedButtons: Qt.LeftButton
         onClicked: {
-            if(mouse.button == Qt.RightButton) {
-                var pos = plasmoid.mapToGlobal(mouse.x, mouse.y);
-                createContextMenu(pos);
-            } else {
-                root.showMenu();
-            }
+            root.showMenu();
         }
     }
 }
