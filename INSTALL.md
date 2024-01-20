@@ -27,6 +27,8 @@ The following software is required for this project:
 - KWinFT/KWin with compositing support for blur and other effects
 - Kvantum
 - Qt5 GraphicalEffects package (```qt5-graphicaleffects``` on Arch)
+- cmake
+- extra-cmake-modules
 - [Scale Minimize Animation](https://store.kde.org/p/1267839) (Can be installed through System Settings)
 
 Optional programs:
@@ -38,6 +40,12 @@ On Debian and Debian-based distributions (Ubuntu, Mint, etc.), the following apt
 
 ```
 $ sudo apt install cmake extra-cmake-modules build-essential qtbase5-dev libkdecorations2-dev libkf5configwidgets-dev libkf5config-dev libkf5coreaddons-dev libkf5windowsystem-dev libkf5wayland-dev kwin-dev
+```
+
+On OpenSUSE Tumbleweed, install the following packages (required for the Reflection effect):
+
+```
+$ sudo zypper install kwindowsystem-devel kwin5-devel libkdecoration2-devel libQt5Gui-devel
 ```
 
 ### Install Script <a name="script"></a>
@@ -274,12 +282,9 @@ To see the changes after compiling and setting Smaragd in the System Settings, s
 
 ### Reflection Effect <a name="reflection"></a>
 
-To install the reflection effect, it's recommended to build it from source, as dumping the precompiled files doesn't seem to work on its own. The required dependencies are:
+To install the reflection effect, it's recommended to build it from source, as dumping the precompiled files doesn't seem to work on its own.
 
-- cmake
-- extra-cmake-modules
-
-Then, go to the folder:
+Go to the folder:
 
 ```
 cd ./KWin/kwin_reflect/
