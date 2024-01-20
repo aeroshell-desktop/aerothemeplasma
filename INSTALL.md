@@ -44,12 +44,19 @@ $ sudo apt install cmake extra-cmake-modules build-essential qtbase5-dev libkdec
 
 AeroThemePlasma features an early experimental install script which currently serves to ease parts of the installation. It's a work in progress and marked as experimental, so things may or may not work properly. **The install script is provided as-is, and there's a nonzero chance that it might unintentionally break your system, delete your files, and/or cause a housefire. You have been warned.**
 
-Currently, the install script just copies all the files to their intended directories, deleting any previous version of those files that might have been on the system beforehand. It also compiles the Reflection effect and installs it properly. Automatic configuration is not yet implemented, but is planned. The user still has to set up their desktop layout and other settings, as described in this document. 
+Currently, the install script just copies all the files to their intended directories, deleting any previous version of those files that might have been on the system beforehand. It also compiles the Reflection effect and installs it properly. The user still has to set up their desktop layout and other settings, as described in this document. 
+
+Features that should be implemented into the script:
+
+- Automatically setting up the layout and settings for the user.
+- Support for Debian-based distributions.
+- Font installation that migrates fonts from an existing Windows installation.
+- The script should probably install the dependencies for you(?)
 
 Important notes:
 
-- The install script does NOT download or install fonts to the system. There are plans to implement font migration from an existing Windows installation. 
-- Currently, only Arch-based distributions are supported. Debian-based support is planned. 
+- The install script does NOT download or install fonts to the system.
+- Currently, only Arch-based distributions are supported.
 - The install script assumes that the user has installed all the dependencies before running the script.
 
 To run the script, do the following in the terminal:
