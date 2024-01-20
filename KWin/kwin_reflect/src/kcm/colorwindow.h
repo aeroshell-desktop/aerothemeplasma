@@ -9,6 +9,7 @@
 #include <QLayout>
 #include <QGridLayout>
 #include <QPushButton>
+#include "colorbutton.h"
 
 /*
  * This class represents the selectable colors found in the FlowLayout of the main window.
@@ -25,13 +26,18 @@ public:
     QColor getColor();
     QFrame* getFrame();
     QPushButton* getButton();
+    ColorButton* getFrameButton();
     void clear();
+
+
 private:
     void setStyle();
     QWidget* parent;
     QString name;
     QColor color;
     QFrame* mainFrame;
+    QWidget* backgroundColor;
+    ColorButton* frameButton;
     QPushButton* childFrame;
     QGridLayout* layout;
 };

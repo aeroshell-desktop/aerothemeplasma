@@ -101,13 +101,25 @@
     <entry name="showRootSidepanel" type="Bool">
       <default>true</default>
     </entry>
+    <entry name="showGamesSidepanel" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="showRecentItemsSidepanel" type="Bool">
+      <default>false</default>
+    </entry>
     <entry name="showNetworkSidepanel" type="Bool">
       <default>false</default>
     </entry>
     <entry name="showSettingsSidepanel" type="Bool">
       <default>true</default>
     </entry>
+    <entry name="showDevicesSidepanel" type="Bool">
+      <default>false</default>
+    </entry>
     <entry name="showDefaultsSidepanel" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="showHelpSidepanel" type="Bool">
       <default>false</default>
     </entry>
 

@@ -186,4 +186,11 @@ Item {
             }
         }
     }
+
+    Component.onCompleted: {
+		if(plasmoid.configuration.stickOutOrb) plasmoid.nativeInterface.setTransparentWindow();
+    }
+	Component.onDestruction: {
+		if(plasmoid.configuration.stickOutOrb) plasmoid.nativeInterface.setTransparentWindow();
+    }
 }

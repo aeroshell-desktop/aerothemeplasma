@@ -7,5 +7,7 @@
   <file>shaders/vertex.vert</file>
   <file>shaders/vertex_core.vert</file>
   <file>reflection.png</file>
+  <file>frame.svg</file>
+  <file>frame-select.svg</file>
 </qresource>
 </RCC>

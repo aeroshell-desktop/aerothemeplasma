@@ -59,6 +59,16 @@
       </widget>
      </item>
      <item>
+      <widget class="QCheckBox" name="kcfg_EnableFirefoxHack">
+       <property name="text">
+        <string>Enable Firefox transparency hack</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="showAccentColor_label">
        <property name="cursor">
         <cursorShape>PointingHandCursor</cursorShape>

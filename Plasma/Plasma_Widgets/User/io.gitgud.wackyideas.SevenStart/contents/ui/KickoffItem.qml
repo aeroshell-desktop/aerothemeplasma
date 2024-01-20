@@ -35,13 +35,14 @@ Item {
     enabled: !model.disabled && !(model.display === "" || model.display === "Recent Applications")
     visible: !(model.display === "" || model.display === "Recent Applications")
     width: ListView.view.width
-    height: model.display === "" || model.display === "Recent Applications" ? 0 : (PlasmaCore.Units.smallSpacing) + Math.max(elementIcon.height, titleElement.implicitHeight + subTitleElement.implicitHeight)
+    height: model.display === "" || model.display === "Recent Applications" ? 0 : (PlasmaCore.Units.smallSpacing / (small ? 2 : 1)) + Math.max(elementIcon.height, titleElement.implicitHeight /*+ subTitleElement.implicitHeight*/)
 
     signal reset
     signal actionTriggered(string actionId, variant actionArgument)
     signal aboutToShowActionMenu(variant actionMenu)
     signal addBreadcrumb(var model, string title)
 
+	property bool smallIcon: false
     readonly property int itemIndex: model.index
     readonly property string url: model.url || ""
     readonly property var decoration: model.decoration || ""
@@ -82,8 +83,8 @@ Item {
             listItem.addBreadcrumb(childModel, display);
             view.model = childModel;
         } else {
+            view.model.trigger(model.index, "", null);
             plasmoid.expanded = false;
-            view.model.trigger(index, "", null);
             listItem.reset();
         }
         
@@ -108,10 +109,10 @@ Item {
 
         anchors {
             left: parent.left
-            leftMargin: PlasmaCore.Units.smallSpacing * 2
+            leftMargin: PlasmaCore.Units.smallSpacing*2-1
             verticalCenter: parent.verticalCenter
         }
-        width: PlasmaCore.Units.iconSizes.medium
+		width: smallIcon ? PlasmaCore.Units.iconSizes.small : PlasmaCore.Units.iconSizes.medium
         height: width
 
         animated: false
@@ -127,8 +128,8 @@ Item {
         anchors {
             left: elementIcon.right
             right: arrow.left
-            leftMargin: PlasmaCore.Units.smallSpacing * 4
-            rightMargin: PlasmaCore.Units.smallSpacing * 6
+            leftMargin: PlasmaCore.Units.smallSpacing * 2 - 2
+            rightMargin: PlasmaCore.Units.smallSpacing * 2
         }
         height: implicitHeight //undo PC2 height override, remove when porting to PC3
         // TODO: games should always show the by name!
@@ -148,7 +149,7 @@ Item {
         }
         height: implicitHeight
         color: "#000000"
-        text: model.description || ""
+        text: ""//model.description || ""
         opacity: isCurrent ? 0.8 : 0.6
         font: theme.smallestFont
         elide: Text.ElideMiddle
@@ -160,7 +161,7 @@ Item {
 
         anchors {
             right: parent.right
-            rightMargin: PlasmaCore.Units.smallSpacing * 6
+            rightMargin: PlasmaCore.Units.smallSpacing
             verticalCenter: parent.verticalCenter
         }
 

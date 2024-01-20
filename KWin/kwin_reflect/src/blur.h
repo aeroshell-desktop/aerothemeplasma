@@ -56,6 +56,7 @@ public:
     bool blocksDirectScanout() const override;
     bool isWindowValid(KWin::EffectWindow *w);
     bool shouldColorize(KWin::EffectWindow *w);
+    bool treatAsActive(KWin::EffectWindow *w);
     bool readMemory(bool* skipFunc);
 public Q_SLOTS:
     void slotWindowAdded(KWin::EffectWindow *w);
@@ -95,6 +96,7 @@ private:
     QColor m_accentColorInactiveTransparent;
     bool m_transparencyEnabled = true;
     bool m_firstTimeReconfigure = false;
+	bool m_enableFirefoxHack = true;
 
     long net_wm_blur_region = 0;
     QRegion m_paintedArea; // keeps track of all painted areas (from bottom to top)

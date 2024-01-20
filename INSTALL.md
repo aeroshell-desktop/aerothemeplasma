@@ -3,16 +3,17 @@
 ## TABLE OF CONTENTS
 
 1. [Prerequisites](#preq)
+1. [Install Script](#script)
 1. [KDE Plasma Settings](#plasma-settings)
 1. [KDE Plasma Theme](#plasma-theme)
-1. [Icons and cursors](#icons)
+1. [Icons and Cursors](#icons)
 1. [Qt Visual Style](#application-theme)
 1. [Fonts](#fonts)
 1. [Window Manager](#wm)
 1. [Reflection Effect](#reflection)
 1. [Plasma Widgets](#widgets)
 1. [Task Switcher](#task-switcher)
-1. [Splash Screen](#splash-screen)
+1. [Look and Feel](#look-and-feel)
 1. [Sounds](#sounds)
 1. [Wine](#wine)
 1. [Terminal](#terminal)
@@ -25,12 +26,45 @@ The following software is required for this project:
 - KDE Plasma
 - KWinFT/KWin with compositing support for blur and other effects
 - Kvantum
-- Some program to change the GTK2 theme, like ```gtk-chtheme```.
 - Qt5 GraphicalEffects package (```qt5-graphicaleffects``` on Arch)
+- [Scale Minimize Animation](https://store.kde.org/p/1267839) (Can be installed through System Settings)
 
 Optional programs:
 
 - KMix, for a volume menu that looks more like Windows 7. For Pipewire users it might be better to just use the default volume plasmoid KDE provides.
+- Some program to change the GTK2 theme, like ```gtk-chtheme```, if applying the GTK2 theme.
+
+On Debian and Debian-based distributions (Ubuntu, Mint, etc.), the following apt packages are required:
+
+```
+$ sudo apt install cmake extra-cmake-modules build-essential qtbase5-dev libkdecorations2-dev libkf5configwidgets-dev libkf5config-dev libkf5coreaddons-dev libkf5windowsystem-dev libkf5wayland-dev kwin-dev
+```
+
+### Install Script <a name="script"></a>
+
+AeroThemePlasma features an early experimental install script which currently serves to ease parts of the installation. It's a work in progress and marked as experimental, so things may or may not work properly. **The install script is provided as-is, and there's a nonzero chance that it might unintentionally break your system, delete your files, and/or cause a housefire. You have been warned.**
+
+Currently, the install script just copies all the files to their intended directories, deleting any previous version of those files that might have been on the system beforehand. It also compiles the Reflection effect and installs it properly. Automatic configuration is not yet implemented, but is planned. The user still has to set up their desktop layout and other settings, as described in this document. 
+
+Important notes:
+
+- The install script does NOT download or install fonts to the system. There are plans to implement font migration from an existing Windows installation. 
+- Currently, only Arch-based distributions are supported. Debian-based support is planned. 
+- The install script assumes that the user has installed all the dependencies before running the script.
+
+To run the script, do the following in the terminal:
+
+```
+$ chmod +x install.sh
+$ ./install.sh install
+```
+
+Alternatively, simply run: 
+
+```
+$ sh install.sh install 
+```
+
 
 ### KDE Plasma Settings <a name="plasma-settings"></a>
 
@@ -57,7 +91,7 @@ Starting off with the simplest modifications, this is a list of recommended sett
         - If using KWinFT, enable 'Flip Switch':
             - Flip animation duration: 200
             - Angle: 45°.
-        - Enable 'Scale' (Appearance)
+        - Enable 'Scale' (Appearance) - If you don't have this plugin, download 'Scale Minimize Animation' from 'Get New Desktop Effects'.
     - Under Screen Edges:
         - Turn off all 8 screen edges
     - Under Touch Screen:
@@ -84,7 +118,7 @@ $ ~/.local/share/plasma/desktoptheme/
 
 To apply it, go to ```System Settings -> Appearance -> Plasma Style``` to find it and select it.
 
-### Icons and cursors <a name="icons"></a>
+### Icons and Cursors <a name="icons"></a>
 
 The icon theme is ```windowsicon```, while ```aero-cursors``` is the cursor theme. Extract the tar archives and move the folders in the following directory:
 
@@ -233,7 +267,7 @@ To see the changes after compiling and setting Smaragd in the System Settings, s
 
 ### Reflection Effect <a name="reflection"></a>
 
-To install the reflection effect, it's recommended to build it from source. The required dependencies are:
+To install the reflection effect, it's recommended to build it from source, as dumping the precompiled files doesn't seem to work on its own. The required dependencies are:
 
 - cmake
 - extra-cmake-modules
@@ -248,11 +282,9 @@ sh install.sh
 After it has been compiled, you can log out or restart plasma and kwin, then go to ```System settings -> Workspace Behavior -> Desktop Effects``` and enable the effect.
 
 
-### Plasma widgets <a name="widgets"></a>
+### Plasma Widgets <a name="widgets"></a>
 
-### User plasmoids
-
-These plasmoids do not require root privileges or editing system files to install. Installing them can be done by moving the plasmoid folder found in the following directory:
+Installing them can be done by moving the plasmoid folder found in the following directory:
 
 ```
 $ ./Plasma/Plasma_Widgets/User/
@@ -320,59 +352,7 @@ This plasmoid doesn't require additional configuration after installation if oth
 - Font size px: 9
 - Font style: Segoe UI Light, bold
 
-### System modifications
-
-These plasmoids and QML modifications require root privileges to install. It's recommended to move the original files somewhere safe as a backup, instead of replacing them directly. **Always make backups before replacing system files.**
-
-An important thing to keep in mind is that these changes will be reset everytime KDE is updated, meaning that it is necessary to perform this part of the installation after every update.
-
-#### Modified System Tray
-
-To install, move the following directory:
-
-```
-$ ./Plasma/Plasma_Widgets/System/org.kde.plasma.private.systemtray/
-```
-
-to:
-
-```
-# /usr/share/plasma/plasmoids/
-``` 
-
-Restart plasma to apply changes. If necessary, set the icon size to "Small" in the configuration window.
-
-#### Modified Keyboard Layout Switcher
-
-To install, move the following directory:
-
-```
-$ ./Plasma/Plasma_Widgets/System/org.kde.plasma.keyboardlayout
-```
-
-to:
-
-```
-# /usr/share/plasma/plasmoids/
-```
-
-Restart plasma to apply changes.
-
-#### Desktop icons
-
-To install, move the following directory:
-
-```
-$ ./Plasma/Plasma_Widgets/System/org.kde.desktopcontainment
-```
-
-to:
-
-```
-# /usr/share/plasma/plasmoids/
-```
-
-Restart plasma to apply changes.
+#### Desktop containment
 
 To make the desktop look more like Windows 7 by default, right click on the desktop and click "Configure Desktop and Wallpaper...", change the following settings:
 
@@ -381,7 +361,9 @@ To make the desktop look more like Windows 7 by default, right click on the desk
     - Label width: Narrow
     - Features: All checked except for "Folder preview popups"
 
-#### Plasma tooltips
+### DefaultToolTip.qml
+
+This is a QML component that defines the appearance of Plasma tooltips. Since this is a system-wide component, this file will be replaced with the upstream version whenever KDE is updated through the package manager of your system, meaning this installation step should be performed after every system upgrade.
 
 To install, move the following file:
 
@@ -429,12 +411,12 @@ In Alternative:
     - Backward: Meta + Shift + Tab 
 - Check "Include "Show Desktop" icon"
 
-### Splash Screen <a name="splash-screen"></a>
+### Look and Feel <a name="look-and-feel"></a>
 
-To install the splash screen, move the folder:
+To install the splash and lock screen, move the folder:
 
 ```
-$ ./Plasma/Splash_Screen/io.gitgud.wackyideas.aerosplashscreen
+$ ./Plasma/Look_and_Feel/authui7
 ```
 
 To the following directory:
@@ -445,7 +427,7 @@ $ ~/.local/share/plasma/look-and-feel/
 
 Create the directory in case it doesn't exist.
 
-Set the splash screen in ```System Settings -> Appearance -> Splash Screen```.
+To apply the splash and lock screen, go to ```System Settings -> Appearance -> Global Theme```, click 'Choose what to apply...' and uncheck everything but 'Lock Screen' and 'Splash Screen', and then hit Apply.
 
 ### Sounds <a name="sounds"></a>
 On Windows, system sound files are located in:
@@ -518,3 +500,4 @@ To make your terminal emulator of choice look a bit more like the command prompt
 ```printf 'Microsoft Windows [Version 6.1.7601] \nCopyright <c> 2009 Microsoft Corporation. All rights reserved.\n\n'```
 
 The last part will print the provided string every time a new bash session is started.
+

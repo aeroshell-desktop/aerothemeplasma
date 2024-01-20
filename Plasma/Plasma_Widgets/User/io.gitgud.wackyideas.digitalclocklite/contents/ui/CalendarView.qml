@@ -120,8 +120,11 @@ PlasmaCore.Dialog {
         Layout.maximumHeight: _minimumHeight  * 1.2
         Layout.preferredWidth: _minimumWidth * 0.8
         Layout.preferredHeight: _minimumHeight  * 1.2
-
+		PlasmaCore.ColorScope {
+		//colorGroup: PlasmaCore.Theme.ToolTipColorGroup
+		anchors.fill: parent
 		//This is the long date that appears on top of the dialog, pressing on it will set the calendar to the current day.
+
 		PlasmaExtras.Heading {
 			id: longDateLabel
 			anchors {
@@ -133,7 +136,7 @@ PlasmaCore.Dialog {
 			width: paintedWidth
 			horizontalAlignment: Text.AlignHCenter
 			text: agenda.dateString("dddd") + ", " + Qt.locale().standaloneMonthName(monthView.currentDate.getMonth()) + agenda.dateString(" dd") + ", " + agenda.dateString("yyyy")
-			color: heading_ma.containsPress ? "#90e7ff" : (heading_ma.containsMouse ? "#b6ffff" : "white")
+			color: heading_ma.containsPress ? "#90e7ff" : (heading_ma.containsMouse ? "#b6ffff" : PlasmaCore.ColorScope.textColor)
 			font.underline: heading_ma.containsMouse
 			level: 5
 			MouseArea {
@@ -424,6 +427,9 @@ PlasmaCore.Dialog {
 		// Allows the user to keep the calendar open for reference
 		PlasmaComponents.ToolButton {
 		    anchors.right: parent.right
+		    anchors.top: parent.top
+		    anchors.topMargin: units.smallSpacing
+		    anchors.rightMargin: units.smallSpacing
 		    width: Math.round(units.gridUnit * 1.25)
 		    height: width
 		    checkable: true
@@ -432,6 +438,7 @@ PlasmaCore.Dialog {
 		    onCheckedChanged: plasmoid.configuration.pin = checked
 		}
 		}
+	}
 		Component.onCompleted: {
 		    calendar.backgroundHints = 2; //Sets the background type to 'Solid' in order to make use of the alternative dialog style.
 										  //The same is done to the system tray, giving the two plasmoids a consistent look and feel.

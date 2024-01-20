@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>759</width>
+    <width>800</width>
     <height>585</height>
    </rect>
   </property>
@@ -593,6 +593,11 @@ QSlider::handle:horizontal:hover {
         <italic>false</italic>
         <bold>false</bold>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QGroupBox::title {
+	color: #003399;
+}</string>
       </property>
       <property name="title">
        <string>Set the color of window decorations, panels, tooltips and taskbar</string>

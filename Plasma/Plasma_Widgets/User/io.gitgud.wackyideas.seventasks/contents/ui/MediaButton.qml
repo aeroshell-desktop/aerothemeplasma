@@ -34,7 +34,7 @@ MouseArea {
         imagePath: Qt.resolvedUrl("svgs/button-media.svg")
         anchors.fill: parent
         prefix: orientation + "-normal"
-        opacity: !parent.containsMouse
+        opacity: !(parent.containsMouse && enableButton)
         Behavior on opacity {
             NumberAnimation { duration: 250 }
         }
@@ -44,7 +44,7 @@ MouseArea {
         imagePath: Qt.resolvedUrl("svgs/button-media.svg")
         anchors.fill: parent
         prefix: parent.containsPress ? orientation + "-pressed" : orientation + "-hover";
-        opacity: parent.containsMouse
+        opacity: parent.containsMouse && enableButton
         Behavior on opacity {
             NumberAnimation { duration: 250 }
         }

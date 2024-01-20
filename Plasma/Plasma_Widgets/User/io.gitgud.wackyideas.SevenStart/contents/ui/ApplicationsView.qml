@@ -34,7 +34,7 @@ Item {
 
     function decrementCurrentIndex() {
         var tempIndex = applicationsView.currentIndex-1;
-        if(tempIndex < (crumbModel.count == 0 ? 2 : 0)) {
+        if(tempIndex < (crumbModel.count == 0 ? 1 : 0)) {
             //applicationsView.currentIndex = applicationsView.count-1;
             return;
         }
@@ -52,7 +52,6 @@ Item {
     }
 
     function activateCurrentIndex(start) {
-        
         if (!applicationsView.currentItem.modelChildren) {
             if (!start) {
                 return;
@@ -76,7 +75,7 @@ Item {
 
     onFocusChanged: {
         if(focus)
-            applicationsView.currentIndex = 2;
+            applicationsView.currentIndex = crumbModel.count == 0 ? 1 : 0;
         else applicationsView.currentIndex = -1;
     }
 
@@ -86,7 +85,7 @@ Item {
         } else if(event.key == Qt.Key_Down) {
             incrementCurrentIndex();
         } else if(event.key == Qt.Key_Return || event.key == Qt.Key_Right) {
-            activateCurrentIndex();
+            activateCurrentIndex(applicationsView.currentIndex);
         } else if(event.key == Qt.Key_Menu) {
             openContextMenu();
         } else if(event.key == Qt.Key_Left || event.key == Qt.Key_Backspace) {
@@ -124,7 +123,8 @@ Item {
             right: parent.right
         }
         height: childrenRect.height
-
+        visible: false
+        opacity: crumbModel.count > 0
         Behavior on opacity { NumberAnimation { duration: PlasmaCore.Units.longDuration } }
 
         Flickable {
@@ -152,7 +152,7 @@ Item {
                 Breadcrumb {
                     id: rootBreadcrumb
                     root: true
-                    text: i18n("All Applications")
+                    text: i18n("Back")
                     depth: 0
                 }
                 Repeater {
@@ -165,6 +165,7 @@ Item {
                     Breadcrumb {
                         root: false
                         text: model.text
+                        visible: false
                     }
                 }
                 onWidthChanged: {
@@ -181,10 +182,11 @@ Item {
        		id: sepLine
 	   		anchors {
        			top: breadcrumbFlickable.bottom
+                topMargin: -1
        			left: breadcrumbFlickable.left
-       			leftMargin: units.smallSpacing*4
+       			leftMargin: units.smallSpacing*2
        			right: breadcrumbFlickable.right
-       			rightMargin: units.smallSpacing*4
+       			rightMargin: units.smallSpacing*2
 	   		}
        		height: 1
        		color: "#d6e5f5"
@@ -197,13 +199,15 @@ Item {
         id: applicationsView
 
         anchors {
-            top: crumbContainer.bottom
+            top: (crumbContainer.visible && crumbContainer.opacity) ? crumbContainer.bottom : parent.top
+            topMargin: PlasmaCore.Units.smallSpacing/ (crumbContainer.visible ? 2 : 1) + 1
             bottom: parent.bottom
             rightMargin: -PlasmaCore.Units.largeSpacing
             leftMargin: -PlasmaCore.Units.largeSpacing
         }
 
-        width: parent.width
+		width: parent.width
+		small: true
 
         property Item activatedItem: null
         property var newModel: null
@@ -225,12 +229,14 @@ Item {
             var oldModelIndex = model.rowForModel(oldModel);
             listView.currentIndex = oldModelIndex;
             listView.positionViewAtIndex(oldModelIndex, ListView.Center);
+            crumbContainer.visible = false;
         }
 
         function moveRight() {
             state = "";
-            activatedItem.activate()
-            applicationsView.listView.positionViewAtBeginning()
+            activatedItem.activate();
+            applicationsView.listView.positionViewAtBeginning();
+            crumbContainer.visible = true;
             //root.visible = false;
         }
 
@@ -275,7 +281,7 @@ Item {
                     // mouse once the animation is done
                     ScriptAction { script: applicationsView.activatedItem = applicationsView.currentItem }
                     NumberAnimation { properties: "opacity"; easing.type: Easing.InQuad; duration: 100 }
-                    ScriptAction { script: applicationsView.moveRight() }
+                    ScriptAction { script: {  applicationsView.moveRight(); } }
                 }
             },
             Transition {

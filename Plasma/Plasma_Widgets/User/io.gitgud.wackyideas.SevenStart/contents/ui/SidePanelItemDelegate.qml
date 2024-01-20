@@ -31,6 +31,9 @@ ListDelegate {
         if(i < 0) {
             return root.m_searchField;
         }
+        if(parent.visibleChildren[i].objectName == "SidePanelItemSeparator") {
+            i--;
+        }
         return parent.visibleChildren[i];
     }
 
@@ -38,6 +41,9 @@ ListDelegate {
         var i = Array.prototype.indexOf.call(parent.visibleChildren, sidePanelDelegate)+1;
         if(i >= parent.visibleChildren.length) {
             return root.m_shutDownButton;
+        }
+        if(parent.visibleChildren[i].objectName == "SidePanelItemSeparator") {
+            i++;
         }
         return parent.visibleChildren[i];
     }

@@ -27,15 +27,18 @@
             <default></default>
         </entry>
         <entry name="CustomColor" type="String">
-            <default>#89e61f8c</default>
+            <default>#78b3198d</default>
         </entry>
         <entry name="AccentColor" type="String">
-            <default>#89e61f8c</default>
+            <default>#78b3198d</default>
         </entry>
         <entry name="AccentColorName" type="Int">
             <default>17</default>
         </entry>
         <entry name="EnableTransparency" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="EnableFirefoxHack" type="Bool">
             <default>true</default>
         </entry>
     </group>

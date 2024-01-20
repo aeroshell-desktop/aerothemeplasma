@@ -42,10 +42,14 @@ Item {
     property alias cfg_showMusicSidepanel: showMusicSidepanel.checked
     property alias cfg_showVideosSidepanel: showVideosSidepanel.checked
     property alias cfg_showDownloadsSidepanel: showDownloadsSidepanel.checked
+    property alias cfg_showGamesSidepanel: showGamesSidepanel.checked
+    property alias cfg_showRecentItemsSidepanel: showRecentItemsSidepanel.checked
     property alias cfg_showRootSidepanel: showRootSidepanel.checked
     property alias cfg_showNetworkSidepanel: showNetworkSidepanel.checked
     property alias cfg_showSettingsSidepanel: showSettingsSidepanel.checked
+    property alias cfg_showDevicesSidepanel: showDevicesSidepanel.checked
     property alias cfg_showDefaultsSidepanel: showDefaultsSidepanel.checked
+    property alias cfg_showHelpSidepanel: showHelpSidepanel.checked
 
     ColumnLayout {
         anchors.left: parent.left
@@ -82,6 +86,14 @@ Item {
            		    text: i18n("Downloads")
            		}
            		CheckBox {
+           		    id: showGamesSidepanel
+           		    text: i18n("Games")
+           		}
+           		CheckBox {
+           		    id: showRecentItemsSidepanel
+           		    text: i18n("Recent Items")
+           		}
+           		CheckBox {
            		    id: showRootSidepanel
            		    text: i18n("Computer")
            		}
@@ -91,13 +103,27 @@ Item {
            		}
            		CheckBox {
            		    id: showSettingsSidepanel
-           		    text: i18n("System Settings")
+           		    text: i18n("Control Panel")
+           		}
+           		CheckBox {
+           		    id: showDevicesSidepanel
+           		    text: i18n("Devices and Printers")
            		}
            		CheckBox {
            		    id: showDefaultsSidepanel
            		    text: i18n("Default Programs")
            		}
+           		CheckBox {
+           		    id: showHelpSidepanel
+           		    text: i18n("Help and Support")
+           		}
 			}
         }
+    }
+    Component.onCompleted: {
+		if(plasmoid.configuration.stickOutOrb) plasmoid.nativeInterface.setTransparentWindow();
+    }
+	Component.onDestruction: {
+		if(plasmoid.configuration.stickOutOrb) plasmoid.nativeInterface.setTransparentWindow();
     }
 }

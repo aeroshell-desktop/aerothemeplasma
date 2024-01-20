@@ -49,7 +49,7 @@ PlasmaCore.Dialog {
     id: root
     objectName: "popupWindow"
     location: "Floating" // To make the panel display all 4 borders, the panel will be positioned at a corner.
-    flags: Qt.WindowStaysOnTopHint | Qt.Popup // Set to popup so that it is still considered a plasmoid popup, despite being a floating dialog window.
+    flags: Qt.WindowStaysOnTopHint //| Qt.Popup // Set to popup so that it is still considered a plasmoid popup, despite being a floating dialog window.
 	hideOnWindowDeactivate: true
     
     property int iconSize: units.iconSizes.medium
@@ -86,6 +86,14 @@ PlasmaCore.Dialog {
 	property alias m_searchField: searchField
 	property alias m_delayTimer: delayTimer
 
+	function setFloatingAvatarPosition()  {
+		// It's at this point where everything actually gets properly initialized and we don't have to worry about
+		// random unpredictable values, so we can safely allow the popup icon to show up.
+		iconUser.x = root.x + sidePanel.x+sidePanel.width/2-units.iconSizes.huge/2 + units.smallSpacing;
+		iconUser.y = root.y-units.iconSizes.huge/2;
+		firstTimePopup = true;
+	}
+
     onVisibleChanged: {
         var pos = popupPosition(width, height); // Calculates the position of the floating dialog window.
         x = pos.x;
@@ -95,6 +103,7 @@ PlasmaCore.Dialog {
         } else {
             requestActivate();
 			searchField.forceActiveFocus();
+			if(!firstTimePopup) setFloatingAvatarPosition();
         }
 		resetRecents(); // Resets the recents model to prevent errors and crashes.
     }
@@ -102,11 +111,7 @@ PlasmaCore.Dialog {
         var pos = popupPosition(width, height);
         x = pos.x;
         y = pos.y;
-		// It's at this point where everything actually gets properly initialized and we don't have to worry about
-		// random unpredictable values, so we can safely allow the popup icon to show up.
-		iconUser.x = sidePanel.x+sidePanel.width/2-units.iconSizes.huge/2+units.smallSpacing
-		iconUser.y = root.y-units.iconSizes.huge/2
-		firstTimePopup = true;
+		setFloatingAvatarPosition();
     }
 
     onWidthChanged: {
@@ -134,6 +139,8 @@ PlasmaCore.Dialog {
         searchField.text = "";
 		compositingIcon.iconSource = "";
 		nonCompositingIcon.iconSource = "";
+		searchField.forceActiveFocus();
+		
     }
 	
 	//The position calculated is always at a corner.
@@ -176,10 +183,14 @@ PlasmaCore.Dialog {
 		id: mainFocusScope
 		objectName: "MainFocusScope"
         Layout.minimumWidth:  root.cellWidth + root.cellWidthSide
-        Layout.maximumWidth:  root.cellWidth + root.cellWidthSide
+		Layout.maximumWidth:  root.cellWidth + root.cellWidthSide
 
-        Layout.minimumHeight: (cellHeight * plasmoid.configuration.numberRows) + searchField.height +  units.iconSizes.smallMedium
-        Layout.maximumHeight: (cellHeight * plasmoid.configuration.numberRows) + searchField.height +  units.iconSizes.smallMedium
+		property int mainPanelHeight: ((root.cellHeight+units.smallSpacing/2) * (plasmoid.configuration.numberRows-1)) + searchBackground.height + (allButtonsArea.height) + (units.smallSpacing * (15 - plasmoid.configuration.numberRows)) + units.smallSpacing / 2 + 1
+		property int sidePanelHeight: backgroundBorderLine.height + searchBackground.height + columnItems.height + (compositingEnabled ? units.iconSizes.huge / 2 + units.smallSpacing : nonCompositingIcon.height + units.smallSpacing);
+		property bool sidePanelOverflow: mainPanelHeight <= sidePanel; 
+
+        Layout.minimumHeight: Math.max(mainPanelHeight, sidePanelHeight) + units.smallSpacing
+        Layout.maximumHeight: Math.max(mainPanelHeight, sidePanelHeight) + units.smallSpacing
         
         focus: true
 		clip: true
@@ -217,24 +228,42 @@ PlasmaCore.Dialog {
 		 * The firstTimePopup is used to make sure that the dialog window has its correct position
 		 * values before it is made visible to the user.
 		 */
-
-        PlasmaCore.Dialog {
-            id: iconUser
-            flags: Qt.WindowStaysOnTopHint | Qt.Popup | Qt.X11BypassWindowManagerHint // To prevent the icon from animating its opacity when its visibility is changed
-            //type: "Notification" // So that we don't have to rely on this
-			location: "Floating"
-			x: 0
-			y: 0
-			backgroundHints: PlasmaCore.Types.NoBackground // To prevent the dialog background SVG from being rendered, we want a fully transparent window.
-			visualParent: root
-			visible: root.visible && !searching && compositingEnabled
-			opacity: iconUser.visible && firstTimePopup // To prevent even more NP-hard unpredictable behavior
-			mainItem: FloatingIcon {
-				id: compositingIcon
-				visible: compositingEnabled
+		Item {
+			PlasmaCore.Dialog {
+        		id: iconUser
+        		flags: Qt.WindowStaysOnTopHint  // To prevent the icon from animating its opacity when its visibility is changed
+        		//type: "Notification" // So that we don't have to rely on this
+				location: "Floating"
+				x: 0
+				y: 0
+				backgroundHints: PlasmaCore.Types.NoBackground // To prevent the dialog background SVG from being rendered, we want a fully transparent window.
+				visualParent: root
+				visible: root.visible && !searching && compositingEnabled
+				opacity: iconUser.visible && firstTimePopup // To prevent even more NP-hard unpredictable behavior
+				mainItem: FloatingIcon {
+					id: compositingIcon
+					visible: compositingEnabled
+				}
+        	}
+		}
+		Connections { 
+			target: root 
+			function onActiveFocusItemChanged() {
+				if(root.activeFocusItem === null) {
+					root.requestActivate();
+				}
 			}
-        }
+		}
+		Connections {
+			target: plasmoid
 
+			function onScreenGeometryChanged() {
+				firstTimePopup = false;
+			}
+			function onScreenChanged() {
+				firstTimePopup = false;
+			}
+		}
         Connections {
         target: plasmoid.configuration
             function onNumberRowsChanged() {
@@ -310,11 +339,11 @@ PlasmaCore.Dialog {
         Rectangle {
         	id: backgroundRect
         	anchors.top: faves.top
-        	anchors.topMargin: -4
+        	anchors.topMargin: -units.smallSpacing
         	anchors.left: faves.left
 
-        	width:  root.cellWidth
-        	height: (root.cellHeight * plasmoid.configuration.numberRows)  + searchBackground.height + 2
+			width:  root.cellWidth
+        	height: Math.max(mainFocusScope.mainPanelHeight, mainFocusScope.sidePanelHeight)
 
         	color: leftPanelBackgroundColor
         	border.color: leftPanelBorderColor
@@ -331,7 +360,7 @@ PlasmaCore.Dialog {
         		id: backgroundBorderLine
 
         		width: backgroundRect.width-2
-        		height: 2
+        		height: units.smallSpacing/2
 
         		color: searchPanelSeparatorColor
         		radius: 3
@@ -347,8 +376,8 @@ PlasmaCore.Dialog {
         	Rectangle {
                 id: searchBackground
 
-                width: root.cellWidth - 2
-                height: searchField.height + units.smallSpacing * 4.5 - 2
+                width: root.cellWidth - units.smallSpacing/2
+                height: searchField.height + units.smallSpacing * 4.5 - units.smallSpacing/2
 
                 Behavior on width {
                 	NumberAnimation { easing.type: Easing.Linear; duration: slideAnimationDuration }
@@ -380,9 +409,9 @@ PlasmaCore.Dialog {
 			}
 
             width: root.cellWidth
-            height: plasmoid.configuration.showRecentsView ? 
-					((root.cellHeight * (faves.getFavoritesCount() > 9 ? 9 : faves.getFavoritesCount())) - units.smallSpacing * 2) :
-					(root.cellHeight * plasmoid.configuration.numberRows - units.smallSpacing*2 - allProgramsButton.height - allProgramsSeparator.height)
+            height: (plasmoid.configuration.showRecentsView ?
+					(((root.cellHeight-2) * (faves.getFavoritesCount() > 9 ? 9 : faves.getFavoritesCount()))/* - units.smallSpacing * 2*/) :
+					((root.cellHeight) * plasmoid.configuration.numberRows - units.smallSpacing/2 - allProgramsButton.height*2 - allProgramsSeparator.height)) - units.smallSpacing/2
 
             visible: !showingAllPrograms && !searching
             z: 8
@@ -399,6 +428,7 @@ PlasmaCore.Dialog {
 				right: faves.right
 				leftMargin: units.smallSpacing*4+2
 				rightMargin: units.smallSpacing*4
+				topMargin: units.smallSpacing/2
 			}
        		
        		height: 1
@@ -418,16 +448,18 @@ PlasmaCore.Dialog {
             id: recents
 
 			anchors {
-				top: faves.bottom
+				top: tabBarSeparator.bottom
+				topMargin: units.smallSpacing
+				//top: faves.bottom
 				left: parent.left
-				topMargin: units.smallSpacing*2
 				bottomMargin: units.smallSpacing
+           		bottom: allProgramsSeparator.top
 				leftMargin: 3
 			}
 
             width: root.cellWidth-2 
-            height: (root.cellHeight * plasmoid.configuration.numberRows) - (root.cellHeight * (faves.getFavoritesCount() > 9 ? 9 : 
-					faves.getFavoritesCount())) - units.smallSpacing*2 - allProgramsButton.height
+            //height: (root.cellHeight * plasmoid.configuration.numberRows) - (root.cellHeight * (faves.getFavoritesCount() > 9 ? 9 : 
+					//faves.getFavoritesCount())) - allProgramsButton.height * 2
 					
             visible: plasmoid.configuration.showRecentsView && (!showingAllPrograms && !searching)
 
@@ -439,10 +471,13 @@ PlasmaCore.Dialog {
         Rectangle {
        		id: allProgramsSeparator
 			anchors {
-				top: plasmoid.configuration.showRecentsView ? recents.bottom : faves.bottom
+				//top: plasmoid.configuration.showRecentsView ? recents.bottom : faves.bottom
+				topMargin: units.smallSpacing-1
 				left: parent.left
 				leftMargin: units.smallSpacing*4+2
 				rightMargin: units.smallSpacing*4
+				bottom: allButtonsArea.top
+				bottomMargin: units.smallSpacing-1
 			}
        		Behavior on width {
        			NumberAnimation { easing.type: Easing.Linear; duration: slideAnimationDuration }
@@ -465,11 +500,12 @@ PlasmaCore.Dialog {
         	hoverEnabled: true
 
 			anchors {
-				top: plasmoid.configuration.showRecentsView ? recents.bottom : faves.bottom
+				//top: plasmoid.configuration.showRecentsView ? recents.bottom : faves.bottom
 				left: parent.left
-				topMargin: units.smallSpacing-1
 				leftMargin: units.smallSpacing +2 
 				rightMargin: units.smallSpacing
+				bottom: searchField.top
+				bottomMargin: units.smallSpacing*3
 			}
 			KeyNavigation.tab: searchField;
 			KeyNavigation.backtab: returnPreviousView();
@@ -519,7 +555,7 @@ PlasmaCore.Dialog {
         	    }
 			}
         	width: root.cellWidth - units.smallSpacing*2
-        	height: 25
+        	height: units.iconSizes.smallMedium+1
 
         	Behavior on width {
         	    NumberAnimation { easing.type: Easing.Linear; duration: slideAnimationDuration }
@@ -541,7 +577,7 @@ PlasmaCore.Dialog {
         	PlasmaCore.SvgItem {
            		id: arrowDirection
            		svg: arrowsSvg
-           		elementId: (searching || showingAllPrograms) ? "left-arrow-black" : "right-arrow-black"
+           		elementId: (searching || showingAllPrograms) ? "all-applications-left" : "all-applications-right"
 
            		anchors.left: parent.left
            		anchors.verticalCenter: parent.verticalCenter
@@ -551,7 +587,7 @@ PlasmaCore.Dialog {
            		height: 16
         	}
             Text {
-            	text: showingAllPrograms || searching ? "Back" : "All programs"
+            	text: showingAllPrograms || searching ? "    Back" : "    All programs"
             	font.pixelSize: 12
             	anchors.left: arrowDirection.right
             	anchors.leftMargin: units.smallSpacing
@@ -599,16 +635,18 @@ PlasmaCore.Dialog {
             	top: parent.top
             	left: parent.left
             	right: faves.right
+            	bottom: allProgramsSeparator.top
 
             	topMargin: 2
             	leftMargin: 2
+            	bottomMargin: units.smallSpacing
 			}
 
             width: root.cellWidth
             height: (root.cellHeight * plasmoid.configuration.numberRows) - units.smallSpacing*2 - allProgramsButton.height
 
             opacity: 0
-            visible: opacity
+			visible: opacity
 
             function resetIndex() {
                 appsView.listView.currentIndex = -1;
@@ -676,11 +714,11 @@ PlasmaCore.Dialog {
                 PropertyChanges {
                     target: sidePanel; enabled: false
                 }
-            }
+		}
         ]
         transitions: [ 
        		Transition {
-       		    PropertyAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; duration: 100 }
+       		    PropertyAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; duration: units.longDuration }
        		}
         ]
 
@@ -724,14 +762,14 @@ PlasmaCore.Dialog {
             width: root.cellWidth - units.smallSpacing * 4 - 2
             height: units.smallSpacing * 7 - units.smallSpacing + 1
 			clearButtonShown: false
-            placeholderText: i18n("Search programs and files")
+            placeholderText: i18n(" Search programs and files")
             text: ""
 			color: "black"
 			verticalAlignment: TextInput.AlignBottom
 			font.italic: searchField.text == "" ? true : false
 
             onTextChanged: {
-                searchView.onQueryChanged();
+					searchView.onQueryChanged();
             }
 
 			KeyNavigation.tab: columnItems.visibleChildren[0];
@@ -747,13 +785,24 @@ PlasmaCore.Dialog {
 					} else {
 						root.visible = false;
 					}
+					focus = true;
 					return;
 				}
                 if (event.key == Qt.Key_Tab) {
                     faves.forceActiveFocus();
                     event.accepted = true;
                     return;
-                }
+				}
+				if ((event.key == Qt.Key_Up || event.key == Qt.Key_Down) && searching) {
+					searchView.itemGrid.focus = true;
+					event.accepted = true;
+					return;
+				}
+				if((event.key == Qt.Key_Return) && searching) {
+					searchView.itemGrid.triggerCurrentItem();
+					event.accepted = true;
+					return;
+				}
 				event.accepted = false;
             }
 
@@ -787,7 +836,7 @@ PlasmaCore.Dialog {
                 leftMargin: units.smallSpacing * 2
                 rightMargin: units.smallSpacing
                 topMargin: compositingEnabled ? units.iconSizes.huge / 2 + units.smallSpacing : 0
-            }
+		}
 
 			FloatingIcon {
 				id: nonCompositingIcon
@@ -799,22 +848,32 @@ PlasmaCore.Dialog {
                 folder: shortcuts.pictures
 
                 function getPath(val){
-                    if(val === 1)
-                        return shortcuts.home
-                    else if (val === 2)
-                        return shortcuts.documents
-                    else if (val === 3)
-                        return shortcuts.pictures
-                    else if (val === 4)
-                        return shortcuts.music
-                    else if (val === 5)
-                        return shortcuts.movies
-                    else if (val === 6)
-                        return shortcuts.home + "/Downloads"
-                    else if (val === 7)
-                        return "file:///." // Root
-					else if (val === 8)
-						return "remote:/"
+					switch(val) {
+						case 1:
+							return shortcuts.home;
+						case 2:
+							return shortcuts.documents;
+						case 3:
+							return shortcuts.pictures;
+						case 4:
+							return shortcuts.music;
+						case 5:
+							return shortcuts.movies;
+						case 6:
+							return shortcuts.home + "/Downloads";
+						case 7:
+							return "file:///.";
+						case 8:
+							return "remote:/";
+						case 9:
+							return "applications:///Games/";
+						case 10:
+							return "https://develop.kde.org/docs/"
+						case 11:
+							return "recentlyused:/";
+						default:
+							return "";
+					}
                 }
             }
 			Timer {
@@ -822,12 +881,14 @@ PlasmaCore.Dialog {
 				interval: 250
 				repeat: false
 				onTriggered: {
-					if(root.activeFocusItem.objectName === "SidePanelItemDelegate") {
-						compositingIcon.iconSource = root.activeFocusItem.itemIcon;
-						nonCompositingIcon.iconSource = root.activeFocusItem.itemIcon;
-					} else {
-						compositingIcon.iconSource = "";
-						nonCompositingIcon.iconSource = "";
+					if(root.activeFocusItem) {
+						if(root.activeFocusItem.objectName === "SidePanelItemDelegate") {
+							compositingIcon.iconSource = root.activeFocusItem.itemIcon;
+							nonCompositingIcon.iconSource = root.activeFocusItem.itemIcon;
+						} else {
+							compositingIcon.iconSource = "";
+							nonCompositingIcon.iconSource = "";
+						}
 					}
 				}
 			}
@@ -838,7 +899,7 @@ PlasmaCore.Dialog {
                 anchors.top: compositingEnabled ? parent.top : nonCompositingIcon.bottom
                 anchors.topMargin: compositingEnabled ? units.smallSpacing : units.smallSpacing*2
                 anchors.left: parent.left
-                width: parent.width
+				width: parent.width
 
 				property int currentIndex: -1
                 
@@ -878,6 +939,20 @@ PlasmaCore.Dialog {
 					executableString: folderDialog.getPath(6)
 					visible: plasmoid.configuration.showDownloadsSidepanel
 				}
+				SidePanelItemSeparator {
+				}
+				SidePanelItemDelegate {
+					itemText: "Games"
+					itemIcon: "applications-games"
+					executableString: folderDialog.getPath(9)
+					visible: plasmoid.configuration.showGamesSidepanel
+				}
+				SidePanelItemDelegate {
+					itemText: "Recent Items"
+					itemIcon: "document-open-recent"
+					executableString: folderDialog.getPath(11)
+					visible: plasmoid.configuration.showRecentItemsSidepanel
+				}
 				SidePanelItemDelegate {
 					itemText: "Computer"
 					itemIcon: "computer"
@@ -890,12 +965,21 @@ PlasmaCore.Dialog {
 					executableString: folderDialog.getPath(8)
 					visible: plasmoid.configuration.showNetworkSidepanel
 				}
+				SidePanelItemSeparator {
+				}
 				SidePanelItemDelegate {
-					itemText: "System Settings"
+					itemText: "Control Panel"
 					itemIcon: "preferences-system"
 					executableString: "systemsettings5"
 					executeProgram: true
 					visible: plasmoid.configuration.showSettingsSidepanel
+				}
+				SidePanelItemDelegate {
+					itemText: "Devices and Printers"
+					itemIcon: "input_devices_settings"
+					executableString: "systemsettings5 kcm_printer_manager"
+					executeProgram: true
+					visible: plasmoid.configuration.showDevicesSidepanel
 				}
 				SidePanelItemDelegate {
 					itemText: "Default Programs"
@@ -903,6 +987,12 @@ PlasmaCore.Dialog {
 					executableString: "systemsettings5 kcm_componentchooser"
 					executeProgram: true
 					visible: plasmoid.configuration.showDefaultsSidepanel
+				}
+				SidePanelItemDelegate {
+					itemText: "Help and Support"
+					itemIcon: "help-browser"
+					executableString: folderDialog.getPath(10);
+					visible: plasmoid.configuration.showHelpSidepanel
 				}
 
 				//Used to space out the rest of the side panel, so that the shutdown button is at the bottom of the plasmoid
@@ -975,7 +1065,7 @@ PlasmaCore.Dialog {
 
 					prefix: {
 						if(ma.containsPress) return "pressed";
-						else if(ma.containsMouse || lockma.containsMouse || shutdown.focus) return "hover";
+						else if(ma.containsMouse || lockma.containsMouse || shutdown.focus || lockScreenDelegate.focus) return "hover";
 						else return "normal";
 					}
 				}

@@ -50,7 +50,8 @@ PlasmaExtras.ScrollArea {
     property bool isSquare: false
     property int aCellHeight
     property int aCellWidth
-    property alias repeater: itemColumn.repeater
+	property alias repeater: itemColumn.repeater
+	property alias modelIndex: repeater.currentModelIndex
 
     verticalScrollBarPolicy: Qt.ScrollBarAsNeeded
     horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
@@ -63,10 +64,47 @@ PlasmaExtras.ScrollArea {
                 subGridAt(i).focus = false;
             }
         } else {
-            subGridAt(repeater.currentModelIndex).focus = true;
+            if(!repeater.isRepeaterEmpty()) {
+                var t = subGridAt(repeater.currentModelIndex);
+
+                var c = 0;
+                while(!t.visible) {
+                    repeater.currentModelIndex++;
+                    t = subGridAt(repeater.currentModelIndex);
+                    c++;
+                    if(c == repeater.count) break;
+                }
+                t.focus = true;
+            }
         }
     }
+    function triggerCurrentItem() {
+        if(!repeater.isRepeaterEmpty()) {
+            var t = subGridAt(repeater.currentModelIndex);
+            var c = 0;
+            while(!t.visible) {
+                repeater.currentModelIndex++;
+                t = subGridAt(repeater.currentModelIndex);
+                c++;
+                if(c == repeater.count) break;
+            }
+            if(t.currentIndex === -1) {
+                t.currentIndex = 0;
+            }
+            t.currentItem.activateItem();
+        }
+        /*var t = null;
+        for(var i = 0; i < repeater.count; i++) {
+            t = subGridAt(i);
+            if(!t.visible) break;
+        }
+        if(t === null) return;
+        if(t.currentIndex === -1) {
+            t.currentIndex = 0;
+        }
+        t.currentItem.activateItem();*/
 
+    }
     function subGridAt(index) {
         return repeater.itemAt(index).itemGrid;
     }
@@ -111,6 +149,7 @@ PlasmaExtras.ScrollArea {
             onCurrentModelIndexChanged: {
                 if(currentModelIndex == repeater.count) currentModelIndex = 0;
                 else if(currentModelIndex < 0) currentModelIndex = repeater.count - 1;
+
                 repeater.itemAt(currentModelIndex).itemGrid.forceActiveFocus();
                 repeater.itemAt(currentModelIndex).itemGrid.focus = true;
             }
@@ -138,13 +177,17 @@ PlasmaExtras.ScrollArea {
 				//Header displaying the name of the result category and the number of items in the category.
                 PlasmaExtras.Heading {
                     id: gridViewLabel
-                    anchors.top: parent.top
-                    anchors.left: parent.left
-                    anchors.leftMargin: units.smallSpacing
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        leftMargin: units.smallSpacing
+                        topMargin: units.smallSpacing
+                    }
+
                     height: dummyHeading.height
                     wrapMode: Text.NoWrap
                     color: "#1d3287";
-                    level: 4
+                    level: 3
                     verticalAlignment: Qt.AlignVCenter
                     text: {
                         if(!repeater.model.modelForRow(index)) return "";
@@ -154,10 +197,14 @@ PlasmaExtras.ScrollArea {
 				
 				//Line that extends from the header to the right of the search view. 
                 Rectangle {
-                    anchors.topMargin: units.smallSpacing
-                    anchors.left: gridViewLabel.right
-                    anchors.leftMargin: units.smallSpacing
-                    anchors.verticalCenter: gridViewLabel.verticalCenter
+                    anchors {
+                        top: parent.top
+                        topMargin: gridViewLabel.implicitHeight / 2 + units.smallSpacing
+                        left: gridViewLabel.right
+                        leftMargin: units.smallSpacing
+                        //verticalCenter: gridViewLabel.verticalCenter
+                    }
+
                     height: 1
                     width: parent.width - gridViewLabel.implicitWidth - units.smallSpacing*4
                     color: "#e5e5e6"
@@ -176,12 +223,12 @@ PlasmaExtras.ScrollArea {
 
                     anchors {
                         top: gridViewLabel.bottom
-                        topMargin: units.smallSpacing
+                        topMargin: units.smallSpacing*2
                     }
 
                     width: parent.width
                     //height: Math.ceil(count / Math.floor(width / root.tileSide)) * root.tileSide
-                    height: gridView.count ? gridView.count * aCellHeight : 0
+                    height: (gridView.count ? gridView.count * aCellHeight : 0) + units.smallSpacing*2
 
                     cellWidth:  isSquare ? root.tileSide : aCellWidth
                     cellHeight: isSquare ? root.tileSide : aCellHeight
@@ -230,7 +277,7 @@ PlasmaExtras.ScrollArea {
                         }
                     }
 
-                    onKeyNavLeft: {
+					onKeyNavLeft: {
                         itemMultiGrid.keyNavLeft(index);
                     }
 

@@ -64,7 +64,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: -units.gridUnit
-        width:  iconSize
+        width:  units.iconSizes.small
         height: width
         colorGroup: PlasmaCore.Theme.ComplementaryColorGroup
         animated: false

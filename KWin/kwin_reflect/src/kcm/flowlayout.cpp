@@ -84,20 +84,22 @@ void FlowLayout::addItem(QLayoutItem *item)
 //! [4]
 int FlowLayout::horizontalSpacing() const
 {
-    if (m_hSpace >= 0) {
+    return 0;
+    /*if (m_hSpace >= 0) {
         return m_hSpace;
     } else {
         return smartSpacing(QStyle::PM_LayoutHorizontalSpacing);
-    }
+    }*/
 }
 
 int FlowLayout::verticalSpacing() const
 {
-    if (m_vSpace >= 0) {
+    return 0;
+    /*if (m_vSpace >= 0) {
         return m_vSpace;
     } else {
         return smartSpacing(QStyle::PM_LayoutVerticalSpacing);
-    }
+    }*/
 }
 //! [4]
 

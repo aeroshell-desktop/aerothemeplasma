@@ -52,10 +52,18 @@ Item {
         var close = (Tools.triggerAction(GridView.view.model, model.index, actionId, actionArgument) === true);
 
         if (close) {
-            root.toggle();
+            root.visible = false;
         }
     }
 
+    function activateItem() {
+        if ("trigger" in GridView.view.model) {
+                var result = GridView.view.model.trigger(index, "", null);
+                if(result) root.visible = false;
+        }
+
+        itemGrid.itemActivated(index, "", null);
+    }
 
 
 
@@ -64,7 +72,7 @@ Item {
         anchors.left: parent.left
         anchors.leftMargin: units.smallSpacing*2
         anchors.verticalCenter: parent.verticalCenter
-        width: iconSize
+        width: units.iconSizes.small
         height: width
         colorGroup: PlasmaCore.Theme.ComplementaryColorGroup
         animated: false
@@ -93,7 +101,7 @@ Item {
         visible: showLabel
         anchors {
             left: icon.right
-            leftMargin: units.smallSpacing
+            leftMargin: units.smallSpacing * 2 - 2
             //top: icon.top
             verticalCenter: icon.verticalCenter
         }
@@ -111,7 +119,7 @@ Item {
         visible: showLabel
         horizontalAlignment:  Text.AlignRight
         maximumLineCount: 1
-        width: parent.width - label.implicitWidth - icon.width * 2
+        width: parent.width - label.implicitWidth - icon.width * 2 - units.smallSpacing*2
         elide: Text.ElideRight
         wrapMode: Text.Wrap
         color: "black"
@@ -134,13 +142,8 @@ Item {
             openActionMenu(item);
         } else if ((event.key === Qt.Key_Enter || event.key === Qt.Key_Return)) {
             event.accepted = true;
+            activateItem();
 
-            if ("trigger" in GridView.view.model) {
-                GridView.view.model.trigger(index, "", null);
-                root.toggle();
-            }
-
-            itemGrid.itemActivated(index, "", null);
         }
     }
 }

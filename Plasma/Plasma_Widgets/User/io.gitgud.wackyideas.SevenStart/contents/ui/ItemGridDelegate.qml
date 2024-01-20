@@ -77,7 +77,7 @@ Item {
 
         anchors {
             left: icon.right
-            leftMargin: units.smallSpacing * 2
+            leftMargin: units.smallSpacing * 2 - 2
             verticalCenter: icon.verticalCenter
         }
         width: item.width - (iconSize + units.largeSpacing)

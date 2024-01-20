@@ -217,7 +217,8 @@ FocusScope {
 
                 property bool usesPlasmaTheme: false
 
-                property int iconSize: units.iconSizes.huge
+                property int iconSize: units.iconSizes.small
+                cellHeight: units.iconSizes.small + units.smallSpacing
 
                 property bool animating: false
                 property int animationDuration: itemGrid.dropEnabled ? resetAnimationDurationTimer.interval : 0
@@ -433,9 +434,9 @@ FocusScope {
 
                             if (gridView.currentItem && gridView.currentItem == pressedItem) {
                                 if ("trigger" in gridView.model) {
-                                    gridView.model.trigger(pressedItem.itemIndex, "", null);
+                                    var result = gridView.model.trigger(pressedItem.itemIndex, "", null);
                                     //root.toggle();
-                                    root.visible = false;
+                                    if(result) root.visible = false;
                                 }
 
                                 itemGrid.itemActivated(pressedItem.itemIndex, "", null);

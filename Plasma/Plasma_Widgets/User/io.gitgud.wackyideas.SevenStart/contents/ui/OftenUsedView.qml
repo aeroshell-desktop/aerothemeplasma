@@ -32,5 +32,6 @@ BaseView {
         favoritesModel: globalFavorites
         ordering: 0
         shownItems: Kicker.RecentUsageModel.OnlyApps
+
     }
 }

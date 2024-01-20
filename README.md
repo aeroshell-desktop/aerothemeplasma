@@ -28,7 +28,7 @@ Buy me a loaf of bread (Monero):
 This is a project which aims to recreate the look and feel of Windows 7 as much as possible on KDE Plasma.
 It is still in heavy development and testing. This project has been tested on:
 
- - Arch Linux (Up to date LTS kernel, 64-bit), Artix (Up to date LTS kernel, 64-bit)
+ - Arch-based distributions (Arch, Artix, EndeavourOS, etc.), Debian-based distributions (Debian, Ubuntu, Mint, Kubuntu, etc.)
  - X11 
  - Latest stable KDE Plasma release, latest KDE Frameworks version
  - Latest Qt version
@@ -37,11 +37,11 @@ It is still in heavy development and testing. This project has been tested on:
   
 Here's what's currently not supported but should be (see FAQ):
 
- - Multi-distro support (While this could work on other distros, I cannot provide help if something goes wrong)
+ - Multi-distro support (While this could work on other distros, and has been confirmed to run well on Arch and Ubuntu, I cannot provide help if something goes wrong)
  - HiDPI scaling
- - Multilanguage support
+ - Translations in multiple languages
 
-The following used to be supported but is now deprecated: 
+The following has been deprecated: 
 
  - GTK2
  - QtCurve
@@ -54,9 +54,9 @@ The following will not be supported at all in the foreseeable future:
 
 <h3>DISCLAIMER:</h3>
 
-This project modifies certain system components of KDE Plasma which are not meant to be modified. Reinstalling or updating KDE plasma through the package manager will bring back the original upstream components back, so it's required to redo certain parts of the installation process. **Modifying private system components can leave your desktop environment in a broken state**. Make sure to create backups before attempting to install this project. I am not responsible for broken KDE and/or Linux installs.
+This project modifies a small number of KDE Plasma UI components which are not meant to be modified. Make sure to create backups before attempting to install this project. I am not responsible for broken KDE and/or Linux installs.
 
-Due to the fact that this project is under development and depends on upstream for a lot of things, many things are subject to change and will likely break as KDE Plasma gets updated over time. Keep an eye out on the issue tracker for further details when things inevitably happen to break. 
+Because this project is under development and relies on upstream for a lot of things, many things are subject to change and will likely break as KDE Plasma gets updated over time. Keep an eye out on the issue tracker for further details when things inevitably happen to break. 
 
 Lastly, feel free to fork this project and/or contribute to it in any way. Any and all effort is greatly appreciated.
 
@@ -104,6 +104,10 @@ Lastly, feel free to fork this project and/or contribute to it in any way. Any a
 ### Icons
 
 <img src="Screenshots/Icons.png">
+
+### Lock Screen
+
+<img src="Screenshots/Lock_Screen.png">
 
 ### Plasma Style
 
@@ -153,9 +157,7 @@ The main goal is to maintain the Aero visual style and keep it as authentic as p
 
 ### Will there be a Vista variant of this theme?
 
-I'd like to make it, but this project has already gone up too much in scope for one person to handle :)
-
-Still, there's enough demand for it to warrant development, so I don't want to say no, but it's not happening soon. 
+Yes, however do not expect it to happen anytime soon. Progress is slow, as the main focus is still on Windows 7.
 
 ### Why do certain details of this theme still look inaccurate and wrong?
 

@@ -1,0 +1,6 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/svgs">
+  <file>frame.svg</file>
+  <file>frame-select.svg</file>
+</qresource>
+</RCC>

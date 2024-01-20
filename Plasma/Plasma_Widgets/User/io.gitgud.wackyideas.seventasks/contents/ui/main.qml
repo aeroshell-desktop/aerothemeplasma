@@ -412,14 +412,14 @@ MouseArea {
 
         visible: false;
 
-        imagePath: "widgets/tasks";
+        imagePath: Qt.resolvedUrl("svgs/tasks.svg");
         prefix: "normal"
     }
 
     PlasmaCore.Svg {
         id: taskSvg
 
-        imagePath: "widgets/tasks"
+        imagePath: Qt.resolvedUrl("svgs/tasks.svg");
     }
     PlasmaCore.Svg {
         id: mediaIcons

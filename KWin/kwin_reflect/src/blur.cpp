@@ -103,6 +103,12 @@ bool BlurEffect::shouldColorize(KWin::EffectWindow *w)
     QString windowclass = w->windowClass().split(' ')[0];
     return !(w->isDesktop() || w->isSplash() || /*w->isHidden() || w->isMinimized() ||*/ m_excludedWindowsColorization.contains(windowclass));
 }
+bool BlurEffect::treatAsActive(KWin::EffectWindow *w)
+{
+    QString windowclass = w->windowClass().split(' ')[0];
+    return w->isFullScreen() || !w->isNormalWindow() || w == effects->activeWindow() || windowclass == "latte-dock";
+
+}
 BlurEffect::~BlurEffect()
 {
     if(m_reflectionTexture) delete m_reflectionTexture;
@@ -180,6 +186,8 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
 
     m_excludedWindows = BlurConfig::excludedWindows().split(';');
     m_excludedWindowsColorization = BlurConfig::excludedColorization().split(';');
+
+	m_enableFirefoxHack = BlurConfig::enableFirefoxHack();
 
     m_firstTimeReconfigure = true;
     // Update all windows for the blur to take effect
@@ -436,7 +444,13 @@ void BlurEffect::prePaintScreen(ScreenPrePaintData &data, std::chrono::milliseco
 void BlurEffect::prePaintWindow(EffectWindow *w, WindowPrePaintData &data, std::chrono::milliseconds presentTime)
 {
     // this effect relies on prePaintWindow being called in the bottom to top order
-
+	
+	// We perform a bit of tomfoolery :)
+	// massive if factual
+    QString windowclass = w->windowClass().split(' ')[0];
+	if(windowclass == "navigator" && m_enableFirefoxHack) {
+			data.setTranslucent();
+	}
     effects->prePaintWindow(w, data, presentTime);
 
     if (!m_shader || !m_shader->isValid()) {
@@ -558,7 +572,7 @@ void BlurEffect::drawWindow(EffectWindow *w, int mask, const QRegion &region, Wi
         projectionMatrix.ortho(screen);
 
         if(!colorizationShape.isEmpty() && m_enableColorization) {
-            doBlur(colorizationShape, screen, data.opacity(), projectionMatrix, w->isDock() || transientForIsDock, w->frameGeometry().toRect(), w->isFullScreen() || !w->isNormalWindow() || w == effects->activeWindow(), false);
+            doBlur(colorizationShape, screen, data.opacity(), projectionMatrix, w->isDock() || transientForIsDock, w->frameGeometry().toRect(), treatAsActive(w), false);
         }
         if (!shape.isEmpty()) {
             doBlur(shape, screen, data.opacity(), projectionMatrix, w->isDock() || transientForIsDock, w->frameGeometry().toRect());

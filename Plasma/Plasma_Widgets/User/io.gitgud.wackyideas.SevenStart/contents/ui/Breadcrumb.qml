@@ -18,12 +18,13 @@
 import QtQuick 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
- import QtQuick.Controls.Styles.Plasma 2.0 as Styles
+import org.kde.plasma.extras 2.0 as PlasmaExtras
+import QtQuick.Controls.Styles.Plasma 2.0 as Styles
 
 Item {
     id: crumbRoot
 
-    height: crumb.implicitHeight
+    height: crumb.implicitHeight + units.smallSpacing * 2
     width: crumb.implicitWidth + arrowSvg.width
 
     property string text
@@ -31,59 +32,61 @@ Item {
     property int depth: model.depth
 
     function clickCrumb() {
-        crumb.clicked();
+        heading_ma.clicked(null);
     }
 
-    PlasmaComponents.ToolButton {
-        id: crumb
+    PlasmaExtras.Heading {
+			id: crumb
+			anchors {
+				left: arrowSvg.right
+				top: parent.top
+				bottom: parent.bottom
+				topMargin: units.smallSpacing
+				leftMargin: units.smallSpacing
+				bottomMargin: units.smallSpacing
+			}
+			horizontalAlignment: Text.AlignHCenter
+			text: crumbRoot.text + " "
+			color: "#404040"
+			font.underline: heading_ma.enabled && heading_ma.containsMouse
+			level: 5
 
-        anchors.left: arrowSvg.right
-        Rectangle {
-            anchors.fill: parent
-            anchors.leftMargin: PlasmaCore.Units.smallSpacing;
-            anchors.topMargin: PlasmaCore.Units.smallSpacing;
-            anchors.rightMargin: PlasmaCore.Units.smallSpacing;
-            anchors.bottomMargin: PlasmaCore.Units.smallSpacing;
-            color: "white"
-            Text {
-				id: textLabel
+			MouseArea {
+				id: heading_ma
 				anchors.fill: parent
-				horizontalAlignment: Text.AlignHCenter
-				verticalAlignment: Text.AlignVCenter
-				text: crumbRoot.text
-				font.pixelSize: 12
-				color: "#404040"
-        	}
+				hoverEnabled: crumbRoot.depth < crumbModel.count
+				enabled: crumbRoot.depth < crumbModel.count
+                onClicked: {
+                    // Remove all the breadcrumbs in front of the clicked one
+                    while (crumbModel.count > 0 && crumbRoot.depth < crumbModel.get(crumbModel.count-1).depth) {
+                        crumbModel.remove(crumbModel.count-1)
+                        crumbModel.models.pop()
+                    }
+
+                    if (crumbRoot.root) {
+                        applicationsView.newModel = rootModel;
+                    } else {
+                        applicationsView.newModel = crumbModel.models[index];
+                    }
+                    applicationsView.state = "OutgoingRight";
+                }
+				cursorShape: Qt.PointingHandCursor
+				z: 99
+			}
+		}
+		PlasmaCore.SvgItem {
+                id: arrowSvg
+
+                anchors.left: parent.left
+                anchors.leftMargin: units.smallSpacing*2
+                anchors.verticalCenter: parent.verticalCenter
+                height: crumbRoot.height / 2
+                width: visible ? height : 0
+
+                svg: arrowsSvg
+                elementId: LayoutMirroring.enabled ? "right-arrow" : "left-arrow"
         }
-        
-        text: crumbRoot.text
-        enabled: crumbRoot.depth < crumbModel.count
-        onClicked: {
-            // Remove all the breadcrumbs in front of the clicked one
-            while (crumbModel.count > 0 && crumbRoot.depth < crumbModel.get(crumbModel.count-1).depth) {
-                crumbModel.remove(crumbModel.count-1)
-                crumbModel.models.pop()
-            }
 
-            if (crumbRoot.root) {
-                applicationsView.newModel = rootModel;
-            } else {
-                applicationsView.newModel = crumbModel.models[index];
-            }
-            applicationsView.state = "OutgoingRight";
-        }
-    }
 
-    PlasmaCore.SvgItem {
-        id: arrowSvg
 
-        anchors.left: parent.left
-        anchors.verticalCenter: parent.verticalCenter
-        height: crumbRoot.height / 2
-        width: visible ? height : 0
-
-        svg: arrowsSvg
-        elementId: LayoutMirroring.enabled ? "left-arrow" : "right-arrow"
-        visible: !crumbRoot.root
-    }
 } // crumbRoot

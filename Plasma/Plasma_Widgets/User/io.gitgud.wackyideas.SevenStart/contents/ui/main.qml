@@ -63,7 +63,7 @@ Item {
 
     Component {
         id: menuRepresentation
-        MenuRepresentation {}
+        MenuRepresentation { }
     }
 
     // Used to run separate programs through this plasmoid.
@@ -95,13 +95,14 @@ Item {
         appNameFormat: plasmoid.configuration.appNameFormat
         flat: true
         sorted: true
-        showSeparators: true
+        showSeparators: false
         appletInterface: plasmoid
 
         paginate: false
         pageSize: plasmoid.configuration.numberColumns *  plasmoid.configuration.numberRows
 
         showAllApps: false
+        showAllAppsCategorized: false
         showRecentApps: true
         showRecentDocs: false
         showRecentContacts: false
@@ -206,6 +207,10 @@ Item {
         id: arrowsSvg
         imagePath: Qt.resolvedUrl("svgs/arrows.svgz")
         size: "16x16"
+    }
+    PlasmaCore.Svg {
+        id: separatorSvg
+        imagePath: Qt.resolvedUrl("svgs/sidebarseparator.svg")
     }
     PlasmaCore.Svg {
         id: lockScreenSvg

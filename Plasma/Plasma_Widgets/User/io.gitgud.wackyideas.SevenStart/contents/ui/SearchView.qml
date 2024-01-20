@@ -29,29 +29,30 @@ Item {
 
     objectName: "SearchView"
 
-    function decrementCurrentIndex() {
-        runnerModel.decrementCurrentIndex();
+	function decrementCurrentIndex() {
+		runnerGrid.modelIndex--;
     }
 
     function incrementCurrentIndex() {
-        runnerModel.incrementCurrentIndex();
+		runnerGrid.modelIndex++;
     }
 
-    function activateCurrentIndex() {
-        runnerModel.currentItem.activate();
+	function activateCurrentIndex() {
+		runnerGrid.tryActivate();
+        //runnerModel.currentItem.activate();
     }
 
     function openContextMenu() {
         runnerModel.currentItem.openActionMenu();
     }
-
     function setCurrentIndex() {
-        runnerModel.currentIndex = 0;
+        runnerGrid.modelIndex = 0;
     }
     function resetCurrentIndex() {
         runnerModel.currentIndex = -1;
     }
     function onQueryChanged() {
+            queryFinished = false;
             runnerModel.query = searchField.text;
 
             if (!searchField.text) {
@@ -64,7 +65,7 @@ Item {
                 }
             }
     }
-
+    property bool queryFinished: false
     property int repeaterModelIndex: 0
     onFocusChanged: {
 
@@ -72,7 +73,6 @@ Item {
             if(!focus) repeaterModelIndex = runnerGrid.repeater.currentModelIndex;
             else {
                 runnerGrid.repeater.currentModelIndex = repeaterModelIndex;
-                console.log("home.");
             }
         }
     }
@@ -89,12 +89,19 @@ Item {
     Connections {
         target: runnerModel
 
-        function onCountChanged() {
+        /*function onQueryFinished() {
+            if (runnerModel.count) {
+                runnerGrid.model = null;
+                runnerGrid.model = runnerModel;
+                queryFinished = true;
+            }
 
+        }*/
+        /*function onCountChanged() {
             if (runnerModel.count && !runnerGrid.model) {
                 runnerGrid.model = runnerModel;
             }
-        }
+        }*/
     }
 
     ItemMultiGridView {
@@ -103,12 +110,12 @@ Item {
     	anchors.leftMargin: units.smallSpacing;
     	z: 9999
     	aCellWidth: parent.width - units.smallSpacing*2
-    	aCellHeight: iconSize + units.smallSpacing
+    	aCellHeight: units.iconSizes.small + units.smallSpacing + units.smallSpacing/2
 
     	enabled: searchField.text
     	isSquare: false
     	model: runnerModel
-    	grabFocus: true
+    	//grabFocus: true
 	}
 
 }

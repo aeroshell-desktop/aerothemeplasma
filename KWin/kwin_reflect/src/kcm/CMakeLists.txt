@@ -3,6 +3,8 @@ set(kcm_SRCS
     mainwindow.cpp
     flowlayout.cpp
     colorwindow.cpp
+    colorbutton.cpp
+    blur_config.qrc
 )
 
 kconfig_add_kcfg_files(kcm_SRCS

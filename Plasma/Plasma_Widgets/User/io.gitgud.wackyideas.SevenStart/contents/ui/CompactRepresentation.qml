@@ -119,6 +119,17 @@ Item {
 
         function onPanelChanged() { updateSizeHints(); }
     }
+
+    Connections {
+        target: plasmoid
+
+        function onScreenGeometryChanged() {
+            positionOrb();
+        }
+        function onScreenChanged() {
+            positionOrb();
+        }
+    }
     property bool compositing: kwindowsystem.compositingActive
 
     onCompositingChanged: {

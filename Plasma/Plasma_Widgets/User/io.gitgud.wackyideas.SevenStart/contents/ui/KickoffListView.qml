@@ -33,7 +33,8 @@ FocusScope {
     readonly property Item scrollArea: scrollArea
 
     property bool showAppsByName: true
-    property bool appView: false
+	property bool appView: false
+	property bool small: false
 
     property alias model: listView.model
     property alias delegate: listView.delegate
@@ -85,18 +86,19 @@ FocusScope {
                 id: delegateItem
 
                 appView: view.appView
-                showAppsByName: view.showAppsByName
+				showAppsByName: view.showAppsByName
+				smallIcon: small
 
                 onReset: view.reset()
-                onAddBreadcrumb: view.addBreadcrumb(model, title)
+                onAddBreadcrumb: view.addBreadcrumb(model, title);
             }
-            spacing: PlasmaCore.Units.smallSpacing/2
+            spacing: small ? 0 : PlasmaCore.Units.smallSpacing/2
 
-            section {
+            /*section {
                 property: "group"
                 criteria: ViewSection.FullString
                 delegate: SectionDelegate {}
-            }
+            }*/
 
             MouseArea {
                 anchors.left: parent.left

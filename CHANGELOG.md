@@ -1,3 +1,60 @@
+<h1>Version 0.2.2</h2> 
+
+<h2>SUMMARY:</h2>
+
+This update focuses on bugfixes and polish, working out some small details to improve the accuracy of the theme. The most notable changes are removing the need to edit system components (for the most part) and the addition of an accurate lock screen and login screen created by [dominichayesferen](https://github.com/dominichayesferen) and me. Bugfixes are mostly related to the task manager and start menu.
+
+This will be the last update before the release of KDE Plasma 6, and work will (hopefully) be done this month to ensure the theme is ported entirely by February. The next update will simply focus on making AeroThemePlasma work on KDE 6, and updates after that will focus on the following: 
+
+- Refactoring the KWin decoration theme to remove the dependency on Smaragd, make it more configurable and make it work better for higher DPI scales. 
+- Improving the icon theme.
+- Implementing an automatic install script.
+- Creating a sound theme.
+
+<h2>NEW:</h2>
+
+- Added new splash screen and lock screen UI. (authui7)
+- Added experimental semi-automatic install script.
+- Added alternative Emerald theme.
+- Added partial fix for Firefox transparency. TODO: Add border radius tweaks.
+- Removed Aero Splash Screen. (io.gitgud.wackyideas.aerosplashscreen)
+
+<h2>CHANGED:</h2>
+
+<h3>Meta:</h3>
+
+- Install guide provides more information for Debian-based distributions.
+- Install guide now recommends installing system plasmoids locally instead of overwriting
+  them.
+
+<h3>Seven Tasks:</h3>
+
+- Tasks with labels now have a smaller default length to match Windows 7.
+- Tasks with labels now have a slight darkening effect to improve readability.
+- Task icons are set to 16px when the panel is <=30px tall.
+
+<h3>Seven Start:</h3>
+
+- Added more side menu entries.
+- Added separators in the side menu.
+- "All programs" button is more accurate in terms of height and padding.
+- The arrow in the "All programs" button has been changed to look more accurate.
+- The "All programs" view has been changed to feature compact list items, breadcrumbs have been removed in favor of a simple back button.
+- The search view has been changed to feature compact list items.
+- List items no longer display descriptions.
+
+<h2>FIXED:</h2>
+
+- Fixed inconsistent panel background padding when compositing is disabled. (#25)
+- Fixed (for the most part) inconsistent Seven Start menu height which lead to inconsistent list item alignment.
+- Fixed side menu overflow in Seven Start when the side menu is taller than the main list view.
+- Seven Start's search view no longer automatically steals focus from the search text box, allowing for caret movement via the left and right arrow keys.
+- Fixed (for the most part) Seven Start's floating avatar and floating orb from being positioned incorrectly in multimonitor setups. (#23)
+- Seven Start's floating orb and floating avatar will respond correctly to (most) changes to the current monitor configuration. (#23)
+- Fixed weird behavior in Seven Start, especially in the "All programs" view.
+- Fixed small alignment issues with various plasmoids.
+- (Workaround) Exiting the Seven Start configuration window will fix the transparency mask issue when compositing is disabled. This issue happens when the user enters some plasmoid's configurations or changes the theme. 
+
 <h1>Version 0.2.1</h1>
 
 <h2>CHANGED:</h2>
@@ -17,6 +74,10 @@
 <h3>Seven Tasks:</h3>
 
 - Media control buttons have been revamped to look more like Windows 7's counterpart.
+
+<h3>Reflection effect:</h3>
+
+- Updated color mixer graphics.
 
 <h3>Plasma theme</h3>
 

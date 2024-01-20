@@ -31,7 +31,7 @@ To keep the documentation condensed and to prevent redundancy, components that d
 - Date and time (io.gitgud.wackyideas.digitalclocklite)
 - Show desktop (Aero) (io.gitgud.wackyideas.win7showdesktop)
 - Keyboard switcher (org.kde.plasma.keyboardlayout)
-- Splash screen (aero-splash-screen)
+- Look and Feel (Splash and Lock screen theme) (authui7)
 - Plasma tooltip (DefaultToolTip.qml)
 - Wine theme (Windows Style Builder)
 - Color scheme ([KDE's docs](https://docs.kde.org/stable5/en/plasma-workspace/kcontrol/colors/index.html), [Video guide](https://www.youtube.com/watch?v=6VW--o7CEEA))
@@ -89,13 +89,13 @@ This is a list of components that are included in this project, as well as their
 
 |Name          |Description                                                            |Finished|Fork|
 |--------------|-----------------------------------------------------------------------|--------|----|
-|AeroColorMixer|Program designed for changing the accent color across the entire theme. (NOTE: This program is now deprecated and has been moved into the reflection effect.)|Y       |N/A |
+|AeroColorMixer|Program designed for changing the accent color across the entire theme. **(NOTE: This program is now deprecated and has been moved into the reflection effect.)**|Y       |N/A |
 
 ### Miscellaneous
 
 |Name               |Description                     |Finished|Fork|
 |-------------------|--------------------------------|--------|----|
-|Aero Splash Screen |Aero themed login splash screen.|Y       |[Matias Saibene](https://store.kde.org/p/1920070/)|
+|Authui7 |Aero themed login splash and lock screen.|Y       |[dominichayesferen](https://github.com/dominichayesferen)|
 
 
 
@@ -104,8 +104,8 @@ This is a list of components that are included in this project, as well as their
 
 These components are listed from highest priority to lowest priority.
 
-- **Qt visual style based on reading Msstyle themes (Like QWindowsVistaStyle)**
+- **Qt visual style to closely replicate the native Windows GUI appearance (Like QWindowsVistaStyle, or a fork of Kvantum)**
 - **Proper sound theme (upcoming in KDE Plasma 6)**
-- **SDDM Login theme and lock screen**
+- **SDDM Login theme**
 - **Better folder thumbnailer plugin**
 - **Plymouth theme(?)**
