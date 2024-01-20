@@ -4,7 +4,7 @@
 
 This update focuses on bugfixes and polish, working out some small details to improve the accuracy of the theme. The most notable changes are removing the need to edit system components (for the most part) and the addition of an accurate lock screen and login screen created by [dominichayesferen](https://github.com/dominichayesferen) and me. Bugfixes are mostly related to the task manager and start menu.
 
-This will be the last update before the release of KDE Plasma 6, and work will (hopefully) be done this month to ensure the theme is ported entirely by February. The next update will simply focus on making AeroThemePlasma work on KDE 6, and updates after that will focus on the following: 
+This will be the last update before the release of KDE Plasma 6, and work will (hopefully, no promises though!) be done this month to ensure the theme is ported entirely by February. The next update will simply focus on making AeroThemePlasma work on KDE 6, and updates after that will focus on the following: 
 
 - Refactoring the KWin decoration theme to remove the dependency on Smaragd, make it more configurable and make it work better for higher DPI scales. 
 - Improving the icon theme.
