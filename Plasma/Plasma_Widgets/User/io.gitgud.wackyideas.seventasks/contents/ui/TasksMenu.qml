@@ -1019,7 +1019,7 @@ PlasmaCore.Dialog {
                 left: parent.left
                 right: parent.right
                 leftMargin: 2
-                rightMargin: PlasmaCore.Units.smallSpacing
+                rightMargin: PlasmaCore.Units.smallSpacing-1
                 bottomMargin: 2
             }
             Rectangle {
