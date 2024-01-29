@@ -185,7 +185,7 @@ PlasmaCore.Dialog {
         Layout.minimumWidth:  root.cellWidth + root.cellWidthSide
 		Layout.maximumWidth:  root.cellWidth + root.cellWidthSide
 
-		property int mainPanelHeight: ((root.cellHeight+units.smallSpacing/2) * (plasmoid.configuration.numberRows-1)) + searchBackground.height + (allButtonsArea.height) + (units.smallSpacing * (15 - plasmoid.configuration.numberRows)) + units.smallSpacing / 2 + 1
+		property int mainPanelHeight: ((root.cellHeight+units.smallSpacing/2) * (plasmoid.configuration.numberRows-1)) + searchBackground.height + (allButtonsArea.height) + (units.smallSpacing * (15 - plasmoid.configuration.numberRows)) + units.smallSpacing / 2 + 1 - (plasmoid.configuration.showRecentsView ? 0 : units.smallSpacing*2) 
 		property int sidePanelHeight: backgroundBorderLine.height + searchBackground.height + columnItems.height + (compositingEnabled ? units.iconSizes.huge / 2 + units.smallSpacing : nonCompositingIcon.height + units.smallSpacing);
 		property bool sidePanelOverflow: mainPanelHeight <= sidePanel; 
 
@@ -411,7 +411,7 @@ PlasmaCore.Dialog {
             width: root.cellWidth
             height: (plasmoid.configuration.showRecentsView ?
 					(((root.cellHeight-2) * (faves.getFavoritesCount() > 9 ? 9 : faves.getFavoritesCount()))/* - units.smallSpacing * 2*/) :
-					((root.cellHeight) * plasmoid.configuration.numberRows - units.smallSpacing/2 - allProgramsButton.height*2 - allProgramsSeparator.height)) - units.smallSpacing/2
+					((root.cellHeight-2) * (plasmoid.configuration.numberRows+1) + units.smallSpacing*2+1 - allProgramsButton.height*2 - allProgramsSeparator.height)) - units.smallSpacing/2 
 
             visible: !showingAllPrograms && !searching
             z: 8
