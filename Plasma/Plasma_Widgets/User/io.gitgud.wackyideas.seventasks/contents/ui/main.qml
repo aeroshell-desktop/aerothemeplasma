@@ -64,24 +64,6 @@ MouseArea {
     signal activateWindowView(variant winIds)
     signal presentWindows(variant winIds)
 
-    states: State {
-        // When showing labels is toggled on/off, a weird bug happens where
-        // tasks switch up their dominant colors due to sudden reordering.
-        name: "iconsOnlyChanged"; when: iconsOnly
-        StateChangeScript {
-        script: taskList.updateHoverFunc();
-        }
-        StateChangeScript {
-            script: LayoutManager.layout(taskRepeater);
-        }
-        PropertyChanges {
-            target: taskList; firstTimeHover: false // Prevents weird tooltip-related bugs from happening.
-        }
-        PropertyChanges {
-            target: tasks; needLayoutRefresh: true
-        }
-        
-    }
     onWidthChanged: {
         taskList.width = LayoutManager.layoutWidth();
 
@@ -389,6 +371,12 @@ MouseArea {
     Connections {
         target: plasmoid.configuration
 
+        function onLabelVisibleChanged() {
+            taskList.updateHoverFunc();
+            LayoutManager.layout(taskRepeater);
+            taskList.firstTimeHover = false;
+            tasks.needsLayoutRefresh = true;
+        }
         function onLaunchersChanged() { 
             tasksModel.launcherList = plasmoid.configuration.launchers 
         }
