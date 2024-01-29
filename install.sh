@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Somewhat automatic install script for AeroThemePlasma
 # This installer is a WIP and doesn't do much other than
@@ -10,6 +10,9 @@
 
 # Defining some useful paths
 # User directories
+
+set -e
+
 USER_CONFIG=~/.config/
 USER_LOCAL=~/.local/share/
 PLASMA_THEMES=${USER_LOCAL}plasma/desktoptheme/
@@ -103,7 +106,7 @@ function warning {
 	local answer="N"
 
 	read -p "Do you want to continue? [y/N] " answer
-	if [[ $answer != "y" ]] && [[ $answer != "Y" ]]
+	if [[ $answer != [Yy] ]]
 	then
 		printf "Exiting installer.\n"
 		exit
@@ -114,11 +117,17 @@ function warning {
 function dependencies {
 	local answer="N"
 
+	if (( EUID != 0 ))
+	then
+		printf "Not running as root. The installer will now exit.\n"
+		exit 1
+	fi
+
 	if [ command -v pacman &> /dev/null ] 
 	then
 		read -p "The installer couldn't detect an Arch-based distribution installed on your computer.\nCurrently only Arch-based distributions are supported by the installer. Do you wish to continue? [y/N]\n\n" answer
 
-		if [[ $answer != "y" ]] && [[ $answer != "Y" ]]
+		if [[ $answer != [Yy] ]]
 		then 
 			printf "Exiting installer.\n"
 			exit
@@ -128,18 +137,23 @@ function dependencies {
 	printf "Required dependencies:\n- git\n- kvantum\n- tar\n- cmake\n- extra-cmake-modules\n- Qt5 GraphicalEffects\n"
 	printf "Checking dependencies..."
 	
-	if [ $(echo $XDG_CURRENT_DESKTOP | grep KDE &> /dev/null) ]
+	if [[ $XDG_CURRENT_DESKTOP != KDE ]]
 	then
 		printf "\nThe installer couldn't detect KDE running on this system. The installer will now exit.\n"
 		exit
 	fi
-	if [ command -v git &> /dev/null ] || [ command -v tar &> /dev/null ] || [ command -v cmake &> /dev/null ] || [ command -v kvantummanager &> /dev/null ] || ! [ -f /usr/lib/qt/qml/QtGraphicalEffects/qmldir ] || ! [ -f /usr/share/ECM/cmake/ECMConfig.cmake ]
-	then
-		printf "\nMissing dependencies. The installer will now exit.\n"
-		exit
-	else
-		printf " done.\n"
-	fi
+	for cmd in git tar cmake kvantummanager \
+		/usr/lib/qt/qml/QtGraphicalEffects/qmldir \
+		/usr/share/ECM/cmake/ECMConfig.cmake
+	do
+		if ! command -v "$cmd" >/dev/null
+		then
+			printf "Dependency '%s' is missing. The installer will now exit.\n" "$cmd"
+			exit 1
+		else
+			printf " done.\n"
+		fi
+	done
 }
 function install_system {
 	echo "Overwriting system components..."
@@ -147,8 +161,9 @@ function install_system {
 
 	sudo mkdir -p "${TOOLTIP_DIR}"
 	echo "Backing up DefaultToolTip.qml..."
-	if ! test -f ${TOOLTIP_DIR}${TOOLTIP_QML}.bak; then
-		sudo cp ${TOOLTIP_DIR}${TOOLTIP_QML} ${TOOLTIP_DIR}${TOOLTIP_QML}.bak
+
+	if [[ ! -f ${TOOLTIP_DIR}${TOOLTIP_QML}.bak ]]; then
+		sudo cp "${TOOLTIP_DIR}${TOOLTIP_QML}" "${TOOLTIP_DIR}${TOOLTIP_QML}.bak"
 	fi
 	echo "Installing DefaultToolTip.qml..."
 	sudo cp "${INNER_PLASMA_WIDGETS}System/${TOOLTIP_QML}" "${TOOLTIP_DIR}${TOOLTIP_QML}"
@@ -157,30 +172,33 @@ function install {
 	printf "Running AeroThemePlasma installer\n"
 	warning
 	install_system
-	mkdir -p $PLASMA_THEMES
-	mkdir -p $USER_PLASMOIDS
-	mkdir -p $COLOR_SCHEMES
-	mkdir -p $USER_ICONS
-	mkdir -p $USER_LOOK_AND_FEEL
-	mkdir -p $KWIN_SWITCHER_DIR
+	mkdir -p \
+		"$PLASMA_THEMES" \
+		"$USER_PLASMOIDS" \
+		"$COLOR_SCHEMES" \
+		"$USER_ICONS" \
+		"$USER_LOOK_AND_FEEL" \
+		"$KWIN_SWITCHER_DIR"
 	echo "Installing user plasmoids..."
 	sudo mkdir -p "${PLASMOID_PLUGINS}"
 	sudo cp "${INNER_PLASMA_WIDGETS}User/${SEVEN_TASKS_PLUGIN}" "${PLASMOID_PLUGINS}"
 	sudo cp "${INNER_PLASMA_WIDGETS}User/${SEVEN_START_PLUGIN}" "${PLASMOID_PLUGINS}"
-	rm -r "${USER_PLASMOIDS}${SEVEN_TASKS}" > /dev/null
-	rm -r "${USER_PLASMOIDS}${SEVEN_START}" > /dev/null
-	rm -r "${USER_PLASMOIDS}${DIGITALCLOCKLITE}" > /dev/null
-	rm -r "${USER_PLASMOIDS}${SHOW_DESKTOP}" > /dev/null
+	rm -r \
+		"${USER_PLASMOIDS}${SEVEN_TASKS}" \
+		"${USER_PLASMOIDS}${SEVEN_START}" \
+		"${USER_PLASMOIDS}${DIGITALCLOCKLITE}" \
+		"${USER_PLASMOIDS}${SHOW_DESKTOP}"
 
-	sudo rm -r "${USER_PLASMOIDS}${SYSTRAY}" > /dev/null
-	sudo rm -r "${USER_PLASMOIDS}${KEYBOARD_LAYOUT}" > /dev/null
-	sudo rm -r "${USER_PLASMOIDS}${DESKTOP_CONTAINMENT}" > /dev/null
+	sudo rm -r "${USER_PLASMOIDS}${SYSTRAY}" \
+		"${USER_PLASMOIDS}${KEYBOARD_LAYOUT}" \
+		"${USER_PLASMOIDS}${DESKTOP_CONTAINMENT}"
 
-	rm -rf "${USER_ICONS}${ICONTHEME}" > /dev/null
-	rm -rf "${USER_ICONS}${CURSORTHEME}" > /dev/null
-	rm -r "${USER_LOOK_AND_FEEL}${SPLASH_SCREEN}" > /dev/null
-	rm -r "${PLASMA_THEMES}${PLASMA_THEME}" > /dev/null
-	rm -r "${KWIN_SWITCHER_DIR}${KWIN_SWITCHER}" > /dev/null
+	rm -rf \
+		"${USER_ICONS}${ICONTHEME}" \
+		"${USER_ICONS}${CURSORTHEME}" \
+		"${USER_LOOK_AND_FEEL}${SPLASH_SCREEN}" \
+		"${PLASMA_THEMES}${PLASMA_THEME}" \
+		"${KWIN_SWITCHER_DIR}${KWIN_SWITCHER}"
 
 	for f in ${INNER_PLASMA_WIDGETS}User/io.gitgud.wackyideas.*; do 
 		cp -r "$f" "${USER_PLASMOIDS}"
@@ -203,10 +221,12 @@ function install {
 
 	echo "Installing Reflection effect..."
 
-	local rootdir=$(pwd)
-	cd ${INNER_KWIN}kwin_reflect
-	sh install.sh
-	cd ${rootdir}
+	local rootdir=$PWD
+	local script=./install.sh
+
+	cd "${INNER_KWIN}kwin_reflect"
+	chmod +x "$script" && "$script"
+	cd "$rootdir"
 	#sudo mkdir -p "${KWIN_EFFECTS_DIR}"
 	#sudo mkdir -p "${KWIN_CONFIGS_DIR}"
 	#sudo cp "${INNER_KWIN}kwin_reflect/bin/${KWIN_EFFECT}" "${KWIN_EFFECTS_DIR}"
