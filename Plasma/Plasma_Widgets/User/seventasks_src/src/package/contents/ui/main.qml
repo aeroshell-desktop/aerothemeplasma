@@ -88,6 +88,7 @@ MouseArea {
         if (plasmoid.configuration.forceStripes) {
             taskList.height = LayoutManager.layoutHeight();
         }
+        taskList.updateHoverSizes();
     }
 
     onHeightChanged: {
@@ -96,6 +97,7 @@ MouseArea {
         }
 
         taskList.height = LayoutManager.layoutHeight();
+        taskList.updateHoverSizes();
     }
 
     onDragSourceChanged: {
@@ -410,14 +412,14 @@ MouseArea {
 
         visible: false;
 
-        imagePath: "widgets/tasks";
+        imagePath: Qt.resolvedUrl("svgs/tasks.svg");
         prefix: "normal"
     }
 
     PlasmaCore.Svg {
         id: taskSvg
 
-        imagePath: "widgets/tasks"
+        imagePath: Qt.resolvedUrl("svgs/tasks.svg");
     }
     PlasmaCore.Svg {
         id: mediaIcons
@@ -515,6 +517,15 @@ MouseArea {
             for(var i = 0; i < taskRepeater.count; i++) {
                 if(taskRepeater.itemAt(i)) {
                     taskRepeater.itemAt(i).updateHoverColor();
+                }
+            }
+            tasks.state = "";
+            //console.log("Updated hovers");
+        }
+        function updateHoverSizes() {
+            for(var i = 0; i < taskRepeater.count; i++) {
+                if(taskRepeater.itemAt(i)) {
+                    taskRepeater.itemAt(i).updateHoverSize();
                 }
             }
             tasks.state = "";

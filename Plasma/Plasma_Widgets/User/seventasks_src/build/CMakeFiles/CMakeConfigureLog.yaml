@@ -4,10 +4,10 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:211 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:233 (message)"
       - "CMakeLists.txt:3 (project)"
     message: |
-      The system is: Linux - 6.1.51-1-lts - x86_64
+      The system is: Linux - 6.1.66-1-lts - x86_64
   -
     kind: "message-v1"
     backtrace:
@@ -28,7 +28,7 @@ events:
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
       
       The C compiler identification is GNU, found in:
-        /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/3.27.4/CompilerIdC/a.out
+        /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/3.28.0/CompilerIdC/a.out
       
   -
     kind: "message-v1"
@@ -50,7 +50,7 @@ events:
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
       
       The CXX compiler identification is GNU, found in:
-        /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/3.27.4/CompilerIdCXX/a.out
+        /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/3.28.0/CompilerIdCXX/a.out
       
   -
     kind: "try_compile-v1"
@@ -61,8 +61,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-o7EvqC"
-      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-o7EvqC"
+      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-asWA90"
+      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-asWA90"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -71,13 +71,13 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-o7EvqC'
+        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-asWA90'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_e8009/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_e8009.dir/build.make CMakeFiles/cmTC_e8009.dir/build
-        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-o7EvqC'
-        Building C object CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o
-        /usr/bin/cc   -v -o CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_63b8b/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_63b8b.dir/build.make CMakeFiles/cmTC_63b8b.dir/build
+        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-asWA90'
+        Building C object CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o
+        /usr/bin/cc   -v -o CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c
         Using built-in specs.
         COLLECT_GCC=/usr/bin/cc
         Target: x86_64-pc-linux-gnu
@@ -85,8 +85,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib zstd
         gcc version 13.2.1 20230801 (GCC) 
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_e8009.dir/'
-         /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/cc1 -quiet -v /usr/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_e8009.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -o /tmp/ccB71XoU.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_63b8b.dir/'
+         /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/cc1 -quiet -v /usr/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_63b8b.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -o /tmp/ccZi8y0Z.s
         GNU C17 (GCC) version 13.2.1 20230801 (x86_64-pc-linux-gnu)
         	compiled by GNU C version 13.2.1 20230801, GMP version 6.3.0, MPFR version 4.2.0-p12, MPC version 1.3.1, isl version isl-0.26-GMP
         
@@ -101,15 +101,15 @@ events:
          /usr/include
         End of search list.
         Compiler executable checksum: 865c2688a4f1e3f13d6bf2cc8fd98762
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_e8009.dir/'
-         as -v --64 -o CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o /tmp/ccB71XoU.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_63b8b.dir/'
+         as -v --64 -o CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o /tmp/ccZi8y0Z.s
         GNU assembler version 2.41.0 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.41.0
         COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.'
-        Linking C executable cmTC_e8009
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e8009.dir/link.txt --verbose=1
-        /usr/bin/cc  -v CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o -o cmTC_e8009 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.'
+        Linking C executable cmTC_63b8b
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_63b8b.dir/link.txt --verbose=1
+        /usr/bin/cc  -v CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o -o cmTC_63b8b 
         Using built-in specs.
         COLLECT_GCC=/usr/bin/cc
         COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/lto-wrapper
@@ -120,10 +120,10 @@ events:
         gcc version 13.2.1 20230801 (GCC) 
         COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_e8009' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_e8009.'
-         /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/lto-wrapper -plugin-opt=-fresolution=/tmp/cc68uHtH.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_e8009 /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../.. CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crtn.o
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_e8009' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_e8009.'
-        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-o7EvqC'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_63b8b' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_63b8b.'
+         /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/lto-wrapper -plugin-opt=-fresolution=/tmp/ccpQPGga.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_63b8b /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../.. CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_63b8b' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_63b8b.'
+        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-asWA90'
         
       exitCode: 0
   -
@@ -151,19 +151,19 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:152 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:159 (message)"
       - "/usr/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
       - "CMakeLists.txt:3 (project)"
     message: |
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-o7EvqC']
+        ignore line: [Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-asWA90']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_e8009/fast]
-        ignore line: [/usr/bin/make  -f CMakeFiles/cmTC_e8009.dir/build.make CMakeFiles/cmTC_e8009.dir/build]
-        ignore line: [make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-o7EvqC']
-        ignore line: [Building C object CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o]
-        ignore line: [/usr/bin/cc   -v -o CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_63b8b/fast]
+        ignore line: [/usr/bin/make  -f CMakeFiles/cmTC_63b8b.dir/build.make CMakeFiles/cmTC_63b8b.dir/build]
+        ignore line: [make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-asWA90']
+        ignore line: [Building C object CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/usr/bin/cc   -v -o CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/cc]
         ignore line: [Target: x86_64-pc-linux-gnu]
@@ -171,8 +171,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib zstd]
         ignore line: [gcc version 13.2.1 20230801 (GCC) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_e8009.dir/']
-        ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/cc1 -quiet -v /usr/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_e8009.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -o /tmp/ccB71XoU.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_63b8b.dir/']
+        ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/cc1 -quiet -v /usr/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_63b8b.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -o /tmp/ccZi8y0Z.s]
         ignore line: [GNU C17 (GCC) version 13.2.1 20230801 (x86_64-pc-linux-gnu)]
         ignore line: [	compiled by GNU C version 13.2.1 20230801  GMP version 6.3.0  MPFR version 4.2.0-p12  MPC version 1.3.1  isl version isl-0.26-GMP]
         ignore line: []
@@ -187,15 +187,15 @@ events:
         ignore line: [ /usr/include]
         ignore line: [End of search list.]
         ignore line: [Compiler executable checksum: 865c2688a4f1e3f13d6bf2cc8fd98762]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_e8009.dir/']
-        ignore line: [ as -v --64 -o CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o /tmp/ccB71XoU.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_63b8b.dir/']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o /tmp/ccZi8y0Z.s]
         ignore line: [GNU assembler version 2.41.0 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.41.0]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.']
-        ignore line: [Linking C executable cmTC_e8009]
-        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e8009.dir/link.txt --verbose=1]
-        ignore line: [/usr/bin/cc  -v CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o -o cmTC_e8009 ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.']
+        ignore line: [Linking C executable cmTC_63b8b]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_63b8b.dir/link.txt --verbose=1]
+        ignore line: [/usr/bin/cc  -v CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o -o cmTC_63b8b ]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/cc]
         ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/lto-wrapper]
@@ -206,13 +206,13 @@ events:
         ignore line: [gcc version 13.2.1 20230801 (GCC) ]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_e8009' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_e8009.']
-        link line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/lto-wrapper -plugin-opt=-fresolution=/tmp/cc68uHtH.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_e8009 /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../.. CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_63b8b' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_63b8b.']
+        link line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/lto-wrapper -plugin-opt=-fresolution=/tmp/ccpQPGga.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_63b8b /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../.. CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crtn.o]
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/cc68uHtH.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccpQPGga.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -227,7 +227,7 @@ events:
           arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
           arg [-pie] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_e8009] ==> ignore
+          arg [cmTC_63b8b] ==> ignore
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/Scrt1.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/Scrt1.o]
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crti.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crti.o]
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o]
@@ -236,7 +236,7 @@ events:
           arg [-L/lib/../lib] ==> dir [/lib/../lib]
           arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
           arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../..] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../..]
-          arg [CMakeFiles/cmTC_e8009.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [CMakeFiles/cmTC_63b8b.dir/CMakeCCompilerABI.c.o] ==> ignore
           arg [-lgcc] ==> lib [gcc]
           arg [--push-state] ==> ignore
           arg [--as-needed] ==> ignore
@@ -273,8 +273,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-1c6Wzj"
-      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-1c6Wzj"
+      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-DAeCT6"
+      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-DAeCT6"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -283,13 +283,13 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-1c6Wzj'
+        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-DAeCT6'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_6df03/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_6df03.dir/build.make CMakeFiles/cmTC_6df03.dir/build
-        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-1c6Wzj'
-        Building CXX object CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o
-        /usr/bin/c++   -v -o CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_fdedc/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_fdedc.dir/build.make CMakeFiles/cmTC_fdedc.dir/build
+        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-DAeCT6'
+        Building CXX object CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o
+        /usr/bin/c++   -v -o CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         Using built-in specs.
         COLLECT_GCC=/usr/bin/c++
         Target: x86_64-pc-linux-gnu
@@ -297,8 +297,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib zstd
         gcc version 13.2.1 20230801 (GCC) 
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_6df03.dir/'
-         /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/cc1plus -quiet -v -D_GNU_SOURCE /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_6df03.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o /tmp/ccv4RSHD.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_fdedc.dir/'
+         /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/cc1plus -quiet -v -D_GNU_SOURCE /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_fdedc.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o /tmp/cclbShzm.s
         GNU C++17 (GCC) version 13.2.1 20230801 (x86_64-pc-linux-gnu)
         	compiled by GNU C version 13.2.1 20230801, GMP version 6.3.0, MPFR version 4.2.0-p12, MPC version 1.3.1, isl version isl-0.26-GMP
         
@@ -316,15 +316,15 @@ events:
          /usr/include
         End of search list.
         Compiler executable checksum: 5a490a353c29b926850bca65a518c219
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_6df03.dir/'
-         as -v --64 -o CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccv4RSHD.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_fdedc.dir/'
+         as -v --64 -o CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o /tmp/cclbShzm.s
         GNU assembler version 2.41.0 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.41.0
         COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.'
-        Linking CXX executable cmTC_6df03
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6df03.dir/link.txt --verbose=1
-        /usr/bin/c++  -v CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_6df03 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.'
+        Linking CXX executable cmTC_fdedc
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fdedc.dir/link.txt --verbose=1
+        /usr/bin/c++  -v CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_fdedc 
         Using built-in specs.
         COLLECT_GCC=/usr/bin/c++
         COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/lto-wrapper
@@ -335,10 +335,10 @@ events:
         gcc version 13.2.1 20230801 (GCC) 
         COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_6df03' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_6df03.'
-         /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/lto-wrapper -plugin-opt=-fresolution=/tmp/ccG6BNiE.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_6df03 /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../.. CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crtn.o
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_6df03' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_6df03.'
-        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-1c6Wzj'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_fdedc' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_fdedc.'
+         /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/lto-wrapper -plugin-opt=-fresolution=/tmp/ccc7n8ys.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_fdedc /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../.. CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_fdedc' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_fdedc.'
+        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-DAeCT6'
         
       exitCode: 0
   -
@@ -372,19 +372,19 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:152 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:159 (message)"
       - "/usr/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
       - "CMakeLists.txt:3 (project)"
     message: |
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-1c6Wzj']
+        ignore line: [Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-DAeCT6']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_6df03/fast]
-        ignore line: [/usr/bin/make  -f CMakeFiles/cmTC_6df03.dir/build.make CMakeFiles/cmTC_6df03.dir/build]
-        ignore line: [make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-1c6Wzj']
-        ignore line: [Building CXX object CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o]
-        ignore line: [/usr/bin/c++   -v -o CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_fdedc/fast]
+        ignore line: [/usr/bin/make  -f CMakeFiles/cmTC_fdedc.dir/build.make CMakeFiles/cmTC_fdedc.dir/build]
+        ignore line: [make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-DAeCT6']
+        ignore line: [Building CXX object CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/usr/bin/c++   -v -o CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/c++]
         ignore line: [Target: x86_64-pc-linux-gnu]
@@ -392,8 +392,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib zstd]
         ignore line: [gcc version 13.2.1 20230801 (GCC) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_6df03.dir/']
-        ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/cc1plus -quiet -v -D_GNU_SOURCE /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_6df03.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o /tmp/ccv4RSHD.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_fdedc.dir/']
+        ignore line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/cc1plus -quiet -v -D_GNU_SOURCE /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_fdedc.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o /tmp/cclbShzm.s]
         ignore line: [GNU C++17 (GCC) version 13.2.1 20230801 (x86_64-pc-linux-gnu)]
         ignore line: [	compiled by GNU C version 13.2.1 20230801  GMP version 6.3.0  MPFR version 4.2.0-p12  MPC version 1.3.1  isl version isl-0.26-GMP]
         ignore line: []
@@ -411,15 +411,15 @@ events:
         ignore line: [ /usr/include]
         ignore line: [End of search list.]
         ignore line: [Compiler executable checksum: 5a490a353c29b926850bca65a518c219]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_6df03.dir/']
-        ignore line: [ as -v --64 -o CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccv4RSHD.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_fdedc.dir/']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o /tmp/cclbShzm.s]
         ignore line: [GNU assembler version 2.41.0 (x86_64-pc-linux-gnu) using BFD version (GNU Binutils) 2.41.0]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.']
-        ignore line: [Linking CXX executable cmTC_6df03]
-        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6df03.dir/link.txt --verbose=1]
-        ignore line: [/usr/bin/c++  -v CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_6df03 ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.']
+        ignore line: [Linking CXX executable cmTC_fdedc]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fdedc.dir/link.txt --verbose=1]
+        ignore line: [/usr/bin/c++  -v CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_fdedc ]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/c++]
         ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/lto-wrapper]
@@ -430,13 +430,13 @@ events:
         ignore line: [gcc version 13.2.1 20230801 (GCC) ]
         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_6df03' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_6df03.']
-        link line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/lto-wrapper -plugin-opt=-fresolution=/tmp/ccG6BNiE.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_6df03 /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../.. CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_fdedc' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_fdedc.']
+        link line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/lto-wrapper -plugin-opt=-fresolution=/tmp/ccc7n8ys.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -o cmTC_fdedc /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../.. CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crtn.o]
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/ccG6BNiE.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccc7n8ys.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -451,7 +451,7 @@ events:
           arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
           arg [-pie] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_6df03] ==> ignore
+          arg [cmTC_fdedc] ==> ignore
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/Scrt1.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/Scrt1.o]
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crti.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib/crti.o]
           arg [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o]
@@ -460,7 +460,7 @@ events:
           arg [-L/lib/../lib] ==> dir [/lib/../lib]
           arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
           arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../..] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/../../..]
-          arg [CMakeFiles/cmTC_6df03.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_fdedc.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lstdc++] ==> lib [stdc++]
           arg [-lm] ==> lib [m]
           arg [-lgcc_s] ==> lib [gcc_s]
@@ -494,8 +494,8 @@ events:
     checks:
       - "Looking for __GLIBC__"
     directories:
-      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-jaU2uQ"
-      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-jaU2uQ"
+      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-76Lbz5"
+      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-76Lbz5"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -505,17 +505,17 @@ events:
       variable: "LIBC_IS_GLIBC"
       cached: true
       stdout: |
-        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-jaU2uQ'
+        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-76Lbz5'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d4628/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_d4628.dir/build.make CMakeFiles/cmTC_d4628.dir/build
-        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-jaU2uQ'
-        Building C object CMakeFiles/cmTC_d4628.dir/CheckSymbolExists.c.o
-        /usr/bin/cc    -o CMakeFiles/cmTC_d4628.dir/CheckSymbolExists.c.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-jaU2uQ/CheckSymbolExists.c
-        Linking C executable cmTC_d4628
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d4628.dir/link.txt --verbose=1
-        /usr/bin/cc CMakeFiles/cmTC_d4628.dir/CheckSymbolExists.c.o -o cmTC_d4628 
-        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-jaU2uQ'
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_72999/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_72999.dir/build.make CMakeFiles/cmTC_72999.dir/build
+        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-76Lbz5'
+        Building C object CMakeFiles/cmTC_72999.dir/CheckSymbolExists.c.o
+        /usr/bin/cc    -o CMakeFiles/cmTC_72999.dir/CheckSymbolExists.c.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-76Lbz5/CheckSymbolExists.c
+        Linking C executable cmTC_72999
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_72999.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_72999.dir/CheckSymbolExists.c.o -o cmTC_72999 
+        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-76Lbz5'
         
       exitCode: 0
   -
@@ -528,8 +528,8 @@ events:
     checks:
       - "Performing Test _OFFT_IS_64BIT"
     directories:
-      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-ilaHnL"
-      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-ilaHnL"
+      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-Xhqgkc"
+      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-Xhqgkc"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -539,17 +539,17 @@ events:
       variable: "_OFFT_IS_64BIT"
       cached: true
       stdout: |
-        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-ilaHnL'
+        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-Xhqgkc'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_6bef4/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_6bef4.dir/build.make CMakeFiles/cmTC_6bef4.dir/build
-        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-ilaHnL'
-        Building CXX object CMakeFiles/cmTC_6bef4.dir/src.cxx.o
-        /usr/bin/c++ -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_OFFT_IS_64BIT   -o CMakeFiles/cmTC_6bef4.dir/src.cxx.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-ilaHnL/src.cxx
-        Linking CXX executable cmTC_6bef4
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6bef4.dir/link.txt --verbose=1
-        /usr/bin/c++ CMakeFiles/cmTC_6bef4.dir/src.cxx.o -o cmTC_6bef4 
-        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-ilaHnL'
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_bceec/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_bceec.dir/build.make CMakeFiles/cmTC_bceec.dir/build
+        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-Xhqgkc'
+        Building CXX object CMakeFiles/cmTC_bceec.dir/src.cxx.o
+        /usr/bin/c++ -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_OFFT_IS_64BIT   -o CMakeFiles/cmTC_bceec.dir/src.cxx.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-Xhqgkc/src.cxx
+        Linking CXX executable cmTC_bceec
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bceec.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_bceec.dir/src.cxx.o -o cmTC_bceec 
+        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-Xhqgkc'
         
       exitCode: 0
   -
@@ -563,8 +563,8 @@ events:
     checks:
       - "Performing Test HAVE_DATE_TIME"
     directories:
-      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-NEU4aI"
-      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-NEU4aI"
+      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-hDX9Hj"
+      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-hDX9Hj"
     cmakeVariables:
       CMAKE_CXX_FLAGS: " -fno-operator-names -fno-exceptions -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wnon-virtual-dtor -Woverloaded-virtual -Werror=return-type -Werror=init-self -Wvla"
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -574,17 +574,17 @@ events:
       variable: "HAVE_DATE_TIME"
       cached: true
       stdout: |
-        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-NEU4aI'
+        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-hDX9Hj'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_1390e/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_1390e.dir/build.make CMakeFiles/cmTC_1390e.dir/build
-        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-NEU4aI'
-        Building CXX object CMakeFiles/cmTC_1390e.dir/src.cxx.o
-        /usr/bin/c++ -DHAVE_DATE_TIME  -fno-operator-names -fno-exceptions -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wnon-virtual-dtor -Woverloaded-virtual -Werror=return-type -Werror=init-self -Wvla  -std=gnu++11   -Wdate-time -o CMakeFiles/cmTC_1390e.dir/src.cxx.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-NEU4aI/src.cxx
-        Linking CXX executable cmTC_1390e
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1390e.dir/link.txt --verbose=1
-        /usr/bin/c++  -fno-operator-names -fno-exceptions -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wnon-virtual-dtor -Woverloaded-virtual -Werror=return-type -Werror=init-self -Wvla  -Wl,--enable-new-dtags   CMakeFiles/cmTC_1390e.dir/src.cxx.o -o cmTC_1390e 
-        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-NEU4aI'
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_6ff8b/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_6ff8b.dir/build.make CMakeFiles/cmTC_6ff8b.dir/build
+        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-hDX9Hj'
+        Building CXX object CMakeFiles/cmTC_6ff8b.dir/src.cxx.o
+        /usr/bin/c++ -DHAVE_DATE_TIME  -fno-operator-names -fno-exceptions -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wnon-virtual-dtor -Woverloaded-virtual -Werror=return-type -Werror=init-self -Wvla  -std=gnu++11   -Wdate-time -o CMakeFiles/cmTC_6ff8b.dir/src.cxx.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-hDX9Hj/src.cxx
+        Linking CXX executable cmTC_6ff8b
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6ff8b.dir/link.txt --verbose=1
+        /usr/bin/c++  -fno-operator-names -fno-exceptions -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wnon-virtual-dtor -Woverloaded-virtual -Werror=return-type -Werror=init-self -Wvla  -Wl,--enable-new-dtags   CMakeFiles/cmTC_6ff8b.dir/src.cxx.o -o cmTC_6ff8b 
+        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-hDX9Hj'
         
       exitCode: 0
   -
@@ -598,8 +598,8 @@ events:
     checks:
       - "Looking for XOpenDisplay in /usr/lib/libX11.so;/usr/lib/libXext.so"
     directories:
-      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-pNBRe4"
-      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-pNBRe4"
+      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-vmNk0l"
+      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-vmNk0l"
     cmakeVariables:
       CMAKE_C_FLAGS: " -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration"
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -609,17 +609,17 @@ events:
       variable: "X11_LIB_X11_SOLO"
       cached: true
       stdout: |
-        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-pNBRe4'
+        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-vmNk0l'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_60fcc/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_60fcc.dir/build.make CMakeFiles/cmTC_60fcc.dir/build
-        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-pNBRe4'
-        Building C object CMakeFiles/cmTC_60fcc.dir/CheckFunctionExists.c.o
-        /usr/bin/cc -D_GNU_SOURCE -D_LARGEFILE64_SOURCE  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=XOpenDisplay -std=gnu90 -o CMakeFiles/cmTC_60fcc.dir/CheckFunctionExists.c.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-pNBRe4/CheckFunctionExists.c
-        Linking C executable cmTC_60fcc
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_60fcc.dir/link.txt --verbose=1
-        /usr/bin/cc  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=XOpenDisplay -Wl,--enable-new-dtags   CMakeFiles/cmTC_60fcc.dir/CheckFunctionExists.c.o -o cmTC_60fcc  /usr/lib/libX11.so /usr/lib/libXext.so 
-        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-pNBRe4'
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_dc0fd/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_dc0fd.dir/build.make CMakeFiles/cmTC_dc0fd.dir/build
+        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-vmNk0l'
+        Building C object CMakeFiles/cmTC_dc0fd.dir/CheckFunctionExists.c.o
+        /usr/bin/cc -D_GNU_SOURCE -D_LARGEFILE64_SOURCE  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=XOpenDisplay -std=gnu90 -o CMakeFiles/cmTC_dc0fd.dir/CheckFunctionExists.c.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-vmNk0l/CheckFunctionExists.c
+        Linking C executable cmTC_dc0fd
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dc0fd.dir/link.txt --verbose=1
+        /usr/bin/cc  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=XOpenDisplay -Wl,--enable-new-dtags   CMakeFiles/cmTC_dc0fd.dir/CheckFunctionExists.c.o -o cmTC_dc0fd  /usr/lib/libX11.so /usr/lib/libXext.so 
+        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-vmNk0l'
         
       exitCode: 0
   -
@@ -633,8 +633,8 @@ events:
     checks:
       - "Looking for gethostbyname"
     directories:
-      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-pHCy0X"
-      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-pHCy0X"
+      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-gZU3mk"
+      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-gZU3mk"
     cmakeVariables:
       CMAKE_C_FLAGS: " -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration"
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -644,17 +644,17 @@ events:
       variable: "CMAKE_HAVE_GETHOSTBYNAME"
       cached: true
       stdout: |
-        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-pHCy0X'
+        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-gZU3mk'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_25e34/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_25e34.dir/build.make CMakeFiles/cmTC_25e34.dir/build
-        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-pHCy0X'
-        Building C object CMakeFiles/cmTC_25e34.dir/CheckFunctionExists.c.o
-        /usr/bin/cc -D_GNU_SOURCE -D_LARGEFILE64_SOURCE  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=gethostbyname -std=gnu90 -o CMakeFiles/cmTC_25e34.dir/CheckFunctionExists.c.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-pHCy0X/CheckFunctionExists.c
-        Linking C executable cmTC_25e34
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_25e34.dir/link.txt --verbose=1
-        /usr/bin/cc  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=gethostbyname -Wl,--enable-new-dtags   CMakeFiles/cmTC_25e34.dir/CheckFunctionExists.c.o -o cmTC_25e34 
-        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-pHCy0X'
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_f7e70/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_f7e70.dir/build.make CMakeFiles/cmTC_f7e70.dir/build
+        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-gZU3mk'
+        Building C object CMakeFiles/cmTC_f7e70.dir/CheckFunctionExists.c.o
+        /usr/bin/cc -D_GNU_SOURCE -D_LARGEFILE64_SOURCE  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=gethostbyname -std=gnu90 -o CMakeFiles/cmTC_f7e70.dir/CheckFunctionExists.c.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-gZU3mk/CheckFunctionExists.c
+        Linking C executable cmTC_f7e70
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f7e70.dir/link.txt --verbose=1
+        /usr/bin/cc  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=gethostbyname -Wl,--enable-new-dtags   CMakeFiles/cmTC_f7e70.dir/CheckFunctionExists.c.o -o cmTC_f7e70 
+        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-gZU3mk'
         
       exitCode: 0
   -
@@ -668,8 +668,8 @@ events:
     checks:
       - "Looking for connect"
     directories:
-      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-nVm9OG"
-      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-nVm9OG"
+      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-c56M36"
+      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-c56M36"
     cmakeVariables:
       CMAKE_C_FLAGS: " -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration"
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -679,17 +679,17 @@ events:
       variable: "CMAKE_HAVE_CONNECT"
       cached: true
       stdout: |
-        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-nVm9OG'
+        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-c56M36'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_c8dae/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_c8dae.dir/build.make CMakeFiles/cmTC_c8dae.dir/build
-        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-nVm9OG'
-        Building C object CMakeFiles/cmTC_c8dae.dir/CheckFunctionExists.c.o
-        /usr/bin/cc -D_GNU_SOURCE -D_LARGEFILE64_SOURCE  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=connect -std=gnu90 -o CMakeFiles/cmTC_c8dae.dir/CheckFunctionExists.c.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-nVm9OG/CheckFunctionExists.c
-        Linking C executable cmTC_c8dae
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c8dae.dir/link.txt --verbose=1
-        /usr/bin/cc  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=connect -Wl,--enable-new-dtags   CMakeFiles/cmTC_c8dae.dir/CheckFunctionExists.c.o -o cmTC_c8dae 
-        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-nVm9OG'
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_1b52b/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_1b52b.dir/build.make CMakeFiles/cmTC_1b52b.dir/build
+        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-c56M36'
+        Building C object CMakeFiles/cmTC_1b52b.dir/CheckFunctionExists.c.o
+        /usr/bin/cc -D_GNU_SOURCE -D_LARGEFILE64_SOURCE  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=connect -std=gnu90 -o CMakeFiles/cmTC_1b52b.dir/CheckFunctionExists.c.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-c56M36/CheckFunctionExists.c
+        Linking C executable cmTC_1b52b
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1b52b.dir/link.txt --verbose=1
+        /usr/bin/cc  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=connect -Wl,--enable-new-dtags   CMakeFiles/cmTC_1b52b.dir/CheckFunctionExists.c.o -o cmTC_1b52b 
+        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-c56M36'
         
       exitCode: 0
   -
@@ -703,8 +703,8 @@ events:
     checks:
       - "Looking for remove"
     directories:
-      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-YPTeOd"
-      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-YPTeOd"
+      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-ItZIwa"
+      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-ItZIwa"
     cmakeVariables:
       CMAKE_C_FLAGS: " -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration"
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -714,17 +714,17 @@ events:
       variable: "CMAKE_HAVE_REMOVE"
       cached: true
       stdout: |
-        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-YPTeOd'
+        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-ItZIwa'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_a1c24/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_a1c24.dir/build.make CMakeFiles/cmTC_a1c24.dir/build
-        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-YPTeOd'
-        Building C object CMakeFiles/cmTC_a1c24.dir/CheckFunctionExists.c.o
-        /usr/bin/cc -D_GNU_SOURCE -D_LARGEFILE64_SOURCE  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=remove -std=gnu90 -o CMakeFiles/cmTC_a1c24.dir/CheckFunctionExists.c.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-YPTeOd/CheckFunctionExists.c
-        Linking C executable cmTC_a1c24
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a1c24.dir/link.txt --verbose=1
-        /usr/bin/cc  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=remove -Wl,--enable-new-dtags   CMakeFiles/cmTC_a1c24.dir/CheckFunctionExists.c.o -o cmTC_a1c24 
-        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-YPTeOd'
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_e688e/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_e688e.dir/build.make CMakeFiles/cmTC_e688e.dir/build
+        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-ItZIwa'
+        Building C object CMakeFiles/cmTC_e688e.dir/CheckFunctionExists.c.o
+        /usr/bin/cc -D_GNU_SOURCE -D_LARGEFILE64_SOURCE  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=remove -std=gnu90 -o CMakeFiles/cmTC_e688e.dir/CheckFunctionExists.c.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-ItZIwa/CheckFunctionExists.c
+        Linking C executable cmTC_e688e
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e688e.dir/link.txt --verbose=1
+        /usr/bin/cc  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=remove -Wl,--enable-new-dtags   CMakeFiles/cmTC_e688e.dir/CheckFunctionExists.c.o -o cmTC_e688e 
+        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-ItZIwa'
         
       exitCode: 0
   -
@@ -738,8 +738,8 @@ events:
     checks:
       - "Looking for shmat"
     directories:
-      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-tqot4L"
-      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-tqot4L"
+      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-JHthdT"
+      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-JHthdT"
     cmakeVariables:
       CMAKE_C_FLAGS: " -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration"
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -749,17 +749,17 @@ events:
       variable: "CMAKE_HAVE_SHMAT"
       cached: true
       stdout: |
-        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-tqot4L'
+        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-JHthdT'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_47a78/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_47a78.dir/build.make CMakeFiles/cmTC_47a78.dir/build
-        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-tqot4L'
-        Building C object CMakeFiles/cmTC_47a78.dir/CheckFunctionExists.c.o
-        /usr/bin/cc -D_GNU_SOURCE -D_LARGEFILE64_SOURCE  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=shmat -std=gnu90 -o CMakeFiles/cmTC_47a78.dir/CheckFunctionExists.c.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-tqot4L/CheckFunctionExists.c
-        Linking C executable cmTC_47a78
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_47a78.dir/link.txt --verbose=1
-        /usr/bin/cc  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=shmat -Wl,--enable-new-dtags   CMakeFiles/cmTC_47a78.dir/CheckFunctionExists.c.o -o cmTC_47a78 
-        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-tqot4L'
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_e0b38/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_e0b38.dir/build.make CMakeFiles/cmTC_e0b38.dir/build
+        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-JHthdT'
+        Building C object CMakeFiles/cmTC_e0b38.dir/CheckFunctionExists.c.o
+        /usr/bin/cc -D_GNU_SOURCE -D_LARGEFILE64_SOURCE  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=shmat -std=gnu90 -o CMakeFiles/cmTC_e0b38.dir/CheckFunctionExists.c.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-JHthdT/CheckFunctionExists.c
+        Linking C executable cmTC_e0b38
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e0b38.dir/link.txt --verbose=1
+        /usr/bin/cc  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=shmat -Wl,--enable-new-dtags   CMakeFiles/cmTC_e0b38.dir/CheckFunctionExists.c.o -o cmTC_e0b38 
+        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-JHthdT'
         
       exitCode: 0
   -
@@ -773,8 +773,8 @@ events:
     checks:
       - "Looking for IceConnectionNumber in ICE"
     directories:
-      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-tA4JDM"
-      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-tA4JDM"
+      source: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-6MGT3D"
+      binary: "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-6MGT3D"
     cmakeVariables:
       CMAKE_C_FLAGS: " -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration"
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -784,17 +784,17 @@ events:
       variable: "CMAKE_LIB_ICE_HAS_ICECONNECTIONNUMBER"
       cached: true
       stdout: |
-        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-tA4JDM'
+        Change Dir: '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-6MGT3D'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_17f03/fast
-        /usr/bin/make  -f CMakeFiles/cmTC_17f03.dir/build.make CMakeFiles/cmTC_17f03.dir/build
-        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-tA4JDM'
-        Building C object CMakeFiles/cmTC_17f03.dir/CheckFunctionExists.c.o
-        /usr/bin/cc -D_GNU_SOURCE -D_LARGEFILE64_SOURCE  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -std=gnu90 -o CMakeFiles/cmTC_17f03.dir/CheckFunctionExists.c.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-tA4JDM/CheckFunctionExists.c
-        Linking C executable cmTC_17f03
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_17f03.dir/link.txt --verbose=1
-        /usr/bin/cc  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -Wl,--enable-new-dtags   CMakeFiles/cmTC_17f03.dir/CheckFunctionExists.c.o -o cmTC_17f03  -lICE 
-        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-tA4JDM'
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_6189b/fast
+        /usr/bin/make  -f CMakeFiles/cmTC_6189b.dir/build.make CMakeFiles/cmTC_6189b.dir/build
+        make[1]: Entering directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-6MGT3D'
+        Building C object CMakeFiles/cmTC_6189b.dir/CheckFunctionExists.c.o
+        /usr/bin/cc -D_GNU_SOURCE -D_LARGEFILE64_SOURCE  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -std=gnu90 -o CMakeFiles/cmTC_6189b.dir/CheckFunctionExists.c.o -c /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-6MGT3D/CheckFunctionExists.c
+        Linking C executable cmTC_6189b
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6189b.dir/link.txt --verbose=1
+        /usr/bin/cc  -fno-common -Wall -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wno-long-long -Wpointer-arith -Wundef -Wmissing-format-attribute -Wwrite-strings -Werror=implicit-function-declaration -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -Wl,--enable-new-dtags   CMakeFiles/cmTC_6189b.dir/CheckFunctionExists.c.o -o cmTC_6189b  -lICE 
+        make[1]: Leaving directory '/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/CMakeScratch/TryCompile-6MGT3D'
         
       exitCode: 0
 ...

@@ -15,7 +15,6 @@
 /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/install/local.dir
 /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/CMakeFiles/install/strip.dir
 /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/CMakeFiles/plasma_applet_seventasks.dir
-/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/CMakeFiles/io.gitgud.wackyideas.seventasks-plasmoids-metadata-json.dir
 /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/CMakeFiles/test.dir
 /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/CMakeFiles/edit_cache.dir
 /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/CMakeFiles/rebuild_cache.dir
@@ -23,4 +22,5 @@
 /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/CMakeFiles/install.dir
 /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/CMakeFiles/install/local.dir
 /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/CMakeFiles/install/strip.dir
+/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/CMakeFiles/plasma_applet_seventasks_autogen_timestamp_deps.dir
 /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/CMakeFiles/plasma_applet_seventasks_autogen.dir

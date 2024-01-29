@@ -8,6 +8,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/plasma_applet_seventasks.dir/seventasks.cpp.o.d"
   "plasma_applet_seventasks.pdb"
   "plasma_applet_seventasks.so"
+  "plasma_applet_seventasks_autogen/mocs_compilation.cpp"
+  "plasma_applet_seventasks_autogen/timestamp"
 )
 
 # Per-language clean rules from dependency scanning.

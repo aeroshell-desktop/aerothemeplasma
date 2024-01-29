@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/plasma_applet_seventasks_autogen"
-  "metadata.json"
   "plasma_applet_seventasks_autogen/mocs_compilation.cpp"
+  "plasma_applet_seventasks_autogen/timestamp"
 )
 
 # Per-language clean rules from dependency scanning.

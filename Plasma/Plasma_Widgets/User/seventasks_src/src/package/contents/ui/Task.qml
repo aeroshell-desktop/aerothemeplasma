@@ -99,9 +99,12 @@ MouseArea {
         hoverColor = plasmoid.nativeInterface.getDominantColor(icon.source);
         // When label visibility is toggled, that changes the size of each task item,
         // so we need to update the size of the hot tracking effect too.
+        updateHoverSize();
+        
+    }
+    function updateHoverSize() {
         hoverGradient.verticalRadius = LayoutManager.taskHeight();
         hoverGradient.horizontalRadius = LayoutManager.taskWidth();
-        
     }
 
     // Updates the hot tracking gradient with the mouse position.
@@ -461,7 +464,19 @@ MouseArea {
             enabledBorders: PlasmaCore.FrameSvg.RightBorder
             
         }
-        
+        Rectangle {
+            id: contrastRect
+            anchors {
+                fill: parent
+                topMargin: (!tasks.vertical && taskList.rows > 1) ? PlasmaCore.Units.smallSpacing / 4 +1 : 1
+                bottomMargin: (!tasks.vertical && taskList.rows > 1) ? PlasmaCore.Units.smallSpacing / 4+1 : 1
+                leftMargin: ((inPopup || tasks.vertical) && taskList.columns > 1) ? PlasmaCore.Units.smallSpacing / 4+1 : 1
+                rightMargin: ((inPopup || tasks.vertical) && taskList.columns > 1) ? PlasmaCore.Units.smallSpacing / 4+1 : 1
+            }
+            visible: !iconsOnly && frame.basePrefix != "active-tab"
+            color: "#22000000";
+
+        }
         LinearGradient {
             
             id: highlightGradient
@@ -480,6 +495,7 @@ MouseArea {
                 GradientStop { position: 1.0; color: "#00000000"; }
             } 
         }
+
         imagePath: (frame.isHovered && frame.basePrefix === "active-tab") ? Qt.resolvedUrl("svgs/tabbar.svgz") : ""//"widgets/tasks"
         property bool isHovered: task.highlighted && plasmoid.configuration.taskHoverEffect && !rightClickDragging
         property string basePrefix: "normal"
@@ -492,6 +508,7 @@ MouseArea {
             else return TaskTools.taskPrefix(basePrefix);
         }
         //prefix: ((pressed) && frame.basePrefix != "active-tab") ? TaskTools.taskPrefix("focus") :  TaskTools.taskPrefix(basePrefix)
+
         Rectangle {
             id: hoverRect
             
@@ -830,12 +847,22 @@ MouseArea {
             left: parent.left
             leftMargin: adjustMargin(true, parent.width, taskFrame.margins.left);
             top: parent.top
-            topMargin: adjustMargin(false, parent.height, taskFrame.margins.top)
+            topMargin: {
+                if(parent.height <= 30) {
+                    return parent.height / 2 - PlasmaCore.Units.iconSizes.small / 2;
+                } else {
+                    return adjustMargin(false, parent.height, taskFrame.margins.top);
+                }}
         }
 
         width: height
-        height: (parent.height - adjustMargin(false, parent.height, taskFrame.margins.top)
-            - adjustMargin(false, parent.height, taskFrame.margins.bottom))
+        height: {
+            if(parent.height <= 30) {
+                return PlasmaCore.Units.iconSizes.small;
+            } else {
+                return (parent.height - adjustMargin(false, parent.height, taskFrame.margins.top) - adjustMargin(false, parent.height, taskFrame.margins.bottom));
+            }
+        }
 
         function adjustMargin(vert, size, margin) {
             if (!size) {
@@ -933,7 +960,7 @@ MouseArea {
         anchors {
             right: frame.right
             top: frame.top
-            rightMargin: taskFrame.margins.right
+            rightMargin: (iconsOnly && parent.height <= 30) ? PlasmaCore.Units.smallSpacing : taskFrame.margins.right
             topMargin: Math.round(taskFrame.margins.top * indicatorScale)
         }
      

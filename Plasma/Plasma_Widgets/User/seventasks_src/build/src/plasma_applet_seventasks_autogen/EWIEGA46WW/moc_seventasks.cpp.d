@@ -226,7 +226,6 @@
   /usr/include/c++/13.2.1/compare \
   /usr/include/c++/13.2.1/concepts \
   /usr/include/c++/13.2.1/cstddef \
-  /usr/include/c++/13.2.1/cstdint \
   /usr/include/c++/13.2.1/cstdlib \
   /usr/include/c++/13.2.1/cwchar \
   /usr/include/c++/13.2.1/cwctype \

@@ -1001,8 +1001,8 @@ PlasmaCore.Dialog {
                 left: parent.left
                 right: parent.right
                 leftMargin: 2
-                rightMargin: 2
-                topMargin: 2
+                rightMargin: PlasmaCore.Units.smallSpacing-1
+                topMargin: PlasmaCore.Units.smallSpacing-1
             }
             gradient: Gradient {
                 GradientStop { position: 0; color: backgroundColorStatic }
@@ -1019,7 +1019,7 @@ PlasmaCore.Dialog {
                 left: parent.left
                 right: parent.right
                 leftMargin: 2
-                rightMargin: 2
+                rightMargin: PlasmaCore.Units.smallSpacing-1
                 bottomMargin: 2
             }
             Rectangle {

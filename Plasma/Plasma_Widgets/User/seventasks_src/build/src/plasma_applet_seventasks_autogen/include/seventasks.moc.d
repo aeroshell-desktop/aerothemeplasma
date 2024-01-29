@@ -1,6 +1,6 @@
 /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/plasma_applet_seventasks_autogen/include/seventasks.moc: /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/src/seventasks.cpp \
   /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/plasma_applet_seventasks_autogen/moc_predefs.h \
-  /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/metadata.json \
+  /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/src/metadata.json \
   /mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/src/seventasks.h \
   /usr/include/KF5/KConfigCore/KConfigGroup \
   /usr/include/KF5/KConfigCore/KSharedConfig \
@@ -230,7 +230,6 @@
   /usr/include/c++/13.2.1/compare \
   /usr/include/c++/13.2.1/concepts \
   /usr/include/c++/13.2.1/cstddef \
-  /usr/include/c++/13.2.1/cstdint \
   /usr/include/c++/13.2.1/cstdlib \
   /usr/include/c++/13.2.1/cwchar \
   /usr/include/c++/13.2.1/cwctype \

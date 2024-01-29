@@ -84,8 +84,7 @@ src/CMakeFiles/plasma_applet_seventasks.dir/seventasks.cpp.o: \
  /usr/include/qt/QtCore/qchar.h /usr/include/qt/QtCore/qbytearray.h \
  /usr/include/qt/QtCore/qrefcount.h /usr/include/qt/QtCore/qnamespace.h \
  /usr/include/qt/QtCore/qarraydata.h /usr/include/string.h \
- /usr/include/strings.h /usr/include/c++/13.2.1/cstdint \
- /usr/include/c++/13.2.1/stdlib.h \
+ /usr/include/strings.h /usr/include/c++/13.2.1/stdlib.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdarg.h \
  /usr/include/c++/13.2.1/string \
  /usr/include/c++/13.2.1/bits/requires_hosted.h \
@@ -197,7 +196,8 @@ src/CMakeFiles/plasma_applet_seventasks.dir/seventasks.cpp.o: \
  /usr/include/c++/13.2.1/bits/erase_if.h \
  /usr/include/qt/QtCore/qobject_impl.h /usr/include/c++/13.2.1/chrono \
  /usr/include/c++/13.2.1/bits/chrono.h /usr/include/c++/13.2.1/ratio \
- /usr/include/c++/13.2.1/limits /usr/include/c++/13.2.1/ctime \
+ /usr/include/c++/13.2.1/cstdint /usr/include/c++/13.2.1/limits \
+ /usr/include/c++/13.2.1/ctime \
  /usr/include/c++/13.2.1/bits/parse_numbers.h /usr/include/qt/QtCore/QUrl \
  /usr/include/qt/QtCore/qurl.h /usr/include/KF5/KConfigCore/KConfigGroup \
  /usr/include/KF5/KConfigCore/kconfiggroup.h \

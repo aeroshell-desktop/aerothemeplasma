@@ -9,8 +9,8 @@
 		"/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/src/CMakeLists.txt"
 	],
 	"CMAKE_SOURCE_DIR" : "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src",
-	"DEP_FILE" : "",
-	"DEP_FILE_RULE_NAME" : "",
+	"DEP_FILE" : "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/Plasma/Plasma_Widgets/User/seventasks_src/build/src/plasma_applet_seventasks_autogen/deps",
+	"DEP_FILE_RULE_NAME" : "plasma_applet_seventasks_autogen/timestamp",
 	"HEADERS" : 
 	[
 		[
