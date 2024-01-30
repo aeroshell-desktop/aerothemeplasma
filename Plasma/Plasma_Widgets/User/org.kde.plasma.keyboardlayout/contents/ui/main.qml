@@ -4,6 +4,7 @@
 */
 
 import QtQuick 2.12
+import QtQuick.Layouts 1.1
 import Qt.labs.platform 1.1
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
@@ -27,13 +28,18 @@ Item {
         id: panelSvg
         visible: false
         imagePath: "widgets/panel-background"
-    }
+	}
 
-    Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
+    Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
-    Plasmoid.compactRepresentation: KeyboardLayoutSwitcher {
+    Plasmoid.fullRepresentation: KeyboardLayoutSwitcher {
 
-        id: keySwitcher
+		id: keySwitcher
+		property int widgetWidth: 24 * PlasmaCore.Units.devicePixelRatio
+		Layout.minimumWidth: widgetWidth
+		Layout.maximumWidth: widgetWidth
+		Layout.preferredWidth: widgetWidth
+		
         Plasmoid.toolTipSubText: layoutNames.longName
         Plasmoid.status: hasMultipleKeyboardLayouts ? PlasmaCore.Types.ActiveStatus : PlasmaCore.Types.HiddenStatus
 
@@ -83,7 +89,9 @@ Item {
             text: layoutNames.displayName || layoutNames.shortName
             visible: !icon.visible
             anchors.fill: parent
-            anchors.margins: PlasmaCore.Units.smallSpacing*2
+			//anchors.margins: PlasmaCore.Units.smallSpacing*2
+			anchors.bottomMargin: PlasmaCore.Units.smallSpacing*2
+			anchors.topMargin: PlasmaCore.Units.smallSpacing*2 - PlasmaCore.Units.smallSpacing/2
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             fontSizeMode: Text.Fit
@@ -93,11 +101,13 @@ Item {
             font.pointSize: height
             font.capitalization: Font.AllUppercase
 
-        }
-        MouseArea {
-            id: ma
+		}
+		MouseArea {
+			id: ma
+			property int margin: PlasmaCore.Units.smallSpacing/2+((0.4*keySwitcher.height) - 9)
             anchors.fill: parent
-            anchors.margins: PlasmaCore.Units.smallSpacing+((0.3*keySwitcher.height) - 6.8)
+            anchors.topMargin: margin
+            anchors.bottomMargin: margin
             hoverEnabled: true
             propagateComposedEvents: true
             onClicked: {
@@ -108,7 +118,8 @@ Item {
             id: decorationButton
             z: -1
             anchors.fill: parent
-            anchors.margins: PlasmaCore.Units.smallSpacing+((0.3*keySwitcher.height) - 6.8)
+            anchors.topMargin: ma.margin
+            anchors.bottomMargin: ma.margin
             imagePath: Qt.resolvedUrl("svgs/button.svg")
             visible: ma.containsMouse
             prefix: {
