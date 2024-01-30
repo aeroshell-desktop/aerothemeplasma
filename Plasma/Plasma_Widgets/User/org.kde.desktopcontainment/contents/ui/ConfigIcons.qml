@@ -44,6 +44,9 @@ Item {
     property alias cfg_labelWidth: labelWidth.currentIndex
     property alias cfg_textLines: textLines.value
 
+    property alias cfg_textShadows: textShadows.checked
+    property alias cfg_iconShadows: iconShadows.checked
+
     readonly property bool lockedByKiosk: !KAuthorized.authorize("editable_desktop_icons")
 
     IconDialog {
@@ -299,6 +302,14 @@ Item {
 
             text: i18n("Rename inline by clicking selected item's text")
         }
+        CheckBox {
+            id: textShadows
+            text: i18n("Use drop shadows for icon labels on the desktop")
+        }
+        CheckBox {
+            id: iconShadows
+            text: i18n("Use drop shadows for icons on the desktop")
+        }
 
         CheckBox {
             id: popups
@@ -307,11 +318,13 @@ Item {
             text: i18n("Folder preview popups")
         }
 
+
         CheckBox {
             id: previews
 
             text: i18n("Preview thumbnails")
         }
+
 
         Button {
             id: previewSettings

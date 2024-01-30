@@ -465,7 +465,7 @@ Item {
 
                         source: icon
 
-                        visible: !editor || editor.targetItem != main
+                        visible: (!editor || editor.targetItem != main) && plasmoid.configuration.iconShadows
                     }
                 }
 
@@ -480,17 +480,17 @@ Item {
                         horizontalOffset: 1
                         verticalOffset: 1
 
-                        radius: Math.round(4 * PlasmaCore.Units.devicePixelRatio)
-                        samples: radius * 2 + 1
-                        spread: 0.35
+                        radius: Math.round(3 * PlasmaCore.Units.devicePixelRatio)
+                        samples: radius * 2
+                        spread: 0.435
 
-                        color: "black"
+                        color: "#F9080808"
 
                         opacity: model.isHidden ? 0.6 : 1
 
                         source: label
 
-                        visible: !editor || editor.targetItem != main
+                        visible: (!editor || editor.targetItem != main) && plasmoid.configuration.textShadows
                     }
                 }
 

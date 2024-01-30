@@ -135,5 +135,13 @@
       <label>List of MIME types to filter by.</label>
       <default>all/all</default>
     </entry>
+    <entry name="textShadows" type="Bool">
+      <label>Use drop shadows for icon labels on the desktop.</label>
+      <default>true</default>
+    </entry>
+    <entry name="iconShadows" type="Bool">
+      <label>Use drop shadows for icons on the desktop.</label>
+      <default>false</default>
+    </entry>
   </group>
 </kcfg>
