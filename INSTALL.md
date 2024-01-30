@@ -17,6 +17,7 @@
 1. [Sounds](#sounds)
 1. [Wine](#wine)
 1. [Terminal](#terminal)
+1. [Firefox](#firefox)
 
 
 ### Prerequisites <a name="preq"></a>
@@ -251,6 +252,8 @@ $ ./KWin/.emerald/
 ``` 
 
 to the home directory.
+
+Smaragd reads the theme from the ```theme``` subfolder and ```settings.ini``` config file. If you want to use the Vista-sized caption buttons, rename the ```themevista``` subfolder and ```settingsvista.ini``` into the aforementioned names.
 
 To apply the window decoration, go to ```System settings -> Appearance -> Window Decorations``` and select Smaragd. 
 
@@ -512,4 +515,8 @@ To make your terminal emulator of choice look a bit more like the command prompt
 ```printf 'Microsoft Windows [Version 6.1.7601] \nCopyright <c> 2009 Microsoft Corporation. All rights reserved.\n\n'```
 
 The last part will print the provided string every time a new bash session is started.
+
+### Firefox <a name="firefox"></a>
+
+The project [Aero UserChrome](https://gitgud.io/souris/aero-userchrome) by [Souris-2d07](https://gitgud.io/souris) is recommended for use with AeroThemePlasma.
 

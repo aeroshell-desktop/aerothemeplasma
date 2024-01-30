@@ -20,7 +20,7 @@ Despite the use of non-standard textures, this theme is still compatible with re
 
 One element that is rendered by Smaragd Seven independently of the Emerald theme is the glowing effect behind the text of the window. Changing settings related to this effect in the theme configuration file will not alter its behavior. It should also be pointed out that reflections are not rendered by Smaragd Seven, but rather the Reflection KWin effect.
 
-One notable difference compared to the default Windows 7 look is that the titlebar height and window buttons are sized differently. The sizing has been set to look more like Windows Vista's default settings instead. (Top - Vista, Bottom - 7)
+This theme features two variants - one for the default Windows 7 look and one for the default Windows Vista look, where the caption button size and titlebar height are configured to be slightly smaller. (Top - Vista, Bottom - 7)
 
 <img src="./img/winver.png">
 
