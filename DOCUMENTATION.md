@@ -82,14 +82,9 @@ This is a list of components that are included in this project, as well as their
 |-----------------|------------------------------------------------------------------------------------------------------------------------------|--------|----|
 |Aero Emerald     |Custom, non-standard Emerald theme made to work with Smaragd Seven. Features caption buttons that match the default sizes for both 7 and Vista.                                                           |Y       |[nicu96](https://store.kde.org/p/1003826/), [Souris-2d07](https://gitgud.io/souris)|
 |Reflection Effect|Effect that renders a glassy texture under windows.                                        |N       |[KDE](https://invent.kde.org/plasma/kwin/-/tree/master/src/plugins/blur)|
+|Firefox Blur Region Fix|Effect that fixes Firefox's transparency and allows it to have proper blur and reflections.                                        |N       |N/A|
 |Smaragd Seven    |KWin decoration theme which uses Emerald themes as a basis, with some Aero specific changes and bugfixes. Lacks HiDPI support.|N       |[KDE](https://invent.kde.org/plasma/smaragd)|
 |Thumbnail Seven  |KWin task switcher that mostly replicates the look and behavior of Windows 7's task switcher|N|[KDE](https://invent.kde.org/plasma/kwin/-/tree/master/src/tabbox/switchers/thumbnail_grid)|
-
-### Applications
-
-|Name          |Description                                                            |Finished|Fork|
-|--------------|-----------------------------------------------------------------------|--------|----|
-|AeroColorMixer|Program designed for changing the accent color across the entire theme. **(NOTE: This program is now deprecated and has been moved into the reflection effect.)**|Y       |N/A |
 
 ### Miscellaneous
 
@@ -97,8 +92,6 @@ This is a list of components that are included in this project, as well as their
 |-------------------|--------------------------------|--------|----|
 |Authui7 |Aero themed login splash and lock screen.|Y       |[dominichayesferen](https://github.com/dominichayesferen)|
 |Install script |Installation script for AeroThemePlasma.|N       |N/A|
-
-
 
 
 ## Components to be implemented <a name="todo"></a>

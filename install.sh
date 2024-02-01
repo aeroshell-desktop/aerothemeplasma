@@ -227,6 +227,14 @@ function install {
 	cd "${INNER_KWIN}kwin_reflect"
 	chmod +x "$script" && "$script"
 	cd "$rootdir"
+
+	echo "Installing Firefox Blur Region Fix effect..."
+	local rootdir=$PWD
+	local script=./install.sh
+
+	cd "${INNER_KWIN}kwin_fixblur"
+	chmod +x "$script" && "$script"
+	cd "$rootdir"
 	#sudo mkdir -p "${KWIN_EFFECTS_DIR}"
 	#sudo mkdir -p "${KWIN_CONFIGS_DIR}"
 	#sudo cp "${INNER_KWIN}kwin_reflect/bin/${KWIN_EFFECT}" "${KWIN_EFFECTS_DIR}"

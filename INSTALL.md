@@ -294,7 +294,7 @@ cd ./KWin/kwin_reflect/
 sh install.sh
 ```
 
-After it has been compiled, you can log out or restart plasma and kwin, then go to ```System settings -> Workspace Behavior -> Desktop Effects``` and enable the effect.
+After it has been compiled, you can log out or restart Plasma and KWin, then go to ```System settings -> Workspace Behavior -> Desktop Effects``` and enable the effect.
 
 
 ### Plasma Widgets <a name="widgets"></a>
@@ -520,3 +520,31 @@ The last part will print the provided string every time a new bash session is st
 
 The project [Aero UserChrome](https://gitgud.io/souris/aero-userchrome) by [Souris-2d07](https://gitgud.io/souris) is recommended for use with AeroThemePlasma.
 
+In order to correctly apply blur and reflections onto Firefox, it's required to install the Firefox Blur Region Fix KWin effect. 
+
+To install the effect, it's recommended to build it from source, as dumping the precompiled files doesn't seem to work on its own.
+
+Go to the folder:
+
+```
+cd ./KWin/kwin_fixblur/
+sh install.sh
+```
+
+After it has been compiled, you can log out or restart Plasma and KWin, then go to ```System settings -> Workspace Behavior -> Desktop Effects``` and enable the effect.
+
+By default, this effect is enabled for Firefox. If you're using a different Firefox-based browser (Firefox ESR, Nightly, Floorp, Librewolf, etc.), then they need to be included in the config menu by adding their secondary window class name to the list.
+
+For example, to apply the effect to both Firefox and Librewolf, the config's text box should contain the text:
+
+```
+firefox;librewolf
+```
+
+Additionally, this effect loads in an SVG file from the following directory: 
+
+```
+$ ~/.emerald/ffBlurRegion.svg
+```
+
+which should be there assuming the rest of the installation has been done.
