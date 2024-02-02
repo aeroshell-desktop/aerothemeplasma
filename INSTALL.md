@@ -32,11 +32,6 @@ The following software is required for this project:
 - extra-cmake-modules
 - [Scale Minimize Animation](https://store.kde.org/p/1267839) (Can be installed through System Settings)
 
-Optional programs:
-
-- KMix, for a volume menu that looks more like Windows 7. For Pipewire users it might be better to just use the default volume plasmoid KDE provides.
-- Some program to change the GTK2 theme, like ```gtk-chtheme```, if applying the GTK2 theme.
-
 On Debian and Debian-based distributions (Ubuntu, Mint, etc.), the following apt packages are required:
 
 ```
@@ -136,51 +131,28 @@ To apply it, go to ```System Settings -> Appearance -> Plasma Style``` to find i
 
 ### Icons and Cursors <a name="icons"></a>
 
-The icon theme is ```windowsicon```, while ```aero-cursors``` is the cursor theme. Extract the tar archives and move the folders in the following directory:
+The icon theme is ```windowsicon```, while ```aero-drop``` is the cursor theme. Extract the tar archives and move the icon theme into the following directory:
 
 ```
 $ ~/.local/share/icons/
 ``` 
 
-To apply them, go to ```System Settings -> Appearance -> Icons``` and ```System Settings -> Appearance -> Cursors``` respectively to select them.
-
+To apply the icon theme, go to ```System Settings -> Appearance -> Icons``` and select the theme.
 It is also strongly recommended to install the [Oxygen](https://invent.kde.org/frameworks/oxygen-icons5) icon theme if it's not already installed on your system, as this project's icon theme optionally depends on it.
+
+As for installing the cursor theme, apply the theme in ```System Settings -> Appearance -> Cursors```, and then follow [this](https://www.youtube.com/watch?v=Dj7co2R7RKw) video tutorial to ensure the cursor theme is applied everywhere consistently.  It's important to keep in mind the following:
+
+1. Make sure that the cursor theme is installed system-wide (it has to be in ```/usr/share/icons```), or else SDDM cannot apply the theme.
+2. If SDDM fails to pick up on the cursor theme, go to ```System Settings -> Startup and Shutdown -> Login Screen (SDDM)``` and click on 'Apply Plasma Settings' to ensure SDDM is properly configured.
+
+Consult the [Arch Wiki](https://wiki.archlinux.org/title/Cursor_themes) for more information, as setting a cursor theme on Linux is not as trivial or elegant KDE's System Settings would suggest.
+
 
 ### Qt Visual Style <a name="application-theme"></a>
 
 Installing Kvantum requires installing the package ```kvantum``` which is available in the community repository for Arch, and is available on most other Linux distributions as well. 
 
-To install the GTK2 theme, locate and move the following directory:
-
-```
-$ ./Qt/Application_Theme/QGtkStyle/win27pixmap/
-```
-
-to this directory (create it if it doesn't exist):
-
-```
-$ ~/.themes/
-```
-
 Installing the Kvantum theme is simply done through Kvantum's settings. Afterwards, Kvantum can be set as the visual style in ```System Settings -> Appearance -> Application Style```.
-
-**Applying the GTK2 theme:**
-
-Through a utility program like ```gtk-chtheme```, set the GTK2 theme to Win2-7. When configuring GTK2, make sure to set the font to the same font as configured in the system settings (for this theme, the default is Segoe UI, size 9).
-
-In case the GTK2 theme isn't persistent throughout sessions, in order to keep it applied, add the following line:
-
-```
-GTK2_RC_FILES=/home/[username]/.themes/win27pixmap/gtk-2.0/gtkrc
-```
-
-in 
-
-```
-# /etc/environment
-```
-
-Replace ```[username]``` with your own user name. Restart the Plasma session to see the effect.
 
 **Installing the color scheme:**
 

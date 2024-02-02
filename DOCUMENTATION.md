@@ -67,7 +67,7 @@ This is a list of components that are included in this project, as well as their
 
 |Name              |Description                                                                                                       |Finished|Fork|
 |------------------|------------------------------------------------------------------------------------------------------------------|--------|----|
-|Aero cursors      |Cursor pack for KDE. Currently only has the small size (96 DPI).                                                       |N       |[Moony](https://store.kde.org/p/999972/)|
+|Aero cursors      |Cursor pack for KDE. Currently supports resolutions 32 and 48.                                                       |N       |[Souris-2d07](https://gitgud.io/souris)|
 |SevenBlack        |Windows 7 theme for KDE Plasma.                                             |N       |[Mirko Gennari](https://kde-look.org/p/998614),<br> [DrGordBord](https://store.kde.org/p/1722560/),<br> [bionegative](https://www.pling.com/p/998823)|
 |Sound collection  |Sounds taken from Windows 7 directly.                                                                             |Y       |Microsoft|
 |VistaVG Wine theme|Msstyle used for theming Wine applications.                                                                       |Y       |[Vishal Gupta](https://www.deviantart.com/vishal-gupta/art/VistaVG-Ultimate-57715902)|

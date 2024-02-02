@@ -23,6 +23,8 @@ USER_ICONS=${USER_LOCAL}icons/
 KWIN_SWITCHER_DIR=${USER_LOCAL}kwin/tabbox/
 EMERALD_PATH=~/.emerald/
 KVANTUM_THEMES=${USER_CONFIG}Kvantum/
+CURSOR_USER=~/.icons/default/
+CURSOR_SYSTEM=/usr/share/icons/
 
 # System directories
 KWIN_PLUGIN_DIR=/usr/lib/qt/plugins/org.kde.kdecoration2/ # Used for installing Smaragd
@@ -85,7 +87,7 @@ KWIN_SWITCHER=thumbnail_seven
 
 # Icons and cursors 
 ICONTHEME=windowsicon
-CURSORTHEME=aero-cursors
+CURSORTHEME=aero-drop
 
 function print_help {
 	printf "WARNING: This script is early in development\n"
@@ -178,7 +180,8 @@ function install {
 		"$COLOR_SCHEMES" \
 		"$USER_ICONS" \
 		"$USER_LOOK_AND_FEEL" \
-		"$KWIN_SWITCHER_DIR"
+		"$KWIN_SWITCHER_DIR" \
+		"$CURSOR_USER"
 	echo "Installing user plasmoids..."
 	sudo mkdir -p "${PLASMOID_PLUGINS}"
 	sudo cp "${INNER_PLASMA_WIDGETS}User/${SEVEN_TASKS_PLUGIN}" "${PLASMOID_PLUGINS}"
@@ -194,7 +197,7 @@ function install {
 		"${USER_PLASMOIDS}${DESKTOP_CONTAINMENT}"
 
 	rm -rf \
-		"${USER_ICONS}${ICONTHEME}" \
+		"${CURSOR_USER}" \
 		"${USER_ICONS}${CURSORTHEME}" \
 		"${USER_LOOK_AND_FEEL}${SPLASH_SCREEN}" \
 		"${PLASMA_THEMES}${PLASMA_THEME}" \
@@ -212,7 +215,9 @@ function install {
 	mv "${ICONTHEME}" "${USER_ICONS}"
 	echo "Installing cursor theme..."
 	tar -xf "${INNER_ICON_THEME}${CURSORTHEME}.tar.gz"
-	mv "${CURSORTHEME}" "${USER_ICONS}"
+	sudo mv "${CURSORTHEME}" "${CURSOR_SYSTEM}"
+	cp "${INNER_ICON_THEME}index.theme" "${CURSOR_USER}index.theme"
+	ln -s "${CURSOR_SYSTEM}${CURSORTHEME}/cursors" "${CURSOR_USER}cursors"
 
 	echo "Installing Smaragd Seven..."
 	sudo mkdir -p "${KWIN_PLUGIN_DIR}"

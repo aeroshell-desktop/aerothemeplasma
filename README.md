@@ -35,7 +35,7 @@ It is still in heavy development and testing. This project has been tested on:
  - Intel integrated graphics, AMD dedicated graphics
  - 96 DPI scaling
   
-Here's what's currently not supported but should be (see FAQ):
+Here's what's currently not supported but is planned (see FAQ):
 
  - Multi-distro support (While this could work on other distros, and has been confirmed to run well on Arch and Ubuntu, I cannot provide help if something goes wrong)
  - HiDPI scaling
@@ -50,7 +50,9 @@ The following will not be supported at all in the foreseeable future:
 
  - GTK3
  - GTK4
- - Wayland
+ - Wayland*
+
+ *Based on user feedback, it seems that only the KWin effects provided in AeroThemePlasma don't work with Wayland. I have issues when running Wayland so I'm unable to debug this, but I'd be happy to accept a merge request that fixes this issue.
 
 <h3>DISCLAIMER:</h3>
 
@@ -130,6 +132,10 @@ Lastly, feel free to fork this project and/or contribute to it in any way. Any a
 ### Window Style
 
 <img src="Screenshots/Window_Decorations.png">
+
+### Firefox
+
+<img src="Screenshots/Firefox.png">
 
 ## Installation <a name="installation"></a>
 
