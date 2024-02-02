@@ -331,7 +331,7 @@ Item {
             anchors.fill: x11Thumbnail
             // Indent by one pixel to make sure we never cover up the entire highlight
             anchors.margins: 1
-            anchors.topMargin: PlasmaCore.Units.smallSpacing*2;
+            anchors.topMargin: PlasmaCore.Units.smallSpacing;
             sourceSize: Qt.size(parent.width, parent.height)
 
             asynchronous: true
