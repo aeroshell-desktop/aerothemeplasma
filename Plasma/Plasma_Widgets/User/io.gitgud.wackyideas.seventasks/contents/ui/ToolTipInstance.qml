@@ -20,7 +20,7 @@ import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
 
-ColumnLayout {
+Item {
     id: tooltipInstance
     property var submodelIndex
     property int flatIndex: isGroup && index != undefined ? index : 0
@@ -59,35 +59,16 @@ ColumnLayout {
     readonly property string artist: currentMetadata["xesam:artist"] || ""
     readonly property string albumArt: currentMetadata["mpris:artUrl"] || ""
 
-    spacing: isWin ? PlasmaCore.Units.smallSpacing * 2 : 0
+    width: columnLayout.width
+    height: columnLayout.height
 
-
-    // text labels + close button
-
-    RowLayout {
-        id: header
-        // match spacing of DefaultToolTip.qml in plasma-framework
-        //spacing: isWin ? PlasmaCore.Units.smallSpacing : 0 //isWin ? PlasmaCore.Units.smallSpacing : PlasmaCore.Units.largeSpacing
-        spacing: 0
-        // This number controls the overall size of the window tooltips
-        Layout.maximumWidth: PlasmaCore.Units.gridUnit * 12
-        Layout.minimumWidth: isWin ? Layout.maximumWidth : 0
-        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        // match margins of DefaultToolTip.qml in plasma-framework
-        Layout.margins: isWin ? 0 : PlasmaCore.Units.smallSpacing / 2
-        // There's no PlasmaComponents3 version
-
-        // This component tracks the mouse and highlights the tooltip when it's hovered over or clicked on.
+    // This component tracks the mouse and highlights the tooltip when it's hovered over or clicked on.
         ToolTipWindowMouseArea {
             id: hoverHandler
-            Layout.alignment: Qt.AlignTop
-            height: {
-                if(playerControls.visible)
-                    return tooltipInstance.height - parent.height;
-                else
-                    return tooltipInstance.height;
-            }
-            width: header.width
+
+            anchors.fill: parent;
+            anchors.margins: PlasmaCore.Units.smallSpacing / 2
+            anchors.bottomMargin: PlasmaCore.Units.smallSpacing / 2 + (playerControls.visible ? playerControls.height : 0)
             rootTask: parentTask
             modelIndex: submodelIndex
             winId: thumbnailSourceItem.winId
@@ -105,10 +86,7 @@ ColumnLayout {
                     right: parent.right;
                     bottom: parent.bottom;
 
-                    bottomMargin: PlasmaCore.Units.smallSpacing + ((playerControls.visible) ? -header.height : 0);
-                    leftMargin: PlasmaCore.Units.smallSpacing
-                    rightMargin: PlasmaCore.Units.smallSpacing
-                    topMargin: PlasmaCore.Units.smallSpacing
+                    bottomMargin: -(playerControls.visible ? playerControls.height : 0);
                 }
 
                 // The currently active window has a blue tinted version of the same texture.
@@ -122,6 +100,25 @@ ColumnLayout {
                 opacity: isWin ? (hoverHandler.containsPress ? 1.0 : ( (hoverHandler.opacityHover || closeButton.hovered) ? ((activeWindow) ? 1.0 : 0.7) : (activeWindow ? 0.7 : 0) )) : 0;
             }
         }
+        ColumnLayout {
+
+        id: columnLayout
+        spacing: isWin ? PlasmaCore.Units.smallSpacing * 2 : 0
+    // text labels + close button
+    RowLayout {
+        id: header
+        // match spacing of DefaultToolTip.qml in plasma-framework
+        //spacing: isWin ? PlasmaCore.Units.smallSpacing : 0 //isWin ? PlasmaCore.Units.smallSpacing : PlasmaCore.Units.largeSpacing
+        spacing: 0
+        // This number controls the overall size of the window tooltips
+        Layout.maximumWidth: PlasmaCore.Units.gridUnit * 12
+        Layout.minimumWidth: isWin ? Layout.maximumWidth : 0
+        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+        // match margins of DefaultToolTip.qml in plasma-framework
+        Layout.margins: isWin ? 0 : PlasmaCore.Units.smallSpacing / 2
+        // There's no PlasmaComponents3 version
+
+
 
         // The icon in the corner of the tooltip.
         PlasmaCore.IconItem {
@@ -466,7 +463,7 @@ ColumnLayout {
         }
 
     }
-
+        }
     function generateTitle() {
         if (!isWin) {
             return genericName != undefined ? genericName : "";
