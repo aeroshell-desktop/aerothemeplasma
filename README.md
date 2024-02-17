@@ -30,8 +30,8 @@ It is still in heavy development and testing. This project has been tested on:
 
  - Arch-based distributions (Arch, Artix, EndeavourOS, etc.), Debian-based distributions (Debian, Ubuntu, Mint, Kubuntu, etc.)
  - X11 
- - Latest stable KDE Plasma release, latest KDE Frameworks version
- - Latest Qt version
+ - Latest stable KDE Plasma 5 release, latest KDE Frameworks version
+ - Latest Qt 5 version
  - Intel integrated graphics, AMD dedicated graphics
  - 96 DPI scaling
   

@@ -1,0 +1,8 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource prefix="/effects/smodwindowbuttons/textures">
+    <file alias="minimize">nonredist/crop/min-glow-resized.png</file>
+    <file alias="maximize">nonredist/crop/max-glow-resized.png</file>
+    <file alias="close">nonredist/crop/close-glow-resized.png</file>
+  </qresource>
+</RCC>

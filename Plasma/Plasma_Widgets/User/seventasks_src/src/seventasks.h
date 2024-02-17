@@ -31,6 +31,7 @@ public:
     ~SevenTasks();
     Q_INVOKABLE QColor getDominantColor(QVariant src);
     Q_INVOKABLE bool isActiveWindow(int wid);
+    Q_INVOKABLE QRect getWindowAspectRatio(int wid);
     // Used to disable the blur behind the context menu when it's closing. I thought it'd look just a tad bit more nice like that.
     Q_INVOKABLE void disableBlurBehind(QWindow* w)
     {

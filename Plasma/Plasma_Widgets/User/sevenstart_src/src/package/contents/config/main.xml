@@ -5,111 +5,73 @@
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name=""/>
 
-  <group name="General">
-    <entry name="icon" type="String">
-      <default>start-here-kde</default>
-    </entry>
-    <entry name="useCustomButtonImage" type="Bool">
-      <default>true</default>
-    </entry>
-    <entry name="stickOutOrb" type="Bool">
+  <group name="Appearance">
+    <entry name="showLocalTimezone" type="Bool">
+      <label>Whether the timezone should be displayed when the clock is showing the local timezone.</label>
       <default>false</default>
     </entry>
-    <entry name="customButtonImage" type="Url">
-      <default></default>
-    </entry>
-    <entry name="customButtonImageHover" type="Url">
-      <default></default>
-    </entry>
-    <entry name="customButtonImageActive" type="Url">
-      <default></default>
-    </entry>
-
-    <entry name="showFilterList" type="Bool">
-      <default>true</default>
-    </entry>
-
-    <entry name="appNameFormat" type="Int">
-      <default>0</default>
-    </entry>
-    <entry name="limitDepth" type="Bool">
+    <entry name="showSeconds" type="Bool">
+      <label>Whether seconds should be shown in the clock.</label>
       <default>false</default>
     </entry>
-
-    <entry name="numberColumns" type="Int">
-    <default>1</default>
+    <entry name="showDate" type="Bool">
+      <label>Whether the date should be shown next to the clock.</label>
+      <default>false</default>
     </entry>
-
-    <entry name="numberRows" type="Int">
-    <default>12</default>
+    <entry name="dateFormat" type="string">
+      <label>The date format to display. Options are: shortDate, longDate or isoDate.</label>
+      <default>shortDate</default>
     </entry>
-
-    <entry name="favoriteApps" type="StringList">
+    <entry name="fontFamily" type="string">
+      <label>Font family. e.g "arial". The system font is used if this is not set.</label>
       <default></default>
     </entry>
-    <entry name="favoriteSystemActions" type="StringList">
-      <default>logout,lock-screen,reboot,shutdown</default>
+    <entry name="boldText" type="Bool">
+      <label>Sets the font to bold.</label>
+      <default>false</default>
     </entry>
-    <entry name="hiddenApplications" type="StringList">
+    <entry name="italicText" type="Bool">
+      <label>Sets the font to italic.</label>
+      <default>false</default>
+    </entry>
+    <entry name="timeFormat" type="string">
+      <default>default</default>
+    </entry>
+    <entry name="selectedTimeZones" type="StringList">
+      <label>A list of the time zones available on mouse wheel. Requires wheelChangesTimezone to be true. Format is "Europe/London". Special entry "Local" indicates system time zone.</label>
+      <default>Local</default>
+    </entry>
+    <entry name="lastSelectedTimezone" type="String">
+      <label>When multiple time zones are configured, this is the one shown on widget restore.</label>
+      <default>Local</default>
+    </entry>
+    <entry name="wheelChangesTimezone" type="Bool">
+      <label>Whether the mouse wheel switches between the timezones configured in selectedTimeZones.</label>
+      <default>false</default>
+    </entry>
+    <entry name="displayTimezoneAsCode" type="Bool">
+      <label>Whether the timezone is displayed as a code i.e. "GMT" or full text i.e. "London".</label>
+      <default>true</default>
+    </entry>
+    <entry name="showWeekNumbers" type="Bool">
+      <label>Whether the calendar should show week numbers.</label>
+      <default>false</default>
+    </entry>
+    <entry name="use24hFormat" type="UInt">
+      <label>Force the clock to use 12/24 hour time, instead of following the user locale.</label>
+      <default>1</default>
+    </entry>
+    <entry name="enabledCalendarPlugins" type="StringList">
+      <label>A list of plugins where additional calendar event data can be sourced.</label>
       <default></default>
     </entry>
-
-    <entry name="useExtraRunners" type="Bool">
-      <default>true</default>
-    </entry>
-    <entry name="extraRunners" type="StringList">
-      <default>bookmarks,baloosearch</default>
-    </entry>
-    <entry name="alignResultsToBottom" type="Bool">
-      <default>true</default>
-    </entry>
-    <entry name="switchCategoriesOnHover" type="Bool">
-      <label>Whether to switch between menu categories by hovering them.</label>
-      <default>true</default>
-    </entry>
-
-    <entry name="removeApplicationCommand" type="String">
-      <default>muon-discover --application</default>
-    </entry>
-
-    <entry name="favoritesPortedToKAstats" type="Bool">
-      <label>Are the favorites ported to use KActivitiesStats to allow per-activity favorites</label>
+    <entry name="pin" type="Bool">
+      <label>Whether the popup should remain open when another window is activated</label>
       <default>false</default>
     </entry>
-    <entry name="showRecentsView" type="Bool">
+    <entry name="checkUpdateStartup" type="Bool">
+      <label>Notify for update on startup</label>
       <default>true</default>
     </entry>
-
-    <entry name="showHomeSidepanel" type="Bool">
-      <default>true</default>
-    </entry>
-    <entry name="showDocumentsSidepanel" type="Bool">
-      <default>true</default>
-    </entry>
-    <entry name="showPicturesSidepanel" type="Bool">
-      <default>true</default>
-    </entry>
-    <entry name="showMusicSidepanel" type="Bool">
-      <default>true</default>
-    </entry>
-    <entry name="showVideosSidepanel" type="Bool">
-      <default>true</default>
-    </entry>
-    <entry name="showDownloadsSidepanel" type="Bool">
-      <default>true</default>
-    </entry>
-    <entry name="showRootSidepanel" type="Bool">
-      <default>true</default>
-    </entry>
-    <entry name="showNetworkSidepanel" type="Bool">
-      <default>false</default>
-    </entry>
-    <entry name="showSettingsSidepanel" type="Bool">
-      <default>true</default>
-    </entry>
-    <entry name="showDefaultsSidepanel" type="Bool">
-      <default>false</default>
-    </entry>
-
   </group>
 </kcfg>

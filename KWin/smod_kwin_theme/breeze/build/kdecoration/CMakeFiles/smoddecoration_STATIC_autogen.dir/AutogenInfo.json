@@ -1,0 +1,296 @@
+{
+	"BUILD_DIR" : "/home/anon/Desktop/smod_reduced/breeze/build/kdecoration/smoddecoration_STATIC_autogen",
+	"CMAKE_BINARY_DIR" : "/home/anon/Desktop/smod_reduced/breeze/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/anon/Desktop/smod_reduced/breeze/build/kdecoration",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/anon/Desktop/smod_reduced/breeze/kdecoration",
+	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
+	"CMAKE_LIST_FILES" : 
+	[
+		"/home/anon/Desktop/smod_reduced/breeze/kdecoration/CMakeLists.txt",
+		"/usr/share/ECM/find-modules/FindKF5.cmake",
+		"/usr/share/ECM/find-modules/ECMFindModuleHelpersStub.cmake",
+		"/usr/share/ECM/modules/ECMFindModuleHelpers.cmake",
+		"/usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake",
+		"/usr/share/cmake/Modules/FindPackageMessage.cmake",
+		"/usr/share/cmake/Modules/FeatureSummary.cmake",
+		"/usr/lib/cmake/KF5CoreAddons/KF5CoreAddonsConfigVersion.cmake",
+		"/usr/lib/cmake/KF5CoreAddons/KF5CoreAddonsConfig.cmake",
+		"/usr/share/cmake/Modules/CMakeFindDependencyMacro.cmake",
+		"/usr/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake",
+		"/usr/lib/cmake/Qt5Core/Qt5CoreConfig.cmake",
+		"/usr/lib/cmake/KF5CoreAddons/KF5CoreAddonsToolingTargets.cmake",
+		"/usr/lib/cmake/KF5CoreAddons/KF5CoreAddonsTargets.cmake",
+		"/usr/lib/cmake/KF5CoreAddons/KF5CoreAddonsMacros.cmake",
+		"/usr/lib/cmake/KF5CoreAddons/KF5CoreAddonsQchTargets.cmake",
+		"/usr/lib/cmake/KF5GuiAddons/KF5GuiAddonsConfigVersion.cmake",
+		"/usr/lib/cmake/KF5GuiAddons/KF5GuiAddonsConfig.cmake",
+		"/usr/share/cmake/Modules/CMakeFindDependencyMacro.cmake",
+		"/usr/lib/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake",
+		"/usr/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake",
+		"/usr/lib/cmake/KF5GuiAddons/KF5GuiAddonsTargets.cmake",
+		"/usr/lib/cmake/KF5GuiAddons/KF5GuiAddonsTargets-noconfig.cmake",
+		"/usr/lib/cmake/KF5GuiAddons/KF5GuiAddonsQchTargets.cmake",
+		"/usr/lib/cmake/KF5ConfigWidgets/KF5ConfigWidgetsConfigVersion.cmake",
+		"/usr/lib/cmake/KF5ConfigWidgets/KF5ConfigWidgetsConfig.cmake",
+		"/usr/share/cmake/Modules/CMakeFindDependencyMacro.cmake",
+		"/usr/lib/cmake/KF5Auth/KF5AuthConfigVersion.cmake",
+		"/usr/lib/cmake/KF5Auth/KF5AuthConfig.cmake",
+		"/usr/share/cmake/Modules/CMakeFindDependencyMacro.cmake",
+		"/usr/lib/cmake/KF5CoreAddons/KF5CoreAddonsConfigVersion.cmake",
+		"/usr/lib/cmake/KF5CoreAddons/KF5CoreAddonsConfig.cmake",
+		"/usr/share/cmake/Modules/CMakeFindDependencyMacro.cmake",
+		"/usr/lib/cmake/KF5CoreAddons/KF5CoreAddonsToolingTargets.cmake",
+		"/usr/lib/cmake/KF5CoreAddons/KF5CoreAddonsTargets.cmake",
+		"/usr/lib/cmake/KF5CoreAddons/KF5CoreAddonsMacros.cmake",
+		"/usr/lib/cmake/KF5CoreAddons/KF5CoreAddonsQchTargets.cmake",
+		"/usr/lib/cmake/KF5Auth/KF5AuthTargets.cmake",
+		"/usr/lib/cmake/KF5Auth/KF5AuthQchTargets.cmake",
+		"/usr/lib/cmake/KF5Auth/KF5AuthMacros.cmake",
+		"/usr/lib/cmake/KF5Auth/KF5AuthToolsTargets.cmake",
+		"/usr/lib/cmake/KF5Codecs/KF5CodecsConfigVersion.cmake",
+		"/usr/lib/cmake/KF5Codecs/KF5CodecsConfig.cmake",
+		"/usr/share/cmake/Modules/CMakeFindDependencyMacro.cmake",
+		"/usr/lib/cmake/KF5Codecs/KF5CodecsTargets.cmake",
+		"/usr/lib/cmake/KF5Codecs/KF5CodecsQchTargets.cmake",
+		"/usr/lib/cmake/KF5Config/KF5ConfigConfigVersion.cmake",
+		"/usr/lib/cmake/KF5Config/KF5ConfigConfig.cmake",
+		"/usr/lib/cmake/KF5Config/KF5ConfigTargets.cmake",
+		"/usr/lib/cmake/KF5Config/KF5ConfigQchTargets.cmake",
+		"/usr/share/cmake/Modules/CMakeFindDependencyMacro.cmake",
+		"/usr/lib/cmake/Qt5Xml/Qt5XmlConfigVersion.cmake",
+		"/usr/lib/cmake/Qt5Xml/Qt5XmlConfig.cmake",
+		"/usr/lib/cmake/Qt5DBus/Qt5DBusConfigVersion.cmake",
+		"/usr/lib/cmake/Qt5DBus/Qt5DBusConfig.cmake",
+		"/usr/lib/cmake/KF5Config/KF5ConfigCompilerTargets.cmake",
+		"/usr/lib/cmake/KF5Config/KF5ConfigMacros.cmake",
+		"/usr/share/cmake/Modules/CMakeParseArguments.cmake",
+		"/usr/lib/cmake/KF5WidgetsAddons/KF5WidgetsAddonsConfigVersion.cmake",
+		"/usr/lib/cmake/KF5WidgetsAddons/KF5WidgetsAddonsConfig.cmake",
+		"/usr/share/cmake/Modules/CMakeFindDependencyMacro.cmake",
+		"/usr/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake",
+		"/usr/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake",
+		"/usr/lib/cmake/KF5WidgetsAddons/KF5WidgetsAddonsTargets.cmake",
+		"/usr/lib/cmake/KF5WidgetsAddons/KF5WidgetsAddonsQchTargets.cmake",
+		"/usr/lib/cmake/KF5ConfigWidgets/KF5ConfigWidgetsTargets.cmake",
+		"/usr/lib/cmake/KF5ConfigWidgets/KF5ConfigWidgetsQchTargets.cmake",
+		"/usr/lib/cmake/KF5I18n/KF5I18nConfigVersion.cmake",
+		"/usr/lib/cmake/KF5I18n/KF5I18nConfig.cmake",
+		"/usr/share/cmake/Modules/CMakeFindDependencyMacro.cmake",
+		"/usr/lib/cmake/KF5I18n/KF5I18nTargets.cmake",
+		"/usr/lib/cmake/KF5I18n/KF5I18nTargets-noconfig.cmake",
+		"/usr/lib/cmake/KF5I18n/KF5I18nQchTargets.cmake",
+		"/usr/lib/cmake/KF5I18n/KF5I18nMacros.cmake",
+		"/usr/share/cmake/Modules/FindGettext.cmake",
+		"/usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake",
+		"/usr/share/cmake/Modules/FindPackageMessage.cmake",
+		"/usr/lib/cmake/KF5IconThemes/KF5IconThemesConfigVersion.cmake",
+		"/usr/lib/cmake/KF5IconThemes/KF5IconThemesConfig.cmake",
+		"/usr/share/cmake/Modules/CMakeFindDependencyMacro.cmake",
+		"/usr/lib/cmake/KF5IconThemes/KF5IconThemesTargets.cmake",
+		"/usr/lib/cmake/KF5IconThemes/KF5IconThemesTargets-noconfig.cmake",
+		"/usr/lib/cmake/KF5IconThemes/KF5IconThemesQchTargets.cmake",
+		"/usr/lib/cmake/Qt5/Qt5ConfigVersion.cmake",
+		"/usr/lib/cmake/Qt5/Qt5Config.cmake",
+		"/usr/lib/cmake/Qt5/Qt5ModuleLocation.cmake",
+		"/usr/lib/cmake/Qt5DBus/Qt5DBusConfigVersion.cmake",
+		"/usr/lib/cmake/Qt5DBus/Qt5DBusConfig.cmake",
+		"/home/anon/Desktop/smod_reduced/breeze/kdecoration/breezesettings.kcfgc",
+		"/home/anon/Desktop/smod_reduced/breeze/kdecoration/breezesettings.kcfgc"
+	],
+	"CMAKE_SOURCE_DIR" : "/home/anon/Desktop/smod_reduced/breeze",
+	"DEP_FILE" : "/home/anon/Desktop/smod_reduced/breeze/build/kdecoration/smoddecoration_STATIC_autogen/deps",
+	"DEP_FILE_RULE_NAME" : "smoddecoration_STATIC_autogen/timestamp",
+	"HEADERS" : 
+	[
+		[
+			"/home/anon/Desktop/smod_reduced/breeze/kdecoration/breezeexceptionlist.h",
+			"Mu",
+			"EWIEGA46WW/moc_breezeexceptionlist.cpp",
+			null
+		],
+		[
+			"/home/anon/Desktop/smod_reduced/breeze/kdecoration/config/breezeconfigwidget.h",
+			"Mu",
+			"IJHAR2IVER/moc_breezeconfigwidget.cpp",
+			null
+		],
+		[
+			"/home/anon/Desktop/smod_reduced/breeze/kdecoration/config/breezedetectwidget.h",
+			"Mu",
+			"IJHAR2IVER/moc_breezedetectwidget.cpp",
+			null
+		],
+		[
+			"/home/anon/Desktop/smod_reduced/breeze/kdecoration/config/breezeexceptiondialog.h",
+			"Mu",
+			"IJHAR2IVER/moc_breezeexceptiondialog.cpp",
+			null
+		],
+		[
+			"/home/anon/Desktop/smod_reduced/breeze/kdecoration/config/breezeexceptionlistwidget.h",
+			"Mu",
+			"IJHAR2IVER/moc_breezeexceptionlistwidget.cpp",
+			null
+		],
+		[
+			"/home/anon/Desktop/smod_reduced/breeze/kdecoration/config/breezeexceptionmodel.h",
+			"Mu",
+			"IJHAR2IVER/moc_breezeexceptionmodel.cpp",
+			null
+		],
+		[
+			"/home/anon/Desktop/smod_reduced/breeze/kdecoration/config/breezeitemmodel.h",
+			"Mu",
+			"IJHAR2IVER/moc_breezeitemmodel.cpp",
+			null
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/home/anon/Desktop/smod_reduced/breeze/build/kdecoration/smoddecoration_STATIC_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/anon/Desktop/smod_reduced/breeze/build/kdecoration/smoddecoration_STATIC_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : 
+	[
+		"KCOREADDONS_LIB",
+		"KGUIADDONS_LIB",
+		"QT_CORE_LIB",
+		"QT_DBUS_LIB",
+		"QT_GUI_LIB",
+		"QT_NO_DEBUG",
+		"QT_WIDGETS_LIB",
+		"QT_XML_LIB",
+		"TRANSLATION_DOMAIN=\"smod_deco\"",
+		"_GNU_SOURCE",
+		"_LARGEFILE64_SOURCE"
+	],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		],
+		[
+			"K_PLUGIN_FACTORY_WITH_JSON",
+			"[\n^][ \t]*K_PLUGIN_FACTORY_WITH_JSON[ \t\n]*\\([^,]*,[ \t\n]*\"([^\"]+)\""
+		],
+		[
+			"K_PLUGIN_CLASS_WITH_JSON",
+			"[\n^][ \t]*K_PLUGIN_CLASS_WITH_JSON[ \t\n]*\\([^,]*,[ \t\n]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/home/anon/Desktop/smod_reduced/breeze/build/kdecoration",
+		"/home/anon/Desktop/smod_reduced/breeze/kdecoration",
+		"/home/anon/Desktop/smod_reduced/breeze/libbreezecommon",
+		"/home/anon/Desktop/smod_reduced/breeze/build/libbreezecommon",
+		"/usr/include/qt",
+		"/usr/include/qt/QtCore",
+		"/usr/lib/qt/mkspecs/linux-g++",
+		"/usr/include/qt/QtGui",
+		"/usr/include/qt/QtDBus",
+		"/usr/include/KDecoration2",
+		"/usr/include/KF5",
+		"/usr/include/KF5/KConfig",
+		"/usr/include/KF5/KConfigCore",
+		"/usr/include/KF5/KCoreAddons",
+		"/usr/include/KF5/KConfigWidgets",
+		"/usr/include/KF5/KWidgetsAddons",
+		"/usr/include/qt/QtWidgets",
+		"/usr/include/KF5/KConfigGui",
+		"/usr/include/qt/QtXml",
+		"/usr/include/KF5/KCodecs",
+		"/usr/include/KF5/KAuthWidgets",
+		"/usr/include/KF5/KAuthCore",
+		"/usr/include/KF5/KAuth",
+		"/usr/include/KF5/KGuiAddons",
+		"/usr/include/KF5/KI18n",
+		"/usr/include/KF5/KIconThemes",
+		"/usr/include/c++/13.2.1",
+		"/usr/include/c++/13.2.1/x86_64-pc-linux-gnu",
+		"/usr/include/c++/13.2.1/backward",
+		"/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include",
+		"/usr/local/include",
+		"/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed",
+		"/usr/include"
+	],
+	"MOC_MACRO_NAMES" : 
+	[
+		"Q_OBJECT",
+		"Q_GADGET",
+		"Q_NAMESPACE",
+		"Q_NAMESPACE_EXPORT",
+		"K_PLUGIN_FACTORY",
+		"K_PLUGIN_CLASS",
+		"K_PLUGIN_FACTORY_WITH_JSON",
+		"K_PLUGIN_CLASS_WITH_JSON",
+		"KCMODULECONTAINER"
+	],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : false,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/bin/c++",
+		"-std=gnu++17",
+		"-dM",
+		"-E",
+		"-c",
+		"/usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/home/anon/Desktop/smod_reduced/breeze/build/kdecoration/smoddecoration_STATIC_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : 
+	[
+		"/home/anon/Desktop/smod_reduced/breeze/build/kdecoration/breezesettings.cpp",
+		"/home/anon/Desktop/smod_reduced/breeze/build/kdecoration/breezesettings.h",
+		"/home/anon/Desktop/smod_reduced/breeze/build/kdecoration/ui_breezeconfigurationui.h",
+		"/home/anon/Desktop/smod_reduced/breeze/build/kdecoration/ui_breezeexceptiondialog.h",
+		"/home/anon/Desktop/smod_reduced/breeze/build/kdecoration/ui_breezeexceptionlistwidget.h"
+	],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 8,
+	"PARSE_CACHE_FILE" : "/home/anon/Desktop/smod_reduced/breeze/build/kdecoration/CMakeFiles/smoddecoration_STATIC_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/bin/moc",
+	"QT_UIC_EXECUTABLE" : "",
+	"QT_VERSION_MAJOR" : 5,
+	"QT_VERSION_MINOR" : 15,
+	"SETTINGS_FILE" : "/home/anon/Desktop/smod_reduced/breeze/build/kdecoration/CMakeFiles/smoddecoration_STATIC_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/home/anon/Desktop/smod_reduced/breeze/kdecoration/breezeexceptionlist.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/anon/Desktop/smod_reduced/breeze/kdecoration/config/breezeconfigwidget.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/anon/Desktop/smod_reduced/breeze/kdecoration/config/breezedetectwidget.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/anon/Desktop/smod_reduced/breeze/kdecoration/config/breezeexceptiondialog.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/anon/Desktop/smod_reduced/breeze/kdecoration/config/breezeexceptionlistwidget.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/anon/Desktop/smod_reduced/breeze/kdecoration/config/breezeexceptionmodel.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/anon/Desktop/smod_reduced/breeze/kdecoration/config/breezeitemmodel.cpp",
+			"Mu",
+			null
+		]
+	],
+	"VERBOSITY" : 0
+}

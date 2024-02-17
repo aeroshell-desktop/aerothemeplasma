@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+NoDisplay=true
+X-KDE-AliasFor=systemsettings
+Exec=kcmshell5 kcm_smoddecoration
+Icon=preferences-system-windows
+Name=SMOD Window Decoration

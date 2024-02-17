@@ -1,0 +1,10 @@
+{
+    "KPlugin": {
+        "Category": "Appearance",
+        "Description": "Make the minimize, maximize and close buttons glow when hovered",
+        "EnabledByDefault": true,
+        "Id": "org.smod.windowbuttons",
+        "License": "GPL",
+        "Name": "SMOD Window Buttons"
+    }
+}

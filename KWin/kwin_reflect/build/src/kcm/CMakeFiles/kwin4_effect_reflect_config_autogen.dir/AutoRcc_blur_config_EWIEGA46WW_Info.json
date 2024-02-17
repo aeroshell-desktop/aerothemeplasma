@@ -1,0 +1,24 @@
+{
+	"BUILD_DIR" : "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/KWin/kwin_reflect/build/src/kcm/kwin4_effect_reflect_config_autogen",
+	"CMAKE_BINARY_DIR" : "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/KWin/kwin_reflect/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/KWin/kwin_reflect/build/src/kcm",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/KWin/kwin_reflect/src/kcm",
+	"CMAKE_SOURCE_DIR" : "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/KWin/kwin_reflect",
+	"GENERATOR" : "Unix Makefiles",
+	"INCLUDE_DIR" : "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/KWin/kwin_reflect/build/src/kcm/kwin4_effect_reflect_config_autogen/include",
+	"INPUTS" : 
+	[
+		"/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/KWin/kwin_reflect/src/kcm/frame.svg",
+		"/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/KWin/kwin_reflect/src/kcm/frame-select.svg"
+	],
+	"LOCK_FILE" : "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/KWin/kwin_reflect/build/src/kcm/CMakeFiles/kwin4_effect_reflect_config_autogen.dir/AutoRcc_blur_config_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "blur_config" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_blur_config.cpp",
+	"RCC_EXECUTABLE" : "/usr/bin/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/KWin/kwin_reflect/build/src/kcm/CMakeFiles/kwin4_effect_reflect_config_autogen.dir/AutoRcc_blur_config_EWIEGA46WW_Used.txt",
+	"SOURCE" : "/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/KWin/kwin_reflect/src/kcm/blur_config.qrc",
+	"VERBOSITY" : 0
+}

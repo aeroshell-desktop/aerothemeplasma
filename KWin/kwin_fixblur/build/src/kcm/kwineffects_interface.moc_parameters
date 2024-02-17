@@ -1,0 +1,7 @@
+-I/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/KWin/kwin_fixblur/src/kcm
+-I/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/KWin/kwin_fixblur/build/src/kcm
+-D_GNU_SOURCE
+-D_LARGEFILE64_SOURCE
+-o
+/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/KWin/kwin_fixblur/build/src/kcm/kwineffects_interface.moc
+/mnt/dba39c4b-f659-456f-8698-0058d9b0d301/home/anon/Desktop/Aero_Theme/KWin/kwin_fixblur/build/src/kcm/kwineffects_interface.h

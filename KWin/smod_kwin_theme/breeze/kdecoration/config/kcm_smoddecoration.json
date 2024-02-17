@@ -1,0 +1,13 @@
+{
+    "KPlugin": {
+        "Description": "Modify the appearance of window decorations",
+        "Icon": "preferences-system-windows",
+        "Name": "SMOD Window Decoration",
+        "ServiceTypes": [
+            "KCModule"
+        ]
+    },
+    "X-KDE-Keywords": "smod,decoration",
+    "X-KDE-ParentApp": "kcontrol",
+    "X-KDE-Weight": 60
+}

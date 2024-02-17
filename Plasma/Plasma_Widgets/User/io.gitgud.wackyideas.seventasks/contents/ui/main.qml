@@ -452,7 +452,7 @@ MouseArea {
         visible: false
     }
     
-    ToolTipDelegate {
+    ToolTipPinned {
         id: pinnedAppToolTipDelegate
         visible: false
     }

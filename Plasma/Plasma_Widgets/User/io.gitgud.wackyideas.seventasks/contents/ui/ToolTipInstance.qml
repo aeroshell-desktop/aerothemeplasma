@@ -59,8 +59,12 @@ Item {
     readonly property string artist: currentMetadata["xesam:artist"] || ""
     readonly property string albumArt: currentMetadata["mpris:artUrl"] || ""
 
+    property int tooltipWidth: 203 * PlasmaCore.Units.devicePixelRatio
+    property int tooltipHeight: 104 * PlasmaCore.Units.devicePixelRatio
+    readonly property int totalHeight: columnLayout.height //x11Thumbnail.visible ? x11Thumbnail.paintedHeight : -1
+
     width: columnLayout.width
-    height: columnLayout.height
+    height: isGroup ? toolTipDelegate.getMaxHeight() : columnLayout.height
 
     // This component tracks the mouse and highlights the tooltip when it's hovered over or clicked on.
         ToolTipWindowMouseArea {
@@ -85,8 +89,8 @@ Item {
                     left: parent.left;
                     right: parent.right;
                     bottom: parent.bottom;
-
-                    bottomMargin: -(playerControls.visible ? playerControls.height : 0);
+                    margins: PlasmaCore.Units.smallSpacing / 2
+                    bottomMargin: PlasmaCore.Units.smallSpacing / 2 -(playerControls.visible ? playerControls.height : 0);
                 }
 
                 // The currently active window has a blue tinted version of the same texture.
@@ -100,10 +104,16 @@ Item {
                 opacity: isWin ? (hoverHandler.containsPress ? 1.0 : ( (hoverHandler.opacityHover || closeButton.hovered) ? ((activeWindow) ? 1.0 : 0.7) : (activeWindow ? 0.7 : 0) )) : 0;
             }
         }
+
+
+
         ColumnLayout {
 
         id: columnLayout
-        spacing: isWin ? PlasmaCore.Units.smallSpacing * 2 : 0
+        Layout.margins: isWin ? PlasmaCore.Units.smallSpacing / 2 : 0
+        Layout.fillHeight: true
+        spacing: isWin ? PlasmaCore.Units.smallSpacing / 2 : 0
+
     // text labels + close button
     RowLayout {
         id: header
@@ -111,14 +121,14 @@ Item {
         //spacing: isWin ? PlasmaCore.Units.smallSpacing : 0 //isWin ? PlasmaCore.Units.smallSpacing : PlasmaCore.Units.largeSpacing
         spacing: 0
         // This number controls the overall size of the window tooltips
-        Layout.maximumWidth: PlasmaCore.Units.gridUnit * 12
-        Layout.minimumWidth: isWin ? Layout.maximumWidth : 0
+        Layout.minimumWidth: isWin ? tooltipWidth : 0;
+        Layout.maximumWidth: isWin ? tooltipWidth : PlasmaCore.Units.gridUnit*12;
+        //Layout.maximumHeight: isWin ? 104 * PlasmaCore.Units.devicePixelRatio : 0;
         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         // match margins of DefaultToolTip.qml in plasma-framework
         Layout.margins: isWin ? 0 : PlasmaCore.Units.smallSpacing / 2
+        Layout.bottomMargin: 0
         // There's no PlasmaComponents3 version
-
-
 
         // The icon in the corner of the tooltip.
         PlasmaCore.IconItem {
@@ -126,7 +136,7 @@ Item {
             implicitWidth: PlasmaCore.Units.iconSizes.small;
             implicitHeight: PlasmaCore.Units.iconSizes.small;
             Layout.topMargin: PlasmaCore.Units.smallSpacing;
-            Layout.leftMargin: PlasmaCore.Units.smallSpacing*3;
+            Layout.leftMargin: PlasmaCore.Units.smallSpacing / 2;
             Layout.alignment: Qt.AlignVCenter
 
             source: icon
@@ -209,7 +219,7 @@ Item {
             Layout.alignment: Qt.AlignRight | Qt.AlignTop
             Layout.preferredWidth: PlasmaCore.Units.smallSpacing*3+2;
             Layout.preferredHeight: PlasmaCore.Units.smallSpacing*3+2;
-            Layout.rightMargin: PlasmaCore.Units.smallSpacing*3-1;
+            Layout.rightMargin: PlasmaCore.Units.smallSpacing / 2;
             Layout.topMargin: PlasmaCore.Units.smallSpacing*3-1;
             visible: isWin && hoverHandler.opacityHover
             imagePath: Qt.resolvedUrl("svgs/button-close.svg")
@@ -232,14 +242,30 @@ Item {
         }
     }
 
+
     // Thumbnail container.
     Item {
         id: thumbnailSourceItem
-
-        Layout.minimumWidth: header.width - PlasmaCore.Units.smallSpacing*4;
-        Layout.preferredHeight: header.width / 2
-        Layout.leftMargin: PlasmaCore.Units.smallSpacing*2;
-        Layout.bottomMargin: albumArtImage.visible || hasPlayer ? 0 : PlasmaCore.Units.smallSpacing*2;
+        function determineAspect() {
+            //if(isGroup) return toolTipDelegate.getMaxHeight();
+            if(x11Thumbnail.visible && x11Thumbnail.paintedWidth > 0) {
+                var geometry = plasmoid.nativeInterface.getWindowAspectRatio(winId);
+                var ratio = geometry.height / geometry.width;
+                return Math.min(thumbnailSourceItem.Layout.maximumHeight, tooltipWidth*ratio);
+            }
+            return thumbnailSourceItem.Layout.maximumHeight;
+        }
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+        Layout.minimumWidth: tooltipWidth;
+        Layout.maximumWidth: tooltipWidth;
+        Layout.maximumHeight: tooltipHeight;
+        Layout.preferredHeight: tooltipHeight//determineAspect()//(x11Thumbnail.visible && x11Thumbnail.paintedWidth > 0 && thumbnailSourceItem.determineAspect() ? (x11Thumbnail.paintedHeight) : tooltipHeight);
+        //Layout.minimumHeight: thumbnailSourceItem.Layout.maximumHeight;
+        Layout.leftMargin: PlasmaCore.Units.smallSpacing*3 - PlasmaCore.Units.smallSpacing / 2;
+        Layout.rightMargin: PlasmaCore.Units.smallSpacing*3 - PlasmaCore.Units.smallSpacing / 2;
+        Layout.bottomMargin: albumArtImage.visible || hasPlayer ? 0 : PlasmaCore.Units.smallSpacing*3;
+        Layout.topMargin: -PlasmaCore.Units.smallSpacing;
 
         visible: toolTipDelegate.isWin
 
@@ -247,16 +273,48 @@ Item {
         // TODO: this causes XCB error message when being visible the first time
         readonly property var winId: toolTipDelegate.isWin && toolTipDelegate.windows[flatIndex] !== undefined ? toolTipDelegate.windows[flatIndex] : 0
 
+
         PlasmaCore.WindowThumbnail {
             id: x11Thumbnail
 
+            property alias thumbnailWidth: x11Thumbnail.paintedWidth;
+
+            onThumbnailWidthChanged: {
+
+                //console.log(toolTipDelegate.getMaxHeight());
+            }
             anchors {
                 fill: parent
-                bottomMargin: PlasmaCore.Units.smallSpacing
             }
-
+            width: thumbnailSourceItem.Layout.minimumWidth;
+            //height: Math.min(thumbnailSourceItem.Layout.minimumHeight, x11Thumbnail.paintedHeight); //thumbnailSourceItem.Layout.minimumWidth * plasmoid.nativeInterface.getWindowAspectRatio(thumbnailSourceItem.winId);
             visible: !albumArtImage.visible && !thumbnailSourceItem.isMinimized && Number.isInteger(thumbnailSourceItem.winId)
             winId: Number.isInteger(thumbnailSourceItem.winId) ? thumbnailSourceItem.winId : 0
+        }
+
+        Rectangle {
+            id: noPreviewRect
+            anchors {
+                fill: parent
+            }
+            visible: !albumArtImage.available && !x11Thumbnail.visible
+            gradient: Gradient {
+                GradientStop { position: 0; color: "#ffffff" }
+                GradientStop { position: 1; color: "#cccccc" }
+            }
+            border.width: 1
+            border.color: "#40000000"
+            radius: 1
+            PlasmaCore.IconItem {
+                implicitWidth: PlasmaCore.Units.iconSizes.medium
+                implicitHeight: PlasmaCore.Units.iconSizes.medium
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                source: thumbnailSourceItem.isMinimized && !albumArtImage.visible && Number.isInteger(thumbnailSourceItem.winId) ? icon : ""
+                animated: false
+                usesPlasmaTheme: false
+                //visible: valid && !pipeWireLoader.active
+            }
         }
 
         Loader {
@@ -273,15 +331,28 @@ Item {
             source: "PipeWireThumbnail.qml"
         }
 
+        Rectangle {
+            id: thumbnailOutline
+            anchors.horizontalCenter: x11Thumbnail.horizontalCenter
+            anchors.verticalCenter: x11Thumbnail.verticalCenter
+            visible: x11Thumbnail.visible
+            border.color: "#40000000"
+            border.width: 1
+            radius: 1
+            color: "transparent"
+            width: x11Thumbnail.paintedWidth+2
+            height: x11Thumbnail.paintedHeight+2
+        }
         DropShadow {
-            anchors.fill: pipeWireLoader.active ? pipeWireLoader : x11Thumbnail
-            visible: pipeWireLoader.active ? pipeWireLoader.item.visible : x11Thumbnail.visible
-            horizontalOffset: 0
-            verticalOffset: Math.round(3 * PlasmaCore.Units.devicePixelRatio)
-            radius: Math.round(2 * PlasmaCore.Units.devicePixelRatio)
-            samples: Math.round(radius * 1.5)
-            color: "Black"
-            source: pipeWireLoader.active ? pipeWireLoader.item : x11Thumbnail
+            anchors.fill: pipeWireLoader.active ? pipeWireLoader : (x11Thumbnail.visible ? thumbnailOutline : noPreviewRect)
+            visible: pipeWireLoader.active ? pipeWireLoader.item.visible : (x11Thumbnail.visible || noPreviewRect.visible)
+            horizontalOffset: 1
+            verticalOffset: 1
+            radius: 1
+            samples: 1
+            color: "#70000000"
+            source: pipeWireLoader.active ? pipeWireLoader.item : (x11Thumbnail.visible ? thumbnailOutline : noPreviewRect)
+            z: 0
         }
 
 
@@ -290,10 +361,8 @@ Item {
             source: albumArt
             sourceSize: Qt.size(x11Thumbnail.width, x11Thumbnail.height)
             anchors {
-                top: x11Thumbnail.top
-                bottom: x11Thumbnail.bottom
-                left: parent.left
-                right: parent.right
+                fill: parent
+
             }
 
             fillMode: Image.PreserveAspectCrop
@@ -304,6 +373,7 @@ Item {
             layer.effect: FastBlur {
                 source: albumArtBackground
                 anchors.fill: parent
+                anchors.bottomMargin: -PlasmaCore.Units.smallSpacing
                 radius: 30
             }
 
@@ -312,11 +382,9 @@ Item {
         PlasmaCore.FrameSvgItem {
             id: albumArtBorder
             visible: albumArtImage.available
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.margins: -PlasmaCore.Units.smallSpacing/4
+            anchors.fill: parent
+            anchors.rightMargin: -PlasmaCore.Units.smallSpacing/4
+            anchors.bottomMargin: -PlasmaCore.Units.smallSpacing
             imagePath: "widgets/pager"
             prefix: "hover"
             opacity: 0.4
@@ -339,29 +407,12 @@ Item {
             fillMode: Image.PreserveAspectFit
             visible: available
         }
-
-        // when minimized, we don't have a preview on X11, so show the icon
-        PlasmaCore.IconItem {
-            width: parent.width
-            height: thumbnailSourceItem.height
-            anchors.horizontalCenter: parent.horizontalCenter
-            source: thumbnailSourceItem.isMinimized && !albumArtImage.visible && Number.isInteger(thumbnailSourceItem.winId) ? icon : ""
-            animated: false
-            usesPlasmaTheme: false
-            visible: valid && !pipeWireLoader.active
-        }
-
-
     }
 
     // Player controls row
     RowLayout {
         id: playerControls
-        Layout.maximumWidth: header.Layout.maximumWidth
-        // Match margins of header
-        Layout.leftMargin: isWin ? 0 : PlasmaCore.Units.gridUnit / 2
-        Layout.rightMargin: isWin ? 0 : PlasmaCore.Units.gridUnit / 2
-        //Layout.bottomMargin: isWin ? 0 : PlasmaCore.Units.gridUnit
+        Layout.maximumWidth: tooltipWidth + PlasmaCore.Units.smallSpacing*3;
 
         visible: hasPlayer
         enabled: canControl
@@ -370,6 +421,7 @@ Item {
             Layout.topMargin: PlasmaCore.Units.smallSpacing
             Layout.bottomMargin: PlasmaCore.Units.smallSpacing*2
             Layout.rightMargin: isWin ? PlasmaCore.Units.smallSpacing : PlasmaCore.Units.largeSpacing
+            Layout.leftMargin: 1
             Layout.columnSpan: 2
             Layout.column: 0
             spacing: 0
@@ -417,17 +469,16 @@ Item {
                     text: artist || ""
                     font: PlasmaCore.Theme.smallestFont
                     textFormat: Text.PlainText
-                    //color: "white";
                 }
             }
         }
         RowLayout {
 
             Layout.fillWidth: true
-            //Layout.topMargin: PlasmaCore.Units.smallSpacing
-            Layout.bottomMargin: PlasmaCore.Units.smallSpacing
-            Layout.rightMargin: isWin ? PlasmaCore.Units.smallSpacing*2 : PlasmaCore.Units.largeSpacing
-            spacing: -1//PlasmaCore.Units.smallSpacing / 4
+            Layout.topMargin: (!artistTextWrapper.visible && songText.text == "" ? 1 : 0)
+            Layout.bottomMargin: PlasmaCore.Units.smallSpacing * (!artistTextWrapper.visible && songText.text == "" ? 2 : 1)
+            Layout.rightMargin: PlasmaCore.Units.smallSpacing / 2
+            spacing: -1
 
         MediaButton {
             id: canGoBackMedia

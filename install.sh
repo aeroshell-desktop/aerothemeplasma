@@ -21,7 +21,7 @@ USER_LOOK_AND_FEEL=${USER_LOCAL}plasma/look-and-feel/
 COLOR_SCHEMES=${USER_LOCAL}color-schemes/
 USER_ICONS=${USER_LOCAL}icons/
 KWIN_SWITCHER_DIR=${USER_LOCAL}kwin/tabbox/
-EMERALD_PATH=~/.emerald/
+#EMERALD_PATH=~/.emerald/
 KVANTUM_THEMES=${USER_CONFIG}Kvantum/
 CURSOR_USER=~/.icons/default/
 CURSOR_SYSTEM=/usr/share/icons/
@@ -34,6 +34,7 @@ SYSTEM_PLASMOIDS=/usr/share/plasma/plasmoids/ # No longer necessary
 PLASMOID_PLUGINS=/usr/lib/qt/plugins/plasma/applets/ # Used for installing C++ components of SevenTasks and SevenStart
 TOOLTIP_DIR=/usr/lib/qt/qml/org/kde/plasma/core/private/ # Used for installing the modified tooltip component
 SOUNDS_DIR=/usr/share/sounds/ # Used for installing sounds, will most likely be deprecated when KDE 6 is out
+SDDM_DIR=/usr/share/sddm/themes/
 
 FONTS_DIR=/usr/share/fonts/windows/
 
@@ -46,6 +47,7 @@ INNER_SOUNDS="./Plasma/Sounds/"
 INNER_GLOBAL_THEME=./Plasma/Global_Theme/ # Unused
 INNER_PLASMA_THEME=./Plasma/KDE_Plasma_Theme/
 INNER_LOOK_AND_FEEL=./Plasma/Look_and_Feel/
+INNER_SDDM_THEME=./Plasma/SDDM/
 
 # Qt
 INNER_KVANTUM_THEME=./Qt/Application_Theme/Kvantum/
@@ -80,7 +82,6 @@ SPLASH_SCREEN=authui7
 COLOR_SCHEME=AeroColorScheme.colors
 
 # KWin
-KWIN_PLUGIN=kwin_smaragd.so
 KWIN_EFFECT=libkwin4_effect_reflect.so
 KWIN_CONFIG=kwin4_effect_reflect_config.so
 KWIN_SWITCHER=thumbnail_seven
@@ -219,10 +220,15 @@ function install {
 	cp "${INNER_ICON_THEME}index.theme" "${CURSOR_USER}index.theme"
 	ln -s "${CURSOR_SYSTEM}${CURSORTHEME}/cursors" "${CURSOR_USER}cursors"
 
-	echo "Installing Smaragd Seven..."
-	sudo mkdir -p "${KWIN_PLUGIN_DIR}"
-	sudo cp "${INNER_KWIN}smaragd_bin/${KWIN_PLUGIN}" "${KWIN_PLUGIN_DIR}"
-	cp -r "${INNER_KWIN}.emerald" ~
+	local rootdir=$PWD
+	echo "Installing KWin decoration theme..."
+	cd "${INNER_KWIN}smod_kwin_theme"
+	chmod +x ./build-decoration.sh && ./build-decoration.sh
+	chmod +x ./install-decoration.sh && ./install-decoration.sh
+	echo "Installing KWin caption button glow effect..."
+	chmod +x ./build-effect.sh && ./build-effect.sh
+	chmod +x ./install-effect.sh && ./install-effect.sh
+	cd "$rootdir"
 
 	echo "Installing Reflection effect..."
 
@@ -240,10 +246,7 @@ function install {
 	cd "${INNER_KWIN}kwin_fixblur"
 	chmod +x "$script" && "$script"
 	cd "$rootdir"
-	#sudo mkdir -p "${KWIN_EFFECTS_DIR}"
-	#sudo mkdir -p "${KWIN_CONFIGS_DIR}"
-	#sudo cp "${INNER_KWIN}kwin_reflect/bin/${KWIN_EFFECT}" "${KWIN_EFFECTS_DIR}"
-	#sudo cp "${INNER_KWIN}kwin_reflect/bin/${KWIN_CONFIG}" "${KWIN_CONFIGS_DIR}"
+	cp -r "${INNER_KWIN}.ffblurfix" ~
 
 	echo "Installing task switcher..."
 	cp -r "${INNER_KWIN}${KWIN_SWITCHER}" "${KWIN_SWITCHER_DIR}"

@@ -36,6 +36,8 @@ Item {
     property alias buttonIconHovered: buttonIconHovered
     property alias mouseArea: mouseArea
 
+    property int opacityDuration: 300
+
     PlasmaCore.IconItem {
         id: buttonIcon
         anchors.fill: parent
@@ -73,7 +75,7 @@ Item {
             : implicitWidth / implicitHeight)
         smooth: true
         Behavior on opacity {
-            NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuad; duration: opacityDuration  }
+            NumberAnimation { properties: "opacity"; easing.type: Easing.Linear; duration: opacityDuration  }
         }
         // A custom icon could also be rectangular. However, if a square, custom, icon is given, assume it
         // to be an icon and round it to the nearest icon size again to avoid scaling artifacts.

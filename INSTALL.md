@@ -15,6 +15,7 @@
 1. [Task Switcher](#task-switcher)
 1. [Look and Feel](#look-and-feel)
 1. [Sounds](#sounds)
+1. [SDDM](#sddm)
 1. [Wine](#wine)
 1. [Terminal](#terminal)
 1. [Firefox](#firefox)
@@ -205,55 +206,25 @@ Note: Font rendering on Linux is [largely broken now](https://gitlab.gnome.org/G
 
 ### Window Manager <a name="wm"></a>
 
-To install the window decoration, move the file:
+The KWin decoration theme comes in two parts: The decoration theme itself and a KWin effect for the caption button glow effect. Both components can be found in the following directory:
 
 ```
-$ ./KWin/smaragd_bin/kwin_smaragd.so
+$ ./KWin/smod_kwin_theme/
 ```
 
-to:
+To compile the components, run the following: 
 
 ```
-# /usr/lib/qt/plugins/org.kde.kdecoration2/
-``` 
-
-The window decoration requires an Emerald theme to be present as well. To install the theme, move the following directory (If it doesn't appear, enable viewing hidden files):
-
-```
-$ ./KWin/.emerald/
-``` 
-
-to the home directory.
-
-Smaragd reads the theme from the ```theme``` subfolder and ```settings.ini``` config file. If you want to use the Vista-sized caption buttons, rename the ```themevista``` subfolder and ```settingsvista.ini``` into the aforementioned names.
-
-To apply the window decoration, go to ```System settings -> Appearance -> Window Decorations``` and select Smaragd. 
-
-#### Compiling instructions
-
-Compiling Smaragd on Arch Linux requires a few dependencies to be installed on the system:
-
-- cmake
-- cairo
-- glib2
-- kdebase-runtime
-- kdelibs 4.14.x
-
-The last two dependencies are provided in this repository as prebuilt Arch packages. The package `kdebase-runtime` doesn't exist anymore for Arch, not even the AUR, so the only place to find it outside of this repository is through [this](https://archive.org/details/archlinux_pkg_kdebase-runtime) link. The package `kdelibs` can be installed through the AUR, however it isn't recommended as compiling the package takes very long, and as of right now, building the package seems to fail. Distributions like Debian might be better in terms of offering legacy packages.
-
-To compile Smaragd from the terminal:
-
-```bash
-cd smaragd-0.1.1
-mkdir build #You can delete the build directory that already exists, or use a different name
-cd build
-cmake -DCMAKE_INSTALL_PREFIX=`kf5-config --prefix` ..
-make
-sudo make install
+$ sh build-decoration.sh
+$ sh install-decoration.sh
+$ sh build-effect.sh
+$ sh install-effect.sh
 ```
 
-If compiling multiple times, only the last step is required. Steps 1-4. are for setting the environment up for the first time. 
-To see the changes after compiling and setting Smaragd in the System Settings, simply restart KWin.
+Log out of the Plasma session or restart KWin, and go to ```System Settings -> Appearance -> Window Decorations``` and select SMOD. In the settings for SMOD, set the shadow size to small.
+
+To enable caption button glow, go to ```System Settings -> Desktop Effects``` and enable the SMOD Window Buttons effect. 
+
 
 ### Reflection Effect <a name="reflection"></a>
 
@@ -337,7 +308,7 @@ It is possible to toggle showing labels by toggling the "Show labels on taskbar 
 This plasmoid doesn't require additional configuration after installation if other steps have been completed. If for some reason the font and size do not look appropriate, set them to the following: 
 
 - Font size px: 9
-- Font style: Segoe UI Light, bold
+- Font style: Segoe UI
 
 #### Desktop containment
 
@@ -462,6 +433,22 @@ notifications:
 |Battery Low, Peripheral Battery Low|```/usr/share/sounds/media_windows/Windows Battery Low.wav```     |
 |Battery Critical                   |```/usr/share/sounds/media_windows/Windows Battery Critical.wav```|
 
+### SDDM <a name="sddm"></a>
+
+To install the SDDM theme, move the following folder:
+
+```
+$ ./Plasma/SDDM/sddm-theme-smod
+```
+
+to: 
+
+```
+# /usr/share/sddm/themes/
+```
+
+Go to ```System Settings -> Login Screen (SDDM)``` and select SMOD. If the theme doesn't look right, click the 'Apply Plasma Settings...' button and apply the changes.
+
 ### Wine <a name="wine"></a>
 
 To install the msstyle for Wine applications, run ```winecfg```, and under the 'Desktop Integration' tab, click 'Install theme' and choose the following file:
@@ -503,7 +490,15 @@ cd ./KWin/kwin_fixblur/
 sh install.sh
 ```
 
-After it has been compiled, you can log out or restart Plasma and KWin, then go to ```System settings -> Workspace Behavior -> Desktop Effects``` and enable the effect.
+After it has been compiled, move the following folder: 
+
+```
+$ ./KWin/.ffblurfix
+```
+
+To the home directory.
+
+You can log out or restart Plasma and KWin, then go to ```System settings -> Workspace Behavior -> Desktop Effects``` and enable the effect.
 
 By default, this effect is enabled for Firefox. If you're using a different Firefox-based browser (Firefox ESR, Nightly, Floorp, Librewolf, etc.), then they need to be included in the config menu by adding their secondary window class name to the list.
 
@@ -513,10 +508,3 @@ For example, to apply the effect to both Firefox and Librewolf, the config's tex
 firefox;librewolf
 ```
 
-Additionally, this effect loads in an SVG file from the following directory: 
-
-```
-$ ~/.emerald/ffBlurRegion.svg
-```
-
-which should be there assuming the rest of the installation has been done.

@@ -1,0 +1,15 @@
+/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/uninstall.dir
+/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/fetch-translations.dir
+/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/KF5Config_QCH.dir
+/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/KF5CoreAddons_QCH.dir
+/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/KF5WindowSystem_QCH.dir
+/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/kwin4_effect_smodwindowbuttons.dir
+/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/test.dir
+/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/edit_cache.dir
+/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/rebuild_cache.dir
+/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/list_install_components.dir
+/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/install.dir
+/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/install/local.dir
+/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/install/strip.dir
+/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/kwin4_effect_smodwindowbuttons_autogen_timestamp_deps.dir
+/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/kwin4_effect_smodwindowbuttons_autogen.dir

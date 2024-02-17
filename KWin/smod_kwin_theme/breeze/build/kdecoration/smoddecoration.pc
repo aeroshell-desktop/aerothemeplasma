@@ -1,0 +1,13 @@
+
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${prefix}/lib/qt/plugins/org.kde.kdecoration2
+includedir=${prefix}/include
+
+Name: :smoddecoration.so
+Description: :smoddecoration.so library.
+URL: https://www.kde.org/
+Version: 5.27.10
+Libs: -L${prefix}/lib/qt/plugins/org.kde.kdecoration2 -l:smoddecoration.so
+Cflags: -I${prefix}/include 
+Requires: 

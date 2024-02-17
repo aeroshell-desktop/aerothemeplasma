@@ -46,6 +46,7 @@ ScrollViewTask {
     //
     property bool smartLauncherCountVisible
     property int smartLauncherCount
+    property Item repeater: null
 
     readonly property bool isVerticalPanel: plasmoid.formFactor === PlasmaCore.Types.Vertical
 
@@ -60,6 +61,21 @@ ScrollViewTask {
     /*scrollbarHorizontal.horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
     scrollbarVertical.verticalScrollBarPolicy: Qt.ScrollBarAlwaysOff*/
     
+    function getMaxHeight() {
+        if(!isGroup) return -1;
+        var max = 0;
+        for(var i = 0; i < repeater.count; i++) {
+            var temp = repeater.itemAt(i).totalHeight;
+            //console.log(i + ": " + temp);
+            if(temp !== undefined) {
+                //if(temp == -1) return 104 * PlasmaCore.Units.devicePixelRatio;
+                if(temp > max) max = temp;
+            }
+        }
+        //console.log(max);
+        return max;
+    }
+
     property int textWidth: PlasmaCore.Theme.mSize(PlasmaCore.Theme.defaultFont).width * 20
 
     Loader {
@@ -81,11 +97,13 @@ ScrollViewTask {
         Component {
             id: groupToolTip
 
+
             Grid {
+                id: tooltipGrid
                 rows: !isVerticalPanel
                 columns: isVerticalPanel
                 flow: isVerticalPanel ? Grid.TopToBottom : Grid.LeftToRight
-                spacing: PlasmaCore.Units.smallSpacing
+                spacing: 0//PlasmaCore.Units.smallSpacing
 
                 Repeater {
                     id: groupRepeater
@@ -98,8 +116,12 @@ ScrollViewTask {
                             submodelIndex: tasksModel.makeModelIndex(toolTipDelegate.rootIndex.row, index)
                         }
                     }
+                    Component.onCompleted: {
+                        toolTipDelegate.repeater = groupRepeater;
+                    }
                 }
             }
+
         }
     }
 }

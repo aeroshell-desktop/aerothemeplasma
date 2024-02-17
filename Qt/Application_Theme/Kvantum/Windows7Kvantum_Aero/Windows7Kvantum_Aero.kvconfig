@@ -11,7 +11,7 @@ spread_progressbar=false
 spread_header=false
 #progressbar_thickness=1.0font
 composite=true
-menu_shadow_depth=2
+menu_shadow_depth=5
 tooltip_shadow_depth=4
 scroll_min_extent=32
 slider_width=1
@@ -532,13 +532,13 @@ interior.element=scursor
 
 [Focus]
 inherits=PanelButtonCommand
-frame=false
-frame.element=
+frame=true
+frame.element=focus
 frame.top=1
 frame.bottom=1
 frame.left=1
 frame.right=1
-frame.patternsize=20
+frame.patternsize=4
 
 [ToolTip]
 interior=true

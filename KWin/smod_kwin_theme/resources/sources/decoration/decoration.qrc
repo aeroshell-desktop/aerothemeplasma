@@ -1,0 +1,108 @@
+<RCC>
+    <qresource prefix="/smod/decoration">
+        <file alias="reflection">nonredist/crop/reflections.png</file>
+        <file alias="framecornereffect">nonredist/crop/framecornereffect.png</file>
+        <file alias="framecornereffect-unfocus">nonredist/crop/framecornereffect-unfocus.png</file>
+        <file alias="sidehighlight">nonredist/crop/sidehighlight.png</file>
+        <file alias="sidehighlight-unfocus">nonredist/crop/sidehighlight-unfocus.png</file>
+
+        <file alias="close-glyph">nonredist/crop/close-glyph-96-small.png</file>
+        <file alias="close-hover-glyph">nonredist/crop/close-glyph-hover-96-small.png</file>
+        <file alias="close-active-glyph">nonredist/crop/close-glyph-active-96-small.png</file>
+        <file alias="close-inactive-glyph">nonredist/crop/close-glyph-inactive-96-small.png</file>
+
+        <file alias="minimize-glyph">nonredist/crop/minimize-glyph-96-small.png</file>
+        <file alias="minimize-hover-glyph">nonredist/crop/minimize-glyph-hover-96-small.png</file>
+        <file alias="minimize-active-glyph">nonredist/crop/minimize-glyph-active-96-small.png</file>
+        <file alias="minimize-inactive-glyph">nonredist/crop/minimize-glyph-inactive-96-small.png</file>
+
+        <file alias="maximize-glyph">nonredist/crop/maximize-glyph-96-small.png</file>
+        <file alias="maximize-hover-glyph">nonredist/crop/maximize-glyph-hover-96-small.png</file>
+        <file alias="maximize-active-glyph">nonredist/crop/maximize-glyph-active-96-small.png</file>
+        <file alias="maximize-inactive-glyph">nonredist/crop/maximize-glyph-inactive-96-small.png</file>
+
+        <file alias="restore-glyph">nonredist/crop/restore-glyph-96-small.png</file>
+        <file alias="restore-hover-glyph">nonredist/crop/restore-glyph-hover-96-small.png</file>
+        <file alias="restore-active-glyph">nonredist/crop/restore-glyph-active-96-small.png</file>
+        <file alias="restore-inactive-glyph">nonredist/crop/restore-glyph-inactive-96-small.png</file>
+
+        <file alias="close">nonredist/crop/close-cropped.png</file>
+        <file alias="close-hover">nonredist/crop/close-hover-cropped.png</file>
+        <file alias="close-active">nonredist/crop/close-active-cropped.png</file>
+        <file alias="close-notresponding">nonredist/crop/close-notresponding-cropped.png</file>
+
+        <file alias="minimize">nonredist/crop/minimize-cropped.png</file>
+        <file alias="minimize-hover">nonredist/crop/minimize-hover-cropped.png</file>
+        <file alias="minimize-active">nonredist/crop/minimize-active-cropped.png</file>
+        <file alias="minimize-notresponding">nonredist/crop/minimize-notresponding-cropped.png</file>
+
+        <file alias="maximize">nonredist/crop/maximize-cropped-small.png</file>
+        <file alias="maximize-hover">nonredist/crop/maximize-hover-cropped-small.png</file>
+        <file alias="maximize-active">nonredist/crop/maximize-active-cropped-small.png</file>
+        <file alias="maximize-notresponding">nonredist/crop/maximize-notresponding-cropped.png</file>
+
+
+
+
+        <file alias="close-unfocus">nonredist/crop/close-unfocus-cropped.png</file>
+        <file alias="close-unfocus-hover">nonredist/crop/close-unfocus-hover-cropped.png</file>
+        <file alias="close-unfocus-active">nonredist/crop/close-unfocus-active-cropped.png</file>
+        <file alias="close-unfocus-notresponding">nonredist/crop/close-unfocus-notresponding-cropped.png</file>
+
+        <file alias="minimize-unfocus">nonredist/crop/minimize-unfocus-cropped.png</file>
+        <file alias="minimize-unfocus-hover">nonredist/crop/minimize-unfocus-hover-cropped.png</file>
+        <file alias="minimize-unfocus-active">nonredist/crop/minimize-unfocus-active-cropped.png</file>
+        <file alias="minimize-unfocus-notresponding">nonredist/crop/minimize-unfocus-notresponding-cropped.png</file>
+
+        <file alias="maximize-unfocus">nonredist/crop/maximize-unfocus-cropped-small.png</file>
+        <file alias="maximize-unfocus-hover">nonredist/crop/maximize-unfocus-hover-cropped-small.png</file>
+        <file alias="maximize-unfocus-active">nonredist/crop/maximize-unfocus-active-cropped-small.png</file>
+        <file alias="maximize-unfocus-notresponding">nonredist/crop/maximize-unfocus-notresponding-cropped.png</file>
+
+
+
+
+        <file alias="minimize-glow">nonredist/crop/min-glow-resized.png</file>
+        <file alias="maximize-glow">nonredist/crop/max-glow-resized.png</file>
+        <file alias="close-glow">nonredist/crop/close-glow-resized.png</file>
+
+
+
+
+        <file alias="n">nonredist/crop/frame-noshadow-n.png</file>
+        <file alias="ne">nonredist/crop/frame-noshadow-ne.png</file>
+        <file alias="e">nonredist/crop/frame-e.png</file>
+        <file alias="se">nonredist/crop/frame-noshadow-se.png</file>
+        <file alias="s">nonredist/crop/frame-noshadow-s.png</file>
+        <file alias="sw">nonredist/crop/frame-noshadow-sw.png</file>
+        <file alias="w">nonredist/crop/frame-w.png</file>
+        <file alias="nw">nonredist/crop/frame-noshadow-nw.png</file>
+
+        <file alias="n-unfocus">nonredist/crop/frame-noshadow-unfocus-n.png</file>
+        <file alias="ne-unfocus">nonredist/crop/frame-noshadow-unfocus-ne.png</file>
+        <file alias="e-unfocus">nonredist/crop/frame-unfocus-e.png</file>
+        <file alias="se-unfocus">nonredist/crop/frame-noshadow-unfocus-se.png</file>
+        <file alias="s-unfocus">nonredist/crop/frame-noshadow-unfocus-s.png</file>
+        <file alias="sw-unfocus">nonredist/crop/frame-noshadow-unfocus-sw.png</file>
+        <file alias="w-unfocus">nonredist/crop/frame-unfocus-w.png</file>
+        <file alias="nw-unfocus">nonredist/crop/frame-noshadow-unfocus-nw.png</file>
+
+        <file alias="n-inner">nonredist/crop/frame-n-inner.png</file>
+        <file alias="ne-inner">nonredist/crop/frame-ne-inner.png</file>
+        <file alias="e-inner">nonredist/crop/frame-e-inner.png</file>
+        <file alias="se-inner">nonredist/crop/frame-se-inner.png</file>
+        <file alias="s-inner">nonredist/crop/frame-s-inner.png</file>
+        <file alias="sw-inner">nonredist/crop/frame-sw-inner.png</file>
+        <file alias="w-inner">nonredist/crop/frame-w-inner.png</file>
+        <file alias="nw-inner">nonredist/crop/frame-nw-inner.png</file>
+
+        <file alias="n-unfocus-inner">nonredist/crop/frame-unfocus-n-inner.png</file>
+        <file alias="ne-unfocus-inner">nonredist/crop/frame-unfocus-ne-inner.png</file>
+        <file alias="e-unfocus-inner">nonredist/crop/frame-unfocus-e-inner.png</file>
+        <file alias="se-unfocus-inner">nonredist/crop/frame-unfocus-se-inner.png</file>
+        <file alias="s-unfocus-inner">nonredist/crop/frame-unfocus-s-inner.png</file>
+        <file alias="sw-unfocus-inner">nonredist/crop/frame-unfocus-sw-inner.png</file>
+        <file alias="w-unfocus-inner">nonredist/crop/frame-unfocus-w-inner.png</file>
+        <file alias="nw-unfocus-inner">nonredist/crop/frame-unfocus-nw-inner.png</file>
+    </qresource>
+</RCC>

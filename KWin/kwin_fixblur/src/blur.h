@@ -67,7 +67,7 @@ public Q_SLOTS:
     //void slotScreenGeometryChanged();
 
 private:
-	QString svgPath = QDir::homePath() + "/.emerald/ffBlurRegion.svg";
+	QString svgPath = QDir::homePath() + "/.ffblurfix/ffBlurRegion.svg";
     Plasma::FrameSvg defaultSvg;
 	QStringList m_includedWindows;
 	QString m_texturePath;

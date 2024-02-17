@@ -15,7 +15,6 @@ language the component is written in (plasmoids, applications) or the standard t
 
 - **Themes**
     - [Plasma theme (Seven-Black)](./Documentation/Themes/Seven-Black.md)
-    - [Window decoration theme (Emerald/Smaragd)](./Documentation/Themes/Smaragd-Theme.md)
 - **Software**
     - Plasmoids
         - [System tray (org.kde.plasma.private.systemtray)](./Documentation/Software/Plasmoids/System-Tray.md)
@@ -23,7 +22,6 @@ language the component is written in (plasmoids, applications) or the standard t
         - [SevenStart (io.gitgud.wackyideas.SevenStart)](./Documentation/Software/Plasmoids/SevenStart.md)
         - [SevenTasks (io.gitgud.wackyideas.seventasks)](./Documentation/Software/Plasmoids/SevenTasks.md)
     - KWin
-        - [Smaragd](./Documentation/Software/KWin/Smaragd.md)
         - [Reflection effect](./Documentation/Software/KWin/Reflection.md)
 
 To keep the documentation condensed and to prevent redundancy, components that don't require documentation or are out of scope for this project (as in, documentation exists elsewhere) will not be documented here:
@@ -32,6 +30,7 @@ To keep the documentation condensed and to prevent redundancy, components that d
 - Show desktop (Aero) (io.gitgud.wackyideas.win7showdesktop)
 - Keyboard switcher (org.kde.plasma.keyboardlayout)
 - Look and Feel (Splash and Lock screen theme) (authui7)
+- KWin decoration theme (smod)
 - Plasma tooltip (DefaultToolTip.qml)
 - Wine theme (Windows Style Builder)
 - Color scheme ([KDE's docs](https://docs.kde.org/stable5/en/plasma-workspace/kcontrol/colors/index.html), [Video guide](https://www.youtube.com/watch?v=6VW--o7CEEA))
@@ -74,16 +73,18 @@ This is a list of components that are included in this project, as well as their
 |Win2-7            |Windows 7 theme for GTK2 applications. Adapted to work better with QGtkStyle.                                     |Y       |[Juandejesuss](https://www.gnome-look.org/p/1012465)|
 |Windows 7 Kvantum |Fixed certain padding and sizing issues, added more textures.                                                     |Y       |[DrGordBord](https://store.kde.org/p/1679903)|
 |WindowsIcons      |Windows 8.1 icon pack adapted to fit KDE better while also changing certain icons to their Windows 7 counterparts.|N       |[B00merang team](https://b00merang.weebly.com/icon-themes.html)|
+|SDDM theme |SDDM session login theme.|Y       |[Souris-2d07](https://gitgud.io/souris)|
+
 
 
 ### KWin
 
 |Name             |Description                                                                                                                   |Finished|Fork|
 |-----------------|------------------------------------------------------------------------------------------------------------------------------|--------|----|
-|Aero Emerald     |Custom, non-standard Emerald theme made to work with Smaragd Seven. Features caption buttons that match the default sizes for both 7 and Vista.                                                           |Y       |[nicu96](https://store.kde.org/p/1003826/), [Souris-2d07](https://gitgud.io/souris)|
-|Reflection Effect|Effect that renders a glassy texture under windows.                                        |N       |[KDE](https://invent.kde.org/plasma/kwin/-/tree/master/src/plugins/blur)|
-|Firefox Blur Region Fix|Effect that fixes Firefox's transparency and allows it to have proper blur and reflections.                                        |N       |N/A|
-|Smaragd Seven    |KWin decoration theme which uses Emerald themes as a basis, with some Aero specific changes and bugfixes. Lacks HiDPI support.|N       |[KDE](https://invent.kde.org/plasma/smaragd)|
+|Reflection Effect|KWin Effect that renders a glassy texture under windows.                                        |N       |[KDE](https://invent.kde.org/plasma/kwin/-/tree/master/src/plugins/blur)|
+|Firefox Blur Region Fix|KWin Effect that fixes Firefox's transparency and allows it to have proper blur and reflections.                                        |N       |N/A|
+|SMOD    |KWin decoration theme based on Breeze, has support for removing inner window borders to mimic Windows 7's extended borders feature.|N       |[Souris-2d07](https://gitgud.io/souris)|
+|SMOD Button glow    |KWin effect that provides proper caption button glow |Y       |[Souris-2d07](https://gitgud.io/souris)|
 |Thumbnail Seven  |KWin task switcher that mostly replicates the look and behavior of Windows 7's task switcher|N|[KDE](https://invent.kde.org/plasma/kwin/-/tree/master/src/tabbox/switchers/thumbnail_grid)|
 
 ### Miscellaneous
@@ -93,6 +94,12 @@ This is a list of components that are included in this project, as well as their
 |Authui7 |Aero themed login splash and lock screen.|Y       |[dominichayesferen](https://github.com/dominichayesferen)|
 |Install script |Installation script for AeroThemePlasma.|N       |N/A|
 
+### Deprecated
+
+|Name               |Description                     |Finished|Fork|
+|-------------------|--------------------------------|--------|----|
+|Smaragd Seven    |KWin decoration theme which uses Emerald themes as a basis, with some Aero specific changes and bugfixes. Lacks HiDPI support.|N       |[KDE](https://invent.kde.org/plasma/smaragd)|
+|Aero Emerald     |Custom, non-standard Emerald theme made to work with Smaragd Seven. Features caption buttons that match the default sizes for both 7 and Vista.                                                           |Y       |[nicu96](https://store.kde.org/p/1003826/), [Souris-2d07](https://gitgud.io/souris)|
 
 ## Components to be implemented <a name="todo"></a>
 
@@ -100,6 +107,5 @@ These components are listed from highest priority to lowest priority.
 
 - **Qt visual style to closely replicate the native Windows GUI appearance (Like QWindowsVistaStyle, or a fork of Kvantum)**
 - **Proper sound theme (upcoming in KDE Plasma 6)**
-- **SDDM Login theme**
 - **Better folder thumbnailer plugin**
 - **Plymouth theme(?)**

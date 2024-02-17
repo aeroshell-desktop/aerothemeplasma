@@ -171,7 +171,7 @@ Item {
     }
     property bool menuShown: dashWindow.visible
 
-    property int opacityDuration: 250
+    //property int opacityDuration: 350
 
     function createContextMenu(pos) {
         contextMenu = Qt.createQmlObject("ContextMenu {}", root);

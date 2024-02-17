@@ -1,0 +1,24 @@
+{
+	"BUILD_DIR" : "/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/kwin4_effect_smodwindowbuttons_autogen",
+	"CMAKE_BINARY_DIR" : "/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons",
+	"CMAKE_SOURCE_DIR" : "/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons",
+	"GENERATOR" : "Unix Makefiles",
+	"INCLUDE_DIR" : "/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/kwin4_effect_smodwindowbuttons_autogen/include",
+	"INPUTS" : 
+	[
+		"/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/shaders/shader.frag",
+		"/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/shaders/shader_core.frag"
+	],
+	"LOCK_FILE" : "/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/kwin4_effect_smodwindowbuttons_autogen.dir/AutoRcc_smodwindowbuttons_UVLADIE3JM_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "smodwindowbuttons" ],
+	"OUTPUT_CHECKSUM" : "UVLADIE3JM",
+	"OUTPUT_NAME" : "qrc_smodwindowbuttons.cpp",
+	"RCC_EXECUTABLE" : "/usr/bin/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/build/CMakeFiles/kwin4_effect_smodwindowbuttons_autogen.dir/AutoRcc_smodwindowbuttons_UVLADIE3JM_Used.txt",
+	"SOURCE" : "/home/anon/Desktop/smod_reduced/kwin-effect-smodwindowbuttons/src/smodwindowbuttons.qrc",
+	"VERBOSITY" : 0
+}

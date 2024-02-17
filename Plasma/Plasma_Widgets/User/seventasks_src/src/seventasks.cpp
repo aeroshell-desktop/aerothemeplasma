@@ -5,6 +5,7 @@
 
 #include "seventasks.h"
 #include <kwindowsystem.h>
+#include <kwindowinfo.h>
 
 SevenTasks::SevenTasks(QObject *parent, const QVariantList &args)
     : Plasma::Applet(parent, args)
@@ -19,6 +20,12 @@ SevenTasks::~SevenTasks()
 bool SevenTasks::isActiveWindow(int wid)
 {
 	return wid == KWindowSystem::activeWindow();
+}
+QRect SevenTasks::getWindowAspectRatio(int wid)
+{
+    KWindowInfo info(wid, NET::WMGeometry);
+    if(info.valid()) return info.geometry();
+    else return QRect();
 }
 
 unsigned int mapColorChannel(int channel)

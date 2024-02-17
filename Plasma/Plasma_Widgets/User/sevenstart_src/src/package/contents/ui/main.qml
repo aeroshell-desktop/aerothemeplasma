@@ -1,239 +1,192 @@
-/***************************************************************************
- *   Copyright (C) 2014-2015 by Eike Hein <hein@kde.org>                   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
- ***************************************************************************/
-
+/*
+ * Copyright 2013  Heena Mahour <heena393@gmail.com>
+ * Copyright 2013 Sebastian Kügler <sebas@kde.org>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of
+ * the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
-import org.kde.plasma.private.kicker 0.1 as Kicker
-import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
-import org.kde.kwindowsystem 1.0
+import org.kde.plasma.extras 2.0 as PlasmaExtras
+import org.kde.kquickcontrolsaddons 2.0
+import org.kde.plasma.private.digitalclock 1.0
+import org.kde.kquickcontrolsaddons 2.0
+import org.kde.plasma.calendar 2.0 as PlasmaCalendar
 
 Item {
-    id: kicker
-
-    signal reset
-
+    id: root
     anchors.fill: parent
-    property bool isDash: false
-    property Item dragSource: null
-    clip: true
+    
+    // Updater 1/3 ==================================================================================================================================
+    property string updateResponse;
+    property string currentVersion: '5.5';
+    property bool checkUpdateStartup: Plasmoid.configuration.checkUpdateStartup
+    // ==============================================================================================================================================
 
-    // With this we can make the compact representation be any
-    // item we want.
+    width: units.gridUnit * 10
+    height: units.gridUnit * 4
+    property string dateFormatString: setDateFormatString()
+    property date tzDate: {
+        // get the time for the given timezone from the dataengine
+        var now = dataSource.data[plasmoid.configuration.lastSelectedTimezone]["DateTime"];
+        // get current UTC time
+        var msUTC = now.getTime() + (now.getTimezoneOffset() * 60000);
+        // add the dataengine TZ offset to it
+        return new Date(msUTC + (dataSource.data[plasmoid.configuration.lastSelectedTimezone]["Offset"] * 1000));
+    }
+
+    function initTimezones() {
+        var tz  = Array()
+        if (plasmoid.configuration.selectedTimeZones.indexOf("Local") === -1) {
+            tz.push("Local");
+        }
+        root.allTimezones = tz.concat(plasmoid.configuration.selectedTimeZones);
+    }
+
+	//This is done to better control how the plasmoid should look and feel in a panel.
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
     Plasmoid.compactRepresentation: null
-    Plasmoid.fullRepresentation: compactRepresentation
+    Plasmoid.fullRepresentation: smallRepresentation
 
-    property QtObject globalFavorites: rootModel.favoritesModel
-    property QtObject systemFavorites: rootModel.systemFavoritesModel
-    property bool compositingEnabled: kwindowsystem.compositingActive
+    Plasmoid.toolTipItem: Loader {
+        id: tooltipLoader
 
-    // Runs KMenuEdit.
-    function action_menuedit() {
-        processRunner.runMenuEditor();
+        Layout.minimumWidth: item ? item.width : 0
+        Layout.maximumWidth: item ? item.width : 0
+        Layout.minimumHeight: item ? item.height : 0
+        Layout.maximumHeight: item ? item.height : 0
+
+        source: "Tooltip.qml"
     }
 
-    function action_taskman() {
-        menu_executable.exec("ksysguard");
-    }
-  
-    Component {
-        id: compactRepresentation
-        CompactRepresentation {}
-    }
-
-    Component {
-        id: menuRepresentation
-        MenuRepresentation {}
-    }
-
-    // Used to run separate programs through this plasmoid.
-    PlasmaCore.DataSource {
-    	id: menu_executable
-    	engine: "executable"
-    	connectedSources: []
-    	onNewData: {
-    	    var exitCode = data["exit code"]
-    	    var exitStatus = data["exit status"]
-    	    var stdout = data["stdout"]
-    	    var stderr = data["stderr"]
-    	    exited(sourceName, exitCode, exitStatus, stdout, stderr)
-    	    disconnectSource(sourceName)
-    	}
-    	function exec(cmd) {
-    	    if (cmd) {
-    	        connectSource(cmd)
-    	    }
-    	}
-    	signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
-    }
-    KWindowSystem { id: kwindowsystem } // Used for detecting compositing changes.
-    Kicker.RootModel {
-        id: rootModel
-
-        autoPopulate: false
-
-        appNameFormat: plasmoid.configuration.appNameFormat
-        flat: true
-        sorted: true
-        showSeparators: true
-        appletInterface: plasmoid
-
-        paginate: false
-        pageSize: plasmoid.configuration.numberColumns *  plasmoid.configuration.numberRows
-
-        showAllApps: false
-        showRecentApps: true
-        showRecentDocs: false
-        showRecentContacts: false
-        showPowerSession: false
-
-        onFavoritesModelChanged: {
-            if ("initForClient" in favoritesModel) {
-                favoritesModel.initForClient("org.kde.plasma.kicker.favorites.instance-" + plasmoid.id)
-
-                if (!plasmoid.configuration.favoritesPortedToKAstats) {
-                    favoritesModel.portOldFavorites(plasmoid.configuration.favoriteApps);
-                    plasmoid.configuration.favoritesPortedToKAstats = true;
-                }
-            } else {
-                favoritesModel.favorites = plasmoid.configuration.favoriteApps;
-            }
-            favoritesModel.maxFavorites = pageSize;
-        }
-
-        onSystemFavoritesModelChanged: {
-            systemFavoritesModel.enabled = false;
-            systemFavoritesModel.favorites = plasmoid.configuration.favoriteSystemActions;
-            systemFavoritesModel.maxFavorites = 8;
-        }
-
-        Component.onCompleted: {
-            if ("initForClient" in favoritesModel) {
-                favoritesModel.initForClient("org.kde.plasma.kicker.favorites.instance-" + plasmoid.id)
-
-                if (!plasmoid.configuration.favoritesPortedToKAstats) {
-                    favoritesModel.portOldFavorites(plasmoid.configuration.favoriteApps);
-                    plasmoid.configuration.favoritesPortedToKAstats = true;
-                }
-            } else {
-                favoritesModel.favorites = plasmoid.configuration.favoriteApps;
-            }
-
-            favoritesModel.maxFavorites = pageSize;
-            rootModel.refresh();
-        }
-    }
-
-    Connections {
-        target: globalFavorites
-
-        function onFavoritesChanged() {
-            plasmoid.configuration.favoriteApps = target.favorites;
-        }
-    }
-
-    Connections {
-        target: systemFavorites
-
-        function onFavoritesChanged() {
-            plasmoid.configuration.favoriteSystemActions = target.favorites;
-        }
-    }
-
+    //We need Local to be *always* present, even if not disaplayed as
+    //it's used for formatting in ToolTip.dateTimeChanged()
+    property var allTimezones
     Connections {
         target: plasmoid.configuration
-
-        function onFavoriteAppsChanged() {
-            globalFavorites.favorites = plasmoid.configuration.favoriteApps;
+        function onSelectedTimeZonesChanged() { root.initTimezones(); }
+    }
+    Component {
+        id: mainRepresentation
+        CalendarView {
+            
         }
+    }
+    Component {
+        id: smallRepresentation
+        DigitalClock
+        {}
+    }
 
-        function onFavoriteSystemActionsChanged() {
-            systemFavorites.favorites = plasmoid.configuration.favoriteSystemActions;
+    PlasmaCore.DataSource {
+        id: dataSource
+        engine: "time"
+        connectedSources: allTimezones
+        interval: plasmoid.configuration.showSeconds ? 1000 : 60000
+        intervalAlignment: plasmoid.configuration.showSeconds ? PlasmaCore.Types.NoAlignment : PlasmaCore.Types.AlignToMinute
+    }
+
+    function setDateFormatString() {
+        // remove "dddd" from the locale format string
+        // /all/ locales in LongFormat have "dddd" either
+        // at the beginning or at the end. so we just
+        // remove it + the delimiter and space
+        var format = Qt.locale().dateFormat(Locale.LongFormat);
+        format = format.replace(/(^dddd.?\s)|(,?\sdddd$)/, "");
+        return format;
+    }
+
+    function action_clockkcm() {
+        KCMShell.open("clock");
+    }
+
+    function action_formatskcm() {
+        KCMShell.open("formats");
+    }
+    
+    // Updater 2/3 ==================================================================================================================================
+    
+    PlasmaCore.DataSource {
+        id: executableNotification
+        engine: "executable"
+        onNewData: disconnectSource(sourceName) // cmd finished
+        function exec(cmd) {
+            connectSource(cmd)
         }
     }
-
-    Kicker.RunnerModel {
-        id: runnerModel
-
-        favoritesModel: globalFavorites
-        runners: plasmoid.configuration.useExtraRunners ? new Array("services").concat(plasmoid.configuration.extraRunners) : "services"
-        appletInterface: plasmoid
-
-        deleteWhenEmpty: false
+    
+    Timer {
+        id:timerStartUpdater
+        interval: 300000
+        onTriggered: updaterNotification(false)
     }
 
-    Kicker.DragHelper {
-        id: dragHelper
+    function availableUpdate() {
+        var notificationCommand = "notify-send --icon=clock 'Plasmoid Digital Clock Lite' 'An update is available \n<a href=\"https://www.opendesktop.org/p/1225135/\">Update link</a>' -t 30000";
+        executableNotification.exec(notificationCommand);
     }
 
-    Kicker.ProcessRunner {
-        id: processRunner
+    function noAvailableUpdate() {
+        var notificationCommand = "notify-send --icon=clock 'Plasmoid Digital Clock Lite' 'Your current version is up to date' -t 30000";
+        executableNotification.exec(notificationCommand);
     }
-
-	// SVGs
-    PlasmaCore.FrameSvgItem {
-        id : highlightItemSvg
-        visible: false
-        imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
-        prefix: "hover"
+    
+    function updaterNotification(notifyUpdated) {
+        var xhr = new XMLHttpRequest;
+        xhr.responseType = 'text';
+        xhr.open("GET", "https://raw.githubusercontent.com/Intika-Linux-Plasmoid/plasmoid-digital-clock-lite/master/version");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                updateResponse = xhr.responseText;
+                console.log('.'+updateResponse+'.');
+                console.log('.'+currentVersion+'.');
+                //console.log('.'+xhr.status+'.');
+                //console.log('.'+xhr.statusText+'.');
+                if (updateResponse.localeCompare(currentVersion) && updateResponse.localeCompare('') && updateResponse.localeCompare('404: Not Found\n')) {
+                    availableUpdate();
+                } else if (notifyUpdated) {
+                    noAvailableUpdate();
+                }
+            }
+        };
+        xhr.send();
     }
-    PlasmaCore.FrameSvgItem {
-        id : panelSvg
-        visible: false
-        imagePath: "widgets/panel-background"
+    
+    function action_checkUpdate() {
+        updaterNotification(true);
     }
-    PlasmaCore.Svg {
-        id: arrowsSvg
-        imagePath: Qt.resolvedUrl("svgs/arrows.svgz")
-        size: "16x16"
-    }
-    PlasmaCore.Svg {
-        id: lockScreenSvg
-        imagePath: Qt.resolvedUrl("svgs/system-lock-screen.svg")
-    }
-
-    PlasmaComponents.Label {
-        id: toolTipDelegate
-
-        width: contentWidth
-        height: contentHeight
-
-        property Item toolTip
-
-        text: (toolTip != null) ? toolTip.text : ""
-    }
-
-    function resetDragSource() {
-        dragSource = null;
-    }
+    
+    // ==============================================================================================================================================
 
     Component.onCompleted: {
-        plasmoid.setAction("menuedit", i18n("Edit Applications..."));
-        plasmoid.setAction("taskman", i18n("Task Manager"));
-
-        rootModel.refreshed.connect(reset);
-
-        dragHelper.dropped.connect(resetDragSource);
-
+        root.initTimezones();
+        if (KCMShell.authorize("clock.desktop").length > 0) {
+            plasmoid.setAction("clockkcm", i18n("Adjust Date and Time..."), "preferences-system-time");
+        }
+        if (KCMShell.authorize("formats.desktop").length > 0) {
+            plasmoid.setAction("formatskcm", i18n("Set Time Format..."));
+        }
+        
+        // Set the list of enabled plugins from config
+        // to the manager
+        PlasmaCalendar.EventPluginsManager.enabledPlugins = plasmoid.configuration.enabledCalendarPlugins;
+        
+        // Updater 3/3 ==============================================================================================================================
+        plasmoid.setAction("checkUpdate", i18n("Check for updates on github"), "view-grid");
+        if (checkUpdateStartup) {timerStartUpdater.start();}
+        // ==========================================================================================================================================
     }
 }
