@@ -592,10 +592,14 @@ Item
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.topMargin: 2
                         visible: keystateSource.data["Caps Lock"]["Locked"] && password.visible
-                        Kirigami.Icon {
-                            source: "dialog-warning"
-                            implicitHeight: 16
-                            implicitWidth: 16
+                        Image {
+                            id: iconSmall
+                            width: PlasmaCore.Units.iconSizes.small;
+                            height: PlasmaCore.Units.iconSizes.small;
+
+                            source: "./Assets/dialog-warning.png"
+                            sourceSize.width: iconSmall.width
+                            sourceSize.height: iconSmall.height
                         }
                         QQC2.Label {
                             id: notificationsLabel
