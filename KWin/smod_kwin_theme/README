@@ -1,3 +1,4 @@
+./install-resources.sh
 ./build-decoration.sh
 ./install-decoration.sh
 ./build-effect.sh

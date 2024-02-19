@@ -215,6 +215,7 @@ $ ./KWin/smod_kwin_theme/
 To compile the components, run the following: 
 
 ```
+$ sh install-resources.sh
 $ sh build-decoration.sh
 $ sh install-decoration.sh
 $ sh build-effect.sh

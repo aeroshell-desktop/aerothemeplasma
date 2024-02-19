@@ -223,6 +223,7 @@ function install {
 	local rootdir=$PWD
 	echo "Installing KWin decoration theme..."
 	cd "${INNER_KWIN}smod_kwin_theme"
+	chmod +x ./install-resources.sh && ./install-resources.sh
 	chmod +x ./build-decoration.sh && ./build-decoration.sh
 	chmod +x ./install-decoration.sh && ./install-decoration.sh
 	echo "Installing KWin caption button glow effect..."
