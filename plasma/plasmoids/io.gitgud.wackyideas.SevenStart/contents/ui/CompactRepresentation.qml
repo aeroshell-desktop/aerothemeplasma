@@ -92,7 +92,6 @@ Item {
         dashWindow.visible = !dashWindow.visible;
         dashWindow.showingAllPrograms = false;
         Plasmoid.setActiveWin(dashWindow);
-        console.log(floatingOrbPanel.buttonIcon.implicitHeight);
         dashWindow.m_searchField.focus = true;
         orb.raise();
     }
@@ -124,10 +123,6 @@ Item {
             root.Layout.minimumHeight = orb.height;
             root.Layout.maximumHeight = orb.height;
         }
-
-    // This has to be done, or else the orb won't be positioned correctly. ??????????
-        /*orb.y += 5;
-        orb.y -= 5; // ??????????????????????????????????????*/
     }
 
     //kicker.status: PlasmaCore.Types.PassiveStatus

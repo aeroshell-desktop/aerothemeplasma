@@ -102,7 +102,7 @@ PlasmaCore.Dialog {
         } else {
             requestActivate();
 			searchField.forceActiveFocus();
-			if(!firstTimePopup) setFloatingAvatarPosition();
+			setFloatingAvatarPosition();
         }
 		resetRecents(); // Resets the recents model to prevent errors and crashes.
     }
@@ -117,6 +117,7 @@ PlasmaCore.Dialog {
         var pos = popupPosition(width, height);
         x = pos.x;
         y = pos.y;
+		setFloatingAvatarPosition();
     }
 
     onSearchingChanged: {
