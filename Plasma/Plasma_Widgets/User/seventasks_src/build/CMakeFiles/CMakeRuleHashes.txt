@@ -1,7 +1,0 @@
-# Hashes of file build rules.
-0da776e0c3c9996745efb13dfdba7ae4 CMakeFiles/fetch-translations
-0af62eb06bab38df7def1cdc183015b4 CMakeFiles/uninstall
-36ead83166e12467cd579c279764ef55 releaseme
-bb89f5f927d0b4fd9f13b2b3de344ab5 src/CMakeFiles/plasma_applet_seventasks_autogen
-bb89f5f927d0b4fd9f13b2b3de344ab5 src/CMakeFiles/plasma_applet_seventasks_autogen_timestamp_deps
-9423cc2cf3b92dbd59f7e61e5aab6b70 src/plasma_applet_seventasks_autogen/timestamp

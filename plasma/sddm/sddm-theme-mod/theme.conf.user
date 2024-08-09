@@ -1,0 +1,5 @@
+background=bgtexture.jpg
+forceUserSelect=false
+enableStartup=true
+#biggerUserFrame=true
+#biggerMultiUserFrame=true

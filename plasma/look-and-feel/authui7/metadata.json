@@ -1,0 +1,25 @@
+{
+    "KPackageStructure": "Plasma/Shell",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "wackyideas@disroot.org",
+                "Name": "wackyideas"
+            },
+            {
+                "Name": "dominichayesferen"
+            }
+        ],
+        "Category": "",
+        "Description": "Windows 7 styled splash screen",
+        "Icon": "user-desktop",
+        "Id": "authui7",
+        "License": "AGPLv3",
+        "Name": "Windows 7 style",
+        "Version": "2.0",
+        "Website": "https://gitgud.io/wackyideas/aerothemeplasma"
+    },
+    "Keywords": "",
+    "X-KDE-ParentApp": "org.kde.plasmashell",
+    "X-Plasma-APIVersion": "2"
+}

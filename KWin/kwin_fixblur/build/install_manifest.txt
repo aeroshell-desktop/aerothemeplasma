@@ -1,2 +1,0 @@
-/usr/lib/qt/plugins/kwin/effects/plugins/libkwin4_effect_customblur.so
-/usr/lib/qt/plugins/kwin/effects/configs/kwin4_effect_customblur_config.so

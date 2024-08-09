@@ -1,6 +1,0 @@
-Install SMOD decoration first
-
-mkdir build
-cmake -B build .
-make -C build
-sudo make -C build install

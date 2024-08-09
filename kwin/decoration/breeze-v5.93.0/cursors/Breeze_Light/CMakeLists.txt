@@ -1,0 +1,1 @@
+install(DIRECTORY Breeze_Light DESTINATION ${CMAKE_INSTALL_DATADIR}/icons)

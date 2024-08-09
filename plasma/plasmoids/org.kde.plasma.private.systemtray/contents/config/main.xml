@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+  <kcfgfile name=""/>
+
+  <group name="General">
+    <entry name="extraItems" type="StringList">
+      <label>All plasmoid items that are explicitly enabled in the systray. It's a comma-separated string list of plasmoid plugin ids.</label>
+      <default></default>
+    </entry>
+    <entry name="hiddenItems" type="StringList">
+      <label>All items that are hidden, forced always in the popup. It's a comma-separated string list of unique identifiers that are either plasmoid plugin ids or StatusNotifier ids.</label>
+      <default></default>
+    </entry>
+    <entry name="shownItems" type="StringList">
+      <label>All items that are shown. It's a comma-separated string list of unique identifiers that are either plasmoid plugin ids or StatusNotifier ids.</label>
+      <default></default>
+    </entry>
+    <entry name="showAllItems" type="bool">
+        <label>If true, all systray entries will be always in the main area, outside the popup.</label>
+        <default>false</default>
+    </entry>
+    <entry name="knownItems" type="StringList" hidden="true">
+      <default></default>
+    </entry>
+    <entry name="scaleIconsToFit" type="bool">
+      <label>Whether to automatically scale System Tray icons to fix the available thickness of the panel. If false, tray icons will be capped at the smallMedium size (22px) and become a two-row/column layout when the panel is thick.</label>
+      <default>false</default>
+    </entry>
+    <entry name="iconSpacing" type="int">
+      <label>spacing between icons, determined by this number multiplied by Kirigami.Units.smallSpacing</label>
+      <default>2</default>
+    </entry>
+    <entry name="pin" type="Bool">
+      <label>Whether the popup should remain open when another window is activated</label>
+      <default>false</default>
+    </entry>
+  </group>
+
+</kcfg>
+

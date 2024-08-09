@@ -1,0 +1,18 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "mirkogen@hotmail.it",
+                "Name": "Mirko Gennari"
+            }
+        ],
+        "Category": "Plasma Theme",
+        "Description": "Seven Black theme with glass effect and reflections",
+        "EnabledByDefault": true,
+        "Id": "Seven Black",
+        "License": "GPL",
+        "Name": "Seven Black",
+        "Version": "1.0.88"
+    },
+    "X-Plasma-API": "6.0"
+}

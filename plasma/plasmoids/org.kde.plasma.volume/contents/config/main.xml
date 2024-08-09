@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+  <kcfgfile name=""/>
+
+  <group name="General">
+    <entry name="currentTab" type="String">
+      <label>Currently shown tab (devices, streams)</label>
+      <default>devices</default>
+    </entry>
+    <entry name="raiseMaximumVolume" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="volumeStep" type="Int">
+      <default>5</default>
+    </entry>
+    <entry name="volumeFeedback" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="volumeOsd" type="Bool">
+      <label>Whether to show a popup when the volume changes</label>
+      <default>true</default>
+    </entry>
+    <entry name="muteOsd" type="Bool">
+      <label>Whether to show a popup when mute state changes</label>
+      <default>true</default>
+    </entry>
+    <entry name="micOsd" type="Bool">
+      <label>Whether to show a popup when microphone volume changes</label>
+      <default>true</default>
+    </entry>
+    <entry name="outputChangeOsd" type="Bool">
+      <label>Whether to show a popup when the default output device changes (e.g. plugging in a headset)</label>
+      <default>true</default>
+    </entry>
+    <entry name="globalMute" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="globalMuteDevices" type="StringList">
+      <label>Devices that were not muted with global mute, and will remain muted afterwards.</label>
+    </entry>
+    <entry name="showVirtualDevices" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="migrated" type="Bool">
+      <default>false</default>
+    </entry>
+  </group>
+
+</kcfg>

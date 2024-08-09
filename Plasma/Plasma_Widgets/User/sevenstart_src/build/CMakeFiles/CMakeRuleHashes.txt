@@ -1,6 +1,0 @@
-# Hashes of file build rules.
-c11dd9a01213471486ff05fd1fae89e9 CMakeFiles/fetch-translations
-f69c7feb1c6cac22729522b78dc7cd17 CMakeFiles/uninstall
-cbf1cd061149e5fe302b9afe85867e55 releaseme
-d8435b7e619dc16f455c9fbdeb49618e src/CMakeFiles/plasma_applet_SevenStart_autogen
-040596f78318f2bb21c92511e85800f1 src/metadata.json

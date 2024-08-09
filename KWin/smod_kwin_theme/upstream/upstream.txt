@@ -1,4 +1,0 @@
-https://invent.kde.org/plasma/breeze/-/archive/v5.27.10/breeze-v5.27.10.zip
-https://invent.kde.org/multimedia/haruna/-/archive/v0.12.3/haruna-v0.12.3.zip
-https://invent.kde.org/system/dolphin/-/archive/v23.08.4/dolphin-v23.08.4.zip
-https://invent.kde.org/graphics/gwenview/-/archive/v23.08.4/gwenview-v23.08.4.zip

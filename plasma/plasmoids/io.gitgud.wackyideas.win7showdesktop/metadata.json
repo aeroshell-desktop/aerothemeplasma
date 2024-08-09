@@ -1,0 +1,91 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "mklapetek@kde.org",
+                "Name": "Martin Klapetek"
+            },
+            {
+                "Email": "zrenfire@gmail.com",
+                "Name": "Chris Holland"
+            },
+            {
+                "Email": "wackyideas@disroot.org",
+                "Name": "wackyideas"
+            }
+        ],
+        "BugReportUrl": "https://gitgud.io/wackyideas/aerothemeplasma/issues",
+        "Category": "Windows and Tasks",
+	"Description": "Show the Plasma desktop",
+	"Description[ar]": "أظهر سطح مكتب بلازما",
+	"Description[bs]": "Prikazi plazma površ",
+	"Description[ca]": "Mostra l'escriptori Plasma",
+	"Description[ca@valencia]": "Mostra l'escriptori Plasma",
+	"Description[cs]": "Zobrazení plochy Plasmy",
+	"Description[da]": "Viser Plasmas skrivebord.",
+	"Description[de]": "Die Plasma-Arbeitsfläche anzeigen",
+	"Description[el]": "Εμφάνιση της επιφάνειας εργασίας plasma",
+	"Description[en_GB]": "Show the Plasma desktop",
+	"Description[es]": "Mostrar el escritorio de Plasma",
+	"Description[et]": "Plasma töölaua näitamine",
+	"Description[eu]": "Erakutsi Plasma mahaigaina",
+	"Description[fi]": "Näyttää työpöydän",
+	"Description[fr]": "Afficher le bureau Plasma",
+	"Description[ga]": "Taispeáin an deasc Plasma",
+	"Description[gl]": "Mostra o escritorio Plasma",
+	"Description[he]": "מציג את שולחן העבודה Plasma",
+	"Description[hr]": "Prikaži radnu površinu Plasme",
+	"Description[hu]": "A Plazma munkaasztal megjelenítése",
+	"Description[is]": "Sýna Plasmaskjáborðið",
+	"Description[it]": "Mostra il desktop di Plasma",
+	"Description[ja]": "Plasma デスクトップを表示します",
+	"Description[kk]": "Plasma үстелінің бетін көрсету",
+	"Description[km]": "បង្ហាញ​ផ្ទៃតុ​ប្លាស្មា",
+	"Description[ko]": "Plasma 데스크톱 보이기",
+	"Description[ku]": "Sermase ya Plasma nîşan bide",
+	"Description[lt]": "Rodo Plasma darbalaukį",
+	"Description[lv]": "Parāda Plasma darbvirsmu",
+	"Description[mr]": "प्लाज्मा डेस्कटॉप दर्शवा",
+	"Description[nb]": "Vis Plasma-skrivebordet",
+	"Description[nds]": "Den Plasma-Schriefdisch wiesen",
+	"Description[nl]": "Toont het Plasma-bureaublad",
+	"Description[nn]": "Vis Plasma-skrivebordet",
+	"Description[pa]": "ਪਲਾਜ਼ਮਾ ਡੈਸਕਟਾਪ ਵੇਖੋ",
+	"Description[pl]": "Pokazuje pulpit Plazmy",
+	"Description[pt]": "Mostrar o ecrã do Plasma",
+	"Description[pt_BR]": "Mostra a área de trabalho do Plasma",
+	"Description[ro]": "Arată biroul Plasma",
+	"Description[ru]": "Показать рабочий стол Plasma",
+	"Description[sk]": "Zobrazenie plochy Plasmy",
+	"Description[sl]": "Pokaži namizje Plasma",
+	"Description[sr]": "Баците поглед на плазма површ",
+	"Description[sr@ijekavian]": "Баците поглед на плазма површ",
+	"Description[sr@ijekavianlatin]": "Bacite pogled na plasma površ",
+	"Description[sr@latin]": "Bacite pogled na plasma površ",
+	"Description[sv]": "Visa Plasmas skrivbord",
+	"Description[th]": "แสดงพื้นที่ทำงานของพลาสมา",
+	"Description[tr]": "Plasma masaüstünü göster",
+	"Description[uk]": "Показує стільницю Плазми",
+	"Description[wa]": "Mostrer l' sicribanne Plasma",
+	"Description[x-test]": "xxShow the Plasma desktopxx",
+	"Description[zh_CN]": "显示 Plasma 桌面",
+	"Description[zh_TW]": "顯示 Plasma 桌面",
+
+        "FormFactors": [
+            "tablet",
+            "handset",
+            "desktop"
+        ],
+        "Icon": "user-desktop",
+        "Id": "io.gitgud.wackyideas.win7showdesktop",
+        "License": "AGPL-v3",
+        "Name": "Show Desktop (Aero)",
+        "Website": "https://gitgud.io/wackyideas/aerothemeplasma"
+    },
+    "X-KDE-ParentApp": "org.kde.plasmashell",
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-Provides": [
+        "org.kde.plasma.windowmanagement"
+    ]
+}

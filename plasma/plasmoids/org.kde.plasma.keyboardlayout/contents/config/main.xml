@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile name=""/>
+
+  <group name="General">
+    <entry name="displayStyle" type="Enum">
+      <label>Whether to show text, a flag, or both on the compact representation.</label>
+      <choices>
+        <choice name="Label"/>
+        <choice name="Flag"/>
+        <choice name="LabelOverFlag"/>
+      </choices>
+      <default>0</default>
+    </entry>
+  </group>
+
+</kcfg>

@@ -1,0 +1,15 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Souris"
+            }
+        ],
+        "Category": "Appearance",
+        "Description": "Show an animation when a resizable window is dragged to a screen edge",
+        "EnabledByDefault": false,
+        "Id": "smodsnap",
+        "License": "GPL",
+        "Name": "SMOD Snap"
+    }
+}

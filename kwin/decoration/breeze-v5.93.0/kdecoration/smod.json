@@ -1,0 +1,12 @@
+{
+    "KPlugin": {
+        "Description": "Window decoration using the Breeze visual style for the Plasma Desktop",
+        "EnabledByDefault": true,
+        "Name": "SMOD"
+    },
+    "X-KDE-ConfigModule": "kcm_smoddecoration",
+    "org.kde.kdecoration2": {
+        "blur": true,
+        "recommendedBorderSize": "Normal"
+    }
+}

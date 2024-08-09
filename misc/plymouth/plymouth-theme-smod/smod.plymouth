@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=SMOD
+Description=SMOD
+ModuleName=script
+
+[script]
+ImageDir=@Plymouth_THEMESDIR@/smod/assets
+ScriptFile=@Plymouth_THEMESDIR@/smod/smod.script
