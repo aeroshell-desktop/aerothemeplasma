@@ -77,13 +77,11 @@ Item {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: true
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
-        propagateComposedEvents: true
+        acceptedButtons: Qt.LeftButton// | Qt.RightButton
+        //propagateComposedEvents: true
         onPressed: mouse => {
-            if(mouse.button === Qt.LeftButton)
+            //if(mouse.button === Qt.LeftButton)
                 root.showMenu();
-            else
-                mouse.accepted = false;
         }
 
     }
