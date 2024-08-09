@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-On Arch, you'll need ```cmake, extra-cmake-modules, qt6-virtualkeyboard, qt6-multimedia, qt6-5compat, plasma5support, kvantum, optionally plymouth ```
+On Arch, you'll need ```cmake, extra-cmake-modules, qt6-virtualkeyboard, qt6-multimedia, qt6-5compat, kdeplasma-addons, plasma5support, kvantum, optionally plymouth ```
 
 ### Notes:
 

@@ -9,7 +9,7 @@ import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.kirigami 2.20 as Kirigami
 //import org.kde.plasma.workspace.components 2.0 as PW
-import org.kde.plasma.private.keyboardindicator as KeyboardIndicator
+//import org.kde.plasma.private.keyboardindicator as KeyboardIndicator
 import QtMultimedia
 
 Item
@@ -68,10 +68,10 @@ Item
 
 
 
-    KeyboardIndicator.KeyState {
+    /*KeyboardIndicator.KeyState {
         id: capsLockState
         key: Qt.Key_CapsLock
-    }
+    }*/
     /*FontLoader
     {
         id: mainfont
@@ -742,7 +742,7 @@ Item
                         anchors.top: password.bottom
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.topMargin: 2
-                        visible: capsLockState.locked && password.visible
+                        visible: keyboard.capsLock && password.visible
                         Image {
                             id: iconSmall
                             width: Kirigami.Units.iconSizes.small;
