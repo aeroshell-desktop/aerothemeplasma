@@ -323,11 +323,62 @@ Item {
 
                     source: model.decoration
                 }
-
                 PlasmaComponents.Label {
                     id: label
 
+                    renderType: Text.NativeRendering
+                    font.hintingPreference: Font.PreferFullHinting
                     z: 2 // So it's always above the highlight effect
+
+                    // Hacks to improve font rendering to increase contrast and text brightness
+                    // This is done to get darker subpixel rendering, closer to ClearType
+                    PlasmaComponents.Label {
+                        id: behind
+                        z: -1
+                        anchors.fill: parent
+                        anchors.rightMargin: 1
+                        anchors.leftMargin: -1
+                        color: "#F9000000"
+                        renderType: Text.NativeRendering
+                        font.hintingPreference: Font.PreferFullHinting
+                        text: parent.text
+                        elide: Text.ElideRight
+                        maximumLineCount: parent.maximumLineCount
+                        wrapMode: (maximumLineCount === 1) ? Text.NoWrap : Text.Wrap
+                        horizontalAlignment: Text.AlignHCenter
+                        visible: Plasmoid.configuration.textShadows
+
+                    }
+                    /*PlasmaComponents.Label { // One is enough
+                        id: behind_right
+                        z: -1
+                        anchors.fill: parent
+                        anchors.rightMargin: -1
+                        anchors.leftMargin: 1
+                        color: "#d9000000"
+                        renderType: Text.NativeRendering
+                        font.hintingPreference: Font.PreferFullHinting
+                        text: parent.text
+                        elide: Text.ElideRight
+                        maximumLineCount: parent.maximumLineCount
+                        wrapMode: (maximumLineCount === 1) ? Text.NoWrap : Text.Wrap
+                        horizontalAlignment: Text.AlignHCenter
+                    }*/
+                    PlasmaComponents.Label {
+                        id: front
+                        z: -2
+                        anchors.fill: parent
+                        anchors.rightMargin: 0
+                        color: "#ffffffff"
+                        renderType: Text.NativeRendering
+                        font.hintingPreference: Font.PreferFullHinting
+                        text: parent.text
+                        elide: Text.ElideRight
+                        maximumLineCount: parent.maximumLineCount
+                        wrapMode: (maximumLineCount === 1) ? Text.NoWrap : Text.Wrap
+                        horizontalAlignment: Text.AlignHCenter
+                        visible: Plasmoid.configuration.textShadows
+                    }
 
                     states: [
                         State { // icon view
@@ -378,12 +429,10 @@ Item {
                         return Kirigami.Theme.textColor;
 
                     }
-                    //renderShadow: false //(Plasmoid.isContainment && (!editor || editor.targetItem !== main)) && Plasmoid.configuration.textShadows
                     opacity: model.isHidden ? 0.6 : 1
 
                     text: main.nameWrapped
                     elide: Text.ElideRight
-                    //font.italic: model.isLink
                     wrapMode: (maximumLineCount === 1) ? Text.NoWrap : Text.Wrap
                     horizontalAlignment: Text.AlignHCenter
 
@@ -396,17 +445,17 @@ Item {
                         horizontalOffset: 1
                         verticalOffset: 1
 
-                        radius: 3.0
+                        radius: 4.0
                         samples: radius * 2
-                        spread: 0.435
+                        spread: 0.38
 
-                        color: "#F9080808"
+                        color: Plasmoid.configuration.textShadows ? "#c8080808" : "transparent"
 
-                        opacity: model.isHidden ? 0.6 : 1
+                        opacity: (model.isHidden ? 0.6 : 1)
 
                         source: label
 
-                        visible: (Plasmoid.isContainment && (!editor || editor.targetItem !== main)) && Plasmoid.configuration.textShadows
+                        visible: (Plasmoid.isContainment && (!editor || editor.targetItem !== main))
                     }
                 }
 

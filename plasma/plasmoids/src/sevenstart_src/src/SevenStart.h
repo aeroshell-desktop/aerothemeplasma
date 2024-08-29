@@ -35,10 +35,10 @@ public:
     SevenStart(QObject *parentObject, const KPluginMetaData &data, const QVariantList &args);
     ~SevenStart();
 
-
-    Q_INVOKABLE void setDashWindow(QQuickWindow* w)
+    Q_INVOKABLE void setDashWindow(QQuickWindow* w, QRegion mask)
     {
         dashWindow = w;
+        setDialogAppearance(w, mask);
     }
     Q_INVOKABLE void setOrb(QQuickWindow* w)
     {
@@ -96,8 +96,11 @@ public:
     }
     Q_INVOKABLE void setActiveWin(QQuickWindow* w)
     {
-        KWindowEffects::enableBlurBehind(w, true);
         KX11Extras::forceActiveWindow(w->winId());
+    }
+    Q_INVOKABLE void setDialogAppearance(QQuickWindow* w, QRegion mask)
+    {
+        KWindowEffects::enableBlurBehind(w, true, mask);
     }
 public Q_SLOTS:
     void onCompositingChanged(bool enabled)
@@ -127,6 +130,7 @@ protected:
     QBitmap* inputMaskCache = nullptr;
     QQuickWindow* orb = nullptr;
     QQuickWindow* dashWindow = nullptr;
+
 };
 
 #endif

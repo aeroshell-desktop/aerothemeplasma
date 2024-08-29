@@ -36,7 +36,7 @@ Item {
     property alias buttonIconHovered: buttonIconHovered
     property alias mouseArea: mouseArea
 
-    property string orbTexture: getResolvedUrl(Plasmoid.configuration.customButtonImage, "orbs/orb.png")
+    property string orbTexture: getResolvedUrl(Plasmoid.configuration.customButtonImage, "orbs/orb" + (stickOutOrb ? "_small" : "") + ".png")
     property int opacityDuration: 300
 
     Image {

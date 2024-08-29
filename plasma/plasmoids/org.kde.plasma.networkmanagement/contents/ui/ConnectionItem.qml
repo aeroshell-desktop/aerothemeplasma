@@ -36,7 +36,20 @@ ExpandableListItem {
     property real rxSpeed: 0
     property real txSpeed: 0
 
-    icon: model.ConnectionIcon
+    icon: {
+        if(Type === PlasmaNM.Enums.Wired) {
+            if(ConnectionState !== PlasmaNM.Enums.Activated) return "network-type-public";
+            else {
+                var details = model.ConnectionDetails;
+                var privateIp = details.length >= 1 ? details[1] : ""
+                if(privateIp.startsWith("192.168")) return "network-type-home";
+                else return "network-type-work";
+            }
+        } else {
+            return model.ConnectionIcon + "-flyout";
+        }
+
+    }//model.ConnectionIcon
     title: model.ItemUniqueName
     subtitle: itemText()
     isBusy: false
@@ -73,7 +86,6 @@ ExpandableListItem {
         property string text
 
         function show(item, x, y) {
-
             visualParent = connectionItem
             open(x, y)
         }

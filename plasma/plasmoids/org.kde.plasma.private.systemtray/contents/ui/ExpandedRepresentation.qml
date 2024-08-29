@@ -21,7 +21,7 @@ Item {
     property int flyoutWidth: hiddenItemsView.visible ? hiddenItemsView.width + Kirigami.Units.smallSpacing*2 : (intendedWidth != -1 ? intendedWidth : Kirigami.Units.iconSizes.small * 19)
     property int flyoutHeight: hiddenItemsView.visible ?
     hiddenItemsView.implicitHeight + trayHeading.height + Kirigami.Units.largeSpacing  :
-    (container.flyoutImplicitHeight > (Kirigami.Units.iconSizes.small * 19 - trayHeading.height - Kirigami.Units.largeSpacing) ? container.flyoutImplicitHeight + container.headingHeight + container.footerHeight + trayHeading.height + Kirigami.Units.largeSpacing*4 : Kirigami.Units.iconSizes.small*19)
+    (container.flyoutImplicitHeight > (Kirigami.Units.iconSizes.small * 8 - trayHeading.height - Kirigami.Units.largeSpacing) ? container.flyoutImplicitHeight + container.headingHeight + container.footerHeight + trayHeading.height + Kirigami.Units.largeSpacing*4 : Kirigami.Units.iconSizes.small*19)
     //: Kirigami.Units.iconSizes.small * 19
     Layout.minimumWidth: flyoutWidth
     Layout.minimumHeight: flyoutHeight
@@ -34,7 +34,7 @@ Item {
         //console.log(container.flyoutImplicitHeight + container.headingHeight + container.footerHeight + trayHeading.height + Kirigami.Units.largeSpacing*4 + " new height")
         flyoutHeight = Qt.binding(() => hiddenItemsView.visible ?
                                             hiddenItemsView.implicitHeight + trayHeading.height + Kirigami.Units.largeSpacing :
-                                            (container.flyoutImplicitHeight > (Kirigami.Units.iconSizes.small * 19 - trayHeading.height - Kirigami.Units.largeSpacing) ? container.flyoutImplicitHeight + container.headingHeight + container.footerHeight + trayHeading.height + Kirigami.Units.largeSpacing*4 : Kirigami.Units.iconSizes.small*19))
+                                            (container.flyoutImplicitHeight > (Kirigami.Units.iconSizes.small * 8 - trayHeading.height - Kirigami.Units.largeSpacing) ? container.flyoutImplicitHeight + container.headingHeight + container.footerHeight + trayHeading.height + Kirigami.Units.largeSpacing*4 : Kirigami.Units.iconSizes.small*19))
         popup.Layout.minimumHeight = Qt.binding(() => flyoutHeight);
         popup.Layout.maximumHeight = Qt.binding(() => flyoutHeight);
     }

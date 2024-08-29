@@ -18,6 +18,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Dialogs
@@ -33,15 +35,11 @@ import org.kde.coreaddons 1.0 as KCoreAddons // kuser
 import org.kde.kitemmodels as KItemModels
 
 import org.kde.kwindowsystem 1.0
-import org.kde.kquickcontrolsaddons 2.0
-import org.kde.plasma.private.quicklaunch 1.0
-
-import org.kde.kirigami 2.13 as Kirigami
-import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
-
 import org.kde.ksvg as KSvg
 import org.kde.plasma.plasma5support as Plasma5Support
 import org.kde.kirigami as Kirigami
+
+import Qt5Compat.GraphicalEffects
 
 PlasmaCore.Dialog {
     id: root
@@ -50,25 +48,26 @@ PlasmaCore.Dialog {
     flags: Qt.WindowStaysOnTopHint //| Qt.Popup // Set to popup so that it is still considered a plasmoid popup, despite being a floating dialog window.
 	hideOnWindowDeactivate: true
     
-    //backgroundHints: PlasmaCore.Types.NoBackground
+    backgroundHints: PlasmaCore.Types.NoBackground
 
     property int iconSize: Kirigami.Units.iconSizes.medium
     property int iconSizeSide: Kirigami.Units.iconSizes.smallMedium
-    property int cellWidth: 253 // Width for all standard menu items.
-    property int cellWidthSide: 138 // Width for sidebar menu items.
+    property int cellWidth: 254 // Width for all standard menu items.
+    property int cellWidthSide: 139 // Width for sidebar menu items.
     property int cellHeight: iconSize + Kirigami.Units.smallSpacing + (Math.max(highlightItemSvg.margins.top + highlightItemSvg.margins.bottom,
                                                     				   highlightItemSvg.margins.left + highlightItemSvg.margins.right)) - Kirigami.Units.smallSpacing/2
+	property int cellCount: Plasmoid.configuration.numberRows + faves.getFavoritesCount()
     property bool searching: (searchField.text != "")
     property bool showingAllPrograms: false
     property bool firstTimePopup: false // To make sure the user icon is displayed properly.
 
-    property int slideAnimationDuration: 105
+    property int animationDuration: Kirigami.Units.longDuration*1.5
 
 	property color leftPanelBackgroundColor: "white"
 	property color leftPanelBorderColor: "#44000000"
 	property color leftPanelSeparatorColor: "#d6e5f5"
 	property color searchPanelSeparatorColor: "#cddbea"
-	property color searchPanelBackgroundColor: "#f3f7fb"
+	property color searchPanelBackgroundColor: "#f1f5fb"
 
 	property color searchFieldBackgroundColor: "white"
 	property color searchFieldTextColor: "black"
@@ -76,7 +75,10 @@ PlasmaCore.Dialog {
 
 	property color shutdownTextColor: "#202020"
 
-	// A bunch of references for easier access by child QML elements.
+	// A bunch of references for easier access by child QML elements
+	property alias m_mainPanel: leftSidebar
+	property alias m_bottomControls: bottomControls
+	property alias m_allApps: appsView
 	property alias m_recents: recents
 	property alias m_faves: faves
 	property alias m_showAllButton: allButtonsArea
@@ -84,16 +86,20 @@ PlasmaCore.Dialog {
 	property alias m_lockButton: lockma
 	property alias m_searchField: searchField
 	property alias m_delayTimer: delayTimer
+	property alias dialogBackgroundTexture: dialogBackground
 
 	function setFloatingAvatarPosition()  {
 		// It's at this point where everything actually gets properly initialized and we don't have to worry about
 		// random unpredictable values, so we can safely allow the popup icon to show up.
-		iconUser.x = root.x + sidePanel.x+sidePanel.width/2-Kirigami.Units.iconSizes.huge/2 + Kirigami.Units.smallSpacing*2;
+		iconUser.x = root.x + sidePanel.x+sidePanel.width/2-Kirigami.Units.iconSizes.huge/2 + Kirigami.Units.smallSpacing/2 - 1;
 		iconUser.y = root.y-Kirigami.Units.iconSizes.huge/2 + Kirigami.Units.smallSpacing;
 		firstTimePopup = true;
 	}
 
     onVisibleChanged: {
+
+		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
+		//Plasmoid.setDialogAppearance(root);
         var pos = popupPosition(width, height); // Calculates the position of the floating dialog window.
         x = pos.x;
         y = pos.y;
@@ -111,6 +117,7 @@ PlasmaCore.Dialog {
         x = pos.x;
         y = pos.y;
 		setFloatingAvatarPosition();
+		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
     }
 
     onWidthChanged: {
@@ -118,6 +125,7 @@ PlasmaCore.Dialog {
         x = pos.x;
         y = pos.y;
 		setFloatingAvatarPosition();
+		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
     }
 
     onSearchingChanged: {
@@ -126,10 +134,6 @@ PlasmaCore.Dialog {
         }
     }
     
-    function selectItem(itemIndex) {
-		//Stub
-    }
-
     function resetRecents() {
         recents.model.sourceModel = rootModel.modelForRow(0);
         recents.model.sourceModel.refresh();
@@ -145,7 +149,7 @@ PlasmaCore.Dialog {
 	
 	//The position calculated is always at a corner.
     function popupPosition(width, height) {
-        var screenAvail = kicker.availableScreenRect;
+        var screenAvail = Plasmoid.availableScreenRect;
         var screen = kicker.screenGeometry;
 
         var offset = 0;
@@ -182,22 +186,21 @@ PlasmaCore.Dialog {
     FocusScope {
 		id: mainFocusScope
 		objectName: "MainFocusScope"
-        Layout.minimumWidth: Math.max(397, root.cellWidth + Kirigami.Units.mediumSpacing + columnItems.width)
-		Layout.maximumWidth: Math.max(397, root.cellWidth + Kirigami.Units.mediumSpacing + columnItems.width)
-		//Layout.preferredWidth: Layout.maximumWidth
+        Layout.minimumWidth: Math.max(397, root.cellWidth + Kirigami.Units.mediumSpacing + columnItems.width) + Kirigami.Units.mediumSpacing*2
+		Layout.maximumWidth: Math.max(397, root.cellWidth + Kirigami.Units.mediumSpacing + columnItems.width) + Kirigami.Units.mediumSpacing*2
 
-		property int mainPanelHeight: ((root.cellHeight+Kirigami.Units.smallSpacing/2) * (Plasmoid.configuration.numberRows-1)) + searchBackground.height + (allButtonsArea.height) + (Kirigami.Units.smallSpacing * (15 - Plasmoid.configuration.numberRows)) + Kirigami.Units.smallSpacing - (Plasmoid.configuration.showRecentsView ? 0 : Kirigami.Units.smallSpacing*2)
+		property int mainPanelHeight: leftSidebar.height + bottomControls.height
 		property int sidePanelHeight: backgroundBorderLine.height + searchBackground.height + columnItems.height + (compositingEnabled ? Kirigami.Units.iconSizes.huge / 2 + Kirigami.Units.smallSpacing : nonCompositingIcon.height + Kirigami.Units.smallSpacing);
-		property bool sidePanelOverflow: mainPanelHeight <= sidePanel; 
+		//property bool sidePanelOverflow: mainPanelHeight <= sidePanelHeight;
 
-        Layout.minimumHeight: Math.max(mainPanelHeight, sidePanelHeight) + Kirigami.Units.smallSpacing/2
-        Layout.maximumHeight: Math.max(mainPanelHeight, sidePanelHeight) + Kirigami.Units.smallSpacing/2
+        Layout.minimumHeight: Math.max(Math.max(mainPanelHeight, sidePanelHeight), 377) + Kirigami.Units.smallSpacing/2 + Kirigami.Units.mediumSpacing*2
+        Layout.maximumHeight: Math.max(Math.max(mainPanelHeight, sidePanelHeight), 377) + Kirigami.Units.smallSpacing/2 + Kirigami.Units.mediumSpacing*2
         
         focus: true
 		clip: false
 
         KCoreAddons.KUser {   id: kuser  }  // Used for getting the username and icon.
-        Logic {   id: logic }				// Probably useful.
+        //Logic {   id: logic }				// Probably useful.
         
         /*
 		 * The user icon is supposed to stick out of the start menu, so a separate dialog window
@@ -291,12 +294,7 @@ PlasmaCore.Dialog {
             id: executable
             engine: "executable"
             connectedSources: []
-            onNewData: {
-                var exitCode = data["exit code"]
-                var exitStatus = data["exit status"]
-                var stdout = data["stdout"]
-                var stderr = data["stderr"]
-                exited(sourceName, exitCode, exitStatus, stdout, stderr)
+            onNewData: (sourceName, data) => {
                 disconnectSource(sourceName)
             }
             function exec(cmd) {
@@ -304,36 +302,8 @@ PlasmaCore.Dialog {
                     connectSource(cmd)
                 }
             }
-            signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
         }
 
-        PlasmaExtras.Highlight {
-            id: delegateHighlight
-            visible: false
-            z: -1 // otherwise it shows ontop of the icon/label and tints them slightly
-        }
-
-        PlasmaExtras.Heading {
-            id: dummyHeading
-            visible: false
-            width: 0
-            level: 5
-        }
-
-        TextMetrics {
-            id: headingMetrics
-            font: dummyHeading.font
-        }
-
-        /*ActionMenu {
-            id: actionMenu
-            onActionClicked: visualParent.actionTriggered(actionId, actionArgument)
-            onClosed: {
-                //if (pageList.currentItem) {
-                //    pageList.currentItem.itemGrid.currentIndex = -1;
-                //}
-            }
-        }*/
         Kicker.SystemModel {
 			id: systemModel
 			favoritesModel: globalFavorites
@@ -360,7 +330,6 @@ PlasmaCore.Dialog {
 				});
 			}
 		}
-
 
 		FilteredModel {
 			id: filteredMenuItemsModel
@@ -395,7 +364,6 @@ PlasmaCore.Dialog {
         PlasmaExtras.Menu {
 			id: contextMenu
 			visualParent: lockScreenDelegate //leaveButton
-			//minimumWidth: 111
 			placement: {
 				//return PlasmaCore.Types.FloatingPopup
 				switch (Plasmoid.location) {
@@ -410,19 +378,31 @@ PlasmaCore.Dialog {
 			}
 		}
 
+		KSvg.FrameSvgItem {
+			id: dialogBackground
+			anchors.fill: parent
+			imagePath: Qt.resolvedUrl("svgs/dialog.svgz");
+			//opacity: 0
+		}
+
         Rectangle {
 			id: backgroundGradient
 			anchors.fill: parent
-			anchors.topMargin: -root.margins.top+2
-			anchors.leftMargin: -root.margins.left-1
-			anchors.rightMargin: -root.margins.right-1
-			anchors.bottomMargin: -root.margins.bottom+2
+			anchors.topMargin: 2
+			anchors.leftMargin: 2
+			anchors.rightMargin: 2
+			anchors.bottomMargin: 2
 			gradient: Gradient {
-				GradientStop { position: 0.0; color: "#11000000" }
-				GradientStop { position: 0.333; color: "#99000000" }
-				GradientStop { position: 0.666; color: "#99000000" }
-				GradientStop { position: 1.0; color: "#11000000" }
+				GradientStop { position: 0.0; color: "#26000000" }
+				GradientStop { position: 0.11; color: "#53000000" }
+				GradientStop { position: 0.2775; color: "#82000000" }
+				GradientStop { position: 0.445; color: "#99000000" }
+				GradientStop { position: 0.51; color: "#99000000" }
+				GradientStop { position: 0.84; color: "#4f000000" }
+				GradientStop { position: 1.0; color: "#00000000" }
 			}
+			topLeftRadius: 8
+			topRightRadius: 8
 		}
 
 		/*
@@ -433,15 +413,14 @@ PlasmaCore.Dialog {
 		 */
         KSvg.FrameSvgItem {
         	id: backgroundRect
-        	anchors.top: faves.top
-        	anchors.topMargin: -Kirigami.Units.smallSpacing
-        	anchors.left: faves.left
+        	anchors.top: leftSidebar.top
+        	anchors.topMargin: -Kirigami.Units.smallSpacing// + Kirigami.Units.mediumSpacing
+        	anchors.left: leftSidebar.left
+        	anchors.bottom: bottomControls.bottom
+        	anchors.bottomMargin: Kirigami.Units.smallSpacing
         	imagePath: Qt.resolvedUrl("svgs/background.svg")
 
 			width:  searching ? searchView.width : root.cellWidth
-        	height: Math.max(mainFocusScope.mainPanelHeight, mainFocusScope.sidePanelHeight)
-
-        	z: 5
 
         	CrossFadeBehavior on width {
 				fadeDuration: 200
@@ -450,8 +429,7 @@ PlasmaCore.Dialog {
         	Rectangle {
         		id: backgroundBorderLine
 
-        		//width: backgroundRect.width-2
-        		height: Kirigami.Units.smallSpacing+1
+        		height: Kirigami.Units.smallSpacing
 
         		gradient: Gradient {
 					GradientStop { position: 0.0; color: "#ccd9ea" }
@@ -463,15 +441,14 @@ PlasmaCore.Dialog {
         	   		left: parent.left
         	   		right: parent.right
         	   		leftMargin: 2
-        	   		rightMargin: 2 //+ (searching ? 1 : 0)
+        	   		rightMargin: 2
         		}
-        		z: 5
+        		z: 4
         	}
         	Rectangle {
                 id: searchBackground
 
-                height: searchField.height + Kirigami.Units.smallSpacing * 4.5 - Kirigami.Units.smallSpacing/2
-
+                height: 45
                 color: searchPanelBackgroundColor
                 radius: 3
 
@@ -481,54 +458,51 @@ PlasmaCore.Dialog {
                     left: parent.left
                     right: parent.right
                     leftMargin: 2
-                    rightMargin: 2 //+ (searching ? 1 : 0)
+                    rightMargin: 2
                 }
             }
         }
+
+        ColumnLayout {
+			id: leftSidebar
+			anchors {
+				top: parent.top
+				left: parent.left
+				topMargin: 5 + Kirigami.Units.mediumSpacing
+				leftMargin: 1 + Kirigami.Units.mediumSpacing
+			}
+			z: 3
+			width: root.cellWidth
+			spacing: 0
 		/* 
 		 *  Displays bookmarked/favorite applications and is displayed at the top of the start menu.
 		 *  The source code is taken directly from Kickoff without additional changes.
 		 */
         FavoritesView {
             id: faves
-
-			anchors {
-            	left: parent.left
-            	top: parent.top
-            	topMargin: 5
-            	leftMargin: 1
+            Layout.fillWidth: true
+            Layout.preferredHeight: faves.height
+            opacity: !showingAllPrograms && !searching
+            Behavior on opacity {
+				NumberAnimation { easing.type: Easing.Linear; duration: animationDuration*0.66 }
 			}
 
-            width: root.cellWidth
-            height: (Plasmoid.configuration.showRecentsView ?
-					(((root.cellHeight-2) * (faves.getFavoritesCount() > 9 ? 9 : faves.getFavoritesCount()))/* - Kirigami.Units.smallSpacing * 2*/) :
-					((root.cellHeight-2) * (Plasmoid.configuration.numberRows+1) + Kirigami.Units.smallSpacing*2+1 - allProgramsButton.height*2 - allProgramsSeparator.height)) - Kirigami.Units.smallSpacing/2 
-
-            visible: !showingAllPrograms && !searching
-            z: 8
         }
 		/* 
 			This is the separator between favorite applications and recently used applications.
 		*/
         Rectangle {
        		id: tabBarSeparator
-
-			anchors {
-				top: faves.bottom
-				left: parent.left
-				right: faves.right
-				leftMargin: 11
-				rightMargin: 7
-				topMargin: Kirigami.Units.smallSpacing
-			}
-       		
-       		height: 1
-       		opacity: 1
-
+			Layout.leftMargin: 11
+			Layout.rightMargin: 7
+			Layout.topMargin: 2
+			Layout.fillWidth: true
+       		Layout.preferredHeight: 1
        		color: leftPanelSeparatorColor
-       		visible: Plasmoid.configuration.showRecentsView && (!showingAllPrograms && !searching)
-        
-       		z: 6
+       		opacity: Plasmoid.configuration.numberRows && (!showingAllPrograms && !searching)
+			Behavior on opacity {
+				NumberAnimation { easing.type: Easing.Linear; duration: animationDuration*0.66 }
+			}
         }
 		/*
 			This is the view showing recently used applications. As soon as a program is executed and has a start menu
@@ -537,265 +511,286 @@ PlasmaCore.Dialog {
 		*/
         OftenUsedView {
             id: recents
-
-			anchors {
-				top: tabBarSeparator.bottom
-				topMargin: Kirigami.Units.smallSpacing
-				//top: faves.bottom
-				left: parent.left
-				bottomMargin: Kirigami.Units.smallSpacing
-           		bottom: allProgramsSeparator.top
-				leftMargin: 1
-				right: faves.right
+			Layout.topMargin: 2
+			Layout.preferredHeight: recents.height
+			Layout.fillHeight: true
+			Layout.fillWidth: true
+            opacity: Plasmoid.configuration.numberRows && (!showingAllPrograms && !searching)
+			Behavior on opacity {
+				NumberAnimation { easing.type: Easing.Linear; duration: animationDuration*0.66 }
 			}
-
-            //width: root.cellWidth-2
-            //height: (root.cellHeight * Plasmoid.configuration.numberRows) - (root.cellHeight * (faves.getFavoritesCount() > 9 ? 9 : 
-					//faves.getFavoritesCount())) - allProgramsButton.height * 2
-					
-            visible: Plasmoid.configuration.showRecentsView && (!showingAllPrograms && !searching)
-
-            z: 8
         }
-		/*
-			Another separator between the button to show all programs and recently used applications
-		*/
-        Rectangle {
-       		id: allProgramsSeparator
+		}
+		ColumnLayout {
+			id: bottomControls
 			anchors {
-				//top: Plasmoid.configuration.showRecentsView ? recents.bottom : faves.bottom
-				topMargin: Kirigami.Units.smallSpacing-1
 				left: parent.left
-				leftMargin: 11
-				right: faves.right
-				rightMargin: Kirigami.Units.smallSpacing*2-1
-				bottom: allButtonsArea.top
+				leftMargin: 1 + Kirigami.Units.mediumSpacing
+				bottom: parent.bottom
 				bottomMargin: Kirigami.Units.smallSpacing-1
+
 			}
+			spacing: 0
+			width: root.cellWidth
+			z: 4
+			/*
+			 * Another separator between the button to show all programs and recently used applications
+			 */
+			Rectangle {
+				id: allProgramsSeparator
 
-
-       		/*Behavior on width {
-       			NumberAnimation { easing.type: Easing.Linear; duration: slideAnimationDuration }
-       		}*/
-
-       		//width: root.cellWidth - Kirigami.Units.smallSpacing*8
-       		height: 1
-       		opacity: 1
-
-       		color: leftPanelSeparatorColor
-       		z: 6
-        }
-		/* 
-		 * Shows/hides the main view of the panel. Clicking on it in the default state will show the
-		 * application menu. If the start menu is showing the application menu element or is in a searching
-		 * state, clicking on this button will bring the start menu back to its default state.
-		 */
-        MouseArea {
-        	id: allButtonsArea
-        	hoverEnabled: true
-
-        	property alias textLabel: showingAllProgramsText.text
-        	property alias svgArrow: arrowDirection.elementId
-
-        	CrossFadeBehavior on textLabel {
-				fadeDuration: 200
-				easingType: "Linear"
-			}
-			CrossFadeBehavior on svgArrow {
-				fadeDuration: 200
-				easingType: "Linear"
-			}
-			anchors {
-				//top: Plasmoid.configuration.showRecentsView ? recents.bottom : faves.bottom
-				left: parent.left
-				leftMargin: Kirigami.Units.smallSpacing+1
-				rightMargin: Kirigami.Units.smallSpacing
-				bottom: searchField.top
-				bottomMargin: Kirigami.Units.smallSpacing*3
-			}
-			KeyNavigation.tab: searchField;
-			KeyNavigation.backtab: returnPreviousView();
-			function returnPreviousView() {
-				if(searching) {
-					return searchView.itemGrid;
-				} else if(showingAllPrograms) {
-					return appsView;
-				} else if(Plasmoid.configuration.showRecentsView) {
-					return recents;
-				} else {
-					return faves;
+				Layout.topMargin: 2
+				Layout.leftMargin: 13
+				Layout.rightMargin: Kirigami.Units.largeSpacing+1
+				Layout.fillWidth: true
+				Layout.preferredHeight: 1
+				opacity: !searching
+				color: leftPanelSeparatorColor
+				Behavior on opacity {
+					NumberAnimation { easing.type: Easing.Linear; duration: animationDuration }
 				}
 			}
-			Keys.onPressed: event => {
-				if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter) {
-					click(true);
-				} else if(event.key == Qt.Key_Up) {
-					var view = returnPreviousView();
-					view.focus = true;
-					if(typeof view.currentIndex !== "undefined") {
-						view.currentIndex = returnPreviousView().count-1;
+			/*
+			 * Shows/hides the main view of the panel. Clicking on it in the default state will show the
+			 * application menu. If the start menu is showing the application menu element or is in a searching
+			 * state, clicking on this button will bring the start menu back to its default state.
+			 */
+			MouseArea {
+				id: allButtonsArea
+				hoverEnabled: true
+
+				property alias textLabel: showingAllProgramsText.text
+				property alias svgArrow: arrowDirection.elementId
+
+				Behavior on opacity {
+					NumberAnimation { easing.type: Easing.Linear; duration: animationDuration }
+				}
+				opacity: !searching
+				CrossFadeBehavior on textLabel {
+					fadeDuration: 200
+					easingType: "Linear"
+				}
+				CrossFadeBehavior on svgArrow {
+					fadeDuration: 200
+					easingType: "Linear"
+				}
+				Layout.fillWidth: true
+				Layout.leftMargin: Kirigami.Units.smallSpacing
+				Layout.rightMargin: Kirigami.Units.smallSpacing
+				Layout.topMargin: 3
+
+				KeyNavigation.tab: searchField;
+				KeyNavigation.backtab: returnPreviousView();
+				function returnPreviousView() {
+					if(searching) {
+						return searchView.itemGrid;
+					} else if(showingAllPrograms) {
+						return appsView;
+					} else if(Plasmoid.configuration.numberRows) {
+						return recents;
 					} else {
-						// To implement for search view
+						return faves;
 					}
-				} else if(event.key == Qt.Key_Down) {
-					searchField.focus = true;
+				}
+				Keys.onPressed: event => {
+					if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter) {
+						click(true);
+					} else if(event.key == Qt.Key_Up) {
+						var view = returnPreviousView();
+						view.focus = true;
+						if(typeof view.currentIndex !== "undefined") {
+							view.currentIndex = returnPreviousView().count-1;
+						}
+					} else if(event.key == Qt.Key_Down) {
+						searchField.focus = true;
+					}
+				}
+				onClicked: {
+					click(false);
+				}
+				function click(focusAppsView) {
+					if(searching)
+					{
+						searchField.text = "";
+					}
+					else if(showingAllPrograms)
+					{
+						showingAllPrograms = false;
+						appsView.reset();
+					}
+					else if(!searching && !showingAllPrograms)
+					{
+						showingAllPrograms = true;
+						if(focusAppsView) appsView.focus = true;
+					}
+				}
+				Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium+1
+
+				KSvg.FrameSvgItem {
+					id: allProgramsButton
+					anchors.fill: parent
+					imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
+
+					prefix: "hover"
+					opacity: {
+						if(allButtonsArea.containsMouse) return 1.0;
+						else if(allButtonsArea.focus) return 0.5;
+						else return 0;
+					}
+				}
+				KSvg.SvgItem {
+					id: arrowDirection
+					svg: arrowsSvg
+					elementId: (showingAllPrograms) ? "all-applications-left" : "all-applications-right"
+
+					anchors.left: parent.left
+					anchors.verticalCenter: parent.verticalCenter
+					anchors.verticalCenterOffset: -1
+					anchors.leftMargin: Kirigami.Units.smallSpacing
+
+					width: Kirigami.Units.iconSizes.small
+					height: Kirigami.Units.iconSizes.small
+				}
+				Text {
+					id: showingAllProgramsText
+					text: showingAllPrograms ? "    Back" : "    All Programs"
+					font.pixelSize: 12
+					anchors.left: arrowDirection.right
+					anchors.leftMargin: Kirigami.Units.mediumSpacing
+					anchors.verticalCenter: parent.verticalCenter
+					anchors.verticalCenterOffset: -1
+					style: Text.Sunken
+					styleColor: "transparent"
 				}
 			}
-        	onClicked: {
-				click(false);
-        	}
-			function click(focusAppsView) {
-        	    if(searching)
-        	    {
-        	        searchField.text = "";
-        	    }
-        	    else if(showingAllPrograms)
-        	    {
-        	        showingAllPrograms = false;
-        	        appsView.reset();
-        	    }
-        	    else if(!searching && !showingAllPrograms)
-        	    {
-        	        showingAllPrograms = true;
-					if(focusAppsView) appsView.focus = true;
-        	    }
-			}
-        	width: root.cellWidth - Kirigami.Units.smallSpacing*2
-        	height: Kirigami.Units.iconSizes.smallMedium+1
+			PlasmaExtras.ActionTextField {
+				id: searchField
 
-        	/*Behavior on width {
-        	    NumberAnimation { easing.type: Easing.Linear; duration: slideAnimationDuration }
-        	}*/
+				focus: true
+				Layout.topMargin: 15
+				Layout.bottomMargin: 16
+				Layout.alignment: Qt.AlignHCenter
+				Layout.fillWidth: true
+				Layout.preferredHeight: Kirigami.Units.smallSpacing * 7 - Kirigami.Units.smallSpacing
+				Layout.rightMargin: Plasmoid.configuration.accurateSearchBar ? 17 : Kirigami.Units.largeSpacing
+				Layout.leftMargin: Plasmoid.configuration.accurateSearchBar ? 13 : Kirigami.Units.largeSpacing
 
-        	z: 8
-            KSvg.FrameSvgItem {
-        	    id: allProgramsButton
-       			anchors.fill: parent
-       			imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
-       			
-       			prefix: "hover"
-       			opacity: {
-					if(allButtonsArea.containsMouse) return 1.0;
-					else if(allButtonsArea.focus) return 0.5;
-					else return 0;
+				background:	KSvg.FrameSvgItem {
+					anchors.fill:parent
+					anchors.left: parent.left
+					imagePath: Qt.resolvedUrl("svgs/lineedit.svg")
+					prefix: "base"
+
+					Text {
+						anchors.fill: parent
+						anchors.leftMargin: Kirigami.Units.smallSpacing*2-1
+						anchors.bottomMargin: 2
+						font.italic: true
+						color: searchFieldPlaceholderColor
+						text: i18n(" Search programs and files")
+						verticalAlignment: Text.AlignVCenter
+						visible: !searching
+						style: Text.Outline
+						styleColor: "transparent"
+						opacity: 0.55
+					}
+					Kirigami.Icon {
+						source: "gtk-search"
+						smooth: true
+						visible: !searching
+						width: Kirigami.Units.iconSizes.small;
+						height: width
+						anchors {
+							top: parent.top
+							bottom: parent.bottom
+							bottomMargin: 1
+							right: parent.right
+							rightMargin: Kirigami.Units.smallSpacing+1
+						}
+					}
 				}
-        	}
-            KSvg.SvgItem {
-           		id: arrowDirection
-           		svg: arrowsSvg
-           		elementId: (searching || showingAllPrograms) ? "all-applications-left" : "all-applications-right"
+				inputMethodHints: Qt.ImhNoPredictiveText
+				clearButtonShown: false
+				text: ""
+				color: "black"
+				verticalAlignment: TextInput.AlignBottom
+				font.italic: searchField.text == "" ? true : false
 
-           		anchors.left: parent.left
-           		anchors.verticalCenter: parent.verticalCenter
-           		anchors.leftMargin: Kirigami.Units.smallSpacing
+				onTextChanged: {
+					searchView.onQueryChanged();
+				}
 
-           		width: 16
-           		height: 16
-        	}
-            Text {
-				id: showingAllProgramsText
-            	text: showingAllPrograms || searching ? "    Back" : "    All Programs"
-            	font.pixelSize: 12
-            	anchors.left: arrowDirection.right
-            	anchors.leftMargin: Kirigami.Units.smallSpacing
-            	anchors.verticalCenter: parent.verticalCenter
-            	style: Text.Sunken
-            	styleColor: "transparent"
-				//renderType: Text.QtRendering
+				KeyNavigation.tab: {
+					if(columnItems.visibleChildren.length === 2) return shutdown;
+					return columnItems.visibleChildren[0];
+				}
+				Keys.priority: Keys.AfterItem
+				Keys.onPressed: function(event){
+					if (event.key == Qt.Key_Escape) {
+						event.accepted = true;
+						if (searching) {
+							root.reset();
+						} else if(showingAllPrograms) {
+							showingAllPrograms = false;
+							appsView.reset();
+						} else {
+							root.visible = false;
+						}
+						focus = true;
+						return;
+					}
+					if (event.key == Qt.Key_Tab) {
+						faves.forceActiveFocus();
+						event.accepted = true;
+						return;
+					}
+					if ((event.key == Qt.Key_Up) && searching) {
+						searchView.decrementCurrentIndex();
+						event.accepted = true;
+						return;
+					}
+					if ((event.key == Qt.Key_Down) && searching) {
+						searchView.incrementCurrentIndex();
+						event.accepted = true;
+						return;
+					}
+					if((event.key == Qt.Key_Return) && searching) {
+						searchView.activateCurrentIndex();
+						event.accepted = true;
+						return;
+					}
+					event.accepted = false;
+				}
 
-            }
-        }
-        /*
-		 * Shows search results when the user types something into the textbox. This view will only
-		 * appear if that textbox is not empty, and it will extend the left panel to the entire
-		 * width of the plasmoid. The source code is forked from Kickoff and features aesthetic
-		 * changes.
-		 */
-        SearchView {
-            id: searchView
+				function backspace() {
+					if (!root.visible) {
+						return;
+					}
+					focus = true;
+					text = text.slice(0, -1);
+				}
 
-            clip: true
-			anchors {
-           		top: backgroundRect.top
-           		left: parent.left
-           		right: parent.right
-           		bottom: backgroundRect.bottom
-
-
-           		topMargin: Kirigami.Units.smallSpacing*2 -2
-           		bottomMargin: searchBackground.height + Kirigami.Units.smallSpacing*2 -3
-           		leftMargin: 2
-           		rightMargin: -Kirigami.Units.smallSpacing+1
+				function appendText(newText) {
+					if (!root.visible) {
+						return;
+					}
+					focus = true;
+					text = text + newText;
+				}
 			}
 
-            //height: root.cellHeight * Plasmoid.configuration.numberRows - Kirigami.Units.smallSpacing*2 - allProgramsButton.height
+		}
 
-            opacity: 0
-            visible: opacity
-            Behavior on opacity {
-                NumberAnimation { easing.type: Easing.InOutQuart; duration: 150 }
-            }
-
-            z: 9
-        }
-		/*
-		 * Shows a list of all applications organized by categories. The source code is forked from Kickoff
-		 * and features mostly aesthetic changes.
-		 */
-        ApplicationsView {
-            id: appsView
-
-			anchors {
-            	top: parent.top
-            	left: parent.left
-            	right: faves.right
-            	bottom: allProgramsSeparator.top
-
-            	topMargin: 2
-            	leftMargin: 1
-            	bottomMargin: Kirigami.Units.smallSpacing
-			}
-
-            width: root.cellWidth
-            height: (root.cellHeight * Plasmoid.configuration.numberRows) - Kirigami.Units.smallSpacing*2 - allProgramsButton.height
-
-            opacity: 0
-			visible: opacity
-
-            function resetIndex() {
-                appsView.listView.currentIndex = -1;
-            }
-
-            z: 1
-        }
-        
         states: [
 
             State {
                 name: "AllPrograms"; when: !searching && showingAllPrograms
-                PropertyChanges {
-                    target: faves; opacity: 0;
-                }
-                PropertyChanges {
-                    target: recents; opacity: 0;
-                }
-                PropertyChanges {
-                    target: tabBarSeparator; opacity: 0;
-                }
-                PropertyChanges {
-                    target: appsView; opacity: 1;
-                }
-                PropertyChanges { 
-                    target: appsView; z: 7;
-                }
                 StateChangeScript {
                     script: appsView.resetIndex();
                 }
             },
-
             State {
                 name: "Searching"; when: searching
-
 
                 PropertyChanges {
 					target: searchView; opacity: (backgroundRect.width === searchView.width ? 1 : 0);
@@ -815,7 +810,6 @@ PlasmaCore.Dialog {
                 PropertyChanges {
                     target: tabBarSeparator; opacity: 0;
                 }
-
                 PropertyChanges {
                     target: allProgramsButton; opacity: 0;
                 }
@@ -828,7 +822,6 @@ PlasmaCore.Dialog {
                 PropertyChanges {
                     target: allButtonsArea; opacity: 0;
                 }
-
                 PropertyChanges {
 					target: allButtonsArea; enabled: false;
 				}
@@ -840,7 +833,7 @@ PlasmaCore.Dialog {
                 }
 		}
         ]
-        transitions: [ 
+        transitions: [
        		Transition {
 				id: transition
        		    PropertyAnimation { properties: "opacity"; easing.type: Easing.Linear; duration: Kirigami.Units.longDuration*1.5 }
@@ -854,145 +847,74 @@ PlasmaCore.Dialog {
        		}
         ]
 
-        PlasmaExtras.ActionTextField {
-            id: searchField
-            z: 7
+        /*
+		 * Shows a list of all applications organized by categories. The source code is forked from Kickoff
+		 * and features mostly aesthetic changes.
+		 */
+		ApplicationsView {
+			id: appsView
 
-            focus: true
-
-            anchors{
-                bottom: parent.bottom
-                bottomMargin: Kirigami.Units.smallSpacing * 2.5
-                left: parent.left
-                right: faves.right
-                rightMargin: Kirigami.Units.smallSpacing * 2 + 1
-                leftMargin:  Kirigami.Units.smallSpacing * 2 + 2
-            }  
-
-			background:	KSvg.FrameSvgItem {
-				anchors.fill:parent
-				anchors.left: parent.left
-				imagePath: Qt.resolvedUrl("svgs/lineedit.svg")
-				prefix: "base"
-
-				Text {
-					anchors.fill: parent
-					anchors.leftMargin: Kirigami.Units.smallSpacing*2-1
-					anchors.bottomMargin: 2
-					font.italic: true
-					//font.family: "Segoe UI, Italic"
-					color: searchFieldPlaceholderColor
-					text: i18n(" Search programs and files")
-					verticalAlignment: Text.AlignVCenter
-					visible: !searching
-					style: Text.Outline
-					styleColor: "transparent"
-					opacity: 0.55
-				}
-                Kirigami.Icon {
-                    source: "gtk-search"
-					smooth: true
-					visible: !searching
-					width: Kirigami.Units.iconSizes.small;
-					height: width
-                    anchors {
-						top: parent.top
-						bottom: parent.bottom
-						bottomMargin: 1
-						right: parent.right
-						rightMargin: Kirigami.Units.smallSpacing
-					}
-                }
+			anchors {
+				top: leftSidebar.top
+				left: leftSidebar.left
+				right: leftSidebar.right
+				bottom: bottomControls.top
+				topMargin: -Kirigami.Units.smallSpacing-2
 			}
-			inputMethodHints: Qt.ImhNoPredictiveText
-            width: root.cellWidth - Kirigami.Units.smallSpacing * 4 - 2
-            height: Kirigami.Units.smallSpacing * 7 - Kirigami.Units.smallSpacing
-			clearButtonShown: false
-            //placeholderText: i18n(" Search programs and files")
-            text: ""
-			color: "black"
-			verticalAlignment: TextInput.AlignBottom
-			font.italic: searchField.text == "" ? true : false
 
-            onTextChanged: {
-					searchView.onQueryChanged();
-            }
-
-			KeyNavigation.tab: {
-				if(columnItems.visibleChildren.length === 2) return shutdown;
-				return columnItems.visibleChildren[1];
-
+			opacity: showingAllPrograms && !searching
+			Behavior on opacity {
+				NumberAnimation { easing.type: Easing.Linear; duration: animationDuration*0.66 }
 			}
-            Keys.priority: Keys.AfterItem
-            Keys.onPressed: function(event){
-				if (event.key == Qt.Key_Escape) {
-					event.accepted = true;
-					if (searching) {
-						root.reset();
-					} else if(showingAllPrograms) {
-						showingAllPrograms = false;
-						appsView.reset();
-					} else {
-						root.visible = false;
-					}
-					focus = true;
-					return;
-				}
-                if (event.key == Qt.Key_Tab) {
-                    faves.forceActiveFocus();
-                    event.accepted = true;
-                    return;
-				}
-				if ((event.key == Qt.Key_Up) && searching) {
-					//searchView.itemGrid.focus = true;
-					searchView.decrementCurrentIndex();
-					event.accepted = true;
-					return;
-				}
-				if ((event.key == Qt.Key_Down) && searching) {
-					//searchView.itemGrid.focus = true;
-					searchView.incrementCurrentIndex();
-					event.accepted = true;
-					return;
-				}
-				if((event.key == Qt.Key_Return) && searching) {
-					searchView.activateCurrentIndex();
-					event.accepted = true;
-					return;
-				}
-				event.accepted = false;
-            }
 
+			function resetIndex() {
+				appsView.listView.currentIndex = -1;
+			}
 
-            function backspace() {
-                if (!root.visible) {
-                    return;
-                }
-                focus = true;
-                text = text.slice(0, -1);
-            }
+			z: showingAllPrograms ? 4 : 1
+		}
 
-            function appendText(newText) {
-                if (!root.visible) {
-                    return;
-                }
-                focus = true;
-                text = text + newText;
-            }
-        }
+		/*
+		 * Shows search results when the user types something into the textbox. This view will only
+		 * appear if that textbox is not empty, and it will extend the left panel to the entire
+		 * width of the plasmoid. The source code is forked from Kickoff and features aesthetic
+		 * changes.
+		 */
+		SearchView {
+			id: searchView
+
+			clip: true
+			anchors {
+				top: backgroundRect.top
+				left: parent.left
+				right: parent.right
+				bottom: backgroundRect.bottom
+
+				topMargin: Kirigami.Units.smallSpacing*2 -2
+				bottomMargin: searchBackground.height + Kirigami.Units.smallSpacing/2
+				leftMargin: 2 + Kirigami.Units.mediumSpacing
+				rightMargin: Kirigami.Units.mediumSpacing
+			}
+
+			opacity: 0
+			visible: opacity
+			Behavior on opacity {
+				NumberAnimation { easing.type: Easing.InOutQuart; duration: 150 }
+			}
+
+			z: searching ? 4 : 1
+		}
+
 
         Column {
             id: sidePanel
             z: 7
             anchors{
-                left: faves.right
-                //right: parent.right
+                left: leftSidebar.right
                 top: parent.top
-                bottom: leaveButtons.top
                 bottomMargin: Kirigami.Units.largeSpacing
                 leftMargin: 5
-                //rightMargin: Kirigami.Units.smallSpacing
-                topMargin: compositingEnabled ? Kirigami.Units.iconSizes.huge / 2 + Kirigami.Units.smallSpacing : 0
+                topMargin: (compositingEnabled ? Kirigami.Units.iconSizes.huge / 2 + Kirigami.Units.smallSpacing : 0) + Kirigami.Units.mediumSpacing
 			}
 			spacing: Kirigami.Units.smallSpacing
 
@@ -1006,7 +928,7 @@ PlasmaCore.Dialog {
             FileDialog {
                 id: folderDialog
                 visible: false
-                currentFolder: ""//shortcuts.pictures
+                currentFolder: ""
 
                 function getPath(val){
 					switch(val) {
@@ -1059,19 +981,7 @@ PlasmaCore.Dialog {
                 id: columnItems
                 spacing: 3
 				Layout.alignment: Qt.AlignTop
-				//Layout.fillHeight: true
-				//Layout.minimumWidth: cellWidthSide
 				width: Math.max(cellWidthSide, columnItems.implicitWidth)
-				Layout.leftMargin: Kirigami.Units.mediumSpacing/2
-				//Layout.topMargin: compositingEnabled ? Kirigami.Units.largeSpacing : 0//-Kirigami.Units.gridUnit-Kirigami.Units.largeSpacing
-                //anchors.top: compositingEnabled ? parent.top : nonCompositingIcon.bottom
-                //anchors.topMargin: compositingEnabled ? Kirigami.Units.smallSpacing : Kirigami.Units.smallSpacing*2
-                //anchors.left: parent.left
-                Rectangle {
-					id: testRect
-					anchors.fill: columnItems
-					color: "transparent"
-				}
 
 				property int currentIndex: -1
                 Component.onCompleted: {
@@ -1247,6 +1157,18 @@ PlasmaCore.Dialog {
 					}
 					Layout.fillWidth: true
 				}
+				SidePanelItemDelegate {
+					itemText: "Run..."
+					itemIcon: "krunner"
+					executableString: "krunner --replace";
+					executeProgram: true
+					visible: Plasmoid.configuration.showRunSidepanel
+					onVisibleChanged: {
+						separator1.updateVisibility();
+						separator2.updateVisibility();
+					}
+					Layout.fillWidth: true
+				}
 
 				//Used to space out the rest of the side panel, so that the shutdown button is at the bottom of the plasmoid
                 Item {
@@ -1264,10 +1186,10 @@ PlasmaCore.Dialog {
         RowLayout {
 			id: leaveButtons
 			anchors{
-				top: searchField.top
-				topMargin: 1
-				left: searchField.right
-				leftMargin: Kirigami.Units.smallSpacing*4
+				bottom: bottomControls.bottom
+				bottomMargin: 17
+				left: bottomControls.right
+				leftMargin: 6
 			}
 			spacing: 0
 			z: 7
@@ -1383,16 +1305,12 @@ PlasmaCore.Dialog {
 					if(lockScreenDelegate.focus)
 						contextMenu.openRelative();
 				}
-
-
 				MouseArea {
 					id: lockma
 					enabled: !root.hoverDisabled
 					acceptedButtons: Qt.LeftButton
 					onClicked: {
 						contextMenu.openRelative();
-						//root.visible = false;
-						//pmEngine.performOperation("lockScreen")
 					}
 					hoverEnabled: true
 					anchors.fill: lockButton
@@ -1403,12 +1321,10 @@ PlasmaCore.Dialog {
 					svg: arrowsSvg
 
 					anchors.centerIn: lockButton
-					//anchors.verticalCenterOffset: -1
 					anchors.horizontalCenterOffset: -1
 					width: Kirigami.Units.iconSizes.smallMedium - Kirigami.Units.smallSpacing / 2
 					height: Kirigami.Units.iconSizes.smallMedium - Kirigami.Units.smallSpacing / 2 +1
 					elementId: searching ? "more-ltr-black" : "more-ltr-light";
-					//elementId: searching ? "dark-lock" : "light-lock"
 				}
 				enabled: pmEngine.data["Sleep States"]["LockScreen"]
 				size: iconSizeSide

@@ -47,6 +47,8 @@ KCM.SimpleKCM {
     property string cfg_customButtonImageActive: Plasmoid.configuration.customButtonImageActive
     
     property alias cfg_showRecentsView: showRecentsView.checked
+    property alias cfg_offsetFloatingOrb: offsetFloatingOrb.checked
+    property alias cfg_accurateSearchBar: accurateSearchBar.checked
 
     property alias cfg_appNameFormat: appNameFormat.currentIndex
     property alias cfg_switchCategoriesOnHover: switchCategoriesOnHover.checked
@@ -147,29 +149,47 @@ KCM.SimpleKCM {
                 CheckBox {
                     id: stickOutOrb
 
-                    text: i18n("Force constant orb size")
+                    text: i18n("Enable floating orb for shorter taskbars")
                 }
                 CheckBox {
                     id: showRecentsView
                     text: i18n("Show recent programs")
+                    visible: false
                 }
                 RowLayout{
                     Layout.fillWidth: true
 
                     Label {
                         Layout.leftMargin: Kirigami.Units.smallSpacing
-                        text: i18n("Number of rows:")
+                        text: i18n("Number of recent programs to display:")
                     }
                     SpinBox{
                         id: numberRows
-                        from: 10
+                        from: 0
                         to: 15
                     }
                 }
             }
         }
 
+        CustomGroupBox {
+            Layout.fillWidth: true
+            title: i18n("Tweaks")
+
+            ColumnLayout {
+                CheckBox {
+                    id: accurateSearchBar
+                    text: i18n("Apply uneven padding on the search text box")
+                }
+                CheckBox {
+                    id: offsetFloatingOrb
+                    text: i18n("Offset floating orb into the taskbar")
+                }
+            }
+        }
+
     }
+
 
     Component.onCompleted: {
 		if(Plasmoid.configuration.stickOutOrb) Plasmoid.setTransparentWindow();

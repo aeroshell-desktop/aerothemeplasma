@@ -147,6 +147,13 @@ Item {
         visible: floatingness === 0 && panelOpacity !== 1
         enabledBorders: panel.enabledBorders
         anchors.fill: floatingTranslucentItem
+        /*anchors.rightMargin: {
+            if(containment) {
+                if(!containment.isHorizontal) return 0;
+                return containment.isShowDesktopApplet ? containment.isShowDesktopApplet.Layout.maximumWidth + Kirigami.Units.mediumSpacing : 0;
+            }
+            return 0;
+        }*/
         imagePath: containment?.plasmoid?.backgroundHints === PlasmaCore.Types.NoBackground ? "" : "widgets/panel-background"
     }
     KSvg.FrameSvgItem {
@@ -355,7 +362,7 @@ Item {
     Item {
         id: containmentParent
         anchors.fill: isOpaque ? floatingOpaqueItem : floatingTranslucentItem
-        anchors.leftMargin: root.verticalPanel ? 0 : -Kirigami.Units.smallSpacing
+        //anchors.leftMargin: root.verticalPanel ? 0 : -Kirigami.Units.mediumSpacing
         width: root.verticalPanel ? panel.thickness : root.width - fixedLeftFloatingPadding - fixedRightFloatingPadding
         height: root.verticalPanel ? root.height - fixedBottomFloatingPadding - fixedTopFloatingPadding : panel.thickness
     }

@@ -18,6 +18,7 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 import QtQuick 2.0
+import QtQuick.Controls
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.components as PlasmaComponents
@@ -68,15 +69,18 @@ FocusScope {
             if(listView.currentItem) listView.currentItem.toolTip.showToolTip();
         }
     }
-    PlasmaComponents.ScrollView {
+    ScrollView {
         id: scrollView
-
-        //frameVisible: false
         anchors.fill: parent
+        anchors.rightMargin: scrollView.ScrollBar.vertical.visible ? 3 : 0
 
         ListView {
             id: listView
 
+            move: Transition {}
+            moveDisplaced: Transition {}
+            displaced: Transition {}
+            clip: true
             boundsBehavior: Flickable.StopAtBounds
             focus: true
             highlightMoveDuration: 0
@@ -93,25 +97,18 @@ FocusScope {
                 showAppsByName: view.showAppsByName
                 smallIcon: small
 
-                onAddBreadcrumb: view.addBreadcrumb(model, title)
+                onAddBreadcrumb: (model, title) => view.addBreadcrumb(model, title)
                 onReset: view.reset()
             }
             highlight: KickoffHighlight {
             }
 
             section.property: "group"
-            /*section {
-                criteria: ViewSection.FullString
-                property: "group"
-
-                delegate: SectionDelegate {
-                }
-            }*/
 
             MouseArea {
                 id: mouseArea
 
-                // property Item pressed: null
+                property Item selectedItem: null
                 property int pressX: -1
                 property int pressY: -1
                 property bool tapAndHold: false
@@ -133,7 +130,17 @@ FocusScope {
                         listView.currentIndex = -1;
                     }
                 }
-                onPositionChanged: function(mouse) {
+                onPositionChanged: mouse => {
+                    if (mouse.source != Qt.MouseEventSynthesizedByQt) {
+                        if (selectedItem && pressX != -1 && selectedItem.model.url && dragHelper.isDrag(pressX, pressY, mouse.x, mouse.y)) {
+                            kicker.dragSource = selectedItem;
+                            dragHelper.dragIconSize = Kirigami.Units.iconSizes.medium;
+                            dragHelper.startDrag(kicker, selectedItem.model.url, selectedItem.model.icon);
+                            pressX = -1;
+                            pressY = -1;
+                            tapAndHold = false;
+                        }
+                    }
                     var mapped = listView.mapToItem(listView.contentItem, mouse.x, mouse.y);
                     var item = listView.itemAt(mapped.x, mapped.y);
                     if (item) {
@@ -141,31 +148,8 @@ FocusScope {
                         if(listView.currentItem) listView.currentItem.toolTip.hideToolTip();
                         listView.currentIndex = item.itemIndex;
                         toolTipTimer.start();
-                        //item.toolTip.showToolTip();
                     } else {
                         listView.currentIndex = -1;
-                    }
-                    if (mouse.source != Qt.MouseEventSynthesizedByQt || tapAndHold) {
-                        if (pressed && pressX != -1 && pressed.url && dragHelper.isDrag(pressX, pressY, mouse.x, mouse.y)) {
-                            kickoff.dragSource = item;
-                            if (mouse.source == Qt.MouseEventSynthesizedByQt) {
-                                dragHelper.dragIconSize = Kirigami.Units.iconSizes.huge;
-                                dragHelper.startDrag(kickoff, pressed.url, pressed.decoration);
-                            } else {
-                                dragHelper.dragIconSize = Kirigami.Units.iconSizes.medium;
-                                dragHelper.startDrag(kickoff, pressed.url, pressed.decoration);
-                            }
-                            //pressed = null;
-                            pressX = -1;
-                            pressY = -1;
-                            tapAndHold = false;
-                        }
-                    }
-                }
-                onPressAndHold: function(mouse) {
-                    if (mouse.source == Qt.MouseEventSynthesizedByQt) {
-                        tapAndHold = true;
-                        positionChanged(mouse);
                     }
                 }
                 onPressed: function(mouse) {
@@ -180,8 +164,7 @@ FocusScope {
                             listView.currentItem.openActionMenu(mapped.x, mapped.y);
                         }
                     } else {
-                        //pressed = item;
-                        //item.activate();
+                        selectedItem = item;
                         pressX = mouse.x;
                         pressY = mouse.y;
                     }
@@ -189,7 +172,7 @@ FocusScope {
                 onReleased: function(mouse) {
                     var mapped = listView.mapToItem(listView.contentItem, mouse.x, mouse.y);
                     var item = listView.itemAt(mapped.x, mapped.y);
-                    if (item && /*pressed === item && */!tapAndHold) {
+                    if (item && !tapAndHold) {
                         if (item.appView) {
                             if (mouse.source == Qt.MouseEventSynthesizedByQt) {
                                 positionChanged(mouse);
@@ -207,7 +190,7 @@ FocusScope {
                             listView.currentItem.openActionMenu(mapped.x, mapped.y);
                         }
                     }
-                    //pressed = null;
+                    selectedItem = null;
                     pressX = -1;
                     pressY = -1;
                     tapAndHold = false;

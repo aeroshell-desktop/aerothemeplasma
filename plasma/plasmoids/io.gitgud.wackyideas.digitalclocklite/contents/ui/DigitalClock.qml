@@ -36,21 +36,22 @@ Item {
 
     property bool showSeconds: Plasmoid.configuration.showSeconds
     property bool showLocalTimezone: Plasmoid.configuration.showLocalTimezone
-    property bool showDate: Plasmoid.configuration.showDate
+    property bool showDate: Plasmoid.configuration.showDate && !shortTaskbarHideDate
 
-    property int dateFormat: {
+    property var dateFormat: {
         if (Plasmoid.configuration.dateFormat === "longDate") {
-            return  Qt.SystemLocaleLongDate;
+            return Locale.LongFormat;//Qt.SystemLocaleLongDate;
         } else if (Plasmoid.configuration.dateFormat === "isoDate") {
             return Qt.ISODate;
         }
 
-        return Qt.SystemLocaleShortDate;
+        return Qt.locale()//Locale.ShortFormat;//Qt.SystemLocaleShortDate;
     }
 
     property string lastSelectedTimezone: Plasmoid.configuration.lastSelectedTimezone
     property bool displayTimezoneAsCode: Plasmoid.configuration.displayTimezoneAsCode
     property int use24hFormat: Plasmoid.configuration.use24hFormat
+    property bool shortTaskbarHideDate: Plasmoid.configuration.shortTaskbarHideDate && main.height <= 30 && Plasmoid.formFactor == PlasmaCore.Types.Horizontal
 
     property string lastDate: ""
     property int tzOffset
@@ -123,7 +124,7 @@ Item {
                 target: main
                 Layout.fillHeight: true
                 Layout.fillWidth: false
-                Layout.minimumWidth: contentItem.width + 2
+                Layout.minimumWidth: contentItem.width + Kirigami.Units.smallSpacing
                 Layout.maximumWidth: Layout.minimumWidth
             }
 
@@ -150,8 +151,10 @@ Item {
                 target: timeLabel
 
                 height: sizehelper.height
+                //rightPadding: 1
                 //width: sizehelper.contentWidth
-
+                //width: contentItem.width
+                //width: !showDate ? timeMetrics.advanceWidth(dateLabel.text) : timeLabel.paintedWidth
                 font.pointSize: Math.min(Plasmoid.configuration.fontSize || Kirigami.Theme.defaultFont.pointSize, Math.round(timeLabel.height * 72 / 96))
             }
 
@@ -221,6 +224,7 @@ Item {
                 target: labelsGrid
 
                 anchors.right: contentItem.right
+                anchors.left: contentItem.left
             }
 
             PropertyChanges {
@@ -459,7 +463,7 @@ Item {
             tooltipTimer.stop();
             timeToolTip.hideToolTip();
         }
-        onWheel: {
+        onWheel: wheel => {
             if (!Plasmoid.configuration.wheelChangesTimezone) {
                 return;
             }
@@ -514,7 +518,8 @@ Item {
         visible: mouseArea.containsMouse || dashWindow.visible
         anchors.fill: parent
         anchors.leftMargin: -Kirigami.Units.smallSpacing
-        anchors.rightMargin: -Kirigami.Units.smallSpacing+2
+        anchors.rightMargin: -Kirigami.Units.smallSpacing
+        anchors.bottomMargin: (Plasmoid.location === PlasmaCore.Types.BottomEdge || Plasmoid.location === PlasmaCore.Types.TopEdge) ? -Kirigami.Units.smallSpacing/2 : 0
         z: -1
         prefix: mouseArea.containsPress ? "pressed-tab" : "active-tab";
     }
@@ -522,6 +527,7 @@ Item {
     Item {
         id: contentItem
         anchors.verticalCenter: main.verticalCenter
+        anchors.horizontalCenter: main.horizontalCenter
 
         Grid {
             id: labelsGrid
@@ -580,9 +586,9 @@ Item {
                         // this clears the label and that makes it hidden
                         timezoneResult = timezoneString;
                     }
-                    return Qt.formatTime(currentTime, main.timeFormat) + (showTimezone ? (" " + timezoneResult) : "");
+                    return (showTimezone ? "" : " ") + Qt.formatTime(currentTime, main.timeFormat) + " " + (showTimezone ? (" " + timezoneResult) : "");
                 }
-
+                leftPadding: ((showDate && dateFormat === Qt.ISODate) ? 1 : 0)
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
             }
@@ -697,12 +703,13 @@ Item {
         }*/
 
 
-        if (main.showDate) {
-            dateLabel.text = Qt.formatDate(main.currentTime, main.dateFormat);
+        dateLabel.text = Qt.formatDate(main.currentTime, main.dateFormat);
+        if(!main.showDate) dateLabel.text = dateLabel.text.slice(1) + " ";
+        /*if (main.showDate) {
         } else {
             // clear it so it doesn't take space in the layout
             dateLabel.text = "";
-        }
+        }*/
 
         // find widest character between 0 and 9
         var maximumWidthNumber = 0;

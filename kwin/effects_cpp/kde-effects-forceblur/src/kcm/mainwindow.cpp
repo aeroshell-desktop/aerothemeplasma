@@ -60,13 +60,14 @@ MainWindow::MainWindow(QSpinBox *spinbox, QCheckBox *checkbox,
           "QSlider::handle:horizontal {"
           "    height: 3px;"
           "    width: 8px;"
-          "    background: #fafafa;"
-          "    border: 1px solid #46aaab;"
+          "    background: #f0f0f0;"
+          "    border: 1px solid #707070;"
+          "    border-radius: 2px;"
           "    margin: -6px 1px;"
           "}"
 
           "QSlider::handle:horizontal:hover { "
-          "    background: #dadaff;"
+          "    background: #def2fc;"
           "}";
 
   background_style =

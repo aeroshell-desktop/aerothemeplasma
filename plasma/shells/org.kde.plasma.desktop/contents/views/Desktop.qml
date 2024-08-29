@@ -192,6 +192,8 @@ Item {
         type: PlasmaCore.Dialog.Dock
         flags: Qt.WindowStaysOnTopHint
 
+        backgroundHints: PlasmaCore.Types.NoBackground
+
         hideOnWindowDeactivate: true
 
         x: {
@@ -216,7 +218,7 @@ Item {
                 // If was called from a panel, open the panel config
                 if (sidePanelStack.item && sidePanelStack.item.containment
                     && sidePanelStack.item.containment != containment.plasmoid
-                    && !item.containment.userConfiguring
+                    && !sidePanelStack.item.containment.userConfiguring
                 ) {
                     Qt.callLater(sidePanelStack.item.containment.internalAction("configure").trigger);
                 }
@@ -228,12 +230,22 @@ Item {
         mainItem: Loader {
             id: sidePanelStack
             asynchronous: true
-            width: item ? item.width: 0
+            width: item ? item.width : 0
             height: containment ? containment.plasmoid.availableScreenRect.height - sidePanel.margins.top - sidePanel.margins.bottom : 1000
             state: "closed"
 
             LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
             LayoutMirroring.childrenInherit: true
+
+            Rectangle {
+                anchors.fill: parent
+
+                gradient: Gradient {
+                    orientation: Gradient.Horizontal
+                    GradientStop { position: LayoutMirroring.enabled ? 1.0 : 0.5; color: "#99000000" }
+                    GradientStop { position: LayoutMirroring.enabled ? 0.5 : 1.0; color: "#00000000" }
+                }
+            }
 
             onLoaded: {
                 if (sidePanelStack.item) {

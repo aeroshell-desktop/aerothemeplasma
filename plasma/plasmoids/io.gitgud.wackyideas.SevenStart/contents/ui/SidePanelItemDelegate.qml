@@ -8,7 +8,7 @@ import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components as PlasmaComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
-
+import org.kde.kwindowsystem 1.0
 import org.kde.ksvg as KSvg
 import org.kde.kirigami as Kirigami
 
@@ -24,7 +24,7 @@ Item {
     //text: itemText
 
     //icon: itemIcon
-    width: label.implicitWidth + Kirigami.Units.largeSpacing*2
+    width: label.implicitWidth + Kirigami.Units.largeSpacing*2+1
     //Layout.preferredWidth: label.implicitWidth
     height: 33
 
@@ -32,7 +32,7 @@ Item {
     KeyNavigation.tab: findNext();
 
     function findItem() {
-        for(var i = 1; i < parent.visibleChildren.length-1; i++) {
+        for(var i = 0; i < parent.visibleChildren.length-1; i++) {
             if(sidePanelDelegate == parent.visibleChildren[i])
                 return i;
         }
@@ -40,7 +40,7 @@ Item {
     }
     function findPrevious() {
         var i = findItem()-1;
-        if(i < 1) {
+        if(i < 0) {
             return root.m_searchField;
         }
         if(parent.visibleChildren[i].objectName == "SidePanelItemSeparator") {
@@ -69,11 +69,20 @@ Item {
             //console.log(findNext());
             findNext().focus = true;
         } else if(event.key == Qt.Key_Left) {
-            var pos = parent.mapToItem(mainFocusScope, sidePanelDelegate.x, sidePanelDelegate.y);
-            var obj = mainFocusScope.childAt(Kirigami.Units.smallSpacing*10, pos.y);
-            if(obj.objectName == "") {
-                obj = root.m_recents;
+            var obj;
+            if(root.showingAllPrograms) obj = root.m_allApps;
+            else {
+                var pos = parent.mapToItem(root.m_mainPanel, sidePanelDelegate.x, sidePanelDelegate.y);
+                obj = root.m_mainPanel.childAt(Kirigami.Units.smallSpacing*10, pos.y);
+                if(!obj) {
+                    pos = parent.mapToItem(root.m_bottomControls, sidePanelDelegate.x, sidePanelDelegate.y);
+                    obj = root.m_bottomControls.childAt(Kirigami.Units.smallSpacing*10, pos.y);
+                    if(!obj) {
+                        obj = root.m_faves;
+                    }
+                }
             }
+
             obj.focus = true;
         }
     }
@@ -87,6 +96,7 @@ Item {
         opacity: sidePanelMouseArea.containsMouse || parent.focus
 
         anchors.fill: parent
+        anchors.rightMargin: 1
         imagePath: Qt.resolvedUrl("svgs/sidebaritem.svg")
         prefix: "menuitem"
 
@@ -127,7 +137,11 @@ Item {
             if(executeProgram)
                 executable.exec(executableString);
             else {
-                Qt.openUrlExternally(executableString);
+                if(KWindowSystem.isPlatformX11)
+                    Qt.callLater(Qt.openUrlExternally, executableString)
+                else // Workaround for Wayland to prevent crashing
+                    executable.exec("xdg-open " + executableString)
+
             }
         }
         hoverEnabled: true

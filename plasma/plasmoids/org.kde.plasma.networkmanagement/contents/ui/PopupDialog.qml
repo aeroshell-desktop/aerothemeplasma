@@ -90,12 +90,15 @@ PlasmaExtras.Representation {
         }
     }
 
+    contentItem: Item {
+
     QQC2.StackView {
         id: stack
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: backButton.top
+        anchors.bottom: backButton.visible ? backButton.top : parent.bottom
+        //anchors.bottomMargin: Kirigami.Units.smallSpacing
         initialItem: ConnectionListPage {
             id: connectionListPage
             model: appletProxyModel
@@ -113,14 +116,17 @@ PlasmaExtras.Representation {
     QQC2.Button {
         id: backButton
         //anchors.top: stack.bottom
+
         anchors.left: parent.left
         anchors.bottom: parent.bottom
+        anchors.bottomMargin: Kirigami.Units.largeSpacing
         //Layout.alignment: Qt.AlignRight | Qt.AlignBottom
         text: "Back"
         visible: stack.depth > 1
         onClicked: {
             stack.pop()
         }
+    }
     }
     /*PlasmaExtras.Heading {
         Layout.fillWidth: true

@@ -176,7 +176,7 @@ Item {
             dragHelper.startDrag(kicker, model.url, model.decoration,
                 "text/x-plasmoidservicename", model.pluginName);
           } else {
-            dragHelper.startDrag(kicker, model.url, model.decoration);
+            dragHelper.startDrag(kicker, model.url, model.icon);
           }
         }
         listView.currentIndex = containsMouse ? index : -1

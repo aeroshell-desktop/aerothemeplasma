@@ -13,6 +13,7 @@ Loader {
 
     z: x+1 // always be above what it's on top of, even for x==0
     property var itemModel: model
+    property string itemId: model.itemId
 
     Binding {
         target: item

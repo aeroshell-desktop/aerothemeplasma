@@ -50,7 +50,7 @@ Item {
     readonly property var screenGeometry: Plasmoid.screenGeometry
 
     // Should the orb be rendered in its own dialog window so that it can stick out of the panel?
-    readonly property bool stickOutOrb: Plasmoid.configuration.stickOutOrb && inPanel && !editMode
+    readonly property bool stickOutOrb: (Plasmoid.location == PlasmaCore.Types.TopEdge || Plasmoid.location == PlasmaCore.Types.BottomEdge) && Plasmoid.configuration.stickOutOrb && kicker.height <= 30 && !editMode
     readonly property bool useCustomButtonImage: (Plasmoid.configuration.useCustomButtonImage)
     readonly property bool vertical: (Plasmoid.formFactor == PlasmaCore.Types.Vertical)
 
@@ -72,26 +72,22 @@ Item {
     function positionOrb() {
         var pos = kicker.mapToGlobal(floatingOrbPanel.x, floatingOrbPanel.y);
         pos.y -= 5;
-        //if(floatingOrbPanel.buttonIcon.implicitHeight === 54) // Using an orb with extra height around it
-
-        //var pos = kicker.mapToGlobal(kicker.x, kicker.y); // Gets the global position of this plasmoid, in screen coordinates.
-        orb.width = floatingOrbPanel.buttonIcon.implicitWidth// + panelSvg.margins.left;
+        if(Plasmoid.configuration.offsetFloatingOrb) {
+            pos.y += 3;
+        }
+        orb.width = floatingOrbPanel.buttonIcon.implicitWidth
         orb.height = floatingOrbPanel.buttonIcon.implicitHeight;
 
         orb.x = pos.x;
-        orb.y = pos.y;// + panelSvg.margins.bottom;
-
-
-
-        // Keep the orb positioned exactly on the bottom if it is rendered out of bounds (beyond the screen geometry)
-        /*if (orb.y + orb.height > kicker.screenGeometry.height) {
-            orb.y = kicker.screenGeometry.height - orb.height; //orb.y + orb.height - kicker.screenGeometry.height;
-        }*/
+        orb.y = pos.y;
     }
     function showMenu() {
+
         dashWindow.visible = !dashWindow.visible;
         dashWindow.showingAllPrograms = false;
-        Plasmoid.setActiveWin(dashWindow);
+        maskTimer.start();
+        if(KWindowSystem.isPlatformX11) Plasmoid.setActiveWin(dashWindow);
+        Plasmoid.setDialogAppearance(dashWindow, dashWindow.dialogBackgroundTexture.mask);
         dashWindow.m_searchField.focus = true;
         orb.raise();
     }
@@ -132,7 +128,8 @@ Item {
     Component.onCompleted: {
         dashWindow = Qt.createQmlObject("MenuRepresentation {}", kicker);
         orb = Qt.createQmlObject("StartOrb {}", kicker);
-        //Plasmoid.fullRepresentation = dashWindow
+        maskTimer.start();
+        orbTimer.start();
         Plasmoid.activated.connect(function () {
             showMenu();
         });
@@ -140,60 +137,28 @@ Item {
     onCompositingChanged: {
         updateSizeHints();
         positionOrb();
-        /*if (compositing) {
-            orb.x += panelSvg.margins.left;
-        }*/
         compositingFix.start();
     }
     onHeightChanged: updateSizeHints()
-    onParentChanged: {
-        /*if (parent) {
-            for (var obj = root, depth = 0; !!obj; obj = obj.parent, depth++) {
-                if (obj.toString().startsWith('ContainmentInterface')) {
-                    // desktop containment / plasmoidviewer
-                    // Note: This doesn't always work. FolderViewDropArea may not yet have
-                    //       ContainmentInterface as a parent when this loop runs.
-                    if (typeof obj['editMode'] === 'boolean') {
-                        root.containmentInterface = obj;
-                        break;
-                    }
-                } else if (obj.toString().startsWith('DeclarativeDropArea')) {
-                    // panel containment
-                    if (typeof obj['Plasmoid'] !== 'undefined' && obj['Plasmoid'].toString().startsWith('ContainmentInterface')) {
-                        if (typeof obj['Plasmoid']['editMode'] === 'boolean') {
-                            root.containmentInterface = obj.Plasmoid;
-                            break;
-                        }
-                    }
-                }
-            }
-        }*/
-    }
+
     onStickOutOrbChanged: {
         updateSizeHints();
         positionOrb();
     }
     onWidthChanged: updateSizeHints()
 
-    /*Connections {
-        target: Kirigami.Units.iconSizeHints
-
-        function onPanelChanged() { updateSizeHints(); }
-    }*/
-
     Connections {
         target: Plasmoid.configuration
         function onCustomButtonImageChanged() {
             positionOrb();
-            console.log("AAAA")
         }
     }
     Connections {
         function onScreenChanged() {
-            positionOrb();
+            orbTimer.start();
         }
         function onScreenGeometryChanged() {
-            positionOrb();
+            orbTimer.start();
         }
 
         target: kicker
@@ -266,14 +231,23 @@ Item {
         interval: 15
 
         onTriggered: {
+
             Plasmoid.setOrb(orb);
             // Currently hardcoded, will make it configurable soon, when it's been properly tested and hopefully slightly refactored.
             Plasmoid.setMask(Qt.resolvedUrl("./orbs/mask.png"), false);
             Plasmoid.setWinState(orb);
             Plasmoid.setWinType(orb);
-            Plasmoid.setDashWindow(dashWindow);
+            Plasmoid.setDashWindow(dashWindow, dashWindow.dialogBackgroundTexture.mask);
             updateSizeHints();
             positionOrb();
+        }
+    }
+
+    Timer {
+        id: maskTimer
+        interval: 25
+        onTriggered: {
+            Plasmoid.setDialogAppearance(dashWindow, dashWindow.dialogBackgroundTexture.mask);
         }
     }
 }

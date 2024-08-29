@@ -49,6 +49,7 @@ SimpleKCM {
     property alias cfg_showSeconds: showSeconds.checked
 
     property alias cfg_showDate: showDate.checked
+    property alias cfg_shortTaskbarHideDate: shortTaskbarHideDate.checked
     property string cfg_dateFormat: "shortDate"
     property alias cfg_use24hFormat: use24hFormat.checkState
 
@@ -96,7 +97,7 @@ SimpleKCM {
     QtLayouts.ColumnLayout {
         anchors.left: parent.left
 
-        QtControls.GroupBox {
+        CustomGroupBox {
             QtLayouts.Layout.fillWidth: true
             title: i18n("Information")
             //flat: true
@@ -105,6 +106,10 @@ SimpleKCM {
                 QtControls.CheckBox {
                     id: showDate
                     text: i18n("Show date")
+                }
+                QtControls.CheckBox {
+                    id: shortTaskbarHideDate
+                    text: i18n("Hide date on shorter taskbars")
                 }
 
                 QtControls.CheckBox {
@@ -130,7 +135,7 @@ SimpleKCM {
                 QtControls.ButtonGroup {
                     buttons: timezoneColumn.children
                 }
-                QtControls.GroupBox {
+                CustomGroupBox {
                     QtLayouts.Layout.fillWidth: true
                     visible: false
                     //flat: true

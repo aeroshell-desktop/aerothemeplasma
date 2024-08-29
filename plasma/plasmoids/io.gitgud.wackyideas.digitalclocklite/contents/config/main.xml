@@ -18,6 +18,9 @@
       <label>Whether the date should be shown next to the clock.</label>
       <default>false</default>
     </entry>
+    <entry name="shortTaskbarHideDate" type="Bool">
+      <default>true</default>
+    </entry>
     <entry name="dateFormat" type="string">
       <label>The date format to display. Options are: shortDate, longDate or isoDate.</label>
       <default>shortDate</default>

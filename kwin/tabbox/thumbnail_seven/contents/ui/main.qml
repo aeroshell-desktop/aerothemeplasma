@@ -9,12 +9,14 @@
 
 import QtCore
 import QtQuick
-import QtQuick.Layouts 1.1
+import QtQuick.Layouts
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.kwin 3.0 as KWin
 import org.kde.ksvg 1.0 as KSvg
 import org.kde.kirigami 2.20 as Kirigami
+import org.kde.plasma.plasma5support as Plasma5Support
+import org.kde.kwindowsystem 1.0
 
 import Qt5Compat.GraphicalEffects
 //import QtGraphicalEffects 1.15
@@ -23,78 +25,61 @@ import Qt5Compat.GraphicalEffects
 // https://github.com/KDE/kwin/blob/master/tabbox/switcheritem.h
 KWin.TabBoxSwitcher {
     id: tabBox
-    //currentIndex: thumbnailGridView.currentIndex
-
+	MinimizeAllController {
+		id: minimizeAllController
+	}
     Instantiator {
-        active: tabBox.visible
+        id: instantiator
+        active: true
         delegate: PlasmaCore.Dialog {
 
         id: dialog
         location: PlasmaCore.Types.Floating
-        visible: true
+        visible: tabBox.visible && mainItem.count > 1//true
         //visible: tabBox.visible
         //opacity: tabBox.visible
         flags: Qt.X11BypassWindowManagerHint | Qt.WindowStaysOnTopHint | Qt.Popup
         x: tabBox.screenGeometry.x + tabBox.screenGeometry.width * 0.5 - dialogMainItem.width * 0.5
         y: tabBox.screenGeometry.y + tabBox.screenGeometry.height * 0.5 - dialogMainItem.height * 0.5
 
+        minimumWidth: dialogMainItem.intendedWidth
+        width: dialogMainItem.intendedWidth
+        onWidthChanged: {
+            if(width !== dialogMainItem.intendedWidth) width = dialogMainItem.intendedWidth // Because QML is sentient apparently
+        }
+        onVisibleChanged: {
+            if(!visible) {
+                //if(tabBox.currentIndex === mainItem.count-1 && !mainItem.currentItem.canClose) {
+                if(mainItem.currentItem.isShowDesktop) {
+                    minimizeAllController.toggle();
+                    KWindowSystem.showingDesktop = false;
+                }
+            }
+        }
         mainItem: FocusScope {
             id: dialogMainItem
 
             focus: true
 
-            property int maxWidth: tabBox.screenGeometry.width * 0.9
-            property int maxHeight: tabBox.screenGeometry.height * 0.7
+            property int maxWidth: 1024
+            property int maxHeight: tabBox.screenGeometry.height * 0.8
             property real screenFactor: tabBox.screenGeometry.width / tabBox.screenGeometry.height
-            property int maxGridColumnsByWidth: Math.floor(maxWidth / thumbnailGridView.cellWidth)
+            property int maxGridRowsByHeight: 5
+            property int maxGridColumnsByWidth: 7
 
-            property int gridColumns: {         // Simple greedy algorithm
-                // respect screenGeometry
-                const c = Math.min(thumbnailGridView.count, maxGridColumnsByWidth);
-                const residue = thumbnailGridView.count % c;
-                if (residue == 0) {
-                    return c;
-                }
-                // start greedy recursion
-                return columnCountRecursion(c, c, c - residue);
+            property int count: thumbnailGridView.count
+            property int currentIndex: thumbnailGridView.currentIndex
+            property Item currentItem: thumbnailGridView.currentItem
+            property int currentColumnCount: Math.min(7, count)
+
+            property int intendedWidth: Math.max(360, thumbnailGridView.cellWidth*currentColumnCount + Kirigami.Units.largeSpacing*2)
+            onWidthChanged: {
+                console.log("Cellwidth: " + thumbnailGridView.cellWidth)
+                console.log("Intended: " + Math.max(360, thumbnailGridView.cellWidth*currentColumnCount + Kirigami.Units.mediumSpacing))
+                console.log("Result: " + dialog.width);
             }
-
-            property int gridRows: Math.ceil(thumbnailGridView.count / gridColumns)
-            property int optimalWidth: thumbnailGridView.cellWidth * gridColumns
-            property int optimalHeight: thumbnailGridView.cellHeight * gridRows
-            width: Math.min(Math.max(thumbnailGridView.cellWidth, optimalWidth), maxWidth)
-            height: Math.min(Math.max(thumbnailGridView.cellHeight, optimalHeight) + windowTitle.height + Kirigami.Units.smallSpacing*4, maxHeight)
-
-            //clip: true
-
-            // Step for greedy algorithm
-            function columnCountRecursion(prevC, prevBestC, prevDiff) {
-                const c = prevC - 1;
-
-                // don't increase vertical extent more than horizontal
-                // and don't exceed maxHeight
-                if (prevC * prevC <= thumbnailGridView.count + prevDiff ||
-                        maxHeight < Math.ceil(thumbnailGridView.count / c) * thumbnailGridView.cellHeight) {
-                    return prevBestC;
-                }
-                const residue = thumbnailGridView.count % c;
-                // halts algorithm at some point
-                if (residue == 0) {
-                    return c;
-                }
-                // empty slots
-                const diff = c - residue;
-
-                // compare it to previous count of empty slots
-                if (diff < prevDiff) {
-                    return columnCountRecursion(c, c, diff);
-                } else if (diff == prevDiff) {
-                    // when it's the same try again, we'll stop early enough thanks to the landscape mode condition
-                    return columnCountRecursion(c, prevBestC, diff);
-                }
-                // when we've found a local minimum choose this one (greedy)
-                return columnCountRecursion(c, prevBestC, diff);
-            }
+            width: intendedWidth
+            height: columnLayout.implicitHeight
 
             // Just to get the margin sizes
             KSvg.FrameSvgItem {
@@ -111,34 +96,28 @@ KWin.TabBoxSwitcher {
             }
             Item {
                 id: glowCorners
-                anchors.fill: parent
-                anchors.topMargin: -dialogSvg.margins.top
-                anchors.leftMargin: -dialogSvg.margins.left
-                anchors.rightMargin: -dialogSvg.margins.right
-                anchors.bottomMargin: -dialogSvg.margins.bottom
-                visible: true
-
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+                width: dialog.width - dialogSvg.margins.right + 2 // idek why QML is just sentient sometimes
+                anchors.topMargin: -dialogSvg.margins.top+2
+                anchors.leftMargin: -dialogSvg.margins.left+2
+                anchors.bottomMargin: -dialogSvg.margins.bottom+2
 
                 Image {
                     anchors {
                         top: parent.top
                         left: parent.left
-                        leftMargin: -dialogSvg.margins.left + 8
-                        topMargin: -dialogSvg.margins.top + 8
                     }
                     source: StandardPaths.writableLocation(StandardPaths.GenericDataLocation) + "/smod/framecornereffect.png" //"~/.local/share/smod/reflections.png"
-                    //clip: true
                     smooth: true
                 }
                 Image {
                     anchors {
                         top: parent.top
                         right: parent.right
-                        rightMargin: 2//-dialogSvg.margins.right
-                        topMargin: 2//-dialogSvg.margins.top + 4
                     }
                     source: StandardPaths.writableLocation(StandardPaths.GenericDataLocation) + "/smod/framecornereffect.png"
-                    //clip: true
                     mirror: true
                     smooth: true
                 }
@@ -150,141 +129,166 @@ KWin.TabBoxSwitcher {
                         y: glowCorners.y
                         width: glowCorners.width
                         height: glowCorners.height
-                        radius: 10
+                        radius: 4
                     }
                 }
             }
-            Text {
-                id: windowTitle
-                anchors {
-                    top: parent.top
-                    topMargin: Kirigami.Units.smallSpacing*2
-                    left: parent.left
-                    right: parent.right
+            ColumnLayout {
+                id: columnLayout
+                spacing: 0
+                anchors.fill: parent
+                Text {
+                    id: windowTitle
+                    Layout.fillWidth: true
+                    Layout.topMargin: 10
+                    Layout.bottomMargin: 16
+                    Layout.preferredHeight: windowTitle.implicitHeight
+                    Layout.maximumWidth: thumbnailGridView.Layout.maximumWidth
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    font.pixelSize: 16
+                    color: "black"
+                    horizontalAlignment: Text.AlignHCenter
+                    text: thumbnailGridView.currentItem ? (thumbnailGridView.currentItem.isShowDesktop ? "Desktop" : thumbnailGridView.currentItem.caption) : ""
+                    elide: Text.ElideRight
+                    renderType: Text.NativeRendering
+                    layer.enabled: true
+                    layer.effect: Glow {
+                        x: windowTitle.x
+                        y: windowTitle.y
+                        width: windowTitle.width
+                        height: windowTitle.height
+                        //anchors.fill: windowTitle
+                        radius: 15
+                        samples: 31
+                        color: "#77ffffff"
+                        spread: 0.60
+                        source: windowTitle
+                        cached: true
+                    }
                 }
-                font.pixelSize: 16
-                color: "black"
-                horizontalAlignment: Text.AlignHCenter
-                text: thumbnailGridView.currentItem ? thumbnailGridView.currentItem.caption : ""
-                elide: Text.ElideRight
-                renderType: Text.NativeRendering
+                GridView {
+                    id: thumbnailGridView
+                    Layout.maximumWidth: 7*cellWidth
+                    Layout.maximumHeight: 5*cellHeight
+                    Layout.minimumWidth: 2*cellWidth
+                    Layout.minimumHeight: cellHeight
+                    Layout.preferredWidth: thumbnailGridView.count * cellWidth
+                    Layout.preferredHeight: Math.ceil(thumbnailGridView.count / Math.min(thumbnailGridView.count, 7)) * cellHeight
+                    Layout.bottomMargin: 2
+                    Layout.leftMargin: 2
+                    Layout.rightMargin: 2
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    focus: true
+                    model: tabBox.model
+                    currentIndex: tabBox.currentIndex
+
+                    property int iconSize: Kirigami.Units.iconSizes.medium
+                    property int captionRowHeight: 30  // The close button is 30x30 in Breeze
+                    property int thumbnailWidth: cellWidth - 22
+                    property int thumbnailHeight: cellHeight - Kirigami.Units.largeSpacing*2//thumbnailWidth * (1.0/dialogMainItem.screenFactor)
+                    cellWidth: Math.min(144, tabBox.screenGeometry.width * 0.10)
+                    cellHeight: Math.min(75, tabBox.screenGeometry.height * 0.10)
+
+                    keyNavigationWraps: true
+                    highlightMoveDuration: 0
+                    delegate: Item {
+                        id: thumbnailGridItem
+                        width: thumbnailGridView.cellWidth
+                        height: thumbnailGridView.cellHeight
+
+                        property variant caption: model.caption
+                        property bool canClose: model.closeable
+
+                        property bool isShowDesktop: {
+                            //console.log(index === mainItem.count-1 && !canClose && model.icon.toString().includes("user-desktop"))
+                            return index === mainItem.count-1 && !canClose && model.icon.toString().includes("user-desktop")
+                        }
+
+                        MouseArea {
+                            id: ma
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+                            onClicked: (mouse) => {
+                                if(mouse.button === Qt.RightButton) {
+                                    thumbnailGridItem.select();
+                                } else if(mouse.button === Qt.MiddleButton) {
+                                    tabBox.model.close(index);
+                                } else if(mouse.button === Qt.LeftButton) {
+                                    tabBox.model.activate(index);
+                                    return;
+                                }
+                            }
+                        }
+                        function select() {
+                            tabBox.currentIndex = index;
+                        }
+                        KSvg.FrameSvgItem {
+                            id: highlightItem
+                            imagePath: Qt.resolvedUrl("textures/highlight.svg");//"widgets/viewitem"
+                            anchors.fill: parent
+                            prefix: {
+                                if((ma.containsMouse && thumbnailGridView.currentIndex === index) || ma.containsPress) return "highlight-pressed";
+                                else if(thumbnailGridView.currentIndex === index) return "highlight-pressed";
+                                else if(ma.containsMouse) return "highlight-hover";
+                            }
+                            opacity: {
+                                if((ma.containsMouse && thumbnailGridView.currentIndex === index) || ma.containsPress) return 1.0;
+                                else if(thumbnailGridView.currentIndex === index) return 0.75;
+                                else if(ma.containsMouse) return 1.0;
+                                return 1.0
+                            }
+                        }
+
+                        ColumnLayout {
+                            z: 0
+                            spacing: 0
+                            anchors.fill: parent
+                            anchors.leftMargin: hoverItem.margins.left
+                            anchors.topMargin: hoverItem.margins.top
+                            anchors.rightMargin: hoverItem.margins.right
+                            anchors.bottomMargin: hoverItem.margins.bottom
+
+                            // KWin.ThumbnailItem needs a container
+                            // otherwise it will be drawn the same size as the parent ColumnLayout
+                            Item {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+
+                                // Cannot draw anything (like an icon) on top of thumbnail
+                                KWin.WindowThumbnail {
+                                    id: thumbnailItem
+                                    anchors.fill: parent
+                                    wId: windowId
+                                }
+                                DropShadow {
+                                    anchors.fill: thumbnailItem
+                                    horizontalOffset: 2
+                                    verticalOffset: 2
+                                    radius: 4.0
+                                    color: "#a0000000"
+                                    source: thumbnailItem
+                                }
+                                Kirigami.Icon {
+                                    id: iconItem
+                                    width: thumbnailGridView.iconSize
+                                    height: width
+                                    anchors.bottom: parent.bottom
+                                    anchors.right: parent.right
+                                    anchors.bottomMargin: -2
+                                    source: isShowDesktop ? "desktop" : model.icon
+                                    //usesPlasmaTheme: false
+                                    visible: tabBox.compositing
+                                }
+                            }
+                        }
+                    } // GridView.delegate
+                    onCurrentIndexChanged: tabBox.currentIndex = thumbnailGridView.currentIndex;
+                } // GridView
+
             }
 
-            Glow {
-                anchors.fill: windowTitle
-                radius: 15
-                samples: 31
-                color: "#77ffffff"
-                spread: 0.60
-                source: windowTitle
-                cached: true
-            }
 
-            GridView {
-                id: thumbnailGridView
-                anchors {
-                    top: windowTitle.bottom
-                    topMargin: Kirigami.Units.smallSpacing*2
-                    left: parent.left
-                    right: parent.right
-                    bottom: parent.bottom
-                }
-                focus: true
-                model: tabBox.model
-                currentIndex: tabBox.currentIndex
-
-                property int iconSize: Kirigami.Units.iconSizes.medium
-                property int captionRowHeight: 30  // The close button is 30x30 in Breeze
-                property int thumbnailWidth: 125
-                property int thumbnailHeight: thumbnailWidth * (1.0/dialogMainItem.screenFactor)
-                cellWidth: hoverItem.margins.left + thumbnailWidth + hoverItem.margins.right
-                cellHeight: hoverItem.margins.top + thumbnailHeight + hoverItem.margins.bottom
-
-                keyNavigationWraps: true
-                highlightMoveDuration: 0
-
-
-                delegate: Item {
-                    id: thumbnailGridItem
-                    width: thumbnailGridView.cellWidth
-                    height: thumbnailGridView.cellHeight
-
-                    property variant caption: model.caption
-
-                    MouseArea {
-                        id: ma
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
-                        onClicked: (mouse) => {
-                            if(mouse.button === Qt.RightButton) {
-                                thumbnailGridItem.select();
-                            } else if(mouse.button === Qt.MiddleButton) {
-                                tabBox.model.close(index);
-                            } else if(mouse.button === Qt.LeftButton) {
-                                tabBox.model.activate(index);
-                                return;
-                            }
-                        }
-                    }
-                    function select() {
-                        thumbnailGridView.currentIndex = index;
-                        thumbnailGridView.currentIndexChanged(/*thumbnailGridView.currentIndex*/);
-                    }
-                    KSvg.FrameSvgItem {
-                        id: highlightItem
-                        imagePath: "widgets/viewitem"
-                        anchors.fill: parent
-                        prefix: {
-                            if((ma.containsMouse && thumbnailGridView.currentIndex === index) || ma.containsPress) return "selected+hover";
-                            else if(thumbnailGridView.currentIndex === index) return "selected";
-                            else if(ma.containsMouse) return "hover";
-                        }
-                    }
-
-                    ColumnLayout {
-                        z: 0
-                        spacing: 0
-                        anchors.fill: parent
-                        anchors.leftMargin: hoverItem.margins.left
-                        anchors.topMargin: hoverItem.margins.top
-                        anchors.rightMargin: hoverItem.margins.right
-                        anchors.bottomMargin: hoverItem.margins.bottom
-
-                        // KWin.ThumbnailItem needs a container
-                        // otherwise it will be drawn the same size as the parent ColumnLayout
-                        Item {
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-
-                            // Cannot draw anything (like an icon) on top of thumbnail
-                            KWin.WindowThumbnail {
-                                id: thumbnailItem
-                                anchors.fill: parent
-                                wId: windowId
-                            }
-                            Kirigami.Icon {
-                                id: iconItem
-                                width: thumbnailGridView.iconSize
-                                height: width
-                                anchors.bottom: parent.bottom
-                                anchors.right: parent.right
-                                source: model.icon
-                                //usesPlasmaTheme: false
-                                visible: tabBox.compositing
-                            }
-                        }
-                    }
-                } // GridView.delegate
-
-                onCurrentIndexChanged: tabBox.currentIndex = thumbnailGridView.currentIndex;
-                /*Connections {
-                    target: tabBox
-                    function onCurrentIndexChanged() {
-                        thumbnailGridView.currentIndex = tabBox.currentIndex;
-                    }
-                }*/
-            } // GridView
 
             Keys.onPressed: {
                 if (event.key == Qt.Key_Left) {

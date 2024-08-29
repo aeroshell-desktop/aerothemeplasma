@@ -46,6 +46,7 @@ KCM.SimpleKCM {
     property alias cfg_showDevicesSidepanel: showDevicesSidepanel.checked
     property alias cfg_showDefaultsSidepanel: showDefaultsSidepanel.checked
     property alias cfg_showHelpSidepanel: showHelpSidepanel.checked
+    property alias cfg_showRunSidepanel: showRunSidepanel.checked
 
     ColumnLayout {
         anchors.left: parent.left
@@ -70,7 +71,7 @@ KCM.SimpleKCM {
 				elide: Text.ElideRight
 			}
 
-            title: i18n("Show sidebar items")
+            title: i18n("Show side panel items")
 
 			ColumnLayout {
            		CheckBox {
@@ -129,6 +130,10 @@ KCM.SimpleKCM {
            		    id: showHelpSidepanel
            		    text: i18n("Help and Support")
            		}
+           		CheckBox {
+					id: showRunSidepanel
+					text: i18n("Run...")
+				}
 			}
         }
     }

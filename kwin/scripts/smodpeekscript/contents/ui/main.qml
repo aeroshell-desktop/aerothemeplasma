@@ -18,15 +18,29 @@ import org.kde.ksvg as KSvg
 Item
 {
     //property bool inEditMode: Plasmoid.containment.corona.editMode;
+    property bool compositingEnabled: KWindowSystem.isPlatformX11 ? KX11Extras.compositingActive : true
     property bool showingDesktop: KWindowSystem.showingDesktop //false
     property real peekOpacity: showingDesktop ? 1 : 0
     property bool instantiatorActive: true
     property bool delayActive: false
 
+    property rect unifiedSize: {
+        var w = 0;
+        var h = 0;
+        for(var i = 0; i < Qt.application.screens.length; i++) {
+            var s = Qt.application.screens[i];
+            var tw = s.width + s.virtualX;
+            var th = s.height + s.virtualY;
+            if(tw > w) w = tw;
+            if(th > h) h = th;
+        }
+        return Qt.rect(0,0,w,h);
+    }
+
     x:      0
     y:      0
-    width:  Screen.width
-    height: Screen.height
+    width:  unifiedSize.width
+    height: unifiedSize.height
 
     Behavior on peekOpacity
     {
@@ -35,14 +49,13 @@ Item
 
     Timer {
         id: timer
-        interval: 20
+        interval: 50
         onTriggered: {
             delayActive = showingDesktop;
         }
     }
     onShowingDesktopChanged: {
-        if(showingDesktop) delayActive = true;
-        else timer.start();
+        timer.start();
     }
 
     KWin.WindowFilterModel {
@@ -75,10 +88,11 @@ Item
             color: "transparent"
             x:       0
             y:       0
-            width:   Screen.width
-            height:  Screen.height
-            visible: delayActive
-            opacity: peekOpacity
+            width:   unifiedSize.width
+            height:  unifiedSize.height
+            visible: delayActive && compositingEnabled
+
+            //opacity: peekOpacity
 
             title: "aeropeek-aerothemeplasma"
             // Setup reflection
@@ -87,8 +101,8 @@ Item
                 id: reflection
                 x:            0
                 y:            0
-                width:        Screen.width
-                height:       Screen.height
+                width:        unifiedSize.width
+                height:       unifiedSize.height
                 source:       StandardPaths.writableLocation(StandardPaths.GenericDataLocation) + "/smod/reflections.png" //"~/.local/share/smod/reflections.png"
                 sourceSize:   Qt.size(width, height)
                 smooth:       true
@@ -115,7 +129,7 @@ Item
                         height: model.window.height
                         color: "black"
                         radius: 6
-                        visible: {
+                        opacity: {
 
                             //if(!model.window.minimized) console.log(JSON.stringify(model.window));
                             return !model.window.minimized && model.window.managed && ignoreWindow(model.window)
@@ -135,7 +149,6 @@ Item
                 maskSource:   mask
             }
 
-
             // Paint frames
             Repeater
             {
@@ -147,10 +160,21 @@ Item
                     // Assume the topmost window is the active window
                     property bool clientActive: model.window.stackingOrder == windowmodel.rowCount() - 1
                     // Assume window is maximized under these conditions
-                    property bool clientMaximized: model.window.x == 0 && model.window.y == 0 && model.window.width == Screen.width && model.window.height >= Screen.height / 2
+                    property bool clientMaximized: {
+
+                        var windowFrame = model.window.frameGeometry;
+                        var monitor = model.output.geometry;
+                        if(monitor.top <= windowFrame.top && monitor.left <= windowFrame.left && monitor.bottom >= windowFrame.bottom && monitor.right >= windowFrame.right) {
+                            return false;
+                        }
+                        var area = (windowFrame.width*windowFrame.height) / (monitor.width*monitor.height);
+                        console.log(area + " " + model.window.caption);
+                        return area <= 1 && area > 0.9
+                        return true;
+                    }
 
                     anchors.fill: parent
-                    visible: !model.window.minimized && !clientMaximized && model.window.managed && ignoreWindow(model.window)
+                    opacity: !model.window.minimized && !clientMaximized && model.window.managed && ignoreWindow(model.window)
                     //&& !(model.window.dialog && !model.window.normalWindow && model.window.resourceClass == "plasmashell" && model.window.caption == "plasmashell <2>‎")
                     z: model.window.stackingOrder
 

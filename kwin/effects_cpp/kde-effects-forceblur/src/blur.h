@@ -151,6 +151,7 @@ private:
     bool m_translateTexture;
     bool m_firstTimeConfig;
 
+    int m_reflectionIntensity;
     int m_aeroIntensity;
     int m_aeroHue;
     int m_aeroSaturation;

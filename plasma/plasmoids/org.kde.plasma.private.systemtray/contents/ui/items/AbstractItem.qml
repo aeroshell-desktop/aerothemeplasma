@@ -19,6 +19,7 @@ PlasmaCore.ToolTipArea {
 
     property var model: itemModel
 
+    property alias mouseArea: mouseArea
     property string itemId
     property alias text: label.text
     property alias labelHeight: label.implicitHeight
@@ -68,36 +69,18 @@ PlasmaCore.ToolTipArea {
     KSvg.FrameSvgItem {
         id: itemHighLight
         anchors.fill: parent
+        anchors.bottomMargin: ((Plasmoid.location === PlasmaCore.Types.BottomEdge || Plasmoid.location === PlasmaCore.Types.TopEdge) && !inHiddenLayout) ? -2 : 0
         //property int location
 
         property bool animationEnabled: true
         property var highlightedItem: null
 
         z: -1 // always draw behind icons
-        opacity: mouseArea.containsMouse ? 1 : 0
+        opacity: (mouseArea.containsMouse && !dropArea.containsDrag) ? 1 : 0
 
         imagePath: Qt.resolvedUrl("../svgs/tabbar.svgz")
         //imagePath: "widgets/tabbar"
-        prefix: {
-            var prefix = ""
-            switch (Plasmoid.location) {
-                case PlasmaCore.Types.LeftEdge:
-                    prefix = "west-active-tab";
-                    break;
-                case PlasmaCore.Types.TopEdge:
-                    prefix = "north-active-tab";
-                    break;
-                case PlasmaCore.Types.RightEdge:
-                    prefix = "east-active-tab";
-                    break;
-                default:
-                    prefix = "south-active-tab";
-            }
-            if (!hasElementPrefix(prefix)) {
-                prefix = "active-tab";
-            }
-            return prefix;
-        }
+        prefix: "active-tab"
         Behavior on opacity {
             NumberAnimation {
                 duration: Kirigami.Units.longDuration
@@ -113,7 +96,7 @@ PlasmaCore.ToolTipArea {
             gradient: Gradient {
                 // The first and last gradient stops are offset by +/-0.1 to avoid a sudden gradient "cutoff".
                 GradientStop { position: 0.1; color: "transparent"; }
-                GradientStop { position: 0.5; color: "#66000000"; }
+                GradientStop { position: 0.5; color: "#8c000000"; }
                 GradientStop { position: 0.9; color: "transparent"; }
             }
             opacity: mouseArea.containsPress ? 1 : 0
@@ -128,6 +111,23 @@ PlasmaCore.ToolTipArea {
     MouseArea {
         id: mouseArea
         propagateComposedEvents: true
+        property bool held: false
+
+        function setRequestedInhibitDnd(value) {
+            // This is modifying the value in the panel containment that
+            // inhibits accepting drag and drop, so that we don't accidentally
+            // drop the task on this panel.
+            let item = this;
+            while (item.parent) {
+                item = item.parent;
+                if (item.appletRequestsInhibitDnD !== undefined) {
+                    item.appletRequestsInhibitDnD = value
+                }
+            }
+        }
+        onHeldChanged: {
+            setRequestedInhibitDnd(held);
+        }
         // This needs to be above applets when it's in the grid hidden area
         // so that it can receive hover events while the mouse is over an applet,
         // but below them on regular systray, so collapsing works
@@ -136,6 +136,7 @@ PlasmaCore.ToolTipArea {
         anchors.fill: abstractItem
         hoverEnabled: true
         drag.filterChildren: true
+        drag.target: held && !abstractItem.inHiddenLayout ? icon : null
         // Necessary to make the whole delegate area forward all mouse events
         acceptedButtons: Qt.AllButtons
         // Using onPositionChanged instead of onEntered because changing the
@@ -144,14 +145,25 @@ PlasmaCore.ToolTipArea {
         // making it harder to scroll.
 
         onContainsMouseChanged: {
-            if(inHiddenLayout && !mouseArea.containsMouse) {
+            if(abstractItem.inHiddenLayout && !mouseArea.containsMouse) {
                 root.hiddenLayout.currentIndex = -1;
             }
         }
-        onPositionChanged: if (inHiddenLayout) {
-            root.hiddenLayout.currentIndex = index
+        onPositionChanged: {
+            if (abstractItem.inHiddenLayout) {
+                root.hiddenLayout.currentIndex = index
+            } else {
+                if(mouseArea.containsPress) {
+                    held = true;
+                }
+            }
+
         }
         onClicked: mouse => { abstractItem.clicked(mouse) }
+        onReleased: {
+            icon.Drag.drop();
+            held = false;
+        }
         onPressed: mouse => {
             if (inHiddenLayout) {
                 root.hiddenLayout.currentIndex = index
@@ -160,6 +172,8 @@ PlasmaCore.ToolTipArea {
             abstractItem.pressed(mouse)
         }
         onPressAndHold: mouse => {
+            //held = true;
+
             if (mouse.button === Qt.LeftButton) {
                 abstractItem.contextMenu(mouse)
             }
@@ -173,13 +187,39 @@ PlasmaCore.ToolTipArea {
     }
 
     ColumnLayout {
+        id: icon
         anchors.fill: abstractItem
+        anchors.topMargin: abstractItem.inHiddenLayout ? 0 : 1
         spacing: 0
+
+        Drag.active: mouseArea.drag.active// && abstractItem.inHiddenLayout
+        Drag.source: abstractItem.parent
+        Drag.hotSpot: Qt.point(width/2, height/2)
+
+        states: [
+            State {
+                when: icon.Drag.active
+
+                ParentChange {
+                    target: icon
+                    parent: root.tasksGrid
+                }
+
+                PropertyChanges {
+                    target: icon
+                    x: mouseArea.mapToItem(root.tasksGrid, mouseArea.mouseX, mouseArea.mouseY).x - iconContainer.width * 0.75
+                    y: mouseArea.mapToItem(root.tasksGrid, mouseArea.mouseX, mouseArea.mouseY).y - iconContainer.height / 2
+                }
+                /*AnchorChanges {
+                    target: icon
+                    anchors.horizontalCenter: undefined
+                    anchors.verticalCenter: undefined
+                }*/
+            }
+        ]
 
         FocusScope {
             id: iconContainer
-            //scale: (abstractItem.effectivePressed || mouseArea.containsPress) ? 0.8 : 1
-
             Kirigami.Theme.colorSet: abstractItem.inHiddenLayout ? Kirigami.Theme.Tooltip : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             activeFocusOnTab: true
@@ -188,14 +228,7 @@ PlasmaCore.ToolTipArea {
             Accessible.description: abstractItem.subText
             Accessible.role: Accessible.Button
             Accessible.onPressAction: abstractItem.activated(Plasmoid.popupPosition(iconContainer, iconContainer.width/2, iconContainer.height/2));
-
-            /*Behavior on scale {
-                ScaleAnimator {
-                    duration: Kirigami.Units.longDuration
-                    easing.type: (effectivePressed || mouseArea.containsPress) ? Easing.OutCubic : Easing.InCubic
-                }
-            }*/
-
+            opacity: icon.Drag.active ? 0.5 : 1
             Keys.onPressed: event => {
                 switch (event.key) {
                     case Qt.Key_Space:
@@ -223,8 +256,6 @@ PlasmaCore.ToolTipArea {
         }
         PlasmaComponents3.Label {
             id: label
-
-
             Layout.fillWidth: true
             Layout.fillHeight: abstractItem.inHiddenLayout ? true : false
             //! Minimum required height for all labels is used in order for all
@@ -251,6 +282,61 @@ PlasmaCore.ToolTipArea {
                     easing.type: Easing.InOutQuad
                 }
             }
+        }
+    }
+    DropArea {
+        id: dropArea
+        anchors.fill: parent
+        anchors.margins: 0
+        property bool hasDrag: false
+        Rectangle {
+            id: leftBar
+            color: "#70ffffff"
+            width: 1
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.topMargin: Kirigami.Units.smallSpacing/2
+            anchors.bottomMargin: Kirigami.Units.smallSpacing/2
+            visible: false
+            z: -1
+        }
+        Rectangle {
+            id: rightBar
+            color: "#70ffffff"
+            width: 1
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.topMargin: Kirigami.Units.smallSpacing/2
+            anchors.bottomMargin: Kirigami.Units.smallSpacing/2
+            visible: false
+            z: -1
+        }
+        onEntered: drag => {
+
+            if(drag.source.visualIndex < abstractItem.parent.visualIndex) {
+                rightBar.visible = true;
+                leftBar.visible = false;
+            } else {
+                rightBar.visible = false;
+                leftBar.visible = true;
+            }
+            hasDrag = true;
+        }
+        onExited: drag => {
+            hasDrag = false;
+            rightBar.visible = false;
+            leftBar.visible = false;
+        }
+        onDropped: drag => {
+            root.activeModel.items.move(drag.source.visualIndex, abstractItem.parent.visualIndex);
+            //orderingManager.setItemOrder(itemId, abstractItem.parent.visualIndex);
+            //orderingManager.setItemOrder(drag.source.itemId, drag.source.visualIndex);
+            hasDrag = false;
+            rightBar.visible = false;
+            leftBar.visible = false;
+            orderingManager.saveConfiguration();
         }
     }
 }

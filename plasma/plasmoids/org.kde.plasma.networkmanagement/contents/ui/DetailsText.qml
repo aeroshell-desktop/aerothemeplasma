@@ -55,8 +55,8 @@ MouseArea {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.rightMargin: Kirigami.Units.smallSpacing
-        anchors.leftMargin: Kirigami.Units.smallSpacing
+        //anchors.rightMargin: Kirigami.Units.smallSpacing / 2
+        //anchors.leftMargin: Kirigami.Units.smallSpacing / 2
         anchors.topMargin: -Kirigami.Units.smallSpacing*2
         //horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignTop
@@ -66,12 +66,12 @@ MouseArea {
         id: detailsGrid
         width: parent.width
         columns: 2
-        rowSpacing: Kirigami.Units.smallSpacing / 4
+        rowSpacing: 1
         anchors.top: titleLabel.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.rightMargin: Kirigami.Units.smallSpacing
-        anchors.leftMargin: Kirigami.Units.smallSpacing
+        //anchors.rightMargin: Kirigami.Units.smallSpacing / 2
+        //anchors.leftMargin: Kirigami.Units.smallSpacing / 2
         anchors.topMargin: Kirigami.Units.smallSpacing
 
         Repeater {
@@ -84,7 +84,7 @@ MouseArea {
 
                 readonly property bool isContent: index % 2
 
-                elide: isContent ? Text.ElideRight : Text.ElideNone
+                //elide: isContent ? Text.ElideRight : Text.ElideNone
                 font: Kirigami.Theme.smallFont
                 horizontalAlignment: isContent ? Text.AlignRight : Text.AlignLeft
                 text: isContent ? details[index] : `${details[index]}:`

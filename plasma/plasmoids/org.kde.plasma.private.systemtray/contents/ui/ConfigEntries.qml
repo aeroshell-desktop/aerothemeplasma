@@ -68,31 +68,42 @@ KCM.ScrollViewKCM {
             spacing: Kirigami.Units.smallSpacing
 
             Item {
-                implicitWidth: itemsList.iconSize + 2 * Kirigami.Units.smallSpacing
+                implicitWidth: Kirigami.Units.smallSpacing
             }
             Kirigami.Heading {
                 text: i18nc("Name of the system tray entry", "Entry")
-                level: 2
+                level: 5
                 elide: Text.ElideRight
                 Layout.fillWidth: true
+                horizontalAlignment: Text.AlignLeft
+                type: Kirigami.Heading.Type.Primary
             }
             Kirigami.Heading {
-                text: i18n("Visibility")
-                level: 2
+                text: "  " + i18n("Visibility")
+                level: 5
                 Layout.preferredWidth: itemsList.visibilityColumnWidth
                 Component.onCompleted: itemsList.visibilityColumnWidth = Math.max(implicitWidth, itemsList.visibilityColumnWidth)
+                type: Kirigami.Heading.Type.Primary
             }
             Kirigami.Heading {
-                text: i18n("Keyboard Shortcut")
-                level: 2
+                text: "  " + i18n("Keyboard Shortcut")
+                level: 5
                 Layout.preferredWidth: itemsList.keySequenceColumnWidth
                 Component.onCompleted: itemsList.keySequenceColumnWidth = Math.max(implicitWidth, itemsList.keySequenceColumnWidth)
+                type: Kirigami.Heading.Type.Primary
             }
             QQC2.Button { // Configure button column
                 icon.name: "configure"
                 enabled: false
                 opacity: 0
                 Layout.rightMargin: 2 * Kirigami.Units.smallSpacing
+            }
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                height: 1
+                color: "#cccccc"
             }
         }
 

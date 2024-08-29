@@ -42,11 +42,10 @@ import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
 
  PlasmaCore.Dialog {
     id: iconUser
-    flags: Qt.WindowStaysOnTopHint | Qt.Popup | Qt.WindowTransparentForInput
+    flags: Qt.WindowTransparentForInput
 	location: "Floating"
 
-
-    //outputOnly: true // Simplifies things, prevents accidental misclicks when clicking close to the orb.
+    type: "Notification"
 
     // Positions are defined later when the plasmoid has been fully loaded, to prevent undefined behavior.
 	x: 0
@@ -59,14 +58,12 @@ import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
 	onXChanged: {
         Plasmoid.setTransparentWindow();
     }
+
     onVisibleChanged: {
-        if(visible) {
-            orbTimer.start(); // Delayed initialization, again, for what reason?
-        }
     }
 	backgroundHints: PlasmaCore.Types.NoBackground // Prevents a dialog SVG background from being drawn.
-	visible: root.visible && stickOutOrb
-	opacity: iconUser.visible // To prevent even more NP-hard unpredictable behavior and visual glitches.
+	visible: kicker.compositingEnabled ? true : stickOutOrb //root.visible && stickOutOrb
+	opacity: iconUser.visible && root.visible && stickOutOrb// To prevent even more NP-hard unpredictable behavior and visual glitches.
 
 	// The actual orb button, this dialog window is just a container for it.
 	mainItem: FloatingOrb {

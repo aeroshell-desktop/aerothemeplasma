@@ -133,6 +133,7 @@ Item {
         Flickable {
             id: breadcrumbFlickable
             anchors {
+                topMargin: 2
                 top: parent.top
                 left: parent.left
                 right: parent.right
@@ -167,7 +168,7 @@ Item {
 
                     Breadcrumb {
                         root: false
-                        text: model.text
+                        text: ""
                         visible: false
                     }
                 }
@@ -251,7 +252,7 @@ Item {
 
         onReset: appViewContainer.reset()
 
-        onAddBreadcrumb: {
+        onAddBreadcrumb: title => {
             crumbModel.append({"text": title, "depth": crumbModel.count+1})
             crumbModel.models.push(model);
         }
@@ -320,13 +321,13 @@ Item {
             if (running) {
                 updatedLabel.opacity = 1;
                 crumbContainer.opacity = 0.3;
-                applicationsView.scrollArea.opacity = 0.3;
+                //applicationsView.scrollArea.opacity = 0.3;
             }
         }
         onTriggered: {
             updatedLabel.opacity = 0;
             crumbContainer.opacity = 1;
-            applicationsView.scrollArea.opacity = 1;
+            //applicationsView.scrollArea.opacity = 1;
             running = false;
         }
     }

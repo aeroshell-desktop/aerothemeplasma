@@ -439,7 +439,7 @@
        id="border-outer"
        inkscape:swatch="solid">
       <stop
-         style="stop-color:#969696;stop-opacity:0.60000002;"
+         style="stop-color:#f4f4f4;stop-opacity:0.25882354;"
          offset="0"
          id="stop989" />
     </linearGradient>
@@ -447,7 +447,7 @@
        id="border-inner"
        inkscape:swatch="solid">
       <stop
-         style="stop-color:#3a3a3a;stop-opacity:0.80000001;"
+         style="stop-color:#424242;stop-opacity:0.56862748;"
          offset="0"
          id="stop945" />
     </linearGradient>
@@ -1481,9 +1481,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="28.825892"
-     inkscape:cx="13.702959"
-     inkscape:cy="21.12684"
+     inkscape:zoom="10.512048"
+     inkscape:cx="32.629226"
+     inkscape:cy="44.995988"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1501,7 +1501,7 @@
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:window-width="1600"
-     inkscape:window-height="838"
+     inkscape:window-height="848"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"

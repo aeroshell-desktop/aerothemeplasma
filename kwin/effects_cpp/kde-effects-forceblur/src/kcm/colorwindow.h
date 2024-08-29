@@ -40,6 +40,7 @@ private:
     ColorButton* frameButton;
     QPushButton* childFrame;
     QGridLayout* layout;
+
 };
 
 #endif // COLORWINDOW_H

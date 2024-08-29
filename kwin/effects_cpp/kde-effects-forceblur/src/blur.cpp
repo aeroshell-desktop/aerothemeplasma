@@ -298,8 +298,12 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
    		m_aeroSaturation = BlurConfig::aeroSaturation();
    		m_aeroBrightness = BlurConfig::aeroBrightness();
 		m_transparencyEnabled = BlurConfig::enableTransparency();
+
 		configureAero();
 	}
+	m_reflectionIntensity = BlurConfig::reflectionIntensity();
+
+    printf("%d\n", m_reflectionIntensity);
     int blurStrength = BlurConfig::blurStrength() - 1;
     m_iterationCount = blurStrengthValues[blurStrength].iteration;
     m_offset = blurStrengthValues[blurStrength].offset;
@@ -958,19 +962,16 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         ShaderManager::instance()->popShader();
 
         glEnable(GL_BLEND);
-		if(opacity < 1.0) {
+
+        float finalOpacity = (float)opacity * (float)m_reflectionIntensity / 100.0f;
+
+        if (finalOpacity < 1.0) {
+            glBlendColor(0, 0, 0, finalOpacity);
             glBlendFunc(GL_CONSTANT_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        } else {
-            glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         }
-        /*if (opacity < 1.0) {
-            glBlendFunc(GL_CONSTANT_ALPHA, GL_ONE);
-        } else {
-            glBlendFunc(GL_ONE, GL_ONE);
-        }*/
 
 		GLTexture *reflectTex = m_reflectPass.reflectTexture.get();
-		if(reflectTex)
+		if(reflectTex && finalOpacity != 0.0)
 		{
             ShaderManager::instance()->pushShader(m_reflectPass.shader.get());
 
@@ -983,11 +984,12 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 			auto windowSize = windowRect.size();
 
 
+
             m_reflectPass.shader->setUniform(m_reflectPass.mvpMatrixLocation, projectionMatrix);
 			m_reflectPass.shader->setUniform(m_reflectPass.screenResolutionLocation, QVector2D(screenSize.width(), screenSize.height()));
 			m_reflectPass.shader->setUniform(m_reflectPass.windowPosLocation, QVector2D(windowPos.x(), windowPos.y()));
 			m_reflectPass.shader->setUniform(m_reflectPass.windowSizeLocation, QVector2D(windowSize.width(), windowSize.height()));
-			m_reflectPass.shader->setUniform(m_reflectPass.opacityLocation, float(opacity));
+			m_reflectPass.shader->setUniform(m_reflectPass.opacityLocation, float(finalOpacity));
 			m_reflectPass.shader->setUniform(m_reflectPass.translateTextureLocation, m_translateTexture ? float(1.0) : float(0.0));
 
 

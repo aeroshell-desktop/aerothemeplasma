@@ -65,11 +65,12 @@ QPixmap QGraphicsGlowEffect::drawBlur(QPixmap pixmap)
 
   QGraphicsColorizeEffect *colorize = new QGraphicsColorizeEffect;
   colorize->setColor(_color);
-  colorize->setStrength(1);
+  //colorize->setStrength(0);
   glow = applyEffectToPixmap(pixmap, colorize, 0);
 
   QGraphicsBlurEffect *blur = new QGraphicsBlurEffect;
   blur->setBlurRadius(_blurRadius);
+  blur->setBlurHints(QGraphicsBlurEffect::QualityHint);
   glow = applyEffectToPixmap(glow, blur, _extent);
 
   return glow;

@@ -39,13 +39,14 @@ BlurEffectConfig::BlurEffectConfig(QObject *parent, const KPluginMetaData &data)
 	connect(ui.browse_pushButton, SIGNAL(clicked()), this, SLOT(setTexturePath()));
     connect(ui.clear_pushButton, SIGNAL(clicked()), this, SLOT(clearTexturePath()));
 	connect(ui.showAccentColor_label, SIGNAL(linkActivated(QString)), this, SLOT(openColorMixer(QString)));
+    connect(ui.kcfg_ReflectionIntensity, SIGNAL(valueChanged(int)), this, SLOT(on_kcfg_ReflectionIntensity_valueChanged(int)));
 
-	printf("AAAAA\n");
-	fflush(stdout);
 	m_window = new MainWindow(ui.kcfg_AccentColorName, ui.kcfg_EnableTransparency,
 							  ui.kcfg_AeroHue, ui.kcfg_AeroSaturation, ui.kcfg_AeroBrightness,
 							  ui.kcfg_AeroIntensity, ui.kcfg_CustomColor, this, nullptr);
 	m_window->setWindowModality(Qt::WindowModality::WindowModal);
+
+    ui.reflectionLabel->setText(QString::number(ui.kcfg_ReflectionIntensity->value()) + " %" );
 
 }
 void BlurEffectConfig::openColorMixer(QString str)
@@ -56,6 +57,12 @@ void BlurEffectConfig::openColorMixer(QString str)
 BlurEffectConfig::~BlurEffectConfig()
 {
 	delete m_dialog;
+}
+
+void BlurEffectConfig::on_kcfg_ReflectionIntensity_valueChanged(int value)
+{
+    ui.reflectionLabel->setText(QString::number(ui.kcfg_ReflectionIntensity->value()) + " %" );
+    //writeToMemory(ui.kcfg_AeroHue->value(), )
 }
 
 void BlurEffectConfig::writeToMemory(int h, int s, int v, int i, bool transparency, bool skip)

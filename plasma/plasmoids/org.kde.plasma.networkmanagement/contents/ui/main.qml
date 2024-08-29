@@ -62,9 +62,10 @@ PlasmoidItem {
         id: dialogItem
         nmHandler: handler
         nmStatus: networkStatus
-        readonly property int flyoutIntendedWidth: Kirigami.Units.iconSizes.small * 18
-        Layout.minimumWidth: Kirigami.Units.iconSizes.medium * 10
-        Layout.minimumHeight: Kirigami.Units.iconSizes.small * 20
+        readonly property int flyoutIntendedWidth: 16 * 17
+        Layout.minimumWidth: 16 * 10
+        Layout.minimumHeight: 131
+        Layout.preferredHeight: dialogItem.implicitHeight
         anchors.fill: parent
         focus: true
     }

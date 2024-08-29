@@ -37,7 +37,7 @@ MouseArea {
         }
         imagePath: "widgets/line"
         elementId: "horizontal-line"
-        width: parent.width - Kirigami.Units.iconSizes.small * 2
+        width: parent.width
         visible: separator
     }
 

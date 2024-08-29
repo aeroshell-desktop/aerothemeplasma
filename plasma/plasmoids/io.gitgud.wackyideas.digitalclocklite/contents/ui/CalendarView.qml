@@ -65,18 +65,19 @@ PlasmaCore.Dialog {
 	function popupPosition() {
 		var pos = root.mapToGlobal(root.x, root.y);
 		var availScreen = Plasmoid.containment.availableScreenRect;
+		var screen = root.screenGeometry;
 
 		x = pos.x - calendar.width / 2 + root.width / 2
 		y = pos.y - calendar.height;
 
 		if(x <= 0) x += flyoutMargin;
-		if(x + calendar.width >= availScreen.width) {
-			x = availScreen.width - calendar.width - flyoutMargin;
+		if(x + calendar.width - screen.x >= availScreen.width) {
+			x = screen.x + availScreen.width - calendar.width - flyoutMargin;
 
 		}
 		if(y <= 0) y += flyoutMargin;
-		if(y + calendar.height >= availScreen.height) {
-			y = availScreen.height - calendar.height - flyoutMargin;
+		if(y + calendar.height - screen.y >= availScreen.height) {
+			y = screen.y + availScreen.height - calendar.height - flyoutMargin;
 		}
 
 
@@ -209,7 +210,7 @@ PlasmaCore.Dialog {
 						horizontalOffset: 2
 						verticalOffset: 2
 						radius: 3.0
-						color: "#10000000"
+						color: "#16000000"
 						source: clockWidget
 
 					}

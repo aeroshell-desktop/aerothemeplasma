@@ -18,7 +18,10 @@ void main(void)
 
     vec2 uv = vec2(x, -y);
 
-    gl_FragColor = vec4(texture2D(texUnit, uv).rgba);
+    vec4 result = vec4(texture2D(texUnit, uv).rgba);
+    result.a *= opacity;
 
-    gl_FragColor.a = gl_FragColor.a * opacity;
+    gl_FragColor = result;
+
+    //gl_FragColor.a = gl_FragColor.a * opacity;
 }

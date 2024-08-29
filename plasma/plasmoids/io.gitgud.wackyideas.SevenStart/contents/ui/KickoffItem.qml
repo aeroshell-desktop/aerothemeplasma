@@ -97,6 +97,7 @@ Item {
 
     function openActionMenu(x, y) {
         aboutToShowActionMenu(actionMenu);
+        if(actionMenu.actionList.length === 0) return;
         actionMenu.visualParent = listItem;
         actionMenu.open(x, y);
     }
@@ -133,7 +134,7 @@ Item {
         anchors {
             left: elementIcon.right
             right: arrow.left
-            leftMargin: Kirigami.Units.smallSpacing * 2 - 2
+            leftMargin: Kirigami.Units.smallSpacing * 2
             rightMargin: Kirigami.Units.smallSpacing * 2
         }
         height: implicitHeight //undo PC2 height override, remove when porting to PC3

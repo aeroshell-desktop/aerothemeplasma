@@ -13,7 +13,7 @@
     "EnabledByDefault": true,
     "Icon": "start-here-kde",
     "Id": "io.gitgud.wackyideas.SevenStart",
-    "License": "GPL v2+",
+    "License": "AGPL v3",
     "Name": "Seven Start",
     "Version": "1.0"
   },

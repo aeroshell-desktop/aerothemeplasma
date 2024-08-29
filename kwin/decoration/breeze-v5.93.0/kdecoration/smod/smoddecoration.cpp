@@ -248,13 +248,13 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         const auto c = client();
         const bool active = c->isActive();
 
-        QRect captionRect(m_leftButtons->geometry().right() + 4 + (c->isMaximized() ? 5 : 0), 0, m_rightButtons->geometry().left() - m_leftButtons->geometry().right() - 4, borderTop());
+        QRect captionRect(m_leftButtons->geometry().right() /*+ 4 + (c->isMaximized() ? 5 : 0)*/, 0, m_rightButtons->geometry().left() - m_leftButtons->geometry().right() - 4, borderTop());
         QString caption = settings()->fontMetrics().elidedText(c->caption(), Qt::ElideMiddle, captionRect.width());
         QStringList programname = caption.split(" — ");
         caption.remove(" — " + programname.at(programname.size()-1));
-        caption.prepend(" ");
+        //caption.prepend(" ");
         caption.append(" ");
-        int blurWidth = settings()->fontMetrics().horizontalAdvance(caption + "..JO");
+        int blurWidth = settings()->fontMetrics().horizontalAdvance(caption + "..JO  ");
         int blurHeight = settings()->fontMetrics().height();
         //factory()->setTitleTextWidth(blurWidth);
         //factory()->setTitleTextHeight(blurHeight);
@@ -284,10 +284,16 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         //    alignment = parseTitleAlignment(ws->tobj_layout);
         //}
         QLabel temp_label(caption);
+        temp_label.setFixedWidth(captionRect.width());
+        temp_label.setFixedHeight(captionRect.height());
         QGraphicsGlowEffect temp_effect;
         temp_effect.setColor(QColor::fromRgb(255, 255, 255, 0));
-        temp_effect.setBlurRadius(7);
+        temp_effect.setBlurRadius(10);
         temp_label.setGraphicsEffect(&temp_effect);
+        QLabel real_label(caption);
+        real_label.setStyleSheet("QLabel { background: #00ffffff; }");
+        real_label.setFixedWidth(captionRect.width());
+        real_label.setFixedHeight(captionRect.height());
 
         int captionHeight = captionRect.height() * 0.8;
         QPixmap final_label(blurWidth, captionHeight);
@@ -301,8 +307,13 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         if(!caption.trimmed().isEmpty())
         {
             QPixmap blur_effect = temp_effect.drawBlur(final_label);
-            painter->drawPixmap(QRect(captionRect.x()*0.7,captionRect.y(),blurWidth,captionRect.height()), blur_effect);
-            painter->drawText(captionRect, alignment | Qt::AlignVCenter | Qt::TextSingleLine, caption);
+            float offset = isMaximized() ? -0.1 : 0.05;
+            float offsetHeight = isMaximized() ? 1.2 : 0.95;
+            painter->drawPixmap(QRect(captionRect.x()*0.65,captionRect.y() + captionRect.height()*offset,blurWidth,captionRect.height()*offsetHeight), blur_effect);
+            QPixmap text_pixmap = real_label.grab();
+            captionRect.translate(5, -1);
+            painter->drawPixmap(captionRect, text_pixmap);
+            //painter->drawText(captionRect, alignment | Qt::AlignVCenter | Qt::TextSingleLine, caption);
         }
     }
 

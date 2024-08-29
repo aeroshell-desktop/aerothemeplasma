@@ -6,6 +6,7 @@
 */
 
 import QtQuick 2.5
+import QtQml.Models 2.10
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.15
 import org.kde.plasma.core as PlasmaCore
@@ -22,12 +23,14 @@ ContainmentItem {
 
     readonly property bool vertical: Plasmoid.formFactor === PlasmaCore.Types.Vertical
 
-    Layout.minimumWidth: vertical ? Kirigami.Units.iconSizes.small : mainLayout.implicitWidth + Kirigami.Units.smallSpacing
+    Layout.minimumWidth: vertical ? Kirigami.Units.iconSizes.small : mainLayout.implicitWidth + Kirigami.Units.largeSpacing+1
     Layout.minimumHeight: vertical ? mainLayout.implicitHeight + Kirigami.Units.smallSpacing : Kirigami.Units.iconSizes.small
 
     LayoutMirroring.enabled: !vertical && Qt.application.layoutDirection === Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
+    readonly property alias tasksGrid: tasksGrid
+    readonly property alias activeModel: activeModel
     readonly property alias systemTrayState: systemTrayState
     readonly property alias itemSize: tasksGrid.itemSize
     readonly property alias visibleLayout: tasksGrid
@@ -90,7 +93,7 @@ ContainmentItem {
                 return plasmoidId;
             }
 
-            onDragEnter: {
+            onDragEnter: event => {
                 if (!systemTrayAppletName(event)) {
                     event.ignore();
                 }
@@ -111,7 +114,116 @@ ContainmentItem {
             }
         }
 
+        Item {
+            id: orderingManager
+            property var orderObject: {}
 
+            function saveConfiguration() {
+                for(var i = 0; i < activeModel.items.count; i++) {
+                    var item = activeModel.items.get(i);
+                    if(item.model.itemId !== "")
+                        setItemOrder(item.model.itemId, item.itemsIndex, false);
+                }
+                writeToConfig();
+            }
+            function setItemOrder(id, index, write = true) {
+                if(typeof orderObject === "undefined")
+                    orderObject = {};
+                orderObject[id] = index;
+                if(write) writeToConfig();
+            }
+            function getItemOrder(id) {
+                if(typeof orderObject[id] === "undefined") return -1;
+                return orderObject[id];
+            }
+            function writeToConfig() {
+                Plasmoid.configuration.itemOrdering = JSON.stringify(orderObject);
+                Plasmoid.configuration.writeConfig();
+            }
+
+            Component.onCompleted: {
+                var list = Plasmoid.configuration.itemOrdering;
+                if(list !== "")
+                    orderObject = JSON.parse(list);
+
+                if(typeof orderObject === "undefined")
+                    orderObject = {};
+            }
+            /*Component.onDestruction: {
+                saveConfiguration();
+            }*/
+        }
+
+        DelegateModel {
+            id: activeModel
+            model: KItemModels.KSortFilterProxyModel {
+                sourceModel: Plasmoid.systemTrayModel
+                filterRoleName: "effectiveStatus"
+                filterRowCallback: (sourceRow, sourceParent) => {
+                    let value = sourceModel.data(sourceModel.index(sourceRow, 0, sourceParent), filterRole);
+                    return value === PlasmaCore.Types.ActiveStatus;
+                }
+            }
+            function determinePosition(item) {
+                let lower = 0;
+                let upper = items.count
+                while(lower < upper) {
+                    const middle = Math.floor(lower + (upper - lower) / 2)
+                    var middleItem = items.get(middle);
+
+                    var first = orderingManager.getItemOrder(item.model.itemId);
+                    var second = orderingManager.getItemOrder(middleItem.model.itemId);
+
+                    const result = first < second;
+                    if(result) {
+                        upper = middle;
+                    } else {
+                        lower = middle + 1;
+                    }
+                }
+                return lower;
+            }
+            function sort() {
+                while(unsortedItems.count > 0) {
+                    const item = unsortedItems.get(0);
+                    //var shouldInsert = item.model.itemId !== "" || (typeof item.model.hasApplet !== "undefined");
+                    var i = determinePosition(item); //orderingManager.getItemOrder(item.model.itemId);
+                    item.groups = "items";
+                    items.move(item.itemsIndex, i);
+                }
+            }
+            items.includeByDefault: false
+            groups: DelegateModelGroup {
+                id: unsortedItems
+                name: "unsorted"
+
+                includeByDefault: true
+                onChanged: {
+                    activeModel.sort();
+                }
+            }
+            delegate: ItemLoader {
+                id: delegate
+                width: tasksGrid.cellWidth
+                height: tasksGrid.cellHeight
+                property int visualIndex: DelegateModel.itemsIndex
+                minLabelHeight: 0
+                // We need to recalculate the stacking order of the z values due to how keyboard navigation works
+                // the tab order depends exclusively from this, so we redo it as the position in the list
+                // ensuring tab navigation focuses the expected items
+                Component.onCompleted: {
+                    let item = tasksGrid.itemAtIndex(index - 1);
+                    if (item) {
+                        Plasmoid.stackItemBefore(delegate, item)
+                    } else {
+                        item = tasksGrid.itemAtIndex(index + 1);
+                    }
+                    if (item) {
+                        Plasmoid.stackItemAfter(delegate, item)
+                    }
+                }
+            }
+        }
         //Main Layout
         GridLayout {
             id: mainLayout
@@ -126,6 +238,7 @@ ContainmentItem {
                 Layout.fillWidth: vertical
                 Layout.fillHeight: !vertical
                 Layout.alignment: vertical ? Qt.AlignVCenter : Qt.AlignHCenter
+                Layout.topMargin: !vertical ? 1 : 0
                 iconSize: tasksGrid.itemSize
                 visible: root.hiddenLayout.itemCount > 0
             }
@@ -179,72 +292,8 @@ ContainmentItem {
                     }
                 }
 
-                model: KItemModels.KSortFilterProxyModel {
-                    sourceModel: Plasmoid.systemTrayModel
-                    filterRoleName: "effectiveStatus"
-                    filterRowCallback: (sourceRow, sourceParent) => {
-                        let value = sourceModel.data(sourceModel.index(sourceRow, 0, sourceParent), filterRole);
-                        return value === PlasmaCore.Types.ActiveStatus;
-                    }
-                }
-
-                delegate: ItemLoader {
-                    id: delegate
-
-                    width: tasksGrid.cellWidth
-                    height: tasksGrid.cellHeight
-                    minLabelHeight: 0
-
-                    // We need to recalculate the stacking order of the z values due to how keyboard navigation works
-                    // the tab order depends exclusively from this, so we redo it as the position in the list
-                    // ensuring tab navigation focuses the expected items
-                    Component.onCompleted: {
-                        let item = tasksGrid.itemAtIndex(index - 1);
-                        if (item) {
-                            Plasmoid.stackItemBefore(delegate, item)
-                        } else {
-                            item = tasksGrid.itemAtIndex(index + 1);
-                        }
-                        if (item) {
-                            Plasmoid.stackItemAfter(delegate, item)
-                        }
-                    }
-                }
-
-                add: Transition {
-                    enabled: itemSize > 0 && Component.status == Component.Ready
-
-                    NumberAnimation {
-                        property: "scale"
-                        from: 0
-                        to: 1
-                        easing.type: Easing.InOutQuad
-                        duration: Kirigami.Units.longDuration
-                    }
-                }
-
-                displaced: Transition {
-                    //ensure scale value returns to 1.0
-                    //https://doc.qt.io/qt-5/qml-qtquick-viewtransition.html#handling-interrupted-animations
-                    enabled: Component.status == Component.Ready
-                    NumberAnimation {
-                        property: "scale"
-                        to: 1
-                        easing.type: Easing.InOutQuad
-                        duration: Kirigami.Units.longDuration
-                    }
-                }
-
-                move: Transition {
-                    NumberAnimation {
-                        properties: "x,y"
-                        easing.type: Easing.InOutQuad
-                        duration: Kirigami.Units.longDuration
-                    }
-                }
+                model: activeModel
             }
-
-
         }
 
         Timer {
@@ -302,18 +351,19 @@ ContainmentItem {
                 var pos = root.mapToGlobal(root.x, root.y);
                 pos = root.mapToGlobal(currentHighlight.x, currentHighlight.y);
                 var availScreen = Plasmoid.containment.availableScreenRect;
+                var screen = root.screenGeometry;
 
                 x = pos.x - width / 2 + (expandedRepresentation.hiddenLayout.visible ? flyoutMargin + Kirigami.Units.smallSpacing/2 : currentHighlight.width / 2);
                 y = pos.y - height;
 
                 if(x <= 0) x += flyoutMargin;
-                if(x + dialog.width >= availScreen.width) {
-                    x = availScreen.width - dialog.width - flyoutMargin;
+                if((x + dialog.width - screen.x) >= availScreen.width) {
+                    x = screen.x + availScreen.width - dialog.width - flyoutMargin;
 
                 }
                 if(y <= 0) y += flyoutMargin;
-                if(y + dialog.height >= availScreen.height) {
-                    y = availScreen.height - dialog.height - flyoutMargin;
+                if((y + dialog.height - screen.y) >= availScreen.height) {
+                    y = screen.y + availScreen.height - dialog.height - flyoutMargin;
                 }
                 /*if(root.vertical) {
                     if(pos.x > dialog.x) dialog.x -= flyoutMargin;

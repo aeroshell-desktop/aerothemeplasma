@@ -46,6 +46,9 @@
     <entry name="CustomColor" type="String">
 	<default>#ffffffff</default>
     </entry>
+    <entry name="ReflectionIntensity" type="Int">
+        <default>75</default>
+    </entry>
     <entry name="AeroIntensity" type="Int">
         <default>50</default>
     </entry>

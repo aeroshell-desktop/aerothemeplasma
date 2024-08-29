@@ -59,148 +59,60 @@ Window
 
     property bool useConsistentVisualParent: true
 
+    property int fullWidth: unifiedSize.width
+    property int fullHeight: unifiedSize.height
+
     /*
      * Show debugging info.
      */
     property bool enableDebugging: false
 
-    property real clampedVisualParentGeometryX:      0
-    property real clampedVisualParentGeometryY:      0
-    property real clampedVisualParentGeometryWidth:  0
-    property real clampedVisualParentGeometryHeight: 0
-
     flags: Qt.BypassWindowManagerHint | Qt.FramelessWindowHint
     color: "transparent"
 
-    x:      0
-    y:      0
-    width:  Screen.width
-    height: Screen.height
+    x: 0
+    y: 0
+    width: fullWidth
+    height: fullHeight
 
     visible: outline.active
 
     title: "aerothemeplasma-windowframe-special"
 
+    property rect unifiedSize: {
+        var w = 0;
+        var h = 0;
+        for(var i = 0; i < Qt.application.screens.length; i++) {
+            var s = Qt.application.screens[i];
+            var tw = s.width + s.virtualX;
+            var th = s.height + s.virtualY;
+            if(tw > w) w = tw;
+            if(th > h) h = th;
+        }
+        return Qt.rect(0,0,w,h);
+    }
+
     onVisibleChanged:
     {
-        if(!visible) console.log("AAAA");
-        if (visible)
-        {
-            if (outline.visualParentGeometry.width > 0 && outline.visualParentGeometry.height > 0)
-            {
-                if (window.useConsistentVisualParent)
-                {
-                    if (outline.geometry.x == 0)
-                    {
-                        if (outline.geometry.height > Screen.height / 2)
-                        {
-                            if (outline.geometry.width == Screen.width)
-                            {
-                                // center
-                                window.clampedVisualParentGeometryX      = (outline.geometry.x + (outline.geometry.width / 2)) - 20;
-                                window.clampedVisualParentGeometryY      = outline.geometry.x;
-                                window.clampedVisualParentGeometryWidth  = 40;
-                                window.clampedVisualParentGeometryHeight = 40;
-                            }
-                            else
-                            {
-                                // left
-                                window.clampedVisualParentGeometryX      = outline.geometry.x;
-                                window.clampedVisualParentGeometryY      = (outline.geometry.y + (outline.geometry.height / 2)) - 20;
-                                window.clampedVisualParentGeometryWidth  = 40;
-                                window.clampedVisualParentGeometryHeight = 40;
-                            }
-                        }
-                        else if (outline.geometry.y == Screen.height / 2)
-                        {
-                            // bottomleft
-                            window.clampedVisualParentGeometryX      = outline.geometry.x;
-                            window.clampedVisualParentGeometryY      = (outline.geometry.y + outline.geometry.height) - 40;
-                            window.clampedVisualParentGeometryWidth  = 40;
-                            window.clampedVisualParentGeometryHeight = 40;
-                        }
-                        else
-                        {
-                            // topleft
-                            window.clampedVisualParentGeometryX      = outline.geometry.x;
-                            window.clampedVisualParentGeometryY      = outline.geometry.y;
-                            window.clampedVisualParentGeometryWidth  = 40;
-                            window.clampedVisualParentGeometryHeight = 40;
-                        }
-                    }
-                    else
-                    {
-                        if (outline.geometry.height > Screen.height / 2)
-                        {
-                            // right
-                            window.clampedVisualParentGeometryX      = Screen.width - 40;
-                            window.clampedVisualParentGeometryY      = (outline.geometry.y + (outline.geometry.height / 2)) - 20;
-                            window.clampedVisualParentGeometryWidth  = 40;
-                            window.clampedVisualParentGeometryHeight = 40;
-                        }
-                        else if (outline.geometry.y == Screen.height / 2)
-                        {
-                            // bottomright
-                            window.clampedVisualParentGeometryX      = Screen.width - 40;
-                            window.clampedVisualParentGeometryY      = (outline.geometry.y + outline.geometry.height) - 40;
-                            window.clampedVisualParentGeometryWidth  = 40;
-                            window.clampedVisualParentGeometryHeight = 40;
-                        }
-                        else
-                        {
-                            // topright
-                            window.clampedVisualParentGeometryX      = Screen.width - 40;
-                            window.clampedVisualParentGeometryY      = outline.geometry.y;
-                            window.clampedVisualParentGeometryWidth  = 40;
-                            window.clampedVisualParentGeometryHeight = 40;
-                        }
-                    }
-                }
-                else
-                {
-                    window.clampedVisualParentGeometryX      = outline.visualParentGeometry.x;
-                    window.clampedVisualParentGeometryY      = outline.visualParentGeometry.y;
-                    window.clampedVisualParentGeometryWidth  = outline.visualParentGeometry.width;
-                    window.clampedVisualParentGeometryHeight = outline.visualParentGeometry.height;
-
-                    if (window.clampedVisualParentGeometryX < 0)
-                    {
-                        window.clampedVisualParentGeometryWidth += window.clampedVisualParentGeometryX;
-                        window.clampedVisualParentGeometryX = 0;
-                    }
-
-                    if (window.clampedVisualParentGeometryY < 0)
-                    {
-                        window.clampedVisualParentGeometryHeight += window.clampedVisualParentGeometryY;
-                        window.clampedVisualParentGeometryY = 0;
-                    }
-
-                    if (window.clampedVisualParentGeometryX + window.clampedVisualParentGeometryWidth > Screen.width)
-                    {
-                        window.clampedVisualParentGeometryWidth -= (window.clampedVisualParentGeometryX + window.clampedVisualParentGeometryWidth) - Screen.width;
-                    }
-
-                    if (window.clampedVisualParentGeometryY + window.clampedVisualParentGeometryHeight > Screen.height)
-                    {
-                        window.clampedVisualParentGeometryHeight -= (window.clampedVisualParentGeometryY + window.clampedVisualParentGeometryHeight) - Screen.height;
-                    }
-                }
-
+        if (visible) {
+            if (outline.visualParentGeometry.width > 0 && outline.visualParentGeometry.height > 0) {
                 window.shouldAnimate = false
                 // move our frame to the visual parent geometry
-                //frame.setGeometry(outline.visualParentGeometry)
-                frame.setGeometryXYWH(window.clampedVisualParentGeometryX, window.clampedVisualParentGeometryY, window.clampedVisualParentGeometryWidth, window.clampedVisualParentGeometryHeight);
-                if (window.useAnimation) window.shouldAnimate = true
+                var visualRect = outline.visualParentGeometry;
+
+                var rect = Qt.rect(Math.max(0, visualRect.x + visualRect.width / 2), visualRect.y, 40, 40);
+                if(visualRect.x <= 0 && visualRect.y !== 0) {
+                    rect.x = 0;
+                }
+                frame.setGeometry(rect)
+                window.shouldAnimate = true
                 // and then animate it nicely to its destination
                 frame.setGeometry(outline.geometry)
-            }
-            else
-            {
+            } else {
                 // no visual parent? just move it to its destination right away
-                //window.shouldAnimate = false
-                if (window.useAnimation) window.shouldAnimate = true
+                window.shouldAnimate = false
                 frame.setGeometry(outline.geometry)
-
+                window.shouldAnimate = true
             }
         }
     }
@@ -229,7 +141,7 @@ Window
 
         anchors.fill: parent
         source:       StandardPaths.writableLocation(StandardPaths.GenericDataLocation) + "/smod/reflections.png" //"~/.local/share/smod/reflections.png"
-        sourceSize:   Qt.size(Screen.width, Screen.height)
+        sourceSize:   Qt.size(fullWidth, fullHeight)
         smooth:       true
         visible:      false
     }
@@ -401,23 +313,4 @@ Window
         visible: enableDebugging
     }
 
-    Rectangle
-    {
-        id: "clampedvisualparent"
-
-        color: "transparent"
-        radius: 20
-        // opacity: 0.5
-
-        border.color: "white"
-        border.width: 5
-
-        x:      window.clampedVisualParentGeometryX
-        y:      window.clampedVisualParentGeometryY
-        width:  window.clampedVisualParentGeometryWidth
-        height: window.clampedVisualParentGeometryHeight
-
-        enabled: enableDebugging
-        visible: enableDebugging
-    }
 }

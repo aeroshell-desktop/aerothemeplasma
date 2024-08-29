@@ -119,8 +119,8 @@ PlasmoidItem {
         id: dataSource
         engine: "time"
         connectedSources: allTimezones
-        interval: Plasmoid.configuration.showSeconds ? 1000 : 60000
-        intervalAlignment: Plasmoid.configuration.showSeconds ? P5Support.Types.NoAlignment : P5Support.Types.AlignToMinute
+        interval: 1000 //Plasmoid.configuration.showSeconds ? 1000 : 60000
+        intervalAlignment: P5Support.Types.NoAlignment //Plasmoid.configuration.showSeconds ? P5Support.Types.NoAlignment : P5Support.Types.AlignToMinute
     }
 
     function setDateFormatString() {

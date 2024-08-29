@@ -8,6 +8,31 @@ void getColorBalances(int sliderPosition, int &primaryBalance, int &secondaryBal
 		return (int)a + (rem >= 0.5f ? 1 : 0);
 	};
 	int pB = 0, sB = 0, bB = 0;
+
+	// https://github.com/ALTaleX531/dwm_colorization_calculator/blob/main/main.py
+	int balance = int((double(sliderPosition) / 255.0 - 0.1) / 0.75 * 100.0 + 10.0);
+
+	if(balance < 50)
+	{
+		pB = 5;
+		bB = 100 - balance;
+		sB = (100 - pB) - bB;
+	}
+	else if(balance >= 50 && balance < 95)
+	{
+		sB = 95 - balance;
+		bB = 50 - ((balance - 50) >> 1);
+		pB = 100 - sB - bB;
+	}
+	else
+	{
+		sB = 0;
+		pB = balance - 25;
+		bB = 100 - pB;
+	}
+	/*
+
+	// Old algorithm
 	int x = sliderPosition;
 	//primary
 	if(x >= 26 && x < 103)
@@ -57,7 +82,7 @@ void getColorBalances(int sliderPosition, int &primaryBalance, int &secondaryBal
 	else if(x >= 189 && x <= 217)
 	{
 		bB = roundNum(-0.535714*x + 131.25);
-	}
+	}*/
 
 	printf("%d %d %d\n", pB, sB, bB);
 	

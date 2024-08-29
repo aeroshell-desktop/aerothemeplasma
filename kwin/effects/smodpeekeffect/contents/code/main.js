@@ -11,10 +11,10 @@
 "use strict";
 
 var badBadWindowsEffect = {
-    duration: animationTime(450),
+    duration: animationTime(400),
     showingDesktop: false,
     loadConfig: function () {
-        badBadWindowsEffect.duration = animationTime(450);
+        badBadWindowsEffect.duration = animationTime(400);
     },
     setShowingDesktop: function (showing) {
         badBadWindowsEffect.showingDesktop = showing;
@@ -32,7 +32,7 @@ var badBadWindowsEffect = {
             for (var i = 0; i < stackingOrder.length; ++i) {
                 var w = stackingOrder[i];
 
-                if (!w.managed && w.windowClass == "kwin_x11 kwin" && w.caption == "" && !w.hasDecoration) continue;
+                if (!w.managed && (w.windowClass == "kwin_x11 kwin" || w.windowClass == "kwin_wayland kwin") && w.caption == "" && !w.hasDecoration) continue;
                 if (!w.hiddenByShowDesktop && !w.normalWindow) {
                     continue;
                 }

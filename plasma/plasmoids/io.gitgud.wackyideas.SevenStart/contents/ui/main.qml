@@ -78,7 +78,7 @@ PlasmoidItem {
     	id: menu_executable
     	engine: "executable"
     	connectedSources: []
-    	onNewData: {
+    	onNewData: (sourceName, data) => {
     	    var exitCode = data["exit code"]
     	    var exitStatus = data["exit status"]
     	    var stdout = data["stdout"]
@@ -108,22 +108,9 @@ PlasmoidItem {
         id: runnerModel
 
         appletInterface: kicker
-
-        //query: kickoff.searchField ? kickoff.searchField.text : ""
-        //deleteWhenEmpty: false
         favoritesModel: rootModel.favoritesModel
-        //runners: ["Dictionary","services","calculator","shell","org.kde.windowedwidgets","org.kde.datetime","baloosearch","locations","unitconverter","bookmarks", "krunner_services", "krunner_systemsettings", "krunner_sessions", "krunner_powerdevil"]
-        /*runners: {
-                const results = ["Dictionary","services","calculator","shell","org.kde.windowedwidgets","org.kde.datetime","baloosearch","locations","unitconverter","bookmarks", "krunner_services", "krunner_systemsettings", "krunner_sessions", "krunner_powerdevil"];
-
-                if (Plasmoid.configuration.useExtraRunners) {
-                    results.push(...Plasmoid.configuration.extraRunners);
-                }
-                return results;
-            }*/
         mergeResults: true
     }
-    //KWindowSystem { id: kwindowsystem } // Used for detecting compositing changes.
     Kicker.RootModel {
         id: rootModel
 
@@ -271,7 +258,10 @@ PlasmoidItem {
         PlasmaCore.Action {
             text: i18n("Task Manager")
             icon.name: "ksysguardd"
-            onTriggered: menu_executable.exec("ksysguard");
+            onTriggered: {
+                menu_executable.exec("ksysguard");
+
+            }
         }
     ]
 

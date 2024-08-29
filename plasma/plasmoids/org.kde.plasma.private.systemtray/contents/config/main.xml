@@ -6,6 +6,9 @@
   <kcfgfile name=""/>
 
   <group name="General">
+    <entry name="itemOrdering" type="String">
+      <default></default>
+    </entry>
     <entry name="extraItems" type="StringList">
       <label>All plasmoid items that are explicitly enabled in the systray. It's a comma-separated string list of plasmoid plugin ids.</label>
       <default></default>

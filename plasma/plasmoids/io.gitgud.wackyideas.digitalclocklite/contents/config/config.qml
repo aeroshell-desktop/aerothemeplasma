@@ -55,7 +55,7 @@ ConfigModel {
         model: eventPluginsManager.model
         delegate: ConfigCategory {
             name: model.display
-            icon: { console.log(model.decoration); return model.decoration }
+            icon: model.decoration
             source: model.configUi
             includeMargins: false
             visible: Plasmoid.configuration.enabledCalendarPlugins.indexOf(model.pluginId) > -1

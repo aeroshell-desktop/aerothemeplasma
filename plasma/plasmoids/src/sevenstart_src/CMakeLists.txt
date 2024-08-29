@@ -12,6 +12,9 @@ include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 include(FeatureSummary)
 find_package(KF6WindowSystem)
+find_package(KF6Svg)
+find_package(KF6Config)
+
 find_package(KF6 REQUIRED COMPONENTS
     I18n
 )

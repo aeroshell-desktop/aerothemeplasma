@@ -52,6 +52,7 @@ KCM.SimpleKCM {
         QtControls.CheckBox {
             id: showWeekNumbers
             text: i18n("Show week numbers in Calendar")
+            visible: false
         }
 
         QtLayouts.RowLayout {
@@ -74,7 +75,7 @@ KCM.SimpleKCM {
             }
         }
 
-        QtControls.GroupBox {
+        CustomGroupBox {
             QtLayouts.Layout.fillWidth: true
             title: i18n("Available Calendar Plugins")
             //flat: true

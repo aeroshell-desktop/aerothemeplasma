@@ -235,13 +235,11 @@ PlasmoidItem {
         id: dialogItem
 
         readonly property var appletInterface: batterymonitor
-        readonly property int flyoutIntendedWidth: Kirigami.Units.gridUnit * 15
+        readonly property int flyoutIntendedWidth: 16 * 15
 
-        Layout.minimumWidth: Kirigami.Units.gridUnit * 10
-        Layout.maximumWidth: Kirigami.Units.gridUnit * 80
-        Layout.preferredWidth: Kirigami.Units.gridUnit * 20
+        Layout.minimumWidth: 16 * 10
 
-        Layout.minimumHeight: Kirigami.Units.gridUnit * 10
+        Layout.minimumHeight: Kirigami.Units.gridUnit * 5
         Layout.maximumHeight: Kirigami.Units.gridUnit * 40
         Layout.preferredHeight: implicitHeight
 

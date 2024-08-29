@@ -47,8 +47,6 @@ Item {
     KSvg.SvgItem {
         id: itemFrame
         anchors.fill: parent
-        anchors.leftMargin: Kirigami.Units.smallSpacing*2;
-        anchors.rightMargin: Kirigami.Units.smallSpacing*2;
         svg: separatorSvg
         elementId: "separator-line"
     }

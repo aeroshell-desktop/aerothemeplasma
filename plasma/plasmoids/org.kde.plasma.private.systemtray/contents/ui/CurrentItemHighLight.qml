@@ -32,29 +32,10 @@ KSvg.FrameSvgItem {
     }
 
     z: -1 // always draw behind icons
-    opacity: systemTrayState.expanded ? 0.8 : 0
+    opacity: 0//systemTrayState.expanded ? 0.8 : 0
 
     imagePath: Qt.resolvedUrl("svgs/tabbar.svgz")
-    prefix: {
-        let prefix;
-        switch (location) {
-        case PlasmaCore.Types.LeftEdge:
-            prefix = "west-active-tab";
-            break;
-        case PlasmaCore.Types.TopEdge:
-            prefix = "north-active-tab";
-            break;
-        case PlasmaCore.Types.RightEdge:
-            prefix = "east-active-tab";
-            break;
-        default:
-            prefix = "south-active-tab";
-        }
-        if (!hasElementPrefix(prefix)) {
-            prefix = "active-tab";
-        }
-        return prefix;
-    }
+    prefix: "active-tab"
 
     // update when System Tray is expanded - applet activated or hidden icons shown
     Connections {
@@ -134,6 +115,8 @@ KSvg.FrameSvgItem {
             width = nextItem.width
             height = nextItem.height
         }
+
+        if(Plasmoid.location === PlasmaCore.Types.BottomEdge || Plasmoid.location === PlasmaCore.Types.TopEdge) height += 2;
 
         highlightedItem = nextItem;
         animationEnabled = true;

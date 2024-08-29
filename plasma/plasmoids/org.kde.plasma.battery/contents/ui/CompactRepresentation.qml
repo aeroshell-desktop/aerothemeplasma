@@ -90,7 +90,7 @@ MouseArea {
                     width: height
 
                     active: root.containsMouse
-                    visible: !(batteryContainer.pluggedIn && (root.isSetToPerformanceMode || root.isSetToPowerSaveMode))
+                    visible: root.hasBatteries//!(batteryContainer.pluggedIn && (root.isSetToPerformanceMode || root.isSetToPowerSaveMode))
                     hasBattery: root.hasBatteries
                     percent: batteryContainer.percent
                     pluggedIn: batteryContainer.pluggedIn

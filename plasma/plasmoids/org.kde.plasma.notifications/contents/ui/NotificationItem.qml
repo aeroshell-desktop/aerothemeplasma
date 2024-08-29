@@ -11,7 +11,7 @@ import QtQuick.Window 2.2
 import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.kirigami 2.20 as Kirigami
-
+import Qt5Compat.GraphicalEffects
 
 import org.kde.notificationmanager as NotificationManager
 
@@ -280,6 +280,15 @@ ColumnLayout {
 
                 smooth: true
                 source: notificationItem.icon
+            }
+
+            DropShadow {
+                anchors.fill: iconItem
+                horizontalOffset: 2
+                verticalOffset: 2
+                radius: 3.0
+                color: "#2b000000"
+                source: iconItem
             }
         }
     }

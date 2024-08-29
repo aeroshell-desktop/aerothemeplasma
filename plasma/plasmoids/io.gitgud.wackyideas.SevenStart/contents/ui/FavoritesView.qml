@@ -30,10 +30,16 @@ import org.kde.plasma.components as PlasmaComponents
 import org.kde.draganddrop 2.0
 
 import org.kde.plasma.private.kicker 0.1 as Kicker
+import org.kde.kirigami as Kirigami
 
 Item {
     property ListView listView: favoritesView.listView
+    height: favoritesView.contentHeight
 
+    property int count: favoritesView.count
+    /*onFavoritesCountChanged: {
+        console.log("AAAHHH " + height + " " + favoritesView.contentHeight);
+    }*/
     function activateCurrentIndex() {
         favoritesView.currentItem.activate();
     }
@@ -49,7 +55,7 @@ Item {
         var tempIndex = favoritesView.currentIndex + 1;
         if (tempIndex >= favoritesView.count) {
             favoritesView.currentIndex = -1;
-            if (Plasmoid.configuration.showRecentsView) {
+            if (Plasmoid.configuration.numberRows) {
                 root.m_recents.focus = true;
                 root.m_recents.currentIndex = 0;
             } else {
@@ -80,7 +86,7 @@ Item {
         favoritesView.currentIndex = 0;
     }
 
-    KeyNavigation.tab: Plasmoid.configuration.showRecentsView ? root.m_recents : root.m_showAllButton
+    KeyNavigation.tab: Plasmoid.configuration.numberRows ? root.m_recents : root.m_showAllButton
     //anchors.fill: parent
     anchors.topMargin: Kirigami.Units.smallSpacing
     objectName: "FavoritesView"
@@ -112,7 +118,7 @@ Item {
             }
             var pos = mapToItem(listView.contentItem, event.x, event.y);
             var above = listView.itemAt(pos.x, pos.y);
-            var source = kickoff.dragSource;
+            var source = kicker.dragSource;
             if (above && above !== source && isChildOf(source, favoritesView)) {
                 favoritesView.model.moveRow(source.itemIndex, above.itemIndex);
                 // itemIndex changes directly after moving,
@@ -122,13 +128,15 @@ Item {
         }
 
         anchors.fill: parent
-        enabled: plasmoid.immutability !== PlasmaCore.Types.SystemImmutable
+        enabled: Plasmoid.immutability !== PlasmaCore.Types.SystemImmutable
 
-        onDragEnter: {
+        onDragEnter: event => {
             syncTarget(event);
             startRow = favoritesView.currentIndex;
         }
-        onDragMove: syncTarget(event)
+        onDragMove: event => {
+            syncTarget(event)
+        }
     }
     Transition {
         id: moveTransition
@@ -153,7 +161,7 @@ Item {
     }
     Connections {
         function onExpandedChanged() {
-            if (!plasmoid.expanded) {
+            if (!kicker.expanded) {
                 favoritesView.currentIndex = -1;
             }
         }
