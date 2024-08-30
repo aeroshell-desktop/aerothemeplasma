@@ -6,7 +6,12 @@ VERSION="${array[1]}"
 URL="https://invent.kde.org/plasma/libplasma/-/archive/v${VERSION}/libplasma-v${VERSION}.tar.gz"
 ARCHIVE="libplasma-v${VERSION}.tar.gz"
 SRCDIR="libplasma-v${VERSION}"
-INSTALLDST="/usr/lib64/qt6/qml/org/kde/plasma/core/libcorebindingsplugin.so"
+
+INSTALLDST="/usr/lib/x86_64-linux-gnu/qt6/qml/org/kde/plasma/core/libcorebindingsplugin.so"
+
+if [ ! -f ${INSTALLDST} ]; then
+	INSTALLDST="/usr/lib64/qt6/qml/org/kde/plasma/core/libcorebindingsplugin.so"
+fi
 
 if [ ! -d ./build/${SRCDIR} ]; then
 	rm -rf build

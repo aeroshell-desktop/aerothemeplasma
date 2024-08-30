@@ -3,7 +3,7 @@
 ## Prerequisites
 
 On Arch, you'll need ```cmake, extra-cmake-modules, ninja, qt6-virtualkeyboard, qt6-multimedia, qt6-5compat, plasma-wayland-protocols, plasma5support, kvantum, optionally plymouth ```
-
+on KDE Neon/Kubuntu, you'll need ```cmake, extra-cmake-modules, ninja-dev, qt6-virtualkeyboard,qt6-virtualkeyboard-dev, qt6-multimedia, qt6-multimedia-dev, qt6-5compat, plasma-wayland-protocols, kf6-plasma5support, kf6-kcolorscheme-dev, kf6-ki18n-dev, kf6-kiconthemes-dev, kf6-kcmutils-dev, kf6-kirigami-dev, libkdecorations2-dev, kwin-dev, kf6-kio-dev, kf6-knotifications-dev, kf6-ksvg-dev, plasma-workspace-dev, kf6-kactivities-dev, gettext, kvantum, optionally plymouth (pre-installed on KDE Neon) ```
 ### Notes:
 
 1. Wayland support seems to be better than before probably, but it's not fully supported yet, it still has some jank
@@ -15,10 +15,11 @@ On Arch, you'll need ```cmake, extra-cmake-modules, ninja, qt6-virtualkeyboard, 
 2. Move ```smod``` to ```~/.local/share```
 3. Move ```sddm-theme-mod``` to ```/usr/share/sddm/themes```, run ```install-services.sh``` found in ```sddm-theme-mod/Services```
 4. If needed, compile SevenStart's C++ component by running the install script found in ```plasmoids/src/sevenstart_src```
-4. Import color scheme through system settings
-5. Apply the appropriate settings in system settings
-6. When applying the global theme, only apply the splash screen and uncheck everything else
-6. Restart plasma (```plasmashell --replace & disown``` in terminal)
+For compiling SevenStart's C++ component on KDE Neon/Kubuntu, you'll need these packages: ``` dialog, libncurses5-dev libncursesw5-dev ```
+5. Import color scheme through system settings
+6. Apply the appropriate settings in system settings
+7. When applying the global theme, only apply the splash screen and uncheck everything else
+8. Restart plasma (```plasmashell --replace & disown``` in terminal)
 
 
 ## KWin stuff

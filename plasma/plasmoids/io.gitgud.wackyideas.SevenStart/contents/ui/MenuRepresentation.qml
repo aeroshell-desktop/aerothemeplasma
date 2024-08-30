@@ -499,7 +499,7 @@ PlasmaCore.Dialog {
 			Layout.fillWidth: true
        		Layout.preferredHeight: 1
        		color: leftPanelSeparatorColor
-       		opacity: Plasmoid.configuration.numberRows && (!showingAllPrograms && !searching)
+       		opacity: Plasmoid.configuration.numberRows && faves.count && (!showingAllPrograms && !searching)
 			Behavior on opacity {
 				NumberAnimation { easing.type: Easing.Linear; duration: animationDuration*0.66 }
 			}
@@ -511,7 +511,7 @@ PlasmaCore.Dialog {
 		*/
         OftenUsedView {
             id: recents
-			Layout.topMargin: 2
+			Layout.topMargin: 2 * (faves.count > 0 ? 1 : -1)
 			Layout.preferredHeight: recents.height
 			Layout.fillHeight: true
 			Layout.fillWidth: true
