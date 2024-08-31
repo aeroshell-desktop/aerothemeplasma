@@ -58,7 +58,7 @@ public:
 
     bool blocksDirectScanout() const override;
     bool isWindowValid(KWin::EffectWindow *w);
-	void applyBlurRegion(KWin::EffectWindow *w);
+	void applyBlurRegion(KWin::EffectWindow *w, bool maximized = false);
 	void updateTexture();
 	QRegion getForcedNewRegion();
 	void updateAllWindows();
@@ -68,6 +68,7 @@ public Q_SLOTS:
     void slotPropertyNotify(KWin::EffectWindow *w, long atom);
 	void slotWindowFrameGeometryChanged(KWin::EffectWindow *w, const QRectF &oldGeometry);
 	void slotWindowFinishUserMovedResized(KWin::EffectWindow *w);
+    void slotWindowMaximizedStateChanged(KWin::EffectWindow *w, bool horizontal, bool vertical);
     //void slotScreenGeometryChanged();
 
 private:

@@ -104,36 +104,64 @@ QRegion BlurEffect::getForcedNewRegion()
 	return QRegion(QBitmap(alphaMask.mask()));
 }
 
-void BlurEffect::applyBlurRegion(KWin::EffectWindow *w)
+void BlurEffect::applyBlurRegion(KWin::EffectWindow *w, bool maximized)
 {
 	QWindow* win = w->isWaylandClient() ? w->internalWindow() : QWindow::fromWinId(w->windowId());
 	// Getting the offset caused by client-side decoration shadows
 	auto geo = w->frameGeometry();
 	auto geoExp = w->expandedGeometry();
 
-	int dx = std::abs(geoExp.x() - geo.x());
-	int dy = std::abs(geoExp.y() - geo.y());
-	defaultSvg.resizeFrame(w->size());
-	QRegion mask = defaultSvg.mask();
-	if(mask.boundingRect().size() != w->size().toSize())
+	if(maximized)
 	{
-		mask = getForcedNewRegion();
+		KWindowEffects::enableBlurBehind(win, true, QRegion(0, 0, w->size().width(), w->size().height()));
 	}
+	else
+	{
+		static int cachedDx = 0;
+		static int cachedDy = 0;
 
-	mask.translate(dx, dy);
-	//win->setMask(mask);
-	KWindowEffects::enableBlurBehind(win, true, mask);
+		int dx = std::abs(geoExp.x() - geo.x());
+		int dy = std::abs(geoExp.y() - geo.y());
+
+		if(dx != 0) {
+			cachedDx = dx;
+		}
+		if(dy != 0) {
+			cachedDy = dy;
+		}
+		defaultSvg.resizeFrame(w->size());
+		QRegion mask = defaultSvg.mask();
+		if(mask.boundingRect().size() != w->size().toSize())
+		{
+			mask = getForcedNewRegion();
+		}
+
+		mask.translate(cachedDx, cachedDy);
+		//win->setMask(mask);
+		KWindowEffects::enableBlurBehind(win, true, mask);
+	}
 }
 void BlurEffect::slotWindowAdded(EffectWindow *w)
 {
    	if(isWindowValid(w)) {
 		connect(w, &EffectWindow::windowFrameGeometryChanged, this, &BlurEffect::slotWindowFrameGeometryChanged);
+		connect(w, &EffectWindow::windowMaximizedStateChanged, this, &BlurEffect::slotWindowMaximizedStateChanged);
+		//connect(w, &EffectWindow::windowFinishUserMovedResized, this, &BlurEffect::slotWindowFinishUserMovedResized);
 		applyBlurRegion(w);
    	}
+}
+void BlurEffect::slotWindowMaximizedStateChanged(KWin::EffectWindow *w, bool horizontal, bool vertical)
+{
+   	if(isWindowValid(w)) {
+		applyBlurRegion(w, horizontal && vertical);
+	}
 }
 
 void BlurEffect::slotWindowFinishUserMovedResized(KWin::EffectWindow *w)
 {
+   	if(isWindowValid(w)) {
+		applyBlurRegion(w);
+	}
 
 }
 void BlurEffect::slotWindowFrameGeometryChanged(KWin::EffectWindow *w, const QRectF &oldGeometry)
