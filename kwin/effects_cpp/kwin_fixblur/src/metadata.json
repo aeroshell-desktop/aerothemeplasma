@@ -9,7 +9,6 @@
         "Category": "Appearance",
         "Description": "Allows setting blur with custom blur regions to Firefox-based browsers.",
         "EnabledByDefault": false,
-        "Id": "customblur",
         "License": "AGPLv3",
         "Name": "Firefox Blur Region Fix"
     },

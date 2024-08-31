@@ -71,7 +71,7 @@ void BlurEffectConfig::save()
     OrgKdeKwinEffectsInterface interface(QStringLiteral("org.kde.KWin"),
                                          QStringLiteral("/Effects"),
                                          QDBusConnection::sessionBus());
-    interface.reconfigureEffect(QStringLiteral("customblur"));
+    interface.reconfigureEffect(QStringLiteral("kwin4_effect_customblur"));
 }
 
 } // namespace KWin
