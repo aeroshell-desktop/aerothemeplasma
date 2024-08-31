@@ -1,0 +1,17 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "wackyideas@disroot.org",
+                "Name": "WackyIdeas"
+            }
+        ],
+        "Category": "Appearance",
+        "Description": "Allows setting blur with custom blur regions to Firefox-based browsers.",
+        "EnabledByDefault": false,
+        "Id": "customblur",
+        "License": "AGPLv3",
+        "Name": "Firefox Blur Region Fix"
+    },
+    "X-KDE-ConfigModule": "kwin4_effect_customblur_config"
+}

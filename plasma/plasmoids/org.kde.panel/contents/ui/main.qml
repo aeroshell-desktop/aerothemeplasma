@@ -239,8 +239,8 @@ ContainmentItem {
 
                 Layout.topMargin: getMargins('top')
                 Layout.bottomMargin: getMargins('bottom')
-                Layout.leftMargin: getMargins('left')
-                Layout.rightMargin: getMargins('right')
+                Layout.leftMargin: 0//getMargins('left')
+                Layout.rightMargin: 0//getMargins('right')
 
                 // Always fill width/height, in order to still shrink the applet when there is not enough space.
                 // When the applet doesn't want to expand set a Layout.maximumWidth accordingly
