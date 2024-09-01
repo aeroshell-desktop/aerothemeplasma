@@ -6,7 +6,6 @@
 #ifndef SEVENSTART_H
 #define SEVENSTART_H
 
-
 #include <Plasma/Applet>
 #include <QColor>
 #include <QPixmap>
@@ -25,7 +24,7 @@
 #include <kwindoweffects.h>
 #include <kwindowsystem.h>
 #include <kx11extras.h>
-#include <dialog.h>
+//#include <dialog.h>
 
 class SevenStart : public Plasma::Applet
 {

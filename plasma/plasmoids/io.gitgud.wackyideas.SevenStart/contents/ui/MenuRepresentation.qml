@@ -1177,8 +1177,10 @@ PlasmaCore.Dialog {
                     visible: true
                 }
                 Item {
-                    height: Kirigami.Units.smallSpacing
-                    visible: false
+                    Layout.minimumWidth: cellWidthSide
+                    Layout.fillWidth: true
+                    height: 1
+                    visible: true
                 }
             }
         }

@@ -24,6 +24,8 @@
 #include <QDir>
 #include <QSharedMemory>
 #include <KSvg/FrameSvg>
+#include <KWayland/Client/registry.h>
+#include <KWayland/Client/blur.h>
 
 namespace KWin
 {
@@ -59,6 +61,7 @@ public:
     bool blocksDirectScanout() const override;
     bool isWindowValid(KWin::EffectWindow *w);
 	void applyBlurRegion(KWin::EffectWindow *w, bool maximized = false);
+    QWindow* getWaylandWindowHandle(KWin::EffectWindow *w);
 	void updateTexture();
 	QRegion getForcedNewRegion();
 	void updateAllWindows();
@@ -77,6 +80,10 @@ private:
     KSvg::FrameSvg defaultSvg;
 	QStringList m_includedWindows;
 	QString m_texturePath;
+    /*KWayland::Client::Compositor *m_compositor;
+    KWayland::Client::Registry m_registry;
+    KWayland::Client::BlurManager *m_blurManager;
+    KWayland::Client::Blur *m_blur;*/
 };
 
 inline bool BlurEffect::provides(Effect::Feature feature)

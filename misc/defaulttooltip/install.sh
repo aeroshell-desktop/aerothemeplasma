@@ -29,5 +29,5 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr -G Ninja ..
 cmake --build . --target corebindingsplugin
 sudo cp ./bin/org/kde/plasma/core/libcorebindingsplugin.so $INSTALLDST
-plasmashell --replace & disown
+#plasmashell --replace & disown
 echo "Done."

@@ -59,6 +59,7 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
 )
 find_package(KF6Svg REQUIRED)
 find_package(KF6WindowSystem REQUIRED)
+find_package(KWayland REQUIRED)
 find_package(epoxy REQUIRED)
 
 find_package(X11 REQUIRED)

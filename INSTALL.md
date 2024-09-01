@@ -8,6 +8,7 @@ on KDE Neon/Kubuntu, you'll need ```cmake, extra-cmake-modules, ninja-dev, qt6-v
 
 1. Wayland support seems to be better than before probably, but it's not fully supported yet, it still has some jank
 2. SevenTasks is missing from the repo until it is fully complete
+3. The Firefox Blur Region Fix effect doesn't work under Wayland yet
 
 ## Plasma stuff
 

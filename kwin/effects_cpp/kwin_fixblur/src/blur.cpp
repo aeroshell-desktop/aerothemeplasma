@@ -12,6 +12,7 @@
 #include "effect/effecthandler.h"
 #include "effect/effectwindow.h"
 #include "opengl/glplatform.h"
+#include "internalwindow.h"
 
 #include <QGuiApplication>
 #include <QMatrix4x4>
@@ -60,7 +61,12 @@ void BlurEffect::updateAllWindows()
 }
 bool BlurEffect::isWindowValid(KWin::EffectWindow *w)
 {
+	// Because Wayland does things differently
 	QStringList classes = w->windowClass().split((' '));
+	if(w->isWaylandClient())
+	{
+		return m_includedWindows.contains(classes[0]);
+	}
 	bool valid = classes[0] == QStringLiteral("navigator") || classes[0] == QStringLiteral("Navigator");
 	if(classes.size() > 1)
 	{
@@ -104,9 +110,20 @@ QRegion BlurEffect::getForcedNewRegion()
 	return QRegion(QBitmap(alphaMask.mask()));
 }
 
+QWindow* BlurEffect::getWaylandWindowHandle(KWin::EffectWindow* w)
+{
+	// Stub, literally how because w->internalWindow() returns nullptr
+	return nullptr;
+}
+
 void BlurEffect::applyBlurRegion(KWin::EffectWindow *w, bool maximized)
 {
-	QWindow* win = w->isWaylandClient() ? w->internalWindow() : QWindow::fromWinId(w->windowId());
+
+	//QWindow* win = w->isWaylandClient() ? getWaylandWindowHandle(w) : QWindow::fromWinId(w->windowId());
+	QWindow* win = QWindow::fromWinId(w->windowId());
+
+
+	if(win == nullptr) return;
 	// Getting the offset caused by client-side decoration shadows
 	auto geo = w->frameGeometry();
 	auto geoExp = w->expandedGeometry();
@@ -123,10 +140,12 @@ void BlurEffect::applyBlurRegion(KWin::EffectWindow *w, bool maximized)
 		int dx = std::abs(geoExp.x() - geo.x());
 		int dy = std::abs(geoExp.y() - geo.y());
 
-		if(dx != 0) {
+		if(dx != 0)
+		{
 			cachedDx = dx;
 		}
-		if(dy != 0) {
+		if(dy != 0)
+		{
 			cachedDy = dy;
 		}
 		defaultSvg.resizeFrame(w->size());
@@ -143,7 +162,8 @@ void BlurEffect::applyBlurRegion(KWin::EffectWindow *w, bool maximized)
 }
 void BlurEffect::slotWindowAdded(EffectWindow *w)
 {
-   	if(isWindowValid(w)) {
+   	if(isWindowValid(w))
+	{
 		connect(w, &EffectWindow::windowFrameGeometryChanged, this, &BlurEffect::slotWindowFrameGeometryChanged);
 		connect(w, &EffectWindow::windowMaximizedStateChanged, this, &BlurEffect::slotWindowMaximizedStateChanged);
 		//connect(w, &EffectWindow::windowFinishUserMovedResized, this, &BlurEffect::slotWindowFinishUserMovedResized);
@@ -152,21 +172,24 @@ void BlurEffect::slotWindowAdded(EffectWindow *w)
 }
 void BlurEffect::slotWindowMaximizedStateChanged(KWin::EffectWindow *w, bool horizontal, bool vertical)
 {
-   	if(isWindowValid(w)) {
+   	if(isWindowValid(w))
+	{
 		applyBlurRegion(w, horizontal && vertical);
 	}
 }
 
 void BlurEffect::slotWindowFinishUserMovedResized(KWin::EffectWindow *w)
 {
-   	if(isWindowValid(w)) {
+   	if(isWindowValid(w))
+	{
 		applyBlurRegion(w);
 	}
 
 }
 void BlurEffect::slotWindowFrameGeometryChanged(KWin::EffectWindow *w, const QRectF &oldGeometry)
 {
-   	if(isWindowValid(w)) {
+   	if(isWindowValid(w))
+	{
 		if(oldGeometry.size() != w->size())
 		{
 			applyBlurRegion(w);
@@ -179,10 +202,12 @@ void BlurEffect::slotWindowDeleted(EffectWindow *w)
 
 }
 
-void BlurEffect::slotPropertyNotify(EffectWindow *w, long atom)
+void BlurEffect::slotPropertyNotify(KWin::EffectWindow *w, long atom)
 {
-	if(w) {
-		if(w->decoration() && isWindowValid(w)) {
+	if(w)
+	{
+		if(w->decoration() && isWindowValid(w))
+		{
 			applyBlurRegion(w);
 		}
 	}

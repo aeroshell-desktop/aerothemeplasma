@@ -22,6 +22,7 @@ target_link_libraries(kwin4_effect_customblur
     KF6::ConfigGui
     KF6::CoreAddons
     KF6::WindowSystem
+    Plasma::KWaylandClient
     KWin::kwin
     epoxy::epoxy
     KF6::Svg
