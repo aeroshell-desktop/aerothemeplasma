@@ -60,7 +60,7 @@ public:
 
     bool blocksDirectScanout() const override;
     bool isWindowValid(KWin::EffectWindow *w);
-	void applyBlurRegion(KWin::EffectWindow *w, bool maximized = false);
+	void applyBlurRegion(KWin::EffectWindow *w);
     QWindow* getWaylandWindowHandle(KWin::EffectWindow *w);
 	void updateTexture();
 	QRegion getForcedNewRegion();

@@ -5,7 +5,7 @@
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
-
+#include <iostream>
 #include "blur.h"
 // KConfigSkeleton
 #include "blurconfig.h"
@@ -116,19 +116,20 @@ QWindow* BlurEffect::getWaylandWindowHandle(KWin::EffectWindow* w)
 	return nullptr;
 }
 
-void BlurEffect::applyBlurRegion(KWin::EffectWindow *w, bool maximized)
+void BlurEffect::applyBlurRegion(KWin::EffectWindow *w)
 {
 
 	//QWindow* win = w->isWaylandClient() ? getWaylandWindowHandle(w) : QWindow::fromWinId(w->windowId());
 	QWindow* win = QWindow::fromWinId(w->windowId());
-
 
 	if(win == nullptr) return;
 	// Getting the offset caused by client-side decoration shadows
 	auto geo = w->frameGeometry();
 	auto geoExp = w->expandedGeometry();
 
-	if(maximized)
+	auto maximizeState = w->window()->maximizeMode();
+
+	if(maximizeState == MaximizeMode::MaximizeFull)
 	{
 		KWindowEffects::enableBlurBehind(win, true, QRegion(0, 0, w->size().width(), w->size().height()));
 	}
@@ -174,7 +175,7 @@ void BlurEffect::slotWindowMaximizedStateChanged(KWin::EffectWindow *w, bool hor
 {
    	if(isWindowValid(w))
 	{
-		applyBlurRegion(w, horizontal && vertical);
+		applyBlurRegion(w);
 	}
 }
 
