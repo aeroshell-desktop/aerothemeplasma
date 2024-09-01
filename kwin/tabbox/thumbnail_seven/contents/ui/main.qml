@@ -77,6 +77,7 @@ KWin.TabBoxSwitcher {
                 console.log("Cellwidth: " + thumbnailGridView.cellWidth)
                 console.log("Intended: " + Math.max(360, thumbnailGridView.cellWidth*currentColumnCount + Kirigami.Units.mediumSpacing))
                 console.log("Result: " + dialog.width);
+                if(dialog.width !== intendedWidth) dialog.width = dialogMainItem.intendedWidth // Because QML is sentient apparently
             }
             width: intendedWidth
             height: columnLayout.implicitHeight
