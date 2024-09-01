@@ -131,12 +131,15 @@ void BlurEffect::applyBlurRegion(KWin::EffectWindow *w)
 
 	if(maximizeState == MaximizeMode::MaximizeFull)
 	{
-		KWindowEffects::enableBlurBehind(win, true, QRegion(0, 0, w->size().width(), w->size().height()));
+		defaultSvg.resizeFrame(w->size());
+		QRegion mask = defaultSvg.mask();
+		KWindowEffects::enableBlurBehind(win, true, mask);
+		//KWindowEffects::enableBlurBehind(win, true, QRegion(0, 0, w->size().width(), w->size().height()));
 	}
 	else
 	{
-		static int cachedDx = 0;
-		static int cachedDy = 0;
+		static int cachedDx = 45;
+		static int cachedDy = 45;
 
 		int dx = std::abs(geoExp.x() - geo.x());
 		int dy = std::abs(geoExp.y() - geo.y());
