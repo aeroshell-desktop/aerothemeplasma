@@ -45,6 +45,7 @@ KWin.TabBoxSwitcher {
         minimumWidth: dialogMainItem.intendedWidth
         width: dialogMainItem.intendedWidth
         onWidthChanged: {
+            console.log("UH OH");
             if(width !== dialogMainItem.intendedWidth) width = dialogMainItem.intendedWidth // Because QML is sentient apparently
         }
         onVisibleChanged: {
@@ -100,7 +101,9 @@ KWin.TabBoxSwitcher {
                 anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
-                width: dialog.width - dialogSvg.margins.right + 2 // idek why QML is just sentient sometimes
+                anchors.right: parent.right
+                anchors.rightMargin: -dialogSvg.margins.right+1
+                //width: dialogMainItem.intendedWidth -dialogSvg.margins.right + 2 // idek why QML is just sentient sometimes
                 anchors.topMargin: -dialogSvg.margins.top+2
                 anchors.leftMargin: -dialogSvg.margins.left+2
                 anchors.bottomMargin: -dialogSvg.margins.bottom+2
