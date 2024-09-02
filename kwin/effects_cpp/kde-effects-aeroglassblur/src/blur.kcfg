@@ -11,6 +11,9 @@
     <entry name="WindowClasses" type="String">
         <default></default>
     </entry>
+    <entry name="BlurFirefox" type="String">
+        <default>firefox</default>
+    </entry>
     <entry name="BlurMatching" type="Bool">
         <default>true</default>
     </entry>

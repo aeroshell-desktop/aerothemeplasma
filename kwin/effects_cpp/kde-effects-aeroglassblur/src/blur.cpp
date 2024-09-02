@@ -6,6 +6,7 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
+#include <iostream>
 #include "blur.h"
 // KConfigSkeleton
 #include "blurconfig.h"
@@ -114,6 +115,8 @@ BlurEffect::BlurEffect() : m_sharedMemory("kwinaero")
 
     initBlurStrengthValues();
     reconfigure(ReconfigureAll);
+    defaultSvg.setImagePath(QStringLiteral(":/effects/aeroblur/region.svg"));
+    defaultSvg.setUsingRenderingCache(false);
 
     if (effects->xcbConnection()) {
         net_wm_blur_region = effects->announceSupportProperty(s_blurAtomName, this);
@@ -149,7 +152,10 @@ BlurEffect::BlurEffect() : m_sharedMemory("kwinaero")
     }
 
     m_valid = true;
+
+
 }
+
 
 BlurEffect::~BlurEffect()
 {
@@ -271,7 +277,6 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
         m_aeroPrimaryBalanceInactive = 0.4f * m_aeroPrimaryBalance;
         m_aeroBlurBalanceInactive = 0.4f * m_aeroBlurBalance + 60;
 
-
    		m_aeroColorR = fR;
    		m_aeroColorG = fG;
    		m_aeroColorB = fB;
@@ -312,11 +317,11 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
     m_blurNonMatching = BlurConfig::blurNonMatching();
     m_windowClasses = BlurConfig::windowClasses().split("\n");
 	m_windowClassesColorization = BlurConfig::excludedColorization().split("\n");
+    m_firefoxWindows = BlurConfig::blurFirefox().split("\n");
     m_blurMenus = BlurConfig::blurMenus();
     m_blurDocks = BlurConfig::blurDocks();
     m_paintAsTranslucent = BlurConfig::paintAsTranslucent();
     m_basicColorization = BlurConfig::basicColorization();
-	
 	m_translateTexture = BlurConfig::translateTexture();
 	m_texturePath = BlurConfig::textureLocation();
 	ensureReflectTexture();
@@ -328,6 +333,22 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
 
     // Update all windows for the blur to take effect
     effects->addRepaintFull();
+}
+bool BlurEffect::isFirefoxWindowValid(KWin::EffectWindow *w)
+{
+    // Because Wayland (and Firefox probably) does things differently
+    if(!w->isNormalWindow()) return false;
+    QStringList classes = w->windowClass().split((' '));
+    if(w->isWaylandClient())
+    {
+        return m_firefoxWindows.contains(classes[0]);
+    }
+    bool valid = classes[0] == QStringLiteral("navigator") || classes[0] == QStringLiteral("Navigator");
+    if(classes.size() > 1)
+    {
+        valid = valid && m_firefoxWindows.contains(classes[1]);
+    }
+    return valid;
 }
 
 void BlurEffect::updateBlurRegion(EffectWindow *w)
@@ -378,6 +399,12 @@ void BlurEffect::updateBlurRegion(EffectWindow *w)
         }
     }
 
+    if(isFirefoxWindowValid(w) && defaultSvg.isValid())
+    {
+        if(!(content.has_value() || frame.has_value()))
+        content = applyBlurRegion(w);
+    }
+
     if (content.has_value() || frame.has_value()) {
         BlurEffectData &data = m_windows[w];
         data.content = content;
@@ -388,6 +415,7 @@ void BlurEffect::updateBlurRegion(EffectWindow *w)
             m_windows.erase(it);
         }
     }
+
 }
 
 void BlurEffect::slotWindowAdded(EffectWindow *w)
@@ -502,7 +530,59 @@ QRegion BlurEffect::decorationBlurRegion(const EffectWindow *w) const
     return decorationRegion.intersected(w->decoration()->blurRegion());
 }
 
-QRegion BlurEffect::blurRegion(EffectWindow *w, bool noRoundedCorners) const
+QRegion BlurEffect::getForcedNewRegion()
+{
+    defaultSvg.clearCache();
+    QPixmap alphaMask = defaultSvg.alphaMask();
+    const qreal dpr = alphaMask.devicePixelRatio();
+    // region should always be in logical pixels, resize pixmap to be in the logical sizes
+    if (alphaMask.devicePixelRatio() != 1.0) {
+        alphaMask = alphaMask.scaled(alphaMask.width() / dpr, alphaMask.height() / dpr);
+    }
+    return QRegion(QBitmap(alphaMask.mask()));
+}
+
+QRegion BlurEffect::applyBlurRegion(KWin::EffectWindow *w)
+{
+
+    auto geo = w->frameGeometry();
+    auto geoExp = w->expandedGeometry();
+    auto maximizeState = w->window()->maximizeMode();
+
+    if(maximizeState == MaximizeMode::MaximizeFull)
+    {
+        defaultSvg.resizeFrame(w->size());
+        QRegion mask = defaultSvg.mask();
+        return mask;
+    }
+    else
+    {
+        static int cachedDx = 45;
+        static int cachedDy = 45;
+
+        int dx = std::abs(geoExp.x() - geo.x());
+        int dy = std::abs(geoExp.y() - geo.y());
+
+        if(dx != 0)
+        {
+            cachedDx = dx;
+        }
+        if(dy != 0)
+        {
+            cachedDy = dy;
+        }
+        defaultSvg.resizeFrame(w->size());
+        QRegion mask = defaultSvg.mask();
+        if(mask.boundingRect().size() != w->size().toSize())
+        {
+            mask = getForcedNewRegion();
+        }
+
+        if(!w->isWaylandClient()) mask.translate(cachedDx, cachedDy);
+        return mask;
+    }
+}
+QRegion BlurEffect::blurRegion(EffectWindow *w, bool noRoundedCorners)
 {
     QRegion region;
 
@@ -531,8 +611,11 @@ QRegion BlurEffect::blurRegion(EffectWindow *w, bool noRoundedCorners) const
     if (w->decorationHasAlpha() && decorationSupportsBlurBehind(w)) {
         // If the client hasn't specified a blur region, we'll only enable
         // the effect behind the decoration.
+        region &= w->decorationInnerRect().toRect();
         region |= decorationBlurRegion(w);
+
     }
+
 
     return region;
 }
@@ -553,6 +636,10 @@ void BlurEffect::prePaintWindow(EffectWindow *w, WindowPrePaintData &data, std::
     // in case this window has regions to be blurred
     const QRegion blurArea = blurRegion(w).translated(w->pos().toPoint());
 
+    if(isFirefoxWindowValid(w))
+    {
+        data.setTranslucent();
+    }
     effects->prePaintWindow(w, data, presentTime);
 
     if (1) {

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16.0)
 
-project(forceblur)
+project(aeroglassblur)
 set(PROJECT_VERSION "1.2.0")
 set(PROJECT_VERSION_MAJOR 0)
 
@@ -57,6 +57,7 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     KCMUtils
     
 )
+find_package(KF6Svg REQUIRED)
 find_package(KF6WindowSystem REQUIRED)
 find_package(epoxy REQUIRED)
 

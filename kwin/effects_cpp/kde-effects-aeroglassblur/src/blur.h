@@ -15,6 +15,7 @@
 #include <QFile>
 #include <QSharedMemory>
 #include <QDir>
+#include <KSvg/FrameSvg>
 
 #include <unordered_map>
 
@@ -59,6 +60,11 @@ public:
     void prePaintWindow(EffectWindow *w, WindowPrePaintData &data, std::chrono::milliseconds presentTime) override;
     void drawWindow(const RenderTarget &renderTarget, const RenderViewport &viewport, EffectWindow *w, int mask, const QRegion &region, WindowPaintData &data) override;
 
+    //FF stuff
+    QRegion applyBlurRegion(KWin::EffectWindow *w);
+    QRegion getForcedNewRegion();
+    bool isFirefoxWindowValid(KWin::EffectWindow *w);
+
     bool provides(Feature feature) override;
     bool isActive() const override;
 
@@ -80,7 +86,7 @@ public Q_SLOTS:
 
 private:
     void initBlurStrengthValues();
-    QRegion blurRegion(EffectWindow *w, bool noRoundedCorners = false) const;
+    QRegion blurRegion(EffectWindow *w, bool noRoundedCorners = false);
     QRegion decorationBlurRegion(const EffectWindow *w) const;
     bool decorationSupportsBlurBehind(const EffectWindow *w) const;
     bool shouldBlur(const EffectWindow *w, int mask, const WindowPaintData &data) const;
@@ -141,6 +147,7 @@ private:
     int m_expandSize;
     QStringList m_windowClasses;
     QStringList m_windowClassesColorization;
+    QStringList m_firefoxWindows;
     bool m_blurMatching;
     bool m_blurNonMatching;
     bool m_blurMenus;
@@ -196,6 +203,9 @@ private:
     static BlurManagerInterface *s_blurManager;
     static QTimer *s_blurManagerRemoveTimer;
     QSharedMemory m_sharedMemory;
+
+    KSvg::FrameSvg defaultSvg;
+
 };
 
 inline bool BlurEffect::provides(Effect::Feature feature)

@@ -102,7 +102,7 @@ void BlurEffectConfig::writeToMemory(int h, int s, int v, int i, bool transparen
     OrgKdeKwinEffectsInterface interface(QStringLiteral("org.kde.KWin"),
                                          QStringLiteral("/Effects"),
                                          QDBusConnection::sessionBus());
-    interface.reconfigureEffect(QStringLiteral("forceblur"));
+    interface.reconfigureEffect(QStringLiteral("aeroglassblur"));
 }
 void BlurEffectConfig::save()
 {
@@ -115,7 +115,7 @@ void BlurEffectConfig::save()
     OrgKdeKwinEffectsInterface interface(QStringLiteral("org.kde.KWin"),
                                          QStringLiteral("/Effects"),
                                          QDBusConnection::sessionBus());
-    interface.reconfigureEffect(QStringLiteral("forceblur"));
+    interface.reconfigureEffect(QStringLiteral("aeroglassblur"));
 }
 
 void BlurEffectConfig::on_kcfg_AeroIntensity_valueChanged(int value)

@@ -325,7 +325,7 @@
           <item row="0" column="1">
            <widget class="QLabel" name="label_3">
             <property name="text">
-             <string>Classes of windows to exclude from colorization:</string>
+             <string>Classes of Firefox windows to apply custom blur:</string>
             </property>
            </widget>
           </item>
@@ -337,7 +337,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QPlainTextEdit" name="kcfg_ExcludedColorization">
+           <widget class="QPlainTextEdit" name="kcfg_BlurFirefox">
             <property name="toolTip">
              <string>One window class per line.</string>
             </property>
