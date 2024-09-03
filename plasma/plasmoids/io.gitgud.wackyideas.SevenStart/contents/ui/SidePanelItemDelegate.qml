@@ -113,6 +113,19 @@ Item {
         styleColor: "transparent"
         text: itemText
     }
+    PlasmaComponents.Label {
+        id: label_highlight
+        wrapMode: Text.NoWrap
+        //elide: Text.ElideRight
+        anchors.left: parent.left
+        anchors.leftMargin: Kirigami.Units.smallSpacing * 2
+        anchors.verticalCenter: sidePanelDelegate.verticalCenter
+        anchors.verticalCenterOffset: -1
+        style: Text.Sunken
+        styleColor: "transparent"
+        opacity: 0.66
+        text: itemText
+    }
     onFocusChanged: {
         /*if(focus) {
             root.m_sidebarIcon.source = itemIcon;
