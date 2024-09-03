@@ -37,6 +37,7 @@ For compiling SevenStart's C++ component on KDE Neon/Kubuntu, you'll need these 
 3. Unpack the sound archive and move the folders to ```~/.local/share/sounds```
 4. Unpack the icon archive and move the folder to ```~/.local/share/icons```
 5. Unpack the cursor archive and move the folder to ```/usr/share/icons``` (this is done so that SDDM can load the cursor theme)
+5. Move the files located in ```mimetype``` into ```~/.local/share/mime/packages``` and then run ```update-mime-database ~/.local/share/mime``` to fix DLLs and EXE files sharing the same icon
 5. Configure stuff in system settings and possibly elsewhere if needed (setting up cursors and SDDM stuff can be tricky sometimes, consult [this](https://www.youtube.com/watch?v=Dj7co2R7RKw) guide for installing cursors on Linux)
 6. You'll need to install at least Segoe UI, Segoe UI Bold, and Segoe UI Italic as system-wide fonts
 
