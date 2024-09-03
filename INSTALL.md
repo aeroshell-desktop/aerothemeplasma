@@ -15,7 +15,7 @@ on KDE Neon/Kubuntu, you'll need ```cmake, extra-cmake-modules, ninja-dev, qt6-v
 1. Move ```desktoptheme```, ```look-and-feel```, ```plasmoids```, ```shells``` into ```~/.local/share/plasma```
 2. Move ```smod``` to ```~/.local/share```
 3. Move ```sddm-theme-mod``` to ```/usr/share/sddm/themes```, run ```install-services.sh``` found in ```sddm-theme-mod/Services```
-4. If needed, compile SevenStart's C++ component by running the install script found in ```plasmoids/src/sevenstart_src```
+4. Compile SevenStart's C++ component by running the install script found in ```plasmoids/src/sevenstart_src```
 For compiling SevenStart's C++ component on KDE Neon/Kubuntu, you'll need these packages: ``` dialog, libncurses5-dev libncursesw5-dev ```
 5. Import color scheme through system settings
 6. Apply the appropriate settings in system settings
