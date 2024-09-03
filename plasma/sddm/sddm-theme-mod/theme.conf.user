@@ -1,5 +1,6 @@
 background=bgtexture.jpg
 forceUserSelect=false
-enableStartup=true
+enableStartup=false
+playSound=true
 #biggerUserFrame=true
 #biggerMultiUserFrame=true

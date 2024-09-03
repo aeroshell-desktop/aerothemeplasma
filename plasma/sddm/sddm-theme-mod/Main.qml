@@ -87,7 +87,7 @@ Item
     Timer {
         id: startupSoundDelay
         interval: 3000
-        running: config.boolValue("enableStartup") && config.boolValue("startup")
+        running: (config.boolValue("enableStartup") && config.boolValue("startup")) && config.boolValue("playSound")
         onTriggered: {
             startupSound.play()
         }
@@ -96,7 +96,7 @@ Item
     MediaPlayer {
         id: startupSound
         audioOutput: AudioOutput {}
-        autoPlay: config.boolValue("startup") && !config.boolValue("enableStartup")
+        autoPlay: (config.boolValue("startup") && !config.boolValue("enableStartup")) && config.boolValue("playSound")
         source: "Assets/session-start.wav"
     }
     Component

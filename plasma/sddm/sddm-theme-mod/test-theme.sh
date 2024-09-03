@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sddm-greeter --test-mode --theme .
+sddm-greeter-qt6 --test-mode --theme .
