@@ -2,8 +2,29 @@
 
 ## Prerequisites
 
-On Arch, you'll need ```cmake, extra-cmake-modules, ninja, qt6-virtualkeyboard, qt6-multimedia, qt6-5compat, plasma-wayland-protocols, plasma5support, kvantum, optionally plymouth ```
-on KDE Neon/Kubuntu, you'll need ```cmake, extra-cmake-modules, ninja-dev, qt6-virtualkeyboard,qt6-virtualkeyboard-dev, qt6-multimedia, qt6-multimedia-dev, qt6-5compat, plasma-wayland-protocols, kf6-plasma5support, kf6-kcolorscheme-dev, kf6-ki18n-dev, kf6-kiconthemes-dev, kf6-kcmutils-dev, kf6-kirigami-dev, libkdecorations2-dev, kwin-dev, kf6-kio-dev, kf6-knotifications-dev, kf6-ksvg-dev, plasma-workspace-dev, kf6-kactivities-dev, gettext, kvantum, optionally plymouth (pre-installed on KDE Neon) ```
+### Arch Linux
+Required packages:
+
+```bash
+pacman -S cmake extra-cmake-modules ninja qt6-virtualkeyboard qt6-multimedia qt6-5compat plasma-wayland-protocols plasma5support kvantum
+```
+- (optionally) plymouth
+
+### KDE Neon/Kubuntu
+Required Packages:
+
+```bash
+apt install cmake extra-cmake-modules ninja-dev qt6-virtualkeyboard qt6-virtualkeyboard-dev qt6-multimedia qt6-multimedia-dev qt6-5compat plasma-wayland-protocols kf6-plasma5support kf6-kcolorscheme-dev kf6-ki18n-dev kf6-kiconthemes-dev kf6-kcmutils-dev kf6-kirigami-dev libkdecorations2-dev kwin-dev kf6-kio-dev kf6-knotifications-dev kf6-ksvg-dev plasma-workspace-dev kf6-kactivities-dev gettext kvantum
+```
+- optionally plymouth (pre-installed on KDE Neon)
+
+### Fedora KDE
+Required Packages:
+
+```bash
+dnf install plasma-workspace-devel kvantum qt6-qtmultimedia-devel qt6-qt5compat-devel libplasma-devel qt6-qtbase-devel qt6-qtwayland-devel plasma-activities-devel kf6-kpackage-devel kf6-kglobalaccel-devel qt6-qtsvg-devel wayland-devel plasma-wayland-protocols kf6-ksvg-devel kf6-kcrash-devel kf6-kguiaddons-devel kf6-kcmutils-devel kf6-kio-devel kdecoration-devel kf6-ki18n-devel kf6-knotifications-devel kf6-kirigami-devel kf6-kiconthemes-devel cmake
+```
+
 ### Notes:
 
 1. Wayland support seems to be better than before probably, but it's not fully supported yet, it still has some jank
