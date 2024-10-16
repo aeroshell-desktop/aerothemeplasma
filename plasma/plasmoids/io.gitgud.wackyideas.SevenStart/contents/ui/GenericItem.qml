@@ -27,7 +27,7 @@ import org.kde.coreaddons 1.0 as KCoreAddons
 import org.kde.kirigami 2.13 as Kirigami
 import QtQuick.Controls 2.15
 
-import "../code/tools.js" as Tools
+import "code/tools.js" as Tools
 
 Item {
   id: allItem
@@ -50,7 +50,7 @@ Item {
 
   onAboutToShowActionMenu: actionMenu => {
     var actionList = allItem.hasActionList ? model.actionList : [];
-    Tools.fillActionMenu(i18n, actionMenu, actionList, globalFavorites, model.favoriteId);
+    Tools.fillActionMenu(i18n, actionMenu, actionList, ListView.view.model.favoritesModel, model.favoriteId);
   }
 
   function openActionMenu(x, y) {
@@ -63,11 +63,12 @@ Item {
       var close = (Tools.triggerAction(triggerModel, index, actionId, actionArgument) === true);
       if (close) {
           //root.toggle();
-        root.visible = false;
+        kicker.expanded = false;
       }
   }
   function trigger() {
     triggerModel.trigger(index, "", null);
+    kicker.expanded = false;
     root.visible = false;
   }
   function updateHighlight() {
@@ -191,7 +192,7 @@ Item {
   ActionMenu {
       id: actionMenu
 
-      onActionClicked: {
+      onActionClicked: (actionId, actionArgument) => {
           visualParent.actionTriggered(actionId, actionArgument);
           //root.toggle()
       }

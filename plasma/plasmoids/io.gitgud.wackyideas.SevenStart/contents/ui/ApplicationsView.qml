@@ -23,7 +23,7 @@ import QtQuick 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.components as PlasmaComponents
-
+import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
 
 Item {
@@ -82,7 +82,7 @@ Item {
         else applicationsView.currentIndex = -1;
     }
 
-    Keys.onPressed: {
+    Keys.onPressed: event => {
         if(event.key == Qt.Key_Up) {
             decrementCurrentIndex();
         } else if(event.key == Qt.Key_Down) {
@@ -99,36 +99,44 @@ Item {
     function reset() {
         applicationsView.model = rootModel;
         applicationsView.clearBreadcrumbs();
-        //root.resetRecents();
     }
 
     function refreshed() {
         reset();
-        updatedLabelTimer.running = true;
     }
 
     Connections {
         target: kicker
         function onExpandedChanged() {
             
-            if (!plasmoid.expanded) {
+            if (!kicker.expanded) {
                 reset();
             }
         }
     }
     
-    Item {
-        id: crumbContainer
-
+    ColumnLayout {
+        id: columnContainer
+        spacing: 0
         anchors {
             top: parent.top
             left: parent.left
             right: parent.right
+            bottom: parent.bottom
+            topMargin: 2
         }
-        height: childrenRect.height
-        visible: false
+
+    Item {
+        id: crumbContainer
+        Layout.preferredHeight: childrenRect.height//crumbContainer.implicitHeight
+        Layout.fillWidth: true
+        visible: opacity > 0.2
         opacity: crumbModel.count > 0
         Behavior on opacity { NumberAnimation { duration: Kirigami.Units.longDuration } }
+        /*onOpacityChanged: {
+            if(opacity > 0.2) visible = true;
+            else visible = false;
+        }*/
 
         Flickable {
             id: breadcrumbFlickable
@@ -201,16 +209,9 @@ Item {
 
     KickoffListView {
         id: applicationsView
-
-        anchors {
-            top: (crumbContainer.visible && crumbContainer.opacity) ? crumbContainer.bottom : parent.top
-            topMargin: Kirigami.Units.smallSpacing/ (crumbContainer.visible ? 2 : 1) + 1
-            bottom: parent.bottom
-            rightMargin: -Kirigami.Units.gridUnit
-            leftMargin: -Kirigami.Units.gridUnit
-        }
-
-		width: parent.width
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        Layout.topMargin: Kirigami.Units.smallSpacing+1
 		small: true
 
         property Item activatedItem: null
@@ -219,9 +220,7 @@ Item {
         Behavior on opacity { NumberAnimation { duration: Kirigami.Units.longDuration } }
 
         focus: true
-
         appView: true
-
         model: rootModel
 
         function moveLeft() {
@@ -233,15 +232,14 @@ Item {
             var oldModelIndex = model.rowForModel(oldModel);
             listView.currentIndex = oldModelIndex;
             listView.positionViewAtIndex(oldModelIndex, ListView.Center);
-            crumbContainer.visible = false;
         }
 
         function moveRight() {
             state = "";
-            activatedItem.activate();
+            if(activatedItem !== null) activatedItem.activate();
             applicationsView.listView.positionViewAtBeginning();
-            crumbContainer.visible = true;
-            //root.visible = false;
+            if(!activatedItem.modelChildren) root.visible = false;
+
         }
 
         function clearBreadcrumbs() {
@@ -300,6 +298,7 @@ Item {
             applicationsView.listView.currentIndex = -1;
         }
     }
+}
 
     MouseArea {
         anchors.fill: parent
@@ -311,41 +310,8 @@ Item {
         }
     }
 
-    Timer {
-        id: updatedLabelTimer
-        interval: 1500
-        running: false
-        repeat: true
-
-        onRunningChanged: {
-            if (running) {
-                updatedLabel.opacity = 1;
-                crumbContainer.opacity = 0.3;
-                //applicationsView.scrollArea.opacity = 0.3;
-            }
-        }
-        onTriggered: {
-            updatedLabel.opacity = 0;
-            crumbContainer.opacity = 1;
-            //applicationsView.scrollArea.opacity = 1;
-            running = false;
-        }
-    }
-
-    PlasmaComponents.Label {
-        id: updatedLabel
-        text: i18n("Applications updated.")
-        opacity: 0
-        visible: opacity != 0
-        anchors.centerIn: parent
-
-        Behavior on opacity { NumberAnimation { duration: Kirigami.Units.shortDuration } }
-    }
-
     Component.onCompleted: {
         rootModel.cleared.connect(refreshed);
-        
-        
     }
 
 } // appViewContainer

@@ -23,6 +23,7 @@
 #include <QVariantList>
 #include <kwindoweffects.h>
 #include <kwindowsystem.h>
+#include <kwindowinfo.h>
 #include <kx11extras.h>
 //#include <dialog.h>
 
@@ -63,7 +64,7 @@ public:
     // In all honesty, I don't know why this works at this point, it just does.
     // I would sincerely love to know more about this and be told that there's a
     // much simpler way.
-    Q_INVOKABLE void setWinState(QQuickWindow* w)
+    /*Q_INVOKABLE void setWinState(QQuickWindow* w)
     {
         if (KWindowSystem::isPlatformX11())
             KX11Extras::setState(w->winId(), NET::SkipTaskbar | NET::SkipPager | NET::SkipSwitcher | NET::KeepAbove | NET::Sticky);
@@ -72,7 +73,7 @@ public:
     {
         if (KWindowSystem::isPlatformX11())
             KX11Extras::setType(w->winId(), NET::Dock);
-    }
+    }*/
 
     // Uses QWindow::setMask(QRegion) to set a X11 input mask which also defines an arbitrary window shape.
     Q_INVOKABLE void setTransparentWindow()
@@ -88,10 +89,6 @@ public:
             orb->setMask(QRegion());
             printf("Reset input mask\n");
         }
-    }
-    Q_INVOKABLE void test()
-    {
-        printf("heehee hiiii hello\n");
     }
     Q_INVOKABLE void setActiveWin(QQuickWindow* w)
     {
@@ -111,25 +108,10 @@ public Q_SLOTS:
         if(enabled && orb != nullptr)
             orb->raise();
     }
-    void onStackingOrderChanged()
-    {
-        if(orb != nullptr && dashWindow != nullptr)
-        {
-            orb->raise();
-
-            // It works without any of this.
-            //auto stackingOrder = KX11Extras::stackingOrder();
-            //int l = stackingOrder.length()-1;
-            //if(l < 1) return;
-            //if(stackingOrder.at(l) == dashWindow->winId() && stackingOrder.at(l-1) == orb->winId())
-        }
-
-    }
 protected:
     QBitmap* inputMaskCache = nullptr;
     QQuickWindow* orb = nullptr;
     QQuickWindow* dashWindow = nullptr;
-
 };
 
 #endif

@@ -46,6 +46,7 @@ import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
 	location: "Floating"
 
     type: "Notification"
+    title: "seventasks-floatingorb"
 
     // Positions are defined later when the plasmoid has been fully loaded, to prevent undefined behavior.
 	x: 0

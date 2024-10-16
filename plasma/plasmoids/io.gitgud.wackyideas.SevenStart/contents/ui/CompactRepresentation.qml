@@ -35,14 +35,9 @@ Item {
     Layout.maximumWidth: floatingOrbPanel.buttonIconSizes.width;
     property bool compositing: false
 
-    /*
-     * The following code gets the ContainmentInterface instance which is used for keeping track of edit mode's state.
-     * This allows us to hide the StartOrb object so the user can actually highlight and select this plasmoid during edit mode.
-     */
-    //property var containmentInterface: null
     property QtObject contextMenu: null
     property QtObject dashWindow: null
-    readonly property bool editMode: Plasmoid.containment.corona.editMode //containmentInterface ? containmentInterface.editMode : false
+    readonly property bool editMode: Plasmoid.containment.corona.editMode
     readonly property bool inPanel: (Plasmoid.location == PlasmaCore.Types.TopEdge || Plasmoid.location == PlasmaCore.Types.RightEdge || Plasmoid.location == PlasmaCore.Types.BottomEdge || Plasmoid.location == PlasmaCore.Types.LeftEdge)
     property bool menuShown: dashWindow.visible
     property QtObject orb: null
@@ -54,13 +49,6 @@ Item {
     readonly property bool useCustomButtonImage: (Plasmoid.configuration.useCustomButtonImage)
     readonly property bool vertical: (Plasmoid.formFactor == PlasmaCore.Types.Vertical)
 
-    //property int opacityDuration: 350
-
-    /*function createContextMenu(pos) {
-        contextMenu = Qt.createQmlObject("ContextMenu {}", root);
-        contextMenu.fillActions();
-        contextMenu.show();
-    }*/
     // If the url is empty (default value), then use the fallback url. Otherwise, return the url path relative to
     // the location of the source code.
     function getResolvedUrl(url, fallback) {
@@ -122,7 +110,7 @@ Item {
     }
 
     //kicker.status: PlasmaCore.Types.PassiveStatus
-    Plasmoid.status: dashWindow && dashWindow.visible ? PlasmaCore.Types.RequiresAttentionStatus : PlasmaCore.Types.PassiveStatus
+    //Plasmoid.status: dashWindow && dashWindow.visible ? PlasmaCore.Types.RequiresAttentionStatus : PlasmaCore.Types.PassiveStatus
     //clip: true
 
     Component.onCompleted: {
@@ -133,6 +121,8 @@ Item {
         Plasmoid.activated.connect(function () {
             showMenu();
         });
+
+
     }
     onCompositingChanged: {
         updateSizeHints();
@@ -235,8 +225,8 @@ Item {
             Plasmoid.setOrb(orb);
             // Currently hardcoded, will make it configurable soon, when it's been properly tested and hopefully slightly refactored.
             Plasmoid.setMask(Qt.resolvedUrl("./orbs/mask.png"), false);
-            Plasmoid.setWinState(orb);
-            Plasmoid.setWinType(orb);
+            //Plasmoid.setWinState(orb);
+            //Plasmoid.setWinType(orb);
             Plasmoid.setDashWindow(dashWindow, dashWindow.dialogBackgroundTexture.mask);
             updateSizeHints();
             positionOrb();

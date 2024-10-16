@@ -11,7 +11,6 @@ SevenStart::SevenStart(QObject *parentObject, const KPluginMetaData &data, const
 {
     connect(KX11Extras::self(), SIGNAL(compositingChanged(bool)), this, SLOT(onCompositingChanged(bool)));
     connect(KWindowSystem::self(), SIGNAL(showingDesktopChanged(bool)), this, SLOT(onShowingDesktopChanged(bool)));
-    connect(KX11Extras::self(), SIGNAL(stackingOrderChanged()), this, SLOT(onStackingOrderChanged()));
 }
 
 SevenStart::~SevenStart()

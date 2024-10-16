@@ -91,20 +91,22 @@ Item {
 
         anchors.fill: parent
 
+        recentsView: true
         currentIndex: -1
         interactive: contentHeight > height
+        //model: recentUsageModel //rootModel.modelForRow(0)
         model: KItemModels.KSortFilterProxyModel {
-            sourceModel: rootModel.modelForRow(0)
+            sourceModel: recentUsageModel
             property var favoritesModel: globalFavorites
             property int favoritesCount: sourceModel.favoritesModel.count
-            onFavoritesCountChanged: {
-                sourceModel.refresh();
-            }
+            onFavoritesCountChanged: Qt.callLater(() => { sourceModel.refresh()});
+            onCountChanged: Qt.callLater(() => {
+                if(count !== Plasmoid.configuration.numberRows) sourceModel.refresh();
+            })
             function trigger(index, str, ptr) {
                 sourceModel.trigger(index, str, ptr);
             }
             filterRowCallback: function(source_row, source_parent) {
-                //return sourceModel.data(sourceModel.index(source_row, 0, source_parent), Qt.DisplayRole) == "...";
                 return source_row < Plasmoid.configuration.numberRows// - sourceModel.favoritesModel.count;
             };
 
@@ -128,23 +130,3 @@ Item {
         }
     }
 }
-/*
-BaseView {
-    id: recentsModel
-    objectName: "OftenUsedView"
-
-    KeyNavigation.tab: root.m_showAllButton
-    model: KItemModels.KSortFilterProxyModel {
-        sourceModel: rootModel.modelForRow(0)
-        property var favoritesModel: globalFavorites
-        function trigger(index, str, ptr) {
-            sourceModel.trigger(index, str, ptr);
-        }
-        filterRowCallback: function(source_row, source_parent) {
-            //return sourceModel.data(sourceModel.index(source_row, 0, source_parent), Qt.DisplayRole) == "...";
-            return source_row < Plasmoid.configuration.numberRows - sourceModel.favoritesModel.count ;
-        };
-
-    }
-}
-*/

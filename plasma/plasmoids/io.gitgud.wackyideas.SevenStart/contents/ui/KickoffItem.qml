@@ -70,6 +70,7 @@ Item {
 
     onActionTriggered: (actionId, actionArgument) => {
         kicker.expanded = false;
+
         if (Tools.triggerAction(ListView.view.model, model.index, actionId, actionArgument) === true) {
             kicker.expanded = false;
         }
@@ -89,8 +90,8 @@ Item {
             view.model = childModel;
         } else {
             view.model.trigger(model.index, "", null);
-            kicker.expanded = false;
             listItem.reset();
+            Plasmoid.expanded = false;
         }
         
     }
@@ -181,7 +182,7 @@ Item {
         elementId: (Qt.application.layoutDirection == Qt.RightToLeft) ? "left-arrow-black" : "right-arrow-black"
     }
 
-    Keys.onPressed: {
+    Keys.onPressed: event => {
         if (event.key === Qt.Key_Menu && hasActionList) {
             event.accepted = true;
             openActionMenu();

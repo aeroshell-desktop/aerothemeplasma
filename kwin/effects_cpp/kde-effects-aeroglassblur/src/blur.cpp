@@ -525,7 +525,7 @@ QRegion BlurEffect::decorationBlurRegion(const EffectWindow *w) const
         return QRegion();
     }
 
-    QRegion decorationRegion = QRegion(w->decoration()->rect()) - w->decorationInnerRect().toRect();
+    QRegion decorationRegion = QRegion(w->decoration()->rect()) - w->contentsRect().toRect();
     //! we return only blurred regions that belong to decoration region
     return decorationRegion.intersected(w->decoration()->blurRegion());
 }
@@ -595,13 +595,13 @@ QRegion BlurEffect::blurRegion(EffectWindow *w, bool noRoundedCorners)
                 // for the whole window.
                 region = w->rect().toRect();
 		if (w->decorationHasAlpha() && decorationSupportsBlurBehind(w)) {
-                	region &= w->decorationInnerRect().toRect();
+                	region &= w->contentsRect().toRect();
             	}
             } else {
                 if (frame.has_value()) {
                     region = frame.value();
                 }
-                region += content->translated(w->contentsRect().topLeft().toPoint()) & w->decorationInnerRect().toRect();
+                region += content->translated(w->contentsRect().topLeft().toPoint()) & w->contentsRect().toRect();
             }
         } else if (frame.has_value()) {
             region = frame.value();
@@ -611,7 +611,7 @@ QRegion BlurEffect::blurRegion(EffectWindow *w, bool noRoundedCorners)
     if (w->decorationHasAlpha() && decorationSupportsBlurBehind(w)) {
         // If the client hasn't specified a blur region, we'll only enable
         // the effect behind the decoration.
-        region &= w->decorationInnerRect().toRect();
+        region &= w->contentsRect().toRect();
         region |= decorationBlurRegion(w);
 
     }

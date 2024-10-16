@@ -97,9 +97,6 @@ PlasmaCore.Dialog {
 	}
 
     onVisibleChanged: {
-
-		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
-		//Plasmoid.setDialogAppearance(root);
         var pos = popupPosition(width, height); // Calculates the position of the floating dialog window.
         x = pos.x;
         y = pos.y;
@@ -108,9 +105,12 @@ PlasmaCore.Dialog {
         } else {
             requestActivate();
 			searchField.forceActiveFocus();
+			rootModel.refresh();
 			setFloatingAvatarPosition();
+
         }
 		resetRecents(); // Resets the recents model to prevent errors and crashes.
+		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
     }
     onHeightChanged: {
         var pos = popupPosition(width, height);
@@ -135,8 +135,6 @@ PlasmaCore.Dialog {
     }
     
     function resetRecents() {
-        recents.model.sourceModel = rootModel.modelForRow(0);
-        recents.model.sourceModel.refresh();
         recents.currentIndex = -1;
     }
     function reset() {
@@ -144,7 +142,6 @@ PlasmaCore.Dialog {
 		compositingIcon.iconSource = "";
 		nonCompositingIcon.iconSource = "";
 		searchField.forceActiveFocus();
-		
     }
 	
 	//The position calculated is always at a corner.
@@ -274,8 +271,6 @@ PlasmaCore.Dialog {
         Connections {
         target: Plasmoid.configuration
             function onNumberRowsChanged() {
-                recents.model.sourceModel = rootModel.modelForRow(0);
-				//recents.model = recentUsa
                 recents.model.sourceModel.refresh();
             }
         }
@@ -676,7 +671,7 @@ PlasmaCore.Dialog {
 				Layout.leftMargin: Plasmoid.configuration.accurateSearchBar ? 13 : Kirigami.Units.largeSpacing
 
 				background:	KSvg.FrameSvgItem {
-					anchors.fill:parent
+					anchors.fill: parent
 					anchors.left: parent.left
 					imagePath: Qt.resolvedUrl("svgs/lineedit.svg")
 					prefix: "base"
@@ -713,8 +708,7 @@ PlasmaCore.Dialog {
 				clearButtonShown: false
 				text: ""
 				color: "black"
-				verticalAlignment: TextInput.AlignBottom
-				font.italic: searchField.text == "" ? true : false
+				verticalAlignment: TextInput.AlignTop
 
 				onTextChanged: {
 					searchView.onQueryChanged();
@@ -1335,7 +1329,6 @@ PlasmaCore.Dialog {
 		
 		KeyNavigation.tab: faves;
 		Keys.forwardTo: searchField
-
 	}
 
 	Component.onCompleted: {
@@ -1346,5 +1339,6 @@ PlasmaCore.Dialog {
 		var pos = popupPosition(width, height);
 		x = pos.x;
 		y = pos.y;
+		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
 	}
 }

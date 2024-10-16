@@ -34,25 +34,24 @@ PlasmoidItem {
 
     signal reset
 
-    anchors.fill: parent
-    property bool isDash: false
+    //anchors.fill: parent
+    //property bool isDash: false
     property Item dragSource: null
 
-    switchWidth: isDash || !fullRepresentationItem ? 0 :fullRepresentationItem.Layout.minimumWidth
-    switchHeight: isDash || !fullRepresentationItem ? 0 :fullRepresentationItem.Layout.minimumHeight
+    //switchWidth: !fullRepresentationItem ? 0 :fullRepresentationItem.Layout.minimumWidth
+    //switchHeight: !fullRepresentationItem ? 0 :fullRepresentationItem.Layout.minimumHeight
 
+    property alias rootModel: rootModel
     property QtObject globalFavorites: rootModel.favoritesModel
     property QtObject systemFavorites: rootModel.systemFavoritesModel
-    // I see what you did here
-    //property bool compositingEnabled: kwindowsystem.compositingActive
     property bool compositingEnabled: KWindowSystem.isPlatformX11 ? KX11Extras.compositingActive : true
 
-    preferredRepresentation: isDash ? menuRepresentation : null
-
-    compactRepresentation: isDash ? null : compactRepresentation
-    fullRepresentation: isDash ? compactRepresentation : menuRepresentation
+    preferredRepresentation: null
+    compactRepresentation: compactRepresentation
+    fullRepresentation: menuRepresentation
+    //compactRepresentation: compactRepresentation
+    //fullRepresentation: compactRepresentation//menuRepresentation
     Plasmoid.constraintHints: Plasmoid.CanFillArea
-
 
     // Runs KMenuEdit.
     function action_menuedit() {
@@ -65,12 +64,12 @@ PlasmoidItem {
 
     Component {
         id: compactRepresentation
-        CompactRepresentation {}
+        CompactRepresentation { id: compactRepresentation }
     }
 
     Component {
         id: menuRepresentation
-        MenuRepresentation { }
+        MenuRepresentation { id: menuRepresentation }
     }
 
     // Used to run separate programs through this plasmoid.
@@ -108,7 +107,7 @@ PlasmoidItem {
         id: runnerModel
 
         appletInterface: kicker
-        favoritesModel: rootModel.favoritesModel
+        favoritesModel: globalFavorites
         mergeResults: true
     }
     Kicker.RootModel {
@@ -134,7 +133,7 @@ PlasmoidItem {
 
         onFavoritesModelChanged: {
             if ("initForClient" in favoritesModel) {
-                favoritesModel.initForClient("org.kde.plasma.kicker.favorites.instance-" + plasmoid.id)
+                favoritesModel.initForClient("org.kde.plasma.kicker.favorites.instance-" + Plasmoid.id)
 
                 if (!Plasmoid.configuration.favoritesPortedToKAstats) {
                     favoritesModel.portOldFavorites(Plasmoid.configuration.favoriteApps);
@@ -143,7 +142,7 @@ PlasmoidItem {
             } else {
                 favoritesModel.favorites = Plasmoid.configuration.favoriteApps;
             }
-            favoritesModel.maxFavorites = pageSize;
+            //favoritesModel.maxFavorites = pageSize;
         }
 
         onSystemFavoritesModelChanged: {
@@ -154,7 +153,7 @@ PlasmoidItem {
 
         Component.onCompleted: {
             if ("initForClient" in favoritesModel) {
-                favoritesModel.initForClient("org.kde.plasma.kicker.favorites.instance-" + plasmoid.id)
+                favoritesModel.initForClient("org.kde.plasma.kicker.favorites.instance-" + Plasmoid.id)
 
                 if (!Plasmoid.configuration.favoritesPortedToKAstats) {
                     favoritesModel.portOldFavorites(Plasmoid.configuration.favoriteApps);
@@ -164,8 +163,7 @@ PlasmoidItem {
                 favoritesModel.favorites = Plasmoid.configuration.favoriteApps;
             }
 
-            favoritesModel.maxFavorites = pageSize;
-            rootModel.refresh();
+            //favoritesModel.maxFavorites = pageSize;
         }
     }
 
@@ -266,14 +264,14 @@ PlasmoidItem {
     ]
 
     Component.onCompleted: {
-        if (Plasmoid.hasOwnProperty("activationTogglesExpanded")) {
+        /*if (Plasmoid.hasOwnProperty("activationTogglesExpanded")) {
             Plasmoid.activationTogglesExpanded = !kicker.isDash
-        }
+        }*/
 
         windowSystem.focusIn.connect(enableHideOnWindowDeactivate);
         kicker.hideOnWindowDeactivate = true;
 
-        rootModel.refreshed.connect(reset);
+        //rootModel.refreshed.connect(reset);
 
         dragHelper.dropped.connect(resetDragSource);
     }

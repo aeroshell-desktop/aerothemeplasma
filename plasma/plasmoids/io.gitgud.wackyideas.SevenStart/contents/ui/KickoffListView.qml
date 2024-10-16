@@ -22,12 +22,13 @@ import QtQuick.Controls
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.components as PlasmaComponents
-
+import org.kde.plasma.plasmoid
 import org.kde.kirigami as Kirigami
 
 FocusScope {
     id: view
 
+    property bool recentsView: false
     property bool appView: false
     property alias contentHeight: listView.contentHeight
     property alias count: listView.count
