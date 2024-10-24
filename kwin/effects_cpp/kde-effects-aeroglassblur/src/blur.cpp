@@ -544,7 +544,6 @@ QRegion BlurEffect::getForcedNewRegion()
 
 QRegion BlurEffect::applyBlurRegion(KWin::EffectWindow *w)
 {
-
     auto geo = w->frameGeometry();
     auto geoExp = w->expandedGeometry();
     auto maximizeState = w->window()->maximizeMode();

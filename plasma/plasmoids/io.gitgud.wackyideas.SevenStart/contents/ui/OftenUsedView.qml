@@ -101,7 +101,7 @@ Item {
             property int favoritesCount: sourceModel.favoritesModel.count
             onFavoritesCountChanged: Qt.callLater(() => { sourceModel.refresh()});
             onCountChanged: Qt.callLater(() => {
-                if(count !== Plasmoid.configuration.numberRows) sourceModel.refresh();
+                if(count > Plasmoid.configuration.numberRows) sourceModel.refresh();
             })
             function trigger(index, str, ptr) {
                 sourceModel.trigger(index, str, ptr);
