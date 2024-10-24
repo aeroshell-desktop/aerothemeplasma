@@ -1,0 +1,14 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Souris"
+            }
+        ],
+        "Category": "Appearance",
+        "Description": "Make the caption buttons glow when hovered with the cursor",
+        "EnabledByDefault": false,
+        "License": "GPL",
+        "Name": "SMOD Glow"
+    }
+}

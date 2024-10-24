@@ -24,7 +24,7 @@
      </property>
      <widget class="QWidget" name="blurWidget">
       <attribute name="title">
-       <string>Blur</string>
+       <string>Appearance</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
@@ -309,7 +309,7 @@
      </widget>
      <widget class="QWidget" name="forceBlurWidget">
       <attribute name="title">
-       <string>Exclusions</string>
+       <string>Overrides</string>
       </attribute>
       <layout class="QVBoxLayout">
        <item>
@@ -318,7 +318,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="classLabel">
             <property name="text">
-             <string>Classes of windows to exclude from reflections:</string>
+             <string>Classes of windows to force blur:</string>
             </property>
            </widget>
           </item>
@@ -351,7 +351,7 @@
          <item>
           <widget class="QRadioButton" name="kcfg_BlurMatching">
            <property name="text">
-            <string>Blur only matching</string>
+            <string>Apply force blur list</string>
            </property>
           </widget>
          </item>

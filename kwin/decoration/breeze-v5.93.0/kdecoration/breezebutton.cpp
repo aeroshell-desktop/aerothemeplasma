@@ -84,9 +84,9 @@ Button::Button(QObject *parent, const QVariantList &args)
 
 void Button::smodPaintGlow(QPainter *painter, const QRect &repaintArea)
 {
-    //return;
+    return;
 
-    if (m_hoverProgress > 0.0 && isVisible() && type() != KDecoration2::DecorationButtonType::Menu) {
+    /*if (m_hoverProgress > 0.0 && isVisible() && type() != KDecoration2::DecorationButtonType::Menu) {
         //Decoration *decoration = static_cast<Decoration *>(KDecoration2::DecorationButton::decoration().data());
         //KDecoration2::DecoratedClient *client = decoration->client().data();
         //DecorationFactory *decorationFactory =decoration->factory();
@@ -132,7 +132,7 @@ void Button::smodPaintGlow(QPainter *painter, const QRect &repaintArea)
             const int yp = rect.y(); //rect.y() + (buttonImage.height() - ws->c_glow_size.h) / 2;
             painter->drawImage(QPoint(xp, yp) + xy, image);
         }
-    }
+    }*/
 }
 
 //__________________________________________________________________
