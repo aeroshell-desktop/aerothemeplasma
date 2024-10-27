@@ -7,6 +7,7 @@
 #include <QPropertyAnimation>
 
 #ifdef BUILD_KF6
+#include <kwin/window.h>
 #include <kwin/effect/effecthandler.h>
 #include <kwin/effect/effectwindow.h>
 #include <kwin/opengl/glshadermanager.h>

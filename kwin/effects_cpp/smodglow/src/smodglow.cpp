@@ -244,7 +244,12 @@ void SmodGlowEffect::prePaintWindow(EffectWindow *w, WindowPrePaintData &data, s
 #if RIGHT_SIDE_ORIGIN
     QPoint origin = w->frameGeometry().topLeft().toPoint() + QPoint(w->frameGeometry().width(), 0);
 #else
+    auto maximizeState = w->window()->maximizeMode();
     int diff = w->frameGeometry().width() - (handler->m_close->pos.x() + m_texture_close.get()->size().width()) + 3;
+
+    if(maximizeState == KWin::MaximizeMode::MaximizeFull)
+        diff = 0;
+
     QPoint origin = w->pos().toPoint();
     origin += QPoint(diff, 0);
 #endif
