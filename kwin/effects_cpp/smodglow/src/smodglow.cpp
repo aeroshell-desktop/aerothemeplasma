@@ -244,9 +244,10 @@ void SmodGlowEffect::prePaintWindow(EffectWindow *w, WindowPrePaintData &data, s
 #if RIGHT_SIDE_ORIGIN
     QPoint origin = w->frameGeometry().topLeft().toPoint() + QPoint(w->frameGeometry().width(), 0);
 #else
+    int diff = w->frameGeometry().width() - (handler->m_close->pos.x() + m_texture_close.get()->size().width()) + 3;
     QPoint origin = w->pos().toPoint();
+    origin += QPoint(diff, 0);
 #endif
-
     handler->m_min_rect   = QRect(origin + handler->m_min->pos,   m_texture_minimize.get()->size());
     handler->m_max_rect   = QRect(origin + handler->m_max->pos,   m_texture_maximize.get()->size());
     handler->m_close_rect = QRect(origin + handler->m_close->pos, m_texture_close.get()->size());
