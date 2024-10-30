@@ -87,6 +87,8 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
 
         painter->translate(g.topLeft());
 
+        if(c->isMaximized()) painter->translate(QPoint(-2, 0));
+
         auto d = qobject_cast<Decoration *>(decoration());
 
         QPixmap normal, hover, active, glyph, glyphHover, glyphActive;

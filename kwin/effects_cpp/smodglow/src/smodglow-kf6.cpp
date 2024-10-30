@@ -43,6 +43,13 @@ void SmodGlowEffect::paintWindow(const RenderTarget &renderTarget, const RenderV
 {
     effects->paintWindow(renderTarget, viewport, w, mask, region, data);
 
+    bool scaled = !qFuzzyCompare(data.xScale(), 1.0) && !qFuzzyCompare(data.yScale(), 1.0);
+    bool translated = data.xTranslation() || data.yTranslation();
+    if ((scaled || (translated || (mask & PAINT_WINDOW_TRANSFORMED))))
+    {
+        return;
+    }
+
     if (!(windows.contains(w) && windows.value(w) && w->hasDecoration()))
     {
         return;
@@ -64,7 +71,7 @@ void SmodGlowEffect::paintWindow(const RenderTarget &renderTarget, const RenderV
     const auto scale = viewport.scale();
 
     {
-        float opacity = handler->m_min->hoverProgress();
+        float opacity = handler->m_min->hoverProgress() * w->opacity() * data.opacity();
         const QRectF pixelGeometry = snapToPixelGridF(scaledRect(handler->m_min_rect, scale));
         QMatrix4x4 mvp = viewport.projectionMatrix();
         mvp.translate(handler->m_min_rect.x(), handler->m_min_rect.y());
@@ -75,7 +82,7 @@ void SmodGlowEffect::paintWindow(const RenderTarget &renderTarget, const RenderV
     }
 
     {
-        float opacity = handler->m_max->hoverProgress();
+        float opacity = handler->m_max->hoverProgress() * w->opacity() * data.opacity();
         const QRectF pixelGeometry = snapToPixelGridF(scaledRect(handler->m_max_rect, scale));
         QMatrix4x4 mvp = viewport.projectionMatrix();
         mvp.translate(handler->m_max_rect.x(), handler->m_max_rect.y());
@@ -86,7 +93,7 @@ void SmodGlowEffect::paintWindow(const RenderTarget &renderTarget, const RenderV
     }
 
     {
-        float opacity = handler->m_close->hoverProgress();
+        float opacity = handler->m_close->hoverProgress() * w->opacity() * data.opacity();
         const QRectF pixelGeometry = snapToPixelGridF(scaledRect(handler->m_close_rect, scale));
         QMatrix4x4 mvp = viewport.projectionMatrix();
         mvp.translate(handler->m_close_rect.x(), handler->m_close_rect.y());

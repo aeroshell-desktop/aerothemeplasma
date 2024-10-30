@@ -224,6 +224,11 @@ void SmodGlowEffect::prePaintWindow(EffectWindow *w, WindowPrePaintData &data, s
 {
     effects->prePaintWindow(w, data, presentTime);
 
+    if(w->isUserResize())
+    {
+        stopAllAnimations(w);
+        return;
+    }
     if (!windows.contains(w))
     {
         return;
@@ -245,10 +250,10 @@ void SmodGlowEffect::prePaintWindow(EffectWindow *w, WindowPrePaintData &data, s
     QPoint origin = w->frameGeometry().topLeft().toPoint() + QPoint(w->frameGeometry().width(), 0);
 #else
     auto maximizeState = w->window()->maximizeMode();
-    int diff = w->frameGeometry().width() - (handler->m_close->pos.x() + m_texture_close.get()->size().width()) + 3;
+    int diff = 0;//w->frameGeometry().width() - (handler->m_close->pos.x() + m_texture_close.get()->size().width()) + 3;
 
     if(maximizeState == KWin::MaximizeMode::MaximizeFull)
-        diff = 0;
+        diff = -2;
 
     QPoint origin = w->pos().toPoint();
     origin += QPoint(diff, 0);
