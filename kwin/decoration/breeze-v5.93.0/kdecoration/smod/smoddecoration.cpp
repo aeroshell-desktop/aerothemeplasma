@@ -284,6 +284,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         //    alignment = parseTitleAlignment(ws->tobj_layout);
         //}
         QLabel temp_label(caption);
+        temp_label.setFont(settings()->font());
         temp_label.setFixedWidth(captionRect.width());
         temp_label.setFixedHeight(captionRect.height());
         QGraphicsGlowEffect temp_effect;
@@ -291,6 +292,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         temp_effect.setBlurRadius(10);
         temp_label.setGraphicsEffect(&temp_effect);
         QLabel real_label(caption);
+        real_label.setFont(settings()->font());
         real_label.setStyleSheet("QLabel { background: #00ffffff; }");
         real_label.setFixedWidth(captionRect.width());
         real_label.setFixedHeight(captionRect.height());
