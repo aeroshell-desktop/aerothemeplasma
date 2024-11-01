@@ -256,34 +256,22 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         caption.append(" ");
         int blurWidth = settings()->fontMetrics().horizontalAdvance(caption + "..JO  ");
         int blurHeight = settings()->fontMetrics().height();
-        //factory()->setTitleTextWidth(blurWidth);
-        //factory()->setTitleTextHeight(blurHeight);
-        //factory()->setMaximized(c->isMaximized());
-
-        //if (drawTitle)
-        //{
         QColor shadowColor = QColor(0, 0, 0, 255);
-        QColor textColor = c->color(active ? KDecoration2::ColorGroup::Active : KDecoration2::ColorGroup::Inactive, KDecoration2::ColorRole::Foreground);
+        QColor textColor = c->color(c->isActive() ? KDecoration2::ColorGroup::Active : KDecoration2::ColorGroup::Inactive, KDecoration2::ColorRole::Foreground);
         int textHaloXOffset = 1;
         int textHaloYOffset = 1;
         int textHaloSize = 2;
-        //if (!config->useKWinTextColors) {
-        //    alpha_color &c = fs->text_halo;
-        //    shadowColor = QColor::fromRgbF(c.color.r, c.color.g, c.color.b, c.alpha);
-        //    c = fs->text;
-        //    textColor = QColor::fromRgbF(c.color.r, c.color.g, c.color.b, c.alpha);
-        //}
         captionRect.setHeight(captionRect.height() & -2);
         painter->setFont(settings()->font());
         painter->setPen(shadowColor);
-    //    painter->drawText(captionRect.adjusted(1, 1, 1, 1), Qt::AlignVCenter, caption);
         painter->setPen(textColor);
-        //Qt::Alignment alignment = Qt::AlignHCenter;
         Qt::Alignment alignment = Qt::AlignLeft;
-        //if (ws->tobj_layout) {
-        //    alignment = parseTitleAlignment(ws->tobj_layout);
-        //}
+
         QLabel temp_label(caption);
+        QPalette palette = temp_label.palette();
+        palette.setColor(temp_label.backgroundRole(), textColor);
+        palette.setColor(temp_label.foregroundRole(), textColor);
+        temp_label.setPalette(palette);
         temp_label.setFont(settings()->font());
         temp_label.setFixedWidth(captionRect.width());
         temp_label.setFixedHeight(captionRect.height());
@@ -292,6 +280,10 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         temp_effect.setBlurRadius(10);
         temp_label.setGraphicsEffect(&temp_effect);
         QLabel real_label(caption);
+        palette = real_label.palette();
+        palette.setColor(real_label.backgroundRole(), textColor);
+        palette.setColor(real_label.foregroundRole(), textColor);
+        real_label.setPalette(palette);
         real_label.setFont(settings()->font());
         real_label.setStyleSheet("QLabel { background: #00ffffff; }");
         real_label.setFixedWidth(captionRect.width());
@@ -315,7 +307,6 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
             QPixmap text_pixmap = real_label.grab();
             captionRect.translate(5, -1);
             painter->drawPixmap(captionRect, text_pixmap);
-            //painter->drawText(captionRect, alignment | Qt::AlignVCenter | Qt::TextSingleLine, caption);
         }
     }
 
