@@ -34,7 +34,7 @@ AbstractItem {
             }
             return model.Icon || model.IconName
         }
-        active: taskIcon.containsMouse
+        active: false//taskIcon.containsMouse
     }
 
     onActivated: pos => {
