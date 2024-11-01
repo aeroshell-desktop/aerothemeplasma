@@ -22,7 +22,7 @@ center_scrollbar_indicator=false
 toolbar_interior_spacing=2
 toolbar_item_spacing=2
 x11drag=menubar_and_primary_toolbar
-scroll_width=15
+scroll_width=17
 menubar_mouse_tracking=true
 toolbutton_style=0
 click_behavior=2
@@ -348,7 +348,7 @@ text.margin.left=4
 text.margin.right=4
 
 [Scrollbar]
-indicator.size=16
+indicator.size=17
 frame.expansion=0
 indicator.element=scarrow
 
@@ -366,10 +366,10 @@ frame.bottom=1
 [ScrollbarSlider]
 interior=true
 frame=true
-frame.left=2
-frame.right=2
-frame.top=2
-frame.bottom=2
+frame.left=3
+frame.right=3
+frame.top=3
+frame.bottom=3
 frame.expansion=0
 interior.element=scrollslide
 frame.element=scrollslide
