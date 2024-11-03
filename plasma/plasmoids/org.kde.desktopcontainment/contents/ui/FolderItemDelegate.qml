@@ -274,6 +274,50 @@ Item {
                                 : icon.height + (Kirigami.Units.iconSizes.small * label.lineCount) + (Kirigami.Units.smallSpacing * 3)
 
                 Kirigami.Icon {
+                    id: iconHighlight
+
+                    z: 3
+
+                    states: [
+                        State { // icon view
+                            when: !root.useListViewMode
+
+                            AnchorChanges {
+                                target: iconHighlight
+                                anchors.top: parent.top
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+                        },
+                        State { // list view
+                            when: root.useListViewMode
+
+                            AnchorChanges {
+                                target: iconHighlight
+                                anchors.left: parent.left
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                        }
+                    ]
+
+                    anchors {
+                        topMargin: Kirigami.Units.smallSpacing
+                        leftMargin: Kirigami.Units.smallSpacing
+                    }
+
+                    width: root.useListViewMode ? main.GridView.view.iconSize : (parent.width - 2 * Kirigami.Units.smallSpacing)
+                    height: main.GridView.view.iconSize
+
+                    isMask: true
+                    color: "#c2e7ed"
+
+                    opacity: 0.5
+
+                    animated: false
+
+                    source: model.decoration
+                    visible: model.selected && Plasmoid.configuration.selectionStyle
+                }
+                Kirigami.Icon {
                     id: icon
 
                     z: 2
@@ -338,7 +382,7 @@ Item {
                         anchors.fill: parent
                         anchors.rightMargin: 1
                         anchors.leftMargin: -1
-                        color: "#F9000000"
+                        color: model.selected && Plasmoid.configuration.selectionStyle ? "black" : "#F9000000"
                         renderType: Text.NativeRendering
                         font.hintingPreference: Font.PreferFullHinting
                         text: parent.text
@@ -369,7 +413,7 @@ Item {
                         z: -2
                         anchors.fill: parent
                         anchors.rightMargin: 0
-                        color: "#ffffffff"
+                        color: model.selected && Plasmoid.configuration.selectionStyle ? "black" : "#ffffffff"
                         renderType: Text.NativeRendering
                         font.hintingPreference: Font.PreferFullHinting
                         text: parent.text
@@ -418,12 +462,9 @@ Item {
 
                     color: {
                         if (Plasmoid.isContainment) {
-                            // In this situation there's a shadow or a background rect, both of which are always black
-                            return "white";
-                        }
-
-                        if (model.selected) {
-                            return Kirigami.Theme.highlightedTextColor;
+                            if (model.selected && Plasmoid.configuration.selectionStyle) {
+                                return "gray"
+                            } else return "white"
                         }
 
                         return Kirigami.Theme.textColor;
@@ -435,6 +476,22 @@ Item {
                     elide: Text.ElideRight
                     wrapMode: (maximumLineCount === 1) ? Text.NoWrap : Text.Wrap
                     horizontalAlignment: Text.AlignHCenter
+
+                    TextMetrics {
+                        id: textMetrics
+
+                        text: main.nameWrapped
+                    }
+
+                    Rectangle {
+                        anchors.top: parent.top
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: textMetrics.advanceWidth + Kirigami.Units.smallSpacing
+                        height: parent.height
+                        color: "#c2e7ed"
+                        visible: model.selected && Plasmoid.configuration.selectionStyle
+                        z: -1
+                    }
 
                     layer.enabled: true
                     layer.effect: DropShadow {
@@ -449,7 +506,7 @@ Item {
                         samples: radius * 2
                         spread: 0.38
 
-                        color: Plasmoid.configuration.textShadows ? "#c8080808" : "transparent"
+                        color: Plasmoid.configuration.textShadows ? (model.selected && Plasmoid.configuration.selectionStyle ? "transparent" : "#c8080808") : "transparent"
 
                         opacity: (model.isHidden ? 0.6 : 1)
 
@@ -466,7 +523,7 @@ Item {
                         // Workaround for a bug where the frameComponent does not
                         // get unloaded when items are dragged to a different
                         // place on the desktop.
-                        visible: this === frameLoader.item
+                        visible: this === frameLoader.item && !Plasmoid.configuration.selectionStyle
                         hovered: impl.iconAndLabelsShouldlookSelected
                         pressed: model.selected
                         active: Window.active

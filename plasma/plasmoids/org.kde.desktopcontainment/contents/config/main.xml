@@ -110,6 +110,10 @@
       <label>The width of the grid cells when using icon view. 0 = Narrow, 1 = Medium, 2 = Wide</label>
       <default>1</default>
     </entry>
+    <entry name="selectionStyle" type="Int">
+      <label>The style of the icon selection. 0 = Plasma style, 1 = Classic</label>
+      <default>0</default>
+    </entry>
     <entry name="textLines" type="Int">
       <label>The (maximum) number of lines of text to use below Folder View icons.</label>
       <default>2</default>
