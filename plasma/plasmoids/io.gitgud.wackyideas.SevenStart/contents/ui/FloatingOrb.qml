@@ -14,15 +14,8 @@ import org.kde.plasma.private.kicker as Kicker
 import org.kde.coreaddons as KCoreAddons // kuser
 import org.kde.plasma.private.shell 2.0
 
-import org.kde.kwindowsystem 1.0
 import org.kde.kquickcontrolsaddons 2.0
-
-import org.kde.kirigami 2.13 as Kirigami
-import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
-
 import org.kde.kwindowsystem 1.0
-import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
-
 import org.kde.kirigami as Kirigami
 
 Item {

@@ -1017,7 +1017,7 @@ PlasmaCore.Dialog {
 				}
 				SidePanelItemDelegate {
 					itemText: "Music"
-					itemIcon: "library-sound"
+					itemIcon: "library-music"
 					executableString: folderDialog.getPath(4)
 					visible: Plasmoid.configuration.showMusicSidepanel
 					onVisibleChanged: {

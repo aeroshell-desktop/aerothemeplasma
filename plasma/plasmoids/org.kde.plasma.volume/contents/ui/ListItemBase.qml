@@ -8,6 +8,7 @@
 
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.kde.kquickcontrolsaddons
 import org.kde.plasma.components as PC3
@@ -111,7 +112,7 @@ PC3.ItemDelegate {
                     Layout.maximumWidth: Infinity // Ignore maximum width of children
                     visible: (item.type === "sink" || item.type === "source") && item.ListView.view.count > 1
 
-                    PC3.RadioButton {
+                    RadioButton {
                         id: defaultButton
                         // Maximum width of the button need to match the text. Empty area must not change the default device.
                         Layout.maximumWidth: item.availableWidth - Layout.leftMargin - Layout.rightMargin

@@ -274,13 +274,13 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
    		m_aeroPrimaryBalance   = primaryBalance;
    		m_aeroSecondaryBalance = secondaryBalance;
    		m_aeroBlurBalance      = blurBalance;
-        m_aeroPrimaryBalanceInactive = 0.4f * m_aeroPrimaryBalance;
-        m_aeroBlurBalanceInactive = 0.4f * m_aeroBlurBalance + 60;
+       		m_aeroPrimaryBalanceInactive = 0.4f * m_aeroPrimaryBalance;
+       		m_aeroBlurBalanceInactive = 0.4f * m_aeroBlurBalance + 60;
 
    		m_aeroColorR = fR;
    		m_aeroColorG = fG;
    		m_aeroColorB = fB;
-    	m_aeroColorA = (m_aeroIntensity - 26) / 191.0f;
+    		m_aeroColorA = (m_aeroIntensity - 26) / 191.0f;
 
 	};
 	bool skip = false;
@@ -308,7 +308,6 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
 	}
 	m_reflectionIntensity = BlurConfig::reflectionIntensity();
 
-    printf("%d\n", m_reflectionIntensity);
     int blurStrength = BlurConfig::blurStrength() - 1;
     m_iterationCount = blurStrengthValues[blurStrength].iteration;
     m_offset = blurStrengthValues[blurStrength].offset;
@@ -695,9 +694,9 @@ bool BlurEffect::shouldBlur(const EffectWindow *w, int mask, const WindowPaintDa
     bool scaled = !qFuzzyCompare(data.xScale(), 1.0) && !qFuzzyCompare(data.yScale(), 1.0);
     bool translated = data.xTranslation() || data.yTranslation();
 
-    /*if ((scaled || (translated || (mask & PAINT_WINDOW_TRANSFORMED))) && !w->data(WindowForceBlurRole).toBool()) {
-        return !(w->isSpecialWindow() && !w->isDock() && effects->waylandDisplay());
-    }*/
+    //if ((scaled || (translated || (mask & PAINT_WINDOW_TRANSFORMED))) /*&& !w->data(WindowForceBlurRole).toBool()*/) {
+        //return false; //!(w->isSpecialWindow() && !w->isDock() && effects->waylandDisplay());
+    //}
 
     return true;
 }
