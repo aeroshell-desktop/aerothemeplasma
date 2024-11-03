@@ -50,6 +50,10 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 - (In collaboration with) [kfh83](https://github.com/kfh83), [TorutheRedFox](https://github.com/TorutheRedFox) and [ALTaleX](https://github.com/ALTaleX531/dwm_colorization_calculator/blob/main/main.py) for figuring out accurate Aero glass blur and colorization effects
 - [AngelBruni](https://github.com/angelbruni) for contributing several SVG textures, most notably the clock in DigitalClockLite Seven
 
+### Special Thanks 
+
+- [MondySpartan](https://www.deviantart.com/mondyspartan/art/Windows-10-Year-2010-Edition-1016859431) for inspiring the notification design
+
 ### Cool projects you should really check out
 
 - [Geckium](https://github.com/angelbruni/Geckium) by AngelBruni
