@@ -45,6 +45,8 @@ Item {
     property alias cfg_textShadows: textShadows.checked
     property alias cfg_iconShadows: iconShadows.checked
 
+    property alias cfg_selectionStyle: selectionStyle.currentIndex
+
 
     readonly property bool lockedByKiosk: !KAuthorized.authorize("editable_desktop_icons")
 
@@ -341,6 +343,19 @@ Item {
         CheckBox {
             id: iconShadows
             text: i18n("Use drop shadows for icons on the desktop")
+        }
+
+        ComboBox {
+            id: selectionStyle
+            visible: !isPopup
+            Layout.fillWidth: true
+
+            Kirigami.FormData.label: i18n("Selection style:")
+
+            model: [
+                i18nc("@item:inlistbox how the selection should be", "Plasma style"),
+                i18nc("@item:inlistbox how the selection should be", "Classic"),
+            ]
         }
 
         CheckBox {
