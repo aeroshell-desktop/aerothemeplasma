@@ -59,4 +59,62 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 - [Geckium](https://github.com/angelbruni/Geckium) by AngelBruni
 - [Aero UserChrome](https://gitgud.io/souris/aero-userchrome) by Souris (Geckium in combination with Aero UserChrome works well with AeroThemePlasma)
 - [LonghornThemePlasma](https://gitgud.io/catpswin56/longhornthemeplasma) by catpswin56
+- [VB1ThemePlasma](https://gitgud.io/catpswin56/vista-beta-plasma) by catpswin56
+- [Ice2K.sys](https://toiletflusher.neocities.org/ice2k/) by 0penrc
 
+## Screenshots
+
+### Desktop
+
+<img src="screenshots/desktop.png">
+
+### Start Menu
+
+<img src="screenshots/start_menu.png">
+<img src="screenshots/start_menu_search.png">
+<img src="screenshots/start_menu_apps.png">
+<img src="screenshots/start_menu_openshell.png">
+
+### Clock
+
+<img src="screenshots/clock.png">
+
+### System Tray
+
+<img src="screenshots/battery.png">
+<img src="screenshots/system_tray.png">
+
+### Notifications 
+
+<img src="screenshots/notification.png">
+<img src="screenshots/notification-progress.png">
+
+### Desktop Icons 
+
+<img src="screenshots/icons.png">
+
+### Lockscreen 
+
+<img src="screenshots/lockscreen.png">
+
+### Aero Peek
+
+<img src="screenshots/peek.png">
+
+### Alt-Tab Switcher
+
+<img src="screenshots/alt-tab.png">
+
+### Colorization 
+
+<img src="screenshots/colorization.png">
+<img src="screenshots/aeroblur.png">
+<img src="screenshots/aeroblursimple.png">
+
+### Firefox
+
+<img src="screenshots/geckium.png">
+
+### Taskbar (Coming Soon™)
+
+<img src="screenshots/jumplist.png">

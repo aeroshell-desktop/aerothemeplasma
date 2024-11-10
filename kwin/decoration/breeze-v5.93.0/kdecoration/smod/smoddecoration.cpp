@@ -36,7 +36,8 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
 {
     const auto c = client();
 
-    int SIDEBAR_HEIGHT = qMax(50, (size().height() / 4));
+    int titlebarHeight = internalSettings()->titlebarSize();
+    int SIDEBAR_HEIGHT = qMax(25, (size().height() / 4));
 
     painter->setOpacity(0.75);
 
@@ -64,8 +65,8 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
 
             // 7x116
             QPixmap sidehighlight(":/smod/decoration/sidehighlight");
-            painter->drawPixmap(0, 0, 7, SIDEBAR_HEIGHT, sidehighlight);
-            painter->drawPixmap(size().width() - 7, 0, 7, SIDEBAR_HEIGHT, sidehighlight);
+            painter->drawPixmap(0, borderTop(), 7, SIDEBAR_HEIGHT, sidehighlight);
+            painter->drawPixmap(size().width() - 7, borderTop(), 7, SIDEBAR_HEIGHT, sidehighlight);
         }
     }
     else
@@ -92,8 +93,8 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
 
             // 7x116
             QPixmap sidehighlight(":/smod/decoration/sidehighlight-unfocus");
-            painter->drawPixmap(0, 0, 7, SIDEBAR_HEIGHT, sidehighlight);
-            painter->drawPixmap(size().width() - 7, 0, 7, SIDEBAR_HEIGHT, sidehighlight);
+            painter->drawPixmap(0, borderTop(), 7, SIDEBAR_HEIGHT, sidehighlight);
+            painter->drawPixmap(size().width() - 7, borderTop(), 7, SIDEBAR_HEIGHT, sidehighlight);
         }
     }
 
@@ -247,6 +248,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
     {
         const auto c = client();
         const bool active = c->isActive();
+        int titleAlignment = internalSettings()->titleAlignment();
 
         QRect captionRect(m_leftButtons->geometry().right() /*+ 4 + (c->isMaximized() ? 5 : 0)*/, 0, m_rightButtons->geometry().left() - m_leftButtons->geometry().right() - 4, borderTop());
         QString caption = settings()->fontMetrics().elidedText(c->caption(), Qt::ElideMiddle, captionRect.width());
@@ -274,7 +276,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         temp_label.setPalette(palette);
         temp_label.setFont(settings()->font());
         temp_label.setFixedWidth(captionRect.width());
-        temp_label.setFixedHeight(captionRect.height());
+        temp_label.setFixedHeight(blurHeight*1.2);
         QGraphicsGlowEffect temp_effect;
         temp_effect.setColor(QColor::fromRgb(255, 255, 255, 0));
         temp_effect.setBlurRadius(10);
@@ -288,13 +290,23 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         real_label.setStyleSheet("QLabel { background: #00ffffff; }");
         real_label.setFixedWidth(captionRect.width());
         real_label.setFixedHeight(captionRect.height());
+        if(titleAlignment == InternalSettings::AlignRight)
+            real_label.setAlignment(Qt::AlignRight);
+        else if(titleAlignment == InternalSettings::AlignCenter)
+            real_label.setAlignment(Qt::AlignHCenter);
+        else if(titleAlignment == InternalSettings::AlignCenterFullWidth)
+        {
+            real_label.setFixedWidth(size().width());
+            real_label.setAlignment(Qt::AlignHCenter);
+        }
+
 
         int captionHeight = captionRect.height() * 0.8;
-        QPixmap final_label(blurWidth, captionHeight);
+        QPixmap final_label(blurWidth, blurHeight*2);
         final_label.fill(QColor::fromRgb(0,0,0,0));
         QPainter *ptr = new QPainter(&final_label);
         QPainterPath path;
-        path.addRoundedRect(0, 0, blurWidth, captionHeight, 12,12);
+        path.addRoundedRect(0, 0, blurWidth, blurHeight, 12,12);
         ptr->fillPath(path, QColor::fromRgb(255,255,255, active ? 186 : 148));
         delete ptr;
 
@@ -302,10 +314,43 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         {
             QPixmap blur_effect = temp_effect.drawBlur(final_label);
             float offset = isMaximized() ? -0.1 : 0.05;
-            float offsetHeight = isMaximized() ? 1.2 : 0.95;
-            painter->drawPixmap(QRect(captionRect.x()*0.65,captionRect.y() + captionRect.height()*offset,blurWidth,captionRect.height()*offsetHeight), blur_effect);
+            float offsetHeight = 3;//isMaximized() ? 2.5 : 3;//isMaximized() ? 1.2 : 1;
+
+            if(titleAlignment == InternalSettings::AlignCenterFullWidth)
+            {
+                captionRect.setX(0);
+                captionRect.setWidth(size().width());
+            }
+            float xpos = captionRect.x();
+
+            if(titleAlignment == InternalSettings::AlignRight)
+            {
+                xpos += captionRect.width() - blurWidth;
+            }
+            else if(titleAlignment == InternalSettings::AlignCenter || titleAlignment == InternalSettings::AlignCenterFullWidth)
+            {
+                xpos += captionRect.width()/2 - blurWidth/2;
+            }
+            else
+            {
+                xpos *= 0.65;
+            }
+
+            painter->drawPixmap(QRect(xpos,(borderTop() - blurHeight*(offsetHeight/1.5)) / 2,blurWidth,blurHeight*offsetHeight), blur_effect);
             QPixmap text_pixmap = real_label.grab();
-            captionRect.translate(5, -1);
+
+            if(titleAlignment == InternalSettings::AlignRight)
+            {
+                captionRect.translate(-12, -1);
+            }
+            else if(titleAlignment == InternalSettings::AlignLeft)
+            {
+                captionRect.translate(5, -1);
+            }
+            else if(titleAlignment == InternalSettings::AlignCenterFullWidth || titleAlignment == InternalSettings::AlignCenter)
+            {
+                captionRect.translate(1, -1);
+            }
             painter->drawPixmap(captionRect, text_pixmap);
         }
     }

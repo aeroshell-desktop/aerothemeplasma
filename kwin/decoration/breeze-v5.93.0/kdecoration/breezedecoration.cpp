@@ -437,6 +437,9 @@ void Decoration::recalculateBorders()
 {
     const auto c = client();
     auto s = settings();
+    //auto d = qobject_cast<Decoration *>(decoration());
+
+    int titlebarHeight = internalSettings()->titlebarSize();
 
     // left, right and bottom borders
     int left = isMaximized() ? 0 : borderSize();
@@ -458,7 +461,7 @@ void Decoration::recalculateBorders()
         top += baseSize * Metrics::TitleBar_TopMargin;
     }
 
-    top = isMaximized() ? 22 : 30;
+    top = isMaximized() ? titlebarHeight+1 : titlebarHeight+9;
 
     if (hideInnerBorder())
     {

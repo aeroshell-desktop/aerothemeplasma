@@ -35,32 +35,42 @@ Button::Button(DecorationButtonType type, Decoration *decoration, QObject *paren
         setOpacity(value.toReal());
     });
 
+    int titlebarHeight = decoration->internalSettings()->titlebarSize();
+    int height = titlebarHeight-1;
+    int intendedWidth = 27;
     int width = 27;
-    int height = 20;
 
     switch (type)
     {
         case DecorationButtonType::Minimize:
-            width = 29;
+            intendedWidth = 29;
             break;
         case DecorationButtonType::Maximize:
-            width = 27;
+            intendedWidth = 27;
             break;
         case DecorationButtonType::Close:
-            width = 49;
+            intendedWidth = 49;
             break;
         case DecorationButtonType::Menu:
-            width = 16;
-            height = 20;
             break;
         default:
             break;
     }
+    width = (int)((float)titlebarHeight * ((float)intendedWidth / 21.0f) + 0.5f);
 
     // setup default geometry
     //const int height = decoration->buttonHeight();
+
     setGeometry(QRect(0, 0, width, height));
     setIconSize(QSize(width, height));
+
+    if(type == DecorationButtonType::Menu)
+    {
+        width = 16;
+        height = titlebarHeight;
+        setGeometry(QRect(0, 0, width, height));
+        setIconSize(QSize(width, width));
+    }
 
     // connections
     connect(decoration->client(), SIGNAL(iconChanged(QIcon)), this, SLOT(update()));
@@ -258,7 +268,7 @@ void Button::paint(QPainter *painter, const QRect &repaintRegion)
         }
 
     } else {
-        drawIcon(painter);
+        //drawIcon(painter);
     }
 
     painter->restore();

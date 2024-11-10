@@ -30,6 +30,7 @@ ConfigWidget::ConfigWidget(QObject *parent, const KPluginMetaData &data, const Q
     // track ui changes
     connect(m_ui.titleAlignment, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(m_ui.buttonSize, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
+    connect(m_ui.titlebarSize, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
     connect(m_ui.outlineCloseButton, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.drawBorderOnMaximizedWindows, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.drawBackgroundGradient, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
@@ -44,7 +45,7 @@ ConfigWidget::ConfigWidget(QObject *parent, const KPluginMetaData &data, const Q
     connect(m_ui.exceptions, &ExceptionListWidget::changed, this, &ConfigWidget::updateChanged);
 
     // set formatting
-    m_ui.drawBorderOnMaximizedWindowsHelpLabel->setFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
+    //m_ui.drawBorderOnMaximizedWindowsHelpLabel->setFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
 }
 
 //_________________________________________________________
@@ -57,6 +58,7 @@ void ConfigWidget::load()
     // assign to ui
     m_ui.titleAlignment->setCurrentIndex(m_internalSettings->titleAlignment());
     m_ui.buttonSize->setCurrentIndex(m_internalSettings->buttonSize());
+    m_ui.titlebarSize->setValue(m_internalSettings->titlebarSize());
     m_ui.drawBorderOnMaximizedWindows->setChecked(m_internalSettings->drawBorderOnMaximizedWindows());
     m_ui.outlineCloseButton->setChecked(m_internalSettings->outlineCloseButton());
     m_ui.drawBackgroundGradient->setChecked(m_internalSettings->drawBackgroundGradient());
@@ -83,6 +85,8 @@ void ConfigWidget::load()
     exceptions.readConfig(m_configuration);
     m_ui.exceptions->setExceptions(exceptions.get());
     setNeedsSave(false);
+
+    m_ui.hideWidget->setVisible(false);
 }
 
 //_________________________________________________________
@@ -95,6 +99,7 @@ void ConfigWidget::save()
     // apply modifications from ui
     m_internalSettings->setTitleAlignment(m_ui.titleAlignment->currentIndex());
     m_internalSettings->setButtonSize(m_ui.buttonSize->currentIndex());
+    m_internalSettings->setTitlebarSize(m_ui.titlebarSize->value());
     m_internalSettings->setOutlineCloseButton(m_ui.outlineCloseButton->isChecked());
     m_internalSettings->setDrawBorderOnMaximizedWindows(m_ui.drawBorderOnMaximizedWindows->isChecked());
     m_internalSettings->setDrawBackgroundGradient(m_ui.drawBackgroundGradient->isChecked());
@@ -138,6 +143,7 @@ void ConfigWidget::defaults()
     // assign to ui
     m_ui.titleAlignment->setCurrentIndex(m_internalSettings->titleAlignment());
     m_ui.buttonSize->setCurrentIndex(m_internalSettings->buttonSize());
+    m_ui.titlebarSize->setValue(m_internalSettings->titlebarSize());
     m_ui.outlineCloseButton->setChecked(m_internalSettings->outlineCloseButton());
     m_ui.drawBorderOnMaximizedWindows->setChecked(m_internalSettings->drawBorderOnMaximizedWindows());
     m_ui.drawBackgroundGradient->setChecked(m_internalSettings->drawBackgroundGradient());
@@ -162,6 +168,8 @@ void ConfigWidget::updateChanged()
     if (m_ui.titleAlignment->currentIndex() != m_internalSettings->titleAlignment()) {
         modified = true;
     } else if (m_ui.buttonSize->currentIndex() != m_internalSettings->buttonSize()) {
+        modified = true;
+    } else if (m_ui.titlebarSize->value() != m_internalSettings->titlebarSize()) {
         modified = true;
     } else if (m_ui.outlineCloseButton->isChecked() != m_internalSettings->outlineCloseButton()) {
         modified = true;

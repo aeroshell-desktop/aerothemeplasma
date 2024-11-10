@@ -62,9 +62,14 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
 
     // menu button
     if (type() == DecorationButtonType::Menu) {
-        const QRectF iconRect(geometry().topLeft(), m_iconSize);
         const auto c = decoration()->client();
-        if (auto deco = qobject_cast<Decoration *>(decoration())) {
+        auto deco = qobject_cast<Decoration *>(decoration());
+        QRectF iconRect(geometry().topLeft(), m_iconSize);
+        int titlebarHeight = deco->internalSettings()->titlebarSize();
+
+        iconRect.translate(0, (titlebarHeight - m_iconSize.height())/2);
+        c->icon().paint(painter, iconRect.toRect());
+        /*if (auto deco = qobject_cast<Decoration *>(decoration())) {
             const QPalette activePalette = KIconLoader::global()->customPalette();
             QPalette palette = c->palette();
             palette.setColor(QPalette::WindowText, deco->fontColor());
@@ -77,7 +82,7 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
             }
         } else {
             c->icon().paint(painter, iconRect.toRect());
-        }
+        }*/
 
     } else if (type() == DecorationButtonType::Close || type() == DecorationButtonType::Maximize || type() == DecorationButtonType::Minimize) {
         QRectF g = geometry();
