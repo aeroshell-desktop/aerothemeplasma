@@ -1,9 +1,9 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts
+import QtQuick.Dialogs
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
-import org.kde.iconthemes as KIconThemes
 import org.kde.ksvg as KSvg
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.extras as PlasmaExtras
@@ -18,17 +18,21 @@ RowLayout {
 
     signal iconChanged(string iconName)
 
-    //Layout.minimumWidth: previewFrame.width + Kirigami.Units.smallSpacing * 2
-    //Layout.maximumWidth: Layout.minimumWidth
-    //Layout.minimumHeight: previewFrame.height + Kirigami.Units.smallSpacing * 2
-    //Layout.maximumHeight: Layout.minimumWidth
-
-    KIconThemes.IconDialog {
+    FileDialog {
         id: iconDialog
-        onIconNameChanged: iconName => {
-            iconPreview.source = iconName
-            iconChanged(iconName)
+        onAccepted: {
+            var str = selectedFile.toString().toLowerCase();
+            console.log(str);
+            if(str.endsWith(".png")) {
+                iconPreview.source = selectedFile; //iconName
+                iconChanged(selectedFile);
+
+            } else {
+                selectedFile = "";
+            }
         }
+        nameFilters: ["PNG files (*.png)"]
+        fileMode: FileDialog.OpenFile
     }
     Layout.fillWidth: true
     ColumnLayout {
@@ -53,7 +57,6 @@ RowLayout {
 
     KSvg.FrameSvgItem {
         id: previewFrame
-        //anchors.centerIn: parent
         imagePath: Plasmoid.location === PlasmaCore.Types.Vertical || Plasmoid.location === PlasmaCore.Types.Horizontal
                     ? "widgets/panel-background" : "widgets/background"
         Layout.preferredWidth: Kirigami.Units.iconSizes.large + fixedMargins.left + fixedMargins.right
@@ -73,22 +76,4 @@ RowLayout {
         iconPreview.source = defaultIcon
         iconChanged(defaultIcon)
     }
-
-
-    // QQC Menu can only be opened at cursor position, not a random one
-    /*PlasmaExtras.Menu {
-        id: iconMenu
-
-
-        PlasmaExtras.MenuItem {
-            text: i18nc("@item:inmenu Open icon chooser dialog", "Choose...")
-            icon: "document-open-folder"
-            onClicked: iconDialog.open()
-        }
-        PlasmaExtras.MenuItem {
-            text: i18nc("@item:inmenu Reset icon to default", "Clear Icon")
-            icon: "edit-clear"
-            onClicked: setDefaultIcon()
-        }
-    }*/
 }
