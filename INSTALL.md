@@ -55,7 +55,7 @@ Make sure to compile the C++ components of plasmoids located in ```plasmoids/src
 
 This section relates to the directories found in the ```kwin``` folder.
 
-1. Compile the decoration theme and C++ KWin effects (found in ```effects_cpp``` and ```decoration``` respectively) using the provided install scripts.
+1. Compile the decoration theme and C++ KWin effects (found in ```decoration``` and ```effects_cpp``` respectively) using the provided install scripts. (Make sure to first build the decoration theme, as some C++ effects depend on it)
 2. Move ```effects```, ```tabbox```, ```outline```, ```scripts``` to ```~/.local/share/kwin```.
 3. In System Settings, apply the following settings: 
 - In Window Behavior -> Titlebar Actions: 

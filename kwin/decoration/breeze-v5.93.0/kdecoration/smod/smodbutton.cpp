@@ -48,6 +48,8 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
     }
 
     painter->save();
+    auto deco = qobject_cast<Decoration *>(decoration());
+    int titlebarHeight = deco->internalSettings()->titlebarSize();
 
     // translate from offset
     if (m_flag == FlagFirstInList) {
@@ -63,9 +65,7 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
     // menu button
     if (type() == DecorationButtonType::Menu) {
         const auto c = decoration()->client();
-        auto deco = qobject_cast<Decoration *>(decoration());
         QRectF iconRect(geometry().topLeft(), m_iconSize);
-        int titlebarHeight = deco->internalSettings()->titlebarSize();
 
         iconRect.translate(0, (titlebarHeight - m_iconSize.height())/2);
         c->icon().paint(painter, iconRect.toRect());
@@ -88,7 +88,15 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
         QRectF g = geometry();
         qreal w = g.width();
         qreal h = g.height();
+
+        int s_margin_top = 0;
+        int s_margin_left = 0;
+        int s_margin_right = 0;
+        int s_margin_bottom = 0;
+
         const auto c = decoration()->client();
+
+        bool isSingleClose = !(c->isMinimizeable() || c->isMaximizeable());
 
         painter->translate(g.topLeft());
 
@@ -100,16 +108,21 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
 
         QPoint glyphOffset;
 
+        QString dpiScale = "";
+
+        if(titlebarHeight >= 22 && titlebarHeight < 25) dpiScale = "@1.25x";
+        else if(titlebarHeight >= 25 && titlebarHeight < 27) dpiScale = "@1.5x";
+        else if(titlebarHeight >= 27) dpiScale = "@2x";
+
         switch (type())
         {
             case DecorationButtonType::Minimize:
-                glyphOffset = QPoint(10, 9);
 
                 if (c->isActive())
                 {
-                    glyph       = QPixmap(":/smod/decoration/minimize-glyph");
-                    glyphHover  = QPixmap(":/smod/decoration/minimize-hover-glyph");
-                    glyphActive = QPixmap(":/smod/decoration/minimize-active-glyph");
+                    glyph       = QPixmap(":/smod/decoration/minimize-glyph" + dpiScale);
+                    glyphHover  = QPixmap(":/smod/decoration/minimize-hover-glyph" + dpiScale);
+                    glyphActive = QPixmap(":/smod/decoration/minimize-active-glyph" + dpiScale);
 
                     normal      = QPixmap(":/smod/decoration/minimize");
                     hover       = QPixmap(":/smod/decoration/minimize-hover");
@@ -117,9 +130,9 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
                 }
                 else
                 {
-                    glyph       = QPixmap(":/smod/decoration/minimize-glyph");
-                    glyphHover  = QPixmap(":/smod/decoration/minimize-hover-glyph");
-                    glyphActive = QPixmap(":/smod/decoration/minimize-active-glyph");
+                    glyph       = QPixmap(":/smod/decoration/minimize-glyph" + dpiScale);
+                    glyphHover  = QPixmap(":/smod/decoration/minimize-hover-glyph" + dpiScale);
+                    glyphActive = QPixmap(":/smod/decoration/minimize-active-glyph" + dpiScale);
 
                     normal      = QPixmap(":/smod/decoration/minimize-unfocus");
                     hover       = QPixmap(":/smod/decoration/minimize-unfocus-hover");
@@ -128,19 +141,24 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
 
                 if (!isEnabled())
                 {
-                    glyph = QPixmap(":/smod/decoration/minimize-inactive-glyph");
+                    glyph = QPixmap(":/smod/decoration/minimize-inactive-glyph" + dpiScale);
                 }
+
+                glyphOffset = QPoint(ceil(w / 2.0 - glyph.width() / 2.0) + 1, floor((titlebarHeight-1) / 2.0) - glyph.height() / 2.0 - (titlebarHeight != 20 ? 1 : 0));
+                s_margin_top = 1;
+                s_margin_left = 5;
+                s_margin_bottom = 5;
+                s_margin_right = 1;
                 break;
             case DecorationButtonType::Maximize:
                 if (d && d->isMaximized())
                 {
-                    glyphOffset = QPoint(7, 3);
 
                     if (c->isActive())
                     {
-                        glyph       = QPixmap(":/smod/decoration/restore-glyph");
-                        glyphHover  = QPixmap(":/smod/decoration/restore-hover-glyph");
-                        glyphActive = QPixmap(":/smod/decoration/restore-active-glyph");
+                        glyph       = QPixmap(":/smod/decoration/restore-glyph" + dpiScale);
+                        glyphHover  = QPixmap(":/smod/decoration/restore-hover-glyph" + dpiScale);
+                        glyphActive = QPixmap(":/smod/decoration/restore-active-glyph" + dpiScale);
 
                         normal      = QPixmap(":/smod/decoration/maximize");
                         hover       = QPixmap(":/smod/decoration/maximize-hover");
@@ -148,24 +166,25 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
                     }
                     else
                     {
-                        glyph       = QPixmap(":/smod/decoration/restore-glyph");
-                        glyphHover  = QPixmap(":/smod/decoration/restore-hover-glyph");
-                        glyphActive = QPixmap(":/smod/decoration/restore-active-glyph");
+                        glyph       = QPixmap(":/smod/decoration/restore-glyph" + dpiScale);
+                        glyphHover  = QPixmap(":/smod/decoration/restore-hover-glyph" + dpiScale);
+                        glyphActive = QPixmap(":/smod/decoration/restore-active-glyph" + dpiScale);
 
                         normal      = QPixmap(":/smod/decoration/maximize-unfocus");
                         hover       = QPixmap(":/smod/decoration/maximize-unfocus-hover");
                         active      = QPixmap(":/smod/decoration/maximize-unfocus-active");
                     }
+
+                    glyphOffset = QPoint(floor(w / 2.0 - glyph.width() / 2.0), floor((titlebarHeight-1) / 2.0) - glyph.height() / 2.0 - (titlebarHeight != 20 ? 1 : 0));
                 }
                 else
                 {
-                    glyphOffset = QPoint(8, 4);
 
                     if (c->isActive())
                     {
-                        glyph       = QPixmap(":/smod/decoration/maximize-glyph");
-                        glyphHover  = QPixmap(":/smod/decoration/maximize-hover-glyph");
-                        glyphActive = QPixmap(":/smod/decoration/maximize-active-glyph");
+                        glyph       = QPixmap(":/smod/decoration/maximize-glyph" + dpiScale);
+                        glyphHover  = QPixmap(":/smod/decoration/maximize-hover-glyph" + dpiScale);
+                        glyphActive = QPixmap(":/smod/decoration/maximize-active-glyph" + dpiScale);
 
                         normal      = QPixmap(":/smod/decoration/maximize");
                         hover       = QPixmap(":/smod/decoration/maximize-hover");
@@ -173,49 +192,77 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
                     }
                     else
                     {
-                        glyph       = QPixmap(":/smod/decoration/maximize-glyph");
-                        glyphHover  = QPixmap(":/smod/decoration/maximize-hover-glyph");
-                        glyphActive = QPixmap(":/smod/decoration/maximize-active-glyph");
+                        glyph       = QPixmap(":/smod/decoration/maximize-glyph" + dpiScale);
+                        glyphHover  = QPixmap(":/smod/decoration/maximize-hover-glyph" + dpiScale);
+                        glyphActive = QPixmap(":/smod/decoration/maximize-active-glyph" + dpiScale);
 
                         normal      = QPixmap(":/smod/decoration/maximize-unfocus");
                         hover       = QPixmap(":/smod/decoration/maximize-unfocus-hover");
                         active      = QPixmap(":/smod/decoration/maximize-unfocus-active");
                     }
+                    glyphOffset = QPoint(ceil(w / 2.0) - glyph.width() / 2.0 + ((titlebarHeight < 21) ? 1 : 0), floor((titlebarHeight-1) / 2.0) - glyph.height() / 2.0 - (titlebarHeight != 20 ? 1 : 0));
                 }
 
                 if (!isEnabled())
                 {
-                    glyph = QPixmap(":/smod/decoration/maximize-inactive-glyph");
+                    glyph = QPixmap(":/smod/decoration/maximize-inactive-glyph" + dpiScale);
                 }
+                s_margin_top = 1;
+                s_margin_left = 2;
+                s_margin_bottom = 3;
+                s_margin_right = 1;
                 break;
             case DecorationButtonType::Close:
-                glyphOffset = QPoint(19, 4);
-
                 if (c->isActive())
                 {
-                    glyph       = QPixmap(":/smod/decoration/close-glyph");
-                    glyphHover  = QPixmap(":/smod/decoration/close-hover-glyph");
-                    glyphActive = QPixmap(":/smod/decoration/close-active-glyph");
+                    glyph       = QPixmap(":/smod/decoration/close-glyph" + dpiScale);
+                    glyphHover  = QPixmap(":/smod/decoration/close-hover-glyph" + dpiScale);
+                    glyphActive = QPixmap(":/smod/decoration/close-active-glyph" + dpiScale);
 
-                    normal      = QPixmap(":/smod/decoration/close");
-                    hover       = QPixmap(":/smod/decoration/close-hover");
-                    active      = QPixmap(":/smod/decoration/close-active");
+                    if(isSingleClose)
+                    {
+                        normal      = QPixmap(":/smod/decoration/close-single");
+                        hover       = QPixmap(":/smod/decoration/close-single-hover");
+                        active      = QPixmap(":/smod/decoration/close-single-active");
+                    }
+                    else
+                    {
+                        normal      = QPixmap(":/smod/decoration/close");
+                        hover       = QPixmap(":/smod/decoration/close-hover");
+                        active      = QPixmap(":/smod/decoration/close-active");
+                    }
                 }
                 else
                 {
-                    glyph       = QPixmap(":/smod/decoration/close-glyph");
-                    glyphHover  = QPixmap(":/smod/decoration/close-hover-glyph");
-                    glyphActive = QPixmap(":/smod/decoration/close-active-glyph");
+                    glyph       = QPixmap(":/smod/decoration/close-glyph" + dpiScale);
+                    glyphHover  = QPixmap(":/smod/decoration/close-hover-glyph" + dpiScale);
+                    glyphActive = QPixmap(":/smod/decoration/close-active-glyph" + dpiScale);
 
-                    normal      = QPixmap(":/smod/decoration/close-unfocus");
-                    hover       = QPixmap(":/smod/decoration/close-unfocus-hover");
-                    active      = QPixmap(":/smod/decoration/close-unfocus-active");
+                    if(isSingleClose)
+                    {
+                        normal      = QPixmap(":/smod/decoration/close-single-unfocus");
+                        hover       = QPixmap(":/smod/decoration/close-single-unfocus-hover");
+                        active      = QPixmap(":/smod/decoration/close-single-unfocus-active");
+                    }
+                    else
+                    {
+                        normal      = QPixmap(":/smod/decoration/close-unfocus");
+                        hover       = QPixmap(":/smod/decoration/close-unfocus-hover");
+                        active      = QPixmap(":/smod/decoration/close-unfocus-active");
+                    }
                 }
 
                 if (!isEnabled())
                 {
-                    glyph = QPixmap(":/smod/decoration/close-inactive-glyph");
+                    glyph = QPixmap(":/smod/decoration/close-inactive-glyph" + dpiScale);
                 }
+
+                glyphOffset = QPoint(floor(w / 2.0 - glyph.width() / 2.0), floor((titlebarHeight-1) / 2.0) - glyph.height() / 2.0 - (titlebarHeight != 20 ? 1 : 0));
+                s_margin_top = 1;
+                s_margin_left = 2;
+                s_margin_bottom = 5;
+                s_margin_right = 5;
+
                 break;
             default:
                 break;
@@ -226,19 +273,35 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
         hImage = hover.toImage();
         aImage = active.toImage();
 
+        /*
+         * Convention:
+         * 0 - topleft,    1 - top,    2 - topright,
+         * 3 - left,       4 - center, 5 - right,
+         * 6 - bottomleft, 7 - bottom, 8 - bottomright
+         */
+        QPainter::PixmapFragment fragments[9];
+
+        fragments[0].opacity = 1.0;
+        fragments[0].rotation = 0.0;
+
+
+
+
         if (!isPressed())
         {
             image = hoverImage(image, hImage, m_hoverProgress);
 
             painter->drawImage(QRectF(0, 0, w, h), image);
-            painter->drawPixmap(glyphOffset, glyph);
+            painter->drawPixmap(glyphOffset.x(), glyphOffset.y(), glyph.width(), glyph.height(), glyph);
         }
         else
         {
             painter->drawImage(QRectF(0, 0, w, h), aImage);
-            painter->drawPixmap(glyphOffset, glyphActive);
+            painter->drawPixmap(glyphOffset.x(), glyphOffset.y(), glyph.width(), glyph.height(), glyph);
         }
-    } else {
+    }
+    else
+    {
         drawIcon(painter);
     }
 

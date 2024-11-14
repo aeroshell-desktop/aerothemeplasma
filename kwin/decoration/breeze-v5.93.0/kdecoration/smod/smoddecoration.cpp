@@ -40,6 +40,7 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
     int SIDEBAR_HEIGHT = qMax(25, (size().height() / 4));
 
     painter->setOpacity(0.75);
+    painter->setClipRegion(blurRegion());
 
     if (c->isActive())
     {
