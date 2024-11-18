@@ -41,6 +41,7 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
 
     painter->setOpacity(0.75);
     painter->setClipRegion(blurRegion());
+    painter->setClipping(true);
 
     if (c->isActive())
     {
@@ -100,6 +101,7 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
     }
 
     painter->setOpacity(1.0);
+    painter->setClipping(false);
 }
 
 void Decoration::smodPaintOuterBorder(QPainter *painter, const QRect &repaintRegion)
