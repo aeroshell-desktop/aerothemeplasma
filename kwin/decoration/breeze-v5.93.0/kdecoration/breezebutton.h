@@ -103,6 +103,7 @@ public:
     void setHoverProgress(qreal hoverProgress);
 
     void smodPaintGlow(QPainter *painter, const QRect &repaintArea);
+    void updateGeometry();
 signals:
     void buttonHoverStatus(KDecoration2::DecorationButtonType button, bool hovered, QPoint pos);
 

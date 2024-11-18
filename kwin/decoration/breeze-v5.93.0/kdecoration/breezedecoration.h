@@ -68,6 +68,8 @@ public:
     //* button height
     int buttonHeight() const;
 
+    QRect buttonRect(KDecoration2::DecorationButtonType button) const;
+
     //*@name active state change animation
     //@{
     void setOpacity(qreal);

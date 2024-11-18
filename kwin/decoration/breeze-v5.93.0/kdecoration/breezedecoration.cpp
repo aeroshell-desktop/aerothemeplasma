@@ -430,6 +430,11 @@ void Decoration::reconfigure()
 
     // shadow
     updateShadow();
+
+    updateButtonsGeometryDelayed();
+    update();
+
+
 }
 
 //________________________________________________________________
@@ -532,151 +537,20 @@ void Decoration::updateButtonsGeometry()
         m_rightButtons->setPos(QPointF(
             size().width() - m_rightButtons->geometry().width() - borderRight() - (isMaximized() ? 2 : 0) + lessPadding, vPadding));
     }
+    foreach (QPointer<KDecoration2::DecorationButton> button, m_rightButtons->buttons()) {
+        static_cast<Button *>(button.data())->updateGeometry();
+    }
 
     update();
 
     return;
-
-    // adjust button position
-    const int bHeight = captionHeight() + (isTopEdge() ? s->smallSpacing() * Metrics::TitleBar_TopMargin : 0);
-    const int bWidth = buttonHeight();
-    const int verticalOffset = (isTopEdge() ? s->smallSpacing() * Metrics::TitleBar_TopMargin : 0) + (captionHeight() - buttonHeight()) / 2;
-    const auto buttonList = m_leftButtons->buttons() + m_rightButtons->buttons();
-    for (const QPointer<KDecoration2::DecorationButton> &button : buttonList) {
-        button.data()->setGeometry(QRectF(QPoint(0, 0), QSizeF(bWidth, bHeight)));
-        static_cast<Button *>(button.data())->setOffset(QPointF(0, verticalOffset));
-        static_cast<Button *>(button.data())->setIconSize(QSize(bWidth, bWidth));
-    }
-
-    // left buttons
-    if (!m_leftButtons->buttons().isEmpty()) {
-        // spacing
-        m_leftButtons->setSpacing(s->smallSpacing() * Metrics::TitleBar_ButtonSpacing);
-
-        // padding
-        const int vPadding = isTopEdge() ? 0 : s->smallSpacing() * Metrics::TitleBar_TopMargin;
-        const int hPadding = s->smallSpacing() * Metrics::TitleBar_SideMargin;
-        if (isLeftEdge()) {
-            // add offsets on the side buttons, to preserve padding, but satisfy Fitts law
-            auto button = static_cast<Button *>(m_leftButtons->buttons().front());
-            button->setGeometry(QRectF(QPoint(0, 0), QSizeF(bWidth + hPadding, bHeight)));
-            button->setFlag(Button::FlagFirstInList);
-            button->setHorizontalOffset(hPadding);
-
-            m_leftButtons->setPos(QPointF(0, vPadding));
-
-        } else {
-            m_leftButtons->setPos(QPointF(hPadding + borderLeft(), vPadding));
-        }
-    }
-
-    // right buttons
-    if (!m_rightButtons->buttons().isEmpty()) {
-        // spacing
-        m_rightButtons->setSpacing(s->smallSpacing() * Metrics::TitleBar_ButtonSpacing);
-
-        // padding
-        const int vPadding = isTopEdge() ? 0 : s->smallSpacing() * Metrics::TitleBar_TopMargin;
-        const int hPadding = s->smallSpacing() * Metrics::TitleBar_SideMargin;
-        if (isRightEdge()) {
-            auto button = static_cast<Button *>(m_rightButtons->buttons().back());
-            button->setGeometry(QRectF(QPoint(0, 0), QSizeF(bWidth + hPadding, bHeight)));
-            button->setFlag(Button::FlagLastInList);
-
-            m_rightButtons->setPos(QPointF(size().width() - m_rightButtons->geometry().width(), vPadding));
-
-        } else {
-            m_rightButtons->setPos(QPointF(size().width() - m_rightButtons->geometry().width() - hPadding - borderRight(), vPadding));
-        }
-    }
-
-    update();
 }
 
 //________________________________________________________________
 void Decoration::paint(QPainter *painter, const QRect &repaintRegion)
 {
     smodPaint(painter, repaintRegion);
-
     return;
-
-    // TODO: optimize based on repaintRegion
-    auto c = client();
-    auto s = settings();
-    // paint background
-    if (!c->isShaded()) {
-        painter->fillRect(rect(), Qt::transparent);
-        painter->save();
-        painter->setRenderHint(QPainter::Antialiasing);
-        painter->setPen(Qt::NoPen);
-        painter->setBrush(c->color(c->isActive() ? ColorGroup::Active : ColorGroup::Inactive, ColorRole::Frame));
-
-        // clip away the top part
-        if (!hideTitleBar()) {
-            painter->setClipRect(0, borderTop(), size().width(), size().height() - borderTop(), Qt::IntersectClip);
-        }
-
-        if (s->isAlphaChannelSupported()) {
-            if (hasNoBorders()) {
-                painter->drawRoundedRect(rect(), 0, 0);
-            } else {
-                painter->drawRoundedRect(rect(), m_scaledCornerRadius, m_scaledCornerRadius);
-            }
-        } else {
-            painter->drawRect(rect());
-        }
-
-        painter->restore();
-    }
-
-    if (!hideTitleBar()) {
-        paintTitleBar(painter, repaintRegion);
-    }
-
-    if (hasBorders() && !s->isAlphaChannelSupported()) {
-        painter->save();
-        painter->setRenderHint(QPainter::Antialiasing, false);
-        painter->setBrush(Qt::NoBrush);
-        painter->setPen(c->isActive() ? c->color(ColorGroup::Active, ColorRole::TitleBar) : c->color(ColorGroup::Inactive, ColorRole::Foreground));
-
-        painter->drawRect(rect().adjusted(0, 0, -1, -1));
-        painter->restore();
-    }
-    if (outlinesEnabled() && !isMaximized()) {
-        auto outlineColor = KColorUtils::mix(c->color(c->isActive() ? ColorGroup::Active : ColorGroup::Inactive, ColorRole::Frame),
-                                             c->palette().text().color(),
-                                             lookupOutlineIntensity(m_internalSettings->outlineIntensity()));
-
-        QRectF outlineRect = rect();
-        qreal cornerSize = m_scaledCornerRadius * 2.0;
-        QRectF cornerRect(outlineRect.x(), outlineRect.y(), cornerSize, cornerSize);
-
-        QPainterPath outlinePath;
-        outlinePath.arcMoveTo(cornerRect, 180);
-        outlinePath.arcTo(cornerRect, 180, -90);
-        cornerRect.moveTopRight(outlineRect.topRight());
-        outlinePath.arcTo(cornerRect, 90, -90);
-        // Check if border size is "no borders" or "no side-borders"
-        if (hasNoBorders()) {
-            outlinePath.lineTo(outlineRect.bottomRight());
-            outlinePath.lineTo(outlineRect.bottomLeft());
-        } else {
-            cornerRect.moveBottomRight(outlineRect.bottomRight());
-            outlinePath.arcTo(cornerRect, 0, -90);
-            cornerRect.moveBottomLeft(outlineRect.bottomLeft());
-            outlinePath.arcTo(cornerRect, 270, -90);
-        }
-        outlinePath.closeSubpath();
-
-        painter->fillPath(outlinePath.simplified(), Qt::transparent);
-        painter->save();
-        painter->setPen(QPen(outlineColor, 2));
-        painter->setBrush(Qt::NoBrush);
-        painter->setRenderHint(QPainter::Antialiasing);
-        painter->setCompositionMode(QPainter::CompositionMode_SourceAtop);
-        painter->drawPath(outlinePath.simplified());
-        painter->restore();
-    }
 }
 
 //________________________________________________________________
@@ -763,6 +637,33 @@ void Decoration::paintTitleBar(QPainter *painter, const QRect &repaintRegion)
     }*/
 }
 
+QRect Decoration::buttonRect(KDecoration2::DecorationButtonType button) const
+{
+    int titlebarHeight = m_internalSettings->titlebarSize();
+    int height = titlebarHeight-1;
+    int intendedWidth = 27;
+    int width = 0;
+    switch (button)
+    {
+        case KDecoration2::DecorationButtonType::Minimize:
+            intendedWidth = 29;
+            break;
+        case KDecoration2::DecorationButtonType::Maximize:
+            intendedWidth = 27;
+            break;
+        case KDecoration2::DecorationButtonType::Close:
+            intendedWidth = 49;
+            break;
+        case KDecoration2::DecorationButtonType::Menu:
+            height = titlebarHeight;
+            break;
+        default:
+            break;
+    }
+    if(button == KDecoration2::DecorationButtonType::Menu) width = 16;
+    else width = (int)((float)titlebarHeight * ((float)intendedWidth / 21.0f) + 0.5f);
+    return QRect(0, 0, width, height);
+}
 //________________________________________________________________
 int Decoration::buttonHeight() const
 {

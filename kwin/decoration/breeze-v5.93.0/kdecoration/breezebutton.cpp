@@ -35,42 +35,8 @@ Button::Button(DecorationButtonType type, Decoration *decoration, QObject *paren
         setOpacity(value.toReal());
     });
 
-    int titlebarHeight = decoration->internalSettings()->titlebarSize();
-    int height = titlebarHeight-1;
-    int intendedWidth = 27;
-    int width = 27;
 
-    switch (type)
-    {
-        case DecorationButtonType::Minimize:
-            intendedWidth = 29;
-            break;
-        case DecorationButtonType::Maximize:
-            intendedWidth = 27;
-            break;
-        case DecorationButtonType::Close:
-            intendedWidth = 49;
-            break;
-        case DecorationButtonType::Menu:
-            break;
-        default:
-            break;
-    }
-    width = (int)((float)titlebarHeight * ((float)intendedWidth / 21.0f) + 0.5f);
-
-    // setup default geometry
-    //const int height = decoration->buttonHeight();
-
-    setGeometry(QRect(0, 0, width, height));
-    setIconSize(QSize(width, height));
-
-    if(type == DecorationButtonType::Menu)
-    {
-        width = 16;
-        height = titlebarHeight;
-        setGeometry(QRect(0, 0, width, height));
-        setIconSize(QSize(width, width));
-    }
+    updateGeometry();
 
     // connections
     connect(decoration->client(), SIGNAL(iconChanged(QIcon)), this, SLOT(update()));
@@ -80,6 +46,13 @@ Button::Button(DecorationButtonType type, Decoration *decoration, QObject *paren
     connect(this, &Button::buttonHoverStatus, decoration, &Decoration::buttonHoverStatus);
 
     reconfigure();
+}
+void Button::updateGeometry()
+{
+    auto d = qobject_cast<Decoration *>(decoration());
+    QRect buttonRect = d->buttonRect(type());
+    setGeometry(buttonRect);
+    setIconSize(buttonRect.size());
 }
 
 //__________________________________________________________________
@@ -228,50 +201,7 @@ Button *Button::create(DecorationButtonType type, KDecoration2::Decoration *deco
 void Button::paint(QPainter *painter, const QRect &repaintRegion)
 {
     smodPaint(painter, repaintRegion);
-
     return;
-
-    if (!decoration()) {
-        return;
-    }
-
-    painter->save();
-
-    // translate from offset
-    if (m_flag == FlagFirstInList) {
-        painter->translate(m_offset);
-    } else {
-        painter->translate(0, m_offset.y());
-    }
-
-    if (!m_iconSize.isValid() || isStandAlone()) {
-        m_iconSize = geometry().size().toSize();
-    }
-
-    // menu button
-    if (type() == DecorationButtonType::Menu) {
-        const QRectF iconRect(geometry().topLeft(), m_iconSize);
-        const auto c = decoration()->client();
-        if (auto deco = qobject_cast<Decoration *>(decoration())) {
-            const QPalette activePalette = KIconLoader::global()->customPalette();
-            QPalette palette = c->palette();
-            palette.setColor(QPalette::WindowText, deco->fontColor());
-            KIconLoader::global()->setCustomPalette(palette);
-            c->icon().paint(painter, iconRect.toRect());
-            if (activePalette == QPalette()) {
-                KIconLoader::global()->resetPalette();
-            } else {
-                KIconLoader::global()->setCustomPalette(palette);
-            }
-        } else {
-            c->icon().paint(painter, iconRect.toRect());
-        }
-
-    } else {
-        //drawIcon(painter);
-    }
-
-    painter->restore();
 }
 
 //__________________________________________________________________

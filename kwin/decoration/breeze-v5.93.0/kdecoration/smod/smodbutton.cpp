@@ -52,47 +52,40 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
     int titlebarHeight = deco->internalSettings()->titlebarSize();
 
     // translate from offset
-    if (m_flag == FlagFirstInList) {
+    if (m_flag == FlagFirstInList)
+    {
         painter->translate(m_offset);
-    } else {
+    }
+    else
+    {
         painter->translate(0, m_offset.y());
     }
 
-    if (!m_iconSize.isValid() || isStandAlone()) {
+    if (!m_iconSize.isValid() || isStandAlone())
+    {
         m_iconSize = geometry().size().toSize();
     }
 
     // menu button
-    if (type() == DecorationButtonType::Menu) {
+    if (type() == DecorationButtonType::Menu)
+    {
         const auto c = decoration()->client();
         QRectF iconRect(geometry().topLeft(), m_iconSize);
 
         iconRect.translate(0, (titlebarHeight - m_iconSize.height())/2);
         c->icon().paint(painter, iconRect.toRect());
-        /*if (auto deco = qobject_cast<Decoration *>(decoration())) {
-            const QPalette activePalette = KIconLoader::global()->customPalette();
-            QPalette palette = c->palette();
-            palette.setColor(QPalette::WindowText, deco->fontColor());
-            KIconLoader::global()->setCustomPalette(palette);
-            c->icon().paint(painter, iconRect.toRect());
-            if (activePalette == QPalette()) {
-                KIconLoader::global()->resetPalette();
-            } else {
-                KIconLoader::global()->setCustomPalette(palette);
-            }
-        } else {
-            c->icon().paint(painter, iconRect.toRect());
-        }*/
 
-    } else if (type() == DecorationButtonType::Close || type() == DecorationButtonType::Maximize || type() == DecorationButtonType::Minimize) {
+    }
+    else if (type() == DecorationButtonType::Close || type() == DecorationButtonType::Maximize || type() == DecorationButtonType::Minimize)
+    {
         QRectF g = geometry();
         qreal w = g.width();
         qreal h = g.height();
 
-        int s_margin_top = 0;
-        int s_margin_left = 0;
-        int s_margin_right = 0;
-        int s_margin_bottom = 0;
+        int l = 0;
+        int t = 0;
+        int r = 0;
+        int b = 0;
 
         const auto c = decoration()->client();
 
@@ -145,10 +138,10 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
                 }
 
                 glyphOffset = QPoint(ceil(w / 2.0 - glyph.width() / 2.0) + 1, floor((titlebarHeight-1) / 2.0) - glyph.height() / 2.0 - (titlebarHeight != 20 ? 1 : 0));
-                s_margin_top = 1;
-                s_margin_left = 5;
-                s_margin_bottom = 5;
-                s_margin_right = 1;
+                l = 12;
+                t = 6;
+                r = 12;
+                b = 8;
                 break;
             case DecorationButtonType::Maximize:
                 if (d && d->isMaximized())
@@ -207,10 +200,10 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
                 {
                     glyph = QPixmap(":/smod/decoration/maximize-inactive-glyph" + dpiScale);
                 }
-                s_margin_top = 1;
-                s_margin_left = 2;
-                s_margin_bottom = 3;
-                s_margin_right = 1;
+                l = 12;
+                t = 6;
+                r = 12;
+                b = 8;
                 break;
             case DecorationButtonType::Close:
                 if (c->isActive())
@@ -258,10 +251,10 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
                 }
 
                 glyphOffset = QPoint(floor(w / 2.0 - glyph.width() / 2.0), floor((titlebarHeight-1) / 2.0) - glyph.height() / 2.0 - (titlebarHeight != 20 ? 1 : 0));
-                s_margin_top = 1;
-                s_margin_left = 2;
-                s_margin_bottom = 5;
-                s_margin_right = 5;
+                l = 20;
+                t = 6;
+                r = 20;
+                b = 8;
 
                 break;
             default:
@@ -281,22 +274,116 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
          */
         QPainter::PixmapFragment fragments[9];
 
-        fragments[0].opacity = 1.0;
-        fragments[0].rotation = 0.0;
+        for(int i = 0; i < 9; i++)
+        {
+            fragments[i].opacity = 1.0;
+            fragments[i].rotation = 0.0;
+        }
+        // TopLeft
+        fragments[0].sourceLeft = 0;
+        fragments[0].sourceTop = 0;
+        fragments[0].width = l;
+        fragments[0].height = t;
+        fragments[0].scaleY = 1.0;
+        fragments[0].scaleX = 1.0;
+        fragments[0].x = (0 + fragments[0].width / 2);
+        fragments[0].y = (0 + fragments[0].height / 2);
 
+        // TopRight
+        fragments[2].sourceLeft = normal.width() - r;
+        fragments[2].sourceTop = 0;
+        fragments[2].width = r;
+        fragments[2].height = t;
+        fragments[2].scaleY = 1.0;
+        fragments[2].scaleX = 1.0;
+        fragments[2].x = (w - r + fragments[2].width / 2);
+        fragments[2].y = (0     + fragments[2].height / 2);
 
+        // BottomLeft
+        fragments[6].sourceLeft = 0;
+        fragments[6].sourceTop = normal.height() - b;
+        fragments[6].width = l;
+        fragments[6].height = b;
+        fragments[6].scaleY = 1.0;
+        fragments[6].scaleX = 1.0;
+        fragments[6].x = (0     + fragments[6].width / 2);
+        fragments[6].y = (h - b + fragments[6].height / 2);
 
+        // BottomRight
+        fragments[8].sourceLeft = normal.width() - r;
+        fragments[8].sourceTop = normal.height() - b;
+        fragments[8].width = r;
+        fragments[8].height = b;
+        fragments[8].scaleY = 1.0;
+        fragments[8].scaleX = 1.0;
+        fragments[8].x = (w - r + fragments[8].width / 2);
+        fragments[8].y = (h - b + fragments[8].height / 2);
 
+        // Top
+        fragments[1].sourceLeft = l;
+        fragments[1].sourceTop = 0;
+        fragments[1].width = normal.width() - l - r;
+        fragments[1].height = t;
+        fragments[1].scaleY = 1.0;
+        fragments[1].scaleX = (w-l-r) / fragments[1].width;
+        fragments[1].x = (l + fragments[1].width*fragments[1].scaleX / 2);
+        fragments[1].y = (0 + fragments[1].height*fragments[1].scaleY / 2);
+
+        // Left
+        fragments[3].sourceLeft = 0;
+        fragments[3].sourceTop = t;
+        fragments[3].width = l;
+        fragments[3].height = normal.height() - t - b;
+        fragments[3].scaleX = 1.0;
+        fragments[3].scaleY = (h-t-b) / fragments[3].height;
+        fragments[3].x = (0 + fragments[3].width*fragments[3].scaleX / 2);
+        fragments[3].y = (t + fragments[3].height*fragments[3].scaleY / 2);
+
+        // Right
+        fragments[5].sourceLeft = normal.width() - r;
+        fragments[5].sourceTop = t;
+        fragments[5].width = r;
+        fragments[5].height = normal.height() - t - b;
+        fragments[5].scaleX = 1.0;
+        fragments[5].scaleY = (h-t-b) / fragments[5].height;
+        fragments[5].x = (w-r + fragments[5].width*fragments[5].scaleX / 2);
+        fragments[5].y = (t   + fragments[5].height*fragments[5].scaleY / 2);
+
+        // Center
+        fragments[4].sourceLeft = l;
+        fragments[4].sourceTop = t;
+        fragments[4].width = normal.width() - l - r;
+        fragments[4].height = normal.height() - t - b;
+        fragments[4].scaleX = (w-l-r) / fragments[4].width;
+        fragments[4].scaleY = (h-t-b) / fragments[4].height;
+        fragments[4].x = (l + fragments[4].width*fragments[4].scaleX / 2);
+        fragments[4].y = (t + fragments[4].height*fragments[4].scaleY / 2);
+
+        // Bottom
+        fragments[7].sourceLeft = l;
+        fragments[7].sourceTop = normal.height() - b;
+        fragments[7].width = normal.width() - l - r;
+        fragments[7].height = b;
+        fragments[7].scaleY = 1.0;
+        fragments[7].scaleX = (w-l-r) / fragments[7].width;
+        fragments[7].x = (l + fragments[7].width*fragments[7].scaleX / 2);
+        fragments[7].y = (h-b + fragments[7].height*fragments[7].scaleY / 2);
+
+        painter->setRenderHint(QPainter::Antialiasing, true);
+        painter->setRenderHint(QPainter::SmoothPixmapTransform, true);
         if (!isPressed())
         {
             image = hoverImage(image, hImage, m_hoverProgress);
 
-            painter->drawImage(QRectF(0, 0, w, h), image);
+            normal.convertFromImage(image);
+            painter->drawPixmapFragments(fragments, 9, normal);
             painter->drawPixmap(glyphOffset.x(), glyphOffset.y(), glyph.width(), glyph.height(), glyph);
         }
         else
         {
-            painter->drawImage(QRectF(0, 0, w, h), aImage);
+            normal.convertFromImage(aImage);
+            painter->drawPixmapFragments(fragments, 9, normal);
+            //painter->drawImage(QRectF(0, 0, w, h), aImage);
             painter->drawPixmap(glyphOffset.x(), glyphOffset.y(), glyph.width(), glyph.height(), glyph);
         }
     }

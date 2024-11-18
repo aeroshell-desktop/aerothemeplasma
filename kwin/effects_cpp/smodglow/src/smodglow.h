@@ -22,6 +22,12 @@
 
 #include <KDecoration2/DecorationButton>
 
+// TODO remove "+ 1.0" when I fix the textures
+#define MINMAXGLOW_SML 9.0
+#define MINMAXGLOW_SMT 8.0
+#define CLOSEGLOW_SML  9.0
+#define CLOSEGLOW_SMT  8.0
+
 namespace KWin
 {
 

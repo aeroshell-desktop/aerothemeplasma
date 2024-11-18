@@ -18,11 +18,6 @@
 #define TESTING_NEW_DPI 0
 #define RIGHT_SIDE_ORIGIN 0
 
-// TODO remove "+ 1.0" when I fix the textures
-#define MINMAXGLOW_SML 9.0 + 1.0
-#define MINMAXGLOW_SMT 8.0 + 1.0
-#define CLOSEGLOW_SML  9.0 + 1.0
-#define CLOSEGLOW_SMT  8.0 + 1.0
 
 // internally the SMOD decoration is in the Breeze namespace
 // use a typedef to avoid confusion
@@ -245,6 +240,13 @@ void SmodGlowEffect::prePaintWindow(EffectWindow *w, WindowPrePaintData &data, s
     {
         return;
     }
+    SmodDecoration *smoddecoration = qobject_cast<SmodDecoration*>(w->decoration());
+
+    // if the cast was unsuccessful (the loaded decoration plugin is not SMOD) then return
+    if (!smoddecoration)
+    {
+        return;
+    }
 
 #if RIGHT_SIDE_ORIGIN
     QPoint origin = w->frameGeometry().topLeft().toPoint() + QPoint(w->frameGeometry().width(), 0);
@@ -258,9 +260,30 @@ void SmodGlowEffect::prePaintWindow(EffectWindow *w, WindowPrePaintData &data, s
     QPoint origin = w->pos().toPoint();
     origin += QPoint(diff, 0);
 #endif
-    handler->m_min_rect   = QRect(origin + handler->m_min->pos,   m_texture_minimize.get()->size());
+
+    /*qDebug() << "Min texture: " << m_texture_minimize.get()->size();
+    qDebug() << "Max texture: " << m_texture_maximize.get()->size();
+    qDebug() << "Close texture: " << m_texture_close.get()->size();*/
+    QSize min_size = smoddecoration->buttonRect(KDecoration2::DecorationButtonType::Minimize).size();
+    QSize max_size = smoddecoration->buttonRect(KDecoration2::DecorationButtonType::Maximize).size();
+    QSize close_size = smoddecoration->buttonRect(KDecoration2::DecorationButtonType::Close).size();
+    /*qDebug() << "Min button: " << min_size;
+    qDebug() << "Max button: " << max_size;
+    qDebug() << "Close button: " << close_size;*/
+
+    close_size += QSize(CLOSEGLOW_SML*2, CLOSEGLOW_SMT*2);
+    min_size += QSize(MINMAXGLOW_SML*2+1, MINMAXGLOW_SMT*2);
+    max_size += QSize(MINMAXGLOW_SML*2+1, MINMAXGLOW_SMT*2);
+    /*qDebug() << "Min size: " << min_size;
+    qDebug() << "Max size: " << max_size;
+    qDebug() << "Close size: " << close_size;*/
+    handler->m_min_rect   = QRect(origin + handler->m_min->pos,   min_size);
+    handler->m_max_rect   = QRect(origin + handler->m_max->pos,   max_size);
+    handler->m_close_rect = QRect(origin + handler->m_close->pos, close_size);
+
+    /*handler->m_min_rect   = QRect(origin + handler->m_min->pos,   m_texture_minimize.get()->size());
     handler->m_max_rect   = QRect(origin + handler->m_max->pos,   m_texture_maximize.get()->size());
-    handler->m_close_rect = QRect(origin + handler->m_close->pos, m_texture_close.get()->size());
+    handler->m_close_rect = QRect(origin + handler->m_close->pos, m_texture_close.get()->size());*/
 
     QRegion newPaint = QRegion();
     newPaint |= handler->m_min_rect;

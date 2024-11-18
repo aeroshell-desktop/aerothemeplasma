@@ -1,5 +1,6 @@
 #include "smodglow.h"
 #include "smod.h"
+#include <QVector2D>
 
 namespace KWin
 {
@@ -68,6 +69,10 @@ void SmodGlowEffect::paintWindow(const RenderTarget &renderTarget, const RenderV
     ShaderManager::instance()->pushShader(m_shader.get());
 
     int uniform_opacity = m_shader->uniformLocation("opacity");
+    int uniform_bordertop = m_shader->uniformLocation("bordertop");
+    int uniform_borderleft = m_shader->uniformLocation("borderleft");
+    int uniform_targetrect = m_shader->uniformLocation("targetrect");
+    int uniform_texturerect = m_shader->uniformLocation("texturerect");
     const auto scale = viewport.scale();
 
     {
@@ -77,6 +82,11 @@ void SmodGlowEffect::paintWindow(const RenderTarget &renderTarget, const RenderV
         mvp.translate(handler->m_min_rect.x(), handler->m_min_rect.y());
         m_shader->setUniform(GLShader::Mat4Uniform::ModelViewProjectionMatrix, mvp);
         m_shader->setUniform(uniform_opacity, opacity);
+        m_shader->setUniform(uniform_bordertop, MINMAXGLOW_SMT);
+        m_shader->setUniform(uniform_borderleft, MINMAXGLOW_SML);
+        m_shader->setUniform(uniform_targetrect, QVector2D(pixelGeometry.width(), pixelGeometry.height()));
+        QSize rect = m_texture_minimize.get()->size();
+        m_shader->setUniform(uniform_texturerect, QVector2D(rect.width(), rect.height()));
         GLTexture *texture = m_texture_minimize.get();
         texture->render(pixelGeometry.size());
     }
@@ -88,6 +98,11 @@ void SmodGlowEffect::paintWindow(const RenderTarget &renderTarget, const RenderV
         mvp.translate(handler->m_max_rect.x(), handler->m_max_rect.y());
         m_shader->setUniform(GLShader::Mat4Uniform::ModelViewProjectionMatrix, mvp);
         m_shader->setUniform(uniform_opacity, opacity);
+        m_shader->setUniform(uniform_bordertop, MINMAXGLOW_SMT);
+        m_shader->setUniform(uniform_borderleft, MINMAXGLOW_SML);
+        m_shader->setUniform(uniform_targetrect, QVector2D(pixelGeometry.width(), pixelGeometry.height()));
+        QSize rect = m_texture_maximize.get()->size();
+        m_shader->setUniform(uniform_texturerect, QVector2D(rect.width(), rect.height()));
         GLTexture *texture = m_texture_maximize.get();
         texture->render(pixelGeometry.size());
     }
@@ -99,6 +114,11 @@ void SmodGlowEffect::paintWindow(const RenderTarget &renderTarget, const RenderV
         mvp.translate(handler->m_close_rect.x(), handler->m_close_rect.y());
         m_shader->setUniform(GLShader::Mat4Uniform::ModelViewProjectionMatrix, mvp);
         m_shader->setUniform(uniform_opacity, opacity);
+        m_shader->setUniform(uniform_bordertop, CLOSEGLOW_SMT);
+        m_shader->setUniform(uniform_borderleft, CLOSEGLOW_SML);
+        m_shader->setUniform(uniform_targetrect, QVector2D(pixelGeometry.width(), pixelGeometry.height()));
+        QSize rect = m_texture_close.get()->size();
+        m_shader->setUniform(uniform_texturerect, QVector2D(rect.width(), rect.height()));
         GLTexture *texture = m_texture_close.get();
         texture->render(pixelGeometry.size());
     }
