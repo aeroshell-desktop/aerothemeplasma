@@ -12,7 +12,7 @@ namespace Breeze
 
 void Decoration::updateBlur()
 {
-    const int radius = isMaximized() ? 0 : 6;
+    const int radius = isMaximized() ? 0 : 7;
 
     QPainterPath path;
     path.addRoundedRect(rect(), radius, radius);

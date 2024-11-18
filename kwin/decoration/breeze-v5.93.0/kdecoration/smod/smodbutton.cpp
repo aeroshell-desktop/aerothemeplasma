@@ -142,6 +142,7 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
                 t = 6;
                 r = 12;
                 b = 8;
+                if(titlebarHeight == 18 || titlebarHeight == 17) l--;
                 break;
             case DecorationButtonType::Maximize:
                 if (d && d->isMaximized())
@@ -204,6 +205,8 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
                 t = 6;
                 r = 12;
                 b = 8;
+                if(titlebarHeight == 18) l--;
+                if(titlebarHeight == 17) l -= 2;
                 break;
             case DecorationButtonType::Close:
                 if (c->isActive())
@@ -278,14 +281,14 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
         {
             fragments[i].opacity = 1.0;
             fragments[i].rotation = 0.0;
+            fragments[i].scaleY = 1.0;
+            fragments[i].scaleX = 1.0;
         }
         // TopLeft
         fragments[0].sourceLeft = 0;
         fragments[0].sourceTop = 0;
         fragments[0].width = l;
         fragments[0].height = t;
-        fragments[0].scaleY = 1.0;
-        fragments[0].scaleX = 1.0;
         fragments[0].x = (0 + fragments[0].width / 2);
         fragments[0].y = (0 + fragments[0].height / 2);
 
@@ -294,8 +297,6 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
         fragments[2].sourceTop = 0;
         fragments[2].width = r;
         fragments[2].height = t;
-        fragments[2].scaleY = 1.0;
-        fragments[2].scaleX = 1.0;
         fragments[2].x = (w - r + fragments[2].width / 2);
         fragments[2].y = (0     + fragments[2].height / 2);
 
@@ -304,8 +305,6 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
         fragments[6].sourceTop = normal.height() - b;
         fragments[6].width = l;
         fragments[6].height = b;
-        fragments[6].scaleY = 1.0;
-        fragments[6].scaleX = 1.0;
         fragments[6].x = (0     + fragments[6].width / 2);
         fragments[6].y = (h - b + fragments[6].height / 2);
 
@@ -314,8 +313,6 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
         fragments[8].sourceTop = normal.height() - b;
         fragments[8].width = r;
         fragments[8].height = b;
-        fragments[8].scaleY = 1.0;
-        fragments[8].scaleX = 1.0;
         fragments[8].x = (w - r + fragments[8].width / 2);
         fragments[8].y = (h - b + fragments[8].height / 2);
 
@@ -324,7 +321,6 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
         fragments[1].sourceTop = 0;
         fragments[1].width = normal.width() - l - r;
         fragments[1].height = t;
-        fragments[1].scaleY = 1.0;
         fragments[1].scaleX = (w-l-r) / fragments[1].width;
         fragments[1].x = (l + fragments[1].width*fragments[1].scaleX / 2);
         fragments[1].y = (0 + fragments[1].height*fragments[1].scaleY / 2);
@@ -334,7 +330,6 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
         fragments[3].sourceTop = t;
         fragments[3].width = l;
         fragments[3].height = normal.height() - t - b;
-        fragments[3].scaleX = 1.0;
         fragments[3].scaleY = (h-t-b) / fragments[3].height;
         fragments[3].x = (0 + fragments[3].width*fragments[3].scaleX / 2);
         fragments[3].y = (t + fragments[3].height*fragments[3].scaleY / 2);
@@ -344,7 +339,6 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
         fragments[5].sourceTop = t;
         fragments[5].width = r;
         fragments[5].height = normal.height() - t - b;
-        fragments[5].scaleX = 1.0;
         fragments[5].scaleY = (h-t-b) / fragments[5].height;
         fragments[5].x = (w-r + fragments[5].width*fragments[5].scaleX / 2);
         fragments[5].y = (t   + fragments[5].height*fragments[5].scaleY / 2);
@@ -364,7 +358,6 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
         fragments[7].sourceTop = normal.height() - b;
         fragments[7].width = normal.width() - l - r;
         fragments[7].height = b;
-        fragments[7].scaleY = 1.0;
         fragments[7].scaleX = (w-l-r) / fragments[7].width;
         fragments[7].x = (l + fragments[7].width*fragments[7].scaleX / 2);
         fragments[7].y = (h-b + fragments[7].height*fragments[7].scaleY / 2);
@@ -383,7 +376,6 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
         {
             normal.convertFromImage(aImage);
             painter->drawPixmapFragments(fragments, 9, normal);
-            //painter->drawImage(QRectF(0, 0, w, h), aImage);
             painter->drawPixmap(glyphOffset.x(), glyphOffset.y(), glyph.width(), glyph.height(), glyph);
         }
     }
