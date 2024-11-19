@@ -350,6 +350,39 @@ bool BlurEffect::isFirefoxWindowValid(KWin::EffectWindow *w)
     return valid;
 }
 
+QRegion BlurEffect::getForcedNewRegion()
+{
+    defaultSvg.clearCache();
+    QPixmap alphaMask = defaultSvg.alphaMask();
+    const qreal dpr = alphaMask.devicePixelRatio();
+    // region should always be in logical pixels, resize pixmap to be in the logical sizes
+    if (alphaMask.devicePixelRatio() != 1.0) {
+        alphaMask = alphaMask.scaled(alphaMask.width() / dpr, alphaMask.height() / dpr);
+    }
+    return QRegion(QBitmap(alphaMask.mask()));
+}
+
+QRegion BlurEffect::applyBlurRegion(KWin::EffectWindow *w)
+{
+    auto maximizeState = w->window()->maximizeMode();
+    if(maximizeState == MaximizeMode::MaximizeFull)
+    {
+        defaultSvg.resizeFrame(w->size());
+        QRegion mask = defaultSvg.mask();
+        return mask;
+    }
+    else
+    {
+        defaultSvg.resizeFrame(w->size());
+        QRegion mask = defaultSvg.mask();
+        if(mask.boundingRect().size() != w->size().toSize())
+        {
+            mask = getForcedNewRegion();
+        }
+
+        return mask;
+    }
+}
 void BlurEffect::updateBlurRegion(EffectWindow *w)
 {
     std::optional<QRegion> content;
@@ -390,18 +423,28 @@ void BlurEffect::updateBlurRegion(EffectWindow *w)
         frame = decorationBlurRegion(w);
     }
 
-    if (shouldForceBlur(w)) {
-        content = w->expandedGeometry().toRect().translated(-w->x(), -w->y());
-        if (w->decoration()) {
-            const QMargins borders = w->decoration()->borders();
-            frame = w->frameGeometry().toRect().translated(-w->x(), -w->y());
+    const auto isX11WithCSD = effects->xcbConnection() && (w->frameGeometry() != w->bufferGeometry());
+    if (shouldForceBlur(w) && !(w->isTooltip())) {
+
+        if(!isX11WithCSD)
+        {
+            content = w->expandedGeometry().translated(-w->x(), -w->y()).toRect();
+        }
+        if (isX11WithCSD || w->decoration())
+        {
+            frame = w->frameGeometry().translated(-w->x(), -w->y()).toRect();
         }
     }
 
     if(isFirefoxWindowValid(w) && defaultSvg.isValid())
     {
         if(!(content.has_value() || frame.has_value()))
-        content = applyBlurRegion(w);
+        {
+            if(isX11WithCSD)
+                frame = applyBlurRegion(w);
+            else
+                content = applyBlurRegion(w);
+        }
     }
 
     if (content.has_value() || frame.has_value()) {
@@ -529,57 +572,6 @@ QRegion BlurEffect::decorationBlurRegion(const EffectWindow *w) const
     return decorationRegion.intersected(w->decoration()->blurRegion());
 }
 
-QRegion BlurEffect::getForcedNewRegion()
-{
-    defaultSvg.clearCache();
-    QPixmap alphaMask = defaultSvg.alphaMask();
-    const qreal dpr = alphaMask.devicePixelRatio();
-    // region should always be in logical pixels, resize pixmap to be in the logical sizes
-    if (alphaMask.devicePixelRatio() != 1.0) {
-        alphaMask = alphaMask.scaled(alphaMask.width() / dpr, alphaMask.height() / dpr);
-    }
-    return QRegion(QBitmap(alphaMask.mask()));
-}
-
-QRegion BlurEffect::applyBlurRegion(KWin::EffectWindow *w)
-{
-    auto geo = w->frameGeometry();
-    auto geoExp = w->expandedGeometry();
-    auto maximizeState = w->window()->maximizeMode();
-
-    if(maximizeState == MaximizeMode::MaximizeFull)
-    {
-        defaultSvg.resizeFrame(w->size());
-        QRegion mask = defaultSvg.mask();
-        return mask;
-    }
-    else
-    {
-        static int cachedDx = 45;
-        static int cachedDy = 45;
-
-        int dx = std::abs(geoExp.x() - geo.x());
-        int dy = std::abs(geoExp.y() - geo.y());
-
-        if(dx != 0)
-        {
-            cachedDx = dx;
-        }
-        if(dy != 0)
-        {
-            cachedDy = dy;
-        }
-        defaultSvg.resizeFrame(w->size());
-        QRegion mask = defaultSvg.mask();
-        if(mask.boundingRect().size() != w->size().toSize())
-        {
-            mask = getForcedNewRegion();
-        }
-
-        if(!w->isWaylandClient()) mask.translate(cachedDx, cachedDy);
-        return mask;
-    }
-}
 QRegion BlurEffect::blurRegion(EffectWindow *w, bool noRoundedCorners)
 {
     QRegion region;
