@@ -34,6 +34,7 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 - Zren's [Win7 Show Desktop](https://store.kde.org/p/2151247) plasmoid
 - [Mirko Gennari](https://store.kde.org/p/998614), DrGordBord and [bionegative](https://www.pling.com/p/998823) for making SevenBlack possible
 - DrGordBord's [Windows 7 Kvantum](https://store.kde.org/p/1679903) theme
+- [taj-ny](https://github.com/taj-ny)'s [kwin-effects-forceblur](https://github.com/taj-ny/kwin-effects-forceblur)
 
 ### Contributors
 - [Souris-2d07](https://gitgud.io/souris) for making the following: 
@@ -110,6 +111,10 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 <img src="screenshots/colorization.png">
 <img src="screenshots/aeroblur.png">
 <img src="screenshots/aeroblursimple.png">
+
+### Decorations
+
+<img src="screenshots/decorations.png">
 
 ### Firefox
 

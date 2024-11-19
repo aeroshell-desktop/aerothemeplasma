@@ -423,6 +423,7 @@ void BlurEffect::updateBlurRegion(EffectWindow *w)
         frame = decorationBlurRegion(w);
     }
 
+    // https://github.com/taj-ny/kwin-effects-forceblur/pull/128/files
     const auto isX11WithCSD = effects->xcbConnection() && (w->frameGeometry() != w->bufferGeometry());
     if (shouldForceBlur(w) && !(w->isTooltip())) {
 
