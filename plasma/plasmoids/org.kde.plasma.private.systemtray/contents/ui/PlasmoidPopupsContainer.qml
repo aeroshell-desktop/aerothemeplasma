@@ -30,6 +30,7 @@ StackView {
     property bool mergeFooters: appletHasFooter && activeApplet.fullRepresentationItem.footer.visible
     property int footerHeight: mergeFooters ? activeApplet.fullRepresentationItem.footer.height : 0
 
+    readonly property int flyoutImplicitWidth: activeApplet ? activeApplet.fullRepresentationItem.implicitWidth : 0
     readonly property int flyoutImplicitHeight: activeApplet ? activeApplet.fullRepresentationItem.implicitHeight : 0
     onFlyoutImplicitHeightChanged: {
         popup.updateHeight();

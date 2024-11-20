@@ -18,7 +18,7 @@ import org.kde.kirigami 2.20 as Kirigami
 Item {
     id: popup
 
-    property int flyoutWidth: hiddenItemsView.visible ? hiddenItemsView.width + Kirigami.Units.smallSpacing*2 : (intendedWidth != -1 ? intendedWidth : Kirigami.Units.iconSizes.small * 19)
+    property int flyoutWidth: hiddenItemsView.visible ? hiddenItemsView.width + Kirigami.Units.smallSpacing*2 : (intendedWidth != -1 ? intendedWidth : Math.max(Kirigami.Units.iconSizes.small * 19, container.flyoutImplicitWidth + dialog.margins.right + Kirigami.Units.smallSpacing*2))
     property int flyoutHeight: hiddenItemsView.visible ?
     hiddenItemsView.implicitHeight + trayHeading.height + Kirigami.Units.largeSpacing  :
     (container.flyoutImplicitHeight > (Kirigami.Units.iconSizes.small * 8 - trayHeading.height - Kirigami.Units.largeSpacing) ? container.flyoutImplicitHeight + container.headingHeight + container.footerHeight + trayHeading.height + Kirigami.Units.largeSpacing*4 : Kirigami.Units.iconSizes.small*19)
@@ -30,8 +30,6 @@ Item {
     Layout.maximumHeight: flyoutHeight
 
     function updateHeight() {
-        //console.log(container.flyoutImplicitHeight + " " + (Kirigami.Units.iconSizes.small * 19 - trayHeading.height - Kirigami.Units.largeSpacing));
-        //console.log(container.flyoutImplicitHeight + container.headingHeight + container.footerHeight + trayHeading.height + Kirigami.Units.largeSpacing*4 + " new height")
         flyoutHeight = Qt.binding(() => hiddenItemsView.visible ?
                                             hiddenItemsView.implicitHeight + trayHeading.height + Kirigami.Units.largeSpacing :
                                             (container.flyoutImplicitHeight > (Kirigami.Units.iconSizes.small * 8 - trayHeading.height - Kirigami.Units.largeSpacing) ? container.flyoutImplicitHeight + container.headingHeight + container.footerHeight + trayHeading.height + Kirigami.Units.largeSpacing*4 : Kirigami.Units.iconSizes.small*19))
