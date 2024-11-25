@@ -69,7 +69,7 @@ Item {
 
     function deactivateCurrentIndex() {
         if (crumbModel.count > 0) { // this is not the case when switching from the "Applications" to the "Favorites" tab using the "Left" key
-            breadcrumbsElement.children[crumbModel.count-1].clickCrumb();
+            rootBreadCrumb.clickCrumb();//breadcrumbsElement.children[crumbModel.count-1].clickCrumb();
             applicationsView.state = "OutgoingRight";
             return true;
         }
@@ -99,6 +99,7 @@ Item {
     function reset() {
         applicationsView.model = rootModel;
         applicationsView.clearBreadcrumbs();
+        crumbContainer.visible = false;
     }
 
     function refreshed() {
@@ -128,76 +129,28 @@ Item {
 
     Item {
         id: crumbContainer
-        Layout.preferredHeight: childrenRect.height//crumbContainer.implicitHeight
+        Layout.preferredHeight: rootBreadcrumb.implicitHeight //crumbContainer.implicitHeight
+        Layout.minimumHeight: rootBreadcrumb.implicitHeight
         Layout.fillWidth: true
-        visible: opacity > 0.2
-        opacity: crumbModel.count > 0
-        Behavior on opacity { NumberAnimation { duration: Kirigami.Units.longDuration } }
-        /*onOpacityChanged: {
-            if(opacity > 0.2) visible = true;
-            else visible = false;
-        }*/
+        visible: false
+        opacity: applicationsView.opacity
 
-        Flickable {
-            id: breadcrumbFlickable
-            anchors {
-                topMargin: 2
-                top: parent.top
-                left: parent.left
-                right: parent.right
-            }
-            height: breadcrumbsElement.height
-            boundsBehavior: Flickable.StopAtBounds
-
-            contentWidth: breadcrumbsElement.width
-            pixelAligned: true
-            //contentX: contentWidth - width
-
-            // HACK: Align the content to right for RTL locales
-            leftMargin: LayoutMirroring.enabled ? Math.max(0, width - contentWidth) : 0
-
-            ButtonRow {
-                id: breadcrumbsElement
-
-                exclusive: false
-
-                Breadcrumb {
-                    id: rootBreadcrumb
-                    root: true
-                    text: i18n("Back")
-                    depth: 0
-                }
-                Repeater {
-                    model: ListModel {
-                        id: crumbModel
-                        // Array of the models
-                        property var models: []
-                    }
-
-                    Breadcrumb {
-                        root: false
-                        text: ""
-                        visible: false
-                    }
-                }
-                onWidthChanged: {
-                    if (LayoutMirroring.enabled) {
-                        breadcrumbFlickable.contentX = -Math.max(0, breadcrumbsElement.width - breadcrumbFlickable.width)
-                    } else {
-                        breadcrumbFlickable.contentX = Math.max(0, breadcrumbsElement.width - breadcrumbFlickable.width)
-                    }
-                }
-            }
-             
-        }  
+        Breadcrumb {
+            id: rootBreadcrumb
+            root: true
+            text: i18n("Back")
+            //depth: 0
+            anchors.fill: parent
+            anchors.topMargin: 2
+        }
         Rectangle {
        		id: sepLine
 	   		anchors {
-       			top: breadcrumbFlickable.bottom
+       			top: crumbContainer.bottom
                 topMargin: -1
-       			left: breadcrumbFlickable.left
+       			left: crumbContainer.left
        			leftMargin: Kirigami.Units.smallSpacing*2
-       			right: breadcrumbFlickable.right
+       			right: crumbContainer.right
        			rightMargin: Kirigami.Units.smallSpacing*2
 	   		}
        		height: 1
@@ -224,14 +177,14 @@ Item {
         model: rootModel
 
         function moveLeft() {
+            reset();
             state = "";
-            // newModelIndex set by clicked breadcrumb
-            var oldModel = applicationsView.model;
+            /*var oldModel = applicationsView.model;
             applicationsView.model = applicationsView.newModel;
 
             var oldModelIndex = model.rowForModel(oldModel);
             listView.currentIndex = oldModelIndex;
-            listView.positionViewAtIndex(oldModelIndex, ListView.Center);
+            listView.positionViewAtIndex(oldModelIndex, ListView.Center);*/
         }
 
         function moveRight() {
@@ -243,16 +196,13 @@ Item {
         }
 
         function clearBreadcrumbs() {
-            crumbModel.clear();
-            crumbModel.models = [];
             applicationsView.listView.currentIndex = -1;
         }
 
         onReset: appViewContainer.reset()
 
         onAddBreadcrumb: title => {
-            crumbModel.append({"text": title, "depth": crumbModel.count+1})
-            crumbModel.models.push(model);
+            console.log(rootBreadcrumb.implicitHeight);
         }
 
         states: [
@@ -260,7 +210,7 @@ Item {
                 name: "OutgoingLeft"
                 PropertyChanges {
                     target: applicationsView
-                    x: -parent.width
+                    //x: -parent.width
                     opacity: 0.0
                 }
             },
@@ -268,7 +218,7 @@ Item {
                 name: "OutgoingRight"
                 PropertyChanges {
                     target: applicationsView
-                    x: parent.width
+                    //x: parent.width
                     opacity: 0.0
                 }
             }
@@ -283,14 +233,14 @@ Item {
                     // mouse once the animation is done
                     ScriptAction { script: applicationsView.activatedItem = applicationsView.currentItem }
                     NumberAnimation { properties: "opacity"; easing.type: Easing.InQuad; duration: 100 }
-                    ScriptAction { script: {  applicationsView.moveRight(); } }
+                    ScriptAction { script: {  applicationsView.moveRight(); crumbContainer.visible = true; } }
                 }
             },
             Transition {
                 to: "OutgoingRight"
                 SequentialAnimation {
                     NumberAnimation { properties: "opacity"; easing.type: Easing.InQuad; duration: 100 }
-                    ScriptAction { script: applicationsView.moveLeft() }
+                    ScriptAction { script: { applicationsView.moveLeft(); crumbContainer.visible = false; }}
                 }
             }
         ]

@@ -28,55 +28,43 @@ import org.kde.kirigami as Kirigami
 Item {
     id: crumbRoot
 
-    height: crumb.implicitHeight + Kirigami.Units.smallSpacing * 2
-    width: crumb.implicitWidth + arrowSvg.width
+    implicitHeight: crumb.implicitHeight + Kirigami.Units.smallSpacing * 2
+    //width: crumb.implicitWidth + arrowSvg.width
 
     property string text
     property bool root: false
-    property int depth: model.depth
+    //property int depth: model.depth
 
     function clickCrumb() {
         heading_ma.clicked(null);
     }
-
+	MouseArea {
+		id: heading_ma
+		anchors.fill: parent
+		hoverEnabled: true
+		enabled: true
+        onClicked: {
+            // Remove all the breadcrumbs in front of the clicked one
+            applicationsView.state = "OutgoingRight";
+        }
+		cursorShape: Qt.PointingHandCursor
+		z: 99
+	}
     PlasmaExtras.Heading {
 			id: crumb
 			anchors {
 				left: arrowSvg.right
 				top: parent.top
 				bottom: parent.bottom
-				topMargin: Kirigami.Units.smallSpacing
 				leftMargin: Kirigami.Units.smallSpacing
-				bottomMargin: Kirigami.Units.smallSpacing
 			}
 			horizontalAlignment: Text.AlignHCenter
+			verticalAlignment: Text.AlignVCenter
 			text: crumbRoot.text + " "
 			color: "#404040"
 			font.underline: heading_ma.enabled && heading_ma.containsMouse
 			level: 5
 
-			MouseArea {
-				id: heading_ma
-				anchors.fill: parent
-				hoverEnabled: crumbRoot.depth < crumbModel.count
-				enabled: crumbRoot.depth < crumbModel.count
-                onClicked: {
-                    // Remove all the breadcrumbs in front of the clicked one
-                    while (crumbModel.count > 0 && crumbRoot.depth < crumbModel.get(crumbModel.count-1).depth) {
-                        crumbModel.remove(crumbModel.count-1)
-                        crumbModel.models.pop()
-                    }
-
-                    if (crumbRoot.root) {
-                        applicationsView.newModel = rootModel;
-                    } else {
-                        applicationsView.newModel = crumbModel.models[index];
-                    }
-                    applicationsView.state = "OutgoingRight";
-                }
-				cursorShape: Qt.PointingHandCursor
-				z: 99
-			}
 		}
         KSvg.SvgItem{
                 id: arrowSvg
