@@ -84,6 +84,9 @@ public Q_SLOTS:
     void slotPropertyNotify(KWin::EffectWindow *w, long atom);
     void setupDecorationConnections(EffectWindow *w);
 
+    void slotWindowMaximizedStateChanged(KWin::EffectWindow *w, bool horizontal, bool vertical);
+    void slotMinimizedChanged(KWin::EffectWindow *w);
+
 private:
     void initBlurStrengthValues();
     QRegion blurRegion(EffectWindow *w, bool noRoundedCorners = false);
@@ -178,6 +181,7 @@ private:
 
     bool m_transparencyEnabled;
     bool m_basicColorization;
+    bool m_maximizeColorization;
 
     struct OffsetStruct
     {
@@ -199,6 +203,7 @@ private:
     QMap<EffectWindow *, QMetaObject::Connection> windowBlurChangedConnections;
     QMap<EffectWindow *, QMetaObject::Connection> windowExpandedGeometryChangedConnections;
     std::unordered_map<EffectWindow *, BlurEffectData> m_windows;
+    std::list<EffectWindow*> m_maximizedWindows;
 
     static BlurManagerInterface *s_blurManager;
     static QTimer *s_blurManagerRemoveTimer;

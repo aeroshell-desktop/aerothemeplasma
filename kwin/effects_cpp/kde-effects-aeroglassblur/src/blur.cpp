@@ -145,6 +145,7 @@ BlurEffect::BlurEffect() : m_sharedMemory("kwinaero")
         net_wm_blur_region = effects->announceSupportProperty(s_blurAtomName, this);
     });
 
+
     // Fetch the blur regions for all windows
     const auto stackingOrder = effects->stackingOrder();
     for (EffectWindow *window : stackingOrder) {
@@ -274,13 +275,13 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
    		m_aeroPrimaryBalance   = primaryBalance;
    		m_aeroSecondaryBalance = secondaryBalance;
    		m_aeroBlurBalance      = blurBalance;
-       		m_aeroPrimaryBalanceInactive = 0.4f * m_aeroPrimaryBalance;
-       		m_aeroBlurBalanceInactive = 0.4f * m_aeroBlurBalance + 60;
+        m_aeroPrimaryBalanceInactive = 0.4f * m_aeroPrimaryBalance;
+        m_aeroBlurBalanceInactive = 0.4f * m_aeroBlurBalance + 60;
 
    		m_aeroColorR = fR;
    		m_aeroColorG = fG;
    		m_aeroColorB = fB;
-    		m_aeroColorA = (m_aeroIntensity - 26) / 191.0f;
+        m_aeroColorA = (m_aeroIntensity - 26) / 191.0f;
 
 	};
 	bool skip = false;
@@ -321,6 +322,7 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
     m_blurDocks = BlurConfig::blurDocks();
     m_paintAsTranslucent = BlurConfig::paintAsTranslucent();
     m_basicColorization = BlurConfig::basicColorization();
+    m_maximizeColorization = BlurConfig::maximizeColorization();
 	m_translateTexture = BlurConfig::translateTexture();
 	m_texturePath = BlurConfig::textureLocation();
 	ensureReflectTexture();
@@ -479,18 +481,59 @@ void BlurEffect::slotWindowAdded(EffectWindow *w)
         }
     });
 
+    auto maximizeState = w->window()->maximizeMode();
+    if(maximizeState == MaximizeMode::MaximizeFull && !w->isMinimized())
+    {
+        m_maximizedWindows.push_front(w);
+    }
     if (auto internal = w->internalWindow()) {
         internal->installEventFilter(this);
     }
 
     connect(w, &EffectWindow::windowDecorationChanged, this, &BlurEffect::setupDecorationConnections);
+    connect(w, &EffectWindow::windowMaximizedStateChanged, this, &BlurEffect::slotWindowMaximizedStateChanged);
+    connect(w, &EffectWindow::minimizedChanged, this, &BlurEffect::slotMinimizedChanged);
     setupDecorationConnections(w);
 
     updateBlurRegion(w);
 }
 
+void BlurEffect::slotWindowMaximizedStateChanged(KWin::EffectWindow *w, bool horizontal, bool vertical)
+{
+    if(horizontal && vertical && !w->isMinimized())
+    {
+        m_maximizedWindows.push_front(w);
+    }
+    else
+    {
+        auto it = std::find(m_maximizedWindows.begin(), m_maximizedWindows.end(), w);
+        if(it != m_maximizedWindows.end())
+            m_maximizedWindows.erase(it);
+    }
+}
+void BlurEffect::slotMinimizedChanged(KWin::EffectWindow *w)
+{
+    if(w->isMinimized())
+    {
+        auto it = std::find(m_maximizedWindows.begin(), m_maximizedWindows.end(), w);
+        if(it != m_maximizedWindows.end())
+            m_maximizedWindows.erase(it);
+    }
+    else
+    {
+        auto maximizeState = w->window()->maximizeMode();
+        if(maximizeState == MaximizeMode::MaximizeFull)
+        {
+            m_maximizedWindows.push_front(w);
+        }
+    }
+}
+
 void BlurEffect::slotWindowDeleted(EffectWindow *w)
 {
+    auto it = std::find(m_maximizedWindows.begin(), m_maximizedWindows.end(), w);
+    if(it != m_maximizedWindows.end())
+        m_maximizedWindows.erase(it);
     if (auto it = m_windows.find(w); it != m_windows.end()) {
         effects->makeOpenGLContextCurrent();
         m_windows.erase(it);
@@ -1008,15 +1051,27 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
             al *= m_transparencyEnabled ? 1.0 : 0.4f;
             basicAlpha *= 0.5f;
         }
+        float r = m_aeroColorR;
+        float g = m_aeroColorG;
+        float b = m_aeroColorB;
+        // A window is maximized, use opaque colorization
+        auto maximizeState = w->window()->maximizeMode();
+        bool basicCol = m_basicColorization;
+        if((maximizeState == MaximizeMode::MaximizeFull || (m_maximizedWindows.size() != 0 && w->isDock())) && m_maximizeColorization)
+        {
+            al = -1.0f;
+            getMaximizedColorization(m_aeroIntensity, m_aeroColorR, m_aeroColorG, m_aeroColorB, r, g, b);
+            basicAlpha = 1.0;
+            basicCol = true;
+        }
 
-
-        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorRLocation, m_aeroColorR);
-        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorGLocation, m_aeroColorG);
-        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorBLocation, m_aeroColorB);
+        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorRLocation, r);
+        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorGLocation, g);
+        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorBLocation, b);
         m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorALocation, al);
-        m_upsamplePass.shader->setUniform(m_upsamplePass.basicColorizationLocation, m_basicColorization);
+        m_upsamplePass.shader->setUniform(m_upsamplePass.basicColorizationLocation, basicCol);
 
-        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorBalanceLocation,     (m_basicColorization) ? basicAlpha : (pb / 100.0f));
+        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorBalanceLocation,     (basicCol) ? basicAlpha : (pb / 100.0f));
         m_upsamplePass.shader->setUniform(m_upsamplePass.aeroAfterglowBalanceLocation, sb / 100.0f);
         m_upsamplePass.shader->setUniform(m_upsamplePass.aeroBlurBalanceLocation,      bb / 100.0f);
 
@@ -1042,6 +1097,10 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         glEnable(GL_BLEND);
 
         float finalOpacity = (float)opacity * (float)m_reflectionIntensity / 100.0f;
+        if((maximizeState == MaximizeMode::MaximizeFull || (m_maximizedWindows.size() != 0 && w->isDock())) && !treatAsActive(w) && m_maximizeColorization)
+        {
+            finalOpacity *= 0.5f;
+        }
 
         if (finalOpacity < 1.0) {
             glBlendColor(0, 0, 0, finalOpacity);
@@ -1061,15 +1120,12 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 			auto windowPos = windowRect.topLeft();
 			auto windowSize = windowRect.size();
 
-
-
             m_reflectPass.shader->setUniform(m_reflectPass.mvpMatrixLocation, projectionMatrix);
 			m_reflectPass.shader->setUniform(m_reflectPass.screenResolutionLocation, QVector2D(screenSize.width(), screenSize.height()));
 			m_reflectPass.shader->setUniform(m_reflectPass.windowPosLocation, QVector2D(windowPos.x(), windowPos.y()));
 			m_reflectPass.shader->setUniform(m_reflectPass.windowSizeLocation, QVector2D(windowSize.width(), windowSize.height()));
 			m_reflectPass.shader->setUniform(m_reflectPass.opacityLocation, float(finalOpacity));
 			m_reflectPass.shader->setUniform(m_reflectPass.translateTextureLocation, m_translateTexture ? float(1.0) : float(0.0));
-
 
             reflectTex->bind();
 
@@ -1088,6 +1144,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 bool BlurEffect::treatAsActive(const EffectWindow *w)
 {
 	QString windowClass = w->windowClass().split(' ')[1];
+    if (m_basicColorization && (w->isDock() || w->caption() == "sevenstart-menurepresentation")) return false;
 	return (w->isFullScreen() || windowClass == "plasmashell" || windowClass == "kwin" || w == effects->activeWindow());
 }
 

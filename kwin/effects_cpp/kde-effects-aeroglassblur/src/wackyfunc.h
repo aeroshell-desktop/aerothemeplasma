@@ -1,12 +1,28 @@
 #pragma once
 
+void getMaximizedColorization(int alpha, float red, float green, float blue, float &r, float &g, float &b)
+{
+	if(alpha <= 26 || alpha > 217)
+	{
+		r = 0;
+		g = 0;
+		b = 0;
+		return;
+	}
+
+	/*auto roundNum = [&](double a) -> int {
+		double rem = a - (int)a;
+		return (int)a + (rem >= 0.95f ? 1 : 0);
+	};*/
+	double p = (0.746032 * (double)alpha + 0.111104) / 255.0;
+	r = p*red;
+	g = p*green;
+	b = p*blue;
+
+}
 
 void getColorBalances(int sliderPosition, int &primaryBalance, int &secondaryBalance, int &blurBalance)
 {
-	auto roundNum = [&](double a) -> int {
-		double rem = a - (int)a;
-		return (int)a + (rem >= 0.5f ? 1 : 0);
-	};
 	int pB = 0, sB = 0, bB = 0;
 
 	// https://github.com/ALTaleX531/dwm_colorization_calculator/blob/main/main.py
