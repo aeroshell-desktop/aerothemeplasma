@@ -109,10 +109,10 @@ PlasmaCore.Dialog {
 			searchField.forceActiveFocus();
 			rootModel.refresh();
 			setFloatingAvatarPosition();
+			Plasmoid.setDialogAppearance(root, dialogBackground.mask);
 
         }
 		resetRecents(); // Resets the recents model to prevent errors and crashes.
-		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
     }
     onHeightChanged: {
         var pos = popupPosition(width, height);
@@ -132,7 +132,12 @@ PlasmaCore.Dialog {
 
     onSearchingChanged: {
         if (!searching) {
+			if(!KWindowSystem.isPlatformX11) {
+				root.hideOnWindowDeactivate = false;
+				wayland_fix.start();
+			}
 			reset();
+
         }
     }
     
@@ -178,9 +183,6 @@ PlasmaCore.Dialog {
 
         return Qt.point(x, y);
     }
-    function raiseOrb() {
-		orb.raise();
-	}
 
     FocusScope {
 		id: mainFocusScope
@@ -198,6 +200,11 @@ PlasmaCore.Dialog {
         focus: true
 		clip: false
 
+		Timer { // Janky wayland problems require janky solutions
+			id: wayland_fix
+			interval: 25
+			onTriggered: root.hideOnWindowDeactivate = true;
+		}
         KCoreAddons.KUser {   id: kuser  }  // Used for getting the username and icon.
         //Logic {   id: logic }				// Probably useful.
         

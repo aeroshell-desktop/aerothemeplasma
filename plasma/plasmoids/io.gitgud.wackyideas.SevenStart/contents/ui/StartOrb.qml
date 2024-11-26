@@ -15,14 +15,9 @@ import org.kde.coreaddons as KCoreAddons // kuser
 import org.kde.plasma.private.shell 2.0
 
 import org.kde.kwindowsystem 1.0
-import org.kde.kquickcontrolsaddons 2.0
 import org.kde.plasma.private.quicklaunch 1.0
 
 import org.kde.kirigami 2.13 as Kirigami
-import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
-
-import org.kde.kwindowsystem 1.0
-import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
 
 /*
  * This is the Dialog that displays the Start menu orb when it sticks out
@@ -63,7 +58,10 @@ import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
     onVisibleChanged: {
     }
 	backgroundHints: PlasmaCore.Types.NoBackground // Prevents a dialog SVG background from being drawn.
-	visible: kicker.compositingEnabled ? true : stickOutOrb //root.visible && stickOutOrb
+	visible: {
+        if(KWindowSystem.isPlatformX11) return kicker.compositingEnabled ? true : stickOutOrb;
+        return stickOutOrb
+    }
 	opacity: iconUser.visible && root.visible && stickOutOrb// To prevent even more NP-hard unpredictable behavior and visual glitches.
 
 	// The actual orb button, this dialog window is just a container for it.

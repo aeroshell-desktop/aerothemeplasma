@@ -120,6 +120,7 @@ Item {
     Component.onCompleted: {
         dashWindow = Qt.createQmlObject("MenuRepresentation {}", kicker);
         orb = Qt.createQmlObject("StartOrb {}", kicker);
+
         maskTimer.start();
         orbTimer.start();
         Plasmoid.activated.connect(function () {
