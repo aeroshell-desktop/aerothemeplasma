@@ -39,11 +39,11 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
     int titlebarHeight = internalSettings()->titlebarSize();
     int SIDEBAR_HEIGHT = qMax(25, (size().height() / 4));
 
+    if(internalSettings()->invertTextColor() && isMaximized()) return;
     painter->setOpacity(0.75);
     painter->setClipRegion(blurRegion());
     painter->setClipping(true);
 
-    if(internalSettings()->invertTextColor() && isMaximized()) return;
     if (c->isActive())
     {
         if (isMaximized())
