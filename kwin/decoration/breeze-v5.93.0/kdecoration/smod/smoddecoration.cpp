@@ -252,6 +252,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         const auto c = client();
         const bool active = c->isActive();
         int titleAlignment = internalSettings()->titleAlignment();
+        bool invertText = internalSettings()->invertTextColor() && c->isMaximized();
 
         QRect captionRect(m_leftButtons->geometry().right() /*+ 4 + (c->isMaximized() ? 5 : 0)*/, 0, m_rightButtons->geometry().left() - m_leftButtons->geometry().right() - 4, borderTop());
         QString caption = settings()->fontMetrics().elidedText(c->caption(), Qt::ElideMiddle, captionRect.width());
@@ -263,6 +264,12 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         int blurHeight = settings()->fontMetrics().height();
         QColor shadowColor = QColor(0, 0, 0, 255);
         QColor textColor = c->color(c->isActive() ? KDecoration2::ColorGroup::Active : KDecoration2::ColorGroup::Inactive, KDecoration2::ColorRole::Foreground);
+        if(invertText)
+        {
+            textColor.setRed(255-textColor.red());
+            textColor.setGreen(255-textColor.green());
+            textColor.setBlue(255-textColor.blue());
+        }
         int textHaloXOffset = 1;
         int textHaloYOffset = 1;
         int textHaloSize = 2;
@@ -293,6 +300,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         real_label.setStyleSheet("QLabel { background: #00ffffff; }");
         real_label.setFixedWidth(captionRect.width());
         real_label.setFixedHeight(captionRect.height());
+
         if(titleAlignment == InternalSettings::AlignRight)
             real_label.setAlignment(Qt::AlignRight);
         else if(titleAlignment == InternalSettings::AlignCenter)
@@ -339,7 +347,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
                 xpos *= 0.65;
             }
 
-            painter->drawPixmap(QRect(xpos,(borderTop() - blurHeight*(offsetHeight/1.5)) / 2,blurWidth,blurHeight*offsetHeight), blur_effect);
+            if(!invertText) painter->drawPixmap(QRect(xpos,(borderTop() - blurHeight*(offsetHeight/1.5)) / 2,blurWidth,blurHeight*offsetHeight), blur_effect);
             QPixmap text_pixmap = real_label.grab();
 
             if(titleAlignment == InternalSettings::AlignRight)

@@ -25,6 +25,8 @@
 #include <kwindowsystem.h>
 #include <kwindowinfo.h>
 #include <kx11extras.h>
+#include <QFileInfo>
+#include <QUrl>
 //#include <dialog.h>
 
 class SevenStart : public Plasma::Applet
@@ -39,6 +41,13 @@ public:
     {
         dashWindow = w;
         setDialogAppearance(w, mask);
+    }
+    Q_INVOKABLE bool fileExists(QUrl path)
+    {
+        if(!path.isLocalFile()) return false;
+
+        QFileInfo file(path.toLocalFile());
+        return file.exists() && file.isFile();
     }
     Q_INVOKABLE void setOrb(QQuickWindow* w)
     {

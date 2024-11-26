@@ -144,7 +144,16 @@ MainWindow::MainWindow(QSpinBox *spinbox, QCheckBox *checkbox,
       "54fadc0e-Sun",      "80ff9c00-Pumpkin", "a8ce0f0f-Ruby",
       "66ff0099-Fuchsia",  "70fcc7f8-Blush ",  "856e3ba1-Violet",
       "528d5a94-Lavander", "6698844c-Taupe",   "a84f1b1b-Chocolate",
-      "80555555-Slate",    "54fcfcfc-Frost",   "78b3198d-Sunset"};
+      "80555555-Slate",    "54fcfcfc-Frost",   "78b3198d-Sunset",
+      "45409efe-Default",
+      "a3000000-Graphite",
+      "a8004ade-Blue",
+      "82008ca5-Teal",
+      "9cce0c0f-Red",
+      "a6ff7700-Orange",
+      "49f93ee7-Pink",
+      "cceff7f7-Frost",
+  };
   for (int i = 0; i < values.size(); i++) {
     QStringList temp = values[i].split("-");
     predefined_colors.push_back(

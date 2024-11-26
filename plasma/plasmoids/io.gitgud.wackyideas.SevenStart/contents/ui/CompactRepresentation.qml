@@ -52,7 +52,8 @@ Item {
     // If the url is empty (default value), then use the fallback url. Otherwise, return the url path relative to
     // the location of the source code.
     function getResolvedUrl(url, fallback) {
-        if (url.toString() === "") {
+
+        if (url.toString() === "" || !Plasmoid.fileExists(url)) {
             return Qt.resolvedUrl(fallback);
         }
         return url;

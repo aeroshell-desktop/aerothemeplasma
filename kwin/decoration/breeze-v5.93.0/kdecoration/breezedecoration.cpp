@@ -649,7 +649,7 @@ QRect Decoration::buttonRect(KDecoration2::DecorationButtonType button) const
             intendedWidth = 29;
             break;
         case KDecoration2::DecorationButtonType::Maximize:
-            intendedWidth = 27;
+            intendedWidth = 27 + (m_internalSettings->alternativeButtonSizing() ? 1 : 0);
             break;
         case KDecoration2::DecorationButtonType::Close:
             intendedWidth = 49;

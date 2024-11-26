@@ -32,6 +32,8 @@ ConfigWidget::ConfigWidget(QObject *parent, const KPluginMetaData &data, const Q
     connect(m_ui.buttonSize, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(m_ui.titlebarSize, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
     connect(m_ui.outlineCloseButton, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
+    connect(m_ui.alternativeButtonSizing, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
+    connect(m_ui.invertTextColor, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.drawBorderOnMaximizedWindows, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.drawBackgroundGradient, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
 
@@ -61,6 +63,8 @@ void ConfigWidget::load()
     m_ui.titlebarSize->setValue(m_internalSettings->titlebarSize());
     m_ui.drawBorderOnMaximizedWindows->setChecked(m_internalSettings->drawBorderOnMaximizedWindows());
     m_ui.outlineCloseButton->setChecked(m_internalSettings->outlineCloseButton());
+    m_ui.alternativeButtonSizing->setChecked(m_internalSettings->alternativeButtonSizing());
+    m_ui.invertTextColor->setChecked(m_internalSettings->invertTextColor());
     m_ui.drawBackgroundGradient->setChecked(m_internalSettings->drawBackgroundGradient());
 
     // load shadows
@@ -101,6 +105,8 @@ void ConfigWidget::save()
     m_internalSettings->setButtonSize(m_ui.buttonSize->currentIndex());
     m_internalSettings->setTitlebarSize(m_ui.titlebarSize->value());
     m_internalSettings->setOutlineCloseButton(m_ui.outlineCloseButton->isChecked());
+    m_internalSettings->setAlternativeButtonSizing(m_ui.alternativeButtonSizing->isChecked());
+    m_internalSettings->setInvertTextColor(m_ui.invertTextColor->isChecked());
     m_internalSettings->setDrawBorderOnMaximizedWindows(m_ui.drawBorderOnMaximizedWindows->isChecked());
     m_internalSettings->setDrawBackgroundGradient(m_ui.drawBackgroundGradient->isChecked());
 
@@ -145,6 +151,8 @@ void ConfigWidget::defaults()
     m_ui.buttonSize->setCurrentIndex(m_internalSettings->buttonSize());
     m_ui.titlebarSize->setValue(m_internalSettings->titlebarSize());
     m_ui.outlineCloseButton->setChecked(m_internalSettings->outlineCloseButton());
+    m_ui.alternativeButtonSizing->setChecked(m_internalSettings->alternativeButtonSizing());
+    m_ui.invertTextColor->setChecked(m_internalSettings->invertTextColor());
     m_ui.drawBorderOnMaximizedWindows->setChecked(m_internalSettings->drawBorderOnMaximizedWindows());
     m_ui.drawBackgroundGradient->setChecked(m_internalSettings->drawBackgroundGradient());
 
@@ -172,6 +180,10 @@ void ConfigWidget::updateChanged()
     } else if (m_ui.titlebarSize->value() != m_internalSettings->titlebarSize()) {
         modified = true;
     } else if (m_ui.outlineCloseButton->isChecked() != m_internalSettings->outlineCloseButton()) {
+        modified = true;
+    } else if (m_ui.alternativeButtonSizing->isChecked() != m_internalSettings->alternativeButtonSizing()) {
+        modified = true;
+    } else if (m_ui.invertTextColor->isChecked() != m_internalSettings->invertTextColor()) {
         modified = true;
     } else if (m_ui.drawBorderOnMaximizedWindows->isChecked() != m_internalSettings->drawBorderOnMaximizedWindows()) {
         modified = true;

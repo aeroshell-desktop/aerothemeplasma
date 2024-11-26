@@ -195,6 +195,7 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
                         active      = QPixmap(":/smod/decoration/maximize-unfocus-active");
                     }
                     glyphOffset = QPoint(ceil(w / 2.0) - glyph.width() / 2.0 + ((titlebarHeight < 21) ? 1 : 0), floor((titlebarHeight-1) / 2.0) - glyph.height() / 2.0 - (titlebarHeight != 20 ? 1 : 0));
+                    if(deco->internalSettings()->alternativeButtonSizing()) glyphOffset += QPoint(titlebarHeight >= 20 ? 1 : -1, 0);
                 }
 
                 if (!isEnabled())
