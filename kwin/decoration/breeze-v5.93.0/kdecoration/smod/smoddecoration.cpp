@@ -43,6 +43,7 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
     painter->setClipRegion(blurRegion());
     painter->setClipping(true);
 
+    if(internalSettings()->invertTextColor() && isMaximized()) return;
     if (c->isActive())
     {
         if (isMaximized())

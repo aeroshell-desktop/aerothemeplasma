@@ -34,6 +34,7 @@ KWin.TabBoxSwitcher {
         delegate: PlasmaCore.Dialog {
 
         id: dialog
+        title: "kwin-tabbox-thumbnailseven"
         location: PlasmaCore.Types.Floating
         visible: tabBox.visible && mainItem.count > 1//true
         //visible: tabBox.visible
@@ -45,7 +46,6 @@ KWin.TabBoxSwitcher {
         minimumWidth: dialogMainItem.intendedWidth
         width: dialogMainItem.intendedWidth
         onWidthChanged: {
-            console.log("UH OH");
             if(width !== dialogMainItem.intendedWidth) width = dialogMainItem.intendedWidth // Because QML is sentient apparently
         }
         onVisibleChanged: {
@@ -75,9 +75,6 @@ KWin.TabBoxSwitcher {
 
             property int intendedWidth: Math.max(360, thumbnailGridView.cellWidth*currentColumnCount + Kirigami.Units.largeSpacing*2)
             onWidthChanged: {
-                console.log("Cellwidth: " + thumbnailGridView.cellWidth)
-                console.log("Intended: " + Math.max(360, thumbnailGridView.cellWidth*currentColumnCount + Kirigami.Units.mediumSpacing))
-                console.log("Result: " + dialog.width);
                 if(dialog.width !== intendedWidth) dialog.width = dialogMainItem.intendedWidth // Because QML is sentient apparently
             }
             width: intendedWidth
@@ -185,6 +182,8 @@ KWin.TabBoxSwitcher {
                     focus: true
                     model: tabBox.model
                     currentIndex: tabBox.currentIndex
+
+                    interactive: false
 
                     property int iconSize: Kirigami.Units.iconSizes.medium
                     property int captionRowHeight: 30  // The close button is 30x30 in Breeze
@@ -294,7 +293,7 @@ KWin.TabBoxSwitcher {
 
 
 
-            Keys.onPressed: {
+            Keys.onPressed: event => {
                 if (event.key == Qt.Key_Left) {
                     thumbnailGridView.moveCurrentIndexLeft();
                 } else if (event.key == Qt.Key_Right) {
@@ -307,7 +306,7 @@ KWin.TabBoxSwitcher {
                     return;
                 }
 
-                thumbnailGridView.currentIndexChanged(thumbnailGridView.currentIndex);
+                thumbnailGridView.currentIndexChanged();
             }
         } // Dialog.mainItem
     } // Dialog

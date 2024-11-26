@@ -1057,7 +1057,9 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         // A window is maximized, use opaque colorization
         auto maximizeState = w->window()->maximizeMode();
         bool basicCol = m_basicColorization;
-        if((maximizeState == MaximizeMode::MaximizeFull || (m_maximizedWindows.size() != 0 && w->isDock())) && m_maximizeColorization)
+        QString windowClass = w->windowClass().split(' ')[1];
+        bool opaqueMaximize = (maximizeState == MaximizeMode::MaximizeFull || (m_maximizedWindows.size() != 0 && w->isDock())) && m_maximizeColorization && windowClass != "kwin";
+        if(opaqueMaximize)
         {
             al = -1.0f;
             getMaximizedColorization(m_aeroIntensity, m_aeroColorR, m_aeroColorG, m_aeroColorB, r, g, b);
@@ -1097,9 +1099,10 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         glEnable(GL_BLEND);
 
         float finalOpacity = (float)opacity * (float)m_reflectionIntensity / 100.0f;
-        if((maximizeState == MaximizeMode::MaximizeFull || (m_maximizedWindows.size() != 0 && w->isDock())) && !treatAsActive(w) && m_maximizeColorization)
+        if(opaqueMaximize)
         {
-            finalOpacity *= 0.5f;
+            finalOpacity *= 0.6f;
+            if(!treatAsActive(w)) finalOpacity *= 0.5f;
         }
 
         if (finalOpacity < 1.0) {
