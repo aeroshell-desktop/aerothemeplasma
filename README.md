@@ -59,9 +59,14 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 
 - [Geckium](https://github.com/angelbruni/Geckium) by AngelBruni
 - [Aero UserChrome](https://gitgud.io/souris/aero-userchrome) by Souris (Geckium in combination with Aero UserChrome works well with AeroThemePlasma)
+- [VistaThemePlasma](https://gitgud.io/catpswin56/vistathemeplasma/) by catpswin56
 - [LonghornThemePlasma](https://gitgud.io/catpswin56/longhornthemeplasma) by catpswin56
 - [VB1ThemePlasma](https://gitgud.io/catpswin56/vista-beta-plasma) by catpswin56
 - [Ice2K.sys](https://toiletflusher.neocities.org/ice2k/) by 0penrc
+
+## Vista variant
+
+Initially I wanted to make a Vista variant of AeroThemePlasma but [catpswin56](https://gitgud.io/catpswin56) beat me to it, use [VistaThemePlasma](https://gitgud.io/catpswin56/vistathemeplasma/) if you want a Vista theme.
 
 ## Screenshots
 

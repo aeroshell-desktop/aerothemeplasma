@@ -36,99 +36,6 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(BreezeDecoFactory, "smod.json", registerPlugin<Breeze::Decoration>(); registerPlugin<Breeze::Button>();)
 
-namespace
-{
-struct ShadowParams {
-    ShadowParams()
-        : offset(QPoint(0, 0))
-        , radius(0)
-        , opacity(0)
-    {
-    }
-
-    ShadowParams(const QPoint &offset, int radius, qreal opacity)
-        : offset(offset)
-        , radius(radius)
-        , opacity(opacity)
-    {
-    }
-
-    QPoint offset;
-    int radius;
-    qreal opacity;
-};
-
-struct CompositeShadowParams {
-    CompositeShadowParams() = default;
-
-    CompositeShadowParams(const QPoint &offset, const ShadowParams &shadow1, const ShadowParams &shadow2)
-        : offset(offset)
-        , shadow1(shadow1)
-        , shadow2(shadow2)
-    {
-    }
-
-    bool isNone() const
-    {
-        return qMax(shadow1.radius, shadow2.radius) == 0;
-    }
-
-    QPoint offset;
-    ShadowParams shadow1;
-    ShadowParams shadow2;
-};
-
-const CompositeShadowParams s_shadowParams[] = {
-    // None
-    CompositeShadowParams(),
-    // Small
-    CompositeShadowParams(QPoint(0, 4), ShadowParams(QPoint(0, 0), 16, 1), ShadowParams(QPoint(0, -2), 8, 0.4)),
-    // Medium
-    CompositeShadowParams(QPoint(0, 8), ShadowParams(QPoint(0, 0), 32, 0.9), ShadowParams(QPoint(0, -4), 16, 0.3)),
-    // Large
-    CompositeShadowParams(QPoint(0, 12), ShadowParams(QPoint(0, 0), 48, 0.8), ShadowParams(QPoint(0, -6), 24, 0.2)),
-    // Very large
-    CompositeShadowParams(QPoint(0, 16), ShadowParams(QPoint(0, 0), 64, 0.7), ShadowParams(QPoint(0, -8), 32, 0.1)),
-};
-
-inline CompositeShadowParams lookupShadowParams(int size)
-{
-    switch (size) {
-    case Breeze::InternalSettings::ShadowNone:
-        return s_shadowParams[0];
-    case Breeze::InternalSettings::ShadowSmall:
-        return s_shadowParams[1];
-    case Breeze::InternalSettings::ShadowMedium:
-        return s_shadowParams[2];
-    case Breeze::InternalSettings::ShadowLarge:
-        return s_shadowParams[3];
-    case Breeze::InternalSettings::ShadowVeryLarge:
-        return s_shadowParams[4];
-    default:
-        // Fallback to the Large size.
-        return s_shadowParams[3];
-    }
-}
-
-inline qreal lookupOutlineIntensity(int intensity)
-{
-    switch (intensity) {
-    case Breeze::InternalSettings::OutlineOff:
-        return 0;
-    case Breeze::InternalSettings::OutlineLow:
-        return 0.1;
-    case Breeze::InternalSettings::OutlineMedium:
-        return Breeze::Metrics::Bias_Default;
-    case Breeze::InternalSettings::OutlineHigh:
-        return 0.4;
-    case Breeze::InternalSettings::OutlineMaximum:
-        return 0.6;
-    default:
-        // Fallback to the Medium intensity.
-        return Breeze::Metrics::Bias_Default;
-    }
-}
-}
 
 namespace Breeze
 {
@@ -136,32 +43,12 @@ using KDecoration2::ColorGroup;
 using KDecoration2::ColorRole;
 
 //________________________________________________________________
-static int g_sDecoCount = 0;
-static int g_shadowSizeEnum = InternalSettings::ShadowLarge;
 static int g_shadowStrength = 255;
 static QColor g_shadowColor = Qt::black;
-static std::shared_ptr<KDecoration2::DecorationShadow> g_sShadow;
-static std::shared_ptr<KDecoration2::DecorationShadow> g_sShadowInactive;
 static int g_lastBorderSize;
 
 //________________________________________________________________
-Decoration::Decoration(QObject *parent, const QVariantList &args)
-    : KDecoration2::Decoration(parent, args)
-    , m_animation(new QVariantAnimation(this))
-    , m_shadowAnimation(new QVariantAnimation(this))
-{
-    g_sDecoCount++;
-}
 
-//________________________________________________________________
-Decoration::~Decoration()
-{
-    g_sDecoCount--;
-    if (g_sDecoCount == 0) {
-        // last deco destroyed, clean up shadow
-        g_sShadow.reset();
-    }
-}
 
 //________________________________________________________________
 void Decoration::setOpacity(qreal value)
@@ -745,96 +632,6 @@ QPair<QRect, Qt::Alignment> Decoration::captionRect() const
         }
         }
     }
-}
-
-//________________________________________________________________
-void Decoration::updateShadow()
-{
-    auto s = settings();
-    auto c = client();
-
-    // Animated case, no cached shadow object
-    if ((m_shadowAnimation->state() == QAbstractAnimation::Running) && (m_shadowOpacity != 0.0) && (m_shadowOpacity != 1.0)) {
-        setShadow(createShadowObject(0.5 + m_shadowOpacity * 0.5));
-        return;
-    }
-
-    if (g_shadowSizeEnum != m_internalSettings->shadowSize() || g_shadowStrength != m_internalSettings->shadowStrength()
-        || g_shadowColor != m_internalSettings->shadowColor()) {
-        g_sShadow.reset();
-        g_sShadowInactive.reset();
-        g_shadowSizeEnum = m_internalSettings->shadowSize();
-        g_shadowStrength = m_internalSettings->shadowStrength();
-        g_shadowColor = m_internalSettings->shadowColor();
-    }
-
-    auto &shadow = (c->isActive()) ? g_sShadow : g_sShadowInactive;
-    if (!shadow || g_lastBorderSize != borderSize(true)) {
-        // Update both active and inactive shadows so outline stays consistent between the two
-        g_sShadow = createShadowObject(1.0);
-        g_sShadowInactive = createShadowObject(0.5);
-        g_lastBorderSize = borderSize(true);
-    }
-    setShadow(shadow);
-}
-
-//________________________________________________________________
-std::shared_ptr<KDecoration2::DecorationShadow> Decoration::createShadowObject(const float strengthScale)
-{
-    CompositeShadowParams params = lookupShadowParams(m_internalSettings->shadowSize());
-    if (params.isNone()) {
-        // If shadows are disabled, return nothing
-        return nullptr;
-    }
-
-    auto withOpacity = [](const QColor &color, qreal opacity) -> QColor {
-        QColor c(color);
-        c.setAlphaF(opacity);
-        return c;
-    };
-
-    const QSize boxSize =
-        BoxShadowRenderer::calculateMinimumBoxSize(params.shadow1.radius).expandedTo(BoxShadowRenderer::calculateMinimumBoxSize(params.shadow2.radius));
-
-    BoxShadowRenderer shadowRenderer;
-    shadowRenderer.setBorderRadius(m_scaledCornerRadius + 0.5);
-    shadowRenderer.setBoxSize(boxSize);
-
-    const qreal strength = m_internalSettings->shadowStrength() / 255.0 * strengthScale;
-    shadowRenderer.addShadow(params.shadow1.offset, params.shadow1.radius, withOpacity(m_internalSettings->shadowColor(), params.shadow1.opacity * strength));
-    shadowRenderer.addShadow(params.shadow2.offset, params.shadow2.radius, withOpacity(m_internalSettings->shadowColor(), params.shadow2.opacity * strength));
-
-    QImage shadowTexture = shadowRenderer.render();
-
-    QPainter painter(&shadowTexture);
-    painter.setRenderHint(QPainter::Antialiasing);
-
-    const QRect outerRect = shadowTexture.rect();
-
-    QRect boxRect(QPoint(0, 0), boxSize);
-    boxRect.moveCenter(outerRect.center());
-
-    // Mask out inner rect.
-    const QMargins padding = QMargins(boxRect.left() - outerRect.left() - Metrics::Shadow_Overlap - params.offset.x(),
-                                      boxRect.top() - outerRect.top() - Metrics::Shadow_Overlap - params.offset.y(),
-                                      outerRect.right() - boxRect.right() - Metrics::Shadow_Overlap + params.offset.x(),
-                                      outerRect.bottom() - boxRect.bottom() - Metrics::Shadow_Overlap + params.offset.y());
-    QRect innerRect = outerRect - padding;
-    // Push the shadow slightly under the window, which helps avoiding glitches with fractional scaling
-    innerRect.adjust(2, 2, -2, -2);
-
-    painter.setPen(Qt::NoPen);
-    painter.setBrush(Qt::black);
-    painter.setCompositionMode(QPainter::CompositionMode_DestinationOut);
-    painter.drawRoundedRect(innerRect, m_scaledCornerRadius + 0.5, m_scaledCornerRadius + 0.5);
-
-    painter.end();
-
-    auto ret = std::make_shared<KDecoration2::DecorationShadow>();
-    ret->setPadding(padding);
-    ret->setInnerShadowRect(QRect(outerRect.center(), QSize(1, 1)));
-    ret->setShadow(shadowTexture);
-    return ret;
 }
 
 void Decoration::setScaledCornerRadius()

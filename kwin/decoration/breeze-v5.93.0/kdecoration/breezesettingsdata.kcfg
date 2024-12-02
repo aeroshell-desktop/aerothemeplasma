@@ -8,26 +8,8 @@
   <!-- common options -->
   <group name="Common">
 
-    <entry name="ShadowStrength" type = "Int">
-       <default>255</default>
-       <min>25</min>
-       <max>255</max>
-    </entry>
-
-    <!-- shadow -->
-    <entry name="ShadowSize" type = "Enum">
-      <choices>
-          <choice name="ShadowNone"/>
-          <choice name="ShadowSmall"/>
-          <choice name="ShadowMedium"/>
-          <choice name="ShadowLarge"/>
-          <choice name="ShadowVeryLarge"/>
-      </choices>
-      <default>ShadowLarge</default>
-    </entry>
-
-    <entry name="ShadowColor" type = "Color">
-       <default>0, 0, 0</default>
+    <entry name="EnableShadow" type = "Bool">
+      <default>true</default>
     </entry>
 
     <!-- close button -->
@@ -35,16 +17,6 @@
         <default>false</default>
     </entry>
 
-    <entry name="OutlineIntensity" type = "Enum">
-      <choices>
-          <choice name="OutlineOff"/>
-          <choice name="OutlineLow"/>
-          <choice name="OutlineMedium"/>
-          <choice name="OutlineHigh"/>
-          <choice name="OutlineMaximum"/>
-      </choices>
-      <default>OutlineMedium</default>
-    </entry>
   </group>
 
   <group name="Windeco">

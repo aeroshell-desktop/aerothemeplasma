@@ -33,15 +33,10 @@ ConfigWidget::ConfigWidget(QObject *parent, const KPluginMetaData &data, const Q
     connect(m_ui.titlebarSize, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
     connect(m_ui.outlineCloseButton, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.alternativeButtonSizing, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
+    connect(m_ui.enableShadow, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.invertTextColor, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.drawBorderOnMaximizedWindows, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.drawBackgroundGradient, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
-
-    // track shadows changes
-    connect(m_ui.shadowSize, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
-    connect(m_ui.shadowStrength, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
-    connect(m_ui.shadowColor, &KColorButton::changed, this, &ConfigWidget::updateChanged);
-    connect(m_ui.outlineIntensity, SIGNAL(activated(int)), SLOT(updateChanged()));
 
     // track exception changes
     connect(m_ui.exceptions, &ExceptionListWidget::changed, this, &ConfigWidget::updateChanged);
@@ -64,25 +59,9 @@ void ConfigWidget::load()
     m_ui.drawBorderOnMaximizedWindows->setChecked(m_internalSettings->drawBorderOnMaximizedWindows());
     m_ui.outlineCloseButton->setChecked(m_internalSettings->outlineCloseButton());
     m_ui.alternativeButtonSizing->setChecked(m_internalSettings->alternativeButtonSizing());
+    m_ui.enableShadow->setChecked(m_internalSettings->enableShadow());
     m_ui.invertTextColor->setChecked(m_internalSettings->invertTextColor());
     m_ui.drawBackgroundGradient->setChecked(m_internalSettings->drawBackgroundGradient());
-
-    // load shadows
-    if (m_internalSettings->shadowSize() <= InternalSettings::ShadowVeryLarge) {
-        m_ui.shadowSize->setCurrentIndex(m_internalSettings->shadowSize());
-    } else {
-        m_ui.shadowSize->setCurrentIndex(InternalSettings::ShadowLarge);
-    }
-
-    m_ui.shadowStrength->setValue(qRound(qreal(m_internalSettings->shadowStrength() * 100) / 255));
-    m_ui.shadowColor->setColor(m_internalSettings->shadowColor());
-
-    // load outline intensity
-    if (m_internalSettings->outlineIntensity() <= InternalSettings::OutlineMaximum) {
-        m_ui.outlineIntensity->setCurrentIndex(m_internalSettings->outlineIntensity());
-    } else {
-        m_ui.outlineIntensity->setCurrentIndex(InternalSettings::OutlineMedium);
-    }
 
     // load exceptions
     ExceptionList exceptions;
@@ -106,14 +85,10 @@ void ConfigWidget::save()
     m_internalSettings->setTitlebarSize(m_ui.titlebarSize->value());
     m_internalSettings->setOutlineCloseButton(m_ui.outlineCloseButton->isChecked());
     m_internalSettings->setAlternativeButtonSizing(m_ui.alternativeButtonSizing->isChecked());
+    m_internalSettings->setEnableShadow(m_ui.enableShadow->isChecked());
     m_internalSettings->setInvertTextColor(m_ui.invertTextColor->isChecked());
     m_internalSettings->setDrawBorderOnMaximizedWindows(m_ui.drawBorderOnMaximizedWindows->isChecked());
     m_internalSettings->setDrawBackgroundGradient(m_ui.drawBackgroundGradient->isChecked());
-
-    m_internalSettings->setShadowSize(m_ui.shadowSize->currentIndex());
-    m_internalSettings->setShadowStrength(qRound(qreal(m_ui.shadowStrength->value() * 255) / 100));
-    m_internalSettings->setShadowColor(m_ui.shadowColor->color());
-    m_internalSettings->setOutlineIntensity(m_ui.outlineIntensity->currentIndex());
 
     // save configuration
     m_internalSettings->save();
@@ -152,14 +127,10 @@ void ConfigWidget::defaults()
     m_ui.titlebarSize->setValue(m_internalSettings->titlebarSize());
     m_ui.outlineCloseButton->setChecked(m_internalSettings->outlineCloseButton());
     m_ui.alternativeButtonSizing->setChecked(m_internalSettings->alternativeButtonSizing());
+    m_ui.enableShadow->setChecked(m_internalSettings->enableShadow());
     m_ui.invertTextColor->setChecked(m_internalSettings->invertTextColor());
     m_ui.drawBorderOnMaximizedWindows->setChecked(m_internalSettings->drawBorderOnMaximizedWindows());
     m_ui.drawBackgroundGradient->setChecked(m_internalSettings->drawBackgroundGradient());
-
-    m_ui.shadowSize->setCurrentIndex(m_internalSettings->shadowSize());
-    m_ui.shadowStrength->setValue(qRound(qreal(m_internalSettings->shadowStrength() * 100) / 255));
-    m_ui.shadowColor->setColor(m_internalSettings->shadowColor());
-    m_ui.outlineIntensity->setCurrentIndex(m_internalSettings->outlineIntensity());
 }
 
 //_______________________________________________
@@ -183,23 +154,14 @@ void ConfigWidget::updateChanged()
         modified = true;
     } else if (m_ui.alternativeButtonSizing->isChecked() != m_internalSettings->alternativeButtonSizing()) {
         modified = true;
+    } else if (m_ui.enableShadow->isChecked() != m_internalSettings->enableShadow()) {
+        modified = true;
     } else if (m_ui.invertTextColor->isChecked() != m_internalSettings->invertTextColor()) {
         modified = true;
     } else if (m_ui.drawBorderOnMaximizedWindows->isChecked() != m_internalSettings->drawBorderOnMaximizedWindows()) {
         modified = true;
     } else if (m_ui.drawBackgroundGradient->isChecked() != m_internalSettings->drawBackgroundGradient()) {
         modified = true;
-
-        // shadows
-    } else if (m_ui.shadowSize->currentIndex() != m_internalSettings->shadowSize()) {
-        modified = true;
-    } else if (qRound(qreal(m_ui.shadowStrength->value() * 255) / 100) != m_internalSettings->shadowStrength()) {
-        modified = true;
-    } else if (m_ui.shadowColor->color() != m_internalSettings->shadowColor()) {
-        modified = true;
-    } else if (m_ui.outlineIntensity->currentIndex() != m_internalSettings->outlineIntensity()) {
-        modified = true;
-
         // exceptions
     } else if (m_ui.exceptions->isChanged()) {
         modified = true;

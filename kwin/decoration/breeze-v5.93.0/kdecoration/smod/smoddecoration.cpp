@@ -4,11 +4,65 @@
 
 #include <QPainter>
 #include <QPainterPath>
+#include <QString>
 
 #include <KDecoration2/DecorationButtonGroup>
 
 namespace Breeze
 {
+static int g_sDecoCount = 0;
+static std::shared_ptr<KDecoration2::DecorationShadow> g_smod_shadow, g_smod_shadow_unfocus;
+
+
+Decoration::Decoration(QObject *parent, const QVariantList &args)
+: KDecoration2::Decoration(parent, args)
+, m_animation(new QVariantAnimation(this))
+, m_shadowAnimation(new QVariantAnimation(this))
+{
+    g_sDecoCount++;
+}
+
+Decoration::~Decoration()
+{
+    g_sDecoCount--;
+    if (g_sDecoCount == 0) {
+        // last deco destroyed, clean up shadow
+        g_smod_shadow.reset();
+        g_smod_shadow_unfocus.reset();
+    }
+}
+void Decoration::updateShadow()
+{
+    if(!internalSettings()->enableShadow())
+    {
+        setShadow(std::shared_ptr<KDecoration2::DecorationShadow>(nullptr));
+        return;
+    }
+    if (client()->isActive())
+    {
+        g_smod_shadow = g_smod_shadow ? g_smod_shadow : smodCreateShadow(true);
+        setShadow(g_smod_shadow);
+    }
+    else
+    {
+        g_smod_shadow_unfocus = g_smod_shadow_unfocus ? g_smod_shadow_unfocus : smodCreateShadow(false);
+        setShadow(g_smod_shadow_unfocus);
+    }
+
+}
+std::shared_ptr<KDecoration2::DecorationShadow> Decoration::smodCreateShadow(bool active)
+{
+    QImage shadowTexture = QImage(active ? ":/smod/decoration/shadow" : ":/smod/decoration/shadow-unfocus");
+    QMargins texMargins(30, 31, 29, 37);
+    QMargins padding(14, 14, 20, 20);
+    QRect innerShadowRect = shadowTexture.rect() - texMargins;
+
+    auto shadow = std::make_shared<KDecoration2::DecorationShadow>();
+    shadow->setPadding(padding);
+    shadow->setInnerShadowRect(innerShadowRect);
+    shadow->setShadow(shadowTexture);
+    return shadow;
+}
 
 void Decoration::updateBlur()
 {
@@ -104,69 +158,88 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
     painter->setOpacity(1.0);
     painter->setClipping(false);
 }
-
 void Decoration::smodPaintOuterBorder(QPainter *painter, const QRect &repaintRegion)
 {
+    Q_UNUSED(repaintRegion)
+
     if (isMaximized())
     {
         return;
     }
 
-    const auto c = client();
+    bool active = client()->isActive();
 
-    QPixmap nw, n, ne, e, se, s, sw, w;
-
-    if (c->isActive())
+    QString n_s ;
+    QString s_s ;
+    QString e_s ;
+    QString w_s ;
+    QString nw_s;
+    QString sw_s;
+    QString ne_s;
+    QString se_s;
+    if(internalSettings()->enableShadow())
     {
-        nw = QPixmap(":/smod/decoration/nw");
-        n = QPixmap(":/smod/decoration/n");
-        ne = QPixmap(":/smod/decoration/ne");
-        e = QPixmap(":/smod/decoration/e");
-        se = QPixmap(":/smod/decoration/se");
-        s = QPixmap(":/smod/decoration/s");
-        sw = QPixmap(":/smod/decoration/sw");
-        w = QPixmap(":/smod/decoration/w");
+        n_s = active ? ":/smod/decoration/frame-focus-n"  : ":/smod/decoration/frame-unfocus-n";
+        s_s = active ? ":/smod/decoration/frame-focus-s"  : ":/smod/decoration/frame-unfocus-s";
+        e_s = active ? ":/smod/decoration/frame-focus-e"  : ":/smod/decoration/frame-unfocus-e";
+        w_s = active ? ":/smod/decoration/frame-focus-w"  : ":/smod/decoration/frame-unfocus-w";
+        nw_s = active ? ":/smod/decoration/frame-focus-nw" : ":/smod/decoration/frame-unfocus-nw";
+        sw_s = active ? ":/smod/decoration/frame-focus-sw" : ":/smod/decoration/frame-unfocus-sw";
+        ne_s = active ? ":/smod/decoration/frame-focus-ne" : ":/smod/decoration/frame-unfocus-ne";
+        se_s = active ? ":/smod/decoration/frame-focus-se" : ":/smod/decoration/frame-unfocus-se";
+
     }
     else
     {
-        nw = QPixmap(":/smod/decoration/nw-unfocus");
-        n = QPixmap(":/smod/decoration/n-unfocus");
-        ne = QPixmap(":/smod/decoration/ne-unfocus");
-        e = QPixmap(":/smod/decoration/e-unfocus");
-        se = QPixmap(":/smod/decoration/se-unfocus");
-        s = QPixmap(":/smod/decoration/s-unfocus");
-        sw = QPixmap(":/smod/decoration/sw-unfocus");
-        w = QPixmap(":/smod/decoration/w-unfocus");
+        n_s = active ? ":/smod/decoration/n"  : ":/smod/decoration/n-unfocus";
+        s_s = active ? ":/smod/decoration/s"  : ":/smod/decoration/s-unfocus";
+        e_s = active ? ":/smod/decoration/e"  : ":/smod/decoration/e-unfocus";
+        w_s = active ? ":/smod/decoration/w"  : ":/smod/decoration/w-unfocus";
+        nw_s = active ? ":/smod/decoration/nw" : ":/smod/decoration/nw-unfocus";
+        sw_s = active ? ":/smod/decoration/sw" : ":/smod/decoration/sw-unfocus";
+        ne_s = active ? ":/smod/decoration/ne" : ":/smod/decoration/ne-unfocus";
+        se_s = active ? ":/smod/decoration/se" : ":/smod/decoration/se-unfocus";
     }
 
-#if 0
-    if (c->isActive())
-    {
-        painter->save();
-        QPen pen(Qt::white, 0);
-        painter->setPen(pen);
-        painter->drawRoundedRect(rect().x() + 1, rect().y() + 1, rect().width() - 2, rect().height() - 2, 6, 6);
-        painter->restore();
-    }
-#endif
-    int PIX_RIGHT = size().width() - 9;
-    int PIX_BOTTOM = size().height() - 9;
+    QPixmap n (n_s);
+    QPixmap s (s_s);
+    QPixmap e (e_s);
+    QPixmap w (w_s);
+    QPixmap nw(nw_s);
+    QPixmap sw(sw_s);
+    QPixmap ne(ne_s);
+    QPixmap se(se_s);
 
-    painter->drawPixmap(0, 0, nw);
+    int outerBorderSize = 9;
+    int right  = size().width()  - outerBorderSize;
+    int bottom = size().height() - outerBorderSize;
 
-    painter->drawTiledPixmap(9, 0, PIX_RIGHT - 9, 9, n);
+    QPoint pointN(outerBorderSize, 0);
+    QPoint pointS(outerBorderSize, bottom);
+    QPoint pointE(right, outerBorderSize);
+    QPoint pointW(0, outerBorderSize);
+    QPoint pointNW(0, 0);
+    QPoint pointSW(0, bottom);
+    QPoint pointNE(right, 0);
+    QPoint pointSE(right, bottom);
 
-    painter->drawPixmap(PIX_RIGHT, 0, ne);
+    QSize sizeN(right - outerBorderSize, outerBorderSize);
+    QSize sizeS(right - outerBorderSize, outerBorderSize);
+    QSize sizeE(outerBorderSize, bottom - outerBorderSize);
+    QSize sizeW(outerBorderSize, bottom - outerBorderSize);
+    QSize sizeNW(outerBorderSize, outerBorderSize);
+    QSize sizeSW(outerBorderSize, outerBorderSize);
+    QSize sizeNE(outerBorderSize, outerBorderSize);
+    QSize sizeSE(outerBorderSize, outerBorderSize);
 
-    painter->drawTiledPixmap(PIX_RIGHT, 9, 9, PIX_BOTTOM - 9, e);
-
-    painter->drawPixmap(PIX_RIGHT, PIX_BOTTOM, se);
-
-    painter->drawTiledPixmap(9, PIX_BOTTOM, PIX_RIGHT - 9, 9, s);
-
-    painter->drawPixmap(0, PIX_BOTTOM, sw);
-
-    painter->drawTiledPixmap(0, 9, 9, PIX_BOTTOM - 9, w);
+    painter->drawTiledPixmap(QRect(pointN, sizeN), n);
+    painter->drawTiledPixmap(QRect(pointS, sizeS), s);
+    painter->drawTiledPixmap(QRect(pointE, sizeE), e);
+    painter->drawTiledPixmap(QRect(pointW, sizeW), w);
+    painter->drawPixmap(QRect(pointNW, sizeNW), nw);
+    painter->drawPixmap(QRect(pointSW, sizeSW), sw);
+    painter->drawPixmap(QRect(pointNE, sizeNE), ne);
+    painter->drawPixmap(QRect(pointSE, sizeSE), se);
 }
 
 void Decoration::smodPaintInnerBorder(QPainter *painter, const QRect &repaintRegion)

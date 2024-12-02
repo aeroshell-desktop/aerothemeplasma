@@ -136,7 +136,7 @@ private:
     void smodPaintInnerBorder(QPainter *painter, const QRect &repaintRegion);
     void smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion);
     void updateShadow();
-    std::shared_ptr<KDecoration2::DecorationShadow> createShadowObject(const float strengthScale);
+    std::shared_ptr<KDecoration2::DecorationShadow> smodCreateShadow(bool active);
     void setScaledCornerRadius();
 
     //*@name border size
@@ -255,6 +255,6 @@ bool Decoration::hideInnerBorder() const
 
 bool Decoration::outlinesEnabled() const
 {
-    return (m_internalSettings->outlineIntensity() != InternalSettings::OutlineOff);
+    return true;
 }
 }
