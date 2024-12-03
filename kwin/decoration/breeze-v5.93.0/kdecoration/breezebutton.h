@@ -14,11 +14,15 @@
 #include <QImage>
 #include <QHoverEvent>
 #include <QPropertyAnimation>
+#include <QPixmap>
+#include <QPainter>
+
 
 class QVariantAnimation;
 
 namespace Breeze
 {
+
 class Button : public KDecoration2::DecorationButton
 {
     Q_OBJECT

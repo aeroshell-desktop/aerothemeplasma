@@ -11,6 +11,7 @@ set(breezedecoration_SRCS
     breezedecoration.cpp
     breezesettingsprovider.cpp
     breezeexceptionlist.cpp
+    frametexture.cpp
     smod/smodbutton.cpp
     smod/smoddecoration.cpp
     smod/qgraphicsgloweffect.cpp

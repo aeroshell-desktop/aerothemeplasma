@@ -1,5 +1,6 @@
 #include "../breezedecoration.h"
 #include "../breezebutton.h"
+#include "../frametexture.h"
 #include "qgraphicsgloweffect.h"
 
 #include <QPainter>
@@ -324,15 +325,13 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
     if (!hideCaption())
     {
         const auto c = client();
-        const bool active = c->isActive();
         int titleAlignment = internalSettings()->titleAlignment();
         bool invertText = internalSettings()->invertTextColor() && c->isMaximized();
 
-        QRect captionRect(m_leftButtons->geometry().right() /*+ 4 + (c->isMaximized() ? 5 : 0)*/, 0, m_rightButtons->geometry().left() - m_leftButtons->geometry().right() - 4, borderTop());
+        QRect captionRect(m_leftButtons->geometry().right(), 0, m_rightButtons->geometry().left() - m_leftButtons->geometry().right() - 4, borderTop());
         QString caption = settings()->fontMetrics().elidedText(c->caption(), Qt::ElideMiddle, captionRect.width());
         QStringList programname = caption.split(" — ");
         caption.remove(" — " + programname.at(programname.size()-1));
-        //caption.prepend(" ");
         caption.append(" ");
         int blurWidth = settings()->fontMetrics().horizontalAdvance(caption + "..JO  ");
         int blurHeight = settings()->fontMetrics().height();
@@ -344,29 +343,13 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
             textColor.setGreen(255-textColor.green());
             textColor.setBlue(255-textColor.blue());
         }
-        int textHaloXOffset = 1;
-        int textHaloYOffset = 1;
-        int textHaloSize = 2;
         captionRect.setHeight(captionRect.height() & -2);
         painter->setFont(settings()->font());
         painter->setPen(shadowColor);
         painter->setPen(textColor);
-        Qt::Alignment alignment = Qt::AlignLeft;
 
-        QLabel temp_label(caption);
-        QPalette palette = temp_label.palette();
-        palette.setColor(temp_label.backgroundRole(), textColor);
-        palette.setColor(temp_label.foregroundRole(), textColor);
-        temp_label.setPalette(palette);
-        temp_label.setFont(settings()->font());
-        temp_label.setFixedWidth(captionRect.width());
-        temp_label.setFixedHeight(blurHeight*1.2);
-        QGraphicsGlowEffect temp_effect;
-        temp_effect.setColor(QColor::fromRgb(255, 255, 255, 0));
-        temp_effect.setBlurRadius(10);
-        temp_label.setGraphicsEffect(&temp_effect);
         QLabel real_label(caption);
-        palette = real_label.palette();
+        QPalette palette = real_label.palette();
         palette.setColor(real_label.backgroundRole(), textColor);
         palette.setColor(real_label.foregroundRole(), textColor);
         real_label.setPalette(palette);
@@ -385,22 +368,18 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
             real_label.setAlignment(Qt::AlignHCenter);
         }
 
+        QPixmap glow(":/smod/decoration/glow");
+        int l = 24;
+        int r = 25;
+        int t = 17;
+        int b = 18;
+        painter->setRenderHint(QPainter::Antialiasing, true);
+        painter->setRenderHint(QPainter::SmoothPixmapTransform, true);
 
-        int captionHeight = captionRect.height() * 0.8;
-        QPixmap final_label(blurWidth, blurHeight*2);
-        final_label.fill(QColor::fromRgb(0,0,0,0));
-        QPainter *ptr = new QPainter(&final_label);
-        QPainterPath path;
-        path.addRoundedRect(0, 0, blurWidth, blurHeight, 12,12);
-        ptr->fillPath(path, QColor::fromRgb(255,255,255, active ? 186 : 148));
-        delete ptr;
+        FrameTexture gl(l, r, t, b, blurWidth + 8, blurHeight*2+3, &glow, c->isActive() ? 1.0 : 0.7);
 
         if(!caption.trimmed().isEmpty())
         {
-            QPixmap blur_effect = temp_effect.drawBlur(final_label);
-            float offset = isMaximized() ? -0.1 : 0.05;
-            float offsetHeight = 3;//isMaximized() ? 2.5 : 3;//isMaximized() ? 1.2 : 1;
-
             if(titleAlignment == InternalSettings::AlignCenterFullWidth)
             {
                 captionRect.setX(0);
@@ -418,10 +397,16 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
             }
             else
             {
-                xpos *= 0.65;
+                xpos = m_leftButtons->geometry().x() + 2;
             }
 
-            if(!invertText) painter->drawPixmap(QRect(xpos,(borderTop() - blurHeight*(offsetHeight/1.5)) / 2,blurWidth,blurHeight*offsetHeight), blur_effect);
+            if(!invertText)
+            {
+                painter->translate(xpos, captionRect.height() / 2 - blurHeight - 2);
+                gl.render(painter);
+                painter->translate(-xpos, -captionRect.height() / 2 + blurHeight + 2);
+            }
+
             QPixmap text_pixmap = real_label.grab();
 
             if(titleAlignment == InternalSettings::AlignRight)
