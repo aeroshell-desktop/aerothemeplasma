@@ -19,7 +19,7 @@
 			<default>qdbus6 org.kde.kglobalaccel /component/kmix invokeShortcut "decrease_volume"</default>
 		</entry>
 		<entry name="size" type="int">
-			<default>9</default>
+			<default>15</default>
 		</entry>
 		<entry name="peekingEnabled" type="bool">
 			<default>true</default>

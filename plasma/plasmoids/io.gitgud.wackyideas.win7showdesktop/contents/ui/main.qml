@@ -77,7 +77,6 @@ PlasmoidItem {
 	MouseArea {
 		id: mouseArea
 		anchors.fill: parent
-		anchors.rightMargin: -Kirigami.Units.smallSpacing - Kirigami.Units.smallSpacing/2;
 
 		activeFocusOnTab: true
 		hoverEnabled: true
