@@ -99,9 +99,7 @@ PlasmaCore.Dialog {
 	}
 
     onVisibleChanged: {
-        var pos = popupPosition(width, height); // Calculates the position of the floating dialog window.
-        x = pos.x;
-        y = pos.y;
+		popupPosition();
         if (!visible) {
             reset();
         } else {
@@ -115,17 +113,13 @@ PlasmaCore.Dialog {
 		resetRecents(); // Resets the recents model to prevent errors and crashes.
     }
     onHeightChanged: {
-        var pos = popupPosition(width, height);
-        x = pos.x;
-        y = pos.y;
+		popupPosition();
 		setFloatingAvatarPosition();
 		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
     }
 
     onWidthChanged: {
-        var pos = popupPosition(width, height);
-        x = pos.x;
-        y = pos.y;
+		popupPosition();
 		setFloatingAvatarPosition();
 		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
     }
@@ -151,38 +145,25 @@ PlasmaCore.Dialog {
 		searchField.forceActiveFocus();
     }
 	
-	//The position calculated is always at a corner.
-    function popupPosition(width, height) {
-        var screenAvail = Plasmoid.availableScreenRect;
-        var screen = kicker.screenGeometry;
+	function popupPosition() {
+		var pos = kicker.mapToGlobal(kicker.x, kicker.y);
+		var availScreen = Plasmoid.containment.availableScreenRect;
+		var screen = kicker.screenGeometry;
 
-        var offset = 0;
-        // Fall back to bottom-left of screen area when the applet is on the desktop or floating.
-        var x = offset;
-        var y = screen.height - height - offset;
-        var horizMidPoint = screen.x + (screen.width / 2);
-        var vertMidPoint = screen.y + (screen.height / 2);
-        var appletTopLeft = kicker.mapToGlobal(0, 0);
-        var appletBottomLeft = kicker.mapToGlobal(0, kicker.height);
+		x = pos.x;
+		y = pos.y - root.height;
 
-        x = (appletTopLeft.x < horizMidPoint) ? screen.x : (screen.x + screen.width) - width;
-        
-        if (appletTopLeft.x < horizMidPoint) {
-        	x += offset
-        } else if (appletTopLeft.x + width > horizMidPoint){
-        	x -= offset
-        }
+		if(x <= 0) x = 0;
+		if(x + root.width - screen.x >= availScreen.width) {
+			x = screen.x + availScreen.width - root.width;
+		}
+		if(y <= 0) y = 0;
+		if(y + root.height - screen.y >= availScreen.height) {
+			y = screen.y + availScreen.height - root.height;
+		}
 
-        if (Plasmoid.location == PlasmaCore.Types.TopEdge) {
-        	/*this is floatingAvatar.width*/
-        	offset = 2;
-        	y = screen.y + parent.height + panelSvg.margins.bottom + offset;
-        } else {
-          	y = screen.y + screen.height - parent.height - height - offset;
-        }
 
-        return Qt.point(x, y);
-    }
+	}
 
     FocusScope {
 		id: mainFocusScope
@@ -251,7 +232,7 @@ PlasmaCore.Dialog {
 				y: 0
 				backgroundHints: PlasmaCore.Types.NoBackground // To prevent the dialog background SVG from being rendered, we want a fully transparent window.
 				//visualParent: root
-				visible: root.visible && !searching && compositingEnabled
+				visible: root.visible && !searching && compositingEnabled && Plasmoid.location != PlasmaCore.Types.TopEdge
 				opacity: iconUser.visible && firstTimePopup // To prevent even more NP-hard unpredictable behavior
 				mainItem: FloatingIcon {
 					id: compositingIcon
@@ -917,14 +898,14 @@ PlasmaCore.Dialog {
                 top: parent.top
                 bottomMargin: Kirigami.Units.largeSpacing
                 leftMargin: 5
-                topMargin: (compositingEnabled ? Kirigami.Units.iconSizes.huge / 2 + Kirigami.Units.smallSpacing : 0) + Kirigami.Units.mediumSpacing
+                topMargin: ((compositingEnabled && Plasmoid.location !== PlasmaCore.Types.TopEdge) ? Kirigami.Units.iconSizes.huge / 2 + Kirigami.Units.smallSpacing : 0) + Kirigami.Units.mediumSpacing
 			}
 			spacing: Kirigami.Units.smallSpacing
 
 			FloatingIcon {
 				id: nonCompositingIcon
 				Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
-				visible: !compositingEnabled
+				visible: !compositingEnabled || Plasmoid.location === PlasmaCore.Types.TopEdge
 				opacity: !searching
 
 			}
@@ -1345,9 +1326,7 @@ PlasmaCore.Dialog {
 		reset();
 		faves.listView.currentIndex = -1;
 		
-		var pos = popupPosition(width, height);
-		x = pos.x;
-		y = pos.y;
+		popupPosition();
 		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
 	}
 }
