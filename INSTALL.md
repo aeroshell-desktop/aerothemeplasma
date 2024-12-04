@@ -39,7 +39,7 @@ This section relates to the directories found in the ```plasma``` folder.
 
 1. Move the ```smod``` folder to ```~/.local/share```. This will install the resources required by many other components.
 
-2. Move the folders ```desktoptheme```, ```look-and-feel```, ```plasmoids```, ```shells``` into ```~/.local/share/plasma```. If the folder doesn't exist, create it. These folders contain the following:
+2. Move the folders ```desktoptheme```, ```look-and-feel```, ```plasmoids```, ```layout-templates```, ```shells``` into ```~/.local/share/plasma```. If the folder doesn't exist, create it. These folders contain the following:
     - Plasma Style
     - Global Theme (more accurately, just the lock screen)
     - Plasmoids
@@ -101,8 +101,8 @@ If SDDM fails to pick up on the cursor theme, go to System Settings -> Startup a
 
 ## Configuring AeroThemePlasma <a name="conf"></a>
 
-1. Set the panel height to 40px (or 30px for small taskbar).
-2. Upon installation and configuring the panel layout, restart plasmashell and/or kwin (```plasmashell --replace & disown``` and ```kwin_x11 --replace & disown``` in the terminal respectively) as needed
+1. After installing everything, restart KDE Plasma and KWin.
+2. On a fresh KDE install, **remove** the default panel and add the "AeroThemePlasma Taskbar" panel using Edit mode. You can also manually configure the panel for a finer setup.
 3. When updating KDE Plasma, usually through a full system upgrade, recompiling KWin effects and the DefaultToolTip component is necessary.
 4. In System Settings -> Session -> Desktop Session, uncheck the "Ask for confirmation" option.
 5. In System Settings -> Keyboard -> Shortcuts, under KWin, disable the "Peek at Desktop" shortcut, and remap the "MinimizeAll" to Meta+D

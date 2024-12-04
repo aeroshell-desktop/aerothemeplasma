@@ -16,7 +16,7 @@
     </entry>
     <entry name="showDate" type="Bool">
       <label>Whether the date should be shown next to the clock.</label>
-      <default>false</default>
+      <default>true</default>
     </entry>
     <entry name="shortTaskbarHideDate" type="Bool">
       <default>true</default>

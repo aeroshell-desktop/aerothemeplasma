@@ -539,30 +539,7 @@ FocusScope {
                 z: 99999
 
                 function close() {
-                    opacityAnimation.restart();
-                }
-
-                OpacityAnimator {
-                    id: opacityAnimation
-                    target: rubberBand
-                    to: 0
-                    from: 1
-                    duration: Kirigami.Units.shortDuration
-
-                    // This easing curve has an elognated start, which works
-                    // better than a standard easing curve for the rubberband
-                    // animation, which fades out fast and is generally of a
-                    // small area.
-                    easing {
-                        bezierCurve: [0.4, 0.0, 1, 1]
-                        type: Easing.Bezier
-                    }
-
-                    onFinished: {
-                        rubberBand.visible = false;
-                        rubberBand.enabled = false;
-                        rubberBand.destroy();
-                    }
+                    rubberBand.opacity = 0;
                 }
             }
         }
@@ -645,6 +622,7 @@ FocusScope {
             Component.onCompleted: {
                 scrollArea.ready = true;
             }
+
 
             GridView {
                 id: gridView

@@ -1,0 +1,22 @@
+{
+    "KPackageStructure": "Plasma/LayoutTemplate",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "wackyideas@disroot.org",
+                "Name": "WackyIdeas"
+            }
+        ],
+        "Category": "",
+        "Description": "Default panel featuring application launcher, task manager and system tray",
+        "EnabledByDefault": true,
+        "Id": "io.gitgud.wackyideas.taskbar",
+        "License": "AGPLv3",
+        "Name": "AeroThemePlasma Taskbar",
+        "Website": "https://gitgud.io/wackyideas/aerothemeplasma"
+    },
+    "X-Plasma-ContainmentCategories": [
+        "panel"
+    ],
+    "X-Plasma-Shell": "plasmashell"
+}
