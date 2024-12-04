@@ -51,8 +51,11 @@ Item {
     readonly property bool enableShadow: (Plasmoid.configuration.enableShadow)
 
     onEnableShadowChanged: {
-        Plasmoid.enableShadow(Plasmoid.configuration.enableShadow);
-		Plasmoid.syncBorders(Qt.rect(dashWindow.x, dashWindow.y, dashWindow.width, dashWindow.height), Plasmoid.location);
+        //Plasmoid.enableShadow(Plasmoid.configuration.enableShadow);
+        if(dashWindow) {
+            dashWindow.firstTimeShadowSetup = false;
+            Plasmoid.syncBorders(Qt.rect(dashWindow.x, dashWindow.y, dashWindow.width, dashWindow.height), Plasmoid.location);
+        }
     }
 
 
@@ -238,7 +241,6 @@ Item {
             // Currently hardcoded, will make it configurable soon, when it's been properly tested and hopefully slightly refactored.
             Plasmoid.setMask(Qt.resolvedUrl("./orbs/mask.png"), false);
             Plasmoid.setDashWindow(dashWindow, dashWindow.dialogBackgroundTexture.mask, dashWindow.dialogBackgroundTexture.imagePath);
-            Plasmoid.enableShadow(Plasmoid.configuration.enableShadow);
             updateSizeHints();
             positionOrb();
         }

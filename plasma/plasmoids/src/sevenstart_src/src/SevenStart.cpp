@@ -16,11 +16,6 @@ SevenStart::SevenStart(QObject *parentObject, const KPluginMetaData &data, const
 SevenStart::~SevenStart()
 {
     if(inputMaskCache) delete inputMaskCache;
-    if(shadow)
-    {
-        shadow->removeWindow(dashWindow);
-        delete shadow;
-    }
 }
 
 K_PLUGIN_CLASS(SevenStart)

@@ -104,13 +104,14 @@ public:
         dashWindow = w;
         if(shadow == nullptr)
             shadow = new DialogShadows(this, svg.toString());
+        if(w == nullptr) return;
         setDialogAppearance(w, mask);
     }
     Q_INVOKABLE void enableShadow(bool enable)
     {
         if(shadow == nullptr || dashWindow == nullptr) return;
-        if(enable) shadow->addWindow(dashWindow);
-        else shadow->removeWindow(dashWindow);
+        if(enable && !shadowEnabled) shadow->addWindow(dashWindow);
+        else if(!enable && shadowEnabled) shadow->removeWindow(dashWindow);
         shadowEnabled = enable;
     }
     Q_INVOKABLE bool fileExists(QUrl path)
@@ -158,10 +159,12 @@ public:
     }
     Q_INVOKABLE void setActiveWin(QQuickWindow* w)
     {
+        if(w == nullptr) return;
         KX11Extras::forceActiveWindow(w->winId());
     }
     Q_INVOKABLE void setDialogAppearance(QQuickWindow* w, QRegion mask)
     {
+        if(w == nullptr) return;
         KWindowEffects::enableBlurBehind(w, true, mask);
     }
 public Q_SLOTS:

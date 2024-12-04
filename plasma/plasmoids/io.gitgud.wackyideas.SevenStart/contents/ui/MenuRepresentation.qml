@@ -62,6 +62,7 @@ PlasmaCore.Dialog {
     property bool searching: (searchField.text != "")
     property bool showingAllPrograms: false
     property bool firstTimePopup: false // To make sure the user icon is displayed properly.
+    property bool firstTimeShadowSetup: false
 
     property int animationDuration: Kirigami.Units.longDuration*1.5
 
@@ -115,7 +116,12 @@ PlasmaCore.Dialog {
 			setFloatingAvatarPosition();
 			Plasmoid.setDialogAppearance(root, dialogBackground.mask);
 
+			if(!firstTimeShadowSetup) {
+				Plasmoid.enableShadow(Plasmoid.configuration.enableShadow);
+				firstTimeShadowSetup = true;
+			}
         }
+
 		resetRecents(); // Resets the recents model to prevent errors and crashes.
     }
     onHeightChanged: {
@@ -1336,5 +1342,6 @@ PlasmaCore.Dialog {
 		
 		popupPosition();
 		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
+
 	}
 }
