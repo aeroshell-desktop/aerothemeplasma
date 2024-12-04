@@ -15,13 +15,15 @@ It is still in heavy development and testing. ATP has been tested on:
 
 **This release is meant for early adopters, debuggers and developers alike. This port lacks certain components which still need to be ported over to KDE Plasma 6. I am not responsible for broken systems, please proceed with caution.**
 
-See [INSTALL.md](./INSTALL.md) for a really quick, half baked and incomprehensive installation guide. The rest of the project and the appropriate complete documentation will be available in due time.
-
 The Plasma 5 version of ATP is available as a tag in this repository, however it is unmaintained and no longer supported.
 
 If you find my work valuable consider donating:
 
 <a href='https://ko-fi.com/M4M2NJ9PJ' target='_blank'><img height='42' style='border:0px;height:42px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+
+## Installation
+
+See [INSTALL.md](./INSTALL.md) for a detailed installation guide.
 
 ## Credits 
 
