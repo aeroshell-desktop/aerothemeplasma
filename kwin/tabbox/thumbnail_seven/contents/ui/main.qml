@@ -19,7 +19,6 @@ import org.kde.plasma.plasma5support as Plasma5Support
 import org.kde.kwindowsystem 1.0
 
 import Qt5Compat.GraphicalEffects
-//import QtGraphicalEffects 1.15
 
 // https://techbase.kde.org/Development/Tutorials/KWin/WindowSwitcher
 // https://github.com/KDE/kwin/blob/master/tabbox/switcheritem.h
@@ -28,17 +27,11 @@ KWin.TabBoxSwitcher {
 	MinimizeAllController {
 		id: minimizeAllController
 	}
-    Instantiator {
-        id: instantiator
-        active: true
-        delegate: PlasmaCore.Dialog {
-
+    PlasmaCore.Dialog {
         id: dialog
         title: "kwin-tabbox-thumbnailseven"
         location: PlasmaCore.Types.Floating
         visible: tabBox.visible && mainItem.count > 1//true
-        //visible: tabBox.visible
-        //opacity: tabBox.visible
         flags: Qt.X11BypassWindowManagerHint | Qt.WindowStaysOnTopHint | Qt.Popup
         x: tabBox.screenGeometry.x + tabBox.screenGeometry.width * 0.5 - dialogMainItem.width * 0.5
         y: tabBox.screenGeometry.y + tabBox.screenGeometry.height * 0.5 - dialogMainItem.height * 0.5
@@ -50,7 +43,6 @@ KWin.TabBoxSwitcher {
         }
         onVisibleChanged: {
             if(!visible) {
-                //if(tabBox.currentIndex === mainItem.count-1 && !mainItem.currentItem.canClose) {
                 if(mainItem.currentItem.isShowDesktop) {
                     minimizeAllController.toggle();
                     KWindowSystem.showingDesktop = false;
@@ -204,7 +196,7 @@ KWin.TabBoxSwitcher {
 
                         property bool isShowDesktop: {
                             //console.log(index === mainItem.count-1 && !canClose && model.icon.toString().includes("user-desktop"))
-                            return index === mainItem.count-1 && !canClose && model.icon.toString().includes("user-desktop")
+                            return index === dialogMainItem.count-1 && !canClose && model.icon.toString().includes("user-desktop")
                         }
 
                         MouseArea {
@@ -310,5 +302,4 @@ KWin.TabBoxSwitcher {
             }
         } // Dialog.mainItem
     } // Dialog
-    } // Instantiator
 }
