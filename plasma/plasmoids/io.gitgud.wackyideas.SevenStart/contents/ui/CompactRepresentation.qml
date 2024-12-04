@@ -48,6 +48,13 @@ Item {
     readonly property bool stickOutOrb: (Plasmoid.location == PlasmaCore.Types.TopEdge || Plasmoid.location == PlasmaCore.Types.BottomEdge) && Plasmoid.configuration.stickOutOrb && kicker.height <= 30 && !editMode
     readonly property bool useCustomButtonImage: (Plasmoid.configuration.useCustomButtonImage)
     readonly property bool vertical: (Plasmoid.formFactor == PlasmaCore.Types.Vertical)
+    readonly property bool enableShadow: (Plasmoid.configuration.enableShadow)
+
+    onEnableShadowChanged: {
+        Plasmoid.enableShadow(Plasmoid.configuration.enableShadow);
+		Plasmoid.syncBorders(Qt.rect(dashWindow.x, dashWindow.y, dashWindow.width, dashWindow.height), Plasmoid.location);
+    }
+
 
     // If the url is empty (default value), then use the fallback url. Otherwise, return the url path relative to
     // the location of the source code.
@@ -230,9 +237,8 @@ Item {
             Plasmoid.setOrb(orb);
             // Currently hardcoded, will make it configurable soon, when it's been properly tested and hopefully slightly refactored.
             Plasmoid.setMask(Qt.resolvedUrl("./orbs/mask.png"), false);
-            //Plasmoid.setWinState(orb);
-            //Plasmoid.setWinType(orb);
-            Plasmoid.setDashWindow(dashWindow, dashWindow.dialogBackgroundTexture.mask);
+            Plasmoid.setDashWindow(dashWindow, dashWindow.dialogBackgroundTexture.mask, dashWindow.dialogBackgroundTexture.imagePath);
+            Plasmoid.enableShadow(Plasmoid.configuration.enableShadow);
             updateSizeHints();
             positionOrb();
         }

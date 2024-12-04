@@ -98,6 +98,12 @@ PlasmaCore.Dialog {
 		firstTimePopup = true;
 	}
 
+	onXChanged: {
+		Plasmoid.syncBorders(Qt.rect(x, y, width, height), Plasmoid.location);
+	}
+	onYChanged: {
+		Plasmoid.syncBorders(Qt.rect(x, y, width, height), Plasmoid.location);
+	}
     onVisibleChanged: {
 		popupPosition();
         if (!visible) {
@@ -116,12 +122,14 @@ PlasmaCore.Dialog {
 		popupPosition();
 		setFloatingAvatarPosition();
 		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
+		Plasmoid.syncBorders(Qt.rect(x, y, width, height), Plasmoid.location);
     }
 
     onWidthChanged: {
 		popupPosition();
 		setFloatingAvatarPosition();
 		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
+		Plasmoid.syncBorders(Qt.rect(x, y, width, height), Plasmoid.location);
     }
 
     onSearchingChanged: {
