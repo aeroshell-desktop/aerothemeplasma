@@ -50,7 +50,7 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
 
     painter->save();
     auto deco = qobject_cast<Decoration *>(decoration());
-    int titlebarHeight = deco->internalSettings()->titlebarSize();
+    int titlebarHeight = deco->titlebarHeight();
 
     // translate from offset
     if (m_flag == FlagFirstInList)

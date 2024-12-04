@@ -331,7 +331,6 @@ void Decoration::recalculateBorders()
     auto s = settings();
     //auto d = qobject_cast<Decoration *>(decoration());
 
-    int titlebarHeight = internalSettings()->titlebarSize();
 
     // left, right and bottom borders
     int left = isMaximized() ? 0 : borderSize();
@@ -353,7 +352,7 @@ void Decoration::recalculateBorders()
         top += baseSize * Metrics::TitleBar_TopMargin;
     }
 
-    top = isMaximized() ? titlebarHeight+1 : titlebarHeight+9;
+    top = isMaximized() ? titlebarHeight()+1 : titlebarHeight()+9;
 
     if (hideInnerBorder())
     {
@@ -526,8 +525,7 @@ void Decoration::paintTitleBar(QPainter *painter, const QRect &repaintRegion)
 
 QRect Decoration::buttonRect(KDecoration2::DecorationButtonType button) const
 {
-    int titlebarHeight = m_internalSettings->titlebarSize();
-    int height = titlebarHeight-1;
+    int height = titlebarHeight()-1;
     int intendedWidth = 27;
     int width = 0;
     switch (button)
@@ -542,14 +540,18 @@ QRect Decoration::buttonRect(KDecoration2::DecorationButtonType button) const
             intendedWidth = 49;
             break;
         case KDecoration2::DecorationButtonType::Menu:
-            height = titlebarHeight;
+            height = titlebarHeight();
             break;
         default:
             break;
     }
     if(button == KDecoration2::DecorationButtonType::Menu) width = 16;
-    else width = (int)((float)titlebarHeight * ((float)intendedWidth / 21.0f) + 0.5f);
+    else width = (int)((float)titlebarHeight() * ((float)intendedWidth / 21.0f) + 0.5f);
     return QRect(0, 0, width, height);
+}
+int Decoration::titlebarHeight() const
+{
+    return internalSettings()->titlebarSize();
 }
 //________________________________________________________________
 int Decoration::buttonHeight() const

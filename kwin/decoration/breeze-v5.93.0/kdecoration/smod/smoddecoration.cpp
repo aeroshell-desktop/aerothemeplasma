@@ -91,7 +91,6 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
 {
     const auto c = client();
 
-    int titlebarHeight = internalSettings()->titlebarSize();
     int SIDEBAR_HEIGHT = qMax(25, (size().height() / 4));
 
     if(internalSettings()->invertTextColor() && isMaximized()) return;
@@ -107,7 +106,6 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
             painter->drawPixmap(0, 0, nwCorner, 4, 4, nwCorner.width() - 4, nwCorner.height() - 4);
 
             QPixmap neCorner = nwCorner.transformed(QTransform().scale(-1, 1));
-            //QPixmap neCorner(":/smod/decoration/ne-corner");
             painter->drawPixmap(size().width() - (neCorner.width() - 4), 0, neCorner, 0, 4, neCorner.width() - 4, neCorner.height() - 4);
         }
         else
@@ -116,7 +114,6 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
             painter->drawPixmap(0, 0, nwCorner);
 
             QPixmap neCorner = nwCorner.transformed(QTransform().scale(-1, 1));
-            //QPixmap neCorner(":/smod/decoration/ne-corner");
             painter->drawPixmap(size().width() - neCorner.width(), 0, neCorner);
 
             painter->setOpacity(1.0);
@@ -135,7 +132,6 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
             painter->drawPixmap(0, 0, nwCorner, 4, 4, nwCorner.width() - 4, nwCorner.height() - 4);
 
             QPixmap neCorner = nwCorner.transformed(QTransform().scale(-1, 1));
-            //QPixmap neCorner(":/smod/decoration/ne-corner");
             painter->drawPixmap(size().width() - (neCorner.width() - 4), 0, neCorner, 0, 4, neCorner.width() - 4, neCorner.height() - 4);
         }
         else
@@ -144,7 +140,6 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
             painter->drawPixmap(0, 0, nwCorner);
 
             QPixmap neCorner = nwCorner.transformed(QTransform().scale(-1, 1));
-            //QPixmap neCorner(":/smod/decoration/ne-corner");
             painter->drawPixmap(size().width() - neCorner.width(), 0, neCorner);
 
             painter->setOpacity(1.0);
