@@ -27,11 +27,15 @@ KWin.TabBoxSwitcher {
 	MinimizeAllController {
 		id: minimizeAllController
 	}
+	onVisibleChanged: {
+        dialog.opacity = tabBox.visible && dialog.mainItem.count > 1;
+        dialog.visible = tabBox.visible && dialog.mainItem.count > 1;
+    }
     PlasmaCore.Dialog {
         id: dialog
-        title: "kwin-tabbox-thumbnailseven"
         location: PlasmaCore.Types.Floating
-        visible: tabBox.visible && mainItem.count > 1//true
+        visible: true
+        opacity: 1
         flags: Qt.X11BypassWindowManagerHint | Qt.WindowStaysOnTopHint | Qt.Popup
         x: tabBox.screenGeometry.x + tabBox.screenGeometry.width * 0.5 - dialogMainItem.width * 0.5
         y: tabBox.screenGeometry.y + tabBox.screenGeometry.height * 0.5 - dialogMainItem.height * 0.5
