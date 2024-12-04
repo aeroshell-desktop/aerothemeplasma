@@ -27,13 +27,6 @@ Item {
     }
 
     // Those 2 elements have the same parameters as the overview effect
-    MultiEffect {
-        source: containment
-        anchors.fill: parent
-        blurEnabled: true
-        blurMax: 64
-        blur: 1.0
-    }
     Rectangle {
         anchors.fill: parent
         color: Kirigami.Theme.backgroundColor
@@ -55,6 +48,7 @@ Item {
             width: Math.round(parent.width)
             height: Math.round(parent.height + toolBar.height + Kirigami.Units.largeSpacing)
             y: - toolBar.height - Kirigami.Units.largeSpacing
+
 
             radius: open ? Kirigami.Units.cornerRadius : 0
             Behavior on radius {
@@ -79,6 +73,9 @@ Item {
                     right: parent.right
                     margins: Kirigami.Units.smallSpacing
                 }
+                Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
+                Kirigami.Theme.inherit: false
+
                 Flow {
                     Layout.fillWidth: true
                     Layout.minimumHeight: implicitHeight
@@ -157,25 +154,25 @@ Item {
             NumberAnimation {
                 id: xAnim
                 duration: Kirigami.Units.longDuration
-                easing.type: Easing.InOutQuad
+                easing.type: Easing.Linear
             }
         }
         Behavior on y {
             NumberAnimation {
                 duration: Kirigami.Units.longDuration
-                easing.type: Easing.InOutQuad
+                easing.type: Easing.Linear
             }
         }
         Behavior on width {
             NumberAnimation {
                 duration: Kirigami.Units.longDuration
-                easing.type: Easing.InOutQuad
+                easing.type: Easing.Linear
             }
         }
         Behavior on height {
             NumberAnimation {
                 duration: Kirigami.Units.longDuration
-                easing.type: Easing.InOutQuad
+                easing.type: Easing.Linear
             }
         }
 
@@ -184,19 +181,6 @@ Item {
             source: containment
             layer.enabled: true
             layer.smooth: true
-            layer.effect: Kirigami.ShadowedTexture {
-                width: roundedRootWidth
-                height: roundedRootHeight
-                color: "transparent"
-
-                radius: open ? Kirigami.Units.cornerRadius : 0
-                Behavior on radius {
-                    NumberAnimation {
-                        duration: Kirigami.Units.longDuration
-                        easing.type: Easing.InOutQuad
-                    }
-                }
-            }
         }
     }
 }

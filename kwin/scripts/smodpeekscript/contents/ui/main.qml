@@ -17,8 +17,20 @@ import org.kde.ksvg as KSvg
 
 Item
 {
-    //property bool inEditMode: Plasmoid.containment.corona.editMode;
-    property bool compositingEnabled: KWindowSystem.isPlatformX11 ? KX11Extras.compositingActive : true
+    id: peekItem
+    KWin.DBusCall {
+        id: dbus
+        service: "org.kde.plasmashell"
+        path: "/PlasmaShell"
+        dbusInterface: "org.freedesktop.DBus.Properties"
+        method: "Get"
+        arguments: ["org.kde.PlasmaShell", "editMode"]
+        onFinished: (returnValue) => {
+            peekItem.inEditMode = returnValue[0];
+        }
+    }
+    property bool inEditMode: false;
+    property bool compositingEnabled: (KWindowSystem.isPlatformX11 ? KX11Extras.compositingActive : true) && !inEditMode
     property bool showingDesktop: KWindowSystem.showingDesktop //false
     property real peekOpacity: showingDesktop ? 1 : 0
     property bool instantiatorActive: true
@@ -55,6 +67,7 @@ Item
         }
     }
     onShowingDesktopChanged: {
+        dbus.call();
         timer.start();
     }
 
@@ -168,7 +181,6 @@ Item
                             return false;
                         }
                         var area = (windowFrame.width*windowFrame.height) / (monitor.width*monitor.height);
-                        console.log(area + " " + model.window.caption);
                         return area <= 1 && area > 0.9
                         return true;
                     }

@@ -201,9 +201,11 @@ ColumnLayout {
                 text: i18nd("plasma_shell_org.kde.plasma.desktop", "Alignment")
                 textFormat: Text.PlainText
             }
+
             PanelRepresentation {
                 id: alignmentRepresentation
                 Layout.alignment: Qt.AlignHCenter
+
                 mainIconSource: {
                     if (dialogRoot.vertical) {
                         if (alignmentBox.previewIndex === 0) {
@@ -262,6 +264,16 @@ ColumnLayout {
                 property int previewIndex: highlightedIndex > -1 ? highlightedIndex : currentIndex
                 Layout.alignment: Qt.AlignHCenter
                 Layout.minimumWidth: alignmentRepresentation.width
+                contentItem: Text {
+                    leftPadding: 0
+                    rightPadding: parent.indicator.width + parent.spacing
+
+                    text: parent.displayText
+                    font: parent.font
+                    color: "black"
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
                 model: [
                     dialogRoot.vertical ? i18nd("plasma_shell_org.kde.plasma.desktop", "Top") : i18nd("plasma_shell_org.kde.plasma.desktop", "Left"),
                     i18nd("plasma_shell_org.kde.plasma.desktop", "Center"),
@@ -306,6 +318,16 @@ ColumnLayout {
                 property int previewIndex: highlightedIndex > -1 ? highlightedIndex : currentIndex
                 Layout.alignment: Qt.AlignHCenter
                 Layout.minimumWidth: lengthRepresentation.width
+                contentItem: Text {
+                    leftPadding: 0
+                    rightPadding: parent.indicator.width + parent.spacing
+
+                    text: parent.displayText
+                    font: parent.font
+                    color: "black"
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
                 model: [
                     dialogRoot.vertical ? i18nd("plasma_shell_org.kde.plasma.desktop", "Fill height") : i18nd("plasma_shell_org.kde.plasma.desktop", "Fill width"),
                     i18nd("plasma_shell_org.kde.plasma.desktop", "Fit content"),
@@ -347,6 +369,16 @@ ColumnLayout {
             PC3.ComboBox {
                 id: autoHideBox
                 property int previewIndex: popup.visible ? highlightedIndex : currentIndex
+                contentItem: Text {
+                    leftPadding: 0
+                    rightPadding: parent.indicator.width + parent.spacing
+
+                    text: parent.displayText
+                    font: parent.font
+                    color: "black"
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
                 model: [
                     i18nd("plasma_shell_org.kde.plasma.desktop", "Always visible"),
                     i18nd("plasma_shell_org.kde.plasma.desktop", "Auto hide"),
@@ -407,6 +439,16 @@ ColumnLayout {
             PC3.ComboBox {
                 id: transparencyBox
                 readonly property int previewIndex: popup.visible ? highlightedIndex : currentIndex
+                contentItem: Text {
+                    leftPadding: 0
+                    rightPadding: parent.indicator.width + parent.spacing
+
+                    text: parent.displayText
+                    font: parent.font
+                    color: "black"
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
                 model: [
                     i18nd("plasma_shell_org.kde.plasma.desktop", "Adaptive"),
                     i18nd("plasma_shell_org.kde.plasma.desktop", "Opaque"),
@@ -451,7 +493,7 @@ ColumnLayout {
                 floatingGap: Kirigami.Units.smallSpacing * floatingSwitch.checked
                 onClicked: floatingAction.toggle(this)
             }
-            PC3.Switch {
+            QQC2.CheckBox {
                 id: floatingSwitch
                 Layout.alignment: Qt.AlignHCenter
                 Layout.minimumHeight: transparencyBox.height
@@ -481,8 +523,8 @@ ColumnLayout {
                 y: modelData.virtualY + modelData.height / 2 - mainItem.height / 2 - margins.top
 
                 mainItem: PC3.ToolButton {
-                    width: Kirigami.Units.iconSizes.enormous
-                    height: Kirigami.Units.iconSizes.enormous
+                    width: Kirigami.Units.iconSizes.huge
+                    height: Kirigami.Units.iconSizes.huge
                     icon.name: root.iconSource
 
                     onClicked: setPositionButton.moveTo(root.onClickedLocation, Window.window)
@@ -533,17 +575,17 @@ ColumnLayout {
                 : i18nd("plasma_shell_org.kde.plasma.desktop", "Panel Height:")
             textFormat: Text.PlainText
         }
-        PC3.SpinBox {
+        QQC2.SpinBox {
             id: spinBox
 
             editable: true
             focus: !Kirigami.InputMethod.willShowOnActive
-            from: Math.max(20, panel.minThickness) // below this size, the panel is mostly unusable
+            from: 30 // below this size, the panel is mostly unusable
             to: panel.location === PlasmaCore.Types.LeftEdge || panel.location === PlasmaCore.Types.RightEdge
                 ? panel.screenToFollow.geometry.width / 2
                 : panel.screenToFollow.geometry.height / 2
 
-            stepSize: 2
+            stepSize: 10
 
             value: panel.thickness
             onValueModified: {
@@ -571,6 +613,7 @@ ColumnLayout {
         KeySequenceItem {
             id: button
             keySequence: plasmoid.globalShortcut
+            visible: panel.adaptiveOpacityEnabled
             onCaptureFinished: {
                 plasmoid.globalShortcut = button.keySequence
             }
