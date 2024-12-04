@@ -106,7 +106,6 @@ namespace Breeze
                 fragments[i].y = floor(fragments[i].y);
             }
         }
-
     }
 
     void FrameTexture::setGeometry(qreal w, qreal h)
