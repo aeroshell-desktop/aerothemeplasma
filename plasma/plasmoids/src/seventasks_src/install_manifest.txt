@@ -1,0 +1,1 @@
+/usr/lib/qt6/plugins/plasma/applets/plasma_applet_seventasks.so

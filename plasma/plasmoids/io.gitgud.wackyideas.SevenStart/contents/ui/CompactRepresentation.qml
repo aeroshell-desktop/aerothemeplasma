@@ -54,7 +54,6 @@ Item {
         //Plasmoid.enableShadow(Plasmoid.configuration.enableShadow);
         if(dashWindow) {
             dashWindow.firstTimeShadowSetup = false;
-            Plasmoid.syncBorders(Qt.rect(dashWindow.x, dashWindow.y, dashWindow.width, dashWindow.height), Plasmoid.location);
         }
     }
 

@@ -407,35 +407,37 @@ ContainmentItem {
 
             }
             property string tint: "#36000000"
-            property string gradColor: applet ? "transparent" : gradientRect.tint
+            property string gradColor: iconsOnlyApplet ? "transparent" : gradientRect.tint
             property double gradStart: {
                 if(root.isHorizontal) {
-                    return (applet ? (applet.x / applet.availWidth) : 0.1)
+                    return (iconsOnlyApplet ? (applet.x / applet.availWidth) : 0.1)
                 } else {
-                    return (applet ? (applet.y / applet.availHeight) : 0.1)
+                    return (iconsOnlyApplet ? (applet.y / applet.availHeight) : 0.1)
                 }
             }
             property double gradEnd: {
                 if(root.isHorizontal) {
                     if(nextApplet) {
-                        return nextApplet.x / nextApplet.availWidth;
+                        return iconsOnlyApplet ? (nextApplet.x / nextApplet.availWidth) : 0.1;
                     } else {
-                        return (applet ? ((applet.x+applet.Layout.maximumWidth) / applet.availWidth) : 0.1)
+                        return (iconsOnlyApplet ? ((applet.x+applet.Layout.maximumWidth) / applet.availWidth) : 0.1)
                     }
                 }
                 else {
                     if(nextApplet) {
-                        return nextApplet.y / nextApplet.availHeight;
+                        return iconsOnlyApplet ? (nextApplet.y / nextApplet.availHeight) : 0.1;
                     } else {
-                        return (applet ? ((applet.y+applet.Layout.maximumHeight) / applet.availHeight) : 0.1)
+                        return (iconsOnlyApplet ? ((applet.y+applet.Layout.maximumHeight) / applet.availHeight) : 0.1)
                     }
                 }
             }
+            property bool iconsOnlyApplet: applet ? applet.applet.iconsOnly : false
             property int index: applet ? applet.index : -1
             property int count: appletsModel.count
+            property string targetPlasmoid: "io.gitgud.wackyideas.seventasks"
             property Item nextApplet: {
                 for(var i = 0; i < currentLayout.visibleChildren.length; i++) {
-                    if(currentLayout.visibleChildren[i].applet.iconsOnly && currentLayout.visibleChildren[i].applet.Plasmoid.pluginName === "org.kde.plasma.icontasks") {
+                    if(currentLayout.visibleChildren[i].applet.Plasmoid.pluginName === targetPlasmoid) {
                         if(i == currentLayout.visibleChildren.length-1) {
                             return null;
                         }
@@ -446,7 +448,7 @@ ContainmentItem {
             }
             property Item applet: {
                 for(var i = 0; i < currentLayout.visibleChildren.length; i++) {
-                    if(currentLayout.visibleChildren[i].applet.iconsOnly && currentLayout.visibleChildren[i].applet.Plasmoid.pluginName === "org.kde.plasma.icontasks") {
+                    if(currentLayout.visibleChildren[i].applet.Plasmoid.pluginName === targetPlasmoid) {
                         return currentLayout.visibleChildren[i];
                     }
                 }

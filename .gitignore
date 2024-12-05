@@ -4,5 +4,5 @@ kwin/decoration/breeze-v5.93.0/build
 kwin/effects_cpp/kwin-effect-smodsnap-v2/build-kf6
 kwin/effects_cpp/kde-effects-aeroglassblur/build
 plasma/plasmoids/src/sevenstart_src/build
+plasma/plasmoids/src/seventasks_src/build
 kwin/effects_cpp/smodglow/build-kf6
-plasma/plasmoids/src/seventasks_src

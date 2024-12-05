@@ -118,6 +118,7 @@ PlasmaCore.Dialog {
 
 			if(!firstTimeShadowSetup) {
 				Plasmoid.enableShadow(Plasmoid.configuration.enableShadow);
+				Plasmoid.syncBorders(Qt.rect(dashWindow.x, dashWindow.y, dashWindow.width, dashWindow.height), Plasmoid.location);
 				firstTimeShadowSetup = true;
 			}
         }
