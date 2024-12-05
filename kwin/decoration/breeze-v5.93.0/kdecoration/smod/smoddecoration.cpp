@@ -332,12 +332,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         int blurHeight = settings()->fontMetrics().height();
         QColor shadowColor = QColor(0, 0, 0, 255);
         QColor textColor = c->color(c->isActive() ? KDecoration2::ColorGroup::Active : KDecoration2::ColorGroup::Inactive, KDecoration2::ColorRole::Foreground);
-        if(invertText)
-        {
-            textColor.setRed(255-textColor.red());
-            textColor.setGreen(255-textColor.green());
-            textColor.setBlue(255-textColor.blue());
-        }
+
         captionRect.setHeight(captionRect.height() & -2);
         painter->setFont(settings()->font());
         painter->setPen(shadowColor);
@@ -345,11 +340,23 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
 
         QLabel real_label(caption);
         QPalette palette = real_label.palette();
+        if(invertText)
+        {
+            textColor.setRed(255-textColor.red());
+            textColor.setGreen(255-textColor.green());
+            textColor.setBlue(255-textColor.blue());
+        }
         palette.setColor(real_label.backgroundRole(), textColor);
         palette.setColor(real_label.foregroundRole(), textColor);
+        //if(invertText) real_label.setStyleSheet("QLabel { background: #00303030; }");
+        //else
+        real_label.setStyleSheet("QLabel { background: #00aaaaaa; }");
         real_label.setPalette(palette);
-        real_label.setFont(settings()->font());
-        real_label.setStyleSheet("QLabel { background: #00ffffff; }");
+        auto f = settings()->font();
+        f.setKerning(false);
+        if(invertText) f.setWeight(QFont::DemiBold);
+        //f.setBold()
+        real_label.setFont(f);
         real_label.setFixedWidth(captionRect.width());
         real_label.setFixedHeight(captionRect.height());
 
@@ -416,6 +423,14 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
             }
 
             QPixmap text_pixmap = real_label.grab();
+            /*if(invertText)
+            {
+                QColor maskColor = QColor(48, 48, 48);
+                auto mask = text_pixmap.createMaskFromColor(maskColor);
+                text_pixmap.setMask(mask);
+            }*/
+            //else maskColor = QColor(170, 170, 170);
+
 
             if(titleAlignment == InternalSettings::AlignRight)
             {
@@ -430,6 +445,13 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
                 captionRect.translate(1, -1);
             }
             painter->drawPixmap(captionRect, text_pixmap);
+            if(invertText)
+            {
+                painter->setOpacity(0.7);
+                painter->drawPixmap(captionRect, text_pixmap);
+                painter->setOpacity(1.0);
+                //painter->drawPixmap(captionRect, text_pixmap);
+            }
         }
     }
 
