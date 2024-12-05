@@ -102,16 +102,19 @@ public:
     Q_INVOKABLE void setDashWindow(QQuickWindow* w, QRegion mask, QUrl svg)
     {
         dashWindow = w;
-        if(shadow == nullptr)
+        if(!shadow)
+        {
             shadow = new DialogShadows(this, svg.toString());
-        if(w == nullptr) return;
+        }
+        if(!w) return;
         setDialogAppearance(w, mask);
     }
     Q_INVOKABLE void enableShadow(bool enable)
     {
-        if(shadow == nullptr || dashWindow == nullptr) return;
-        if(enable && !shadowEnabled) shadow->addWindow(dashWindow);
-        else if(!enable && shadowEnabled) shadow->removeWindow(dashWindow);
+        QWindow *window = static_cast<QWindow *>(dashWindow);
+        if(!shadow || !dashWindow) return;
+        if(enable && !shadowEnabled) shadow->addWindow(window);
+        else if(!enable && shadowEnabled) shadow->removeWindow(window);
         shadowEnabled = enable;
     }
     Q_INVOKABLE bool fileExists(QUrl path)
@@ -181,7 +184,7 @@ protected:
     QBitmap* inputMaskCache = nullptr;
     QQuickWindow* orb = nullptr;
     QQuickWindow* dashWindow = nullptr;
-    DialogShadows* shadow;
+    DialogShadows* shadow = nullptr;
     bool shadowEnabled = false;
 };
 

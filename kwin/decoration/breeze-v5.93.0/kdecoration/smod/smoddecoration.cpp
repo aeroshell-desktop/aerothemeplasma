@@ -417,9 +417,18 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
 
             if(!invertText)
             {
-                painter->translate(xpos, captionRect.height() / 2 - blurHeight - 2);
+                int alignmentOffset = 0;
+                if(titleAlignment == InternalSettings::AlignCenter || titleAlignment == InternalSettings::AlignCenterFullWidth)
+                {
+                    alignmentOffset = -4;
+                }
+                else if(titleAlignment == InternalSettings::AlignRight)
+                {
+                    alignmentOffset = -8;
+                }
+                painter->translate(xpos + alignmentOffset, captionRect.height() / 2 - blurHeight - 2);
                 gl.render(painter);
-                painter->translate(-xpos, -captionRect.height() / 2 + blurHeight + 2);
+                painter->translate(-xpos - alignmentOffset, -captionRect.height() / 2 + blurHeight + 2);
             }
 
             QPixmap text_pixmap = real_label.grab();
