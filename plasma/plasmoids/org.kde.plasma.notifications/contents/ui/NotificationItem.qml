@@ -169,8 +169,8 @@ ColumnLayout {
             id: summaryRow
             anchors {
                 left: parent.left
-                right: notificationItem.inGroup ? parent.right : iconContainer.left
-                rightMargin: notificationItem.inGroup ? 0 : notificationItem.spacing
+                right: iconContainer.left
+                rightMargin: Kirigami.Units.mediumSpacing
             }
             visible: summaryLabel.text !== ""
 
@@ -180,9 +180,10 @@ ColumnLayout {
                 Layout.preferredHeight: implicitHeight
                 Layout.topMargin: notificationItem.inGroup && lineCount > 1 ? Math.max(0, (headingElement.Layout.preferredHeight - summaryLabelTextMetrics.height) / 2) : 0
                 Layout.bottomMargin: Kirigami.Units.smallSpacing
+                Layout.rightMargin: Kirigami.Units.mediumSpacing
                 textFormat: Text.PlainText
                 maximumLineCount: 3
-                wrapMode: Text.WordWrap
+                wrapMode: Text.Wrap
                 elide: Text.ElideRight
                 opacity: 0.66
                 level: 5
