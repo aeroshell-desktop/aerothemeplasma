@@ -366,10 +366,10 @@ PlasmaCore.Dialog {
             muteItem.clicked.connect(function() {
                 tasksMenu.visualParent.toggleMuted();
                 muteItem.text = !muteItem.checked ? "Unmute" : "Mute";
-                muteItem.icon= !muteItem.checked ? "audio-volume-muted" : "audio-volume-high";
+                muteItem.icon = !muteItem.checked ? "audio-volume-muted" : "audio-volume-high";
             });
             muteItem.text = muteItem.checked ? "Unmute" : "Mute";
-            muteItem.icon= muteItem.checked ? "audio-volume-muted" : "audio-volume-high";
+            muteItem.icon = muteItem.checked ? "audio-volume-muted" : "audio-volume-high";
             secondaryColumn = true;
         }
     }
@@ -389,8 +389,8 @@ PlasmaCore.Dialog {
         focus: true
         Layout.minimumWidth: menuWidth
         Layout.maximumWidth: menuWidth
-        Layout.minimumHeight: staticMenuItems.height + menuitems.height + Kirigami.Units.smallSpacing*3 - (secondaryColumn ? 0 : Kirigami.Units.smallSpacing*2)
-        Layout.maximumHeight: staticMenuItems.height + menuitems.height + Kirigami.Units.smallSpacing*3 - (secondaryColumn ? 0 : Kirigami.Units.smallSpacing*2)
+        Layout.minimumHeight: staticMenuItems.height + menuitems.height + Kirigami.Units.smallSpacing*3 - (!menuitems.isEmpty() ? 0 : Kirigami.Units.smallSpacing*2)
+        Layout.maximumHeight: staticMenuItems.height + menuitems.height + Kirigami.Units.smallSpacing*3 - (!menuitems.isEmpty() ? 0 : Kirigami.Units.smallSpacing*2)
         // This is the last resort to avoiding the dialog displacement bug. It's set to correct the x position at a delay of 18ms.
         // This may result in a brief but noticeable jump in position when the context menu is shown.
         //enabled: !sliderAnimation.running;
@@ -417,6 +417,9 @@ PlasmaCore.Dialog {
             id: menuitems
             z: 1
 
+            function isEmpty() {
+                return menuitems.visibleChildren.length <= 2;
+            }
             onHeightChanged: {
                 if(sliderAnimation.running)
                     tasksMenu.y -= tasksMenu.slide;

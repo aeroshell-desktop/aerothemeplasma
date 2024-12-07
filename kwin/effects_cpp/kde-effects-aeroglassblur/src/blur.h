@@ -94,6 +94,8 @@ private:
     bool decorationSupportsBlurBehind(const EffectWindow *w) const;
     bool shouldBlur(const EffectWindow *w, int mask, const WindowPaintData &data) const;
     bool shouldForceBlur(const EffectWindow *w) const;
+    bool scaledOrTransformed(const EffectWindow *w, int mask, const WindowPaintData &data) const;
+    bool shouldHaveCornerGlow(const EffectWindow *w) const;
     void updateBlurRegion(EffectWindow *w);
     void blur(const RenderTarget &renderTarget, const RenderViewport &viewport, EffectWindow *w, int mask, const QRegion &region, WindowPaintData &data);
 
@@ -102,6 +104,20 @@ private:
     bool treatAsActive(const EffectWindow *w);
 
 private:
+    struct
+    {
+        std::unique_ptr<GLTexture> sideGlowTexture;
+        std::unique_ptr<GLTexture> sideGlowTexture_unfocus;
+        std::unique_ptr<GLShader> shader;
+
+        int textureSizeLocation;
+        int windowPosLocation;
+        int windowSizeLocation;
+        int mvpMatrixLocation;
+        int opacityLocation;
+        int scaleYLocation;
+
+    } m_glowPass;
     struct
     {
 	std::unique_ptr<GLShader> shader;

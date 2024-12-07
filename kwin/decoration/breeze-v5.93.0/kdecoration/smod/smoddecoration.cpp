@@ -94,64 +94,22 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
     int SIDEBAR_HEIGHT = qMax(25, (size().height() / 4));
 
     if(internalSettings()->invertTextColor() && isMaximized()) return;
-    painter->setOpacity(0.75);
+    //painter->setOpacity(0.75);
     painter->setClipRegion(blurRegion());
     painter->setClipping(true);
 
-    if (c->isActive())
-    {
-        if (isMaximized())
+        if(!isMaximized() && !hideInnerBorder())
         {
-            QPixmap nwCorner(":/smod/decoration/framecornereffect");
-            painter->drawPixmap(0, 0, nwCorner, 4, 4, nwCorner.width() - 4, nwCorner.height() - 4);
 
-            QPixmap neCorner = nwCorner.transformed(QTransform().scale(-1, 1));
-            painter->drawPixmap(size().width() - (neCorner.width() - 4), 0, neCorner, 0, 4, neCorner.width() - 4, neCorner.height() - 4);
-        }
-        else
-        {
-            QPixmap nwCorner(":/smod/decoration/framecornereffect");
-            painter->drawPixmap(0, 0, nwCorner);
-
-            QPixmap neCorner = nwCorner.transformed(QTransform().scale(-1, 1));
-            painter->drawPixmap(size().width() - neCorner.width(), 0, neCorner);
-
-            painter->setOpacity(1.0);
-
-            // 7x116
-            QPixmap sidehighlight(":/smod/decoration/sidehighlight");
+            //painter->setOpacity(1.0);
+                // 7x116
+            QPixmap sidehighlight(":/smod/decoration/sidehighlight" + (!c->isActive() ? QString("-unfocus") : QString("")));
             painter->drawPixmap(0, borderTop(), 7, SIDEBAR_HEIGHT, sidehighlight);
             painter->drawPixmap(size().width() - 7, borderTop(), 7, SIDEBAR_HEIGHT, sidehighlight);
+
         }
-    }
-    else
-    {
-        if (isMaximized())
-        {
-            QPixmap nwCorner(":/smod/decoration/framecornereffect-unfocus");
-            painter->drawPixmap(0, 0, nwCorner, 4, 4, nwCorner.width() - 4, nwCorner.height() - 4);
 
-            QPixmap neCorner = nwCorner.transformed(QTransform().scale(-1, 1));
-            painter->drawPixmap(size().width() - (neCorner.width() - 4), 0, neCorner, 0, 4, neCorner.width() - 4, neCorner.height() - 4);
-        }
-        else
-        {
-            QPixmap nwCorner(":/smod/decoration/framecornereffect-unfocus");
-            painter->drawPixmap(0, 0, nwCorner);
-
-            QPixmap neCorner = nwCorner.transformed(QTransform().scale(-1, 1));
-            painter->drawPixmap(size().width() - neCorner.width(), 0, neCorner);
-
-            painter->setOpacity(1.0);
-
-            // 7x116
-            QPixmap sidehighlight(":/smod/decoration/sidehighlight-unfocus");
-            painter->drawPixmap(0, borderTop(), 7, SIDEBAR_HEIGHT, sidehighlight);
-            painter->drawPixmap(size().width() - 7, borderTop(), 7, SIDEBAR_HEIGHT, sidehighlight);
-        }
-    }
-
-    painter->setOpacity(1.0);
+    //painter->setOpacity(1.0);
     painter->setClipping(false);
 }
 void Decoration::smodPaintOuterBorder(QPainter *painter, const QRect &repaintRegion)

@@ -28,7 +28,7 @@ KWin.TabBoxSwitcher {
 		id: minimizeAllController
 	}
 	onVisibleChanged: {
-        dialog.opacity = tabBox.visible && dialog.mainItem.count > 1;
+        //dialog.opacity = tabBox.visible && dialog.mainItem.count > 1;
         dialog.visible = tabBox.visible && dialog.mainItem.count > 1;
     }
     PlasmaCore.Dialog {
@@ -89,7 +89,7 @@ KWin.TabBoxSwitcher {
                 visible: false
 
             }
-            Item {
+            /*Item {
                 id: glowCorners
                 anchors.top: parent.top
                 anchors.left: parent.left
@@ -129,7 +129,7 @@ KWin.TabBoxSwitcher {
                         radius: 4
                     }
                 }
-            }
+            }*/
             ColumnLayout {
                 id: columnLayout
                 spacing: 0
