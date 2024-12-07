@@ -21,8 +21,8 @@ void main(void)
 
     vec2 uv = vec2(x, -y);
 
-    vec4 result = vec4(texture(texUnit, uv).rgba);
-    result.a *= opacity;
+    vec4 result = texture(texUnit, uv) * opacity;
+    //result.a *= opacity;
     fragColor = result;
     //fragColor.a = fragColor.a * opacity;
 

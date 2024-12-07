@@ -223,8 +223,8 @@ void BlurEffect::initBlurStrengthValues()
     // {minOffset, maxOffset, expandSize}
     blurOffsets.append({1.0, 2.0, 10}); // Down sample size / 2
     blurOffsets.append({2.0, 3.0, 20}); // Down sample size / 4
-    blurOffsets.append({2.0, 5.0, 100}); // Down sample size / 8
-    blurOffsets.append({3.0, 8.0, 150}); // Down sample size / 16
+    blurOffsets.append({3.0, 5.0, 50}); // Down sample size / 8
+    blurOffsets.append({5.0, 7.0, 150}); // Down sample size / 16
     //blurOffsets.append({5.0, 8.0, 300}); // Down sample size / 32
     // blurOffsets.append({7.0, ?.0});       // Down sample size / 64
 
@@ -1011,7 +1011,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
             projectionMatrix.ortho(QRectF(0.0, 0.0, backgroundRect.width(), backgroundRect.height()));
 
             m_downsamplePass.shader->setUniform(m_downsamplePass.mvpMatrixLocation, projectionMatrix);
-            m_downsamplePass.shader->setUniform(m_downsamplePass.offsetLocation, float(m_offset)*1.1);
+            m_downsamplePass.shader->setUniform(m_downsamplePass.offsetLocation, float(m_offset));
 
             for (size_t i = 1; i < renderInfo.framebuffers.size(); ++i) {
                 const auto &read = renderInfo.framebuffers[i - 1];
@@ -1038,7 +1038,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         projectionMatrix.ortho(QRectF(0.0, 0.0, backgroundRect.width(), backgroundRect.height()));
 
         m_upsamplePass.shader->setUniform(m_upsamplePass.mvpMatrixLocation, projectionMatrix);
-        m_upsamplePass.shader->setUniform(m_upsamplePass.offsetLocation, float(m_offset)/2.75f);
+        m_upsamplePass.shader->setUniform(m_upsamplePass.offsetLocation, float(m_offset)/2.5);
         m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorizeLocation, false);
 
         for (size_t i = renderInfo.framebuffers.size() - 1; i > 1; --i) {
@@ -1137,10 +1137,10 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
             if(!treatAsActive(w)) finalOpacity *= 0.5f;
         }
 
-        if (finalOpacity < 1.0) {
+        /*if (finalOpacity < 1.0) {
             glBlendColor(0, 0, 0, finalOpacity);
             glBlendFunc(GL_CONSTANT_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        }
+        }*/
 
 		QRect windowRect = w->frameGeometry().toRect();
 		QSize screenSize = KWin::effects->virtualScreenSize();
@@ -1149,6 +1149,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 		GLTexture *reflectTex = m_reflectPass.reflectTexture.get();
 		if(reflectTex && finalOpacity != 0.0)
 		{
+            glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
             ShaderManager::instance()->pushShader(m_reflectPass.shader.get());
 
             QMatrix4x4 projectionMatrix = viewport.projectionMatrix();
@@ -1167,12 +1168,11 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
             vbo->draw(GL_TRIANGLES, 6, vertexCount);
 
             ShaderManager::instance()->popShader();
-
-
-			
 		}
 		if(shouldHaveCornerGlow(w))
         {
+            glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
             GLTexture *glowTex = !treatAsActive(w) ? m_glowPass.sideGlowTexture_unfocus.get() : m_glowPass.sideGlowTexture.get();
             if(glowTex && opacity != 0.0 && !opaqueMaximize)
             {
@@ -1186,15 +1186,13 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
                 if(deviceBackgroundRect.height() != windowSize.height() && !scaledOrTransformed(w, mask, data)) scaleY = true;
                 const QRectF pixelGeometry = snapToPixelGridF(scaledRect(QRectF(0, 0, glowTex->width(), glowTex->height()), scale));
                 m_glowPass.shader->setUniform(m_glowPass.mvpMatrixLocation, projectionMatrix);
-            	m_glowPass.shader->setUniform(m_glowPass.opacityLocation, float(opacity));
+            	m_glowPass.shader->setUniform(m_glowPass.opacityLocation, float(opacity*0.8));
             	m_glowPass.shader->setUniform(m_glowPass.windowPosLocation, QVector2D(windowPos.x(), windowPos.y()));
             	m_glowPass.shader->setUniform(m_glowPass.windowSizeLocation, QVector2D(windowSize.width(), windowSize.height()));
             	m_glowPass.shader->setUniform(m_glowPass.textureSizeLocation, QVector2D(pixelGeometry.width(), pixelGeometry.height()));
             	m_glowPass.shader->setUniform(m_glowPass.scaleYLocation, scaleY);
                 glowTex->bind();
                 vbo->draw(GL_TRIANGLES, 6, vertexCount);
-
-
 
                 ShaderManager::instance()->popShader();
 

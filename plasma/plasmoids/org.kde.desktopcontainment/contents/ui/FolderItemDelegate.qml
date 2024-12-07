@@ -36,6 +36,7 @@ Item {
     Accessible.name: name
     Accessible.role: Accessible.Canvas
 
+
     // This MouseArea exists to intercept press and hold; preventing edit mode
     // from being triggered when pressing and holding on an icon (if there is one).
     MouseArea {
@@ -174,6 +175,15 @@ Item {
                 location: root.useListViewMode ? (Plasmoid.location === PlasmaCore.Types.LeftEdge ? PlasmaCore.Types.LeftEdge : PlasmaCore.Types.RightEdge) : Plasmoid.location
                 z: 999
                 //anchors.fill: parent
+                Timer {
+                    id: showtooltip
+                    interval: 750
+                    onTriggered: {
+                        if(ma.containsMouse) {
+                            toolTip.showToolTip();
+                        }
+                    }
+                }
                 MouseArea {
                     id: ma
                     anchors.fill: parent
@@ -182,6 +192,7 @@ Item {
                     onPositionChanged: (mouse) => {
 
                         if (containsMouse && !model.blank) {
+
                             if (toolTip.active) {
 
                                 toolTip.textFormat = Text.RichText;
@@ -192,6 +203,7 @@ Item {
                                 } else {
                                     toolTip.subText = model.type;
                                 }
+                                showtooltip.start();
                             }
 
                             main.GridView.view.hoveredItem = main;

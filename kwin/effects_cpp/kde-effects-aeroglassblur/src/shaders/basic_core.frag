@@ -24,8 +24,9 @@ void main(void)
     else t_y = uv.y;
     vec2 t_uv = vec2(windowSize.x * t_x / textureSize.x, windowSize.y * (1 - t_y) / textureSize.y);
 
-    vec4 result = vec4(texture2D(texUnit, t_uv).rgba);
-    result.a *= opacity;
+    //fragColor = texture(sampler, newUV) * opacity;
+
+    vec4 result = texture2D(texUnit, t_uv) * opacity;
 
     fragColor = result;
 }

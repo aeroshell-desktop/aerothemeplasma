@@ -676,7 +676,6 @@ FocusScope {
                     }
                     return Math.floor(extraSpacing);
                 }
-
                 cellWidth: {
                     if (root.useListViewMode) {
                         return gridView.width - (verticalScrollBar.visible ? verticalScrollBar.width : 0);
@@ -692,15 +691,8 @@ FocusScope {
                         var columns = Math.ceil(scrollArea.viewportWidth / (iconSize + 2*maxSpacing));
                         var iconWidth = scrollArea.viewportWidth / columns;
                         var spacing = Math.floor((iconWidth - iconSize) / 2);
-                        var iconWidth = iconSize + 2*spacing; //+ (2 * Kirigami.Units.iconSizes.small);// + (2 * Kirigami.Units.smallSpacing);
+                        var iconWidth = iconSize + 2*spacing;
                         return iconWidth;
-                        /*if (root.isContainment && isRootView && scrollArea.viewportWidth > 0) {
-                            var minIconWidth = Math.max(iconWidth, Kirigami.Units.iconSizes.small * ((Plasmoid.configuration.labelWidth * 2) + 4));
-                            var extraWidth = calcExtraSpacing(minIconWidth, scrollArea.viewportWidth);
-                            return minIconWidth + extraWidth;
-                        } else {
-                            return iconWidth;
-                        }*/
                     }
                 }
 
@@ -711,7 +703,7 @@ FocusScope {
                             listItemSvg.margins.top + listItemSvg.margins.bottom)) / 2) * 2;
                     } else {
                         // the smallSpacings are for padding
-                        var iconHeight = iconSize + (Kirigami.Units.iconSizes.small * Plasmoid.configuration.textLines) + (Kirigami.Units.smallSpacing * 4);
+                        var iconHeight = iconSize + (Kirigami.Units.iconSizes.small * Plasmoid.configuration.textLines) + (Kirigami.Units.smallSpacing * 2);
                         if (root.isContainment && isRootView && scrollArea.viewportHeight > 0) {
                             var extraHeight = calcExtraSpacing(iconHeight, scrollArea.viewportHeight);
                             return iconHeight + extraHeight;
@@ -1276,11 +1268,12 @@ FocusScope {
                         moves.push(to);
                     }
                 }
-
+                console.log(moves);
                 if (moves.length) {
                     // Update also the currentIndex, otherwise it
                     // is not set properly.
-                    gridView.currentIndex = positioner.move(moves);
+                    var ind = positioner.move(moves);
+                    gridView.currentIndex = ind;
                     gridView.forceLayout();
                 }
 
@@ -1294,6 +1287,7 @@ FocusScope {
             enabled: isContainment && sortMode === -1
 
             folderModel: dir
+
 
             perStripe: Math.floor((gridView.flow === GridView.FlowLeftToRight)
                 ? (gridView.width / gridView.cellWidth)
