@@ -116,8 +116,12 @@ Initially I wanted to make a Vista variant of AeroThemePlasma but [catpswin56](h
 ### Colorization 
 
 <img src="screenshots/colorization.png">
+Regular colorization:
 <img src="screenshots/aeroblur.png">
+Basic colorization:
 <img src="screenshots/aeroblursimple.png">
+Maximized opaque colorization:
+<img src="screenshots/aeroblur_opaque.png">
 
 ### Decorations
 
