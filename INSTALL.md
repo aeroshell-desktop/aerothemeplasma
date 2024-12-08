@@ -123,3 +123,4 @@ echo -e "Microsoft Windows [Version 6.1.7600]\nCopyright (c) 2009 Microsoft Corp
 ```
 
 10. In the terminal emulator of your choice (e.g Konsole), set the font to [TerminalVector](https://www.yohng.com/software/terminalvector.html), size 9pt. Disable smooth font rendering and bold text, reduce the line spacing and margins to 0px, set the cursor shape to underline, and enable cursor blinking. 
+11. In System Settings -> Notifications -> Application Settings, set the "Authentication System" to play the ```dialog-special``` sound. 

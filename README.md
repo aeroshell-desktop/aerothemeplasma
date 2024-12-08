@@ -49,7 +49,7 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 - [That Linux Dude Dominic Hayes](https://github.com/dominichayesferen) for making the following: 
     - Lock screen UI 
     - Icon theme
-- [QuinceTart10](https://github.com/QuinceTart10) for making the sound theme
+- [QuinceTart10](https://github.com/QuinceTart10) and [Gamer95875](https://github.com/Gamer95875) for making the sound theme
 - (In collaboration with) [kfh83](https://github.com/kfh83), [TorutheRedFox](https://github.com/TorutheRedFox) and [ALTaleX](https://github.com/ALTaleX531/dwm_colorization_calculator/blob/main/main.py) for figuring out accurate Aero glass blur and colorization effects
 - [AngelBruni](https://github.com/angelbruni) for contributing several SVG textures, most notably the clock in DigitalClockLite Seven
 
