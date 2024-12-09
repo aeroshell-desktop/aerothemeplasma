@@ -54,6 +54,7 @@ KCM.SimpleKCM {
     property alias cfg_switchCategoriesOnHover: switchCategoriesOnHover.checked
     property alias cfg_stickOutOrb: stickOutOrb.checked
     property alias cfg_enableShadow: enableShadow.checked
+    property alias cfg_useFullName: useFullName.checked
 
     property alias cfg_useExtraRunners: useExtraRunners.checked
 
@@ -156,6 +157,10 @@ KCM.SimpleKCM {
                     id: showRecentsView
                     text: i18n("Show recent programs")
                     visible: false
+                }
+                CheckBox {
+                    id: useFullName
+                    text: i18n("Display full name");
                 }
                 RowLayout{
                     Layout.fillWidth: true

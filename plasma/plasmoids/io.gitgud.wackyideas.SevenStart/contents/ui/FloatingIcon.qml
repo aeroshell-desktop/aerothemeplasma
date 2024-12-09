@@ -79,6 +79,7 @@ Item {
 				NumberAnimation { duration: 350 }
 			}
             source: kuser.faceIconUrl.toString()
+            cache: false
             smooth: true
             mipmap: true
             visible: true
