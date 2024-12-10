@@ -49,7 +49,7 @@
           <choice name="AlignRight" />
           <choice name="AlignCenterFullWidth" />
       </choices>
-      <default>AlignCenterFullWidth</default>
+      <default>AlignLeft</default>
     </entry>
 
     <!-- button size -->
@@ -117,6 +117,11 @@
     <entry name="AlternativeButtonSizing" type="Bool">
       <default>false</default>
     </entry>
+
+    <entry name="DecorationTheme" type="String">
+      <default>Aero</default>
+    </entry>
+
 
     <entry name="InvertTextColor" type="Bool">
       <default>false</default>

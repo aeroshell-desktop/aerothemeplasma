@@ -1038,7 +1038,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         projectionMatrix.ortho(QRectF(0.0, 0.0, backgroundRect.width(), backgroundRect.height()));
 
         m_upsamplePass.shader->setUniform(m_upsamplePass.mvpMatrixLocation, projectionMatrix);
-        m_upsamplePass.shader->setUniform(m_upsamplePass.offsetLocation, float(m_offset)/2.5);
+        m_upsamplePass.shader->setUniform(m_upsamplePass.offsetLocation, float(m_offset / 2.5f));
         m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorizeLocation, false);
 
         for (size_t i = renderInfo.framebuffers.size() - 1; i > 1; --i) {

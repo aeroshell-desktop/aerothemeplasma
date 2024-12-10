@@ -37,13 +37,14 @@ dnf install plasma-workspace-devel kvantum qt6-qtmultimedia-devel qt6-qt5compat-
 
 This section relates to the directories found in the ```plasma``` folder.
 
-1. Move the ```smod``` folder to ```~/.local/share```. This will install the resources required by many other components.
+1. Move the ```smod``` folder to ```~/.local/share```, or ```/usr/share/``` for a system-wide installation. This will install the resources required by many other components in this project.
 
 2. Move the folders ```desktoptheme```, ```look-and-feel```, ```plasmoids```, ```layout-templates```, ```shells``` into ```~/.local/share/plasma```. If the folder doesn't exist, create it. These folders contain the following:
     - Plasma Style
     - Global Theme (more accurately, just the lock screen)
     - Plasmoids
     - Plasma shell
+    - Preset panel layout that can be applied from Edit mode
 
 Make sure to compile the C++ components of plasmoids located in ```plasmoids/src/``` by running ```install.sh``` for every source folder. 
 
@@ -55,7 +56,7 @@ Make sure to compile the C++ components of plasmoids located in ```plasmoids/src
 
 This section relates to the directories found in the ```kwin``` folder.
 
-1. Compile the decoration theme and C++ KWin effects (found in ```decoration``` and ```effects_cpp``` respectively) using the provided install scripts. (Make sure to first build the decoration theme, as some C++ effects depend on it)
+1. Compile the decoration theme first and C++ KWin effects (found in ```decoration``` and ```effects_cpp``` respectively) using the provided install scripts. (Make sure to first build the decoration theme, as the C++ effects depend on it)
 2. Move ```effects```, ```tabbox```, ```outline```, ```scripts``` to ```~/.local/share/kwin```.
 3. In System Settings, apply the following settings: 
 - In Window Behavior -> Titlebar Actions: 
@@ -123,4 +124,3 @@ echo -e "Microsoft Windows [Version 6.1.7600]\nCopyright (c) 2009 Microsoft Corp
 ```
 
 10. In the terminal emulator of your choice (e.g Konsole), set the font to [TerminalVector](https://www.yohng.com/software/terminalvector.html), size 9pt. Disable smooth font rendering and bold text, reduce the line spacing and margins to 0px, set the cursor shape to underline, and enable cursor blinking. 
-11. In System Settings -> Notifications -> Application Settings, set the "Authentication System" to play the ```dialog-special``` sound. 

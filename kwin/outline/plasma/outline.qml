@@ -140,10 +140,16 @@ Window
         id: reflection
 
         anchors.fill: parent
-        source:       StandardPaths.writableLocation(StandardPaths.GenericDataLocation) + "/smod/reflections.png" //"~/.local/share/smod/reflections.png"
+        property string path: "/smod/kwin/reflections.png"
+        source:       StandardPaths.writableLocation(StandardPaths.GenericDataLocation) + "/smod/kwin/reflections.png" //"~/.local/share/smod/reflections.png"
         sourceSize:   Qt.size(fullWidth, fullHeight)
         smooth:       true
         visible:      false
+        onStatusChanged: {
+            if(status == 3) {
+                reflection.source = "/usr/share" + path
+            } // Error
+        }
     }
 
     Rectangle

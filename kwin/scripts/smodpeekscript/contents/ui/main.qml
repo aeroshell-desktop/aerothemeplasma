@@ -112,14 +112,21 @@ Item
             Image
             {
                 id: reflection
+                property string path: "/smod/kwin/reflections.png"
+
                 x:            0
                 y:            0
                 width:        unifiedSize.width
                 height:       unifiedSize.height
-                source:       StandardPaths.writableLocation(StandardPaths.GenericDataLocation) + "/smod/reflections.png" //"~/.local/share/smod/reflections.png"
+                source:       StandardPaths.writableLocation(StandardPaths.GenericDataLocation) + path //"~/.local/share/smod/reflections.png"
                 sourceSize:   Qt.size(width, height)
                 smooth:       true
                 visible:      false
+                onStatusChanged: {
+                    if(status == 3) {
+                        reflection.source = "/usr/share" + path
+                    } // Error
+                }
             }
 
             // Setup mask
@@ -195,17 +202,25 @@ Item
                         anchors.fill: frame
                         Image
                         {
+                            id: leftCorner
+                            property string path: "/smod/kwin/" + (peekwindow.clientActive ? "framecornereffect.png" : "framecornereffect-unfocus.png")
                             anchors.top: parent.top
                             anchors.left: parent.left
-                            source:       StandardPaths.writableLocation(StandardPaths.GenericDataLocation) + "/smod/" + (peekwindow.clientActive ? "framecornereffect.png" : "framecornereffect-unfocus.png")
+                            source:       StandardPaths.writableLocation(StandardPaths.GenericDataLocation) + path
                             smooth:       true
+                            onStatusChanged: {
+                                if(status == 3) {
+                                    source = "/usr/share" + path
+                                } // Error
+                            }
+
                         }
 
                         Image
                         {
                             anchors.top: parent.top
                             anchors.right: parent.right
-                            source:       StandardPaths.writableLocation(StandardPaths.GenericDataLocation) + "/smod/" + (peekwindow.clientActive ? "framecornereffect.png" : "framecornereffect-unfocus.png")
+                            source:       leftCorner.source
                             smooth:       true
                             mirror:       true
                         }

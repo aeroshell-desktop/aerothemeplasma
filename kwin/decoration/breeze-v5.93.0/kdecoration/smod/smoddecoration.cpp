@@ -32,6 +32,10 @@ Decoration::~Decoration()
         g_smod_shadow_unfocus.reset();
     }
 }
+int Decoration::decorationCount()
+{
+    return g_sDecoCount;
+}
 void Decoration::updateShadow()
 {
     if(!internalSettings()->enableShadow())
@@ -54,8 +58,9 @@ void Decoration::updateShadow()
 std::shared_ptr<KDecoration2::DecorationShadow> Decoration::smodCreateShadow(bool active)
 {
     QImage shadowTexture = QImage(active ? ":/smod/decoration/shadow" : ":/smod/decoration/shadow-unfocus");
-    QMargins texMargins(30, 31, 29, 37);
-    QMargins padding(14, 14, 20, 20);
+    auto margins = sizingMargins().shadowSizing();
+    QMargins texMargins(margins.margin_left, margins.margin_top, margins.margin_right, margins.margin_bottom);
+    QMargins padding(margins.padding_left, margins.padding_top, margins.padding_right, margins.padding_bottom);
     QRect innerShadowRect = shadowTexture.rect() - texMargins;
 
     auto shadow = std::make_shared<KDecoration2::DecorationShadow>();
@@ -329,10 +334,11 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         }
 
         QPixmap glow(":/smod/decoration/glow");
-        int l = 24;
-        int r = 25;
-        int t = 17;
-        int b = 18;
+        auto margins = sizingMargins().glowSizing();
+        int l = margins.margin_left;
+        int r = margins.margin_right;
+        int t = margins.margin_top;
+        int b = margins.margin_bottom;
         painter->setRenderHint(QPainter::Antialiasing, true);
         painter->setRenderHint(QPainter::SmoothPixmapTransform, true);
 
@@ -349,7 +355,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
             //t -= (t+b) - glowHeight;
         }
 
-        FrameTexture gl(l, r, t, b, glowWidth, glowHeight, &glow, c->isActive() ? 1.0 : 0.7);
+        FrameTexture gl(l, r, t, b, glowWidth, glowHeight, &glow, c->isActive() ? margins.active_opacity : margins.inactive_opacity);
 
         if(!caption.trimmed().isEmpty())
         {
@@ -390,14 +396,6 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
             }
 
             QPixmap text_pixmap = real_label.grab();
-            /*if(invertText)
-            {
-                QColor maskColor = QColor(48, 48, 48);
-                auto mask = text_pixmap.createMaskFromColor(maskColor);
-                text_pixmap.setMask(mask);
-            }*/
-            //else maskColor = QColor(170, 170, 170);
-
 
             if(titleAlignment == InternalSettings::AlignRight)
             {

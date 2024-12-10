@@ -20,8 +20,19 @@
 #include <QSharedPointer>
 #include <QWidget>
 
+#include <QDir>
+#include <QListWidget>
+#include <QFileInfo>
+#include <QFileInfoList>
+#include <algorithm>
+#include <QObject>
+#include <QStringListModel>
+#include <QItemSelection>
+#include <QList>
+
 namespace Breeze
 {
+
 //_____________________________________________
 class ConfigWidget : public KCModule
 {
@@ -48,6 +59,8 @@ protected Q_SLOTS:
     //* update changed state
     virtual void updateChanged();
 
+    void themeChanged(QModelIndex index, QModelIndex previous);
+
 private:
     //* ui
     Ui_BreezeConfigurationUI m_ui;
@@ -60,6 +73,8 @@ private:
 
     //* changed state
     bool m_changed;
+    bool m_themeChanged;
+
 };
 
 }

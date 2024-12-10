@@ -38,11 +38,16 @@ void main(void)
         if(basicColorization)
         {
             color = vec4(aeroColorR, aeroColorG, aeroColorB, aeroColorBalance);
-            vec4 baseColor = vec4(sum.x, sum.y, sum.z, 1.0 - aeroColorBalance);;
+            vec4 baseColor = vec4(sum.x, sum.y, sum.z, 1.0 - aeroColorBalance);
             if(aeroColorA != -1.0) // Transparency is disabled
             {
                 baseColor = vec4(0.871, 0.871, 0.871, 1.0 - aeroColorA);
-                color.a = aeroColorA;
+                color = vec4(aeroColorR, aeroColorG, aeroColorB, aeroColorA);
+            }
+            else
+            {
+                baseColor = vec4(sum.x, sum.y, sum.z, 1.0 - aeroColorBalance);
+                color = vec4(aeroColorR, aeroColorG, aeroColorB, aeroColorBalance);
             }
 
             fragColor = vec4(color.r * color.a + baseColor.r * baseColor.a,

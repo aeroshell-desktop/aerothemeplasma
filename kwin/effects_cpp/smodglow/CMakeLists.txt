@@ -59,6 +59,7 @@ endif ()
 
 find_package(KDecoration2 REQUIRED)
 find_package(PkgConfig REQUIRED)
+find_package(KF6Config)
 
 pkg_check_modules(smoddecoration REQUIRED IMPORTED_TARGET smoddecoration)
 
@@ -94,6 +95,8 @@ target_link_libraries(${TARGET_NAME}
     PRIVATE
         KDecoration2::KDecoration
         PkgConfig::smoddecoration
+        KF6::ConfigCore
+        KF6::ConfigGui
         Qt${QT_MAJOR_VERSION}::Core
         Qt${QT_MAJOR_VERSION}::DBus
         KF${QT_MAJOR_VERSION}::ConfigGui

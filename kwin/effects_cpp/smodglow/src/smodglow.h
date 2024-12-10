@@ -21,12 +21,15 @@
 #endif
 
 #include <KDecoration2/DecorationButton>
+#include <SMOD/Decoration/BreezeDecoration>
+typedef Breeze::Decoration SmodDecoration;
+
 
 // TODO remove "+ 1.0" when I fix the textures
-#define MINMAXGLOW_SML 9.0
-#define MINMAXGLOW_SMT 8.0
-#define CLOSEGLOW_SML  9.0
-#define CLOSEGLOW_SMT  8.0
+#define MINMAXGLOW_SML 9.0f
+#define MINMAXGLOW_SMT 8.0f
+#define CLOSEGLOW_SML  9.0f
+#define CLOSEGLOW_SMT  8.0f
 
 namespace KWin
 {
@@ -86,9 +89,11 @@ private:
     void unregisterWindow(const EffectWindow *w);
     void loadTextures();
     void stopAllAnimations(const EffectWindow *w);
+    QString currentlyRegisteredPath;
 
     bool m_resourcesFound = false;
     bool m_active = false;
+    int previousDecorationCount = 0;
     std::unique_ptr<GLTexture> m_texture_minimize, m_texture_maximize, m_texture_close;
     std::unique_ptr<GLShader> m_shader;
     QHash<const EffectWindow*, GlowHandler*> windows = QHash<const EffectWindow*, GlowHandler*>();

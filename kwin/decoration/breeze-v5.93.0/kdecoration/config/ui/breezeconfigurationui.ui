@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>436</width>
-    <height>212</height>
+    <height>206</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -157,13 +157,6 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QCheckBox" name="alternativeButtonSizing">
-            <property name="text">
-             <string>Use alternative button sizing</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QCheckBox" name="invertTextColor">
             <property name="text">
              <string>Invert titlebar text color on maximized windows</string>
@@ -267,6 +260,16 @@
           </size>
          </property>
         </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Theme</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QListView" name="themeList"/>
        </item>
       </layout>
      </widget>

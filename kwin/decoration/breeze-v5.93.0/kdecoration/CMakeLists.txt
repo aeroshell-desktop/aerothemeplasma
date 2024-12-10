@@ -12,6 +12,7 @@ set(breezedecoration_SRCS
     breezesettingsprovider.cpp
     breezeexceptionlist.cpp
     frametexture.cpp
+    sizingmargins.cpp
     smod/smodbutton.cpp
     smod/smoddecoration.cpp
     smod/qgraphicsgloweffect.cpp
@@ -60,6 +61,7 @@ set(smod_HEADERS
   breezedecoration.h
   breezeexceptionlist.h
   breezesettingsprovider.h
+  sizingmargins.h
 )
 
 kconfig_add_kcfg_files(smod_HEADERS breezesettings.kcfgc)
@@ -71,6 +73,7 @@ ecm_generate_headers(smod_CamelCase_HEADERS
         BreezeDecoration
         BreezeExceptionList
         BreezeSettingsProvider
+        SizingMargins
 
     REQUIRED_HEADERS
         smod_HEADERS

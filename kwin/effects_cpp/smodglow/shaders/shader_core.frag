@@ -19,9 +19,10 @@ float map(float value, float originalMin, float originalMax, float newMin, float
 float processAxis(float coord, float textureBorder, float windowBorder) {
     if (coord < windowBorder)
         return map(coord, 0, windowBorder, 0, textureBorder);
-    if (coord < 1 - windowBorder)
+    else if (coord < 1 - windowBorder)
         return map(coord,  windowBorder, 1 - windowBorder, textureBorder, 1 - textureBorder);
-    return map(coord, 1 - windowBorder, 1, 1 - textureBorder, 1);
+    else
+        return map(coord, 1 - windowBorder, 1, 1 - textureBorder, 1);
 }
 
 void main()

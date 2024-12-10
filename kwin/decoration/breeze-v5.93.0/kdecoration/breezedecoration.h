@@ -9,6 +9,7 @@
 
 #include "breeze.h"
 #include "breezesettings.h"
+#include "sizingmargins.h"
 
 #include <KDecoration2/DecoratedClient>
 #include <KDecoration2/Decoration>
@@ -17,6 +18,7 @@
 #include <QPalette>
 #include <QVariant>
 #include <QVariantAnimation>
+#include <QByteArray>
 
 #define INNER_BORDER_SIZE 2
 
@@ -51,6 +53,8 @@ public:
     //* paint
     void paint(QPainter *painter, const QRect &repaintRegion) override;
 
+    SizingMargins sizingMargins() const;
+
     //* internal settings
     InternalSettingsPtr internalSettings() const
     {
@@ -69,8 +73,15 @@ public:
     int buttonHeight() const;
 
     int titlebarHeight() const;
+    static QString themeName();
+    static QPixmap minimize_glow();
+    static QPixmap maximize_glow();
+    static QPixmap close_glow();
+    static int decorationCount();
+
 
     QRect buttonRect(KDecoration2::DecorationButtonType button) const;
+
 
     //*@name active state change animation
     //@{

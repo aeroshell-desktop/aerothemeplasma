@@ -1,6 +1,10 @@
 #include "smodglow.h"
 #include "smod.h"
 #include <QVector2D>
+#include <SMOD/Decoration/BreezeDecoration>
+
+typedef Breeze::Decoration SmodDecoration;
+
 
 namespace KWin
 {
@@ -27,17 +31,38 @@ void SmodGlowEffect::loadTextures()
         m_needsDpiChange = false;
     }
 
-    m_texture_minimize = GLTexture::upload(QPixmap(QStringLiteral(":/effects/smodglow/textures/minimize") + dpiSuffix));
+    m_texture_minimize = GLTexture::upload(SmodDecoration::minimize_glow() /*QPixmap(QStringLiteral(":/effects/smodglow/textures/minimize") + dpiSuffix*/);
+    if(!m_texture_minimize)
+    {
+        printf("WRong min\n");
+        m_active = false;
+        return;
+    }
     m_texture_minimize->setFilter(GL_LINEAR);
     m_texture_minimize->setWrapMode(GL_CLAMP_TO_EDGE);
 
-    m_texture_maximize = GLTexture::upload(QPixmap(QStringLiteral(":/effects/smodglow/textures/maximize") + dpiSuffix));
+    m_texture_maximize = GLTexture::upload(SmodDecoration::maximize_glow() /*QPixmap(QStringLiteral(":/effects/smodglow/textures/maximize") + dpiSuffix*/);
+    if(!m_texture_maximize)
+    {
+        printf("WRong max\n");
+        m_active = false;
+        return;
+    }
+
     m_texture_maximize->setFilter(GL_LINEAR);
     m_texture_maximize->setWrapMode(GL_CLAMP_TO_EDGE);
 
-    m_texture_close = GLTexture::upload(QPixmap(QStringLiteral(":/effects/smodglow/textures/close") + dpiSuffix));
+    m_texture_close = GLTexture::upload(SmodDecoration::close_glow() /*QPixmap(QStringLiteral(":/effects/smodglow/textures/close") + dpiSuffix*/);
+    if(!m_texture_close)
+    {
+        printf("WRong close\n");
+        m_active = false;
+        return;
+    }
+
     m_texture_close->setFilter(GL_LINEAR);
     m_texture_close->setWrapMode(GL_CLAMP_TO_EDGE);
+    m_active = true;
 }
 
 void SmodGlowEffect::paintWindow(const RenderTarget &renderTarget, const RenderViewport &viewport, EffectWindow *w, int mask, QRegion region, WindowPaintData &data)

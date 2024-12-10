@@ -12,7 +12,8 @@
 #include "smodglow.h"
 #include "smod.h"
 
-#include <SMOD/Decoration/BreezeDecoration>
+#include <KConfig>
+#include <KConfigGroup>
 
 
 #define TESTING_NEW_DPI 0
@@ -21,7 +22,6 @@
 
 // internally the SMOD decoration is in the Breeze namespace
 // use a typedef to avoid confusion
-typedef Breeze::Decoration SmodDecoration;
 
 
 //Q_LOGGING_CATEGORY(KWIN_EFFECT_SMODWINDOWBUTTONS, "kwin.effect.smodglow", QtWarningMsg)
@@ -39,6 +39,7 @@ SmodGlowEffect::SmodGlowEffect()
     setupEffectHandlerConnections();
 
     reconfigure(ReconfigureAll);
+    currentlyRegisteredPath = QStringLiteral("");
 
     // NOTE is this needed?
     //effects->makeOpenGLContextCurrent();
@@ -48,6 +49,11 @@ SmodGlowEffect::SmodGlowEffect()
         QString(),
         QStringLiteral(":/effects/smodglow/shaders/shader.frag")
     );
+    /*m_shader = ShaderManager::instance()->generateCustomShader(
+        ShaderTrait::MapTexture,
+        QByteArray(),
+        SmodDecoration::glow_shader()
+    );*/
 }
 
 SmodGlowEffect::~SmodGlowEffect()
@@ -59,13 +65,19 @@ bool SmodGlowEffect::supported()
     return effects->isOpenGLCompositing();
 }
 
+
+
 void SmodGlowEffect::reconfigure(Effect::ReconfigureFlags flags)
 {
     Q_UNUSED(flags)
 
     ensureResources();
 
-    m_active = SMOD::registerResource(QStringLiteral("smodgloweffecttextures"));
+
+    /*m_active = SMOD::registerResource(SmodDecoration::themeName(), currentlyRegisteredPath);
+    currentlyRegisteredPath = SmodDecoration::themeName();*/
+
+    loadTextures();
 
     if (!isActive())
     {
@@ -74,7 +86,6 @@ void SmodGlowEffect::reconfigure(Effect::ReconfigureFlags flags)
         return;
     }
 
-    loadTextures();
 
     const auto windowlist = effects->stackingOrder();
 
@@ -321,11 +332,20 @@ void SmodGlowEffect::postPaintWindow(EffectWindow *w)
 
 void SmodGlowEffect::windowAdded(EffectWindow *w)
 {
+    if(previousDecorationCount == 0 && SmodDecoration::decorationCount() != 0)
+    {
+        loadTextures();
+    }
+    previousDecorationCount = SmodDecoration::decorationCount();
+
+    m_active = m_active && previousDecorationCount != 0;
+
     registerWindow(w);
 }
 
 void SmodGlowEffect::windowClosed(EffectWindow *w)
 {
+    if(SmodDecoration::decorationCount() == 0) m_active = false;
     unregisterWindow(w);
 }
 

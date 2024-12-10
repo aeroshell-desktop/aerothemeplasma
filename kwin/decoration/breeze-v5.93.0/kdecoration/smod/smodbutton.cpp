@@ -1,5 +1,8 @@
 #include "../breezebutton.h"
 #include "../frametexture.h"
+#include "../sizingmargins.h"
+
+//#include "../breezedecoration.h"
 
 #include <QPainter>
 
@@ -97,6 +100,10 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
         if(c->isMaximized()) painter->translate(QPoint(-2, 0));
 
         auto d = qobject_cast<Decoration *>(decoration());
+        auto margins = d->sizingMargins();
+        auto closeMargins = margins.closeSizing();
+        auto minMargins = margins.minimizeSizing();
+        auto maxMargins = margins.maximizeSizing();
 
         QPixmap normal, hover, active, glyph, glyphHover, glyphActive;
 
@@ -139,10 +146,12 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
                 }
 
                 glyphOffset = QPoint(ceil(w / 2.0 - glyph.width() / 2.0) + 1, floor((titlebarHeight-1) / 2.0) - glyph.height() / 2.0 - (titlebarHeight != 20 ? 1 : 0));
-                l = 12;
-                t = 6;
-                r = 12;
-                b = 8;
+
+
+                l = minMargins.margin_left;
+                t = minMargins.margin_top;
+                r = minMargins.margin_right;
+                b = minMargins.margin_bottom;
                 if(titlebarHeight == 18 || titlebarHeight == 17) l--;
                 break;
             case DecorationButtonType::Maximize:
@@ -196,17 +205,19 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
                         active      = QPixmap(":/smod/decoration/maximize-unfocus-active");
                     }
                     glyphOffset = QPoint(ceil(w / 2.0) - glyph.width() / 2.0 + ((titlebarHeight < 21) ? 1 : 0), floor((titlebarHeight-1) / 2.0) - glyph.height() / 2.0 - (titlebarHeight != 20 ? 1 : 0));
-                    if(deco->internalSettings()->alternativeButtonSizing()) glyphOffset += QPoint(titlebarHeight >= 20 ? 1 : -1, 0);
+                    if(margins.commonSizing().alternative) glyphOffset += QPoint(titlebarHeight >= 20 ? 1 : -1, 0);
                 }
 
                 if (!isEnabled())
                 {
                     glyph = QPixmap(":/smod/decoration/maximize-inactive-glyph" + dpiScale);
                 }
-                l = 12;
-                t = 6;
-                r = 12;
-                b = 8;
+
+                l = maxMargins.margin_left;
+                t = maxMargins.margin_top;
+                r = maxMargins.margin_right;
+                b = maxMargins.margin_bottom;
+
                 if(titlebarHeight == 18) l--;
                 if(titlebarHeight == 17) l -= 2;
                 break;
@@ -256,10 +267,11 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
                 }
 
                 glyphOffset = QPoint(floor(w / 2.0 - glyph.width() / 2.0), floor((titlebarHeight-1) / 2.0) - glyph.height() / 2.0 - (titlebarHeight != 20 ? 1 : 0));
-                l = 20;
-                t = 6;
-                r = 20;
-                b = 8;
+
+                l = closeMargins.margin_left;
+                t = closeMargins.margin_top;
+                r = closeMargins.margin_right;
+                b = closeMargins.margin_bottom;
 
                 break;
             default:

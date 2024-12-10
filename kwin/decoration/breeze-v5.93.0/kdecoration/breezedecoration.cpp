@@ -42,6 +42,8 @@ namespace Breeze
 using KDecoration2::ColorGroup;
 using KDecoration2::ColorRole;
 
+static SizingMargins g_sizingmargins;
+static QString g_themeName = "Aero";
 //________________________________________________________________
 static int g_shadowStrength = 255;
 static QColor g_shadowColor = Qt::black;
@@ -58,6 +60,22 @@ void Decoration::setOpacity(qreal value)
     }
     m_opacity = value;
     update();
+}
+QString Decoration::themeName()
+{
+    return SMOD::currentlyRegisteredPath;
+}
+QPixmap Decoration::minimize_glow()
+{
+    return QPixmap(QStringLiteral(":/effects/smodglow/textures/minimize"));
+}
+QPixmap Decoration::maximize_glow()
+{
+    return QPixmap(QStringLiteral(":/effects/smodglow/textures/maximize"));
+}
+QPixmap Decoration::close_glow()
+{
+    return QPixmap(QStringLiteral(":/effects/smodglow/textures/close"));
 }
 
 //________________________________________________________________
@@ -93,10 +111,12 @@ bool Decoration::init()
 void Decoration::init()
 #endif
 {
-    SMOD::registerResource("decoration");
 
+    reconfigure();
+    SMOD::registerResource(m_internalSettings->decorationTheme());
+
+    g_sizingmargins.loadSizingMargins();
     const auto c = client();
-
     // active state change animation
     // It is important start and end value are of the same type, hence 0.0 and not just 0
     m_animation->setStartValue(0.0);
@@ -147,7 +167,6 @@ void Decoration::init()
         call->deleteLater();
     });
 
-    reconfigure();
     updateTitleBar();
     auto s = settings();
     connect(s.get(), &KDecoration2::DecorationSettings::borderSizeChanged, this, &Decoration::recalculateBorders);
@@ -293,10 +312,12 @@ int Decoration::borderSize(bool bottom) const
 //________________________________________________________________
 void Decoration::reconfigure()
 {
-    SMOD::registerResource("decoration");
 
     m_internalSettings = SettingsProvider::self()->internalSettings(this);
 
+
+    SMOD::registerResource(m_internalSettings->decorationTheme());
+    g_sizingmargins.loadSizingMargins();
     setScaledCornerRadius();
 
     // animation
@@ -522,22 +543,28 @@ void Decoration::paintTitleBar(QPainter *painter, const QRect &repaintRegion)
         static_cast<Button *>(button.data())->smodPaintGlow(painter, repaintRegion);
     }*/
 }
+SizingMargins Decoration::sizingMargins() const
+{
+    return g_sizingmargins;
+}
+
 
 QRect Decoration::buttonRect(KDecoration2::DecorationButtonType button) const
 {
+
     int height = titlebarHeight()-1;
-    int intendedWidth = 27;
+    int intendedWidth = g_sizingmargins.maximizeSizing().width;
     int width = 0;
     switch (button)
     {
         case KDecoration2::DecorationButtonType::Minimize:
-            intendedWidth = 29;
+            intendedWidth = g_sizingmargins.minimizeSizing().width;
             break;
         case KDecoration2::DecorationButtonType::Maximize:
-            intendedWidth = 27 + (m_internalSettings->alternativeButtonSizing() ? 1 : 0);
+            intendedWidth = g_sizingmargins.maximizeSizing().width;
             break;
         case KDecoration2::DecorationButtonType::Close:
-            intendedWidth = 49;
+            intendedWidth = g_sizingmargins.closeSizing().width;
             break;
         case KDecoration2::DecorationButtonType::Menu:
             height = titlebarHeight();
@@ -546,7 +573,7 @@ QRect Decoration::buttonRect(KDecoration2::DecorationButtonType button) const
             break;
     }
     if(button == KDecoration2::DecorationButtonType::Menu) width = 16;
-    else width = (int)((float)titlebarHeight() * ((float)intendedWidth / 21.0f) + 0.5f);
+    else width = (int)((float)titlebarHeight() * ((float)intendedWidth / 21.0) + 0.5f);
     return QRect(0, 0, width, height);
 }
 int Decoration::titlebarHeight() const
