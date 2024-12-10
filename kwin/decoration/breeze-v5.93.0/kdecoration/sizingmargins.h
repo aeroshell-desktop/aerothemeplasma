@@ -21,6 +21,8 @@ struct CommonSizing
     int corner_radius;
     bool alternative;
     bool enable_glow;
+    int caption_button_spacing;
+    bool caption_button_align_vcenter;
 };
 
 struct ShadowSizing

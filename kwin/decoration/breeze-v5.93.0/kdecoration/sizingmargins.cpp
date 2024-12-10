@@ -33,6 +33,9 @@ void SizingMargins::loadSizingMargins()
     m_commonSizing.corner_radius = settings.value("Common/corner_radius", 6).toInt();
     m_commonSizing.alternative = settings.value("Common/alternative", false).toBool();
     m_commonSizing.enable_glow = settings.value("Common/enable_glow", false).toBool();
+    m_commonSizing.caption_button_spacing = settings.value("Common/caption_button_spacing", 0).toInt();
+    m_commonSizing.caption_button_align_vcenter = settings.value("Common/caption_button_align_vcenter", false).toBool();
+
 
     // CloseSizing
     m_closeSizing.width = settings.value("Close/width", 49).toInt();

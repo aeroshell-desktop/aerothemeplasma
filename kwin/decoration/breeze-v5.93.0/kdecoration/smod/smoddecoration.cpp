@@ -486,6 +486,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         }
     }
 
+
     m_leftButtons->paint(painter, repaintRegion);
     m_rightButtons->paint(painter, repaintRegion);
 

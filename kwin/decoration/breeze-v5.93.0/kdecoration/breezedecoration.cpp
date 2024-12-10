@@ -450,11 +450,18 @@ void Decoration::updateButtonsGeometry()
         const int lessPadding = g_sizingmargins.frameRightSizing().inner_inset;
         m_rightButtons->setPos(QPointF(
             size().width() - m_rightButtons->geometry().width() - borderRight() - (isMaximized() ? 2 : 0) + lessPadding, vPadding));
+
+        m_rightButtons->setSpacing(g_sizingmargins.commonSizing().caption_button_spacing);
     }
     foreach (QPointer<KDecoration2::DecorationButton> button, m_rightButtons->buttons()) {
         static_cast<Button *>(button.data())->updateGeometry();
     }
 
+    if(g_sizingmargins.commonSizing().caption_button_align_vcenter)
+    {
+        auto p = m_rightButtons->pos();
+        m_rightButtons->setPos(QPointF(p.x(), borderTop() / 2.0f - m_rightButtons->geometry().height() / 2.0f));
+    }
     update();
 
     return;
