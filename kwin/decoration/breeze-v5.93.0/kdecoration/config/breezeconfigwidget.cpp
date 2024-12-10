@@ -81,6 +81,7 @@ void ConfigWidget::load()
     QStringList local_files = local_dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
 
     QStringList all_files = system_files + local_files;
+    all_files.removeDuplicates();
 
     all_files.erase(std::remove_if(all_files.begin(), all_files.end(), [](const QString &a) { return !a.endsWith(".smod.rcc"); }), all_files.end());
     all_files.replaceInStrings(QRegularExpression("\\.smod\\.rcc$"), "");
