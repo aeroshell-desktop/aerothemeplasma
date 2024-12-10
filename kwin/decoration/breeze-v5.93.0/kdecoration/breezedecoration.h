@@ -78,6 +78,7 @@ public:
     static QPixmap maximize_glow();
     static QPixmap close_glow();
     static int decorationCount();
+    static bool glowEnabled();
 
 
     QRect buttonRect(KDecoration2::DecorationButtonType button) const;

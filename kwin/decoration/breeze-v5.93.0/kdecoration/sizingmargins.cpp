@@ -30,7 +30,9 @@ void SizingMargins::loadSizingMargins()
 
     // CommonSizing
     m_commonSizing.height = settings.value("Common/height", 21).toInt();
+    m_commonSizing.corner_radius = settings.value("Common/corner_radius", 6).toInt();
     m_commonSizing.alternative = settings.value("Common/alternative", false).toBool();
+    m_commonSizing.enable_glow = settings.value("Common/enable_glow", false).toBool();
 
     // CloseSizing
     m_closeSizing.width = settings.value("Close/width", 49).toInt();
@@ -53,8 +55,13 @@ void SizingMargins::loadSizingMargins()
     m_minimizeSizing.margin_right = settings.value("Minimize/margin_right", 12).toInt();
     m_minimizeSizing.margin_bottom = settings.value("Minimize/margin_bottom", 8).toInt();
 
-}
+    m_loaded = true;
 
+}
+bool SizingMargins::loaded() const
+{
+    return m_loaded;
+}
 GlowSizing SizingMargins::glowSizing() const
 {
     return m_glowSizing;

@@ -77,6 +77,13 @@ QPixmap Decoration::close_glow()
 {
     return QPixmap(QStringLiteral(":/effects/smodglow/textures/close"));
 }
+bool Decoration::glowEnabled()
+{
+    if(g_sizingmargins.loaded())
+        return g_sizingmargins.commonSizing().enable_glow;
+    else return false;
+}
+
 
 //________________________________________________________________
 QColor Decoration::titleBarColor() const

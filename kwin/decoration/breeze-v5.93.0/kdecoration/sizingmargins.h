@@ -18,7 +18,9 @@ struct ButtonSizingMargins
 struct CommonSizing
 {
     int height;
+    int corner_radius;
     bool alternative;
+    bool enable_glow;
 };
 
 struct ShadowSizing
@@ -56,8 +58,10 @@ public:
     ButtonSizingMargins maximizeSizing() const;
     ButtonSizingMargins minimizeSizing() const;
     ButtonSizingMargins closeSizing() const;
+    bool loaded() const;
 
 private:
+    bool m_loaded = false;
     GlowSizing m_glowSizing;
     ShadowSizing m_shadowSizing;
     CommonSizing m_commonSizing;

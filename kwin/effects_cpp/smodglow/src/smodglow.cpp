@@ -338,7 +338,7 @@ void SmodGlowEffect::windowAdded(EffectWindow *w)
     }
     previousDecorationCount = SmodDecoration::decorationCount();
 
-    m_active = m_active && previousDecorationCount != 0;
+    m_active = m_active && previousDecorationCount != 0 && SmodDecoration::glowEnabled();
 
     registerWindow(w);
 }

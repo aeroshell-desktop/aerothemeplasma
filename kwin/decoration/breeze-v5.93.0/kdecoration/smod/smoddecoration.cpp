@@ -72,7 +72,8 @@ std::shared_ptr<KDecoration2::DecorationShadow> Decoration::smodCreateShadow(boo
 
 void Decoration::updateBlur()
 {
-    const int radius = isMaximized() ? 0 : 7;
+    auto margins = sizingMargins().commonSizing();
+    const int radius = isMaximized() ? 0 : margins.corner_radius+1;
 
     QPainterPath path;
     path.addRoundedRect(rect(), radius, radius);
