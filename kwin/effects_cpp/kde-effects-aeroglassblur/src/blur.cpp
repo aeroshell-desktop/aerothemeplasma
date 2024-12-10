@@ -346,6 +346,7 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
     m_paintAsTranslucent = BlurConfig::paintAsTranslucent();
     m_basicColorization = BlurConfig::basicColorization();
     m_maximizeColorization = BlurConfig::maximizeColorization();
+    m_enableCornerGlow = BlurConfig::enableCornerGlow();
 	m_translateTexture = BlurConfig::translateTexture();
 	m_texturePath = BlurConfig::textureLocation();
 	ensureReflectTexture();
@@ -1169,7 +1170,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 
             ShaderManager::instance()->popShader();
 		}
-		if(shouldHaveCornerGlow(w))
+		if(shouldHaveCornerGlow(w) && m_enableCornerGlow)
         {
             glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 

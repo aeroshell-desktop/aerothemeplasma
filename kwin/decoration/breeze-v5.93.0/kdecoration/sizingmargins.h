@@ -45,6 +45,12 @@ struct GlowSizing
     float inactive_opacity;
 };
 
+struct BorderFrame
+{
+    int outer_inset;
+    int inner_inset;
+};
+
 class SizingMargins
 {
 public:
@@ -58,6 +64,10 @@ public:
     ButtonSizingMargins maximizeSizing() const;
     ButtonSizingMargins minimizeSizing() const;
     ButtonSizingMargins closeSizing() const;
+    BorderFrame frameTopSizing() const;
+    BorderFrame frameLeftSizing() const;
+    BorderFrame frameRightSizing() const;
+    BorderFrame frameBottomSizing() const;
     bool loaded() const;
 
 private:
@@ -68,5 +78,9 @@ private:
     ButtonSizingMargins m_maximizeSizing;
     ButtonSizingMargins m_minimizeSizing;
     ButtonSizingMargins m_closeSizing;
+    BorderFrame m_frameTopSizing;
+    BorderFrame m_frameLeftSizing;
+    BorderFrame m_frameRightSizing;
+    BorderFrame m_frameBottomSizing;
 };
 }

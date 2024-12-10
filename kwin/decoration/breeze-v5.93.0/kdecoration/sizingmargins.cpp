@@ -55,6 +55,15 @@ void SizingMargins::loadSizingMargins()
     m_minimizeSizing.margin_right = settings.value("Minimize/margin_right", 12).toInt();
     m_minimizeSizing.margin_bottom = settings.value("Minimize/margin_bottom", 8).toInt();
 
+    m_frameTopSizing.outer_inset = settings.value("FrameTop/outer_inset", 2).toInt();
+    m_frameTopSizing.inner_inset = settings.value("FrameTop/inner_inset", 2).toInt();
+    m_frameLeftSizing.outer_inset = settings.value("FrameLeft/outer_inset", 2).toInt();
+    m_frameLeftSizing.inner_inset = settings.value("FrameLeft/inner_inset", 2).toInt();
+    m_frameRightSizing.outer_inset = settings.value("FrameRight/outer_inset", 2).toInt();
+    m_frameRightSizing.inner_inset = settings.value("FrameRight/inner_inset", 2).toInt();
+    m_frameBottomSizing.outer_inset = settings.value("FrameBottom/outer_inset", 2).toInt();
+    m_frameBottomSizing.inner_inset = settings.value("FrameBottom/inner_inset", 2).toInt();
+
     m_loaded = true;
 
 }
@@ -86,4 +95,21 @@ ButtonSizingMargins SizingMargins::closeSizing() const
 {
     return m_closeSizing;
 }
+BorderFrame SizingMargins::frameTopSizing() const
+{
+    return m_frameTopSizing;
+}
+BorderFrame SizingMargins::frameLeftSizing() const
+{
+    return m_frameLeftSizing;
+}
+BorderFrame SizingMargins::frameRightSizing() const
+{
+    return m_frameRightSizing;
+}
+BorderFrame SizingMargins::frameBottomSizing() const
+{
+    return m_frameBottomSizing;
+}
+
 }

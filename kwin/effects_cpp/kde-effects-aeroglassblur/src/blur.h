@@ -198,6 +198,7 @@ private:
     bool m_transparencyEnabled;
     bool m_basicColorization;
     bool m_maximizeColorization;
+    bool m_enableCornerGlow;
 
     struct OffsetStruct
     {
