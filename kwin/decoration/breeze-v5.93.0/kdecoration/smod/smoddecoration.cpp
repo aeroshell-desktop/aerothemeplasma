@@ -420,6 +420,8 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
             }
             float xpos = captionRect.x();
 
+
+
             if(titleAlignment == InternalSettings::AlignRight)
             {
                 xpos += captionRect.width() - blurWidth;
@@ -443,6 +445,16 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
                 else if(titleAlignment == InternalSettings::AlignRight)
                 {
                     alignmentOffset = -8;
+                }
+                if(m_rightButtons->geometry().intersects(QRect(xpos + alignmentOffset, captionRect.height() / 2 - blurHeight - 2, glowWidth, glowHeight)))
+                {
+
+                    captionRect.setX(m_leftButtons->pos().x());
+                    captionRect.setWidth(size().width() - m_rightButtons->geometry().width());
+                    real_label.setFixedWidth(captionRect.width());
+                    xpos = captionRect.x();
+                    xpos += captionRect.width()/2 - blurWidth/2;
+
                 }
                 painter->translate(xpos + alignmentOffset, captionRect.height() / 2 - blurHeight - 2);
                 gl.render(painter);
