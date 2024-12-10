@@ -12,6 +12,9 @@ It is still in heavy development and testing. ATP has been tested on:
 1. Arch Linux x64 and other Arch derivatives, KDE Neon
 2. Plasma 6.2.2, KDE Frameworks 6.7.0, Qt 6.8.0
 3. 96 DPI scaling, multi monitor
+4. X11, Wayland*
+
+*AeroThemePlasma currently lacks full Wayland support, which may result in Wayland-specific issues. 
 
 **This release is meant for early adopters, debuggers and developers alike. This port lacks certain components which still need to be ported over to KDE Plasma 6. I am not responsible for broken systems, please proceed with caution.**
 

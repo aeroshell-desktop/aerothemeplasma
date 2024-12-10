@@ -10,6 +10,8 @@
 
 ## Prerequisites <a name="preq"></a>
 
+**NOTE**: Dependencies for other disros besides Arch Linux have been provided by contributors and aren't updated frequently, which may result in incorrect or missing dependencies.
+
 ### Arch Linux
 Required packages:
 
