@@ -48,7 +48,7 @@ This section relates to the directories found in the ```plasma``` folder.
     - Plasma shell
     - Preset panel layout that can be applied from Edit mode
 
-Make sure to compile the C++ components of plasmoids located in ```plasmoids/src/``` by running ```install.sh``` for every source folder. 
+Make sure to compile the C++ components of plasmoids located in ```plasmoids/src/``` by running ```install.sh``` for every source folder. You can also use ```install_ninja.sh``` to build using Ninja.
 
 3. Move ```sddm-theme-mod``` to ```/usr/share/sddm/themes```, and then run ```install-services.sh``` found in ```sddm-theme-mod/Services```.
 4. Import and apply the color scheme through System Settings. 
