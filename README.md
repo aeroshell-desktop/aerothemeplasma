@@ -130,6 +130,10 @@ Maximized opaque colorization:
 
 <img src="screenshots/decorations.png">
 
+Decoration themes:
+
+<img src="screenshots/smod_theme.png">
+
 ### Firefox
 
 <img src="screenshots/geckium.png">
