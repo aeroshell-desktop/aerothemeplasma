@@ -9,6 +9,7 @@ import QtQuick 2.0
 import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.plasma.activityswitcher as ActivitySwitcher
 import org.kde.kirigami 2.20 as Kirigami
+import Qt5Compat.GraphicalEffects
 
 import org.kde.kcmutils  // KCMLauncher
 
@@ -17,6 +18,18 @@ import "static.js" as S
 Item {
     id: root
 
+    component GlowText: Text {
+        renderType: Text.NativeRendering
+        font.hintingPreference: Font.PreferFullHinting
+        font.kerning: false
+        layer.enabled: true
+        layer.effect: DropShadow {
+            radius: 16
+            samples: 31
+            color: "#9affffff"
+            spread: 0.65
+        }
+    }
     property int innerPadding  : Kirigami.Units.gridUnit
 
     property bool current      : false
@@ -62,6 +75,10 @@ Item {
             // This is intentional - while waiting for the wallpaper,
             // we are showing a semi-transparent black background
             color: "black"
+            radius: 3
+            border.color: "#a0000000"
+            border.width: 1
+            border.pixelAligned: true
 
             opacity: root.selected ? .8 : .5
         }
@@ -78,29 +95,29 @@ Item {
 
         // Title and the icon
 
-        Rectangle {
+        /*Rectangle {
             id: shade
 
             width: parent.height
             height: parent.width
 
             anchors.centerIn: parent
-            rotation: 90
 
-            gradient: Gradient {
-                GradientStop { position: 1.0; color: "black" }
-                GradientStop { position: 0.0; color: "transparent" }
-            }
+            color: "#80000000"
+            radius: 3
+            border.color: "#a0000000"
+            border.width: 1
+            border.pixelAligned: true
 
             opacity : root.selected ? 0.5 : 1.0
-        }
+        }*/
 
         Rectangle {
             id: currentActivityHighlight
 
             visible:  root.current
 
-            border.width: root.current ? Kirigami.Units.smallSpacing : 0
+            border.width: root.current ? Kirigami.Units.smallSpacing/2 : 0
             border.color: Kirigami.Theme.highlightColor
 
             z: 10
@@ -122,18 +139,18 @@ Item {
                 left  : parent.left
                 right : parent.right
 
-                leftMargin : 2 * Kirigami.Units.smallSpacing + 2
-                topMargin  : 2 * Kirigami.Units.smallSpacing
+                leftMargin : 3 * Kirigami.Units.smallSpacing
+                topMargin  : 3 * Kirigami.Units.smallSpacing
             }
 
-            Text {
+            GlowText {
                 id: title
 
-                color   : "white"
+                //color   : "white"
                 elide   : Text.ElideRight
                 visible : shade.visible
 
-                font.bold : true
+                //font.bold : true
 
                 anchors {
                     top   : parent.top
@@ -142,13 +159,13 @@ Item {
                 }
             }
 
-            Text {
+            GlowText {
                 id: description
 
-                color   : "white"
+                //color   : "white"
                 elide   : Text.ElideRight
                 text    : model.description
-                opacity : .6
+                //opacity : .6
 
                 anchors {
                     top   : title.bottom
@@ -166,6 +183,14 @@ Item {
                 anchors {
                     right       : parent.right
                     rightMargin : 2 * Kirigami.Units.smallSpacing
+                }
+                layer.enabled: true
+                layer.effect: Glow {
+                    radius: 15
+                    samples: 31
+                    color: "#77ffffff"
+                    spread: 0.60
+                    cached: true
                 }
             }
         }
@@ -194,12 +219,12 @@ Item {
                 visible : false
             }
 
-            Text {
+            GlowText {
                 id: lastUsedDate
 
-                color   : "white"
+                //color   : "white"
                 elide   : Text.ElideRight
-                opacity : .6
+                //opacity : .6
 
                 text: root.current ?
                         i18nd("plasma_shell_org.kde.plasma.desktop", "Currently being used") :
@@ -250,6 +275,7 @@ Item {
 
             onClicked: {
                 root.clicked();
+
             }
 
             onEntered: {
@@ -318,7 +344,7 @@ Item {
                 right  : parent.right
             }
 
-            Rectangle {
+            /*Rectangle {
                 anchors {
                     fill: parent
                     margins: - 2 * Kirigami.Units.smallSpacing
@@ -326,7 +352,8 @@ Item {
 
                 opacity: .75
                 color: Kirigami.Theme.backgroundColor
-            }
+                radius: 3
+            }*/
 
             PlasmaComponents.Button {
                 id: configButton

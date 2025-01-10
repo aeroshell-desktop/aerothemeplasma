@@ -97,22 +97,23 @@ RowLayout {
         wrapMode: Text.NoWrap
         //font.family: "Segoe UI Light"
 
+        renderType: Text.NativeRendering
+        font.hintingPreference: Font.PreferFullHinting
+        font.kerning: false
 
-        color: "black"
+        //color: "black"
         // Display a subtle visual indication that the volume might be
         // dangerously high
         // ------------------------------------------------
         // Keep this in sync with the copies in plasma-pa:ListItemBase.qml
         // and plasma-pa:VolumeSlider.qml
-        /*color: {
+        color: {
             if (progressBar.value <= 100) {
-                return Kirigami.Theme.textColor
-            } else if (progressBar.value > 100 && progressBar.value <= 125) {
-                return Kirigami.Theme.neutralTextColor
+                return "black"
             } else {
-                return Kirigami.Theme.negativeTextColor
+                return Qt.darker(Kirigami.Theme.negativeTextColor, 1.5);
             }
-        }*/
+        }
     }
 
     Glow {
@@ -145,6 +146,9 @@ RowLayout {
             elide: Text.ElideRight
             text: !root.showingProgress && root.osdValue ? root.osdValue : ""
             //font.family: "Segoe UI Light"
+            renderType: Text.NativeRendering
+            font.hintingPreference: Font.PreferFullHinting
+            font.kerning: false
             color: "black"
         }
         Glow {

@@ -16,17 +16,26 @@ import org.kde.kirigami 2.20 as Kirigami
 
 import org.kde.plasma.private.shell 2.0
 
-PlasmaCore.Dialog {
+//PlasmaCore.Dialog {
+Window {
     id: dialog
-    visualParent: alternativesHelper.applet
-    location: alternativesHelper.applet.Plasmoid.location
-    hideOnWindowDeactivate: true
-    backgroundHints: (alternativesHelper.applet.Plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentPrefersOpaqueBackground) ? PlasmaCore.Dialog.SolidBackground : PlasmaCore.Dialog.StandardBackground
+    //visualParent: alternativesHelper.applet
+    //location: alternativesHelper.applet.Plasmoid.location
+    //hideOnWindowDeactivate: true
+    //backgroundHints: (alternativesHelper.applet.Plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentPrefersOpaqueBackground) ? PlasmaCore.Dialog.SolidBackground : PlasmaCore.Dialog.StandardBackground
 
+    title:  i18nd("plasma_shell_org.kde.plasma.desktop", "Alternative Widgets")
+
+    modality: Qt.ApplicationModal
     Component.onCompleted: {
         flags = flags |  Qt.WindowStaysOnTopHint;
         dialog.show();
     }
+
+    minimumWidth: root.implicitWidth
+    maximumWidth: minimumWidth
+    minimumHeight: root.implicitHeight
+    maximumHeight: minimumHeight
 
     ColumnLayout {
         id: root
@@ -59,14 +68,10 @@ PlasmaCore.Dialog {
             id: widgetExplorer
             provides: alternativesHelper.appletProvides
         }
+        Kirigami.Theme.colorSet: Kirigami.Theme.View
+        Kirigami.Theme.inherit: false
 
-        PlasmaExtras.PlasmoidHeading {
-            Kirigami.Heading {
-                id: heading
-                text: i18nd("plasma_shell_org.kde.plasma.desktop", "Alternative Widgets")
-                textFormat: Text.PlainText
-            }
-        }
+
 
         // This timer checks with a short delay whether a new item in the list has been hovered by the cursor.
         // If not, then the cursor has left the view and thus no item should be selected.
@@ -90,7 +95,7 @@ PlasmaCore.Dialog {
         PlasmaComponents3.ScrollView {
             Layout.fillWidth: true
             Layout.fillHeight: true
-
+            Layout.preferredWidth: Kirigami.Units.gridUnit * 20
             Layout.preferredHeight: mainList.contentHeight
 
             focus: true
@@ -166,7 +171,7 @@ PlasmaCore.Dialog {
                         ColumnLayout {
                             id: labelLayout
 
-                            readonly property color textColor: listItem.pressed ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+                            readonly property color textColor: Kirigami.Theme.textColor
 
                             Layout.fillHeight: true
                             Layout.fillWidth: true
@@ -186,7 +191,7 @@ PlasmaCore.Dialog {
                                 Layout.fillWidth: true
                                 text: model.description
                                 textFormat: Text.PlainText
-                                font.pointSize: Kirigami.Theme.smallFont.pointSize
+                                font.pointSize: Kirigami.Theme.smallFont.pointSize * 1.25
                                 font.family: Kirigami.Theme.smallFont.family
                                 font.bold: model.pluginName === alternativesHelper.currentPlugin
                                 opacity: 0.6

@@ -8,11 +8,15 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.1
 
+import Qt5Compat.GraphicalEffects
+
+import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.plasma.core as PlasmaCore
 import org.kde.kwindowsystem
 import org.kde.kirigami 2.20 as Kirigami
 import org.kde.graphicaleffects as KGraphicalEffects
+import org.kde.ksvg as KSvg
 
 Item {
     id: delegate
@@ -21,20 +25,57 @@ Item {
     readonly property bool pendingUninstall: pendingUninstallTimer.applets.indexOf(pluginName) > -1
     readonly property bool pressed: tapHandler.pressed
 
-    width: list.cellWidth
-    height: list.cellHeight
+    readonly property string name: model.name
+    readonly property string website: model.website
+    readonly property string email: model.email
+    readonly property string author: model.author
 
+    readonly property string version: model.version
+    readonly property string description: model.description
+    readonly property string category: model.category
+    readonly property string license: model.license
+
+    readonly property bool local: model.local
+
+    width: 104
+    height: width
+
+    KSvg.FrameSvgItem {
+        id: highlight
+        anchors.fill: parent
+        imagePath: "widgets/viewitem"
+        prefix: {
+            var isSelected = delegate.GridView.view.currentIndex == index;
+            if(isSelected && hoverHandler.hovered) return "selected+hover";
+            if(isSelected) return "selected";
+            if(hoverHandler.hovered) return "hover";
+            return "";
+        }
+    }
     HoverHandler {
         id: hoverHandler
-        onHoveredChanged: if (hovered) delegate.GridView.view.currentIndex = index
     }
 
     TapHandler {
         id: tapHandler
         enabled: !delegate.pendingUninstall && model.isSupported
-        onTapped: widgetExplorer.addApplet(delegate.pluginName)
+        onDoubleTapped: widgetExplorer.addApplet(delegate.pluginName)
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        onTapped: (eventPoint, button) => {
+            if(button == Qt.LeftButton)
+                delegate.GridView.view.currentIndex = index;
+            else if(button == Qt.RightButton) {
+                widgetsOptions.visualParent = delegate;
+                widgetsOptions.openRelative();
+            }
+        }
     }
 
+    PlasmaCore.ToolTipArea {
+        anchors.fill: parent
+        visible: model.running
+        mainText: model.running + " added"
+    }
     PlasmaCore.ToolTipArea {
         anchors.fill: parent
         visible: !model.isSupported
@@ -96,7 +137,7 @@ Item {
 
         Item {
             id: iconContainer
-            width: Kirigami.Units.iconSizes.enormous
+            width: Kirigami.Units.iconSizes.huge
             height: width
             Layout.alignment: Qt.AlignHCenter
             opacity: delegate.pendingUninstall ? 0.6 : 1
@@ -113,8 +154,6 @@ Item {
                 Kirigami.Icon {
                     anchors.fill: parent
                     source: model.decoration
-                    visible: model.screenshot === ""
-                    selected: tapHandler.pressed
                     enabled: model.isSupported
                 }
                 Image {
@@ -126,122 +165,28 @@ Item {
                 }
             }
 
-            Item {
-                id: badgeMask
-                anchors.fill: parent
 
-                Rectangle {
-                    x: Math.round(-Kirigami.Units.smallSpacing * 1.5 / 2)
-                    y: x
-                    width: runningBadge.width + Math.round(Kirigami.Units.smallSpacing * 1.5)
-                    height: width
-                    radius: height
-                    visible: running && delegate.GridView.isCurrentItem
-                }
-            }
-
-            KGraphicalEffects.BadgeEffect {
-                anchors.fill: parent
-                source: ShaderEffectSource {
-                    sourceItem: iconWidget
-                    hideSource: true
-                    live: false
-                }
-                mask: ShaderEffectSource {
-                    id: maskShaderSource
-                    sourceItem: badgeMask
-                    hideSource: true
-                    live: false
-                }
-            }
-
-            Rectangle {
-                id: runningBadge
-                width: height
-                height: Math.round(Kirigami.Units.iconSizes.sizeForLabels * 1.3)
-                radius: height
-                color: Kirigami.Theme.highlightColor
-                visible: running && delegate.GridView.isCurrentItem
-                onVisibleChanged: maskShaderSource.scheduleUpdate()
-
-                PlasmaComponents.Label {
-                    id: countLabel
-                    anchors.fill: parent
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    text: running
-                    textFormat: Text.PlainText
-                }
-            }
-
-
-            PlasmaComponents.ToolButton {
-                id: uninstallButton
-                anchors {
-                    top: parent.top
-                    right: parent.right
-                }
-                icon.name: delegate.pendingUninstall ? "edit-undo" : "edit-delete"
-                // we don't really "undo" anything but we'll pretend to the user that we do
-                PlasmaComponents.ToolTip.delay: Kirigami.Units.toolTipDelay
-                PlasmaComponents.ToolTip.visible: hovered
-                PlasmaComponents.ToolTip.text: delegate.pendingUninstall ? i18nd("plasma_shell_org.kde.plasma.desktop", "Undo uninstall")
-                                                    : i18nd("plasma_shell_org.kde.plasma.desktop", "Uninstall widget")
-                flat: false
-                visible: model.local && delegate.GridView.isCurrentItem && !dragHandler.active
-
-                onHoveredChanged: {
-                    if (hovered) {
-                        // hovering the uninstall button triggers onExited of the main mousearea
-                        delegate.GridView.view.currentIndex = index
-                    }
-                }
-
-                onClicked: {
-                    var pending = pendingUninstallTimer.applets
-                    if (delegate.pendingUninstall) {
-                        var index = pending.indexOf(pluginName)
-                        if (index > -1) {
-                            pending.splice(index, 1)
-                        }
-                    } else {
-                        pending.push(pluginName)
-                    }
-                    pendingUninstallTimer.applets = pending
-
-                    if (pending.length) {
-                        pendingUninstallTimer.restart()
-                    } else {
-                        pendingUninstallTimer.stop()
-                    }
-                }
-            }
         }
-        Kirigami.Heading {
+        PlasmaComponents.Label {
             id: heading
             Layout.fillWidth: true
-            level: 4
             text: model.name
             textFormat: Text.PlainText
             elide: Text.ElideRight
-            wrapMode: Text.WordWrap
-            maximumLineCount: 2
-            lineHeight: 0.95
+            wrapMode: Text.NoWrap
+            maximumLineCount: 1
             horizontalAlignment: Text.AlignHCenter
-            color: mainLayout.textColor
-        }
-        PlasmaComponents.Label {
-            Layout.fillWidth: true
-            // otherwise causes binding loop due to the way the Plasma sets the height
-            height: implicitHeight
-            text: model.description
-            textFormat: Text.PlainText
-            font: Kirigami.Theme.smallFont
-            wrapMode: Text.WordWrap
-            elide: Text.ElideRight
-            maximumLineCount: heading.lineCount === 1 ? 3 : 2
-            horizontalAlignment: Text.AlignHCenter
-            color: mainLayout.textColor
+            color: "black"
+            renderType: Text.NativeRendering
+            font.hintingPreference: Font.PreferFullHinting
+            font.kerning: false
+            layer.enabled: true
+            layer.effect: DropShadow {
+                radius: 16
+                samples: 31
+                color: "#90ffffff"
+                spread: 0.65
+            }
         }
     }
 }

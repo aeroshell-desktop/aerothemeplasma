@@ -56,7 +56,7 @@ Item {
             sidePanelStack.state = "closed";
         } else {
             sidePanelStack.state = "activityManager";
-            sidePanelStack.setSource(Qt.resolvedUrl("../activitymanager/ActivityManager.qml"));
+            sidePanelStack.setSource(Qt.resolvedUrl("../activitymanager/ActivityManager.qml"), {"rootItem": root});
         }
     }
 
@@ -82,13 +82,13 @@ Item {
             screenRect = Qt.rect(Math.max(screenRect.x, panelConfigRect.x + panelConfigRect.width), screenRect.y, screenRect.width - diff, screenRect.height);
         }
 
-        if (sidePanel.visible) {
+        /*if (sidePanel.visible) {
             if (Qt.application.layoutDirection === Qt.RightToLeft) {
                 screenRect = Qt.rect(screenRect.x, screenRect.y, screenRect.width - sidePanel.width, screenRect.height);
             } else {
                 screenRect = Qt.rect(screenRect.x + sidePanel.width, screenRect.y, screenRect.width - sidePanel.width, screenRect.height);
             }
-        }
+        }*/
         return screenRect;
     }
 
@@ -186,32 +186,33 @@ Item {
         onTriggered: uninstall()
     }
 
-    PlasmaCore.Dialog {
+    Window {
         id: sidePanel
-        location: Qt.application.layoutDirection === Qt.RightToLeft ? PlasmaCore.Types.RightEdge : PlasmaCore.Types.LeftEdge
-        type: PlasmaCore.Dialog.Dock
-        flags: Qt.WindowStaysOnTopHint
 
-        backgroundHints: PlasmaCore.Types.NoBackground
+        title: "plasmashell_explorer"
 
-        hideOnWindowDeactivate: true
+        property bool outputOnly: false
 
-        x: {
-            var result = desktop.x;
-            if (!containment) {
-                return result;
-            }
+        flags:  Qt.WA_TranslucentBackground | (outputOnly ? Qt.WindowTransparentForInput : Qt.Widget)
+        color:  "#00000000"
 
-            var rect = containment.plasmoid.availableScreenRect;
-            result += rect.x;
-
-            if (Qt.application.layoutDirection === Qt.RightToLeft) {
-                result += rect.width - sidePanel.width;
-            }
-
-            return result;
+        property int previousWidth: 0
+        property int previousHeight: 0
+        onMinimumWidthChanged: {
+            if(sidePanelStack.item)
+                previousWidth = minimumWidth;
         }
-        y: desktop.y + (containment ? containment.plasmoid.availableScreenRect.y : 0)
+        onMinimumHeightChanged: {
+            if(sidePanelStack.item)
+                previousHeight = minimumHeight;
+        }
+
+        minimumWidth: sidePanelStack.item ? sidePanelStack.item.implicitWidth : previousWidth
+        maximumWidth: minimumWidth
+
+        minimumHeight: sidePanelStack.item ? sidePanelStack.item.implicitHeight : previousHeight
+        maximumHeight: minimumHeight
+
 
         onVisibleChanged: {
             if (!visible) {
@@ -227,44 +228,30 @@ Item {
             }
         }
 
-        mainItem: Loader {
+        Loader {
             id: sidePanelStack
             asynchronous: true
-            width: item ? item.width : 0
-            height: containment ? containment.plasmoid.availableScreenRect.height - sidePanel.margins.top - sidePanel.margins.bottom : 1000
+            width: item ? item.implicitWidth : 0
+            height: item ? item.implicitHeight : 320
+
+            //height: 325 // accurate value is actually 349 but nobody has to know
             state: "closed"
 
             LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
             LayoutMirroring.childrenInherit: true
 
-            Rectangle {
-                anchors.fill: parent
-
-                gradient: Gradient {
-                    orientation: Gradient.Horizontal
-                    GradientStop { position: LayoutMirroring.enabled ? 1.0 : 0.5; color: "#99000000" }
-                    GradientStop { position: LayoutMirroring.enabled ? 0.5 : 1.0; color: "#00000000" }
-                }
-            }
-
             onLoaded: {
+                // sidePanel.PopupPlasmaWindow("", "")
                 if (sidePanelStack.item) {
                     item.closed.connect(function(){sidePanelStack.state = "closed";});
 
                     if (sidePanelStack.state == "activityManager") {
                         sidePanelStack.item.showSwitcherOnly =
                             ActivitySwitcher.Backend.shouldShowSwitcher
-                        sidePanel.hideOnWindowDeactivate = Qt.binding(function() {
-                            return !ActivitySwitcher.Backend.shouldShowSwitcher
-                                && !sidePanelStack.item.showingDialog;
-                        })
                         sidePanelStack.item.forceActiveFocus();
                     } else if (sidePanelStack.state == "widgetExplorer"){
-                        sidePanel.hideOnWindowDeactivate = Qt.binding(function() { return sidePanelStack.item && !sidePanelStack.item.preventWindowHide; })
                         sidePanel.opacity = Qt.binding(function() { return sidePanelStack.item ? sidePanelStack.item.opacity : 1 })
                         sidePanel.outputOnly = Qt.binding(function() { return sidePanelStack.item && sidePanelStack.item.outputOnly })
-                    } else {
-                        sidePanel.hideOnWindowDeactivate = true;
                     }
                 }
                 sidePanel.visible = true;
@@ -336,6 +323,12 @@ Item {
         id: switchAnim
         ScriptAction {
             script: {
+                if (sidePanelStack.state == "activityManager") {
+                    sidePanel.close();
+                    sidePanel.show();
+                    root.toggleActivityManager();
+                }
+
                 if (containment) {
                     containment.z = 1;
                     containment.x = root.width;

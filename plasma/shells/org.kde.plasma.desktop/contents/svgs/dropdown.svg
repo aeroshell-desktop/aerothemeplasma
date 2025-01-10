@@ -1,0 +1,92 @@
+<svg width="45" height="19" viewBox="0 0 45 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="dropdown">
+<g id="dropdown-hover-topleft">
+<rect id="Rectangle 27" x="15" width="1" height="1" fill="#3C7FB1"/>
+<rect id="Rectangle 28" x="16" width="1" height="1" fill="#F9FDFE"/>
+</g>
+<g id="dropdown-hover-topright">
+<rect id="Rectangle 27_2" x="28" width="1" height="1" fill="#F9FDFE"/>
+<rect id="Rectangle 28_2" x="29" width="1" height="1" fill="#3C7FB1"/>
+</g>
+<g id="dropdown-hover-left">
+<rect id="Rectangle 29" x="15" y="1" width="1" height="18" fill="#3C7FB1"/>
+<rect id="Rectangle 31" x="16" y="1" width="1" height="18" fill="url(#paint0_linear_40_25)"/>
+</g>
+<g id="dropdown-hover-right">
+<rect id="Rectangle 29_2" width="1" height="18" transform="matrix(-1 0 0 1 30 1)" fill="#3C7FB1"/>
+<rect id="Rectangle 31_2" width="1" height="18" transform="matrix(-1 0 0 1 29 1)" fill="url(#paint1_linear_40_25)"/>
+</g>
+<rect id="dropdown-hover-top" x="17" width="11" height="1" fill="#FAFDFE"/>
+<rect id="dropdown-hover-center" x="17" y="1" width="11" height="18" fill="url(#paint2_linear_40_25)"/>
+<g id="dropdown-pressed-topleft">
+<rect id="Rectangle 27_3" x="30" width="1" height="2" fill="#2C628B"/>
+<rect id="Rectangle 29_3" x="31" width="2" height="2" fill="#C5EAFE"/>
+<rect id="Rectangle 31_3" x="31" width="2" height="1" fill="black" fill-opacity="0.35"/>
+<rect id="Rectangle 33" x="31" width="1" height="1" fill="black" fill-opacity="0.35"/>
+<rect id="Rectangle 30" x="31" y="1" width="1" height="1" fill="black" fill-opacity="0.35"/>
+<rect id="Rectangle 32" x="32" y="1" width="1" height="1" fill="black" fill-opacity="0.1"/>
+<rect id="Rectangle 34" x="32" y="1" width="1" height="1" fill="black" fill-opacity="0.1"/>
+</g>
+<g id="dropdown-pressed-topright">
+<rect id="Rectangle 29_4" x="42" width="2" height="2" fill="#C5EAFE"/>
+<rect id="Rectangle 31_4" x="42" width="2" height="1" fill="black" fill-opacity="0.35"/>
+<rect id="Rectangle 28_3" x="44" width="1" height="2" fill="#2C628B"/>
+<rect id="Rectangle 32_2" x="42" y="1" width="2" height="1" fill="black" fill-opacity="0.1"/>
+</g>
+<g id="dropdown-pressed-left">
+<rect id="Rectangle 29_5" x="30" y="2" width="1" height="17" fill="#2C628B"/>
+<rect id="sdfsdf" x="31" y="2" width="2" height="17" fill="url(#paint3_linear_40_25)"/>
+<rect id="dfsdf" x="31" y="2" width="1" height="17" fill="black" fill-opacity="0.35"/>
+<rect id="fds" x="32" y="2" width="1" height="17" fill="black" fill-opacity="0.1"/>
+</g>
+<g id="dropdown-pressed-right">
+<rect id="Rectangle 29_6" width="1" height="17" transform="matrix(-1 0 0 1 45 2)" fill="#2C628B"/>
+<rect id="fsdf" x="42" y="2" width="2" height="17" fill="url(#paint4_linear_40_25)"/>
+</g>
+<g id="dropdown-pressed-top">
+<rect id="Recntalge 2" x="33" width="9" height="2" fill="#C5EAFE"/>
+<rect id="Recntalge 3" x="33" width="9" height="1" fill="black" fill-opacity="0.35"/>
+<rect id="Recntalge 4" x="33" y="1" width="9" height="1" fill="black" fill-opacity="0.1"/>
+</g>
+<rect id="dropdown-pressed-center" x="33" y="2" width="9" height="17" fill="url(#paint5_linear_40_25)"/>
+<path id="dropdown-arrow" d="M11 7L7.5 11L4 7H11Z" fill="#282828"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_40_25" x1="16.5" y1="1" x2="16.5" y2="19" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F9FCFE"/>
+<stop offset="0.5" stop-color="#F5FBFE"/>
+<stop offset="0.5001" stop-color="#EDF8FE"/>
+<stop offset="1" stop-color="#E9F5FC"/>
+</linearGradient>
+<linearGradient id="paint1_linear_40_25" x1="0.5" y1="0" x2="0.5" y2="18" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F9FCFE"/>
+<stop offset="0.5" stop-color="#F5FBFE"/>
+<stop offset="0.5001" stop-color="#EDF8FE"/>
+<stop offset="1" stop-color="#E9F5FC"/>
+</linearGradient>
+<linearGradient id="paint2_linear_40_25" x1="22.5" y1="1" x2="22.5" y2="19" gradientUnits="userSpaceOnUse">
+<stop stop-color="#EAF6FD"/>
+<stop offset="0.5" stop-color="#D7EFFC"/>
+<stop offset="0.5001" stop-color="#BDE6FD"/>
+<stop offset="1" stop-color="#A6D9F4"/>
+</linearGradient>
+<linearGradient id="paint3_linear_40_25" x1="32" y1="1" x2="32" y2="19" gradientUnits="userSpaceOnUse">
+<stop stop-color="#C6EBFF"/>
+<stop offset="0.5" stop-color="#C2E4F6"/>
+<stop offset="0.5001" stop-color="#A9D9F2"/>
+<stop offset="1" stop-color="#92CCEB"/>
+</linearGradient>
+<linearGradient id="paint4_linear_40_25" x1="43" y1="1" x2="43" y2="19" gradientUnits="userSpaceOnUse">
+<stop stop-color="#C6EBFF"/>
+<stop offset="0.5" stop-color="#C2E4F6"/>
+<stop offset="0.5001" stop-color="#A9D9F2"/>
+<stop offset="1" stop-color="#92CCEB"/>
+</linearGradient>
+<linearGradient id="paint5_linear_40_25" x1="37.5" y1="1" x2="37.5" y2="19" gradientUnits="userSpaceOnUse">
+<stop stop-color="#C6EBFF"/>
+<stop offset="0.5" stop-color="#C2E4F6"/>
+<stop offset="0.5001" stop-color="#A9D9F2"/>
+<stop offset="1" stop-color="#92CCEB"/>
+</linearGradient>
+</defs>
+</svg>

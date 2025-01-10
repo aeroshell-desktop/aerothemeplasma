@@ -5,7 +5,7 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-import QtQuick 2.2
+import QtQuick
 import org.kde.kirigami 2.20 as Kirigami
 import org.kde.activities 0.1 as Activities
 
@@ -95,6 +95,7 @@ Flickable {
     Column {
         id: content
 
+        padding: Kirigami.Units.smallSpacing
         // width: root.width - (root.width % 10)
         width: root.itemsWidth
         spacing: Kirigami.Units.smallSpacing * 2

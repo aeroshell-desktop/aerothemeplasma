@@ -14,6 +14,8 @@ import org.kde.kirigami 2.20 as Kirigami
 
 import org.kde.kcmutils as KCM
 import org.kde.config as KConfig
+import Qt5Compat.GraphicalEffects
+
 
 Item {
     id: root
@@ -47,6 +49,7 @@ Item {
             top: parent.top
             left: parent.left
             right: parent.right
+            topMargin: Kirigami.Units.smallSpacing
         }
 
         Item {
@@ -54,11 +57,21 @@ Item {
                 id: heading
 
                 anchors.fill: parent
+                anchors.leftMargin: Kirigami.Units.smallSpacing
 
                 level: 1
                 text: i18nd("plasma_shell_org.kde.plasma.desktop", "Activities")
                 textFormat: Text.PlainText
                 elide: Text.ElideRight
+                color: "black"
+                layer.enabled: true
+                layer.effect: DropShadow {
+                    radius: 16
+                    samples: 31
+                    color: "#90ffffff"
+                    spread: 0.65
+                }
+
 
                 visible: !root.showingSearch
             }
@@ -98,11 +111,6 @@ Item {
             }
         }
 
-        PlasmaComponents.ToolButton {
-            id: closeButton
-            icon.name: "window-close"
-            onClicked: root.closeRequested()
-        }
 
     }
 }

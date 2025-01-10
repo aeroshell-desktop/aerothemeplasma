@@ -6,6 +6,7 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls as QQC2
 
 import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.kirigami 2.20 as Kirigami
@@ -21,13 +22,18 @@ FocusScope {
         activityBrowser.parentClosed();
     }
 
+    property Item rootItem
+
     //this is used to perfectly align the filter field and delegates
     property int cellWidth: Kirigami.Units.iconSizes.sizeForLabels * 30
     property int spacing: 2 * Kirigami.Units.smallSpacing
 
     property bool showSwitcherOnly: false
 
-    width: Kirigami.Units.gridUnit * 16
+    width: Kirigami.Units.gridUnit * 18
+    implicitWidth: activityBrowser.width
+    implicitHeight: activityBrowser.height
+
 
     Item {
         id: activityBrowser
@@ -84,23 +90,38 @@ FocusScope {
             visible: !root.showSwitcherOnly
 
             onCloseRequested: activityBrowser.closeRequested()
+
         }
 
-        PlasmaComponents.ScrollView {
+        QQC2.ScrollView {
+            id: scroll
+            clip: true
             anchors {
                 top:    heading.visible ? heading.bottom : parent.top
                 bottom: bottomPanel.visible ? bottomPanel.top : parent.bottom
                 left:   parent.left
                 right:  parent.right
                 topMargin: activityBrowser.spacing
+                leftMargin: 2
+                rightMargin: 2
             }
 
             ActivityList {
                 id: activityList
                 showSwitcherOnly: root.showSwitcherOnly
                 filterString: heading.searchString.toLowerCase()
-                itemsWidth: root.width - Kirigami.Units.smallSpacing
+                itemsWidth: root.width - Kirigami.Units.largeSpacing*3 - Kirigami.Units.mediumSpacing
             }
+        }
+        Rectangle {
+            anchors.fill: scroll
+            anchors.margins: -2
+
+            color: "white"
+            opacity: 0.3
+            border.width: 1
+            border.color: "#90000000"
+            z: -1
         }
 
         Item {
@@ -116,13 +137,16 @@ FocusScope {
                 right: parent.right
             }
 
-            PlasmaComponents.ToolButton {
+            QQC2.Button {
                 id: newActivityButton
 
                 text: i18nd("plasma_shell_org.kde.plasma.desktop", "Create activity…")
                 icon.name: "list-add"
-
-                width: parent.width
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                anchors.rightMargin: Kirigami.Units.largeSpacing
+                anchors.bottomMargin: Kirigami.Units.largeSpacing
+                //width: parent.width
 
                 onClicked: KCMLauncher.openSystemSettings("kcm_activities", "newActivity")
 

@@ -776,7 +776,11 @@ bool BlurEffect::shouldForceBlur(const EffectWindow *w) const
         return false;
     }
 
-    bool matches = m_windowClasses.contains(w->window()->resourceName())
+    // Is it a Gadget window
+    bool matches = (w->window()->resourceName() == "plasmashell" || w->window()->resourceClass() == "plasmashell") && w->caption() == "plasmashell_explorer";
+    if(matches) return true;
+
+    matches = m_windowClasses.contains(w->window()->resourceName())
         || m_windowClasses.contains(w->window()->resourceClass());
     return (matches && m_blurMatching) || (!matches && m_blurNonMatching);
 }
@@ -1209,6 +1213,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 bool BlurEffect::shouldHaveCornerGlow(const EffectWindow *w) const
 {
 	QString windowClass = w->windowClass().split(' ')[1];
+    if(w->isTooltip()) return false;
     if(w->caption() == "sevenstart-menurepresentation" || (windowClass != "kwin" && w->isDock())) return false; // Disables panels and start menu
     return true;
 }
