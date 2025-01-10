@@ -136,6 +136,10 @@ Decoration themes:
 
 <img src="screenshots/smod_theme.png">
 
+### Gadgets 
+
+<img src="screenshots/gadgets.png">
+
 ### Firefox
 
 <img src="screenshots/geckium.png">
