@@ -116,6 +116,8 @@ public:
     inline bool hideIcon() const;
     inline bool hideCaption() const;
     inline bool hideInnerBorder() const;
+
+    inline bool isGadgetExplorer() const;
     //@}
 
 Q_SIGNALS:
@@ -252,18 +254,27 @@ bool Decoration::hideTitleBar() const
     return m_internalSettings->hideTitleBar() && !client()->isShaded();
 }
 
+bool Decoration::isGadgetExplorer() const
+{
+    const auto c = client();
+    if(c->caption() == "plasmashell_explorer" && c->windowClass() == "plasmashell plasmashell") return true;
+    return false;
+}
 bool Decoration::hideIcon() const
 {
+    if(isGadgetExplorer()) return true;
     return m_internalSettings->hideIcon() && !client()->isShaded();
 }
 
 bool Decoration::hideCaption() const
 {
+    if(isGadgetExplorer()) return true;
     return m_internalSettings->hideCaption() && !client()->isShaded();
 }
 
 bool Decoration::hideInnerBorder() const
 {
+    if(isGadgetExplorer()) return true;
     return m_internalSettings->hideInnerBorder() && !client()->isShaded();
 }
 
