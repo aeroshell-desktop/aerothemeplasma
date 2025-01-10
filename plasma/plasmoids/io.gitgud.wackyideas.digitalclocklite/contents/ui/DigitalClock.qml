@@ -450,7 +450,6 @@ Item {
         anchors.fill: parent
 
         onClicked: {
-            
             Plasmoid.expanded = !Plasmoid.expanded
             dashWindow.visible = !dashWindow.visible;
             if(dashWindow.visible) timeToolTip.hideImmediately();

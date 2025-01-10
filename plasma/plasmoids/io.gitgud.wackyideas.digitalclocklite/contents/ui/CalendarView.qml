@@ -33,8 +33,8 @@ PlasmaCore.Dialog {
     objectName: "popupWindow"
     flags: Qt.WindowStaysOnTopHint
     location: PlasmaCore.Types.Floating //To make the dialog float in the corner of the screen
-    hideOnWindowDeactivate: !plasmoid.configuration.pin
-	
+    hideOnWindowDeactivate: !Plasmoid.configuration.pin
+
 	//Used for reading margin values 
     KSvg.FrameSvgItem {
         id : panelSvg
