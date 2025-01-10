@@ -121,10 +121,11 @@ PlasmaCore.ToolTipArea {
         || (task.jumpList)
         || (!!tasksRoot.groupDialog && tasksRoot.groupDialog.visualParent === task)
 
-    active: false// (Plasmoid.configuration.showToolTips || tasksRoot.toolTipOpenedByClick === task) && !inPopup && !tasksRoot.groupDialog && !dragArea.held && dragArea.containsMouse
+    active: (Plasmoid.configuration.showToolTips || tasksRoot.toolTipOpenedByClick === task) && !inPopup && !tasksRoot.groupDialog && !dragArea.held && dragArea.containsMouse
     interactive: false //model.IsWindow || mainItem.playerData
     location: Plasmoid.location
-    mainItem: model.IsWindow ? openWindowToolTipDelegate : pinnedAppToolTipDelegate
+    //mainItem: model.IsWindow ? openWindowToolTipDelegate : pinnedAppToolTipDelegate
+    property alias mainItem: tooltip.mainItem
     readonly property bool animateLabel: (!model.IsStartup && !model.IsLauncher) && !tasksRoot.iconsOnly
     readonly property bool shouldHideOnRemoval: model.IsStartup || model.IsLauncher
     ListView.onRemove: {
@@ -493,9 +494,9 @@ TaskManagerApplet.SmartLauncherItem { }
 
     // Will also be called in activateTaskAtIndex(index)
     function updateMainItemBindings() {
-        if ((mainItem.parentTask === task && mainItem.rootIndex.row === task.index) || (tasksRoot.toolTipOpenedByClick === null && !task.active) || (tasksRoot.toolTipOpenedByClick !== null && tasksRoot.toolTipOpenedByClick !== task)) {
+        /*if ((mainItem.parentTask === task && mainItem.rootIndex.row === task.index) || (tasksRoot.toolTipOpenedByClick === null && !task.active) || (tasksRoot.toolTipOpenedByClick !== null && tasksRoot.toolTipOpenedByClick !== task)) {
             return;
-        }
+        }*/
 
         mainItem.blockingUpdates = (mainItem.isGroup !== model.IsGroupParent); // BUG 464597 Force unload the previous component
 
@@ -1384,6 +1385,7 @@ TaskManagerApplet.SmartLauncherItem { }
             }
         }
     }
+
     MouseArea {
         id: dragArea
         property alias taskIndex: task.index
@@ -1392,6 +1394,17 @@ TaskManagerApplet.SmartLauncherItem { }
         propagateComposedEvents: true
         //preventStealing: true
         anchors.fill: parent
+
+        PlasmaCore.ToolTipArea {
+            id: tooltip
+
+            anchors.fill: parent
+
+            active: parent.containsMouse
+            interactive: true
+            location: Plasmoid.location
+            mainItem: model.IsWindow ? openWindowToolTipDelegate : pinnedAppToolTipDelegate
+        }
 
         onCanceled: {
             if(held) {
@@ -1453,6 +1466,7 @@ TaskManagerApplet.SmartLauncherItem { }
         }
         onPositionChanged: {
             //task.containsMouseFalsePositive = false;
+
             if(dragArea.containsPress && (dragThreshold.x !== -1 && dragThreshold.y !== -1)) {
                 if(Math.abs(dragThreshold.x - mouseX) > 10 || Math.abs(dragThreshold.y - mouseY) > 10) {
                     held = true;
@@ -1468,6 +1482,10 @@ TaskManagerApplet.SmartLauncherItem { }
             backAnimY.to = beginDrag.y - taskList.contentY;
             backAnim.start();
             dragThreshold = Qt.point(-1,-1);
+            if(!backAnim.running) {
+                dragArea.held = false;
+            }
+
         }
         onReleased: event => {
             if(held) {
