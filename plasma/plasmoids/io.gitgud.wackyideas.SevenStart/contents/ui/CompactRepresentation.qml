@@ -29,10 +29,12 @@ import org.kde.kirigami as Kirigami
 Item {
     id: root
 
-    Layout.minimumHeight: floatingOrbPanel.buttonIconSizes.height;
-    Layout.maximumHeight: floatingOrbPanel.buttonIconSizes.height;
+    Layout.minimumHeight: floatingOrbPanel.buttonIconSizes.height / 3;
+    Layout.maximumHeight: floatingOrbPanel.buttonIconSizes.height / 3;
     Layout.minimumWidth: floatingOrbPanel.buttonIconSizes.width;
     Layout.maximumWidth: floatingOrbPanel.buttonIconSizes.width;
+    width: Layout.maximumWidth
+    height: Layout.maximumHeight
     property bool compositing: false
 
     property QtObject contextMenu: null
@@ -184,8 +186,10 @@ Item {
     FloatingOrb {
         id: floatingOrbPanel
         anchors.left: parent.left
+        anchors.right: parent.right
         //anchors.leftMargin: -Kirigami.Units.mediumSpacing
         anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
         //anchors.verticalCenterOffset: Kirigami.Units.smallSpacing-1
         //anchors.fill: parent
         objectName: "innerorb"

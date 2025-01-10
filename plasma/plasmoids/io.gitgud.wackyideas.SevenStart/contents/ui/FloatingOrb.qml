@@ -40,12 +40,14 @@ Item {
     clip: false
     Image {
         id: buttonIcon
+        anchors.centerIn: parent
         smooth: true
         source: orbTexture
         sourceClipRect: Qt.rect(0, 0, buttonIconSizes.width, buttonIconSizes.height / 3);
     }
     Image {
         id: buttonIconPressed
+        anchors.centerIn: parent
         visible: dashWindow.visible
         smooth: true
         source: orbTexture
@@ -54,6 +56,7 @@ Item {
     }
     Image {
         id: buttonIconHovered
+        anchors.centerIn: parent
         source: orbTexture
         opacity: mouseArea.containsMouse || mouseAreaCompositingOff.containsMouse
         visible:  !dashWindow.visible

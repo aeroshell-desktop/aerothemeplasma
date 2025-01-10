@@ -33,7 +33,8 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
 
         property alias iconSource: imgAuthorIcon.source
-        Image {
+
+        BorderImage {
             source: "../pics/user.png"
             smooth: true
             z: 1
@@ -47,6 +48,13 @@ Item {
            		bottom: parent.bottom
            		top: parent.top
 			}
+			border {
+                bottom: 11
+                top: 11
+                left: 11
+                right: 11
+            }
+
         }
         Kirigami.Icon {
             id: imgAuthorIcon
