@@ -30,6 +30,7 @@ PlasmaCore.ToolTipArea {
     property real minLabelHeight: 0
     readonly property bool inHiddenLayout: effectiveStatus === PlasmaCore.Types.PassiveStatus
     readonly property bool inVisibleLayout: effectiveStatus === PlasmaCore.Types.ActiveStatus
+    property alias held: mouseArea.held
 
     // input agnostic way to trigger the main action
     signal activated(var pos)

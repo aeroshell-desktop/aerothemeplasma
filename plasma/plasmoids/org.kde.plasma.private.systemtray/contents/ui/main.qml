@@ -306,44 +306,18 @@ ContainmentItem {
         PlasmaCore.Dialog {
             id: dialog
             objectName: "popupWindow"
-            //visualParent: root
             flags: Qt.WindowStaysOnTopHint
-            /*popupDirection: switch (Plasmoid.location) {
-                case PlasmaCore.Types.TopEdge:
-                    return Qt.BottomEdge
-                case PlasmaCore.Types.LeftEdge:
-                    return Qt.RightEdge
-                case PlasmaCore.Types.RightEdge:
-                    return Qt.LeftEdge
-                default:
-                    return Qt.TopEdge
-            }
-            //margin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing/2 //(Plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentPrefersFloatingApplets) ? Kirigami.Units.largeSpacing :
-            animated: false*/
-            //floating: true //Plasmoid.location == PlasmaCore.Desktop
-            //location: PlasmaCore.Dialog.Floating
-            location: "Floating"//Plasmoid.location
+            location: "Floating"
             x: 0
             y: 0
-            //floating: 1
             property int flyoutMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing/2
             property bool firstTimePopup: false
 
-            /*removeBorderStrategy: PlasmaCore.AppletPopup.Never */ /*Plasmoid.location === PlasmaCore.Types.Floating
-            ? PlasmaCore.AppletPopup.AtScreenEdges
-            : PlasmaCore.AppletPopup.AtScreenEdges | PlasmaCore.AppletPopup.AtPanelEdges*/
-
-            /*minimumWidth: expandedRepresentation.flyoutWidth
-            maximumWidth: minimumWidth*/
-            /*minimumHeight: expandedRepresentation.flyoutHeight
-            maximumHeight: expandedRepresentation.flyoutHeight*/
             hideOnWindowDeactivate: !Plasmoid.configuration.pin
             visible: systemTrayState.expanded
             appletInterface: root
 
-            //flags: Qt.Dialog | Qt.FramelessWindowHint
-
-            backgroundHints: PlasmaCore.Dialog.SolidBackground //(Plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentPrefersOpaqueBackground) ? PlasmaCore.AppletPopup.SolidBackground : PlasmaCore.AppletPopup.StandardBackground
+            backgroundHints: PlasmaCore.Dialog.SolidBackground
 
             onWidthChanged: setDialogPosition();
             onHeightChanged: setDialogPosition();

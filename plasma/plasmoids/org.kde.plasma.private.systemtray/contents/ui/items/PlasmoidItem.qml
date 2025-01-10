@@ -24,6 +24,17 @@ AbstractItem {
     textFormat: applet ? applet.toolTipTextFormat : 0 /* Text.AutoText, the default value */
     active: systemTrayState.activeApplet !== applet
 
+    // Fixes issue with KDE Connect not being able to get dragged and dropped
+    onHeldChanged: {
+        if(applet) {
+            var appletItem = applet.compactRepresentationItem ?? applet.fullRepresentationItem;
+            if(appletItem) {
+                if(typeof appletItem.containsDrag !== "undefined") {
+                    appletItem.enabled = !held;
+                }
+            }
+        }
+    }
     // FIXME: Use an input type agnostic way to activate whatever the primary
     // action of a plasmoid is supposed to be, even if it's just expanding the
     // Plasmoid. Not all plasmoids are supposed to expand and not all plasmoids
