@@ -466,11 +466,13 @@ Item {
                                             : Font.Normal
                     }
 
+                    //Kirigami.Heading {
                     PlasmaComponents3.Label {
                         id: listItemSubtitle
 
                         visible: text.length > 0
-                        font: Kirigami.Theme.smallFont
+                        //font: Kirigami.Theme.smallFont
+                        //level: 5
 
                         // Otherwise colored text can be hard to see
                         opacity: color === Kirigami.Theme.textColor ? 0.7 : 1.0
@@ -613,7 +615,7 @@ Item {
 
                                         onClicked: {
                                             modelData.trigger()
-                                            collapse()
+                                            //collapse()
                                         }
                                     }
                                 }

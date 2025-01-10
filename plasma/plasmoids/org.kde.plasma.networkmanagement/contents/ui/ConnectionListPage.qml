@@ -11,6 +11,7 @@ import org.kde.kirigami 2.20 as Kirigami
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.networkmanagement as PlasmaNM
 import org.kde.networkmanager as NMQt
+import org.kde.kitemmodels as KItemModels
 
 ColumnLayout {
     id: connectionListPage
@@ -71,13 +72,21 @@ ColumnLayout {
                 }
             }
 
+            /*model: KItemModels.KSortFilterProxyModel {
+                sourceModel: full.appletProxyModel
+                filterRowCallback: function(source_row, source_parent) {
+
+                    const ItemUniqueName = sourceModel.KItemModels.KRoleNames.role("Section");
+                    const hasUniqueName = sourceModel.data(sourceModel.index(source_row, 0, source_parent), ItemUniqueName);
+                    console.log(connectionView.count);
+                    return source_row > connectionView.count// - sourceModel.favoritesModel.count;
+                };
+
+            }*/
+            model: full.appletProxyModel
             // We use the spacing around the connectivity message, if shown.
-            //topMargin: connectivityMessage.visible ? 0 : Kirigami.Units.smallSpacing
             bottomMargin: Kirigami.Units.smallSpacing * 2
-            //leftMargin: Kirigami.Units.smallSpacing * 2
-            //rightMargin: Kirigami.Units.smallSpacing * 2
             spacing: Kirigami.Units.smallSpacing
-            model: appletProxyModel
             currentIndex: -1
             boundsBehavior: Flickable.StopAtBounds
             section.property: showSeparator ? "Section" : ""
@@ -93,24 +102,18 @@ ColumnLayout {
 
             // Placeholder message
             Loader {
-                anchors.centerIn: parent
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.topMargin: Kirigami.Units.largeSpacing
                 width: parent.width - (Kirigami.Units.largeSpacing * 4)
                 active: connectionView.count === 0
                 asynchronous: true
                 visible: status === Loader.Ready
-                sourceComponent: PlasmaExtras.PlaceholderMessage {
-                    iconName: {
-                        if (toolbar.displayplaneModeMessage) {
-                            return "network-flightmode-on"
-                        }
-                        if (toolbar.displayWifiMessage) {
-                            return "network-wireless-off"
-                        }
-                        if (toolbar.displayWwanMessage) {
-                            return "network-mobile-off"
-                        }
-                        return "edit-none"
-                    }
+                sourceComponent: PlasmaComponents3.Label {
+
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignHCenter
                     text: {
                         if (toolbar.displayplaneModeMessage) {
                             return i18n("Airplane mode is enabled")

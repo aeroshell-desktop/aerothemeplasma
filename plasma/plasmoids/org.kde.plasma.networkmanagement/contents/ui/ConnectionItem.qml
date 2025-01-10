@@ -50,6 +50,15 @@ ExpandableListItem {
         }
 
     }//model.ConnectionIcon
+
+    // Hotfix to "hide" undefined items
+    Component.onCompleted: {
+        if(typeof model.ItemUniqueName == "undefined") {
+            height = -connectionView.spacing;
+            visible = false;
+        }
+    }
+
     title: model.ItemUniqueName
     subtitle: itemText()
     isBusy: false
@@ -169,6 +178,7 @@ ExpandableListItem {
                 }
 
                 mainWindow.expanded = true; // just in case.
+                connectionItem.collapse()
                 stack.push(showDetailscomponent, {
                     details: Qt.binding(() => ConnectionDetails),
                     connectionTitle: Qt.binding(() => model.ItemUniqueName)
