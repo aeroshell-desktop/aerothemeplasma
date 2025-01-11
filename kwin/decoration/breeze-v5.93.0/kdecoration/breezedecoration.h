@@ -257,7 +257,7 @@ bool Decoration::hideTitleBar() const
 bool Decoration::isGadgetExplorer() const
 {
     const auto c = client();
-    if(c->caption() == "plasmashell_explorer" && c->windowClass() == "plasmashell plasmashell") return true;
+    if(c->caption() == QStringLiteral("plasmashell_explorer") && c->windowClass() == QStringLiteral("plasmashell plasmashell")) return true;
     return false;
 }
 bool Decoration::hideIcon() const
