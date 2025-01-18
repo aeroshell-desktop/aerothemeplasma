@@ -1,0 +1,430 @@
+#include "../breezedecoration.h"
+#include "../breezebutton.h"
+#include "../frametexture.h"
+
+#include <QLabel>
+#include <QPainter>
+#include <QPainterPath>
+#include <QString>
+#include <QPixmapCache>
+
+#include <KDecoration2/DecorationButtonGroup>
+
+namespace Breeze
+{
+static int g_sDecoCount = 0;
+static std::shared_ptr<KDecoration2::DecorationShadow> g_smod_shadow, g_smod_shadow_unfocus;
+
+
+Decoration::Decoration(QObject *parent, const QVariantList &args)
+: KDecoration2::Decoration(parent, args)
+, m_animation(new QVariantAnimation(this))
+, m_shadowAnimation(new QVariantAnimation(this))
+{
+    g_sDecoCount++;
+}
+
+Decoration::~Decoration()
+{
+    g_sDecoCount--;
+    if (g_sDecoCount == 0) {
+        // last deco destroyed, clean up shadow
+        g_smod_shadow.reset();
+        g_smod_shadow_unfocus.reset();
+    }
+}
+int Decoration::decorationCount()
+{
+    return g_sDecoCount;
+}
+void Decoration::updateShadow()
+{
+    if(!internalSettings()->enableShadow())
+    {
+        setShadow(std::shared_ptr<KDecoration2::DecorationShadow>(nullptr));
+        return;
+    }
+    if (client()->isActive())
+    {
+        g_smod_shadow = g_smod_shadow ? g_smod_shadow : smodCreateShadow(true);
+        setShadow(g_smod_shadow);
+    }
+    else
+    {
+        g_smod_shadow_unfocus = g_smod_shadow_unfocus ? g_smod_shadow_unfocus : smodCreateShadow(false);
+        setShadow(g_smod_shadow_unfocus);
+    }
+
+}
+std::shared_ptr<KDecoration2::DecorationShadow> Decoration::smodCreateShadow(bool active)
+{
+    QImage shadowTexture = QImage(active ? ":/smod/decoration/shadow" : ":/smod/decoration/shadow-unfocus");
+    auto margins = sizingMargins().shadowSizing();
+    QMargins texMargins(margins.margin_left, margins.margin_top, margins.margin_right, margins.margin_bottom);
+    QMargins padding(margins.padding_left, margins.padding_top, margins.padding_right, margins.padding_bottom);
+    QRect innerShadowRect = shadowTexture.rect() - texMargins;
+
+    auto shadow = std::make_shared<KDecoration2::DecorationShadow>();
+    shadow->setPadding(padding);
+    shadow->setInnerShadowRect(innerShadowRect);
+    shadow->setShadow(shadowTexture);
+    return shadow;
+}
+
+void Decoration::updateBlur()
+{
+    auto margins = sizingMargins().commonSizing();
+    const int radius = isMaximized() ? 0 : margins.corner_radius+1;
+
+    QPainterPath path;
+    path.addRoundedRect(rect(), radius, radius);
+
+    setBlurRegion(QRegion(path.toFillPolygon().toPolygon()));
+
+    updateShadow();
+}
+
+void Decoration::smodPaint(QPainter *painter, const QRect &repaintRegion)
+{
+    painter->fillRect(rect(), Qt::transparent);
+
+    smodPaintOuterBorder(painter, repaintRegion);
+    //smodPaintInnerBorder(painter, repaintRegion);
+    smodPaintGlow(painter, repaintRegion);
+    smodPaintTitleBar(painter, repaintRegion);
+}
+
+void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
+{
+    const auto c = client();
+
+    int SIDEBAR_HEIGHT = qMax(25, (size().height() / 4));
+    if(internalSettings()->invertTextColor() && isMaximized()) return;
+    painter->setClipRegion(blurRegion());
+    painter->setClipping(true);
+    if(!isMaximized() && !hideInnerBorder())
+    {
+        auto margins_left = sizingMargins().frameLeftSizing();
+        auto margins_right = sizingMargins().frameRightSizing();
+        QPixmap sidehighlight(":/smod/decoration/sidehighlight" + (!c->isActive() ? QString("-unfocus") : QString("")));
+        painter->drawPixmap(margins_left.inset, borderTop(), borderLeft() - margins_left.inset - margins_left.inset, SIDEBAR_HEIGHT, sidehighlight);
+        painter->drawPixmap(size().width() - borderRight() + margins_right.inset, borderTop(), borderRight() - margins_right.inset - margins_right.inset, SIDEBAR_HEIGHT, sidehighlight);
+    }
+    painter->setClipping(false);
+}
+void Decoration::smodPaintOuterBorder(QPainter *painter, const QRect &repaintRegion)
+{
+    Q_UNUSED(repaintRegion);
+    bool active = client()->isActive();
+    QString    s_top(":/smod/decoration/top");
+    QString   s_left(":/smod/decoration/left");
+    QString  s_right(":/smod/decoration/right");
+    QString s_bottom(":/smod/decoration/bottom");
+    QString  unfocus("_unfocus");
+    QString noshadow("_noshadow");
+    QString noinner("_noinner");
+
+    if(!internalSettings()->enableShadow())
+    {
+        s_top    += noshadow;
+        s_bottom += noshadow;
+    }
+    if(!active)
+    {
+        s_top    += unfocus;
+        s_bottom += unfocus;
+        s_left   += unfocus;
+        s_right  += unfocus;
+    }
+    if(hideInnerBorder())
+    {
+        s_top    += noinner;
+        s_bottom += noinner;
+        s_left   += noinner;
+        s_right  += noinner;
+    }
+
+    // Render the top side, which is always visible
+    QPixmap p_top(s_top);
+    auto t_m = sizingMargins().topSide();
+    auto tl_m = sizingMargins().topLeftCorner();
+    auto tr_m = sizingMargins().topRightCorner();
+    FrameTexture top(0, 0,
+                     isMaximized() ? 0 : t_m.margin_top,
+                     t_m.margin_bottom,
+                     size().width() - borderLeft() - borderRight(), borderTop(),
+                     &p_top,
+                     1.0,
+                     false,
+                     tl_m.width, isMaximized() ? t_m.margin_top : 0,
+                     p_top.width() - tl_m.width - tr_m.width, p_top.height() - (isMaximized() ? t_m.margin_top : 0));
+    top.translate(borderLeft(), 0);
+    top.render(painter);
+
+    if(!isMaximized()) // Render the rest of the decoration
+    {
+        QPixmap p_left(s_left);
+        QPixmap p_right(s_right);
+        QPixmap p_bottom(s_bottom);
+
+        auto l_m = sizingMargins().leftSide();
+        auto r_m = sizingMargins().rightSide();
+        auto b_m = sizingMargins().bottomSide();
+        auto bl_m = sizingMargins().bottomLeftCorner();
+        auto br_m = sizingMargins().bottomRightCorner();
+
+        // Corners
+        FrameTexture     topleft(tl_m.margin_left,
+                                 tl_m.margin_right,
+                                 tl_m.margin_top,
+                                 tl_m.margin_bottom,
+                                 borderLeft(),
+                                 borderTop(),
+                                 &p_top,
+                                 1.0,
+                                 false,
+                                 0, 0, tl_m.width, p_top.height());
+
+        FrameTexture    topright(tr_m.margin_left,
+                                 tr_m.margin_right,
+                                 tr_m.margin_top,
+                                 tr_m.margin_bottom,
+                                 borderRight(),
+                                 borderTop(),
+                                 &p_top,
+                                 1.0,
+                                 false,
+                                 p_top.width()-tr_m.width, 0,
+                                 tr_m.width, p_top.height());
+
+        FrameTexture  bottomleft(bl_m.margin_left,
+                                 bl_m.margin_right,
+                                 bl_m.margin_top,
+                                 bl_m.margin_bottom,
+                                 borderLeft(),
+                                 borderBottom(),
+                                 &p_bottom,
+                                 1.0,
+                                 false,
+                                 0, 0,
+                                 bl_m.width, p_bottom.height());
+
+        FrameTexture bottomright(br_m.margin_left,
+                                 br_m.margin_right,
+                                 br_m.margin_top,
+                                 br_m.margin_bottom,
+                                 borderRight(),
+                                 borderBottom(),
+                                 &p_bottom,
+                                 1.0,
+                                 false,
+                                 p_bottom.width()-br_m.width, 0,
+                                 br_m.width, p_bottom.height());
+        // Sides
+        FrameTexture        left(l_m.margin_left,
+                                 l_m.margin_right,
+                                 0, 0,
+                                 borderLeft(),
+                                 size().height()-borderBottom()-borderTop(),
+                                 &p_left);
+
+        FrameTexture       right(r_m.margin_left,
+                                 r_m.margin_right,
+                                 0, 0,
+                                 borderRight(),
+                                 size().height()-borderBottom()-borderTop(),
+                                 &p_right);
+
+        FrameTexture      bottom(0, 0,
+                                 b_m.margin_top,
+                                 b_m.margin_bottom,
+                                 size().width() - borderLeft() - borderRight(), borderBottom(),
+                                 &p_bottom,
+                                 1.0,
+                                 false,
+                                 bl_m.width, 0,
+                                 p_bottom.width() - bl_m.width - br_m.width, p_bottom.height());
+
+        // Move texture fragments to the appropriate locations
+        topright.translate(size().width() - borderRight(), 0);
+        bottomleft.translate(0, size().height() - borderBottom());
+        bottomright.translate(size().width() - borderRight(), size().height() - borderBottom());
+        left.translate(0, borderTop());
+        right.translate(size().width()-borderRight(), borderTop());
+        bottom.translate(borderLeft(), size().height() - borderBottom());
+        // Render them all
+        topleft.render(painter);
+        topright.render(painter);
+        bottomleft.render(painter);
+        bottomright.render(painter);
+        left.render(painter);
+        right.render(painter);
+        bottom.render(painter);
+    }
+}
+
+void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion)
+{
+    if (hideTitleBar())
+    {
+        return;
+    }
+
+    if (!hideCaption())
+    {
+        const auto c = client();
+        int titleAlignment = internalSettings()->titleAlignment();
+        bool invertText = internalSettings()->invertTextColor() && c->isMaximized();
+
+        QRect captionRect(m_leftButtons->geometry().right(), 0, m_rightButtons->geometry().left() - m_leftButtons->geometry().right() - 4, borderTop());
+        QString caption = settings()->fontMetrics().elidedText(c->caption(), Qt::ElideMiddle, captionRect.width());
+        QStringList programname = caption.split(" — ");
+        caption.remove(" — " + programname.at(programname.size()-1));
+        QFontMetrics fm(settings()->font());
+        auto rect = fm.boundingRect(caption);
+        int blurWidth = rect.width() + 30;
+        int blurHeight = rect.height();
+
+        QColor shadowColor = QColor(0, 0, 0, 255);
+        QColor textColor = c->color(c->isActive() ? KDecoration2::ColorGroup::Active : KDecoration2::ColorGroup::Inactive, KDecoration2::ColorRole::Foreground);
+
+        captionRect.setHeight(captionRect.height() & -2);
+        painter->setFont(settings()->font());
+        painter->setPen(shadowColor);
+        painter->setPen(textColor);
+
+        QLabel real_label(caption);
+        QPalette palette = real_label.palette();
+        if(invertText)
+        {
+            textColor.setRed(255-textColor.red());
+            textColor.setGreen(255-textColor.green());
+            textColor.setBlue(255-textColor.blue());
+        }
+        palette.setColor(real_label.backgroundRole(), textColor);
+        palette.setColor(real_label.foregroundRole(), textColor);
+        real_label.setStyleSheet("QLabel { background: #00aaaaaa; }");
+        real_label.setPalette(palette);
+        auto f = settings()->font();
+        f.setKerning(false);
+        if(invertText) f.setWeight(QFont::DemiBold);
+        real_label.setFont(f);
+        real_label.setFixedWidth(captionRect.width());
+        real_label.setFixedHeight(captionRect.height());
+
+        if(titleAlignment == InternalSettings::AlignRight)
+            real_label.setAlignment(Qt::AlignRight);
+        else if(titleAlignment == InternalSettings::AlignCenter)
+            real_label.setAlignment(Qt::AlignHCenter);
+        else if(titleAlignment == InternalSettings::AlignCenterFullWidth)
+        {
+            real_label.setFixedWidth(size().width());
+            real_label.setAlignment(Qt::AlignHCenter);
+        }
+
+        QPixmap glow(":/smod/decoration/glow");
+        auto margins = sizingMargins().glowSizing();
+        int l = margins.margin_left;
+        int r = margins.margin_right;
+        int t = margins.margin_top;
+        int b = margins.margin_bottom;
+        painter->setRenderHint(QPainter::Antialiasing, true);
+        painter->setRenderHint(QPainter::SmoothPixmapTransform, true);
+
+        int glowHeight = blurHeight*1.5;
+        int glowWidth = blurWidth + 8;
+        if(glowWidth < l+r)
+        {
+            glowWidth = l+r;
+            //l -= (l+r) - glowWidth;
+        }
+        if(glowHeight < t+b)
+        {
+            glowHeight = t+b;
+            //t -= (t+b) - glowHeight;
+        }
+
+
+        FrameTexture gl(l, r, t, b, glowWidth, glowHeight, &glow, c->isActive() ? margins.active_opacity : margins.inactive_opacity);
+
+        int leftButtonsX = (hideIcon() ? -5 : m_leftButtons->geometry().x());
+
+        if(!caption.trimmed().isEmpty())
+        {
+            if(titleAlignment == InternalSettings::AlignCenterFullWidth)
+            {
+                captionRect.setX(0);
+                captionRect.setWidth(size().width());
+            }
+            float xpos = captionRect.x();
+            if(titleAlignment == InternalSettings::AlignRight)
+            {
+                xpos += captionRect.width() - blurWidth;
+            }
+            else if(titleAlignment == InternalSettings::AlignCenter || titleAlignment == InternalSettings::AlignCenterFullWidth)
+            {
+                xpos += captionRect.width()/2 - blurWidth/2;
+            }
+            else
+            {
+                xpos = leftButtonsX + 2;
+            }
+
+            if(!invertText)
+            {
+                int alignmentOffset = 0;
+                if(titleAlignment == InternalSettings::AlignCenter || titleAlignment == InternalSettings::AlignCenterFullWidth)
+                {
+                    alignmentOffset = -4;
+                    if(m_rightButtons->geometry().intersects(QRect(xpos + alignmentOffset, captionRect.height() / 2 - blurHeight - 2, glowWidth, glowHeight)))
+                    {
+                        captionRect.setX(leftButtonsX);
+                        captionRect.setWidth(size().width() - m_rightButtons->geometry().width());
+                        real_label.setFixedWidth(captionRect.width());
+                        xpos = captionRect.x();
+                        xpos += captionRect.width()/2 - blurWidth/2;
+                    }
+                }
+                else if(titleAlignment == InternalSettings::AlignRight)
+                {
+                    alignmentOffset = -2;
+                }
+                painter->translate(xpos + alignmentOffset, (captionRect.height() - glowHeight) / 2);
+                gl.render(painter);
+                painter->translate(-xpos - alignmentOffset, (-captionRect.height() + glowHeight) / 2);
+
+            }
+            QPixmap text_pixmap = real_label.grab();
+
+            if(titleAlignment == InternalSettings::AlignRight)
+            {
+                captionRect.translate(-12, -1);
+            }
+            else if(titleAlignment == InternalSettings::AlignLeft)
+            {
+                captionRect.translate(5, -1);
+            }
+            else if(titleAlignment == InternalSettings::AlignCenterFullWidth || titleAlignment == InternalSettings::AlignCenter)
+            {
+                captionRect.translate(1, -1);
+            }
+            painter->drawPixmap(captionRect, text_pixmap);
+            if(invertText)
+            {
+                painter->setOpacity(0.7);
+                painter->drawPixmap(captionRect, text_pixmap);
+                painter->setOpacity(1.0);
+                //painter->drawPixmap(captionRect, text_pixmap);
+            }
+        }
+    }
+
+    m_leftButtons->paint(painter, repaintRegion);
+    m_rightButtons->paint(painter, repaintRegion);
+
+    /*foreach (QPointer<KDecoration2::DecorationButton> button, m_rightButtons->buttons()) {
+        static_cast<Button *>(button.data())->smodPaintGlow(painter, repaintRegion);
+    }*/
+}
+
+}

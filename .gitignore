@@ -1,6 +1,6 @@
 misc/defaulttooltip/build
 misc/plymouth/plymouth-theme-smod/build
-kwin/decoration/breeze-v5.93.0/build
+kwin/decoration/build
 kwin/effects_cpp/kwin-effect-smodsnap-v2/build-kf6
 kwin/effects_cpp/kde-effects-aeroglassblur/build
 plasma/plasmoids/src/sevenstart_src/build
