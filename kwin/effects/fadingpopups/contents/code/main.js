@@ -23,6 +23,7 @@ var blacklist = [
 var blacklistNames = [
     "seventasks-floatingavatar",
     "aerothemeplasma-windowframe-special",
+    "sevenstart-menurepresentation"
 ];
 
 function isPopupWindow(window) {
@@ -35,6 +36,7 @@ function isPopupWindow(window) {
     if(window.specialWindow && (window.windowClass == "kwin_x11 kwin" || window.windowClass == "kwin_wayland kwin")) {
         return false;
     }
+    //console.log(window.windowClass + " " + window.dialog);
     if(window.dialog && window.windowClass === "plasmashell plasmashell") {
         return false;
     }
