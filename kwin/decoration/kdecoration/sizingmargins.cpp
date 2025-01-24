@@ -39,25 +39,37 @@ void SizingMargins::loadSizingMargins()
     m_commonSizing.caption_button_align_vcenter = settings.value("Common/caption_button_align_vcenter", false).toBool();
 
     // CloseSizing
-    m_closeSizing.width         = settings.value("Close/width",        49).toInt();
-    m_closeSizing.margin_left   = settings.value("Close/margin_left",  20).toInt();
-    m_closeSizing.margin_top    = settings.value("Close/margin_top",    6).toInt();
-    m_closeSizing.margin_right  = settings.value("Close/margin_right", 20).toInt();
-    m_closeSizing.margin_bottom = settings.value("Close/margin_bottom", 8).toInt();
+    m_closeSizing.width             = settings.value("Close/width",           49).toInt();
+    m_closeSizing.margin_left       = settings.value("Close/margin_left",     20).toInt();
+    m_closeSizing.margin_top        = settings.value("Close/margin_top",       6).toInt();
+    m_closeSizing.margin_right      = settings.value("Close/margin_right",    20).toInt();
+    m_closeSizing.margin_bottom     = settings.value("Close/margin_bottom",    8).toInt();
+    m_closeSizing.content_left      = settings.value("Close/content_left",     1).toInt();
+    m_closeSizing.content_right     = settings.value("Close/content_right",    2).toInt();
+    m_closeSizing.content_top       = settings.value("Close/content_top",      2).toInt();
+    m_closeSizing.content_bottom    = settings.value("Close/content_bottom",   4).toInt();
 
     // MaximizeSizing
-    m_maximizeSizing.width         = settings.value("Maximize/width",        27).toInt();
-    m_maximizeSizing.margin_left   = settings.value("Maximize/margin_left",  12).toInt();
-    m_maximizeSizing.margin_top    = settings.value("Maximize/margin_top",    6).toInt();
-    m_maximizeSizing.margin_right  = settings.value("Maximize/margin_right", 12).toInt();
-    m_maximizeSizing.margin_bottom = settings.value("Maximize/margin_bottom", 8).toInt();
+    m_maximizeSizing.width          = settings.value("Maximize/width",        27).toInt();
+    m_maximizeSizing.margin_left    = settings.value("Maximize/margin_left",  12).toInt();
+    m_maximizeSizing.margin_top     = settings.value("Maximize/margin_top",    6).toInt();
+    m_maximizeSizing.margin_right   = settings.value("Maximize/margin_right", 12).toInt();
+    m_maximizeSizing.margin_bottom  = settings.value("Maximize/margin_bottom", 8).toInt();
+    m_maximizeSizing.content_left   = settings.value("Maximize/content_left",  2).toInt();
+    m_maximizeSizing.content_right  = settings.value("Maximize/content_right", 1).toInt();
+    m_maximizeSizing.content_top    = settings.value("Maximize/content_top",   2).toInt();
+    m_maximizeSizing.content_bottom = settings.value("Maximize/content_bottom",4).toInt();
 
     // MinimizeSizing
-    m_minimizeSizing.width         = settings.value("Minimize/width",        29).toInt();
-    m_minimizeSizing.margin_left   = settings.value("Minimize/margin_left",  12).toInt();
-    m_minimizeSizing.margin_top    = settings.value("Minimize/margin_top",    6).toInt();
-    m_minimizeSizing.margin_right  = settings.value("Minimize/margin_right", 12).toInt();
-    m_minimizeSizing.margin_bottom = settings.value("Minimize/margin_bottom", 8).toInt();
+    m_minimizeSizing.width          = settings.value("Minimize/width",        29).toInt();
+    m_minimizeSizing.margin_left    = settings.value("Minimize/margin_left",  12).toInt();
+    m_minimizeSizing.margin_top     = settings.value("Minimize/margin_top",    6).toInt();
+    m_minimizeSizing.margin_right   = settings.value("Minimize/margin_right", 12).toInt();
+    m_minimizeSizing.margin_bottom  = settings.value("Minimize/margin_bottom", 8).toInt();
+    m_minimizeSizing.content_left   = settings.value("Minimize/content_left",  3).toInt();
+    m_minimizeSizing.content_right  = settings.value("Minimize/content_right", 1).toInt();
+    m_minimizeSizing.content_top    = settings.value("Minimize/content_top",   2).toInt();
+    m_minimizeSizing.content_bottom = settings.value("Minimize/content_bottom",4).toInt();
 
     m_frameLeftSizing.width    = settings.value("FrameLeft/width",    9).toInt();
     m_frameLeftSizing.inset    = settings.value("FrameLeft/inset",    2).toInt();

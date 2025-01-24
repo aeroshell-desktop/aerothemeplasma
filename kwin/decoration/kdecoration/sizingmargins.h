@@ -9,17 +9,21 @@ namespace Breeze
 struct ButtonSizingMargins
 {
     int width;
-    int margin_left;
+    int margin_left;    // Used to render the caption buttons properly
     int margin_top;
     int margin_right;
     int margin_bottom;
+    int content_left;   // Used for glyph positioning and alignment
+    int content_top;
+    int content_right;
+    int content_bottom;
 };
 
 struct CommonSizing
 {
-    int height;
-    int titlebar_padding_normal;
-    int titlebar_padding_maximized;
+    int height;                         // Titlebar height
+    int titlebar_padding_normal;        // Space between the caption button and the inner border of the titlebar
+    int titlebar_padding_maximized;     // The same as above but for the maximized state
     int corner_radius;
     bool alternative;
     bool enable_glow;
