@@ -145,7 +145,8 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
                     glyph = QPixmap(":/smod/decoration/minimize-inactive-glyph" + dpiScale);
                 }
 
-                glyphOffset = QPoint(ceil(w / 2.0 - glyph.width() / 2.0) + 1, floor((titlebarHeight-1) / 2.0) - glyph.height() / 2.0 - (titlebarHeight != 20 ? 1 : 0));
+                glyphOffset = QPoint(ceil(w / 2.0 - glyph.width() / 2.0) + 1,
+                                     floor((titlebarHeight-1) / 2.0) - glyph.height() / 2.0 - (titlebarHeight != 20 ? 1 : 0));
 
 
                 l = minMargins.margin_left;
@@ -266,7 +267,12 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
                     glyph = QPixmap(":/smod/decoration/close-inactive-glyph" + dpiScale);
                 }
 
-                glyphOffset = QPoint(floor(w / 2.0 - glyph.width() / 2.0), floor((titlebarHeight-1) / 2.0) - glyph.height() / 2.0 - (titlebarHeight != 20 ? 1 : 0));
+                // w - target caption button width
+                // titlebarHeight - titlebar height which determines the target caption button height (default on win7 is 21, on vista its 19, etc)
+                // glyph.width() - width of the regular texture
+                // glyph.height() - height of the regular texture
+                glyphOffset = QPoint(floor(w / 2.0 - glyph.width() / 2.0),
+                                     floor((titlebarHeight-1) / 2.0) - glyph.height() / 2.0 - (titlebarHeight != 20 ? 1 : 0));
 
                 l = closeMargins.margin_left;
                 t = closeMargins.margin_top;
@@ -291,13 +297,13 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
             image = hoverImage(image, hImage, m_hoverProgress);
             normal.convertFromImage(image);
             btn.render(painter);
-            painter->drawPixmap(glyphOffset.x(), glyphOffset.y(), glyph.width(), glyph.height(), glyph);
+            painter->drawPixmap(glyphOffset.x(), glyphOffset.y(), glyph.width(), glyph.height(), isHovered() ? glyphHover : glyph);
         }
         else
         {
             normal.convertFromImage(aImage);
             btn.render(painter);
-            painter->drawPixmap(glyphOffset.x(), glyphOffset.y(), glyph.width(), glyph.height(), glyph);
+            painter->drawPixmap(glyphOffset.x(), glyphOffset.y(), glyph.width(), glyph.height(), glyphActive);
         }
     }
     else
