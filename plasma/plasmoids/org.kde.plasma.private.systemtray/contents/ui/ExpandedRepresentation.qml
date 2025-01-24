@@ -41,6 +41,7 @@ Item {
     //property bool changedItems: false
     property int intendedWidth: container.activeApplet ? (typeof container.activeApplet.fullRepresentationItem.flyoutIntendedWidth !== "undefined" ? container.activeApplet.fullRepresentationItem.flyoutIntendedWidth : -1) : -1
 
+
     onShownDialogChanged: {
         //changedItems = false;
         updateHeight();
@@ -200,6 +201,13 @@ Item {
                     //enabled: parent.hoveredLink
                     cursorShape: Qt.PointingHandCursor
                     onClicked: {
+                        if(container.activeApplet) {
+                            if(typeof container.activeApplet.fullRepresentationItem.overrideFunction === "function") {
+                                container.activeApplet.fullRepresentationItem.overrideFunction();
+                                return;
+                            }
+                        }
+
                         trayHeading.applet.plasmoid.internalAction("configure").trigger();
                     }
                     //z: 9999
