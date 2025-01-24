@@ -113,6 +113,7 @@ If SDDM fails to pick up on the cursor theme, go to System Settings -> Startup a
     - Notifications
     - Networks 
     - Keyboard Layout
+   
    And enable the following entries: 
     - Sound Mixer
     - Battery 
