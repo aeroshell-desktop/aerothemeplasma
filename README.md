@@ -69,6 +69,7 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 - [LonghornThemePlasma](https://gitgud.io/catpswin56/longhornthemeplasma) by catpswin56
 - [VB1ThemePlasma](https://gitgud.io/catpswin56/vista-beta-plasma) by catpswin56
 - [Gadgets](https://gitgud.io/catpswin56/win-gadgets) by catpswin56
+- [SMOD Themes](https://gitgud.io/catpswin56/smod-themes) by catpswin56, a collection of themes that can be used with the SMOD window decoration theme
 - [Ice2K.sys](https://toiletflusher.neocities.org/ice2k/) by 0penrc
 
 ## Vista variant

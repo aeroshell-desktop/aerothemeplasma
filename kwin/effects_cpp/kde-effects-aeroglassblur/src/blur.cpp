@@ -1203,8 +1203,6 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 
             }
         }
-
-
         glDisable(GL_BLEND);
     }
 

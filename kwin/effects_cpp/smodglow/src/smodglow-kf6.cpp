@@ -34,7 +34,7 @@ void SmodGlowEffect::loadTextures()
     m_texture_minimize = GLTexture::upload(SmodDecoration::minimize_glow() /*QPixmap(QStringLiteral(":/effects/smodglow/textures/minimize") + dpiSuffix*/);
     if(!m_texture_minimize)
     {
-        printf("WRong min\n");
+        printf("Wrong min\n");
         m_active = false;
         return;
     }
@@ -44,7 +44,7 @@ void SmodGlowEffect::loadTextures()
     m_texture_maximize = GLTexture::upload(SmodDecoration::maximize_glow() /*QPixmap(QStringLiteral(":/effects/smodglow/textures/maximize") + dpiSuffix*/);
     if(!m_texture_maximize)
     {
-        printf("WRong max\n");
+        printf("Wrong max\n");
         m_active = false;
         return;
     }
@@ -55,7 +55,7 @@ void SmodGlowEffect::loadTextures()
     m_texture_close = GLTexture::upload(SmodDecoration::close_glow() /*QPixmap(QStringLiteral(":/effects/smodglow/textures/close") + dpiSuffix*/);
     if(!m_texture_close)
     {
-        printf("WRong close\n");
+        printf("Wrong close\n");
         m_active = false;
         return;
     }
@@ -147,7 +147,6 @@ void SmodGlowEffect::paintWindow(const RenderTarget &renderTarget, const RenderV
         GLTexture *texture = m_texture_close.get();
         texture->render(pixelGeometry.size());
     }
-
     ShaderManager::instance()->popShader();
     glDisable(GL_BLEND);
 }

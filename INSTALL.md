@@ -107,18 +107,29 @@ If SDDM fails to pick up on the cursor theme, go to System Settings -> Startup a
 
 1. After installing everything, restart KDE Plasma and KWin.
 2. On a fresh KDE install, **remove** the default panel and add the "AeroThemePlasma Taskbar" panel using Edit mode. You can also manually configure the panel for a finer setup.
-3. When updating KDE Plasma, usually through a full system upgrade, recompiling KWin effects and the DefaultToolTip component is necessary.
-4. In System Settings -> Session -> Desktop Session, uncheck the "Ask for confirmation" option.
-5. In System Settings -> Keyboard -> Shortcuts, under KWin, disable the "Peek at Desktop" shortcut, and remap the "MinimizeAll" to Meta+D
-6. In System Settings -> Fonts, configure the fonts as shown here:
+3. Disable the following entries in the system tray settings:
+    - Audio Volume
+    - Power and Battery 
+    - Notifications
+    - Networks 
+    - Keyboard Layout
+   And enable the following entries: 
+    - Sound Mixer
+    - Battery 
+    - Action Center
+    - Network Management
+4. When updating KDE Plasma, usually through a full system upgrade, recompiling KWin effects and the DefaultToolTip component is necessary.
+5. In System Settings -> Session -> Desktop Session, uncheck the "Ask for confirmation" option.
+6. In System Settings -> Keyboard -> Shortcuts, under KWin, disable the "Peek at Desktop" shortcut, and remap the "MinimizeAll" to Meta+D
+7. In System Settings -> Fonts, configure the fonts as shown here:
 
 <img src="screenshots/fontconfig.png">
 
 The following steps are optional: 
 
-7. To enable full font hinting just for Segoe UI, move the ```fontconfig``` folder to ```~/.config```. This will enable full font hinting for Segoe UI while keeping slight font hinting for other fonts. Additionally, append ```QML_DISABLE_DISTANCEFIELD=1``` into ```/etc/environment``` in order for this to be properly applied. *While full font hinting makes the font rendering look sharper and somewhat closer to Windows 7's ClearType, on Linux this option causes noticeably faulty kerning. This has been a [prominent](https://github.com/OpenTTD/OpenTTD/issues/11765) [issue](https://gitlab.gnome.org/GNOME/pango/-/issues/656) [for](https://gitlab.gnome.org/GNOME/pango/-/issues/463) [several](https://gitlab.gnome.org/GNOME/pango/-/issues/404) [years](https://github.com/harfbuzz/harfbuzz/issues/2394) [now](https://www.phoronix.com/news/HarfBuzz-Hinting-Woe) and while the situation has improved from being unreadable to just being ugly, a complete solution for this doesn't seem to be coming anytime soon.*
-8. For Wine users it's recommended to install the [VistaVG Ultimate](https://www.deviantart.com/vishal-gupta/art/VistaVG-Ultimate-57715902) msstyles theme.
-9. Add the following to ```~/.bashrc``` to get bash to look more like the command prompt on Windows:
+8. To enable full font hinting just for Segoe UI, move the ```fontconfig``` folder to ```~/.config```. This will enable full font hinting for Segoe UI while keeping slight font hinting for other fonts. Additionally, append ```QML_DISABLE_DISTANCEFIELD=1``` into ```/etc/environment``` in order for this to be properly applied. *While full font hinting makes the font rendering look sharper and somewhat closer to Windows 7's ClearType, on Linux this option causes noticeably faulty kerning. This has been a [prominent](https://github.com/OpenTTD/OpenTTD/issues/11765) [issue](https://gitlab.gnome.org/GNOME/pango/-/issues/656) [for](https://gitlab.gnome.org/GNOME/pango/-/issues/463) [several](https://gitlab.gnome.org/GNOME/pango/-/issues/404) [years](https://github.com/harfbuzz/harfbuzz/issues/2394) [now](https://www.phoronix.com/news/HarfBuzz-Hinting-Woe) and while the situation has improved from being unreadable to just being ugly, a complete solution for this doesn't seem to be coming anytime soon.*
+9. For Wine users it's recommended to install the [VistaVG Ultimate](https://www.deviantart.com/vishal-gupta/art/VistaVG-Ultimate-57715902) msstyles theme.
+10. Add the following to ```~/.bashrc``` to get bash to look more like the command prompt on Windows:
 
 ```
 PS1='C:${PWD//\//\\\\}> '
@@ -126,4 +137,4 @@ PS1='C:${PWD//\//\\\\}> '
 echo -e "Microsoft Windows [Version 6.1.7600]\nCopyright (c) 2009 Microsoft Corporation.  All rights reserved.\n"
 ```
 
-10. In the terminal emulator of your choice (e.g Konsole), set the font to [TerminalVector](https://www.yohng.com/software/terminalvector.html), size 9pt. Disable smooth font rendering and bold text, reduce the line spacing and margins to 0px, set the cursor shape to underline, and enable cursor blinking. 
+11. In the terminal emulator of your choice (e.g Konsole), set the font to [TerminalVector](https://www.yohng.com/software/terminalvector.html), size 9pt. Disable smooth font rendering and bold text, reduce the line spacing and margins to 0px, set the cursor shape to underline, and enable cursor blinking. 

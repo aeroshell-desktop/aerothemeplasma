@@ -81,7 +81,9 @@ PlasmoidItem {
 		activeFocusOnTab: true
 		hoverEnabled: true
 
-		onClicked: Plasmoid.activated();
+		onClicked: {
+			Plasmoid.activated();
+		}
 
 		onEntered: {
 			if (Plasmoid.configuration.peekingEnabled)
