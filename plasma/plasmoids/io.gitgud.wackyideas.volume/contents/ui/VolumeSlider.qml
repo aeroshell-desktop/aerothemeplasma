@@ -97,7 +97,7 @@ PC3.Slider {
         y: Math.floor(-parent.height / 2)
         parent: control.handle
         visible: control.pressed
-        text: Math.round(control.value / PulseAudio.NormalVolume * 100.0) + "%"
+        text: Math.round(control.value / PulseAudio.NormalVolume * 100.0)
         delay: 0
     }
     handle: KSvg.SvgItem {

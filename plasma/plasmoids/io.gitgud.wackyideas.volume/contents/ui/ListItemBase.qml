@@ -236,13 +236,13 @@ Item {
             to: forceRaiseMaxVolume || item.model.Volume >= PulseAudio.NormalVolume * 1.01 ? PulseAudio.MaximalVolume : PulseAudio.NormalVolume
             stepSize: PulseAudio.NormalVolume / 100.0
             enabled: item.model.VolumeWritable
-            muted: item.model.Muted
+            muted: item.model.Muted// || value === PulseAudio.MinimalVolume
             volumeObject: item.model.PulseObject
             value: to, item.model.Volume
 
             onMoved: {
                 item.model.Volume = value;
-                item.model.Muted = value === 0;
+                item.model.Muted = false //value === PulseAudio.MinimalVolume;
             }
             onPressedChanged: {
                 if (!pressed) {
@@ -283,6 +283,8 @@ Item {
             Layout.preferredHeight: 30
             Layout.alignment: Qt.AlignHCenter
 
+            property bool isMuted: item.model.Muted //|| slider.value === PulseAudio.MinimalVolume
+
             hoverEnabled: true
             onClicked: {
                 item.model.Muted = !item.model.Muted
@@ -321,7 +323,7 @@ Item {
 
                     anchors.fill: parent
                     interactive: false
-                    mainText: (item.model.Muted ? "Unmute" : "Mute") + " " + (item.type == "sink-output" ? "Speakers" : (item.type == "sink-input" ? "Microphone" : item.name))
+                    mainText: (muteButton.isMuted ? "Unmute" : "Mute") + " " + (item.type == "sink-output" ? "Speakers" : (item.type == "sink-input" ? "Microphone" : item.name))
                 }
             }
             KSvg.SvgItem {
@@ -332,7 +334,7 @@ Item {
                 height: Kirigami.Units.iconSizes.small
 
                 imagePath: Qt.resolvedUrl("svgs/control.svg")
-                elementId: item.model.Muted ? "unmute" : "mute"
+                elementId: muteButton.isMuted ? "unmute" : "mute"
             }
 
         }

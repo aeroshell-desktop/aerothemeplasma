@@ -25,13 +25,13 @@ T.ToolTip {
     timeout: -1
 
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, contentHeight + topPadding + bottomPadding)
-    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, contentWidth + leftPadding + rightPadding)
+    implicitWidth: (contentWidth + leftPadding + rightPadding)
 
     margins: Kirigami.Units.smallSpacing
 
     topPadding: backgroundItem.margins.top
     leftPadding: backgroundItem.margins.left
-    rightPadding: backgroundItem.margins.right
+    rightPadding: backgroundItem.margins.right+1
     bottomPadding: backgroundItem.margins.bottom
 
     enter: Transition {
@@ -57,7 +57,7 @@ T.ToolTip {
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent | T.Popup.CloseOnReleaseOutsideParent
 
     contentItem: Item {
-        implicitWidth: Math.min(label.maxTextLength, label.contentWidth)
+        implicitWidth: Math.min(label.maxTextLength, textMetrics.width)
         implicitHeight: label.implicitHeight
 
         PlasmaComponents3.Label {
@@ -81,6 +81,11 @@ T.ToolTip {
                     line.width = maxTextLength
                 }
             }
+        }
+        TextMetrics {
+            id: textMetrics
+            font.family: label.font.family
+            text: label.text.replace(/[0-9]/g, "0");
         }
     }
 
