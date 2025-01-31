@@ -59,8 +59,8 @@ Item {
         visible: !hiddenItemsView.visible
         anchors.bottom: parent.bottom
         anchors.right: parent.right
-        anchors.bottomMargin: Kirigami.Units.largeSpacing
-        anchors.rightMargin: Kirigami.Units.largeSpacing
+        anchors.bottomMargin: popup.flyoutWidth <= 68 ? 2 : Kirigami.Units.mediumSpacing
+        anchors.rightMargin: popup.flyoutWidth <= 68 ? 2 : Kirigami.Units.mediumSpacing
         width: Kirigami.Units.iconSizes.small+1;
         height: Kirigami.Units.iconSizes.small;
         checkable: true
@@ -207,7 +207,6 @@ Item {
                                 return;
                             }
                         }
-
                         trayHeading.applet.plasmoid.internalAction("configure").trigger();
                     }
                     //z: 9999

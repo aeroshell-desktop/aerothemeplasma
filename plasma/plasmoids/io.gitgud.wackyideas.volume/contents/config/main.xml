@@ -47,6 +47,19 @@
     <entry name="migrated" type="Bool">
       <default>false</default>
     </entry>
+
+    <entry name="showDeviceName" type="Bool">
+      <default>false</default>
+    </entry>
+  </group>
+
+  <group name="Flyout">
+    <entry name="showLabels" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="hideDefaultInput" type="Bool">
+      <default>false</default>
+    </entry>
   </group>
 
 </kcfg>

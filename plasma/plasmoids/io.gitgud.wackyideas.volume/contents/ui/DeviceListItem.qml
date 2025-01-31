@@ -14,10 +14,7 @@ ListItemBase {
     readonly property bool muted: model.Muted
     readonly property int activePortIndex: model.ActivePortIndex
 
-    fullNameToShowOnHover: ListView.view.count === 1 ? model.Description : ""
-
-    draggable: false
-    label: {
+    name: {
         // >1 entry -> use unique-ish names (e.g. 'Konqi Headset 5')
         if (ListView.view.count > 1) {
             return nodeName(model.PulseObject)

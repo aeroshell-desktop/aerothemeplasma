@@ -3,48 +3,11 @@
     "KPlugin": {
         "Authors": [
             {
-                "Email": "sitter@kde.org",
-                "Name": "Harald Sitter",
-                "Name[ar]": "هارالد سِتِر",
-                "Name[ast]": "Harald Sitter",
-                "Name[bg]": "Harald Sitter",
-                "Name[ca@valencia]": "Harald Sitter",
-                "Name[ca]": "Harald Sitter",
-                "Name[cs]": "Harald Sitter",
-                "Name[de]": "Harald Sitter",
-                "Name[en_GB]": "Harald Sitter",
-                "Name[eo]": "Harald Sitter",
-                "Name[es]": "Harald Sitter",
-                "Name[eu]": "Harald Sitter",
-                "Name[fi]": "Harald Sitter",
-                "Name[fr]": "Harald Sitter",
-                "Name[gl]": "Harald Sitter",
-                "Name[he]": "הרלד סיטר",
-                "Name[hu]": "Harald Sitter",
-                "Name[ia]": "Harald Sitter",
-                "Name[is]": "Harald Sitter",
-                "Name[it]": "Harald Sitter",
-                "Name[ja]": "Harald Sitter",
-                "Name[ka]": "ჰერალდ სიტერი",
-                "Name[ko]": "Harald Sitter",
-                "Name[lt]": "Harald Sitter",
-                "Name[lv]": "Harald Sitter",
-                "Name[nl]": "Harald Sitter",
-                "Name[nn]": "Harald Sitter",
-                "Name[pl]": "Harald Sitter",
-                "Name[pt]": "Harald Sitter",
-                "Name[pt_BR]": "Harald Sitter",
-                "Name[ro]": "Harald Sitter",
-                "Name[ru]": "Harald Sitter",
-                "Name[sk]": "Harald Sitter",
-                "Name[sl]": "Harald Sitter",
-                "Name[sv]": "Harald Sitter",
-                "Name[ta]": "ஹரால்டு சிட்டர்",
-                "Name[tr]": "Harald Sitter",
-                "Name[uk]": "Harald Sitter",
-                "Name[x-test]": "xxHarald Sitterxx",
-                "Name[zh_CN]": "Harald Sitter",
-                "Name[zh_TW]": "Harald Sitter"
+                "Name": "catpswin56"
+            },
+            {
+                "Email": "wackyideas@disroot.org",
+                "Name": "WackyIdeas"
             }
         ],
         "Category": "Multimedia",
@@ -94,9 +57,9 @@
             "desktop"
         ],
         "Icon": "audio-volume-high",
-        "Id": "org.kde.plasma.volume",
+        "Id": "io.gitgud.wackyideas.volume",
         "License": "GPL",
-        "Name": "Audio Volume",
+        "Name": "Sound Mixer",
         "Name[ar]": "مستوى الصّوت",
         "Name[ast]": "Volume del audiu",
         "Name[az]": "Səs səviyyəsi",
@@ -148,7 +111,7 @@
         "Name[x-test]": "xxAudio Volumexx",
         "Name[zh_CN]": "音量",
         "Name[zh_TW]": "音效音量",
-        "Website": "https://kde.org/plasma-desktop"
+        "Website": "https://gitgud.io/wackyideas/aerothemeplasma"
     },
     "X-Plasma-API-Minimum-Version": "6.0",
     "X-Plasma-NotificationAreaCategory": "Hardware"

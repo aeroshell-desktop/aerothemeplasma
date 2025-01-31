@@ -6,6 +6,7 @@
 
 import QtQuick
 
+import org.kde.kirigami as Kirigami
 import org.kde.kitemmodels as KItemModels
 import org.kde.plasma.private.volume
 
@@ -13,9 +14,9 @@ ListItemBase {
     id: item
 
     property PulseObjectFilterModel devicesModel
+    isStream: true
 
-    draggable: devicesModel && devicesModel.count > 1
-    label: {
+    name: {
         if (model.Client && model.Client.name && model.Client.name != "pipewire-media-session") {
             return model.Client.name;
         }
@@ -24,27 +25,8 @@ ListItemBase {
         }
         return i18n("Stream name not found");
     }
-    fullNameToShowOnHover: {
-        if (devicesModel.count > 1) {
-            const indexRole = devicesModel.KItemModels.KRoleNames.role("Index");
-            const descriptionRole = devicesModel.KItemModels.KRoleNames.role("Description");
 
-            for (let i = 0; i < devicesModel.count; ++i) {
-                const idx = devicesModel.index(i, 0);
-                const deviceIndex = devicesModel.data(idx, indexRole);
-
-                if (deviceIndex !== model.DeviceIndex) {
-                    continue;
-                }
-
-                return devicesModel.data(idx, descriptionRole);
-            }
-        }
-
-        return "";
-    }
-
-    iconSource: {
+    iconName: {
         if (model.IconName.length !== 0) {
             return model.IconName
         }
@@ -54,5 +36,14 @@ ListItemBase {
         }
 
         return "audio-volume-high"
+    }
+
+    Rectangle {
+        anchors.right: parent.right
+
+        width: 1
+        height: (item.height * 1.3) + (Kirigami.Units.smallSpacing / 2)
+
+        color: "#d6e1dd"
     }
 }

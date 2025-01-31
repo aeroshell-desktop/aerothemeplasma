@@ -111,10 +111,12 @@ If SDDM fails to pick up on the cursor theme, go to System Settings -> Startup a
     - Power and Battery 
     - Networks 
     - Keyboard Layout
+    - Audio Volume
    
    And enable the following entries: 
     - Battery 
     - Network Management
+    - Sound Mixer
 4. When updating KDE Plasma, usually through a full system upgrade, recompiling KWin effects and the DefaultToolTip component is necessary.
 5. In System Settings -> Session -> Desktop Session, uncheck the "Ask for confirmation" option.
 6. In System Settings -> Keyboard -> Shortcuts, under KWin, disable the "Peek at Desktop" shortcut, and remap the "MinimizeAll" to Meta+D
