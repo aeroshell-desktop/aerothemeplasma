@@ -108,16 +108,12 @@ If SDDM fails to pick up on the cursor theme, go to System Settings -> Startup a
 1. After installing everything, restart KDE Plasma and KWin.
 2. On a fresh KDE install, **remove** the default panel and add the "AeroThemePlasma Taskbar" panel using Edit mode. You can also manually configure the panel for a finer setup.
 3. Disable the following entries in the system tray settings:
-    - Audio Volume
     - Power and Battery 
-    - Notifications
     - Networks 
     - Keyboard Layout
    
    And enable the following entries: 
-    - Sound Mixer
     - Battery 
-    - Action Center
     - Network Management
 4. When updating KDE Plasma, usually through a full system upgrade, recompiling KWin effects and the DefaultToolTip component is necessary.
 5. In System Settings -> Session -> Desktop Session, uncheck the "Ask for confirmation" option.
