@@ -766,7 +766,7 @@ bool BlurEffect::shouldBlur(const EffectWindow *w, int mask, const WindowPaintDa
     bool translated = data.xTranslation() || data.yTranslation();
     bool hasWindowTransformData = !w->data(TRANSFORMATION_DATA).isNull();
 
-    if((mask & PAINT_WINDOW_TRANSFORMED) && !w->isDeleted() && !hasWindowTransformData) return false;
+    //if((mask & PAINT_WINDOW_TRANSFORMED) && !w->isDeleted() && !hasWindowTransformData) return false;
     //if ((scaled || (translated || (mask & PAINT_WINDOW_TRANSFORMED))) /*&& !w->data(WindowForceBlurRole).toBool()*/) {
         //return hasWindowTransformData; // Only do this for windows that send transformation data
     //}
