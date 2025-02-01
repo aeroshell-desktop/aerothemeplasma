@@ -12,10 +12,10 @@
             <default>0</default>
         </entry>
         <entry name="InRotationAngle" type="Double">
-            <default>3.0</default>
+            <default>8.0</default>
         </entry>
         <entry name="InDistance" type="Double">
-            <default>30.0</default>
+            <default>20.0</default>
         </entry>
         <entry name="InOpacity" type="Double">
             <default>0.4</default>
@@ -26,7 +26,7 @@
             <default>2</default>
         </entry>
         <entry name="OutRotationAngle" type="Double">
-            <default>3.0</default>
+            <default>10.0</default>
         </entry>
         <entry name="OutDistance" type="Double">
             <default>30.0</default>

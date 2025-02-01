@@ -1,5 +1,10 @@
 {
     "KPlugin": {
+        "Authors": [
+            {
+                "Name": "WackyIdeas"
+            }
+        ],
         "Category": "Window Open/Close Animation",
         "Description": "Glide windows as they appear or disappear, while keeping Aero glass effect",
         "Description[ar]": "تنزلق النوافذ حال ظهورها أو اختفائها",
