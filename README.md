@@ -2,7 +2,7 @@
 
 ## WARNING: This version is very early WIP and is not fully finished. Proceed with caution.
 
-## Microsoft® Windows™ is a registered trademark of Microsoft® Corporation. This name is used for referential use only, and does not aim to usurp copyrights from Microsoft. Microsoft Ⓒ 2024 All rights reserved. All resources belong to Microsoft Corporation.
+## Microsoft® Windows™ is a registered trademark of Microsoft® Corporation. This name is used for referential use only, and does not aim to usurp copyrights from Microsoft. Microsoft Ⓒ 2025 All rights reserved. All resources belong to Microsoft Corporation.
 
 ## Introduction
 
@@ -16,7 +16,7 @@ It is still in heavy development and testing. ATP has been tested on:
 
 *AeroThemePlasma currently lacks full Wayland support, which may result in Wayland-specific issues. 
 
-**This release is meant for early adopters, debuggers and developers alike. This port lacks certain components which still need to be ported over to KDE Plasma 6. I am not responsible for broken systems, please proceed with caution.**
+## This release is meant for early adopters, debuggers and developers alike. This port lacks certain components which still need to be ported over to KDE Plasma 6. I am not responsible for broken systems, please proceed with caution.
 
 The Plasma 5 version of ATP is available as a tag in this repository, however it is unmaintained and no longer supported.
 
@@ -52,6 +52,7 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 - [That Linux Dude Dominic Hayes](https://github.com/dominichayesferen) for making the following: 
     - Lock screen UI 
     - Icon theme
+- [catpswin56](https://gitgud.io/catpswin56/) for help with the Sound Mixer plasmoid, Gadgets menu, as well as many more contributions
 - [QuinceTart10](https://github.com/QuinceTart10) and [Gamer95875](https://github.com/Gamer95875) for making the sound themes
 - (In collaboration with) [kfh83](https://github.com/kfh83), [TorutheRedFox](https://github.com/TorutheRedFox) and [ALTaleX](https://github.com/ALTaleX531/dwm_colorization_calculator/blob/main/main.py) for figuring out accurate Aero glass blur and colorization effects
 - [AngelBruni](https://github.com/angelbruni) for contributing several SVG textures, most notably the clock in DigitalClockLite Seven
