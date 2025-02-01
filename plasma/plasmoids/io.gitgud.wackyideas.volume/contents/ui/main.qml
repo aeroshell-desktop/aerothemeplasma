@@ -203,7 +203,10 @@ PlasmoidItem {
         }
         onClicked: mouse => {
             if (mouse.button == Qt.LeftButton) {
-                if(mixerWindow) mixerWindow.raise();
+                if(mixerWindow) {
+                    mixerWindow.visibility = Window.AutomaticVisibility;
+                    mixerWindow.raise();
+                }
                 else main.expanded = !wasExpanded;
             }
         }
