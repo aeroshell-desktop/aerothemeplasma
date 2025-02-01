@@ -255,8 +255,13 @@ PlasmoidItem {
         property int flyoutIntendedWidth: mainLayout.width
 
         function overrideFunction() {
-            mixerWindow = Qt.createQmlObject("MixerWindow {}", main);
-            mixerWindow.visible = true;
+            if(!mixerWindow) {
+                mixerWindow = Qt.createQmlObject("MixerWindow {}", main);
+                mixerWindow.visible = true;
+            } else {
+                mixerWindow.visibility = Window.AutomaticVisibility;
+                mixerWindow.raise();
+            }
         }
 
         implicitHeight: 217
