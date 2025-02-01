@@ -40,6 +40,8 @@
 
 #include "hsvrgb.h"
 #include "wackyfunc.h"
+#define TRANSFORMATION_DATA 128
+#define OPACITY_DATA 129
 
 Q_LOGGING_CATEGORY(KWIN_BLUR, "kwin_effect_forceblur", QtWarningMsg)
 
@@ -762,9 +764,11 @@ bool BlurEffect::shouldBlur(const EffectWindow *w, int mask, const WindowPaintDa
 
     bool scaled = !qFuzzyCompare(data.xScale(), 1.0) && !qFuzzyCompare(data.yScale(), 1.0);
     bool translated = data.xTranslation() || data.yTranslation();
+    bool hasWindowTransformData = !w->data(TRANSFORMATION_DATA).isNull();
 
+    if((mask & PAINT_WINDOW_TRANSFORMED) && !w->isDeleted() && !hasWindowTransformData) return false;
     //if ((scaled || (translated || (mask & PAINT_WINDOW_TRANSFORMED))) /*&& !w->data(WindowForceBlurRole).toBool()*/) {
-        //return false; //!(w->isSpecialWindow() && !w->isDock() && effects->waylandDisplay());
+        //return hasWindowTransformData; // Only do this for windows that send transformation data
     //}
 
     return true;
@@ -823,6 +827,13 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         return;
     }
 
+    QMatrix4x4 transformedMatrix;
+    QVariant winData = w->data(TRANSFORMATION_DATA);
+    if(!winData.isNull())
+    {
+        transformedMatrix = winData.value<QMatrix4x4>();
+        //w->setData(TRANSFORMATION_DATA, QVariant());
+    }
     // Compute the effective blur shape. Note that if the window is transformed, so will be the blur shape.
     QRegion blurShape = blurRegion(w).translated(w->pos().toPoint());
     if (data.xScale() != 1 || data.yScale() != 1) {
@@ -842,8 +853,13 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 
     const QRect backgroundRect = blurShape.boundingRect();
     const QRect deviceBackgroundRect = snapToPixelGrid(scaledRect(backgroundRect, viewport.scale()));
-    const auto opacity = w->opacity() * data.opacity();
+    QVariant opacityData = w->data(OPACITY_DATA);
+    auto opacity = w->opacity() * data.opacity();
 
+    if(!opacityData.isNull())
+    {
+        opacity *= opacityData.value<float>();
+    }
     // Get the effective shape that will be actually blurred. It's possible that all of it will be clipped.
     QList<QRectF> effectiveShape;
     effectiveShape.reserve(blurShape.rectCount());
@@ -919,10 +935,10 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         {
             const QRectF localRect = QRectF(0, 0, backgroundRect.width(), backgroundRect.height());
 
-            const float x0 = localRect.left();
-            const float y0 = localRect.top();
-            const float x1 = localRect.right();
-            const float y1 = localRect.bottom();
+            float x0 = localRect.left();
+            float y0 = localRect.top();
+            float x1 = localRect.right();
+            float y1 = localRect.bottom();
 
             const float u0 = x0 / backgroundRect.width();
             const float v0 = 1.0f - y0 / backgroundRect.height();
@@ -960,10 +976,10 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 
         // The geometry that will be painted on screen, in device pixels.
         for (const QRectF &rect : effectiveShape) {
-            const float x0 = rect.left();
-            const float y0 = rect.top();
-            const float x1 = rect.right();
-            const float y1 = rect.bottom();
+            float x0 = rect.left();
+            float y0 = rect.top();
+            float x1 = rect.right();
+            float y1 = rect.bottom();
 
             const float u0 = x0 / deviceBackgroundRect.width();
             const float v0 = 1.0f - y0 / deviceBackgroundRect.height();
@@ -999,6 +1015,24 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
             };
         }
 
+        if(!winData.isNull()) // If the window sends transformation data, apply it to the painted geometry, skipping the offscreen geometry
+        {
+            for(int ind = 6; ind < 6+vertexCount; ind++)
+            {
+                // Apply transformation to the triangle vertex
+                QPointF transformed = transformedMatrix.map(QPointF(map[ind].position.x(), map[ind].position.y()));
+                // Calculate new uv coordinates so the sampling doesn't get distorted
+                float u = transformed.x() / deviceBackgroundRect.width();
+                float v = 1.0f - transformed.y() / deviceBackgroundRect.height();
+                if(v < -1 && transformed.y() > deviceBackgroundRect.height()) return; // Prevents warped animations from running for too long, making them imperceptible
+                // Update vertices and uv coordinates
+                map[ind].position.setX(transformed.x());
+                map[ind].position.setY(transformed.y());
+                map[ind].texcoord.setX(u);
+                map[ind].texcoord.setY(v);
+            }
+        }
+
         vbo->unmap();
     } else {
         qCWarning(KWIN_BLUR) << "Failed to map vertex buffer";
@@ -1011,7 +1045,6 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         // The downsample pass of the dual Kawase algorithm: the background will be scaled down 50% every iteration.
         {
             ShaderManager::instance()->pushShader(m_downsamplePass.shader.get());
-
             QMatrix4x4 projectionMatrix;
             projectionMatrix.ortho(QRectF(0.0, 0.0, backgroundRect.width(), backgroundRect.height()));
 
@@ -1065,6 +1098,10 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 
         projectionMatrix = viewport.projectionMatrix();
         projectionMatrix.translate(deviceBackgroundRect.x(), deviceBackgroundRect.y());
+        /*if(!winData.isNull())
+        {
+            projectionMatrix *= transformedMatrix;
+        }*/
         m_upsamplePass.shader->setUniform(m_upsamplePass.mvpMatrixLocation, projectionMatrix);
 
         const QVector2D halfpixel(0.5 / (double)read->colorAttachment()->width(),

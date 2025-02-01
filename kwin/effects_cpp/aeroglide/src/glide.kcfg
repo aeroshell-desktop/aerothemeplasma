@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+                          http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+    <kcfgfile arg="true"/>
+    <group name="Effect-glide">
+        <entry name="Duration" type="UInt">
+            <default>0</default>
+        </entry>
+        <entry name="InRotationEdge" type="Int">
+            <default>0</default>
+        </entry>
+        <entry name="InRotationAngle" type="Double">
+            <default>3.0</default>
+        </entry>
+        <entry name="InDistance" type="Double">
+            <default>30.0</default>
+        </entry>
+        <entry name="InOpacity" type="Double">
+            <default>0.4</default>
+            <min>0.0</min>
+            <max>1.0</max>
+        </entry>
+        <entry name="OutRotationEdge" type="Int">
+            <default>2</default>
+        </entry>
+        <entry name="OutRotationAngle" type="Double">
+            <default>3.0</default>
+        </entry>
+        <entry name="OutDistance" type="Double">
+            <default>30.0</default>
+        </entry>
+        <entry name="OutOpacity" type="Double">
+            <default>0.0</default>
+            <min>0.0</min>
+            <max>1.0</max>
+        </entry>
+    </group>
+</kcfg>

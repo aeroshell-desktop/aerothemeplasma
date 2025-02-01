@@ -1,0 +1,5 @@
+File=glide.kcfg
+ClassName=GlideConfig
+NameSpace=KWin
+Singleton=true
+Mutators=true

@@ -6,3 +6,4 @@ kwin/effects_cpp/kde-effects-aeroglassblur/build
 plasma/plasmoids/src/sevenstart_src/build
 plasma/plasmoids/src/seventasks_src/build
 kwin/effects_cpp/smodglow/build-kf6
+kwin/effects_cpp/aeroglide/build-kf6
