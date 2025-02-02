@@ -20,19 +20,32 @@ pacman -S cmake extra-cmake-modules ninja qt6-virtualkeyboard qt6-multimedia qt6
 ```
 - (optionally) plymouth
 
-### KDE Neon/Kubuntu
+### Kubuntu
 Required Packages:
 
 ```bash
-apt install cmake extra-cmake-modules ninja-dev qt6-virtualkeyboard qt6-virtualkeyboard-dev qt6-multimedia qt6-multimedia-dev qt6-5compat plasma-wayland-protocols kf6-plasma5support kf6-kcolorscheme-dev kf6-ki18n-dev kf6-kiconthemes-dev kf6-kcmutils-dev kf6-kirigami-dev libkdecorations2-dev kwin-dev kf6-kio-dev kf6-knotifications-dev kf6-ksvg-dev plasma-workspace-dev kf6-kactivities-dev gettext kvantum
+apt install build-essential cmake ninja-build curl libqt6virtualkeyboard6 libqt6multimedia6 libqt6core5compat6 libplasma5support6 libkdecorations2-dev libkf6colorscheme-dev libkf6i18n-dev libkf6iconthemes-dev libkf6kcmutils-dev libkirigami-dev libkf6kio-dev libkf6notifications-dev libkf6svg-dev libkf6crash-dev libkf6globalaccel-dev libplasma-dev libplasmaactivities-dev libxcb-composite0-dev libxcb-randr0-dev libxcb-shm0-dev libxcb-damage0-dev libepoxy-dev libqt6svg6-dev kwin-dev plasma-wayland-protocols
 ```
-- optionally plymouth (pre-installed on KDE Neon)
 
 ### Fedora KDE
 Required Packages:
 
 ```bash
 dnf install plasma-workspace-devel kvantum qt6-qtmultimedia-devel qt6-qt5compat-devel libplasma-devel qt6-qtbase-devel qt6-qtwayland-devel plasma-activities-devel kf6-kpackage-devel kf6-kglobalaccel-devel qt6-qtsvg-devel wayland-devel plasma-wayland-protocols kf6-ksvg-devel kf6-kcrash-devel kf6-kguiaddons-devel kf6-kcmutils-devel kf6-kio-devel kdecoration-devel kf6-ki18n-devel kf6-knotifications-devel kf6-kirigami-devel kf6-kiconthemes-devel cmake gmp-ecm-devel kf5-plasma-devel libepoxy-devel kwin-devel kf6-karchive kf6-karchive-devel plasma-wayland-protocols-devel qt6-qtbase-private-devel qt6-qtbase-devel plymouth-devel plymouth-plugin-script
+```
+
+## Compiling
+
+To build the components that need to be compiled (KWin effects, Decoration theme, etc.), run ```compile.sh```:
+
+```bash
+$ chmod +x compile.sh && ./compile.sh
+```
+
+or
+
+```bash
+$ sh compile.sh
 ```
 
 ## Plasma components <a name="plasma"></a>
@@ -48,8 +61,6 @@ This section relates to the directories found in the ```plasma``` folder.
     - Plasma shell
     - Preset panel layout that can be applied from Edit mode
 
-Make sure to compile the C++ components of plasmoids located in ```plasmoids/src/``` by running ```install.sh``` for every source folder. You can also use ```install_ninja.sh``` to build using Ninja.
-
 3. Move ```sddm-theme-mod``` to ```/usr/share/sddm/themes```, and then run ```install-services.sh``` found in ```sddm-theme-mod/Services```.
 4. Import and apply the color scheme through System Settings. 
 7. When applying the global theme, only apply the splash screen and uncheck everything else.
@@ -58,9 +69,8 @@ Make sure to compile the C++ components of plasmoids located in ```plasmoids/src
 
 This section relates to the directories found in the ```kwin``` folder.
 
-1. Compile the decoration theme first and C++ KWin effects (found in ```decoration``` and ```effects_cpp``` respectively) using the provided install scripts. (Make sure to first build the decoration theme, as the C++ effects depend on it)
-2. Move ```effects```, ```tabbox```, ```outline```, ```scripts``` to ```~/.local/share/kwin```.
-3. In System Settings, apply the following settings: 
+1. Move ```effects```, ```tabbox```, ```outline```, ```scripts``` to ```~/.local/share/kwin```.
+2. In System Settings, apply the following settings: 
 - In Window Behavior -> Titlebar Actions: 
     - Mouse wheel: Do nothing
 - In Window Behavior -> Task Switcher:
@@ -70,6 +80,7 @@ This section relates to the directories found in the ```kwin``` folder.
     - Enable Minimize All, SMOD Peek
 - In Window Behavior -> Desktop Effects, enable the following: 
     - Aero Glass Blur
+    - Aero Glide
     - Desaturate Unresponsive Applications
     - Fading Popups
     - Login
@@ -78,7 +89,6 @@ This section relates to the directories found in the ```kwin``` folder.
     - SMOD Snap
     - Squash
     - SMOD Peek
-    - Scale
     - Dim Screen for Administrator Mode
 - In Window Behavior -> Desktop Effects, **disable** the following: 
     - Background Contrast
@@ -92,14 +102,12 @@ This section relates to the directories found in the ```kwin``` folder.
 
 This section relates to the directories found in the ```misc``` folder.
 
-1. Run the install script for ```defaulttooltip```
-2. Move the ```Kvantum``` folder (the one inside the ```kvantum``` folder) to ```~/.config```, then in Kvantum Manager select the theme.
-3. Unpack the sound archive and move the folders to ```~/.local/share/sounds```, then select the sound theme in System Settings.
-4. Unpack the icon archive and move the folder to ```~/.local/share/icons```, then select the icon theme in System Settings.
-5. Unpack the cursor archive and move the folder to ```/usr/share/icons```, then follow [this](https://www.youtube.com/watch?v=Dj7co2R7RKw) guide to install the cursor theme. 
+1. Move the ```Kvantum``` folder (the one inside the ```kvantum``` folder) to ```~/.config```, then in Kvantum Manager select the theme.
+2. Unpack the sound archive and move the folders to ```~/.local/share/sounds```, then select the sound theme in System Settings.
+3. Unpack the icon archive and move the folder to ```~/.local/share/icons```, then select the icon theme in System Settings.
+4. Unpack the cursor archive and move the folder to ```/usr/share/icons```, then follow [this](https://www.youtube.com/watch?v=Dj7co2R7RKw) guide to install the cursor theme. 
 5. Move the files located in ```mimetype``` into ```~/.local/share/mime/packages``` and then run ```update-mime-database ~/.local/share/mime``` to fix DLLs and EXE files sharing the same icons.
 6. Segoe UI, Segoe UI Bold, Segoe UI Semibold and Segoe UI Italic are required for this theme and they should be installed as system-wide fonts.
-7. Optionally, to install custom branding at the Info Center, move ```kcm-about-distrorc``` from the ```branding``` folder to ```~/.config/kdedefaults/```, then edit the file's ```LogoPath``` entry to point to the absolute path of ```kcminfo.png```. 
 
 If SDDM fails to pick up on the cursor theme, go to System Settings -> Startup and Shutdown -> Login Screen (SDDM), and click on Apply Plasma Settings to enforce your current cursor theme, and other relevant settings. Do this *after* installing everything else. If even that fails, change the default cursor theme in ```/usr/share/icons/default/index.theme``` to say ```aero-drop```.
 
@@ -128,12 +136,13 @@ The following steps are optional:
 
 8. To enable full font hinting just for Segoe UI, move the ```fontconfig``` folder to ```~/.config```. This will enable full font hinting for Segoe UI while keeping slight font hinting for other fonts. Additionally, append ```QML_DISABLE_DISTANCEFIELD=1``` into ```/etc/environment``` in order for this to be properly applied. *While full font hinting makes the font rendering look sharper and somewhat closer to Windows 7's ClearType, on Linux this option causes noticeably faulty kerning. This has been a [prominent](https://github.com/OpenTTD/OpenTTD/issues/11765) [issue](https://gitlab.gnome.org/GNOME/pango/-/issues/656) [for](https://gitlab.gnome.org/GNOME/pango/-/issues/463) [several](https://gitlab.gnome.org/GNOME/pango/-/issues/404) [years](https://github.com/harfbuzz/harfbuzz/issues/2394) [now](https://www.phoronix.com/news/HarfBuzz-Hinting-Woe) and while the situation has improved from being unreadable to just being ugly, a complete solution for this doesn't seem to be coming anytime soon.*
 9. For Wine users it's recommended to install the [VistaVG Ultimate](https://www.deviantart.com/vishal-gupta/art/VistaVG-Ultimate-57715902) msstyles theme.
-10. Add the following to ```~/.bashrc``` to get bash to look more like the command prompt on Windows:
+10. To install custom branding at the Info Center, move ```kcm-about-distrorc``` from the ```branding``` folder to ```~/.config/kdedefaults/```, then edit the file's ```LogoPath``` entry to point to the absolute path of ```kcminfo.png```. 
+11. Add the following to ```~/.bashrc``` to get bash to look more like the command prompt on Windows:
 
-```
+```bash
 PS1='C:${PWD//\//\\\\}> '
 
 echo -e "Microsoft Windows [Version 6.1.7600]\nCopyright (c) 2009 Microsoft Corporation.  All rights reserved.\n"
 ```
 
-11. In the terminal emulator of your choice (e.g Konsole), set the font to [TerminalVector](https://www.yohng.com/software/terminalvector.html), size 9pt. Disable smooth font rendering and bold text, reduce the line spacing and margins to 0px, set the cursor shape to underline, and enable cursor blinking. 
+12. In the terminal emulator of your choice (e.g Konsole), set the font to [TerminalVector](https://www.yohng.com/software/terminalvector.html), size 9pt. Disable smooth font rendering and bold text, reduce the line spacing and margins to 0px, set the cursor shape to underline, and enable cursor blinking. 

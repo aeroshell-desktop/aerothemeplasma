@@ -26,7 +26,7 @@ cp DefaultToolTip.qml ./build/$SRCDIR/src/declarativeimports/core/private/Defaul
 cd ./build/$SRCDIR/
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+cmake -DCMAKE_INSTALL_PREFIX=/usr -G Ninja ..
 cmake --build . --target corebindingsplugin
 sudo cp ./bin/org/kde/plasma/core/libcorebindingsplugin.so $INSTALLDST
 #plasmashell --replace & disown
