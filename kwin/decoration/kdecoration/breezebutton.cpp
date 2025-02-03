@@ -68,54 +68,6 @@ Button::Button(QObject *parent, const QVariantList &args)
 void Button::smodPaintGlow(QPainter *painter, const QRect &repaintArea)
 {
     return;
-
-    /*if (m_hoverProgress > 0.0 && isVisible() && type() != KDecoration2::DecorationButtonType::Menu) {
-        //Decoration *decoration = static_cast<Decoration *>(KDecoration2::DecorationButton::decoration().data());
-        //KDecoration2::DecoratedClient *client = decoration->client().data();
-        //DecorationFactory *decorationFactory =decoration->factory();
-        //window_settings *ws = decorationFactory->windowSettings();
-        //const bool active = client->isActive();
-
-        QRect rect = geometry().toRect();
-        //int glyph = decoration->buttonGlyph(type());
-        //if (glyph == -1) {
-        //    return;
-        //}
-        QImage image;
-        QPoint xy;
-
-        switch (type())
-        {
-            case DecorationButtonType::Minimize:
-                image = QImage(":/smod/decoration/minimize-glow");
-                xy = QPoint(-10, -9);
-                break;
-            case DecorationButtonType::Maximize:
-                image = QImage(":/smod/decoration/maximize-glow");
-                xy = QPoint(-10, -9);
-                break;
-            case DecorationButtonType::Close:
-                image = QImage(":/smod/decoration/close-glow");
-                xy = QPoint(-10, -9);
-                break;
-            default:
-                return;
-        }
-
-        //if (active && ws->use_button_glow) {
-        //    image = ws->ButtonGlowPix[glyph]->image;
-        //} else if (!active && ws->use_button_inactive_glow) {
-        //    image = ws->ButtonInactiveGlowPix[glyph]->image;
-        //}
-        if (!image.isNull()) { // && ws->use_pixmap_buttons) {
-            QImage buttonImage = image;
-            //QImage buttonImage = ws->ButtonPix[glyph * S_COUNT]->image;
-            painter->setOpacity(m_hoverProgress);
-            const int xp = rect.x(); //rect.x() + (buttonImage.width() - ws->c_glow_size.w) / 2;
-            const int yp = rect.y(); //rect.y() + (buttonImage.height() - ws->c_glow_size.h) / 2;
-            painter->drawImage(QPoint(xp, yp) + xy, image);
-        }
-    }*/
 }
 
 //__________________________________________________________________

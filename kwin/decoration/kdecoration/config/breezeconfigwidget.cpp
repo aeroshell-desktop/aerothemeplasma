@@ -139,6 +139,7 @@ void ConfigWidget::save()
         QDBusMessage message(QDBusMessage::createSignal("/BreezeDecoration", "org.kde.Breeze.Style", "reparseConfiguration"));
         QDBusConnection::sessionBus().send(message);
     }
+
 }
 
 //_________________________________________________________

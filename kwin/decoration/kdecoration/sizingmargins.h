@@ -82,6 +82,7 @@ public:
     ButtonSizingMargins maximizeSizing() const;
     ButtonSizingMargins minimizeSizing() const;
     ButtonSizingMargins closeSizing() const;
+    ButtonSizingMargins closeLoneSizing() const;
 
     BorderFrame frameLeftSizing() const;
     BorderFrame frameRightSizing() const;
@@ -107,6 +108,7 @@ private:
     ButtonSizingMargins m_maximizeSizing;
     ButtonSizingMargins m_minimizeSizing;
     ButtonSizingMargins m_closeSizing;
+    ButtonSizingMargins m_closeLoneSizing;
 
     BorderFrame m_frameLeftSizing;
     BorderFrame m_frameRightSizing;
