@@ -161,11 +161,6 @@ void Button::drawIcon(QPainter *painter) const
 {
     painter->setRenderHints(QPainter::Antialiasing);
 
-    /*
-    scale painter so that its window matches QRect( -1, -1, 20, 20 )
-    this makes all further rendering and scaling simpler
-    all further rendering is performed inside QRect( 0, 0, 18, 18 )
-    */
     painter->translate(geometry().topLeft());
 
     const qreal width(m_iconSize.width());

@@ -258,57 +258,6 @@ void Decoration::updateAnimationState()
     }
 }
 
-//________________________________________________________________
-int Decoration::borderSize(bool bottom) const
-{
-    const int baseSize = settings()->smallSpacing();
-    if (m_internalSettings && (m_internalSettings->mask() & BorderSize)) {
-        switch (m_internalSettings->borderSize()) {
-        case InternalSettings::BorderNone:
-            return outlinesEnabled() ? 1 : 0;
-        case InternalSettings::BorderNoSides:
-            return bottom ? qMax(4, baseSize) : outlinesEnabled() ? 1 : 0;
-        default:
-        case InternalSettings::BorderTiny:
-            return bottom ? qMax(4, baseSize) : baseSize;
-        case InternalSettings::BorderNormal:
-            return baseSize * 2;
-        case InternalSettings::BorderLarge:
-            return baseSize * 3;
-        case InternalSettings::BorderVeryLarge:
-            return baseSize * 4;
-        case InternalSettings::BorderHuge:
-            return baseSize * 5;
-        case InternalSettings::BorderVeryHuge:
-            return baseSize * 6;
-        case InternalSettings::BorderOversized:
-            return baseSize * 10;
-        }
-
-    } else {
-        switch (settings()->borderSize()) {
-        case KDecoration2::BorderSize::None:
-            return outlinesEnabled() ? 1 : 0;
-        case KDecoration2::BorderSize::NoSides:
-            return bottom ? qMax(4, baseSize) : outlinesEnabled() ? 1 : 0;
-        default:
-        case KDecoration2::BorderSize::Tiny:
-            return bottom ? qMax(4, baseSize) : baseSize;
-        case KDecoration2::BorderSize::Normal:
-            return baseSize * 4;
-        case KDecoration2::BorderSize::Large:
-            return baseSize * 3;
-        case KDecoration2::BorderSize::VeryLarge:
-            return baseSize * 4;
-        case KDecoration2::BorderSize::Huge:
-            return baseSize * 5;
-        case KDecoration2::BorderSize::VeryHuge:
-            return baseSize * 6;
-        case KDecoration2::BorderSize::Oversized:
-            return baseSize * 10;
-        }
-    }
-}
 
 //________________________________________________________________
 void Decoration::reconfigure()

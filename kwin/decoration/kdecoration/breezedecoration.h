@@ -153,7 +153,6 @@ private:
 
     //*@name border size
     //@{
-    int borderSize(bool bottom = false) const;
     inline bool hasBorders() const;
     inline bool hasNoBorders() const;
     inline bool hasNoSideBorders() const;
