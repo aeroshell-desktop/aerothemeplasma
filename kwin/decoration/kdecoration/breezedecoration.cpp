@@ -339,6 +339,16 @@ void Decoration::reconfigure()
 
     updateButtonsGeometryDelayed();
     update();
+
+    {
+        // Reload smodglow
+        QDBusMessage message = QDBusMessage::createMethodCall("org.kde.KWin", "/Effects", "", "reconfigureEffect");
+        QList<QVariant> args;
+        args.append("smodglow");
+        message.setArguments(args);
+        bool result = QDBusConnection::sessionBus().send(message);
+    }
+
 }
 
 //________________________________________________________________
