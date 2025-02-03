@@ -17,31 +17,31 @@ fi
 
 echo "Compiling plasmoids..."
 
-for filename in $PWD/plasma/plasmoids/src/*; do
-    cd $filename
+for filename in "$PWD/plasma/plasmoids/src/"*; do
+    cd "$filename"
     echo "Compiling $(pwd)"
     sh $USE_SCRIPT
     echo "Done."
-    cd $CUR_DIR
+    cd "$CUR_DIR"
 done
 
 echo "Compiling SMOD decorations..."
-cd $PWD/kwin/decoration
+cd "$PWD/kwin/decoration"
 sh $USE_SCRIPT
-cd $CUR_DIR
+cd "$CUR_DIR"
 echo "Done."
 
 echo "Compiling KWin effects..."
-for filename in $PWD/kwin/effects_cpp/*; do
-    cd $filename
+for filename in "$PWD/kwin/effects_cpp/"*; do
+    cd "$filename"
     echo "Compiling $(pwd)"
     sh $USE_SCRIPT
     echo "Done."
-    cd $CUR_DIR
+    cd "$CUR_DIR"
 done
 
-cd $PWD/misc/defaulttooltip
+cd "$PWD/misc/defaulttooltip"
 sh $USE_SCRIPT
-cd $CUR_DIR
+cd "$CUR_DIR"
 
 
