@@ -29,10 +29,10 @@ import org.kde.kirigami as Kirigami
 Item {
     id: root
 
-    Layout.minimumHeight: floatingOrbPanel.buttonIconSizes.height / 3;
-    Layout.maximumHeight: floatingOrbPanel.buttonIconSizes.height / 3;
-    Layout.minimumWidth: floatingOrbPanel.buttonIconSizes.width;
-    Layout.maximumWidth: floatingOrbPanel.buttonIconSizes.width;
+    Layout.minimumHeight: floatingOrbPanel.scaledHeight / 3;
+    Layout.maximumHeight: floatingOrbPanel.scaledHeight / 3;
+    Layout.minimumWidth: floatingOrbPanel.scaledWidth;
+    Layout.maximumWidth: floatingOrbPanel.scaledWidth;
     width: Layout.maximumWidth
     height: Layout.maximumHeight
     property bool compositing: false
@@ -75,8 +75,8 @@ Item {
         if(Plasmoid.configuration.offsetFloatingOrb) {
             pos.y += 3;
         }
-        orb.width = floatingOrbPanel.buttonIcon.implicitWidth
-        orb.height = floatingOrbPanel.buttonIcon.implicitHeight;
+        orb.width = floatingOrbPanel.scaledWidth
+        orb.height = floatingOrbPanel.scaledHeight / 3;
         if(orb.height === 30) {
             pos.y += 2;
         }
@@ -156,6 +156,9 @@ Item {
     Connections {
         target: Plasmoid.configuration
         function onCustomButtonImageChanged() {
+            positionOrb();
+        }
+        function onOrbWidthChanged() {
             positionOrb();
         }
     }

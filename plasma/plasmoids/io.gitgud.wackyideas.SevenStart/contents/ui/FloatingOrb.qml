@@ -20,8 +20,8 @@ import org.kde.kirigami as Kirigami
 
 Item {
     id: floatingOrb
-    width: buttonIconSizes.width
-    height: buttonIconSizes.height / 3
+    width: scaledWidth //buttonIconSizes.width
+    height: scaledHeight / 3 //buttonIconSizes.height / 3
     property alias buttonIconSizes: buttonIconSizes
     property alias buttonIcon: buttonIcon
     property alias buttonIconPressed: buttonIconPressed
@@ -38,33 +38,48 @@ Item {
         opacity: 0;
     }
     clip: false
+
+    property real aspectRatio: buttonIconSizes.height === 0 ? 1 : (buttonIconSizes.width / buttonIconSizes.height)
+    property int scaledWidth: Plasmoid.configuration.orbWidth === 0 ? buttonIconSizes.width : Plasmoid.configuration.orbWidth
+    property int scaledHeight: scaledWidth / aspectRatio
+
     Image {
         id: buttonIcon
         anchors.centerIn: parent
         smooth: true
-        source: orbTexture
+        source: floatingOrb.orbTexture
         sourceClipRect: Qt.rect(0, 0, buttonIconSizes.width, buttonIconSizes.height / 3);
+        fillMode: Image.PreserveAspectFit
+        width: floatingOrb.scaledWidth
+        height: floatingOrb.scaledHeight
     }
     Image {
         id: buttonIconPressed
         anchors.centerIn: parent
         visible: dashWindow.visible
         smooth: true
-        source: orbTexture
-        verticalAlignment: Image.AlignBottom
+        source: floatingOrb.orbTexture
+        //verticalAlignment: Image.AlignBottom
         sourceClipRect: Qt.rect(0, 2*buttonIconSizes.height / 3, buttonIconSizes.width, buttonIconSizes.height / 3);
+        fillMode: Image.PreserveAspectFit
+        width: floatingOrb.scaledWidth
+        height: floatingOrb.scaledHeight
     }
     Image {
         id: buttonIconHovered
         anchors.centerIn: parent
-        source: orbTexture
+        source: floatingOrb.orbTexture
+        smooth: true
         opacity: mouseArea.containsMouse || mouseAreaCompositingOff.containsMouse
         visible:  !dashWindow.visible
         Behavior on opacity {
-            NumberAnimation { properties: "opacity"; easing.type: Easing.Linear; duration: opacityDuration  }
+            NumberAnimation { properties: "opacity"; easing.type: Easing.Linear; duration: floatingOrb.opacityDuration  }
         }
-        verticalAlignment: Image.AlignVCenter
+        //verticalAlignment: Image.AlignVCenter
         sourceClipRect: Qt.rect(0, buttonIconSizes.height / 3, buttonIconSizes.width, buttonIconSizes.height / 3);
+        fillMode: Image.PreserveAspectFit
+        width: floatingOrb.scaledWidth
+        height: floatingOrb.scaledHeight
     }
 
     MouseArea

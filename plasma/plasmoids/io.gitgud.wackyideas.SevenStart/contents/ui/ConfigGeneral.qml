@@ -59,6 +59,7 @@ KCM.SimpleKCM {
     property alias cfg_useExtraRunners: useExtraRunners.checked
 
     property alias cfg_numberRows: numberRows.value
+    property alias cfg_orbWidth: orbWidth.value
 
     component CustomGroupBox: GroupBox {
         id: gbox
@@ -101,14 +102,27 @@ KCM.SimpleKCM {
 
             Layout.fillWidth: true
 
+            ColumnLayout {
+                anchors.fill: parent
+                IconPicker {
+                    id: iconPickerNormal
+                    currentIcon: cfg_customButtonImage
+                    defaultIcon: ""
+                    onIconChanged: iconName => { cfg_customButtonImage = iconName; }
+                    Layout.fillWidth: true
+                }
+                RowLayout {
 
-            IconPicker {
-                id: iconPickerNormal
-                currentIcon: cfg_customButtonImage
-                defaultIcon: ""
-                onIconChanged: iconName => { cfg_customButtonImage = iconName; }
-                anchors.right: parent.right
-                anchors.left: parent.left
+                    Text {
+                        text: "Orb size (0 for default/no scaling):"
+                    }
+                    SpinBox{
+                        id: orbWidth
+                        from: 0
+                        to: 500
+                    }
+                }
+
             }
 
 
