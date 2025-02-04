@@ -8,6 +8,8 @@ import "SMOD" as SMOD
 import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.kirigami 2.20 as Kirigami
+import org.kde.plasma.plasma5support as Plasma5Support
+
 //import org.kde.plasma.workspace.components 2.0 as PW
 //import org.kde.plasma.private.keyboardindicator as KeyboardIndicator
 import QtMultimedia
@@ -66,18 +68,6 @@ Item
         }
     }
 
-
-
-    /*KeyboardIndicator.KeyState {
-        id: capsLockState
-        key: Qt.Key_CapsLock
-    }*/
-    /*FontLoader
-    {
-        id: mainfont
-        source: Qt.resolvedUrl("font.ttf")
-}*/
-
     Background
     {
         anchors.fill: parent
@@ -86,7 +76,7 @@ Item
     }
     Timer {
         id: startupSoundDelay
-        interval: 3000
+        interval: 250
         running: (config.boolValue("enableStartup") && config.boolValue("startup")) && config.boolValue("playSound")
         onTriggered: {
             startupSound.play()
@@ -293,11 +283,46 @@ Item
             }
         }
 
+    Plasma5Support.DataSource {
+        id: executable
+        engine: "executable"
+        connectedSources: []
+        property bool read: false
+        property bool startupEnabled: !fileExists && config.boolValue("enableStartup");
+        property bool fileExists: false
+        onNewData: (sourceName, data) => {
+            var stdout = data["stdout"]
+            exited(stdout)
+            disconnectSource(sourceName) // cmd finished
+        }
+        function exec(cmd, r) {
+            executable.read = r;
+            if (cmd) {
+                connectSource(cmd)
+            }
+        }
+        signal exited(string stdout)
+    }
+    Connections {
+        target: executable
+        function onExited(stdout) {
+            if(executable.read) {
+                if(stdout.trim() !== "") { // If the file exists, do not play Vista boot animation
+                    executable.fileExists = true;
+                } else {
+                    executable.exec("touch /tmp/sddm.startup", false); // Create it to prevent multiple boot animations from happening
+                    if(executable.startupEnabled) seqanimation.start();
+                }
+            }
+        }
+    }
         // for testing failed login
-        currentIndex: config.boolValue("startup") && config.boolValue("enableStartup") ? Main.LoginPage.Startup : Main.LoginPage.SelectUser
+        currentIndex: {
+            return executable.startupEnabled ? Main.LoginPage.Startup : Main.LoginPage.SelectUser
+        }
 
-        Component.onCompleted:
-        {
+        function startSingleUserMode() {
+
             let singleusermode = userModel.count < 2 && !m_forceUserSelect
 
             if (singleusermode)
@@ -310,127 +335,25 @@ Item
                     let userDisplayName = userModel.data(userModel.index(index, 0), Main.UserRoles.RealNameRole)
                     let userPicture = userModel.data(userModel.index(index, 0), Main.UserRoles.IconRole)
 
-                    //console.log(userDisplayName)
-
                     userNameLabel.text = userDisplayName
                     avatar.source = userPicture
 
-                    //switchuser.enabled = false
-                    //switchuser.visible = false
-
                     pages.currentIndex = Main.LoginPage.Login
+                    return true;
                 }
             }
+            pages.currentIndex = Main.LoginPage.SelectUser;
+            return false;
+        }
 
-
-
+        Component.onCompleted:
+        {
+            executable.exec("ls /tmp/sddm.startup", true); // Check if sddm.startup exists
+            startSingleUserMode();
         }
         Item
         {
-            id: startuppage
-
-            z: 99
-            Rectangle
-            {
-                color: "black"
-                anchors.fill: parent
-            }
-
-            Item
-            {
-                id: startupanimation
-                property int progress: 0
-                anchors.centerIn: parent
-
-                Image
-                {
-                    id: startupimage
-                    anchors.centerIn: parent
-                    source: Qt.resolvedUrl("./Assets/17000")
-                }
-
-                Image
-                {
-                    id: startupimage2
-                    anchors.centerIn: parent
-                    source: Qt.resolvedUrl("./Assets/17001")
-                    opacity: 0
-                    Behavior on opacity
-                    {
-                        NumberAnimation { duration: 2000; easing.type: Easing.Linear }
-                    }
-                }
-
-                Image
-                {
-                    id: startupimage3
-                    anchors.centerIn: parent
-                    source: Qt.resolvedUrl("./Assets/17002")
-                    opacity: 0
-                    Behavior on opacity
-                    {
-                        NumberAnimation { duration: 2000; easing.type: Easing.Linear }
-                    }
-                }
-
-                Image
-                {
-                    id: startupimage4
-                    anchors.centerIn: parent
-                    source: Qt.resolvedUrl("./Assets/17003")
-                    opacity: 0
-                    Behavior on opacity
-                    {
-                        NumberAnimation { duration: 2000; easing.type: Easing.Linear }
-                    }
-                }
-
-                Timer
-                {
-                    id: simpletimer
-                    interval: realtimer.interval / 100
-                    repeat: pages.currentIndex === Main.LoginPage.Startup
-                    onTriggered: {
-                        if (startupanimation.progress > 70)
-                        {
-                            startupimage4.opacity = 1
-                        }
-                        else if (startupanimation.progress > 50)
-                        {
-                            startupimage3.opacity = 1
-                        }
-                        else if (startupanimation.progress > 30)
-                        {
-                            startupimage2.opacity = 1
-                        }
-
-                        startupanimation.progress++
-                    }
-                }
-            }
-
-            Timer
-            {
-                id: pilottimer
-                interval: 3000
-                running: pages.currentIndex === Main.LoginPage.Startup
-                onTriggered: { realtimer.start(); simpletimer.start(); fader.opacity = 0 }
-            }
-
-            Timer
-            {
-                id: realtimer
-                interval: 4000
-                onTriggered: { fader.opacity = 1; fader.endStartup = true }
-            }
-
-            // to hide the cursor
-            MouseArea
-            {
-                anchors.fill: parent
-                enabled: pages.currentIndex === Main.LoginPage.Startup
-                cursorShape: Qt.BlankCursor
-            }
+            id: startupPage
         }
 
         Item
@@ -1315,33 +1238,86 @@ Item
             KeyNavigation.tab: switchLayoutButton
         }
     }
-    Rectangle
+    Item
     {
-        id: fader
-        color: "black"
-        anchors.fill: parent
-        opacity: config.boolValue("startup") && config.boolValue("enableStartup") ? 1 : 0
-        property bool endStartup: false
-        z: 98
+        id: startuppage
 
-        Behavior on opacity
-        {
-            NumberAnimation
-            {
-                id: fadeanimation
-                duration: 650
-                easing.type: Easing.Linear;
-                onRunningChanged: {
-                    if (!fadeanimation.running)
-                    {
-                        if (fader.endStartup)
-                        {
-                            fader.opacity = 0
-                            pages.currentIndex = Main.LoginPage.SelectUser
-                        }
-                    }
-                }
+        z: 99
+        anchors.fill: parent
+        SequentialAnimation {
+            id: seqanimation
+            NumberAnimation { target: startuppage; property: "opacity"; to: 1;   duration: 200; easing.type: Easing.Linear }
+            NumberAnimation { target: startupimage; property: "opacity"; to: 1;  duration: 650; easing.type: Easing.Linear }
+            NumberAnimation { target: startupimage; property: "opacity"; to: 1;  duration: 200; easing.type: Easing.Linear }
+            NumberAnimation { target: startupimage2; property: "opacity"; to: 1; duration: 650; easing.type: Easing.Linear }
+            NumberAnimation { target: startupimage3; property: "opacity"; to: 1; duration: 650; easing.type: Easing.Linear }
+            NumberAnimation { target: startupimage4; property: "opacity"; to: 1; duration: 650; easing.type: Easing.Linear }
+            NumberAnimation { target: startupimage4; property: "opacity"; to: 1; duration: 200; easing.type: Easing.Linear }
+            ParallelAnimation {
+                NumberAnimation { target: startupimage2; property: "opacity"; to: 0;  duration: 650; easing.type: Easing.OutQuad }
+                NumberAnimation { target: startupimage3; property: "opacity"; to: 0;  duration: 650; easing.type: Easing.OutQuad }
+                NumberAnimation { target: startupimage4; property: "opacity"; to: 0;  duration: 650; easing.type: Easing.OutQuad }
+                NumberAnimation { target: startupimage; property: "opacity"; to: 0;  duration: 950; easing.type:  Easing.OutQuad }
             }
+            ScriptAction { script: { pages.startSingleUserMode(); } }
+            NumberAnimation { target: startuppage; property: "opacity"; to: 0; duration: 650; easing.type: Easing.Linear }
+            NumberAnimation { target: startupanimation; property: "opacity"; to: 0; duration: 650; easing.type: Easing.OutQuad }
+            PropertyAction { target: executable; property: "startupEnabled"; value: false }
+        }
+        visible: executable.startupEnabled
+        opacity: 1
+        Rectangle
+        {
+            color: "black"
+            anchors.fill: parent
+        }
+
+        Item
+        {
+            id: startupanimation
+            property int progress: 0
+            anchors.centerIn: parent
+
+            Image
+            {
+                id: startupimage
+                anchors.centerIn: parent
+                source: Qt.resolvedUrl("./Assets/17000")
+                opacity: 0
+            }
+
+            Image
+            {
+                id: startupimage2
+                anchors.centerIn: parent
+                source: Qt.resolvedUrl("./Assets/17001")
+                opacity: 0
+            }
+
+            Image
+            {
+                id: startupimage3
+                anchors.centerIn: parent
+                source: Qt.resolvedUrl("./Assets/17002")
+                opacity: 0
+            }
+
+            Image
+            {
+                id: startupimage4
+                anchors.centerIn: parent
+                source: Qt.resolvedUrl("./Assets/17003")
+                opacity: 0
+            }
+
+        }
+
+        // to hide the cursor
+        MouseArea
+        {
+            anchors.fill: parent
+            cursorShape: Qt.BlankCursor
         }
     }
+
 }

@@ -61,7 +61,7 @@ This section relates to the directories found in the ```plasma``` folder.
     - Plasma shell
     - Preset panel layout that can be applied from Edit mode
 
-3. Move ```sddm-theme-mod``` to ```/usr/share/sddm/themes```, and then run ```install-services.sh``` found in ```sddm-theme-mod/Services```.
+3. Move ```sddm-theme-mod``` to ```/usr/share/sddm/themes```. Optionally, to enable the Vista start screen, set ```enableStartup=true``` in ```theme.conf.user```
 4. Import and apply the color scheme through System Settings. 
 7. When applying the global theme, only apply the splash screen and uncheck everything else.
 
