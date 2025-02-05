@@ -52,7 +52,7 @@ Item {
 
     Image {
         id: bgtexture
-        source: "../images/bgtexture.jpg"
+        source: "/usr/share/sddm/themes/sddm-theme-mod/bgtexture.jpg"
         anchors.fill: parent
     }
 
