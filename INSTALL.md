@@ -84,7 +84,6 @@ This section relates to the directories found in the ```kwin``` folder.
     - Desaturate Unresponsive Applications
     - Fading Popups
     - Login
-    - Logout
     - SMOD Glow
     - SMOD Snap
     - Squash
@@ -97,6 +96,7 @@ This section relates to the directories found in the ```kwin``` folder.
     - Sliding Popups
     - Dialog Parent
     - Dim Inactive
+    - Logout
 
 ## Miscellaneous components <a name="misc"></a>
 
