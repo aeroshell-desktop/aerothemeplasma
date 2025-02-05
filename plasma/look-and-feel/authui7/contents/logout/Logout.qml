@@ -32,7 +32,7 @@ Image {
         id: executable
         engine: "executable"
         connectedSources: []
-        onNewData: {
+        onNewData: (sourceName, data) => {
             var exitCode = data["exit code"]
             var exitStatus = data["exit status"]
             var stdout = data["stdout"]
@@ -99,7 +99,7 @@ Image {
                             root.cancelRequested();
                             break;
                         case(4):
-                            executable.exec("ksysguard6 & disown");
+                            executable.exec("kstart ksysguard");
                             break;
                     }
                 }
@@ -122,7 +122,7 @@ Image {
                     }
                 }
                 delegate: Item {
-                    Layout.preferredWidth: delegateContent.implicitWidth
+                    Layout.preferredWidth: Math.max(delegateContent.implicitWidth, 190);
                     Layout.preferredHeight: 30
 
                     KSvg.FrameSvgItem {
