@@ -78,8 +78,8 @@ Item
     }
     Timer {
         id: startupSoundDelay
-        interval: 250
-        running: (config.boolValue("enableStartup") && config.boolValue("startup")) && config.boolValue("playSound")
+        interval: config.boolValue("enableStartup") ? 250 : 20
+        running: startupSound.playSound
         onTriggered: {
             startupSound.play()
         }
@@ -87,8 +87,9 @@ Item
 
     MediaPlayer {
         id: startupSound
+        property bool playSound: !executable.fileExists && config.boolValue("playSound")
         audioOutput: AudioOutput {}
-        autoPlay: (config.boolValue("startup") && !config.boolValue("enableStartup")) && config.boolValue("playSound")
+        //autoPlay: false
         source: "Assets/session-start.wav"
     }
     Component
@@ -362,7 +363,11 @@ Item
                     executable.fileExists = true;
                 } else {
                     executable.exec("touch /tmp/sddm.startup", false); // Create it to prevent multiple boot animations from happening
+                    if(startupSound.playSound) {
+                        startupSoundDelay.start()
+                    }
                     if(executable.startupEnabled) seqanimation.start();
+
                 }
             }
         }
@@ -751,15 +756,6 @@ Item
                         background: Image
                         {
                             source: loginButton.pressed ? "Assets/gopressed.png" : (loginButton.focus || loginButton.hovered ? "Assets/gohover.png" : "Assets/go.png")
-                            /*source:
-                            {
-                                if (loginButton.pressed) return "Assets/12275.png"
-                                if (loginButton.hovered && loginButton.focus) return "Assets/12274.png"
-                                if (loginButton.hovered && !loginButton.focus) return "Assets/12274.png"
-                                if (!loginButton.hovered && loginButton.focus) return "Assets/12276.png"
-                                return "Assets/12276.png"
-
-                            }*/
                         }
 
                         onClicked:
@@ -1343,7 +1339,7 @@ Item
         anchors.fill: parent
         SequentialAnimation {
             id: seqanimation
-            NumberAnimation { target: startuppage; property: "opacity"; to: 1;   duration: 200; easing.type: Easing.Linear }
+            NumberAnimation { target: startuppage; property: "opacity"; to: 1;   duration: 220; easing.type: Easing.Linear }
             NumberAnimation { target: startupimage; property: "opacity"; to: 1;  duration: 650; easing.type: Easing.Linear }
             NumberAnimation { target: startupimage; property: "opacity"; to: 1;  duration: 200; easing.type: Easing.Linear }
             NumberAnimation { target: startupimage2; property: "opacity"; to: 1; duration: 650; easing.type: Easing.Linear }
