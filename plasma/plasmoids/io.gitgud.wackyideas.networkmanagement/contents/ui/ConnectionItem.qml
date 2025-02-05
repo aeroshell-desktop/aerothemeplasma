@@ -184,152 +184,10 @@ ExpandableListItem {
                     connectionTitle: Qt.binding(() => model.ItemUniqueName)
                 });
             }
-        }/*,
-        Action {
-            enabled: Uuid && Type === PlasmaNM.Enums.Wireless && passwordIsStatic
-            text: i18n("Show Network's QR Code")
-            icon.name: "view-barcode-qr"
-            onTriggered: handler.requestWifiCode(ConnectionPath, Ssid, SecurityType);
-        },
-        Action {
-            text: i18n("Configure…")
-            icon.name: "configure"
-            onTriggered: KCMUtils.KCMLauncher.openSystemSettings(mainWindow.kcm, ["--args", "Uuid=" + Uuid])
-        }*/
+        }
     ]
 
-    /*Component {
-        id: buttonsComponent
-        Column {
-            Button {
-                text: i18n("Details")
-                onClicked: {
-                    const showDetailscomponent = Qt.createComponent("NetworkDetailsPage.qml");
-                    if (showDetailscomponent.status === Component.Error) {
-                        console.warn("Cannot create QR code component:", showDetailscomponent.errorString());
-                        return;
-                    }
-
-                    mainWindow.expanded = true; // just in case.
-                    stack.push(showDetailscomponent, {
-                        details: ConnectionDetails
-                    });
-                }
-            }
-        }
-    }*/
-
-    //customExpandedViewContent: detailsComponent
-
     Accessible.description: `${model.AccessibleDescription} ${subtitle}`
-
-    /*Component {
-        id: detailsComponent
-
-        Column {
-            visible: false
-            spacing: Kirigami.Units.smallSpacing
-            property Item detailsTabBar: detailsTabBar
-
-
-            PlasmaComponents3.TabBar {
-                id: detailsTabBar
-
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-                height: visible ? implicitHeight : 0
-                implicitHeight: contentHeight
-                position: PlasmaComponents3.TabBar.Header
-                visible: false //showSpeed
-
-                onCurrentIndexChanged: {
-                    // Only if there are the two tabs.
-                    if (showSpeed) {
-                        Plasmoid.configuration.currentDetailsTab = ["speed", "details"][currentIndex];
-                    }
-                }
-
-                onVisibleChanged: {
-                    if (!visible) {
-                        currentIndex = 1;
-                    }
-                }
-
-                PlasmaComponents3.TabButton {
-                    id: speedTabButton
-                    text: i18n("Speed")
-                }
-
-                PlasmaComponents3.TabButton {
-                    id: detailsTabButton
-                    text: i18n("Details")
-                }
-
-                Component.onCompleted: {
-                    if (!showSpeed || Plasmoid.configuration.currentDetailsTab === "details") {
-                        currentIndex = 1;
-                    }
-                }
-            }
-
-            DetailsText {
-                id: detailsTextColumn
-
-                width: parent.width
-                visible: detailsTabBar.currentIndex === 1
-
-                activeFocusOnTab: details.length > 0
-                details: ConnectionDetails
-
-                Accessible.description: details.join(" ")
-
-                Loader {
-                    anchors.fill: parent
-                    active: parent.activeFocus
-                    asynchronous: true
-                    z: -1
-
-                    sourceComponent: PlasmaExtras.Highlight {
-                        hovered: true
-                    }
-                }
-            }
-
-            FocusScope {
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-                height: trafficMonitorGraph.implicitHeight
-                visible: false// detailsTabBar.currentIndex === 0
-
-                activeFocusOnTab: true
-
-                Accessible.description: i18nc("@info:tooltip", "Current download speed is %1 kibibytes per second; current upload speed is %2 kibibytes per second", Math.round(rxSpeed / 1024), Math.round(txSpeed / 1024))
-
-                Loader {
-                    anchors.fill: parent
-                    active: parent.activeFocus
-                    asynchronous: true
-                    z: -1
-
-                    sourceComponent: PlasmaExtras.Highlight {
-                        hovered: true
-                    }
-                }
-
-                TrafficMonitor {
-                    id: trafficMonitorGraph
-                    width: parent.width
-                    downloadSpeed: rxSpeed
-                    uploadSpeed: txSpeed
-                }
-            }
-
-        }
-    }*/
 
     Component {
         id: passwordDialogComponent
@@ -424,7 +282,7 @@ ExpandableListItem {
             return LastUsed
         } else if (ConnectionState === PlasmaNM.Enums.Activated) {
             if (showSpeed) {
-                return i18n("Connected, ⬇ %1/s, ⬆ %2/s",
+                return i18n("Connected ⬇ %1/s, ⬆ %2/s",
                     KCoreAddons.Format.formatByteSize(rxSpeed),
                     KCoreAddons.Format.formatByteSize(txSpeed))
             } else {

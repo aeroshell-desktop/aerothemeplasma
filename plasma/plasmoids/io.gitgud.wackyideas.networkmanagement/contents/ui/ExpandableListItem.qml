@@ -475,7 +475,7 @@ Item {
                         //level: 5
 
                         // Otherwise colored text can be hard to see
-                        opacity: color === Kirigami.Theme.textColor ? 0.7 : 1.0
+                        opacity: 1 //color === Kirigami.Theme.textColor ? 0.7 : 1.0
 
                         Layout.fillWidth: true
 
