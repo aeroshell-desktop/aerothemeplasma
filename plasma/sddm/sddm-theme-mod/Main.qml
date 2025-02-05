@@ -2,13 +2,14 @@ import QtQuick 2.15
 import SddmComponents 2.0
 import QtQuick.Layouts 1.15
 import Qt5Compat.GraphicalEffects 1.0
-import QtQuick.Controls 2.8 as QQC2
+import QtQuick.Controls as QQC2
 import "SMOD" as SMOD
 //import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.kirigami 2.20 as Kirigami
 import org.kde.plasma.plasma5support as Plasma5Support
+import org.kde.kitemmodels as KItemModels
 
 //import org.kde.plasma.workspace.components 2.0 as PW
 //import org.kde.plasma.private.keyboardindicator as KeyboardIndicator
@@ -70,6 +71,7 @@ Item
 
     Background
     {
+        id: background
         anchors.fill: parent
         fillMode: Image.Stretch
         source: Qt.resolvedUrl(config.stringValue("background"))
@@ -261,11 +263,59 @@ Item
             }
         }
     }
+    Loader {
+        id: inputPanel
+        state: "hidden"
+        property bool active: false
+        readonly property bool keyboardActive: item ? item.active : false
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: background.bottom
+            leftMargin: Kirigami.Units.gridUnit*12
+            rightMargin: Kirigami.Units.gridUnit*12
+        }
+        function showHide() {
+            active = !active;
+            inputPanel.item.activated = Qt.binding(() => { return active });
+        }
+        Component.onCompleted: {
+            inputPanel.source = Qt.platform.pluginName.includes("wayland") ? "SMOD/VirtualKeyboard_wayland.qml" : "SMOD/VirtualKeyboard.qml"
+
+            if(inputPanel.status === Loader.Ready) {
+                var menuitem = session.createMenuSeparator();
+
+                session.addItem(menuitem);
+                menuitem = session.createMenuItem();
+                menuitem.text = "On-Screen Keyboard"
+                menuitem.checkable = false;
+                menuitem.icon.source = Qt.resolvedUrl("Assets/keyboard.png");
+                menuitem.triggered.connect(() => {
+                    password.forceActiveFocus();
+                    inputPanel.showHide();
+                });
+                session.addAction(menuitem);
+            }
+        }
+        onKeyboardActiveChanged: {
+            if (keyboardActive) {
+                inputPanel.z = 99;
+                Qt.inputMethod.show();
+                active = true;
+            } else {
+                //inputPanel.item.activated = false;
+                Qt.inputMethod.hide();
+                active = false;
+            }
+        }
+
+    }
 
     StackLayout
     {
         id: pages
         anchors.fill: parent
+        anchors.bottomMargin: inputPanel.active ? inputPanel.height : 0
 
         onCurrentIndexChanged:
         {
@@ -303,6 +353,7 @@ Item
         }
         signal exited(string stdout)
     }
+
     Connections {
         target: executable
         function onExited(stdout) {
@@ -316,6 +367,7 @@ Item
             }
         }
     }
+
         // for testing failed login
         currentIndex: {
             return executable.startupEnabled ? Main.LoginPage.Startup : Main.LoginPage.SelectUser
@@ -1013,10 +1065,13 @@ Item
             }
         }
 
-        onClicked:
+        enabled: !session.visible
+        onToggled:
         {
-            session.visible = !session.visible
-            session.enabled = session.visible
+            if(session.visible) session.close();
+            else session.open();
+            //session.visible = !session.visible
+            //session.enabled = session.visible
         }
 
         Keys.onReturnPressed:
@@ -1065,35 +1120,37 @@ Item
         width: 128
         height: 64
 
-        // SMOD.ComboBox is a copy of SddmComponents.ComboBox
-        // with the only change being the cursor shape
-        // because there is no public API to change it
-        SMOD.ComboBox
-        {
+        SMOD.Menu {
             id: session
-
-            width: parent.width
-            height: 24
-
-            visible: false
-            enabled: false
-
-            font.pixelSize: 10
-            //font.family: mainfont.name
-
-            model: sessionModel
+            x: 0
+            y: -session.height + accessbutton.height + session.verticalPadding
             index: sessionModel.lastIndex
-            borderColor: "#0c191c"
-            color: "#eaeaec"
-            menuColor : "#f4f4f8"
-            textColor : "#323232"
-            hoverColor : "#36a1d3"
-            focusColor : "#36a1d3"
+
+            function changeVal() {
+                session.valueChanged(this.index);
+                session.index = this.index;
+            }
+            function isIndex() {
+                return session.index === this.index
+            }
+            Component.onCompleted: {
+                for(var i = 0; i < sessionModel.count; i++) {
+                    const NameRole = sessionModel.KItemModels.KRoleNames.role("name");
+                    const name = sessionModel.data(sessionModel.index(i, 0), NameRole);
+                    var menuitem = createMenuItem();
+                    menuitem.text = name;
+                    menuitem.index = i;
+                    var func = isIndex.bind({index: i});
+                    menuitem.checkable = true;
+                    menuitem.checked = Qt.binding(func);
+                    menuitem.triggered.connect(changeVal.bind({index: i}));
+                    session.addAction(menuitem);
+                }
+            }
+
         }
     }
     }
-
-
 
     Item
     {
@@ -1214,11 +1271,51 @@ Item
                     smooth: false
                 }
             }
+            enabled: !powerMenu.visible
+            onClicked: {
+                if(powerMenu.visible) powerMenu.close();
+                else powerMenu.open();
 
-            onClicked: sddm.reboot()
+            }
 
-            Keys.onReturnPressed:
-            {
+            SMOD.Menu {
+                id: powerMenu
+                x: -powerMenu.width + parent.width //-parent.width + powerMenu.horizontalPadding
+                y: -powerMenu.height //-powerMenu.height + rebootButton.height //+ powerMenu.verticalPadding
+
+                Component.onCompleted: {
+                    var menuitem = powerMenu.createMenuItem();
+                    menuitem.text = "Restart";
+                    menuitem.triggered.connect(() => { sddm.reboot() });
+                    powerMenu.addAction(menuitem);
+                    powerMenu.addItem(powerMenu.createMenuSeparator());
+
+                    if(sddm.canSuspend) {
+                        menuitem = powerMenu.createMenuItem();
+                        menuitem.text = "Sleep";
+                        menuitem.triggered.connect(() => { sddm.suspend() });
+                        powerMenu.addAction(menuitem);
+                    }
+                    if(sddm.canHibernate) {
+                        menuitem = powerMenu.createMenuItem();
+                        menuitem.text = "Hibernate";
+                        menuitem.triggered.connect(() => { sddm.hibernate() });
+                        powerMenu.addAction(menuitem);
+                    }
+                    if(sddm.canHybridSleep) {
+                        menuitem = powerMenu.createMenuItem();
+                        menuitem.text = "Hybrid Sleep";
+                        menuitem.triggered.connect(() => { sddm.hybridSleep() });
+                        powerMenu.addAction(menuitem);
+                    }
+                    menuitem = powerMenu.createMenuItem();
+                    menuitem.text = "Shut down";
+                    menuitem.triggered.connect(() => { sddm.powerOff() });
+                    powerMenu.addAction(menuitem);
+                }
+
+            }
+            Keys.onReturnPressed: event => {
                 clicked()
                 event.accepted = true
             }

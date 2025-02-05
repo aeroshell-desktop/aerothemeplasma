@@ -77,8 +77,8 @@ Item {
     // because Plasma plays the sounds too early/too late for this to be accurate, the biggest offender being the sound that plays when the user successfully logs
     // back into the session. Plasma plays it right as kscreenlocker closes, which is too late and sounds jarring as a result.
     // It literally executes a kreadconfig to read kdeglobals to extract the sound theme because I cannot for the life of me find the appropriate API calls
-    // and then it manually *searches* for the appropriate sound file, because the SoundsModel component provided by kirigamiaddons (the only thing I could)
-    // actually find at all, does not have a standard way of representing these sounds at all.
+    // and then it manually *searches* for the appropriate sound file, because the SoundsModel component provided by kirigamiaddons (the only thing I could
+    // actually find at all), does not have a standard way of representing these sounds at all.
     Plasma5Support.DataSource {
         id: executable
         engine: "executable"
@@ -212,6 +212,8 @@ Item {
                 left: parent.left
                 right: parent.right
                 bottom: lockScreenUi.bottom
+                leftMargin: Kirigami.Units.gridUnit*12
+                rightMargin: Kirigami.Units.gridUnit*12
             }
             function showHide() {
                 state = state == "hidden" ? "visible" : "hidden";
@@ -235,7 +237,6 @@ Item {
                     PropertyChanges {
                         target: lockScreenRoot
                         height: lockScreenUi.height - inputPanel.height;
-                        //y: 0 - inputPanel.height + passwordArea.height - (switchuserButton.height + switchuserButton.anchors.topMargin);
                     }
                     PropertyChanges {
                         target: inputPanel
