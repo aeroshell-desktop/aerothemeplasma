@@ -15,7 +15,7 @@ import org.kde.ksvg 1.0 as KSvg
 import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
 import org.kde.kirigami 2.20 as Kirigami
 
-import org.kde.private.desktopcontainment.folder 0.1 as Folder
+import org.kde.private.desktopcontainment.folder as Folder
 
 import org.kde.plasma.private.containmentlayoutmanager 1.0 as ContainmentLayoutManager
 
@@ -61,10 +61,6 @@ ContainmentItem {
     property int handleDelay: 800
     property real haloOpacity: 0.5
 
-    property int iconSize: Kirigami.Units.iconSizes.small
-    property int iconWidth: iconSize
-    property int iconHeight: iconWidth
-
     readonly property int hoverActivateDelay: 750 // Magic number that matches Dolphin's auto-expand folders delay.
 
     readonly property Loader folderViewLayer: fullRepresentationItem.folderViewLayer
@@ -73,8 +69,6 @@ ContainmentItem {
     // Plasmoid.title is set by a Binding {} in FolderViewLayer
     toolTipSubText: ""
     Plasmoid.icon: (!Plasmoid.configuration.useCustomIcon && folderViewLayer.ready) ? symbolicizeIconName(folderViewLayer.view.model.iconName) : Plasmoid.configuration.icon
-
-    onIconHeightChanged: updateGridSize()
 
     // We want to do this here rather than in the model because we don't always want
     // symbolic icons everywhere, but we do know that we always want them in this
@@ -86,17 +80,6 @@ ContainmentItem {
         }
 
         return iconName + symbolicSuffix;
-    }
-
-    function updateGridSize() {
-        // onIconHeightChanged can be triggered before this component is complete and all the children are created
-        if (!toolBoxSvg) {
-            return;
-        }
-        appletsLayout.cellWidth = root.iconWidth + toolBoxSvg.elementSize("left").width + toolBoxSvg.elementSize("right").width;
-        appletsLayout.cellHeight = root.iconHeight + toolBoxSvg.elementSize("top").height + toolBoxSvg.elementSize("bottom").height;
-        appletsLayout.defaultItemWidth = appletsLayout.cellWidth * 6;
-        appletsLayout.defaultItemHeight = appletsLayout.cellHeight * 6;
     }
 
     function addLauncher(desktopUrl) {
@@ -319,6 +302,8 @@ ContainmentItem {
 
             cellWidth: Kirigami.Units.iconSizes.small
             cellHeight: cellWidth
+            defaultItemWidth: cellWidth * 6
+            defaultItemHeight: cellHeight * 6
 
             eventManagerToFilter: folderViewLayer.item?.view.view ?? null
 
@@ -331,17 +316,43 @@ ContainmentItem {
 
                 configOverlaySource: "ConfigOverlay.qml"
 
+                onAppletChanged: {
+                    applet.visible = true
+                }
+
+                Drag.dragType: Drag.Automatic
+                Drag.active: false
+                Drag.supportedActions: Qt.MoveAction
+                Drag.mimeData: {
+                    "text/x-plasmoidinstanceid": Plasmoid.containment.id+':'+appletContainer.applet.plasmoid.id
+                }
+                Drag.onDragFinished: dropEvent => {
+                    if (dropEvent == Qt.MoveAction) {
+                        appletContainer.visible = true
+                        appletContainer.applet.visible = true
+                        //currentApplet.applet.plasmoid.internalAction("remove").trigger()
+                    } else {
+                        appletContainer.visible = true
+                        //appletsModel.insert(configurationArea.draggedItemIndex - 1, {applet: appletContainer.applet});
+                    }
+                    //appletContainer.destroy()
+                    //root.dragAndDropping = false
+                    //root.layoutManager.save()
+                }
+
                 onUserDrag: (newPosition, dragCenter) => {
                     const pos = mapToItem(root.parent, dragCenter.x, dragCenter.y);
                     const newCont = root.containmentItemAt(pos.x, pos.y);
 
-                    if (newCont && newCont.plasmoid !== Plasmoid) {
-                        const newPos = newCont.mapFromApplet(Plasmoid, pos.x, pos.y);
-
+                    if (!newCont || newCont.plasmoid !== Plasmoid) {
                         // First go out of applet edit mode, get rid of the config overlay, release mouse grabs in preparation of applet reparenting
                         cancelEdit();
-                        newCont.Plasmoid.addApplet(appletContainer.applet.plasmoid, Qt.rect(newPos.x, newPos.y, appletContainer.applet.width, appletContainer.applet.height));
                         appletsLayout.hidePlaceHolder();
+                        appletContainer.grabToImage(result => {
+                            appletContainer.Drag.imageSource = result.url
+                            appletContainer.visible = false
+                            appletContainer.Drag.active = true
+                        })
                     }
                 }
 
@@ -398,7 +409,6 @@ ContainmentItem {
             }
 
             Plasmoid.setInternalAction("configure", configAction)
-            updateGridSize();
         }
     }
 }

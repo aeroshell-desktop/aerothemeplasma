@@ -11,7 +11,7 @@ import QtQuick.Layouts 1.15
 import org.kde.plasma.plasmoid 2.0
 import org.kde.kirigami 2.20 as Kirigami
 
-import org.kde.private.desktopcontainment.folder 0.1 as Folder
+import org.kde.private.desktopcontainment.folder as Folder
 
 Item {
     id: configLocation
@@ -19,7 +19,7 @@ Item {
     property string cfg_url
     property alias cfg_labelMode: labelMode.currentIndex
     property alias cfg_labelText: labelText.text
-    property bool titleVisible: !("containmentType" in plasmoid)
+    property bool titleVisible: Plasmoid.containment != Plasmoid
 
     onCfg_urlChanged: applyConfig()
 
@@ -112,12 +112,12 @@ Item {
 
                 onEnabledChanged: {
                     if (enabled && currentIndex !== -1) {
-                        cfg_url = placesModel.urlForIndex(currentIndex);
+                        cfg_url = Folder.DesktopSchemeHelper.getDesktopUrl(placesModel.urlForIndex(currentIndex));
                     }
                 }
 
                 onActivated: {
-                    cfg_url = placesModel.urlForIndex(index);
+                    cfg_url = Folder.DesktopSchemeHelper.getDesktopUrl(placesModel.urlForIndex(index));
                 }
             }
         }
@@ -140,13 +140,13 @@ Item {
 
                 onEnabledChanged: {
                     if (enabled && text !== "") {
-                        cfg_url = text;
+                        cfg_url = Folder.DesktopSchemeHelper.getDesktopUrl(text);
                     }
                 }
 
                 onTextChanged: {
                     if (enabled) {
-                        cfg_url = text;
+                        cfg_url = Folder.DesktopSchemeHelper.getDesktopUrl(text);
                     }
                 }
             }
@@ -163,7 +163,7 @@ Item {
                 id: directoryPicker
 
                 onUrlChanged: {
-                    locationCustomValue.text = url;
+                    locationCustomValue.text = Folder.DesktopSchemeHelper.getDesktopUrl(url);
                 }
             }
         }
@@ -186,7 +186,7 @@ Item {
             visible: titleVisible
 
             Item {
-                width: Kirigami.Units.iconSizes.small
+                width: Kirigami.Units.gridUnit
             }
 
             TextField {
