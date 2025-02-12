@@ -139,10 +139,10 @@ void SmodGlowEffect::registerWindow(const EffectWindow *w)
     // Attempt to connect to the decoration signal.
 #if TESTING_NEW_DPI
     auto connection = QObject::connect(smoddecoration, &SmodDecoration::buttonHoveredChanged, this,
-        [w, this](KDecoration2::DecorationButtonType button, bool hovered, QPoint pos, int dpi) {
+        [w, this](KDecoration3::DecorationButtonType button, bool hovered, QPoint pos, int dpi) {
 #else
     auto connection = QObject::connect(smoddecoration, &SmodDecoration::buttonHoverStatus, this,
-        [w, this](KDecoration2::DecorationButtonType button, bool hovered, QPoint pos) {
+        [w, this](KDecoration3::DecorationButtonType button, bool hovered, QPoint pos) {
         int dpi = m_current_dpi;
 #endif
 
@@ -150,7 +150,7 @@ void SmodGlowEffect::registerWindow(const EffectWindow *w)
 
         switch (button)
         {
-            case KDecoration2::DecorationButtonType::Minimize:
+            case KDecoration3::DecorationButtonType::Minimize:
             {
                 anim = this->windows.value(w)->m_min;
 
@@ -161,7 +161,7 @@ void SmodGlowEffect::registerWindow(const EffectWindow *w)
 #endif
                 break;
             }
-            case KDecoration2::DecorationButtonType::Maximize:
+            case KDecoration3::DecorationButtonType::Maximize:
             {
                 anim = this->windows.value(w)->m_max;
 #if RIGHT_SIDE_ORIGIN
@@ -171,7 +171,7 @@ void SmodGlowEffect::registerWindow(const EffectWindow *w)
 #endif
                 break;
             }
-            case KDecoration2::DecorationButtonType::Close:
+            case KDecoration3::DecorationButtonType::Close:
             {
                 anim = this->windows.value(w)->m_close;
 #if RIGHT_SIDE_ORIGIN
@@ -275,9 +275,9 @@ void SmodGlowEffect::prePaintWindow(EffectWindow *w, WindowPrePaintData &data, s
     /*qDebug() << "Min texture: " << m_texture_minimize.get()->size();
     qDebug() << "Max texture: " << m_texture_maximize.get()->size();
     qDebug() << "Close texture: " << m_texture_close.get()->size();*/
-    QSize min_size = smoddecoration->buttonRect(KDecoration2::DecorationButtonType::Minimize).size();
-    QSize max_size = smoddecoration->buttonRect(KDecoration2::DecorationButtonType::Maximize).size();
-    QSize close_size = smoddecoration->buttonRect(KDecoration2::DecorationButtonType::Close).size();
+    QSize min_size = smoddecoration->buttonRect(KDecoration3::DecorationButtonType::Minimize).size();
+    QSize max_size = smoddecoration->buttonRect(KDecoration3::DecorationButtonType::Maximize).size();
+    QSize close_size = smoddecoration->buttonRect(KDecoration3::DecorationButtonType::Close).size();
     /*qDebug() << "Min button: " << min_size;
     qDebug() << "Max button: " << max_size;
     qDebug() << "Close button: " << close_size;*/

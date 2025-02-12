@@ -71,7 +71,7 @@ find_package(KWin REQUIRED COMPONENTS
     kwineffects
 )
 
-find_package(KDecoration2 REQUIRED)
+find_package(KDecoration3 REQUIRED)
 
 find_package(KWinDBusInterface CONFIG REQUIRED)
 

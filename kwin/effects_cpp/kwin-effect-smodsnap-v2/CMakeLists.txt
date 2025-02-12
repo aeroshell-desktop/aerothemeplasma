@@ -43,7 +43,7 @@ find_package(KF${QT_MAJOR_VERSION} REQUIRED
         ConfigWidgets
 )
 
-find_package(KDecoration2 REQUIRED)
+find_package(KDecoration3 REQUIRED)
 
 if (QT_MAJOR_VERSION STREQUAL "5")
 find_package(KWinEffects REQUIRED
@@ -87,7 +87,7 @@ target_link_libraries(${TARGET_NAME}
     PRIVATE
         Qt${QT_MAJOR_VERSION}::Core
         KF${QT_MAJOR_VERSION}::ConfigGui
-        KDecoration2::KDecoration
+        KDecoration3::KDecoration
         PkgConfig::smoddecoration
 )
 

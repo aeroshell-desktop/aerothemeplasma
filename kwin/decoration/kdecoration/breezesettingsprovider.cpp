@@ -61,7 +61,7 @@ InternalSettingsPtr SettingsProvider::internalSettings(Decoration *decoration) c
     QString windowClass;
 
     // get the client
-    const auto client = decoration->client();
+    const auto client = decoration->window();
 
     for (auto internalSettings : std::as_const(m_exceptions)) {
         // discard disabled exceptions

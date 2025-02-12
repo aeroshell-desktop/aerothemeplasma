@@ -5,7 +5,7 @@
         "Name": "SMOD"
     },
     "X-KDE-ConfigModule": "kcm_smoddecoration",
-    "org.kde.kdecoration2": {
+    "org.kde.kdecoration3": {
         "blur": true,
         "recommendedBorderSize": "Normal"
     }

@@ -7,7 +7,7 @@
 #include "breezebutton.h"
 
 #include <KColorUtils>
-#include <KDecoration2/DecoratedClient>
+#include <KDecoration3/DecoratedWindow>
 #include <KIconLoader>
 
 #include <QPainter>
@@ -16,9 +16,9 @@
 
 namespace Breeze
 {
-using KDecoration2::ColorGroup;
-using KDecoration2::ColorRole;
-using KDecoration2::DecorationButtonType;
+using KDecoration3::ColorGroup;
+using KDecoration3::ColorRole;
+using KDecoration3::DecorationButtonType;
 
 //__________________________________________________________________
 Button::Button(DecorationButtonType type, Decoration *decoration, QObject *parent)
@@ -39,9 +39,9 @@ Button::Button(DecorationButtonType type, Decoration *decoration, QObject *paren
     updateGeometry();
 
     // connections
-    connect(decoration->client(), SIGNAL(iconChanged(QIcon)), this, SLOT(update()));
-    connect(decoration->settings().get(), &KDecoration2::DecorationSettings::reconfigured, this, &Button::reconfigure);
-    connect(this, &KDecoration2::DecorationButton::hoveredChanged, this, &Button::updateAnimationState);
+    connect(decoration->window(), SIGNAL(iconChanged(QIcon)), this, SLOT(update()));
+    connect(decoration->settings().get(), &KDecoration3::DecorationSettings::reconfigured, this, &Button::reconfigure);
+    connect(this, &KDecoration3::DecorationButton::hoveredChanged, this, &Button::updateAnimationState);
 
     connect(this, &Button::buttonHoverStatus, decoration, &Decoration::buttonHoverStatus);
 
@@ -65,31 +65,31 @@ Button::Button(QObject *parent, const QVariantList &args)
     m_iconSize = QSize(-1, -1);
 }
 
-void Button::smodPaintGlow(QPainter *painter, const QRect &repaintArea)
+void Button::smodPaintGlow(QPainter *painter, const QRectF &repaintArea)
 {
     return;
 }
 
 //__________________________________________________________________
-Button *Button::create(DecorationButtonType type, KDecoration2::Decoration *decoration, QObject *parent)
+Button *Button::create(DecorationButtonType type, KDecoration3::Decoration *decoration, QObject *parent)
 {
     if (auto d = qobject_cast<Decoration *>(decoration)) {
         Button *b = new Button(type, d, parent);
-        const auto c = d->client();
+        const auto c = d->window();
         switch (type) {
         case DecorationButtonType::Close:
             //b->setVisible(c->isCloseable());
-            //QObject::connect(c, &KDecoration2::DecoratedClient::closeableChanged, b, &Breeze::Button::setVisible);
+            //QObject::connect(c, &KDecoration3::DecoratedWindow::closeableChanged, b, &Breeze::Button::setVisible);
             b->setVisible(true);
             break;
 
         case DecorationButtonType::Maximize:
             b->setVisible(c->isMaximizeable() || c->isMinimizeable());
             b->setEnabled(c->isMaximizeable());
-            QObject::connect(c, &KDecoration2::DecoratedClient::maximizeableChanged, b,
+            QObject::connect(c, &KDecoration3::DecoratedWindow::maximizeableChanged, b,
             [b](bool maximizeable) {
                 auto d = qobject_cast<Decoration *>(b->decoration());
-                const auto c = d->client();
+                const auto c = d->window();
 
                 if (!c)
                 {
@@ -100,18 +100,18 @@ Button *Button::create(DecorationButtonType type, KDecoration2::Decoration *deco
                 b->setEnabled(maximizeable);
             });
             //b->setVisible(c->isMaximizeable());
-            //QObject::connect(c, &KDecoration2::DecoratedClient::maximizeableChanged, b, &Breeze::Button::setVisible);
+            //QObject::connect(c, &KDecoration3::DecoratedWindow::maximizeableChanged, b, &Breeze::Button::setVisible);
             break;
 
         case DecorationButtonType::Minimize:
             //b->setVisible(c->isMinimizeable());
-            //QObject::connect(c, &KDecoration2::DecoratedClient::minimizeableChanged, b, &Breeze::Button::setVisible);
+            //QObject::connect(c, &KDecoration3::DecoratedWindow::minimizeableChanged, b, &Breeze::Button::setVisible);
             b->setVisible(c->isMinimizeable() || c->isMaximizeable());
             b->setEnabled(c->isMinimizeable());
-            QObject::connect(c, &KDecoration2::DecoratedClient::minimizeableChanged, b,
+            QObject::connect(c, &KDecoration3::DecoratedWindow::minimizeableChanged, b,
             [b](bool minimizeable) {
                 auto d = qobject_cast<Decoration *>(b->decoration());
-                const auto c = d->client();
+                const auto c = d->window();
 
                 if (!c)
                 {
@@ -125,16 +125,16 @@ Button *Button::create(DecorationButtonType type, KDecoration2::Decoration *deco
 
         case DecorationButtonType::ContextHelp:
             b->setVisible(c->providesContextHelp());
-            QObject::connect(c, &KDecoration2::DecoratedClient::providesContextHelpChanged, b, &Breeze::Button::setVisible);
+            QObject::connect(c, &KDecoration3::DecoratedWindow::providesContextHelpChanged, b, &Breeze::Button::setVisible);
             break;
 
         case DecorationButtonType::Shade:
             b->setVisible(c->isShadeable());
-            QObject::connect(c, &KDecoration2::DecoratedClient::shadeableChanged, b, &Breeze::Button::setVisible);
+            QObject::connect(c, &KDecoration3::DecoratedWindow::shadeableChanged, b, &Breeze::Button::setVisible);
             break;
 
         case DecorationButtonType::Menu:
-            QObject::connect(c, &KDecoration2::DecoratedClient::iconChanged, b, [b]() {
+            QObject::connect(c, &KDecoration3::DecoratedWindow::iconChanged, b, [b]() {
                 b->update();
             });
             break;
@@ -150,7 +150,7 @@ Button *Button::create(DecorationButtonType type, KDecoration2::Decoration *deco
 }
 
 //__________________________________________________________________
-void Button::paint(QPainter *painter, const QRect &repaintRegion)
+void Button::paint(QPainter *painter, const QRectF &repaintRegion)
 {
     smodPaint(painter, repaintRegion);
     return;
@@ -330,7 +330,7 @@ QColor Button::backgroundColor() const
         return QColor();
     }
 
-    auto c = d->client();
+    auto c = d->window();
     QColor redColor(c->color(ColorGroup::Warning, ColorRole::Foreground));
 
     if (isPressed()) {

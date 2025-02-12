@@ -8,7 +8,7 @@
 #pragma once
 
 #include "breezedecoration.h"
-#include <KDecoration2/DecorationButton>
+#include <KDecoration3/DecorationButton>
 
 #include <QHash>
 #include <QImage>
@@ -23,7 +23,7 @@ class QVariantAnimation;
 namespace Breeze
 {
 
-class Button : public KDecoration2::DecorationButton
+class Button : public KDecoration3::DecorationButton
 {
     Q_OBJECT
     Q_PROPERTY(qreal hoverProgress READ hoverProgress WRITE setHoverProgress);
@@ -36,10 +36,10 @@ public:
     virtual ~Button() = default;
 
     //* button creation
-    static Button *create(KDecoration2::DecorationButtonType type, KDecoration2::Decoration *decoration, QObject *parent);
+    static Button *create(KDecoration3::DecorationButtonType type, KDecoration3::Decoration *decoration, QObject *parent);
 
     //* render
-    virtual void paint(QPainter *painter, const QRect &repaintRegion) override;
+    virtual void paint(QPainter *painter, const QRectF &repaintRegion) override;
 
     //* flag
     enum Flag {
@@ -106,10 +106,10 @@ public:
     qreal hoverProgress() const;
     void setHoverProgress(qreal hoverProgress);
 
-    void smodPaintGlow(QPainter *painter, const QRect &repaintArea);
+    void smodPaintGlow(QPainter *painter, const QRectF &repaintArea);
     void updateGeometry();
 signals:
-    void buttonHoverStatus(KDecoration2::DecorationButtonType button, bool hovered, QPoint pos);
+    void buttonHoverStatus(KDecoration3::DecorationButtonType button, bool hovered, QPoint pos);
 
 protected:
     void hoverEnterEvent(QHoverEvent *event) override;
@@ -125,13 +125,13 @@ private Q_SLOTS:
 
 private:
     //* private constructor
-    explicit Button(KDecoration2::DecorationButtonType type, Decoration *decoration, QObject *parent = nullptr);
+    explicit Button(KDecoration3::DecorationButtonType type, Decoration *decoration, QObject *parent = nullptr);
 
     //* draw button icon
     void drawIcon(QPainter *) const;
 
     void startHoverAnimation(qreal endValue);
-    void smodPaint(QPainter *painter, const QRect &repaintRegion);
+    void smodPaint(QPainter *painter, const QRectF &repaintRegion);
 
     //*@name colors
     //@{

@@ -36,7 +36,7 @@
 #include <KConfigGroup>
 #include <KSharedConfig>
 
-#include <KDecoration2/Decoration>
+#include <KDecoration3/Decoration>
 
 #include "hsvrgb.h"
 #include "wackyfunc.h"
@@ -598,7 +598,7 @@ void BlurEffect::setupDecorationConnections(EffectWindow *w)
         return;
     }
 
-    connect(w->decoration(), &KDecoration2::Decoration::blurRegionChanged, this, [this, w]() {
+    connect(w->decoration(), &KDecoration3::Decoration::blurRegionChanged, this, [this, w]() {
         updateBlurRegion(w);
     });
 }
@@ -638,7 +638,7 @@ QRegion BlurEffect::decorationBlurRegion(const EffectWindow *w) const
         return QRegion();
     }
 
-    QRegion decorationRegion = QRegion(w->decoration()->rect()) - w->contentsRect().toRect();
+    QRegion decorationRegion = QRegion(w->decoration()->rect().toAlignedRect()) - w->contentsRect().toRect();
     //! we return only blurred regions that belong to decoration region
     return decorationRegion.intersected(w->decoration()->blurRegion());
 }

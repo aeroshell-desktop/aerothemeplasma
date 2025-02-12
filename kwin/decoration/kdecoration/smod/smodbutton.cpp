@@ -10,7 +10,7 @@
 
 namespace Breeze
 {
-using KDecoration2::DecorationButtonType;
+using KDecoration3::DecorationButtonType;
 
 static QImage hoverImage(const QImage &image, const QImage &hoverImage, qreal hoverProgress)
 {
@@ -43,7 +43,7 @@ static QImage hoverImage(const QImage &image, const QImage &hoverImage, qreal ho
     return result;
 }
 
-void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
+void Button::smodPaint(QPainter *painter, const QRectF &repaintRegion)
 {
     Q_UNUSED(repaintRegion)
 
@@ -73,7 +73,7 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
     // menu button
     if (type() == DecorationButtonType::Menu)
     {
-        const auto c = decoration()->client();
+        const auto c = decoration()->window();
         QRectF iconRect(geometry().topLeft(), m_iconSize);
 
         iconRect.translate(0, (titlebarHeight - m_iconSize.height())/2);
@@ -91,7 +91,7 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
         int r = 0;
         int b = 0;
 
-        const auto c = decoration()->client();
+        const auto c = decoration()->window();
 
         bool isSingleClose = !(c->isMinimizeable() || c->isMaximizeable());
 
@@ -335,7 +335,7 @@ void Button::smodPaint(QPainter *painter, const QRect &repaintRegion)
 }
 void Button::hoverEnterEvent(QHoverEvent *event)
 {
-    KDecoration2::DecorationButton::hoverEnterEvent(event);
+    KDecoration3::DecorationButton::hoverEnterEvent(event);
 
     if (isHovered())
     {
@@ -346,7 +346,7 @@ void Button::hoverEnterEvent(QHoverEvent *event)
 
 void Button::hoverLeaveEvent(QHoverEvent *event)
 {
-    KDecoration2::DecorationButton::hoverLeaveEvent(event);
+    KDecoration3::DecorationButton::hoverLeaveEvent(event);
 
     if (!isHovered())
     {

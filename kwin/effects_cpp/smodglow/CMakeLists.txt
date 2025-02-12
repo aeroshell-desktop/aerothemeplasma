@@ -57,7 +57,7 @@ else ()
 find_package(KWin REQUIRED kwineffects)
 endif ()
 
-find_package(KDecoration2 REQUIRED)
+find_package(KDecoration3 REQUIRED)
 find_package(PkgConfig REQUIRED)
 find_package(KF6Config)
 
@@ -93,7 +93,7 @@ target_link_directories(${TARGET_NAME}
 
 target_link_libraries(${TARGET_NAME}
     PRIVATE
-        KDecoration2::KDecoration
+        KDecoration3::KDecoration
         PkgConfig::smoddecoration
         KF6::ConfigCore
         KF6::ConfigGui

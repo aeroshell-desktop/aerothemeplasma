@@ -20,7 +20,7 @@
 #include <kwinglutils.h>
 #endif
 
-#include <KDecoration2/DecorationButton>
+#include <KDecoration3/DecorationButton>
 #include <SMOD/Decoration/BreezeDecoration>
 typedef Breeze::Decoration SmodDecoration;
 

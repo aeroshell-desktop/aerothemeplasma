@@ -47,7 +47,7 @@ target_link_libraries(smoddecoration
         KF6::GuiAddons
         KF6::I18n
         KF6::IconThemes
-        KDecoration2::KDecoration
+        KDecoration3::KDecoration
 )
 
 install(TARGETS smoddecoration DESTINATION ${KDE_INSTALL_PLUGINDIR}/${KDECORATION_PLUGIN_DIR})
@@ -82,7 +82,7 @@ ecm_generate_pkgconfig_file(
     BASE_NAME "smoddecoration"
     LIB_NAME ":org.smod.smod.so"
     INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR}
-    LIB_INSTALL_DIR ${KDE_INSTALL_PLUGINDIR}/org.kde.kdecoration2
+    LIB_INSTALL_DIR ${KDE_INSTALL_PLUGINDIR}/org.kde.kdecoration3
     FILENAME_VAR pkgconfig_filename
 )
 

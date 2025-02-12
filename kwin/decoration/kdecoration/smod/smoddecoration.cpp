@@ -8,16 +8,16 @@
 #include <QString>
 #include <QPixmapCache>
 
-#include <KDecoration2/DecorationButtonGroup>
+#include <KDecoration3/DecorationButtonGroup>
 
 namespace Breeze
 {
 static int g_sDecoCount = 0;
-static std::shared_ptr<KDecoration2::DecorationShadow> g_smod_shadow, g_smod_shadow_unfocus;
+static std::shared_ptr<KDecoration3::DecorationShadow> g_smod_shadow, g_smod_shadow_unfocus;
 
 
 Decoration::Decoration(QObject *parent, const QVariantList &args)
-: KDecoration2::Decoration(parent, args)
+: KDecoration3::Decoration(parent, args)
 , m_animation(new QVariantAnimation(this))
 , m_shadowAnimation(new QVariantAnimation(this))
 {
@@ -41,10 +41,10 @@ void Decoration::updateShadow()
 {
     if(!internalSettings()->enableShadow())
     {
-        setShadow(std::shared_ptr<KDecoration2::DecorationShadow>(nullptr));
+        setShadow(std::shared_ptr<KDecoration3::DecorationShadow>(nullptr));
         return;
     }
-    if (client()->isActive())
+    if (window()->isActive())
     {
         g_smod_shadow = g_smod_shadow ? g_smod_shadow : smodCreateShadow(true);
         setShadow(g_smod_shadow);
@@ -56,7 +56,7 @@ void Decoration::updateShadow()
     }
 
 }
-std::shared_ptr<KDecoration2::DecorationShadow> Decoration::smodCreateShadow(bool active)
+std::shared_ptr<KDecoration3::DecorationShadow> Decoration::smodCreateShadow(bool active)
 {
     QImage shadowTexture = QImage(active ? ":/smod/decoration/shadow" : ":/smod/decoration/shadow-unfocus");
     auto margins = sizingMargins().shadowSizing();
@@ -64,7 +64,7 @@ std::shared_ptr<KDecoration2::DecorationShadow> Decoration::smodCreateShadow(boo
     QMargins padding(margins.padding_left, margins.padding_top, margins.padding_right, margins.padding_bottom);
     QRect innerShadowRect = shadowTexture.rect() - texMargins;
 
-    auto shadow = std::make_shared<KDecoration2::DecorationShadow>();
+    auto shadow = std::make_shared<KDecoration3::DecorationShadow>();
     shadow->setPadding(padding);
     shadow->setInnerShadowRect(innerShadowRect);
     shadow->setShadow(shadowTexture);
@@ -84,7 +84,7 @@ void Decoration::updateBlur()
     updateShadow();
 }
 
-void Decoration::smodPaint(QPainter *painter, const QRect &repaintRegion)
+void Decoration::smodPaint(QPainter *painter, const QRectF &repaintRegion)
 {
     painter->fillRect(rect(), Qt::transparent);
 
@@ -94,11 +94,11 @@ void Decoration::smodPaint(QPainter *painter, const QRect &repaintRegion)
     smodPaintTitleBar(painter, repaintRegion);
 }
 
-void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
+void Decoration::smodPaintGlow(QPainter *painter, const QRectF &repaintRegion)
 {
-    const auto c = client();
+    const auto c = window();
 
-    int SIDEBAR_HEIGHT = qMax(25, (size().height() / 4));
+    int SIDEBAR_HEIGHT = qMax(25, (int)(size().height() / 4));
     if(internalSettings()->invertTextColor() && isMaximized()) return;
     painter->setClipRegion(blurRegion());
     painter->setClipping(true);
@@ -112,10 +112,10 @@ void Decoration::smodPaintGlow(QPainter *painter, const QRect &repaintRegion)
     }
     painter->setClipping(false);
 }
-void Decoration::smodPaintOuterBorder(QPainter *painter, const QRect &repaintRegion)
+void Decoration::smodPaintOuterBorder(QPainter *painter, const QRectF &repaintRegion)
 {
     Q_UNUSED(repaintRegion);
-    bool active = client()->isActive();
+    bool active = window()->isActive();
     QString    s_top(":/smod/decoration/top");
     QString   s_left(":/smod/decoration/left");
     QString  s_right(":/smod/decoration/right");
@@ -263,7 +263,7 @@ void Decoration::smodPaintOuterBorder(QPainter *painter, const QRect &repaintReg
     }
 }
 
-void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion)
+void Decoration::smodPaintTitleBar(QPainter *painter, const QRectF &repaintRegion)
 {
     if (hideTitleBar())
     {
@@ -272,7 +272,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
 
     if (!hideCaption())
     {
-        const auto c = client();
+        const auto c = window();
         int titleAlignment = internalSettings()->titleAlignment();
         bool invertText = internalSettings()->invertTextColor() && c->isMaximized();
 
@@ -286,7 +286,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
         int blurHeight = rect.height();
 
         QColor shadowColor = QColor(0, 0, 0, 255);
-        QColor textColor = c->color(c->isActive() ? KDecoration2::ColorGroup::Active : KDecoration2::ColorGroup::Inactive, KDecoration2::ColorRole::Foreground);
+        QColor textColor = c->color(c->isActive() ? KDecoration3::ColorGroup::Active : KDecoration3::ColorGroup::Inactive, KDecoration3::ColorRole::Foreground);
 
         captionRect.setHeight(captionRect.height() & -2);
         painter->setFont(settings()->font());
@@ -422,7 +422,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRect &repaintRegion
     m_leftButtons->paint(painter, repaintRegion);
     m_rightButtons->paint(painter, repaintRegion);
 
-    /*foreach (QPointer<KDecoration2::DecorationButton> button, m_rightButtons->buttons()) {
+    /*foreach (QPointer<KDecoration3::DecorationButton> button, m_rightButtons->buttons()) {
         static_cast<Button *>(button.data())->smodPaintGlow(painter, repaintRegion);
     }*/
 }

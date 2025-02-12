@@ -16,7 +16,7 @@ target_link_libraries(aeroglassblur PRIVATE
 
     KF6::ConfigGui
 
-    KDecoration2::KDecoration
+    KDecoration3::KDecoration
     KF6::Svg
 
 )

@@ -7,8 +7,8 @@
 #include "smodsnap.h"
 #include "smod.h"
 
-#include <KDecoration2/Decoration>
-#include <KDecoration2/DecoratedClient>
+#include <KDecoration3/Decoration>
+#include <KDecoration3/DecoratedWindow>
 
 static void ensureResources()
 {

@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.16)
 project(breeze)
-set(PROJECT_VERSION "5.93.0")
+set(PROJECT_VERSION "6.3.80")
 set(PROJECT_VERSION_MAJOR 6)
 
 set(KF5_MIN_VERSION "5.102.0")
-set(KF6_MIN_VERSION "5.240.0")
+set(KF6_MIN_VERSION "6.10.0")
 set(KDE_COMPILERSETTINGS_LEVEL "5.82")
 set(QT5_MIN_VERSION "5.15.2")
-set(QT_MIN_VERSION "6.6.0")
+set(QT_MIN_VERSION "6.7.0")
 
 include(GenerateExportHeader)
 include(WriteBasicConfigVersionFile)
@@ -153,7 +153,7 @@ function(build_Qt6)
     add_subdirectory(libbreezecommon libbreezecommon6)
 
     if(WITH_DECORATIONS)
-        find_package(KDecoration2 REQUIRED)
+        find_package(KDecoration3 REQUIRED)
         add_subdirectory(kdecoration)
     endif()
 
