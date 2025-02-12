@@ -10,7 +10,7 @@ This is a project which aims to recreate the look and feel of Windows 7 as much 
 It is still in heavy development and testing. ATP has been tested on:
 
 1. Arch Linux x64 and other Arch derivatives, KDE Neon
-2. Plasma 6.2.2, KDE Frameworks 6.7.0, Qt 6.8.0
+2. Plasma 6.3.0, KDE Frameworks 6.10.0, Qt 6.8.2
 3. 96 DPI scaling, multi monitor
 4. X11, Wayland*
 
@@ -98,6 +98,11 @@ Initially I wanted to make a Vista variant of AeroThemePlasma but [catpswin56](h
 
 <img src="screenshots/battery.png">
 <img src="screenshots/system_tray.png">
+
+### Sound Mixer 
+
+<img src="screenshots/mixer.png">
+<img src="screenshots/mixer_expanded.png">
 
 ### Notifications 
 
