@@ -232,29 +232,22 @@ PlasmaExtras.Representation {
         }
     }
 
-    Notifications.WheelForwarder {
-        id: wheelForwarder
-        toItem: scrollView.contentItem
-    }
 
-    PlasmaComponents3.ScrollView {
-        id: scrollView
-        anchors.fill: parent
-        background: null
-        focus: true
-
-        contentItem: ListView {
+        ListView {
             id: list
-            width: scrollView.availableWidth
             focus: true
             model: root.expanded ? historyModel : null
             currentIndex: -1
-
+            anchors.fill: parent
+            anchors.bottomMargin: Kirigami.Units.smallSpacing / 2
+            clip: true
+            boundsBehavior: Flickable.StopAtBounds
             topMargin: Kirigami.Units.largeSpacing
             bottomMargin: Kirigami.Units.largeSpacing
             spacing: Kirigami.Units.smallSpacing
 
-            readonly property alias wheelForwarder: wheelForwarder
+            QQC2.ScrollBar.vertical: QQC2.ScrollBar { }
+            property bool scrollBarVisible: QQC2.ScrollBar.vertical.visible
 
             KeyNavigation.up: dndCheck
 
@@ -332,7 +325,7 @@ PlasmaExtras.Representation {
 
             delegate: DraggableDelegate {
                 id: delegate
-                width: ListView.view.width
+                width: ListView.view.width - (list.scrollBarVisible ? Kirigami.Units.iconSizes.small : 0)
                 contentItem: delegateLoader
 
                 // NOTE: The following animations replace the Transitions in the ListView
@@ -394,7 +387,7 @@ PlasmaExtras.Representation {
                         NumberAnimation {
                             target: transl
                             property: "x"
-                            to: list.width - (scrollView.PlasmaComponents3.ScrollBar.vertical.visible ? Kirigami.Units.largeSpacing * 2 : 0)
+                            to: list.width - (list.scrollBarVisible ? Kirigami.Units.iconSizes.small : 0)
                             duration: Kirigami.Units.longDuration
                         }
                     }
@@ -640,5 +633,5 @@ PlasmaExtras.Representation {
                 }
             }
         }
-    }
+    //}
 }

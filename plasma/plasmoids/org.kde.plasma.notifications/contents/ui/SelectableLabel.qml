@@ -76,6 +76,38 @@ PlasmaComponents3.ScrollView {
                 contextMenu.open(eventPoint.position.x, eventPoint.position.y);
             }
         }
+        MouseArea {
+            id: scrollMA
+            anchors.fill: parent
+            visible: bodyTextContainer.listViewParent !== null
+            propagateComposedEvents: true
+            onPressed: mouse => {
+                mouse.accepted = false
+            }
+            onReleased: mouse => {
+                mouse.accepted = false
+            }
+            onWheel: wheel => {
+
+                var listView = bodyTextContainer.listViewParent;
+
+                if (wheel.angleDelta.y < 0) {
+                    //make sure not to scroll too far
+                    if (!listView.atYEnd)
+                        listView.contentY -= wheel.angleDelta.y / 2
+                }
+                else {
+                    //make sure not to scroll too far
+                    if (!listView.atYBeginning)
+                        listView.contentY -= wheel.angleDelta.y / 2
+
+                }
+                if(listView.verticalOvershoot != 0.0) {
+                    listView.contentY += -listView.verticalOvershoot
+                }
+            }
+
+        }
     }
 
     Component {
@@ -84,9 +116,5 @@ PlasmaComponents3.ScrollView {
         EditContextMenu {
             target: bodyText
         }
-    }
-
-    Component.onCompleted: if (bodyTextContainer.listViewParent !== null) {
-        bodyTextContainer.listViewParent.wheelForwarder.interceptWheelEvent(bodyText);
     }
 }
