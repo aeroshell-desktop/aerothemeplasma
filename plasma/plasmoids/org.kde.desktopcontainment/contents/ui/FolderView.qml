@@ -14,7 +14,7 @@ import org.kde.kirigami 2.20 as Kirigami
 import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.kquickcontrolsaddons 2.0
 
-import org.kde.private.desktopcontainment.folder 0.1 as Folder
+import org.kde.private.desktopcontainment.folder as Folder
 import "code/FolderTools.js" as FolderTools
 
 FocusScope {
@@ -31,7 +31,7 @@ FocusScope {
     property alias url: dir.url
     property alias status: dir.status
     property alias perStripe: positioner.perStripe
-    property alias positions: positioner.positions
+    property alias positionerApplet: positioner.applet
     property alias errorString: dir.errorString
     property alias dragging: dir.dragging
     property alias dragInProgressAnywhere: dir.dragInProgressAnywhere
@@ -151,12 +151,26 @@ FocusScope {
         }
     }
 
+    function generateDragImage() {
+        for (var i = 0; i < gridView.count; i++) {
+            var item = gridView.itemAtIndex(i);
+            item.updateDragImage();
+        }
+    }
+
     Connections {
         target: dir
         function onPopupMenuAboutToShow(dropJob, mimeData, x, y) {
             if (root.isContainment && !Plasmoid.immutable) {
                 root.processMimeData(mimeData, x, y, dropJob);
             }
+        }
+
+        // Create drag images before dragging
+        // Due to async operations we can't call this before dragging starts,
+        // but we have to call it after a selection is done
+        function onSelectionDone() {
+            main.generateDragImage();
         }
     }
 
@@ -233,6 +247,7 @@ FocusScope {
         property int dragY: -1
         property var cPress: null
         property bool doubleClickInProgress: false
+        property bool renameByLabelClickInitiated: false
 
         acceptedButtons: {
             if (hoveredItem === null && main.isRootView) {
@@ -256,6 +271,12 @@ FocusScope {
         onPressed: mouse => {
             // Ignore press events outside the viewport (i.e. on scrollbars).
             if (!scrollArea.viewport.contains(Qt.point(mouse.x, mouse.y))) {
+                return;
+            }
+
+            // Ignore clicks if editor is enabled and we click on that
+            // BUG:494558
+            if (editor && childAt(mouse.x, mouse.y) === editor) {
                 return;
             }
 
@@ -410,8 +431,8 @@ FocusScope {
 
             if (!(pos.x <= hoveredItem.actionsOverlay.width && pos.y <= hoveredItem.actionsOverlay.height)) {
 
-                // Clicked on the label of an already-selected item: rename it
-                if (pos.x > hoveredItem.labelArea.x
+                // Clicked on the label of an already-selected item: schedule it for renaming when doubleClickTimer expires
+                renameByLabelClickInitiated = (pos.x > hoveredItem.labelArea.x
                     && pos.x <= hoveredItem.labelArea.x + hoveredItem.labelArea.width
                     && pos.y > hoveredItem.labelArea.y
                     && pos.y <= hoveredItem.labelArea.y + hoveredItem.labelArea.height
@@ -419,16 +440,14 @@ FocusScope {
                     && gridView.currentIndex !== -1
                     && !Qt.styleHints.singleClickActivation
                     && Plasmoid.configuration.renameInline
-                    && !doubleClickInProgress
-                ) {
-                    rename();
-                    return;
-                }
+                )
 
-                // Single-click mode or list view and single-clicked on the item or
+                // Single-click mode and single-clicked on the item or
                 // double-click mode and double-clicked on the item: open it
-                if (Qt.styleHints.singleClickActivation || root.useListViewMode || doubleClickInProgress || mouse.source === Qt.MouseEventSynthesizedByQt) {
+                if (Qt.styleHints.singleClickActivation || doubleClickInProgress || mouse.source === Qt.MouseEventSynthesizedByQt) {
+                    doubleClickInProgress = false
                     var func = root.useListViewMode && mouse.button === Qt.LeftButton && hoveredItem.isDir ? doCd : dir.run;
+
                     func(positioner.map(gridView.currentIndex));
                     previouslySelectedItemIndex = gridView.currentIndex;
                     hoveredItem = null;
@@ -446,8 +465,8 @@ FocusScope {
             gridView.ctrlPressed = (mouse.modifiers & Qt.ControlModifier);
             gridView.shiftPressed = (mouse.modifiers & Qt.ShiftModifier);
 
-            var cPos = mapToItem(gridView.contentItem, mouse.x, mouse.y);
-            var item = gridView.itemAt(cPos.x, cPos.y);
+            const mappedPos = mapToItem(gridView.contentItem, mouse.x, mouse.y)
+            var item = gridView.itemAt(mappedPos.x, mappedPos.y);
             var leftEdge = Math.min(gridView.contentX, gridView.originX);
 
             if (!item || item.blank) {
@@ -475,6 +494,7 @@ FocusScope {
             // Update rubberband geometry.
             if (main.rubberBand) {
                 var rB = main.rubberBand;
+                var cPos = mapToItem(gridView.contentItem, mouse.x, mouse.y);
 
                 if (cPos.x < cPress.x) {
                     rB.x = Math.max(leftEdge, cPos.x);
@@ -548,9 +568,6 @@ FocusScope {
             if (!containsMouse && !main.rubberBand) {
                 clearPressState();
             }
-            if(!containsMouse) {
-               hoveredItem = null;
-            }
         }
 
         onHoveredItemChanged: {
@@ -585,6 +602,10 @@ FocusScope {
             id: doubleClickTimer
 
             onTriggered: {
+                if (listener.renameByLabelClickInitiated && listener.doubleClickInProgress) {
+                    main.rename()
+                }
+                listener.renameByLabelClickInitiated = false
                 listener.doubleClickInProgress = false;
             }
         }
@@ -622,7 +643,6 @@ FocusScope {
             Component.onCompleted: {
                 scrollArea.ready = true;
             }
-
 
             GridView {
                 id: gridView
@@ -676,6 +696,7 @@ FocusScope {
                     }
                     return Math.floor(extraSpacing);
                 }
+
                 cellWidth: {
                     if (root.useListViewMode) {
                         return gridView.width - (verticalScrollBar.visible ? verticalScrollBar.width : 0);
@@ -911,7 +932,7 @@ FocusScope {
 
                             // Check if the rubberband intersects this cell first to avoid doing more
                             // expensive work.
-                            if (main.rubberBand.intersects(Qt.rect(itemX + Kirigami.Units.smallSpacing, itemY + Kirigami.Units.smallSpacing,
+                            if (rubberBand.intersects(Qt.rect(itemX + Kirigami.Units.smallSpacing, itemY + Kirigami.Units.smallSpacing,
                                 cWidth, cHeight))) {
                                 var item = gridView.contentItem.childAt(itemX + midWidth, itemY + midHeight);
 
@@ -921,7 +942,7 @@ FocusScope {
                                     var iconRect = Qt.rect(itemX + item.iconArea.x, itemY + item.iconArea.y,
                                         item.iconArea.width, item.iconArea.height);
 
-                                    if (main.rubberBand.intersects(iconRect)) {
+                                    if (rubberBand.intersects(iconRect)) {
                                         indices.push(index);
                                         continue;
                                     }
@@ -929,7 +950,7 @@ FocusScope {
                                     var labelRect = Qt.rect(itemX + item.labelArea.x, itemY + item.labelArea.y,
                                         item.labelArea.width, item.labelArea.height);
 
-                                    if (main.rubberBand.intersects(labelRect)) {
+                                    if (rubberBand.intersects(labelRect)) {
                                         indices.push(index);
                                         continue;
                                     }
@@ -1288,7 +1309,6 @@ FocusScope {
 
             folderModel: dir
 
-
             perStripe: Math.floor((gridView.flow === GridView.FlowLeftToRight)
                 ? (gridView.width / gridView.cellWidth)
                 : (gridView.height / gridView.cellHeight))
@@ -1310,6 +1330,7 @@ FocusScope {
 
         Component {
             id: editorComponent
+
             RenameEditor {
                 id: editor
 
@@ -1319,6 +1340,7 @@ FocusScope {
                     if (targetItem) {
                         dir.rename(positioner.map(targetItem.index), text);
                         targetItem = null;
+                        gridView.forceActiveFocus();
                     }
                 }
 
