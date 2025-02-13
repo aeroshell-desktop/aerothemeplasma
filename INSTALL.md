@@ -20,6 +20,8 @@ pacman -S cmake extra-cmake-modules ninja qt6-virtualkeyboard qt6-multimedia qt6
 ```
 - (optionally) plymouth
 
+KSysGuard has been officially deprecated by KDE, however an unofficial [port](https://github.com/zvova7890/ksysguard6) exists for Qt6, which can be installed using the [AUR](https://aur.archlinux.org/packages/ksysguard6-git) package on Arch-based distros.
+
 ### Kubuntu
 Required Packages:
 
