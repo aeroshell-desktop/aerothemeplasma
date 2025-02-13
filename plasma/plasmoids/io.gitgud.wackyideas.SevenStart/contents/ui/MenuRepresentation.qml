@@ -157,6 +157,7 @@ PlasmaCore.Dialog {
 		nonCompositingIcon.iconSource = "";
 		searchField.forceActiveFocus();
     }
+    property int shutdownIndex: -1
 	
 	function popupPosition() {
 		var pos = kicker.mapToGlobal(kicker.x, kicker.y);
@@ -363,6 +364,8 @@ PlasmaCore.Dialog {
 					PlasmaExtras.MenuItem { separator: true }
 					`, contextMenu);
 					contextMenu.addMenuItem(object);
+				} else {
+					root.shutdownIndex = index;
 				}
 			}
 			onObjectRemoved: (index, object) => contextMenu.removeMenuItem(object)
@@ -1273,8 +1276,10 @@ PlasmaCore.Dialog {
 						shutdown.focus = false;
 					}
 					onClicked: {
+						if(root.shutdownIndex !== -1) {
+							filteredMenuItemsModel.trigger(root.shutdownIndex)
+						}
 						root.visible = false;
-						pmEngine.performOperation("requestShutDown");
 					}
 				}
 			}
