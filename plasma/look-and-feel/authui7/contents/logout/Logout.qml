@@ -78,7 +78,7 @@ Image {
             id: mainColumn
 
             anchors.centerIn: parent
-            anchors.verticalCenterOffset: Kirigami.Units.gridUnit*5
+            anchors.verticalCenterOffset: Kirigami.Units.gridUnit
             width: Math.max(190, mainColumn.implicitWidth)
 
             spacing: 5
@@ -103,7 +103,7 @@ Image {
                             root.cancelRequested();
                             break;
                         case(4):
-                            executable.exec("kstart ksysguard");
+                            executable.exec("kstart plasma-systemmonitor");
                             break;
                     }
                 }
