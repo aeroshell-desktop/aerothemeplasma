@@ -38,12 +38,9 @@ Item {
     }
 
     property bool shownDialog: dialog.visible
-    //property bool changedItems: false
     property int intendedWidth: container.activeApplet ? (typeof container.activeApplet.fullRepresentationItem.flyoutIntendedWidth !== "undefined" ? container.activeApplet.fullRepresentationItem.flyoutIntendedWidth : -1) : -1
 
-
     onShownDialogChanged: {
-        //changedItems = false;
         updateHeight();
     }
 
@@ -72,13 +69,6 @@ Item {
         buttonIcon: "pin"
 
         z: 9999
-
-        //KeyNavigation.down: backButton.KeyNavigation.down
-        //KeyNavigation.left: configureButton.visible ? configureButton : configureButton.KeyNavigation.left
-
-        /*PlasmaComponents.ToolTip {
-         *       text: parent.text
-    }*/
     }
 
     // Main content layout
@@ -91,8 +81,6 @@ Item {
             right: parent.right
             bottomMargin: 0
         }
-        //anchors.top: parent.top
-
 
         anchors.margins: Kirigami.Units.smallSpacing
         // TODO: remove this so the scrollview fully touches the header;
@@ -102,28 +90,8 @@ Item {
         HiddenItemsView {
             id: hiddenItemsView
             Layout.preferredWidth: hiddenItemsView.width
-            //Layout.minimumHeight: hiddenItemsView.flyoutHeight
-            //Layout.maximumHeight: hiddenItemsView.flyoutHeight
 
             visible: !systemTrayState.activeApplet
-            /*property int previousItemCount: 0
-            onHiddenItemsCountChanged: {
-                if(shownDialog) {
-                    var itemCount = hiddenItemsView.hiddenItemsCount
-                    if(itemCount > previousItemCount) {
-                        if(itemCount % 3 == 1) {
-                            console.log("big change " + hiddenItemsView.flyoutHeight + " " + hiddenItemsView.implicitHeight)
-                            changedItems = true;
-                        }
-                    } else if(itemCount < previousItemCount) {
-                        if(itemCount % 3 == 0) {
-                           changedItems = true;
-                        }
-                    }
-                }
-
-                previousItemCount = hiddenItemsView.hiddenItemsCount;
-            }*/
             onVisibleChanged: {
 
                 if (visible) {
@@ -143,14 +111,8 @@ Item {
             Layout.margins: Kirigami.Units.smallSpacing //mergeHeadings ? 0 : dialog.topPadding
             Layout.bottomMargin: Kirigami.Units.mediumSpacing
 
-            //clip: true
             KeyNavigation.up: pinButton
             KeyNavigation.backtab: pinButton
-            /*Rectangle {
-                id: rectxd
-                color: "red"
-                anchors.fill: parent
-            }*/
 
             onVisibleChanged: {
                 if (visible) {
@@ -169,14 +131,10 @@ Item {
             bottom: parent.bottom
             left: parent.left
             right: parent.right
-            /*leftMargin: dialogSvg.margins.left
-            rightMargin: dialogSvg.margins.right
-            bottomMargin: dialogSvg.margins.bottom*/
-
         }
         property QtObject applet: systemTrayState.activeApplet || root
         visible: trayHeading.applet && trayHeading.applet.plasmoid.internalAction("configure")
-        height: 40
+        height: visible ? 40 : 0
 
         Item {
             id: paddingLeft
@@ -227,16 +185,10 @@ Item {
             bottom: parent.bottom
             left: parent.left
             right: parent.right
-            /*leftMargin: dialogSvg.margins.left
-            rightMargin: dialogSvg.margins.right
-            bottomMargin: dialogSvg.margins.bottom*/
-
         }
 
         visible: trayHeading.visible
-        //visible: container.appletHasFooter
         height: trayHeading.height + Kirigami.Units.smallSpacing / 2 //+ container.footerHeight + Kirigami.Units.smallSpacing
-        //height: trayHeading.height + container.headingHeight + (container.headingHeight === 0 ? 0 : Kirigami.Units.smallSpacing/2)
         color: "#f1f5fb"
         Rectangle {
             id: plasmoidFooterBorder
