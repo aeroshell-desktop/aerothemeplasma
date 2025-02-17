@@ -22,7 +22,6 @@ Item {
     property int flyoutHeight: hiddenItemsView.visible ?
     hiddenItemsView.implicitHeight + trayHeading.height + Kirigami.Units.largeSpacing  :
     (container.flyoutImplicitHeight > (Kirigami.Units.iconSizes.small * 8 - trayHeading.height - Kirigami.Units.largeSpacing) ? container.flyoutImplicitHeight + container.headingHeight + container.footerHeight + trayHeading.height + Kirigami.Units.largeSpacing*4 : Kirigami.Units.iconSizes.small*19)
-    //: Kirigami.Units.iconSizes.small * 19
     Layout.minimumWidth: flyoutWidth
     Layout.minimumHeight: flyoutHeight
 
@@ -39,6 +38,7 @@ Item {
 
     property bool shownDialog: dialog.visible
     property int intendedWidth: container.activeApplet ? (typeof container.activeApplet.fullRepresentationItem.flyoutIntendedWidth !== "undefined" ? container.activeApplet.fullRepresentationItem.flyoutIntendedWidth : -1) : -1
+    property bool useTransparentFlyout: container.activeApplet ? (typeof container.activeApplet.fullRepresentationItem.useTransparentFlyout !== "undefined" ? container.activeApplet.fullRepresentationItem.useTransparentFlyout : false) : false
 
     onShownDialogChanged: {
         updateHeight();

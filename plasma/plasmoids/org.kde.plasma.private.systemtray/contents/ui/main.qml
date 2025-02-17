@@ -317,7 +317,7 @@ ContainmentItem {
             visible: systemTrayState.expanded
             appletInterface: root
 
-            backgroundHints: PlasmaCore.Dialog.SolidBackground
+            backgroundHints: expandedRepresentation.useTransparentFlyout ? PlasmaCore.Dialog.StandardBackground : PlasmaCore.Dialog.SolidBackground
 
             onWidthChanged: setDialogPosition();
             onHeightChanged: setDialogPosition();
