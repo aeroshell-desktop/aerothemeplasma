@@ -27,14 +27,10 @@ KWin.TabBoxSwitcher {
 	MinimizeAllController {
 		id: minimizeAllController
 	}
-	onVisibleChanged: {
-        //dialog.opacity = tabBox.visible && dialog.mainItem.count > 1;
-        dialog.visible = tabBox.visible && dialog.mainItem.count > 1;
-    }
     PlasmaCore.Dialog {
         id: dialog
         location: PlasmaCore.Types.Floating
-        visible: true
+        visible: tabBox.visible && dialog.mainItem.count > 1
         opacity: 1
         flags: Qt.X11BypassWindowManagerHint | Qt.WindowStaysOnTopHint | Qt.Popup
         x: tabBox.screenGeometry.x + tabBox.screenGeometry.width * 0.5 - dialogMainItem.width * 0.5
@@ -89,47 +85,6 @@ KWin.TabBoxSwitcher {
                 visible: false
 
             }
-            /*Item {
-                id: glowCorners
-                anchors.top: parent.top
-                anchors.left: parent.left
-                anchors.bottom: parent.bottom
-                anchors.right: parent.right
-                anchors.rightMargin: -dialogSvg.margins.right+1
-                //width: dialogMainItem.intendedWidth -dialogSvg.margins.right + 2 // idek why QML is just sentient sometimes
-                anchors.topMargin: -dialogSvg.margins.top+2
-                anchors.leftMargin: -dialogSvg.margins.left+2
-                anchors.bottomMargin: -dialogSvg.margins.bottom+2
-
-                Image {
-                    anchors {
-                        top: parent.top
-                        left: parent.left
-                    }
-                    source: StandardPaths.writableLocation(StandardPaths.GenericDataLocation) + "/smod/framecornereffect.png" //"~/.local/share/smod/reflections.png"
-                    smooth: true
-                }
-                Image {
-                    anchors {
-                        top: parent.top
-                        right: parent.right
-                    }
-                    source: StandardPaths.writableLocation(StandardPaths.GenericDataLocation) + "/smod/framecornereffect.png"
-                    mirror: true
-                    smooth: true
-                }
-
-                layer.enabled: true
-                layer.effect: OpacityMask {
-                    maskSource: Rectangle {
-                        x: glowCorners.x
-                        y: glowCorners.y
-                        width: glowCorners.width
-                        height: glowCorners.height
-                        radius: 4
-                    }
-                }
-            }*/
             ColumnLayout {
                 id: columnLayout
                 spacing: 0
