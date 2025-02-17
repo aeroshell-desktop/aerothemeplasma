@@ -54,6 +54,16 @@ $ sh compile.sh
 
 This section relates to the directories found in the ```plasma``` folder.
 
+### Install scripts
+
+1. Run the following scripts:
+```bash
+$ chmod +x install_plasmoids.sh && ./install_plasmoids.sh
+$ chmod +x install_plasma_components.sh && install_plasma_components.sh # Requires authorization for SMOD resources and SDDM themes
+```
+
+### Manual
+
 1. Move the ```smod``` folder to ```~/.local/share```, or ```/usr/share/``` for a system-wide installation. This will install the resources required by many other components in this project.
 
 2. Move the folders ```desktoptheme```, ```look-and-feel```, ```plasmoids```, ```layout-templates```, ```shells``` into ```~/.local/share/plasma```. If the folder doesn't exist, create it. These folders contain the following:
@@ -64,8 +74,7 @@ This section relates to the directories found in the ```plasma``` folder.
     - Preset panel layout that can be applied from Edit mode
 
 3. Move ```sddm-theme-mod``` to ```/usr/share/sddm/themes```. Optionally, to enable the Vista start screen, set ```enableStartup=true``` in ```theme.conf.user```
-4. Import and apply the color scheme through System Settings. 
-7. When applying the global theme, only apply the splash screen and uncheck everything else.
+4. Import and apply the color scheme through System Settings.
 
 ## KWin components <a name="kwin"></a>
 
@@ -115,7 +124,7 @@ If SDDM fails to pick up on the cursor theme, go to System Settings -> Startup a
 
 ## Configuring AeroThemePlasma <a name="conf"></a>
 
-1. After installing everything, restart KDE Plasma and KWin.
+1. Apply the Global Theme after installing everything. Make sure to restart KDE Plasma and KWin as well, by restarting your session.
 2. On a fresh KDE install, **remove** the default panel and add the "AeroThemePlasma Taskbar" panel using Edit mode. You can also manually configure the panel for a finer setup.
 3. Right click on the desktop and open "Desktop and Wallpaper", and select "Desktop (Win7)" under Layout, and apply the changes.
 4. Disable the following entries in the system tray settings:
@@ -129,18 +138,19 @@ If SDDM fails to pick up on the cursor theme, go to System Settings -> Startup a
     - Network Management
     - Sound Mixer
 5. When updating KDE Plasma, usually through a full system upgrade, recompiling KWin effects and the DefaultToolTip component is necessary.
-6. In System Settings -> Session -> Desktop Session, uncheck the "Ask for confirmation" option.
-7. In System Settings -> Keyboard -> Shortcuts, under KWin, disable the "Peek at Desktop" shortcut, and remap the "MinimizeAll" to Meta+D
-8. In System Settings -> Fonts, configure the fonts as shown here:
+6. In System Settings -> Colors & Themes -> Colors, set "Accent color from color scheme"
+7. In System Settings -> Session -> Desktop Session, uncheck the "Ask for confirmation" option.
+8. In System Settings -> Keyboard -> Shortcuts, under KWin, disable the "Peek at Desktop" shortcut, and remap the "MinimizeAll" to Meta+D
+9. In System Settings -> Fonts, configure the fonts as shown here:
 
 <img src="screenshots/fontconfig.png">
 
 The following steps are optional: 
 
-9. To enable full font hinting just for Segoe UI, move the ```fontconfig``` folder to ```~/.config```. This will enable full font hinting for Segoe UI while keeping slight font hinting for other fonts. Additionally, append ```QML_DISABLE_DISTANCEFIELD=1``` into ```/etc/environment``` in order for this to be properly applied. *While full font hinting makes the font rendering look sharper and somewhat closer to Windows 7's ClearType, on Linux this option causes noticeably faulty kerning. This has been a [prominent](https://github.com/OpenTTD/OpenTTD/issues/11765) [issue](https://gitlab.gnome.org/GNOME/pango/-/issues/656) [for](https://gitlab.gnome.org/GNOME/pango/-/issues/463) [several](https://gitlab.gnome.org/GNOME/pango/-/issues/404) [years](https://github.com/harfbuzz/harfbuzz/issues/2394) [now](https://www.phoronix.com/news/HarfBuzz-Hinting-Woe) and while the situation has improved from being unreadable to just being ugly, a complete solution for this doesn't seem to be coming anytime soon.*
-10. For Wine users it's recommended to install the [VistaVG Ultimate](https://www.deviantart.com/vishal-gupta/art/VistaVG-Ultimate-57715902) msstyles theme.
-11. To install custom branding at the Info Center, move ```kcm-about-distrorc``` from the ```branding``` folder to ```~/.config/kdedefaults/```, then edit the file's ```LogoPath``` entry to point to the absolute path of ```kcminfo.png```. 
-12. Add the following to ```~/.bashrc``` to get bash to look more like the command prompt on Windows:
+10. To enable full font hinting just for Segoe UI, move the ```fontconfig``` folder to ```~/.config```. This will enable full font hinting for Segoe UI while keeping slight font hinting for other fonts. Additionally, append ```QML_DISABLE_DISTANCEFIELD=1``` into ```/etc/environment``` in order for this to be properly applied. *While full font hinting makes the font rendering look sharper and somewhat closer to Windows 7's ClearType, on Linux this option causes noticeably faulty kerning. This has been a [prominent](https://github.com/OpenTTD/OpenTTD/issues/11765) [issue](https://gitlab.gnome.org/GNOME/pango/-/issues/656) [for](https://gitlab.gnome.org/GNOME/pango/-/issues/463) [several](https://gitlab.gnome.org/GNOME/pango/-/issues/404) [years](https://github.com/harfbuzz/harfbuzz/issues/2394) [now](https://www.phoronix.com/news/HarfBuzz-Hinting-Woe) and while the situation has improved from being unreadable to just being ugly, a complete solution for this doesn't seem to be coming anytime soon.*
+11. For Wine users it's recommended to install the [VistaVG Ultimate](https://www.deviantart.com/vishal-gupta/art/VistaVG-Ultimate-57715902) msstyles theme.
+12. To install custom branding at the Info Center, move ```kcm-about-distrorc``` from the ```branding``` folder to ```~/.config/kdedefaults/```, then edit the file's ```LogoPath``` entry to point to the absolute path of ```kcminfo.png```. 
+13. Add the following to ```~/.bashrc``` to get bash to look more like the command prompt on Windows:
 
 ```bash
 PS1='C:${PWD//\//\\\\}> '
@@ -148,4 +158,4 @@ PS1='C:${PWD//\//\\\\}> '
 echo -e "Microsoft Windows [Version 6.1.7600]\nCopyright (c) 2009 Microsoft Corporation.  All rights reserved.\n"
 ```
 
-13. In the terminal emulator of your choice (e.g Konsole), set the font to [TerminalVector](https://www.yohng.com/software/terminalvector.html), size 9pt. Disable smooth font rendering and bold text, reduce the line spacing and margins to 0px, set the cursor shape to underline, and enable cursor blinking. 
+14. In the terminal emulator of your choice (e.g Konsole), set the font to [TerminalVector](https://www.yohng.com/software/terminalvector.html), size 9pt. Disable smooth font rendering and bold text, reduce the line spacing and margins to 0px, set the cursor shape to underline, and enable cursor blinking. 

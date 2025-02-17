@@ -15,15 +15,15 @@ if [[ -z "$(command -v ninja)" ]]; then
     fi
 fi
 
-echo "Compiling plasmoids..."
+#echo "Compiling plasmoids..."
 
-for filename in "$PWD/plasma/plasmoids/src/"*; do
-    cd "$filename"
-    echo "Compiling $(pwd)"
-    sh $USE_SCRIPT
-    echo "Done."
-    cd "$CUR_DIR"
-done
+#for filename in "$PWD/plasma/plasmoids/src/"*; do
+#    cd "$filename"
+#    echo "Compiling $(pwd)"
+#    sh $USE_SCRIPT
+#    echo "Done."
+#    cd "$CUR_DIR"
+#done
 
 echo "Compiling SMOD decorations..."
 cd "$PWD/kwin/decoration"

@@ -1,4 +1,5 @@
 {
+    "KPackageStructure": "Plasma/Theme",
     "KPlugin": {
         "Authors": [
             {
@@ -9,10 +10,11 @@
         "Category": "Plasma Theme",
         "Description": "Seven Black theme with glass effect and reflections",
         "EnabledByDefault": true,
-        "Id": "Seven Black",
+        "Id": "Seven-Black",
         "License": "GPL",
         "Name": "Seven Black",
         "Version": "1.0.88"
     },
     "X-Plasma-API": "6.0"
 }
+
