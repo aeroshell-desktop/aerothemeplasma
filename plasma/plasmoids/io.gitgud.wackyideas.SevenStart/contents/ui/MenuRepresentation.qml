@@ -872,6 +872,7 @@ PlasmaCore.Dialog {
 			}
 
 			opacity: showingAllPrograms && !searching
+			enabled: opacity !== 0.0
 			Behavior on opacity {
 				NumberAnimation { easing.type: Easing.Linear; duration: animationDuration*0.66 }
 			}
