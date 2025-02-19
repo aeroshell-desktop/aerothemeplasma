@@ -92,6 +92,10 @@ ContainmentItem {
         root.checkLastSpacer();
         // When a new preset panel is added, avoid calling save() multiple times
         Qt.callLater(LayoutManager.save);
+        Qt.callLater(() => {
+           gradientRect.applet = Qt.binding(() => { return gradientRect.findApplet(); });
+           gradientRect.nextApplet = Qt.binding(() => { return gradientRect.findNextApplet(); });
+        });
     }
 
     Containment.onAppletRemoved: (applet) => {
@@ -435,7 +439,15 @@ ContainmentItem {
             property int index: applet ? applet.index : -1
             property int count: appletsModel.count
             property string targetPlasmoid: "io.gitgud.wackyideas.seventasks"
-            property Item nextApplet: {
+            function findApplet() {
+                for(var i = 0; i < currentLayout.visibleChildren.length; i++) {
+                    if(currentLayout.visibleChildren[i].applet.Plasmoid.pluginName === targetPlasmoid) {
+                        return currentLayout.visibleChildren[i];
+                    }
+                }
+                return null
+            }
+            function findNextApplet() {
                 for(var i = 0; i < currentLayout.visibleChildren.length; i++) {
                     if(currentLayout.visibleChildren[i].applet.Plasmoid.pluginName === targetPlasmoid) {
                         if(i == currentLayout.visibleChildren.length-1) {
@@ -446,14 +458,8 @@ ContainmentItem {
                 }
                 return null;
             }
-            property Item applet: {
-                for(var i = 0; i < currentLayout.visibleChildren.length; i++) {
-                    if(currentLayout.visibleChildren[i].applet.Plasmoid.pluginName === targetPlasmoid) {
-                        return currentLayout.visibleChildren[i];
-                    }
-                }
-                return null
-            }
+            property Item nextApplet: findNextApplet();
+            property Item applet: findApplet();
         }
         GridLayout {
             id: currentLayout
