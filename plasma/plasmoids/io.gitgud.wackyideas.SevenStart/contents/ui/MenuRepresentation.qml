@@ -869,7 +869,7 @@ PlasmaCore.Dialog {
 				left: leftSidebar.left
 				right: leftSidebar.right
 				bottom: bottomControls.top
-				topMargin: -Kirigami.Units.smallSpacing-2
+				topMargin: -Kirigami.Units.largeSpacing
 			}
 
 			opacity: showingAllPrograms && !searching
