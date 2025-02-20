@@ -253,7 +253,7 @@ bool Decoration::isGadgetExplorer() const
 {
     const auto c = window();
     qInfo() << c->windowClass();
-    if(c->caption() == QStringLiteral("plasmashell_explorer") && (c->windowClass() == QStringLiteral("plasmashell plasmashell") || c->windowClass() == "plasmashell org.kde.plasmashell")) return true;
+    if(c->caption() == QStringLiteral("plasmashell_explorer") && (c->windowClass() == QStringLiteral("plasmashell plasmashell") || c->windowClass() == QStringLiteral("plasmashell org.kde.plasmashell"))) return true;
     return false;
 }
 bool Decoration::hideIcon() const
