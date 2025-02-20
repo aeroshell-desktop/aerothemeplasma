@@ -15,6 +15,9 @@ if [[ -z "$(command -v ninja)" ]]; then
     fi
 fi
 
+cd "$PWD/misc/defaulttooltip"
+sh $USE_SCRIPT
+cd "$CUR_DIR"
 #echo "Compiling plasmoids..."
 
 #for filename in "$PWD/plasma/plasmoids/src/"*; do
@@ -40,8 +43,5 @@ for filename in "$PWD/kwin/effects_cpp/"*; do
     cd "$CUR_DIR"
 done
 
-cd "$PWD/misc/defaulttooltip"
-sh $USE_SCRIPT
-cd "$CUR_DIR"
 
 
