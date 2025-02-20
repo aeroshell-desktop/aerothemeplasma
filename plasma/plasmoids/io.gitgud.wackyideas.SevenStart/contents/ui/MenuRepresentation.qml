@@ -609,7 +609,8 @@ PlasmaCore.Dialog {
 						var view = returnPreviousView();
 						view.focus = true;
 						if(typeof view.currentIndex !== "undefined") {
-							view.currentIndex = returnPreviousView().count-1;
+							view.currentIndex = view.count;
+							view.decrementCurrentIndex();
 						}
 					} else if(event.key == Qt.Key_Down) {
 						searchField.focus = true;
@@ -1340,7 +1341,7 @@ PlasmaCore.Dialog {
 					height: Kirigami.Units.iconSizes.smallMedium - Kirigami.Units.smallSpacing / 2 +1
 					elementId: searching ? "more-ltr-black" : "more-ltr-light";
 				}
-				enabled: pmEngine.data["Sleep States"]["LockScreen"]
+				//enabled: pmEngine.data["Sleep States"]["LockScreen"]
 				size: iconSizeSide
 			}
 		}

@@ -126,9 +126,6 @@ Item {
 
     active: appname.truncated
     interactive: false
-    /*location: (((Plasmoid.location === PlasmaCore.Types.RightEdge)
-     *   || (Qt.application.layoutDirection === Qt.RightToLeft))
-     *   ? PlasmaCore.Types.RightEdge : PlasmaCore.Types.LeftEdge)*/
 
     mainText: appname.text
   }
@@ -181,12 +178,6 @@ Item {
           }
         }
         listView.currentIndex = containsMouse ? index : -1
-        /*if (containsMouse) {
-          if (canNavigate) {
-            listView.currentIndex = index
-            //listView.focus = true
-          }
-        }*/
       }
   }
   ActionMenu {

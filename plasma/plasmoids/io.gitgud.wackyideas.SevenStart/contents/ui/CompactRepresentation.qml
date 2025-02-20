@@ -85,7 +85,6 @@ Item {
         orb.y = pos.y;
     }
     function showMenu() {
-
         dashWindow.visible = !dashWindow.visible;
         dashWindow.showingAllPrograms = false;
         maskTimer.start();
@@ -190,11 +189,7 @@ Item {
         id: floatingOrbPanel
         anchors.left: parent.left
         anchors.right: parent.right
-        //anchors.leftMargin: -Kirigami.Units.mediumSpacing
         anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
-        //anchors.verticalCenterOffset: Kirigami.Units.smallSpacing-1
-        //anchors.fill: parent
         objectName: "innerorb"
         opacity: (!stickOutOrb)
 
@@ -207,7 +202,6 @@ Item {
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         anchors.fill: parent
         hoverEnabled: true
-        //visible: !stickOutOrb
         propagateComposedEvents: true
 
         onPressed: mouse => {
@@ -216,6 +210,7 @@ Item {
             else
                 mouse.accepted = false;
         }
+        z: 99
     }
 
     // I hate this

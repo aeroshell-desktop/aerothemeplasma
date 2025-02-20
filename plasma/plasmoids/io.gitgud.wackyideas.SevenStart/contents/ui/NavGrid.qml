@@ -38,12 +38,13 @@ FocusScope {
   property alias currentItem: listView.currentItem
   property alias contentItem: listView.contentItem
   property Item flickableItem: listView
+  property int inhibitMouseEvents: 0
 
-  onFocusChanged: {
+  /*onFocusChanged: {
       if (!focus) {
           currentIndex = -1;
       }
-  }
+  }*/
   function tryActivate() {
 
     if(currentIndex === -1 && listView.count > 0) {
@@ -103,7 +104,6 @@ FocusScope {
           var x = 0;
           if(!listView) return 0;
           for(var i = 0; i < listView.count; i++) {
-            //console.log(listView.itemAtIndex(i));
             if(listView.itemAtIndex(i)) {
               if(listView.itemAtIndex(i).itemSection === section) x++;
             }
@@ -116,8 +116,6 @@ FocusScope {
       canNavigate: true
       canDrag: true
       triggerModel: listView.model
-      //Layout.leftMargin: Kirigami.Units.iconSizes.small
-      //x: Kirigami.Units.iconSizes.small
     }
   
     onCurrentIndexChanged: {
@@ -128,11 +126,11 @@ FocusScope {
     onModelChanged: {
       currentIndex = -1;
     }
-    onFocusChanged: {
+    /*onFocusChanged: {
       if (!focus) {
         currentIndex = -1
       }
-    }
+    }*/
   }
   }
 }

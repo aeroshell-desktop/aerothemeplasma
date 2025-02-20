@@ -63,11 +63,11 @@ Item {
 
     function activateCurrentIndex() {
 
-        baseView.currentItem.activate();
+        baseView.currentItem.delegateItem.activate();
     }
 
     function openContextMenu() {
-        baseView.currentItem.openActionMenu();
+        baseView.currentItem.delegateItem.openActionMenu();
     }
 
     function setCurrentIndex() {

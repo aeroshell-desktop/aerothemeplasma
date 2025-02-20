@@ -26,7 +26,6 @@ Item {
     property alias buttonIcon: buttonIcon
     property alias buttonIconPressed: buttonIconPressed
     property alias buttonIconHovered: buttonIconHovered
-    property alias mouseArea: mouseArea
 
     property string orbTexture: getResolvedUrl(Plasmoid.configuration.customButtonImage, "orbs/orb" + (stickOutOrb ? "_small" : "") + ".png")
     property int opacityDuration: 300
@@ -59,7 +58,6 @@ Item {
         visible: dashWindow.visible
         smooth: true
         source: floatingOrb.orbTexture
-        //verticalAlignment: Image.AlignBottom
         sourceClipRect: Qt.rect(0, 2*buttonIconSizes.height / 3, buttonIconSizes.width, buttonIconSizes.height / 3);
         fillMode: Image.PreserveAspectFit
         width: floatingOrb.scaledWidth
@@ -70,29 +68,14 @@ Item {
         anchors.centerIn: parent
         source: floatingOrb.orbTexture
         smooth: true
-        opacity: mouseArea.containsMouse || mouseAreaCompositingOff.containsMouse
+        opacity: mouseAreaCompositingOff.containsMouse
         visible:  !dashWindow.visible
         Behavior on opacity {
             NumberAnimation { properties: "opacity"; easing.type: Easing.Linear; duration: floatingOrb.opacityDuration  }
         }
-        //verticalAlignment: Image.AlignVCenter
         sourceClipRect: Qt.rect(0, buttonIconSizes.height / 3, buttonIconSizes.width, buttonIconSizes.height / 3);
         fillMode: Image.PreserveAspectFit
         width: floatingOrb.scaledWidth
         height: floatingOrb.scaledHeight
-    }
-
-    MouseArea
-    {
-        id: mouseArea
-        anchors.fill: parent
-        hoverEnabled: true
-        acceptedButtons: Qt.LeftButton// | Qt.RightButton
-        //propagateComposedEvents: true
-        onPressed: mouse => {
-            //if(mouse.button === Qt.LeftButton)
-                root.showMenu();
-        }
-
     }
 }

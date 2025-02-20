@@ -55,6 +55,7 @@ KCM.SimpleKCM {
     property alias cfg_stickOutOrb: stickOutOrb.checked
     property alias cfg_enableShadow: enableShadow.checked
     property alias cfg_useFullName: useFullName.checked
+    property alias cfg_useGenericIcons: useGenericIcons.checked
 
     property alias cfg_useExtraRunners: useExtraRunners.checked
 
@@ -175,6 +176,10 @@ KCM.SimpleKCM {
                 CheckBox {
                     id: useFullName
                     text: i18n("Display full name");
+                }
+                CheckBox {
+                    id: useGenericIcons
+                    text: i18n("Display generic folder icons for categories");
                 }
                 RowLayout{
                     Layout.fillWidth: true

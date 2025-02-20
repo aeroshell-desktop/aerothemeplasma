@@ -16,7 +16,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
-
+pragma ComponentBehavior: Bound
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import org.kde.plasma.plasmoid 2.0
@@ -34,12 +34,7 @@ PlasmoidItem {
 
     signal reset
 
-    //anchors.fill: parent
-    //property bool isDash: false
     property Item dragSource: null
-
-    //switchWidth: !fullRepresentationItem ? 0 :fullRepresentationItem.Layout.minimumWidth
-    //switchHeight: !fullRepresentationItem ? 0 :fullRepresentationItem.Layout.minimumHeight
 
     property alias rootModel: rootModel
     property QtObject globalFavorites: rootModel.favoritesModel
@@ -49,18 +44,7 @@ PlasmoidItem {
     preferredRepresentation: null
     compactRepresentation: compactRepresentation
     fullRepresentation: menuRepresentation
-    //compactRepresentation: compactRepresentation
-    //fullRepresentation: compactRepresentation//menuRepresentation
     Plasmoid.constraintHints: Plasmoid.CanFillArea
-
-    // Runs KMenuEdit.
-    function action_menuedit() {
-        processRunner.runMenuEditor();
-    }
-
-    function action_taskman() {
-        menu_executable.exec("ksysguard");
-    }
 
     Component {
         id: compactRepresentation
@@ -142,7 +126,6 @@ PlasmoidItem {
             } else {
                 favoritesModel.favorites = Plasmoid.configuration.favoriteApps;
             }
-            //favoritesModel.maxFavorites = pageSize;
         }
 
         onSystemFavoritesModelChanged: {
@@ -162,8 +145,6 @@ PlasmoidItem {
             } else {
                 favoritesModel.favorites = Plasmoid.configuration.favoriteApps;
             }
-
-            //favoritesModel.maxFavorites = pageSize;
         }
     }
 
@@ -251,27 +232,21 @@ PlasmoidItem {
         PlasmaCore.Action {
             text: i18n("Edit Applications...")
             icon.name: "application-menu"
-            onTriggered:  menu_executable.exec("kmenuedit");
+            onTriggered:  menu_executable.exec("kstart kmenuedit");
         },
         PlasmaCore.Action {
             text: i18n("Task Manager")
             icon.name: "ksysguardd"
             onTriggered: {
-                menu_executable.exec("ksysguard");
+                menu_executable.exec("kstart ksysguard");
 
             }
         }
     ]
 
     Component.onCompleted: {
-        /*if (Plasmoid.hasOwnProperty("activationTogglesExpanded")) {
-            Plasmoid.activationTogglesExpanded = !kicker.isDash
-        }*/
-
         windowSystem.focusIn.connect(enableHideOnWindowDeactivate);
         kicker.hideOnWindowDeactivate = true;
-
-        //rootModel.refreshed.connect(reset);
 
         dragHelper.dropped.connect(resetDragSource);
     }

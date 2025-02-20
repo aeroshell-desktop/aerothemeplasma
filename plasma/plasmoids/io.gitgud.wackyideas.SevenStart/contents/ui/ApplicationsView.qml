@@ -25,6 +25,7 @@ import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.components as PlasmaComponents
 import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
+import org.kde.kitemmodels as KItemModels
 
 Item {
     id: appViewContainer
@@ -35,71 +36,42 @@ Item {
     property alias currentIndex: applicationsView.currentIndex
     property alias count: applicationsView.count
 
-    function decrementCurrentIndex() {
-        var tempIndex = applicationsView.currentIndex-1;
-        if(tempIndex < (crumbModel.count == 0 ? 1 : 0)) {
-            //applicationsView.currentIndex = applicationsView.count-1;
-            return;
-        }
-        applicationsView.decrementCurrentIndex();
-    }
-
-    function incrementCurrentIndex() {
-        var tempIndex = applicationsView.currentIndex+1;
-        if(tempIndex >= applicationsView.count) {
-            applicationsView.currentIndex = -1;
-            root.m_showAllButton.focus = true;
-            return;
-        }
-        applicationsView.incrementCurrentIndex();
-    }
-
-    function activateCurrentIndex(start) {
-        if (!applicationsView.currentItem.modelChildren) {
-            if (!start) {
-                return;
-            }
-        }
-        applicationsView.state = "OutgoingLeft";
-    }
-
-    function openContextMenu() {
-        applicationsView.currentItem.openActionMenu();
-    }
-
     function deactivateCurrentIndex() {
-        if (crumbModel.count > 0) { // this is not the case when switching from the "Applications" to the "Favorites" tab using the "Left" key
-            rootBreadCrumb.clickCrumb();//breadcrumbsElement.children[crumbModel.count-1].clickCrumb();
-            applicationsView.state = "OutgoingRight";
-            return true;
-        }
         return false;
     }
 
     onFocusChanged: {
-        if(focus)
-            applicationsView.currentIndex = crumbModel.count == 0 ? 1 : 0;
-        else applicationsView.currentIndex = -1;
+        if(focus) {
+            applicationsView.currentIndex = 0;
+            applicationsView.positionView();
+        }
+        else {
+            applicationsView.currentIndex = -1;
+            applicationsView.clearChildHighlights();
+        }
     }
 
+    function decrementCurrentIndex() {
+        applicationsView.decrementCurrentIndex();
+    }
     Keys.onPressed: event => {
         if(event.key == Qt.Key_Up) {
-            decrementCurrentIndex();
+            applicationsView.decrementCurrentIndex();
         } else if(event.key == Qt.Key_Down) {
-            incrementCurrentIndex();
-        } else if(event.key == Qt.Key_Return || event.key == Qt.Key_Right) {
-            activateCurrentIndex(applicationsView.currentIndex);
+            applicationsView.incrementCurrentIndex();
+        } else if(event.key == Qt.Key_Return) {
+            applicationsView.activateCurrentIndex();
         } else if(event.key == Qt.Key_Menu) {
-            openContextMenu();
-        } else if(event.key == Qt.Key_Left || event.key == Qt.Key_Backspace) {
-            deactivateCurrentIndex();
+            applicationsView.openCurrentContextMenu();
+        } else if(event.key == Qt.Key_Tab) {
+            applicationsView.clearChildHighlights();
+            event.accepted = false;
         }
     }
     KeyNavigation.tab: root.m_showAllButton
     function reset() {
-        applicationsView.model = rootModel;
         applicationsView.clearBreadcrumbs();
-        crumbContainer.visible = false;
+        applicationsView.decrementCurrentIndex();
     }
 
     function refreshed() {
@@ -127,38 +99,6 @@ Item {
             topMargin: 2
         }
 
-    Item {
-        id: crumbContainer
-        Layout.preferredHeight: rootBreadcrumb.implicitHeight //crumbContainer.implicitHeight
-        Layout.minimumHeight: rootBreadcrumb.implicitHeight
-        Layout.fillWidth: true
-        visible: false
-        opacity: applicationsView.opacity
-
-        Breadcrumb {
-            id: rootBreadcrumb
-            root: true
-            text: i18n("Back")
-            //depth: 0
-            anchors.fill: parent
-            anchors.topMargin: 2
-        }
-        Rectangle {
-       		id: sepLine
-	   		anchors {
-       			top: crumbContainer.bottom
-                topMargin: -1
-       			left: crumbContainer.left
-       			leftMargin: Kirigami.Units.smallSpacing*2
-       			right: crumbContainer.right
-       			rightMargin: Kirigami.Units.smallSpacing*2
-	   		}
-       		height: 1
-       		color: "#d6e5f5"
-       		opacity: 1
-       		z: 6
-        }
-    } // crumbContainer
 
     KickoffListView {
         id: applicationsView
@@ -174,24 +114,14 @@ Item {
 
         focus: true
         appView: true
-        model: rootModel
-
-        function moveLeft() {
-            reset();
-            state = "";
-            /*var oldModel = applicationsView.model;
-            applicationsView.model = applicationsView.newModel;
-
-            var oldModelIndex = model.rowForModel(oldModel);
-            listView.currentIndex = oldModelIndex;
-            listView.positionViewAtIndex(oldModelIndex, ListView.Center);*/
-        }
-
-        function moveRight() {
-            state = "";
-            if(activatedItem !== null) activatedItem.activate();
-            applicationsView.listView.positionViewAtBeginning();
-            if(!activatedItem.modelChildren) root.visible = false;
+        model: KItemModels.KSortFilterProxyModel {
+            sourceModel: rootModel
+            function modelForRow(i) {
+                return rootModel.modelForRow(i+1);
+            }
+            filterRowCallback: function(source_row, source_parent) {
+                return source_row > 0;
+            };
 
         }
 
@@ -201,64 +131,12 @@ Item {
 
         onReset: appViewContainer.reset()
 
-        onAddBreadcrumb: title => {
-            console.log(rootBreadcrumb.implicitHeight);
-        }
 
-        states: [
-            State {
-                name: "OutgoingLeft"
-                PropertyChanges {
-                    target: applicationsView
-                    //x: -parent.width
-                    opacity: 0.0
-                }
-            },
-            State {
-                name: "OutgoingRight"
-                PropertyChanges {
-                    target: applicationsView
-                    //x: parent.width
-                    opacity: 0.0
-                }
-            }
-        ]
-
-        transitions:  [
-            Transition {
-                to: "OutgoingLeft"
-                SequentialAnimation {
-                    // We need to cache the currentItem since the selection can move during animation,
-                    // and we want the item that has been clicked on, not the one that is under the
-                    // mouse once the animation is done
-                    ScriptAction { script: applicationsView.activatedItem = applicationsView.currentItem }
-                    NumberAnimation { properties: "opacity"; easing.type: Easing.InQuad; duration: 100 }
-                    ScriptAction { script: {  applicationsView.moveRight(); crumbContainer.visible = true; } }
-                }
-            },
-            Transition {
-                to: "OutgoingRight"
-                SequentialAnimation {
-                    NumberAnimation { properties: "opacity"; easing.type: Easing.InQuad; duration: 100 }
-                    ScriptAction { script: { applicationsView.moveLeft(); crumbContainer.visible = false; }}
-                }
-            }
-        ]
         Component.onCompleted: {
-            applicationsView.listView.currentIndex = -1;
+            clearBreadcrumbs();
         }
     }
 }
-
-    MouseArea {
-        anchors.fill: parent
-
-        acceptedButtons: Qt.BackButton
-
-        onClicked: {
-            deactivateCurrentIndex()
-        }
-    }
 
     Component.onCompleted: {
         rootModel.cleared.connect(refreshed);

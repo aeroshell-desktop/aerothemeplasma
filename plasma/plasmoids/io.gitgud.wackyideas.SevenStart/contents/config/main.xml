@@ -15,6 +15,9 @@
     <entry name="useFullName" type="Bool">
       <default>false</default>
     </entry>
+    <entry name="useGenericIcons" type="Bool">
+      <default>false</default>
+    </entry>
     <entry name="stickOutOrb" type="Bool">
       <default>true</default>
     </entry>

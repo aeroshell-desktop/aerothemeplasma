@@ -35,10 +35,10 @@ import "code/tools.js" as Tools
 Item {
     id: listItem
 
-    enabled: model ? (!model.disabled && !(model.display === "")) : false
-    visible: model ? (model.display !== "") : false
-    width: listView.width
-    implicitHeight: model ? (model.display === "" ? 0 : ((Kirigami.Units.smallSpacing / (small ? 2 : 1)) + Math.max(elementIcon.height, titleElement.implicitHeight) + (small ? 1 : 0))) : 0
+    enabled: !model.disabled && !(model.display === "")
+    visible: !(model.display === "")
+    width: parentLayout.width
+    implicitHeight: model.display === "" ? 0 : ((Kirigami.Units.smallSpacing / (small ? 2 : 1)) + Math.max(elementIcon.height, titleElement.implicitHeight) + (small ? 1 : 0))
 
     property int pressX: -1
     property int pressY: -1
@@ -49,34 +49,35 @@ Item {
 
     property alias toolTip: toolTip
     property alias toolTipTimer: toolTipTimer
-	property bool smallIcon: false
-    readonly property int itemIndex: model ? model.index : -1
-    readonly property string url: model ? (typeof model.url !== "undefined" ? model.url : "") : ""
-    readonly property var decoration: model ? model.decoration : ""
+	property bool smallIcon: true
+    readonly property int itemIndex: model.index
+    readonly property string url: model.url || ""
+    readonly property var decoration: model.decoration || ""
 
     property bool dropEnabled: false
     property bool appView: false
-    property bool modelChildren: model ? (typeof model.hasChildren !== "undefined" ? model.hasChildren : false) : false
-    property bool isCurrent: listItem.listView.currentIndex === index;
+    property bool modelChildren: model.hasChildren || false
+    property bool isCurrent: parentLayout.childItem === listItem;
     property bool showAppsByName: Plasmoid.configuration.showAppsByName
 
-    property bool hasActionList: ((model?.favoriteId !== null)
-        || (("hasActionList" in model) && (model?.hasActionList)))
+    property bool hasActionList: ((model.favoriteId !== null)
+        || (("hasActionList" in model) && (model.hasActionList === true)))
     property Item menu: actionMenu
 
-    property bool expanded: false
+    property bool expanded: listItem.parentLayout.delegateItem.expanded
     property var childModel
-    property var listView: listItem.ListView.view
+    property var listView
+    property var parentLayout
 
     onAboutToShowActionMenu: (actionMenu) => {
         var actionList = hasActionList ? model.actionList : [];
-        Tools.fillActionMenu(i18n, actionMenu, actionList, listItem.listView.model.favoritesModel, model.favoriteId);
+        Tools.fillActionMenu(i18n, actionMenu, actionList, listItem.childModel.favoritesModel, model.favoriteId);
     }
 
     onActionTriggered: (actionId, actionArgument) => {
         kicker.expanded = false;
 
-        if (Tools.triggerAction(listItem.listView.model, model.index, actionId, actionArgument) === true) {
+        if (Tools.triggerAction(listItem.childModel, model.index, actionId, actionArgument) === true) {
             kicker.expanded = false;
         }
     }
@@ -88,12 +89,10 @@ Item {
             childModel = view.model.modelForRow(index);
             listItem.expanded = !listItem.expanded;
         } else {
-            view.model.trigger(model.index, "", null);
+            childModel.trigger(model.index, "", null);
             listItem.reset();
-            //kicker.compactRepresentation.showMenu();
             Plasmoid.expanded = false;
         }
-        
     }
 
     function openActionMenu(x, y) {
@@ -116,7 +115,7 @@ Item {
 
         anchors {
             left: parent.left
-            leftMargin: listItem.appView ? (Kirigami.Units.mediumSpacing-1) : Kirigami.Units.smallSpacing*2-1
+            leftMargin: Kirigami.Units.largeSpacing*3
             verticalCenter: parent.verticalCenter
         }
 		width: smallIcon ? Kirigami.Units.iconSizes.small : Kirigami.Units.iconSizes.medium
@@ -124,7 +123,7 @@ Item {
 
         animated: false
 
-        source: (listItem.appView && Plasmoid.configuration.useGenericIcons) ? "folder" : (model ? model.decoration : "")
+        source: model.decoration
     }
 
     PlasmaComponents.Label {
@@ -134,12 +133,12 @@ Item {
         anchors {
             left: elementIcon.right
             right: parent.right
-            leftMargin: listItem.appView ? Kirigami.Units.mediumSpacing-1 : Kirigami.Units.smallSpacing * 2
+            leftMargin: Kirigami.Units.mediumSpacing-1
             rightMargin: Kirigami.Units.smallSpacing * 2
         }
         height: implicitHeight //undo PC2 height override, remove when porting to PC3
         // TODO: games should always show the by name!
-        text: model ? model.display : ""
+        text: model.display
         elide: Text.ElideRight
         horizontalAlignment: Text.AlignLeft
         color: "#000000"
@@ -155,8 +154,8 @@ Item {
         }
         height: implicitHeight
         color: "#000000"
-        text: ""
-        opacity: isCurrent ? 0.8 : 0.6
+        text: ""//model.description || ""
+        opacity: listItem.isCurrent ? 0.8 : 0.6
         font: Kirigami.Theme.smallFont
         elide: Text.ElideMiddle
         horizontalAlignment: Text.AlignLeft
@@ -178,7 +177,7 @@ Item {
         prefix: "hover"
         opacity: {
             if(ma.containsMouse) return 1;
-            if(listItem.listView.currentIndex === listItem.itemIndex && listItem.parent.childIndex === -1) return 0.5;
+            if(listItem.parentLayout.childIndex === model.index) return 0.5;
             return 0;
         }
         z: -1
@@ -195,7 +194,7 @@ Item {
         anchors.fill: parent
         active: titleElement.truncated
         interactive: false
-        mainText: model ? model.display : ""
+        mainText: model.display
     }
     Timer {
         id: toolTipTimer
@@ -205,27 +204,26 @@ Item {
         }
     }
 
-
     MouseArea {
         id: ma
         anchors.fill: parent
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.RightButton
+        cursorShape: Qt.PointingHandCursor
         onEntered: {
-            if(listItem.listView.currentItem && listItem.listView.currentIndex !== model.index) {
-                listItem.listView.currentItem.delegateItem.toolTipTimer.stop();
-                listItem.listView.currentItem.delegateItem.toolTip.hideToolTip();
+            if(listItem.parentLayout.childItem && listItem.parentLayout.childItem === listItem) {
+                listItem.parentLayout.childItem.toolTipTimer.stop();
+                listItem.parentLayout.childItem.toolTip.hideToolTip();
             }
-            listItem.listView.currentIndex = model.index;
+            listItem.parentLayout.childItem = listItem;
             toolTipTimer.start();
-
         }
         onExited: {
-             toolTipTimer.stop();
-             toolTip.hideToolTip();
-             listItem.listView.currentIndex = -1;
-             listItem.pressX = -1;
-             listItem.pressY = -1;
+            toolTipTimer.stop();
+            toolTip.hideToolTip();
+            listItem.parentLayout.childItem = null;
+            listItem.pressX = -1;
+            listItem.pressY = -1;
         }
         onPressed: mouse => {
             if(mouse.button === Qt.LeftButton) {
@@ -249,12 +247,11 @@ Item {
                 listItem.pressX = -1;
                 listItem.pressY = -1;
             }
-            mouse.accepted = false;
         }
         onClicked: mouse => {
             if(mouse.button === Qt.LeftButton) {
                 listItem.activate();
-                if(!listItem.modelChildren) root.visible = false;
+                root.visible = false;
             } else if(mouse.button === Qt.RightButton) {
                 if(listItem.hasActionList) {
                     listItem.openActionMenu(mouse.x, mouse.y);

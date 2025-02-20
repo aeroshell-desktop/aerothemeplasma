@@ -41,7 +41,7 @@ Item {
         console.log("AAAHHH " + height + " " + favoritesView.contentHeight);
     }*/
     function activateCurrentIndex() {
-        favoritesView.currentItem.activate();
+        favoritesView.currentItem.delegateItem.activate();
     }
     function decrementCurrentIndex() {
         if (favoritesView.currentIndex == 0)
@@ -77,7 +77,7 @@ Item {
         return isChildOf(item, item.parent);
     }
     function openContextMenu() {
-        favoritesView.currentItem.openActionMenu();
+        favoritesView.currentItem.delegateItem.openActionMenu();
     }
     function resetCurrentIndex() {
         favoritesView.currentIndex = -1;

@@ -34,10 +34,14 @@ Item {
     property bool queryFinished: false
     property int repeaterModelIndex: 0
 
+    function inhibitMouse() {
+        runnerGrid.inhibitMouseEvents = 2;
+    }
     function activateCurrentIndex() {
         runnerGrid.tryActivate();
     }
     function decrementCurrentIndex() {
+        inhibitMouse();
         var listView = runnerGrid.flickableItem;
         if(listView.currentIndex-1 < 0) {
             listView.currentIndex = listView.count - 1;
@@ -46,6 +50,7 @@ Item {
         }
     }
     function incrementCurrentIndex() {
+        inhibitMouse();
         var listView = runnerGrid.flickableItem;
         if(listView.currentIndex+1 >= listView.count) {
             listView.currentIndex = 0;
@@ -64,12 +69,6 @@ Item {
     function openContextMenu() {
         runnerModel.currentItem.openActionMenu();
     }
-    function resetCurrentIndex() {
-        runnerModel.currentIndex = -1;
-    }
-    /*function setCurrentIndex() {
-        runnerGrid.modelIndex = 0;
-    }*/
 
     objectName: "SearchView"
 
@@ -98,6 +97,18 @@ Item {
         anchors.fill: parent
         property alias model: runnerGrid.triggerModel
         triggerModel: kicker.runnerModel.count ? kicker.runnerModel.modelForRow(0) : null
+        MouseArea {
+            id: mouseInhibitor
+            anchors.fill: parent
+            z: 99
+            hoverEnabled: true
+            visible: runnerGrid.inhibitMouseEvents > 0
+            onPositionChanged: {
+                if(runnerGrid.inhibitMouseEvents > 0)
+                    runnerGrid.inhibitMouseEvents--;
+            }
+        }
+
     }
 
 
