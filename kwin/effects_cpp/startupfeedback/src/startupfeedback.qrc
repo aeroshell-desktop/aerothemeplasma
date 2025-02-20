@@ -1,0 +1,7 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/effects/startupfeedback/">
+  <file>shaders/blinking-startup.frag</file>
+  <file>shaders/blinking-startup_core.frag</file>
+</qresource>
+</RCC>
+

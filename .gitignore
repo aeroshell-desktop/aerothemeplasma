@@ -8,4 +8,5 @@ plasma/plasmoids/src/seventasks_src/build
 plasma/plasmoids/src/desktopcontainment/build
 kwin/effects_cpp/smodglow/build-kf6
 kwin/effects_cpp/aeroglide/build-kf6
+kwin/effects_cpp/startupfeedback/build-kf6
 experimental/

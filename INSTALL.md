@@ -141,6 +141,7 @@ If SDDM fails to pick up on the cursor theme, go to System Settings -> Startup a
 6. In System Settings -> Colors & Themes -> Colors, set "Accent color from color scheme"
 7. In System Settings -> Session -> Desktop Session, uncheck the "Ask for confirmation" option.
 8. In System Settings -> Keyboard -> Shortcuts, under KWin, disable the "Peek at Desktop" shortcut, and remap the "MinimizeAll" to Meta+D
+9. In System Settings -> Colors & Themes -> Cursors -> Configure Launch Feedback, set Cursor feedback to "None"
 9. In System Settings -> Fonts, configure the fonts as shown here:
 
 <img src="screenshots/fontconfig.png">
