@@ -371,11 +371,41 @@ PlasmaCore.Dialog {
 			onObjectRemoved: (index, object) => contextMenu.removeMenuItem(object)
 		}
 
+		Instantiator {
+			model: fileUsageModel
+			delegate: PlasmaExtras.MenuItem {
+				required property int index
+				required property var model
+
+				text: model.display + "      "
+				icon: model.decoration
+				onClicked: fileUsageModel.trigger(index, "", null)
+			}
+			onObjectAdded: (index, object) => fileUsageMenu.addMenuItem(object);
+			onObjectRemoved: (index, object) => fileUsageMenu.removeMenuItem(object)
+		}
+
         PlasmaExtras.Menu {
 			id: contextMenu
 			visualParent: lockScreenDelegate //leaveButton
 			placement: {
 				//return PlasmaCore.Types.FloatingPopup
+				switch (Plasmoid.location) {
+					case PlasmaCore.Types.LeftEdge:
+					case PlasmaCore.Types.RightEdge:
+					case PlasmaCore.Types.TopEdge:
+						return PlasmaExtras.Menu.BottomPosedRightAlignedPopup;
+					case PlasmaCore.Types.BottomEdge:
+					default:
+						return PlasmaExtras.Menu.RightPosedBottomAlignedPopup;
+				}
+			}
+		}
+
+		PlasmaExtras.Menu {
+			id: fileUsageMenu
+			visualParent: recentsItem
+			placement: {
 				switch (Plasmoid.location) {
 					case PlasmaCore.Types.LeftEdge:
 					case PlasmaCore.Types.RightEdge:
@@ -1083,6 +1113,7 @@ PlasmaCore.Dialog {
 					Layout.fillWidth: true
 				}
 				SidePanelItemDelegate {
+					id: recentsItem
 					itemText: "Recent Items"
 					itemIcon: "document-open-recent"
 					executableString: folderDialog.getPath(11)
@@ -1092,6 +1123,17 @@ PlasmaCore.Dialog {
 						separator2.updateVisibility();
 					}
 					Layout.fillWidth: true
+					KSvg.SvgItem {
+						anchors.right: parent.right
+						anchors.rightMargin: Kirigami.Units.smallSpacing*2
+						anchors.verticalCenter: parent.verticalCenter
+
+						implicitWidth: 6
+						implicitHeight: 10
+
+						imagePath: Qt.resolvedUrl("svgs/arrows.svgz")
+						elementId: "group-expander-left"
+					}
 				}
 				SidePanelItemDelegate {
 					itemText: "Computer"
