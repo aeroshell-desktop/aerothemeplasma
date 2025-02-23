@@ -9,7 +9,7 @@
 This is a project which aims to recreate the look and feel of Windows 7 as much as possible on KDE Plasma, whilst adapting the design to fit in with modern features provided by KDE Plasma and Linux.
 It is still in heavy development and testing. ATP has been tested on:
 
-1. Arch Linux x64 and other Arch derivatives, KDE Neon
+1. Arch Linux x64 and other Arch derivatives
 2. Plasma 6.3.0, KDE Frameworks 6.10.0, Qt 6.8.2
 3. 96 DPI scaling, multi monitor
 4. X11, Wayland*
