@@ -7,13 +7,15 @@
 
 import QtQuick
 import QtQuick.Layouts 1.1
+import QtQuick.Controls as QQC2
 
 import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.kirigami 2.20 as Kirigami
+import Qt5Compat.GraphicalEffects
 
 import org.kde.plasma.private.notifications as Notifications
 
-PlasmaComponents3.ScrollView {
+QQC2.ScrollView {
     id: bodyTextContainer
 
     property alias text: bodyText.text
@@ -22,12 +24,24 @@ PlasmaComponents3.ScrollView {
 
     property QtObject contextMenu: null
     property ListView listViewParent: null
+    hoverEnabled: true
 
     signal clicked(var mouse)
     signal linkActivated(string link)
 
-    leftPadding: mirrored && !Kirigami.Settings.isMobile ? PlasmaComponents3.ScrollBar.vertical.width : 0
-    rightPadding: !mirrored && !Kirigami.Settings.isMobile ? PlasmaComponents3.ScrollBar.vertical.width : 0
+    property bool scrollbarVisible: QQC2.ScrollBar.vertical.visible
+    property double scrollBarPosition: QQC2.ScrollBar.vertical.position
+    onScrollBarPositionChanged: {
+        console.log("Start: " + bodyTextContainer.scrollBarPosition);
+        console.log("Middle: " + (bodyTextContainer.scrollBarPosition + bodyTextContainer.scrollBarSize) / 2.0);
+        console.log("End: " + (bodyTextContainer.scrollBarPosition + bodyTextContainer.scrollBarSize));
+        console.log(1.0 - bodyTextContainer.scrollBarSize)
+
+    }
+    property real scrollBarSize: QQC2.ScrollBar.vertical.size
+    QQC2.ScrollBar.vertical.opacity: scrollMA.scrollOpacity
+    leftPadding: mirrored && !Kirigami.Settings.isMobile ? QQC2.ScrollBar.vertical.width+(QQC2.ScrollBar.vertical.width > 0 ? Kirigami.Units.smallSpacing : 0) : 0
+    rightPadding: !mirrored && !Kirigami.Settings.isMobile ? QQC2.ScrollBar.vertical.width+(QQC2.ScrollBar.vertical.width > 0 ? Kirigami.Units.smallSpacing : 0) : 0
 
     PlasmaComponents3.TextArea {
         id: bodyText
@@ -36,9 +50,16 @@ PlasmaComponents3.ScrollView {
         rightPadding: 0
         topPadding: 0
         bottomPadding: 0
+        //visible: false
+        opacity: (bodyText.hovered || bodyTextContainer.hovered || !bodyTextContainer.scrollbarVisible) ? 1 : 0.01
+
+        Behavior on opacity {
+            NumberAnimation { duration: 250 }
+        }
 
         background: null
         color: Kirigami.Theme.textColor
+        selectionColor: "#3399ff"
 
         // Selectable only when we are in desktop mode
         selectByMouse: !Kirigami.Settings.tabletMode
@@ -81,6 +102,11 @@ PlasmaComponents3.ScrollView {
             anchors.fill: parent
             visible: bodyTextContainer.listViewParent !== null
             propagateComposedEvents: true
+            hoverEnabled: true
+            property double scrollOpacity: (bodyText.hovered || bodyTextContainer.hovered) ? 1 : 0
+            Behavior on scrollOpacity {
+                NumberAnimation { duration: 250 }
+            }
             onPressed: mouse => {
                 mouse.accepted = false
             }
@@ -88,6 +114,7 @@ PlasmaComponents3.ScrollView {
                 mouse.accepted = false
             }
             onWheel: wheel => {
+
 
                 var listView = bodyTextContainer.listViewParent;
 
@@ -107,6 +134,34 @@ PlasmaComponents3.ScrollView {
                 }
             }
 
+        }
+    }
+
+    LinearGradient {
+        id: mask
+        anchors.fill: parent
+        property double startPos: bodyTextContainer.scrollBarPosition
+        property double endPos: bodyTextContainer.scrollBarPosition + bodyTextContainer.scrollBarSize
+        property double middlePos: (startPos + endPos) / 2.0
+        property bool atEnd: endPos == 1.0
+
+        gradient: Gradient {
+            GradientStop { position: mask.startPos; color: (bodyTextContainer.scrollBarPosition == 0.0) ? "white" : "#20000000" }
+            GradientStop { position: mask.middlePos-0.1; color: "white" }
+            GradientStop { position: mask.middlePos; color: "white" }
+            GradientStop { position: mask.middlePos+0.1; color: "white" }
+            GradientStop { position: mask.endPos; color: (mask.atEnd) ? "white" : "#20000000" }
+        }
+        visible: false
+    }
+
+    OpacityMask {
+        anchors.fill: bodyText
+        source: bodyText
+        maskSource: mask
+        opacity: (bodyText.hovered || bodyTextContainer.hovered || !bodyTextContainer.scrollbarVisible) ? 0 : 1
+        Behavior on opacity {
+            NumberAnimation { duration: 250 }
         }
     }
 

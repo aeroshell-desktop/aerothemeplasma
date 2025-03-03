@@ -113,22 +113,7 @@ ColumnLayout {
         Layout.alignment: notificationItem.inGroup && summaryLabel.lineCount > 1 ? Qt.AlignTop : 0
         Layout.topMargin: notificationItem.inGroup && summaryLabel.lineCount > 1 ? Math.max(0, (summaryLabelTextMetrics.height - Layout.preferredHeight) / 2) : Kirigami.Units.smallSpacing
         Layout.bottomMargin: Kirigami.Units.smallSpacing
-        //Layout.bottomMargin: notificationItem.inGroup ? 0 : -parent.spacing
         Layout.rightMargin: Kirigami.Units.smallSpacing/2
-
-
-
-        /*PlasmaExtras.PlasmoidHeading {
-            topInset: 0
-            anchors.fill: parent
-            visible: !notificationItem.inHistory
-            opacity: 0
-
-            // HACK PlasmoidHeading is a QQC2 Control which accepts left mouse button by default,
-            // which breaks the popup default action mouse handler, cf. QTBUG-89785
-            Component.onCompleted: Notifications.InputDisabler.makeTransparentForInput(this)
-        }*/
-
         NotificationHeader {
             id: notificationHeading
             anchors {
@@ -243,7 +228,7 @@ ColumnLayout {
                 topMargin: summaryRow.visible && notificationItem.inGroup && iconContainer.visible ? notificationItem.spacing : 0
                 left: parent.left
                 right: iconContainer.left
-                rightMargin: iconContainer.visible ? notificationItem.spacing : 0
+                rightMargin: iconContainer.visible ? notificationItem.spacing : -Kirigami.Units.largeSpacing
             }
 
             listViewParent: notificationItem.listViewParent
