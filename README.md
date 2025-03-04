@@ -147,7 +147,7 @@ Decoration themes:
 
 <img src="screenshots/gadgets.png">
 
-### Firefox
+### Librewolf
 
 <img src="screenshots/geckium.png">
 
