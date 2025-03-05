@@ -27,9 +27,11 @@ ContainmentItem {
     Layout.preferredWidth: fixedWidth || currentLayout.implicitWidth + currentLayout.horizontalDisplacement
     Layout.preferredHeight: fixedHeight || currentLayout.implicitHeight + currentLayout.verticalDisplacement
 
-    property Item isShowDesktopApplet: {
+    property Item isShowDesktopApplet: gradientRect.updateProps, getShowDesktopApplet()
+
+    function getShowDesktopApplet() {
         if(currentLayout.visibleChildren.length === 0) return null;
-        var item = currentLayout.visibleChildren[currentLayout.visibleChildren.length-1];
+        var item = currentLayout.visibleChildren[currentLayout.visibleChildren.length-2];
         if(item) {
             if(typeof item.applet !== "undefined") {
                 if(item.applet.Plasmoid.pluginName === "io.gitgud.wackyideas.win7showdesktop") {
@@ -92,10 +94,10 @@ ContainmentItem {
         root.checkLastSpacer();
         // When a new preset panel is added, avoid calling save() multiple times
         Qt.callLater(LayoutManager.save);
-        Qt.callLater(() => {
+        /*Qt.callLater(() => {
            gradientRect.applet = Qt.binding(() => { return gradientRect.findApplet(); });
            gradientRect.nextApplet = Qt.binding(() => { return gradientRect.findNextApplet(); });
-        });
+        });*/
     }
 
     Containment.onAppletRemoved: (applet) => {
@@ -109,6 +111,7 @@ ContainmentItem {
 
     Plasmoid.onUserConfiguringChanged: {
         if (!Plasmoid.userConfiguring) {
+            gradientRect.updateProps = !gradientRect.updateProps
             if (root.configOverlay) {
                 root.configOverlay.destroy();
                 root.configOverlay = null;
@@ -393,13 +396,30 @@ ContainmentItem {
             id: gradientRect
             anchors.fill: currentLayout
             anchors.topMargin: plasmoidLocationString() === "south" ? panelSvg.fixedMargins.top : 0
-            anchors.bottomMargin: plasmoidLocationString() === "north" ? panelSvg.fixedMargins.bottom : 0
-            anchors.leftMargin: plasmoidLocationString() === "west" ? panelSvg.fixedMargins.left : 0
-            anchors.rightMargin:{
+            function updateBottomMargin() {
+                if(plasmoidLocationString() === "north") return panelSvg.fixedMargins.bottom
+                    else if(plasmoidLocationString() === "west" || plasmoidLocationString() === "east") {
+                        if(root.isShowDesktopApplet) {
+                            return root.isShowDesktopApplet.Layout.maximumHeight;
+                        }
+                        return 0;
+                    }
+                    else return 0;
+            }
+            function updateRightMargin() {
                 if(plasmoidLocationString() === "east") return panelSvg.fixedMargins.right;
-                else if(plasmoidLocationString() === "south" || plasmoidLocationString() === "north") return -parent.anchors.rightMargin;
+                else if(plasmoidLocationString() === "south" || plasmoidLocationString() === "north") {
+                    var result = -parent.anchors.rightMargin;
+                    if(root.isShowDesktopApplet) {
+                        result += root.isShowDesktopApplet.Layout.maximumWidth;
+                    }
+                    return result;
+                }
                 else return 0;
             }
+            anchors.bottomMargin: updateProps, updateBottomMargin()
+            anchors.leftMargin: plasmoidLocationString() === "west" ? panelSvg.fixedMargins.left : 0
+            anchors.rightMargin: updateProps, updateRightMargin()
             gradient: Gradient {
                 orientation: isHorizontal ? Gradient.Horizontal : Gradient.Vertical
                 GradientStop { position: 0.0; color: gradientRect.tint  }
@@ -407,9 +427,8 @@ ContainmentItem {
                 GradientStop { position: gradientRect.gradStart+0.02; color: gradientRect.gradColor}
                 GradientStop { position: gradientRect.gradEnd-0.02; color: gradientRect.gradColor}
                 GradientStop { position: gradientRect.gradEnd; color: gradientRect.tint }
-                GradientStop { position: 1.0; color: gradientRect.tint }
-
             }
+            property int updateProps: 0
             property string tint: "#36000000"
             property string gradColor: iconsOnlyApplet ? "transparent" : gradientRect.tint
             property double gradStart: {
@@ -458,8 +477,8 @@ ContainmentItem {
                 }
                 return null;
             }
-            property Item nextApplet: findNextApplet();
-            property Item applet: findApplet();
+            property Item nextApplet: updateProps, findNextApplet();
+            property Item applet: updateProps, findApplet();
         }
         GridLayout {
             id: currentLayout
