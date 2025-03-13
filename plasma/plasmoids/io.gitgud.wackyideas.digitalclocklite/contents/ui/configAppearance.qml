@@ -51,7 +51,9 @@ SimpleKCM {
     property alias cfg_showDate: showDate.checked
     property alias cfg_shortTaskbarHideDate: shortTaskbarHideDate.checked
     property string cfg_dateFormat: "shortDate"
+    property alias cfg_customFormat: customFormatField.text
     property alias cfg_use24hFormat: use24hFormat.checkState
+
 
     onCfg_fontFamilyChanged: {
         // HACK by the time we populate our model and/or the ComboBox is finished the value is still undefined
@@ -179,6 +181,10 @@ SimpleKCM {
                             {
                                 'label': i18n("ISO Date"),
                                 'name': "isoDate"
+                            },
+                            {
+                                'label': i18n("Custom Date"),
+                                'name': "customDate"
                             }
                         ]
                         onCurrentIndexChanged: cfg_dateFormat = model[currentIndex]["name"]
@@ -191,6 +197,26 @@ SimpleKCM {
                             }
                         }
                     }
+                }
+
+                QtLayouts.RowLayout {
+                    visible: dateFormat.currentIndex === dateFormat.model.length-1
+
+                    QtControls.Label {
+                        text: i18n("Custom format:")
+                    }
+                    QtControls.TextField {
+                        id: customFormatField
+                        Component.onCompleted: {
+                            customFormatField.text = Plasmoid.configuration.customFormat
+                        }
+                    }
+
+                    Text {
+                        id: testDate
+                        text: Qt.formatDate(new Date(), customFormatField.text)
+                    }
+
                 }
             }
         }

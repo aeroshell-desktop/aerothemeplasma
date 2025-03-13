@@ -43,6 +43,8 @@ Item {
             return Locale.LongFormat;//Qt.SystemLocaleLongDate;
         } else if (Plasmoid.configuration.dateFormat === "isoDate") {
             return Qt.ISODate;
+        } else if (Plasmoid.configuration.dateFormat === "customDate") {
+            return Plasmoid.configuration.customFormat;
         }
 
         return Qt.locale()//Locale.ShortFormat;//Qt.SystemLocaleShortDate;
