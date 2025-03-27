@@ -18,6 +18,7 @@ Item {
     property int iconSizeSide: Kirigami.Units.iconSizes.smallMedium
     property string itemText: ""
     property string itemIcon: ""
+    property string itemIconFallback: "unknown"
     property string executableString: ""
     property bool executeProgram: false
     property alias textLabel: label

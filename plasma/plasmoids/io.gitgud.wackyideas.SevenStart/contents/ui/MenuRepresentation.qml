@@ -1012,10 +1012,14 @@ PlasmaCore.Dialog {
 					if(root.activeFocusItem) {
 						if(root.activeFocusItem.objectName === "SidePanelItemDelegate") {
 							compositingIcon.iconSource = root.activeFocusItem.itemIcon;
+							compositingIcon.fallbackIcon = root.activeFocusItem.itemIconFallback;
 							nonCompositingIcon.iconSource = root.activeFocusItem.itemIcon;
+							nonCompositingIcon.fallbackIcon = root.activeFocusItem.itemIconFallback;
 						} else {
 							compositingIcon.iconSource = "";
+							compositingIcon.fallbackIcon = "unknown";
 							nonCompositingIcon.iconSource = "";
+							nonCompositingIcon.fallbackIcon = "unknown";
 						}
 					}
 				}
@@ -1047,6 +1051,7 @@ PlasmaCore.Dialog {
 				SidePanelItemDelegate {
 					itemText: "Documents"
 					itemIcon: "library-txt"
+					itemIconFallback: "folder-library"
 					executableString: folderDialog.getPath(2)
 					visible: Plasmoid.configuration.showDocumentsSidepanel
 					onVisibleChanged: {
@@ -1058,6 +1063,7 @@ PlasmaCore.Dialog {
 				SidePanelItemDelegate {
 					itemText: "Pictures"
 					itemIcon: "library-images"
+					itemIconFallback: "folder-image"
 					executableString: folderDialog.getPath(3)
 					visible: Plasmoid.configuration.showPicturesSidepanel
 					onVisibleChanged: {
@@ -1069,6 +1075,7 @@ PlasmaCore.Dialog {
 				SidePanelItemDelegate {
 					itemText: "Music"
 					itemIcon: "library-music"
+					itemIconFallback: "folder-music"
 					executableString: folderDialog.getPath(4)
 					visible: Plasmoid.configuration.showMusicSidepanel
 					onVisibleChanged: {
@@ -1080,6 +1087,7 @@ PlasmaCore.Dialog {
 				SidePanelItemDelegate {
 					itemText: "Videos"
 					itemIcon: "library-video"
+					itemIconFallback: "folder-videos"
 					executableString: folderDialog.getPath(5)
 					visible: Plasmoid.configuration.showVideosSidepanel
 					onVisibleChanged: {
@@ -1091,6 +1099,7 @@ PlasmaCore.Dialog {
 				SidePanelItemDelegate {
 					itemText: "Downloads"
 					itemIcon: "folder-download"
+					itemIconFallback: "folder-download"
 					executableString: folderDialog.getPath(6)
 					visible: Plasmoid.configuration.showDownloadsSidepanel
 					onVisibleChanged: {
@@ -1108,6 +1117,7 @@ PlasmaCore.Dialog {
 				SidePanelItemDelegate {
 					itemText: "Games"
 					itemIcon: "applications-games"
+					itemIconFallback: "folder-games"
 					executableString: folderDialog.getPath(9)
 					visible: Plasmoid.configuration.showGamesSidepanel
 					onVisibleChanged: {
@@ -1120,6 +1130,7 @@ PlasmaCore.Dialog {
 					id: recentsItem
 					itemText: "Recent Items"
 					itemIcon: "document-open-recent"
+					itemIconFallback: "folder-documents"
 					executableString: folderDialog.getPath(11)
 					visible: Plasmoid.configuration.showRecentItemsSidepanel
 					onVisibleChanged: {
@@ -1153,6 +1164,7 @@ PlasmaCore.Dialog {
 				SidePanelItemDelegate {
 					itemText: "Network"
 					itemIcon: "folder-network"
+					itemIconFallback: "network-server"
 					executableString: folderDialog.getPath(8)
 					visible: Plasmoid.configuration.showNetworkSidepanel
 					onVisibleChanged: {
@@ -1170,6 +1182,7 @@ PlasmaCore.Dialog {
 				SidePanelItemDelegate {
 					itemText: "Control Panel"
 					itemIcon: "preferences-system"
+					itemIconFallback: "preferences-desktop"
 					executableString: "systemsettings"
 					executeProgram: true
 					visible: Plasmoid.configuration.showSettingsSidepanel
@@ -1182,6 +1195,7 @@ PlasmaCore.Dialog {
 				SidePanelItemDelegate {
 					itemText: "Devices and Printers"
 					itemIcon: "input_devices_settings"
+					itemIconFallback: "printer"
 					executableString: "systemsettings kcm_printer_manager"
 					executeProgram: true
 					visible: Plasmoid.configuration.showDevicesSidepanel
@@ -1194,6 +1208,7 @@ PlasmaCore.Dialog {
 				SidePanelItemDelegate {
 					itemText: "Default Programs"
 					itemIcon: "preferences-desktop-default-applications"
+					itemIconFallback: "application-x-executable"
 					executableString: "systemsettings kcm_componentchooser"
 					executeProgram: true
 					visible: Plasmoid.configuration.showDefaultsSidepanel
@@ -1206,6 +1221,7 @@ PlasmaCore.Dialog {
 				SidePanelItemDelegate {
 					itemText: "Help and Support"
 					itemIcon: "help-browser"
+					itemIconFallback: "system-help"
 					executableString: folderDialog.getPath(10);
 					visible: Plasmoid.configuration.showHelpSidepanel
 					onVisibleChanged: {
@@ -1217,6 +1233,7 @@ PlasmaCore.Dialog {
 				SidePanelItemDelegate {
 					itemText: "Run..."
 					itemIcon: "krunner"
+					itemIconFallback: "system-run"
 					executableString: "krunner --replace";
 					executeProgram: true
 					visible: Plasmoid.configuration.showRunSidepanel

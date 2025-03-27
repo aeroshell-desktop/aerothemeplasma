@@ -33,6 +33,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
 
         property alias iconSource: imgAuthorIcon.source
+        property alias fallbackIcon: imgAuthorIcon.fallback
 
         BorderImage {
             source: "../pics/user.png"
