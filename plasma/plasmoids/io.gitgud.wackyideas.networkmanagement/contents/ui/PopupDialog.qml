@@ -27,7 +27,7 @@ PlasmaExtras.Representation {
         PlasmaNM.NetworkModel {}
     }
 
-    property PlasmaNM.NetworkModel connectionModel: null
+    property var connectionModel: mainWindow.connectionModel
 
     PlasmaNM.AppletProxyModel {
         id: appletProxyModel
@@ -100,6 +100,8 @@ PlasmaExtras.Representation {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: backButton.visible ? backButton.top : parent.bottom
+        anchors.leftMargin: -Kirigami.Units.largeSpacing
+        anchors.bottomMargin: -Kirigami.Units.largeSpacing
         //anchors.bottomMargin: Kirigami.Units.smallSpacing
         initialItem: ConnectionListPage {
             id: connectionListPage
@@ -130,26 +132,6 @@ PlasmaExtras.Representation {
         }
     }
     }
-    /*PlasmaExtras.Heading {
-        Layout.fillWidth: true
-        Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-        horizontalAlignment: Qt.AlignHCenter
-        text: i18nc("@action:button", "Return to Network Connections")
-        visible: stack.depth > 1
-        color: "#0066cc" //heading_ma.containsPress ? "#90e7ff" : (heading_ma.containsMouse ? "#b6ffff" : Kirigami.Theme.textColor)
-        font.underline: heading_ma.containsMouse
-        level: 5
-        MouseArea {
-            id: heading_ma
-            anchors.fill: parent
-            hoverEnabled: true
-            onClicked: {
-                stack.pop()
-            }
-            cursorShape: Qt.PointingHandCursor
-            z: 5
-        }
-    }*/
 
     Connections {
         target: mainWindow
@@ -160,10 +142,10 @@ PlasmaExtras.Representation {
                     full.connectionModel = networkModelComponent.createObject(full);
                 }
             } else {
-                if (full.connectionModel) {
+                /*if (full.connectionModel) {
                     full.connectionModel.destroy();
                     full.connectionModel = null;
-                }
+                }*/
             }
         }
     }

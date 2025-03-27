@@ -13,6 +13,5 @@ import org.kde.plasma.extras 2.0 as PlasmaExtras
 
 TrafficMonitor {
     id: trafficMonitorGraph
-    Accessible.description: i18nc("@info:tooltip", "Current download speed is %1 kibibytes per second; current upload speed is %2 kibibytes per second", Math.round(rxSpeed / 1024), Math.round(txSpeed / 1024))
     //width: parent.width
 }

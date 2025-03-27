@@ -88,6 +88,7 @@ import QtQuick.Controls 2.15 as QQC2
 Item {
     id: listItem
 
+    property bool deactivated
     property alias mouseArea: listMouseArea
     /**
      * icon: var
@@ -299,6 +300,16 @@ Item {
             return;
         }
         expandedView.expanded ? listItem.collapse() : listItem.expand()
+        if(expandedView.expanded) {
+            if(ListView.view.expandedItem !== null && ListView.view.expandedItem !== listItem) {
+                ListView.view.expandedItem.toggleExpanded();
+            }
+            ListView.view.expandedItem = listItem;
+        } else {
+            if(ListView.view.expandedItem !== null && ListView.view.expandedItem === listItem) {
+                ListView.view.expandedItem = null;
+            }
+        }
     }
 
     signal itemExpanded()
@@ -417,29 +428,74 @@ Item {
                 Layout.margins: Kirigami.Units.smallSpacing
                 // Otherwise it becomes taller when the button appears
                 Layout.minimumHeight: defaultActionButton.height
+                layoutDirection: listItem.deactivated ? Qt.RightToLeft : Qt.LeftToRight
 
                 // Icon and optional emblem
                 Kirigami.Icon {
                     id: listItemIcon
 
-                    implicitWidth: Kirigami.Units.iconSizes.medium
-                    implicitHeight: Kirigami.Units.iconSizes.medium
+                    implicitWidth: listItem.deactivated ? Kirigami.Units.iconSizes.smallMedium+2 : Kirigami.Units.iconSizes.medium
+                    implicitHeight: listItem.deactivated ? Kirigami.Units.iconSizes.smallMedium+2 : Kirigami.Units.iconSizes.medium
+                    roundToIconSize: false
 
                     Kirigami.Icon {
                         id: iconEmblem
 
                         visible: valid
 
-                        anchors.right: parent.right
-                        anchors.bottom: parent.bottom
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        anchors.leftMargin: -1
 
-                        implicitWidth: Kirigami.Units.iconSizes.small
-                        implicitHeight: Kirigami.Units.iconSizes.small
+                        implicitWidth: Kirigami.Units.iconSizes.small - (listItem.deactivated ? Kirigami.Units.smallSpacing : 0)
+                        implicitHeight: Kirigami.Units.iconSizes.small - (listItem.deactivated ? Kirigami.Units.smallSpacing : 0)
+                        roundToIconSize: false
                     }
                 }
 
                 // Title and subtitle
                 ColumnLayout {
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignVCenter
+
+                    spacing: 0
+
+                    Text {
+                        id: listItemTitle
+
+                        visible: text.length > 0
+
+                        Layout.fillWidth: true
+
+                        elide: Text.ElideRight
+                        maximumLineCount: 1
+
+                        color: listItem.isDefault ? "black" : "#0061bd"
+
+                        // Even if it's the default item, only make it bold when
+                        // there's more than one item in the list, or else there's
+                        // only one item and it's bold, which is a little bit weird
+                        font.weight: listItem.isDefault && listItem.ListView.view.count > 1
+                        ? Font.Bold
+                        : Font.Normal
+                    }
+
+                    Text {
+                        id: listItemSubtitle
+
+                        visible: text.length > 0
+
+                        Layout.fillWidth: true
+
+                        color: "black"
+                        textFormat: listItem.allowStyledText ? Text.StyledText : Text.PlainText
+                        elide: Text.ElideRight
+                        maximumLineCount: subtitleCanWrap ? 9999 : 1
+                        wrapMode: subtitleCanWrap ? Text.WordWrap : Text.NoWrap
+                    }
+                }
+                // Title and subtitle
+                /*ColumnLayout {
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignVCenter
 
@@ -484,7 +540,7 @@ Item {
                         maximumLineCount: subtitleCanWrap ? 9999 : 1
                         wrapMode: subtitleCanWrap ? Text.WordWrap : Text.NoWrap
                     }
-                }
+                }*/
 
                 // Busy indicator
                 PlasmaComponents3.BusyIndicator {
@@ -580,8 +636,6 @@ Item {
                                 anchors.top: parent.top
                                 anchors.left: parent.left
                                 anchors.right: parent.right
-                                //anchors.leftMargin: Kirigami.Units.iconSizes.small
-                                //anchors.rightMargin: Kirigami.Units.iconSizes.small
 
                                 spacing: Kirigami.Units.smallSpacing
                                 layoutDirection: Qt.RightToLeft
@@ -602,6 +656,13 @@ Item {
                                         text: modelData.text
                                         icon.name: modelData.icon.name
 
+
+                                        Keys.onPressed: event => {
+                                            if(event.key == Qt.Key_Enter || event.key == Qt.Key_Return) {
+                                                modelData.trigger();
+                                                event.accepted = true;
+                                            }
+                                        }
                                         //KeyNavigation.up: index > 0 ? actionRepeater.itemAt(index - 1) : expandToggleButton
                                         Keys.onDownPressed: event => {
                                             if (index === actionRepeater.count - 1) {

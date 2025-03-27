@@ -5,9 +5,9 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.15
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.kde.coreaddons 1.0 as KCoreAddons
 import org.kde.kcmutils as KCMUtils
@@ -18,11 +18,13 @@ import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.networkmanagement as PlasmaNM
 import org.kde.plasma.plasmoid 2.0
 
+import org.kde.networkmanager as NMQt
+
 ExpandableListItem {
     id: connectionItem
 
     property bool activating: ConnectionState === PlasmaNM.Enums.Activating
-    property bool deactivated: ConnectionState === PlasmaNM.Enums.Deactivated
+    deactivated: ConnectionState === PlasmaNM.Enums.Deactivated
     property bool passwordIsStatic: (SecurityType === PlasmaNM.Enums.StaticWep || SecurityType == PlasmaNM.Enums.WpaPsk ||
                                      SecurityType === PlasmaNM.Enums.Wpa2Psk || SecurityType == PlasmaNM.Enums.SAE)
     property bool predictableWirelessPassword: !Uuid && Type === PlasmaNM.Enums.Wireless && passwordIsStatic
@@ -38,7 +40,9 @@ ExpandableListItem {
 
     icon: {
         if(Type === PlasmaNM.Enums.Wired) {
-            if(ConnectionState !== PlasmaNM.Enums.Activated) return "network-type-public";
+            if(ConnectionState !== PlasmaNM.Enums.Activated ||
+               !(mainWindow.networkStatus.connectivity === NMQt.NetworkManager.Full ||
+               mainWindow.networkStatus.connectivity === NMQt.NetworkManager.Portal)) return "network-type-public";
             else {
                 var details = model.ConnectionDetails;
                 var privateIp = details.length >= 1 ? details[1] : ""
@@ -51,6 +55,12 @@ ExpandableListItem {
 
     }//model.ConnectionIcon
 
+    iconEmblem: {
+        //return "stock_lock"
+        if(SecurityType == PlasmaNM.Enums.UnknownSecurity) return "stock_lock"
+        else if(Type == PlasmaNM.Enums.Bluetooth) return "bluetooth-active-symbolic"
+        else return undefined;
+    }
     // Hotfix to "hide" undefined items
     Component.onCompleted: {
         if(typeof model.ItemUniqueName == "undefined") {
@@ -72,16 +82,6 @@ ExpandableListItem {
             event.accepted = false;
             return;
         }
-
-        /*if ((customExpandedViewContent === detailsComponent) && showSpeed) {
-            if (event.key === Qt.Key_Right) {
-                customExpandedViewContentItem.detailsTabBar.currentIndex = 1;
-                event.accepted = true;
-            } else if (event.key === Qt.Key_Left) {
-                customExpandedViewContentItem.detailsTabBar.currentIndex = 0;
-                event.accepted = true;
-            }
-        }*/
     }
 
     Connections {
@@ -119,27 +119,25 @@ ExpandableListItem {
         PlasmaExtras.MenuItem {
             text: i18n("Speed")
             icon: "preferences-system-performance"
+            visible: showSpeed
             onClicked: {
-                const speedGraphComponent = Qt.createComponent("SpeedGraphPage.qml");
-                if (speedGraphComponent.status === Component.Error) {
-                    console.warn("Cannot create speed graph component:", speedGraphComponent.errorString());
-                    return;
+                var winHandler = mainWindow.windowManager.getWindow(model.ItemUniqueName+Uuid);
+                if(typeof winHandler !== "undefined") {
+                    winHandler.tabBar.currentIndex = 1;
+                    winHandler.show();
+                } else {
+                    mainWindow.windowManager.addWindow(Uuid, ConnectionState, Type, model.ItemUniqueName, full.connectionModel, DevicePath, 1);
                 }
-
                 mainWindow.expanded = true; // just in case.
-                stack.push(speedGraphComponent, {
-                    downloadSpeed: Qt.binding(() => rxSpeed),
-                    uploadSpeed: Qt.binding(() => txSpeed),
-                    connectionTitle: Qt.binding(() => model.ItemUniqueName)
-                });
             }
         }
         PlasmaExtras.MenuItem {
-            //text: i18n("Copy")
             text: i18n("Show Network's QR Code")
             icon: "view-barcode-qr"
-            visible: Uuid && Type === PlasmaNM.Enums.Wireless && passwordIsStatic
-            onClicked: handler.requestWifiCode(ConnectionPath, Ssid, SecurityType);
+            visible: Uuid && Type === PlasmaNM.Enums.Wireless && passwordIsStatic && ConnectionState === PlasmaNM.Enums.Activated
+            onClicked: {
+                handler.requestWifiCode(ConnectionPath, Ssid, SecurityType);
+            }
         }
         PlasmaExtras.MenuItem {
             text: i18n("Configure…")
@@ -171,18 +169,15 @@ ExpandableListItem {
             text: i18n("Details")
             //icon.name: "configure"
             onTriggered: {
-                const showDetailscomponent = Qt.createComponent("NetworkDetailsPage.qml");
-                if (showDetailscomponent.status === Component.Error) {
-                    console.warn("Cannot create details page component:", showDetailscomponent.errorString());
-                    return;
+                connectionItem.toggleExpanded();
+                var winHandler = mainWindow.windowManager.getWindow(model.ItemUniqueName+Uuid);
+                if(typeof winHandler !== "undefined") {
+                    winHandler.tabBar.currentIndex = 0;
+                    winHandler.show();
+                } else {
+                    mainWindow.windowManager.addWindow(Uuid, ConnectionState, Type, model.ItemUniqueName, full.connectionModel, DevicePath, 0);
                 }
-
-                mainWindow.expanded = true; // just in case.
-                connectionItem.collapse()
-                stack.push(showDetailscomponent, {
-                    details: Qt.binding(() => ConnectionDetails),
-                    connectionTitle: Qt.binding(() => model.ItemUniqueName)
-                });
+                //mainWindow.expanded = false; // just in case.
             }
         }
     ]
@@ -217,6 +212,7 @@ ExpandableListItem {
             }
         }
     }
+
 
     Timer {
         id: timer
@@ -281,13 +277,14 @@ ExpandableListItem {
         } else if (Uuid && ConnectionState === PlasmaNM.Enums.Deactivated) {
             return LastUsed
         } else if (ConnectionState === PlasmaNM.Enums.Activated) {
-            if (showSpeed) {
-                return i18n("Connected ⬇ %1/s, ⬆ %2/s",
-                    KCoreAddons.Format.formatByteSize(rxSpeed),
-                    KCoreAddons.Format.formatByteSize(txSpeed))
-            } else {
-                return i18n("Connected")
-            }
+            if(mainWindow.networkStatus.connectivity === NMQt.NetworkManager.Portal)
+                return "Sign in required";
+            else if(mainWindow.networkStatus.connectivity === NMQt.NetworkManager.Limited)
+                return "No network access";
+            else if(mainWindow.networkStatus.connectivity === NMQt.NetworkManager.Full)
+                return "Internet access";
+            else
+                return "No Internet access";
         }
         return ""
     }
@@ -297,7 +294,9 @@ ExpandableListItem {
     }
 
     onShowSpeedChanged: {
-        connectionModel.setDeviceStatisticsRefreshRateMs(DevicePath, showSpeed ? 2000 : 0)
+
+        var winHandler = mainWindow.windowManager.getWindow(model.ItemUniqueName+Uuid);
+        connectionModel.setDeviceStatisticsRefreshRateMs(DevicePath, (typeof winHandler !== "undefined" || showSpeed) ? 2000 : 0)
     }
 
     onActivatingChanged: {

@@ -44,16 +44,22 @@ ColumnLayout {
             }
         }
     }
-
-    ListView {
-        id: connectionView
+    QQC2.ScrollView {
+        id: scrollView
 
         Layout.fillWidth: true
         Layout.fillHeight: true
-        Layout.rightMargin: connectionView.scrollBarVisible ? -Kirigami.Units.largeSpacing : 0
+        Layout.rightMargin: scrollBarVisible ? -Kirigami.Units.largeSpacing : 0
+        contentWidth: availableWidth - contentItem.leftMargin - contentItem.rightMargin
+        property bool scrollBarVisible: QQC2.ScrollBar.vertical.visible
+
+    contentItem: ListView {
+        id: connectionView
 
         property int currentVisibleButtonIndex: -1
         property bool showSeparator: false
+
+        property var expandedItem: null
 
         Keys.onDownPressed: event => {
             connectionView.incrementCurrentIndex();
@@ -76,17 +82,18 @@ ColumnLayout {
         currentIndex: -1
         boundsBehavior: Flickable.StopAtBounds
         clip: true
-        QQC2.ScrollBar.vertical: QQC2.ScrollBar { }
         property bool scrollBarVisible: QQC2.ScrollBar.vertical.visible
         section.property: showSeparator ? "Section" : ""
         section.delegate: ListItem {
+            required property string section
             separator: true
+            separatorText.text: section
         }
         highlight: PlasmaExtras.Highlight { }
         highlightMoveDuration: 0
         highlightResizeDuration: 0
         delegate: ConnectionItem {
-            width: connectionView.width - (connectionView.scrollBarVisible ? (connectionView.QQC2.ScrollBar.vertical.width + Kirigami.Units.smallSpacing ) : 0)
+            width: connectionView.width //- (connectionView.scrollBarVisible ? (connectionView.QQC2.ScrollBar.vertical.width + Kirigami.Units.smallSpacing ) : 0)
         }
 
         // Placeholder message
@@ -123,5 +130,5 @@ ColumnLayout {
                 }
             }
         }
-    }
+    }}
 }

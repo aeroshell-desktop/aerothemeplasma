@@ -17,6 +17,46 @@ import org.kde.config as KConfig
 PlasmoidItem {
     id: mainWindow
 
+    property alias windowManager: wm
+    property alias networkStatus: networkStatus
+    Item {
+        id: wm
+        property var windowObjects: {}
+        function getWindow(name) {
+            if(typeof windowObjects === "undefined")
+                windowObjects = {};
+            return windowObjects[name];
+        }
+        function addWindow(uuid, state, type, name, model, devicePath, index) {
+            if(typeof windowObjects === "undefined")
+                windowObjects = {};
+
+            var winComponent = Qt.createComponent("DetailsWindow.qml", mainWindow);
+            if(winComponent.status === Component.Error) {
+                console.log("Error loading component:", winComponent.errorString());
+                return null;
+            }
+            var winObj = winComponent.createObject(winComponent, { uuid: uuid, connectionState: state, type: type, networkName: name, connectionModel: model, devicePath: devicePath});
+            if(winObj == null) {
+                console.log("Error loading object");
+                return null;
+            }
+            winObj.tabBar.currentIndex = index;
+            //winObj.transientParent = null;
+
+            windowObjects[name+uuid] = winObj;
+            Qt.callLater(() => { windowObjects[name+uuid].show(); });
+            return windowObjects[name+uuid];
+        }
+        function removeWindow(name) {
+            delete windowObjects[name];
+        }
+
+    }
+
+
+    property PlasmaNM.NetworkModel connectionModel: null
+    property alias nmhandler: handler
     readonly property string kcm: "kcm_networkmanagement"
     readonly property bool kcmAuthorized: KConfig.KAuthorized.authorizeControlModule("kcm_networkmanagement")
     readonly property bool delayModelUpdates: fullRepresentationItem !== null
@@ -67,8 +107,10 @@ PlasmoidItem {
         Layout.minimumHeight: 131
         Layout.preferredHeight: dialogItem.implicitHeight
         anchors.fill: parent
+        anchors.topMargin: -Kirigami.Units.smallSpacing
         focus: true
     }
+    //property var detailsWindow: null
 
     Connections {
         target: handler
@@ -144,6 +186,7 @@ PlasmoidItem {
             icon.name: "network-flightmode-on"
             priority: PlasmaCore.Action.LowPriority
             visible: networkStatus.connectivity === NMQt.NetworkManager.Portal
+
             onTriggered: Qt.openUrlExternally("http://networkcheck.kde.org")
         }
     ]

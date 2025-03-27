@@ -5,6 +5,7 @@
 */
 
 import QtQuick 2.2
+import QtQuick.Controls
 import QtQuick.Layouts 1.2
 import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.plasma.core 2.0 as PlasmaCore
@@ -13,6 +14,7 @@ import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.networkmanagement as PlasmaNM
 import org.kde.kcmutils as KCMUtils
 import QtQuick.Controls 2.15 as QQC2
+import org.kde.ksvg 1.0 as KSvg
 
 ColumnLayout {
     id: toolbar
@@ -40,11 +42,13 @@ ColumnLayout {
         );
     }
 
-    spacing: Kirigami.Units.smallSpacing * 3
+
+    Keys.forwardTo: [searchTextField]
 
     RowLayout {
         // Add margin before switches for consistency with other applets
         Layout.leftMargin: Kirigami.Units.smallSpacing / 2
+        Layout.topMargin: 2
 
         spacing: parent.spacing
 
@@ -141,11 +145,38 @@ ColumnLayout {
                 PlasmaNM.Configuration.airplaneModeEnabled = checked;
             }
         }
+        Item {
+            Layout.fillWidth: true
+        }
+        QQC2.Button {
+            id: refresh
+            checkable: false
+            flat: true
+            text: ""
+            icon.name: "gtk-refresh"
+            icon.height: Kirigami.Units.iconSizes.small
+            icon.width: Kirigami.Units.iconSizes.small
+            Layout.rightMargin: -Kirigami.Units.smallSpacing
+            Layout.topMargin: -Kirigami.Units.smallSpacing
+            KeyNavigation.right: searchTextField
+            KeyNavigation.tab: searchTextField
+            onClicked: {
+                mainWindow.nmhandler.requestScan()
+            }
+            Keys.onPressed: event => {
+                if(event.key == Qt.Key_Enter || event.key == Qt.Key_Return) {
+                    mainWindow.nmhandler.requestScan();
+                    event.accepted = true;
+                }
+            }
+
+        }
+
     }
     PlasmaComponents3.ToolButton {
         id: hotspotButton
 
-        visible: false//handler.hotspotSupported
+        visible: false //handler.hotspotSupported
         checkable: true
 
         text: i18n("Hotspot")
@@ -187,21 +218,47 @@ ColumnLayout {
         }
     }
 
-    PlasmaExtras.SearchField {
+    TextField {
         id: searchTextField
 
         Layout.fillWidth: true
+        Layout.preferredHeight: text.length > 0 ? Kirigami.Units.smallSpacing * 6 : 0
+        opacity: text.length > 0
 
-        visible: false
+
+        visible: true //text.length > 0
         enabled: toolbar.hasConnections || text.length > 0
+        rightPadding: Kirigami.Units.iconSizes.small + Kirigami.Units.largeSpacing
+        background:	KSvg.FrameSvgItem {
+            anchors.fill: parent
+            anchors.left: parent.left
+            imagePath: Qt.resolvedUrl("svgs/lineedit.svg")
+            prefix: "base"
+
+            Kirigami.Icon {
+                source: "gtk-search"
+                smooth: true
+                width: Kirigami.Units.iconSizes.small;
+                height: width
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                    bottomMargin: 1
+                    right: parent.right
+                    rightMargin: Kirigami.Units.smallSpacing+1
+                }
+            }
+        }
 
         // This uses expanded to ensure the binding gets reevaluated
         // when the plasmoid is shown again and that way ensure we are
         // always in the correct state on show.
-        focus: mainWindow.expanded && !Kirigami.InputMethod.willShowOnActive
+        focus: true //mainWindow.expanded// && !Kirigami.InputMethod.willShowOnActive
+        inputMethodHints: Qt.ImhNoPredictiveText
 
-        KeyNavigation.left: hotspotButton.visible ? hotspotButton : hotspotButton.KeyNavigation.left
-        KeyNavigation.right: openEditorButton
+
+        KeyNavigation.tab: wifiSwitchButton
+        KeyNavigation.backtab: refresh
 
         onTextChanged: {
             appletProxyModel.setFilterFixedString(text)
@@ -211,7 +268,8 @@ ColumnLayout {
     PlasmaComponents3.ToolButton {
         id: openEditorButton
 
-        visible: mainWindow.kcmAuthorized && !(plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
+        //visible: mainWindow.kcmAuthorized && !(plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentDrawsPlasmoidHeading)
+        visible: false
 
         icon.name: "configure"
 

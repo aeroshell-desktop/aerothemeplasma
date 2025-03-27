@@ -22,6 +22,7 @@ ColumnLayout {
 
     PlasmaComponents3.Label {
         Layout.topMargin: page.spacing
+        Layout.leftMargin: Kirigami.Units.mediumSpacing
         Layout.alignment: Qt.AlignHCenter
         Layout.minimumWidth: barcode.height
         Layout.maximumWidth: barcode.width - page.spacing * 2
@@ -33,6 +34,7 @@ ColumnLayout {
 
     Prison.Barcode {
         id: barcode
+        Layout.leftMargin: Kirigami.Units.mediumSpacing
         Layout.fillWidth: true
         Layout.fillHeight: true
         barcodeType: Prison.Barcode.QRCode
