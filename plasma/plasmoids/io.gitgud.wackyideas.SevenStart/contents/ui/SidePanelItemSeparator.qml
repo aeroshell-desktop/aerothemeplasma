@@ -29,7 +29,7 @@ Item {
         var i = findItem();
         var pred = i-1;
         var succ = i+1;
-        if(pred <= 0 || succ >= parent.visibleChildren.length) {
+        if(pred < 0 || succ >= parent.visibleChildren.length) {
             sidePanelDelegate.visible = false;
             return;
         }

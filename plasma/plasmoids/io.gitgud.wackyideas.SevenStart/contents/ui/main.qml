@@ -76,6 +76,10 @@ PlasmoidItem {
     	}
     	signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
     }
+
+    SidePanelModels {
+        id: sidePanelModels
+    }
     Kicker.WindowSystem {
         id: windowSystem
     }
@@ -85,12 +89,6 @@ PlasmoidItem {
         favoritesModel: globalFavorites
         ordering: 0
         shownItems: Kicker.RecentUsageModel.OnlyApps
-    }
-    Kicker.RecentUsageModel {
-        id: fileUsageModel
-        favoritesModel: globalFavorites
-        ordering: 0
-        shownItems: Kicker.RecentUsageModel.OnlyDocs
     }
     Kicker.RunnerModel {
         id: runnerModel

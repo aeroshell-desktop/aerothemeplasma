@@ -371,19 +371,6 @@ PlasmaCore.Dialog {
 			onObjectRemoved: (index, object) => contextMenu.removeMenuItem(object)
 		}
 
-		Instantiator {
-			model: fileUsageModel
-			delegate: PlasmaExtras.MenuItem {
-				required property int index
-				required property var model
-
-				text: model.display + "      "
-				icon: model.decoration
-				onClicked: fileUsageModel.trigger(index, "", null)
-			}
-			onObjectAdded: (index, object) => fileUsageMenu.addMenuItem(object);
-			onObjectRemoved: (index, object) => fileUsageMenu.removeMenuItem(object)
-		}
 
         PlasmaExtras.Menu {
 			id: contextMenu
@@ -402,21 +389,6 @@ PlasmaCore.Dialog {
 			}
 		}
 
-		PlasmaExtras.Menu {
-			id: fileUsageMenu
-			visualParent: recentsItem
-			placement: {
-				switch (Plasmoid.location) {
-					case PlasmaCore.Types.LeftEdge:
-					case PlasmaCore.Types.RightEdge:
-					case PlasmaCore.Types.TopEdge:
-						return PlasmaExtras.Menu.BottomPosedRightAlignedPopup;
-					case PlasmaCore.Types.BottomEdge:
-					default:
-						return PlasmaExtras.Menu.RightPosedBottomAlignedPopup;
-				}
-			}
-		}
 
 		KSvg.FrameSvgItem {
 			id: dialogBackground
@@ -970,40 +942,6 @@ PlasmaCore.Dialog {
 				opacity: !searching
 
 			}
-            FileDialog {
-                id: folderDialog
-                visible: false
-                currentFolder: ""
-
-                function getPath(val){
-					switch(val) {
-						case 1:
-							return StandardPaths.writableLocation(StandardPaths.HomeLocation);
-						case 2:
-							return StandardPaths.writableLocation(StandardPaths.DocumentsLocation);
-						case 3:
-							return StandardPaths.writableLocation(StandardPaths.PicturesLocation);
-						case 4:
-							return StandardPaths.writableLocation(StandardPaths.MusicLocation);
-						case 5:
-							return StandardPaths.writableLocation(StandardPaths.MoviesLocation);
-						case 6:
-							return StandardPaths.writableLocation(StandardPaths.HomeLocation) + "/Downloads";
-						case 7:
-							return "file:///.";
-						case 8:
-							return "remote:/";
-						case 9:
-							return "applications:///Games/";
-						case 10:
-							return "https://develop.kde.org/docs/"
-						case 11:
-							return "recentlyused:/";
-						default:
-							return "";
-					}
-                }
-            }
 			Timer {
 				id: delayTimer
 				interval: 250
@@ -1032,81 +970,39 @@ PlasmaCore.Dialog {
 				Layout.alignment: Qt.AlignTop
 				width: Math.max(cellWidthSide, columnItems.implicitWidth)
 
+				property var cfg_sidePanelVisibility: Plasmoid.configuration.sidePanelVisibility
+				property var sidePanelVisibility: {
+					var result = {};
+					if(cfg_sidePanelVisibility !== "")
+						result = JSON.parse(cfg_sidePanelVisibility);
+
+					if(typeof result === "undefined")
+						result = {};
+					return result;
+				}
+
 				property int currentIndex: -1
                 Component.onCompleted: {
 					separator1.updateVisibility();
 					separator2.updateVisibility();
 				}
-				SidePanelItemDelegate {
-					itemText: Plasmoid.configuration.useFullName ? kuser.fullName : kuser.loginName
-					itemIcon: "user-home"
-					executableString: folderDialog.getPath(1)
-					visible: Plasmoid.configuration.showHomeSidepanel
-					onVisibleChanged: {
-						separator1.updateVisibility();
-						separator2.updateVisibility();
+				Repeater {
+					model: sidePanelModels.firstCategory.length
+					visible: false // Messes with separator visibility checks
+					delegate: SidePanelItemDelegate {
+						required property int index
+						itemText: sidePanelModels.firstCategory[index].itemText
+						itemIcon: sidePanelModels.firstCategory[index].itemIcon
+						executableString: sidePanelModels.firstCategory[index].executableString
+						visible: typeof columnItems.sidePanelVisibility[sidePanelModels.firstCategory[index].name] !== "undefined"
+						executeProgram: sidePanelModels.firstCategory[index].executeProgram
+						onVisibleChanged: {
+							separator1.updateVisibility();
+							separator2.updateVisibility();
+						}
+						Layout.fillWidth: true
 					}
-					Layout.fillWidth: true
-				}
-				SidePanelItemDelegate {
-					itemText: "Documents"
-					itemIcon: "library-txt"
-					itemIconFallback: "folder-library"
-					executableString: folderDialog.getPath(2)
-					visible: Plasmoid.configuration.showDocumentsSidepanel
-					onVisibleChanged: {
-						separator1.updateVisibility();
-						separator2.updateVisibility();
-					}
-					Layout.fillWidth: true
-				}
-				SidePanelItemDelegate {
-					itemText: "Pictures"
-					itemIcon: "library-images"
-					itemIconFallback: "folder-image"
-					executableString: folderDialog.getPath(3)
-					visible: Plasmoid.configuration.showPicturesSidepanel
-					onVisibleChanged: {
-						separator1.updateVisibility();
-						separator2.updateVisibility();
-					}
-					Layout.fillWidth: true
-				}
-				SidePanelItemDelegate {
-					itemText: "Music"
-					itemIcon: "library-music"
-					itemIconFallback: "folder-music"
-					executableString: folderDialog.getPath(4)
-					visible: Plasmoid.configuration.showMusicSidepanel
-					onVisibleChanged: {
-						separator1.updateVisibility();
-						separator2.updateVisibility();
-					}
-					Layout.fillWidth: true
-				}
-				SidePanelItemDelegate {
-					itemText: "Videos"
-					itemIcon: "library-video"
-					itemIconFallback: "folder-videos"
-					executableString: folderDialog.getPath(5)
-					visible: Plasmoid.configuration.showVideosSidepanel
-					onVisibleChanged: {
-						separator1.updateVisibility();
-						separator2.updateVisibility();
-					}
-					Layout.fillWidth: true
-				}
-				SidePanelItemDelegate {
-					itemText: "Downloads"
-					itemIcon: "folder-download"
-					itemIconFallback: "folder-download"
-					executableString: folderDialog.getPath(6)
-					visible: Plasmoid.configuration.showDownloadsSidepanel
-					onVisibleChanged: {
-						separator1.updateVisibility();
-						separator2.updateVisibility();
-					}
-					Layout.fillWidth: true
+
 				}
 				SidePanelItemSeparator {
 					id: separator1
@@ -1114,64 +1010,24 @@ PlasmaCore.Dialog {
 					Layout.maximumWidth: 124
 					Layout.alignment: Qt.AlignHCenter
 				}
-				SidePanelItemDelegate {
-					itemText: "Games"
-					itemIcon: "applications-games"
-					itemIconFallback: "folder-games"
-					executableString: folderDialog.getPath(9)
-					visible: Plasmoid.configuration.showGamesSidepanel
-					onVisibleChanged: {
-						separator1.updateVisibility();
-						separator2.updateVisibility();
+				Repeater {
+					model: sidePanelModels.secondCategory.length
+					visible: false // Messes with separator visibility checks
+					delegate: SidePanelItemDelegate {
+						required property int index
+						itemText: sidePanelModels.secondCategory[index].itemText
+						itemIcon: sidePanelModels.secondCategory[index].itemIcon
+						executableString: sidePanelModels.secondCategory[index].executableString
+						visible: typeof columnItems.sidePanelVisibility[sidePanelModels.secondCategory[index].name] !== "undefined"
+						menuModel: sidePanelModels.secondCategory[index].menuModel
+						executeProgram: sidePanelModels.secondCategory[index].executeProgram
+						onVisibleChanged: {
+							separator1.updateVisibility();
+							separator2.updateVisibility();
+						}
+						Layout.fillWidth: true
 					}
-					Layout.fillWidth: true
-				}
-				SidePanelItemDelegate {
-					id: recentsItem
-					itemText: "Recent Items"
-					itemIcon: "document-open-recent"
-					itemIconFallback: "folder-documents"
-					executableString: folderDialog.getPath(11)
-					visible: Plasmoid.configuration.showRecentItemsSidepanel
-					onVisibleChanged: {
-						separator1.updateVisibility();
-						separator2.updateVisibility();
-					}
-					Layout.fillWidth: true
-					KSvg.SvgItem {
-						anchors.right: parent.right
-						anchors.rightMargin: Kirigami.Units.smallSpacing*2
-						anchors.verticalCenter: parent.verticalCenter
 
-						implicitWidth: 6
-						implicitHeight: 10
-
-						imagePath: Qt.resolvedUrl("svgs/arrows.svgz")
-						elementId: "group-expander-left"
-					}
-				}
-				SidePanelItemDelegate {
-					itemText: "Computer"
-					itemIcon: "computer"
-					executableString: folderDialog.getPath(7)
-					visible: Plasmoid.configuration.showRootSidepanel
-					onVisibleChanged: {
-						separator1.updateVisibility();
-						separator2.updateVisibility();
-					}
-					Layout.fillWidth: true
-				}
-				SidePanelItemDelegate {
-					itemText: "Network"
-					itemIcon: "folder-network"
-					itemIconFallback: "network-server"
-					executableString: folderDialog.getPath(8)
-					visible: Plasmoid.configuration.showNetworkSidepanel
-					onVisibleChanged: {
-						separator1.updateVisibility();
-						separator2.updateVisibility();
-					}
-					Layout.fillWidth: true
 				}
 				SidePanelItemSeparator {
 					id: separator2
@@ -1179,69 +1035,23 @@ PlasmaCore.Dialog {
 					Layout.maximumWidth: 124
 					Layout.alignment: Qt.AlignHCenter
 				}
-				SidePanelItemDelegate {
-					itemText: "Control Panel"
-					itemIcon: "preferences-system"
-					itemIconFallback: "preferences-desktop"
-					executableString: "systemsettings"
-					executeProgram: true
-					visible: Plasmoid.configuration.showSettingsSidepanel
-					onVisibleChanged: {
-						separator1.updateVisibility();
-						separator2.updateVisibility();
+				Repeater {
+					model: sidePanelModels.thirdCategory.length
+					visible: false // Messes with separator visibility checks
+					delegate: SidePanelItemDelegate {
+						required property int index
+						itemText: sidePanelModels.thirdCategory[index].itemText
+						itemIcon: sidePanelModels.thirdCategory[index].itemIcon
+						executableString: sidePanelModels.thirdCategory[index].executableString
+						visible: typeof columnItems.sidePanelVisibility[sidePanelModels.thirdCategory[index].name] !== "undefined"
+						menuModel: sidePanelModels.thirdCategory[index].menuModel
+						executeProgram: sidePanelModels.thirdCategory[index].executeProgram
+						onVisibleChanged: {
+							separator1.updateVisibility();
+							separator2.updateVisibility();
+						}
+						Layout.fillWidth: true
 					}
-					Layout.fillWidth: true
-				}
-				SidePanelItemDelegate {
-					itemText: "Devices and Printers"
-					itemIcon: "input_devices_settings"
-					itemIconFallback: "printer"
-					executableString: "systemsettings kcm_printer_manager"
-					executeProgram: true
-					visible: Plasmoid.configuration.showDevicesSidepanel
-					onVisibleChanged: {
-						separator1.updateVisibility();
-						separator2.updateVisibility();
-					}
-					Layout.fillWidth: true
-				}
-				SidePanelItemDelegate {
-					itemText: "Default Programs"
-					itemIcon: "preferences-desktop-default-applications"
-					itemIconFallback: "application-x-executable"
-					executableString: "systemsettings kcm_componentchooser"
-					executeProgram: true
-					visible: Plasmoid.configuration.showDefaultsSidepanel
-					onVisibleChanged: {
-						separator1.updateVisibility();
-						separator2.updateVisibility();
-					}
-					Layout.fillWidth: true
-				}
-				SidePanelItemDelegate {
-					itemText: "Help and Support"
-					itemIcon: "help-browser"
-					itemIconFallback: "system-help"
-					executableString: folderDialog.getPath(10);
-					visible: Plasmoid.configuration.showHelpSidepanel
-					onVisibleChanged: {
-						separator1.updateVisibility();
-						separator2.updateVisibility();
-					}
-					Layout.fillWidth: true
-				}
-				SidePanelItemDelegate {
-					itemText: "Run..."
-					itemIcon: "krunner"
-					itemIconFallback: "system-run"
-					executableString: "krunner --replace";
-					executeProgram: true
-					visible: Plasmoid.configuration.showRunSidepanel
-					onVisibleChanged: {
-						separator1.updateVisibility();
-						separator2.updateVisibility();
-					}
-					Layout.fillWidth: true
 				}
 
 				//Used to space out the rest of the side panel, so that the shutdown button is at the bottom of the plasmoid

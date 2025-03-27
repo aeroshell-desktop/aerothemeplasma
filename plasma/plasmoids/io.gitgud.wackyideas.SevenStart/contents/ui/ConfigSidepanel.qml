@@ -16,9 +16,9 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
-
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+pragma ComponentBehavior: Bound
+import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 
 import org.kde.kcmutils as KCM
@@ -32,22 +32,35 @@ KCM.SimpleKCM {
     width: childrenRect.width
     height: childrenRect.height
 
-    property alias cfg_showHomeSidepanel: showHomeSidepanel.checked
-    property alias cfg_showDocumentsSidepanel: showDocumentsSidepanel.checked
-    property alias cfg_showPicturesSidepanel: showPicturesSidepanel.checked
-    property alias cfg_showMusicSidepanel: showMusicSidepanel.checked
-    property alias cfg_showVideosSidepanel: showVideosSidepanel.checked
-    property alias cfg_showDownloadsSidepanel: showDownloadsSidepanel.checked
-    property alias cfg_showGamesSidepanel: showGamesSidepanel.checked
-    property alias cfg_showRecentItemsSidepanel: showRecentItemsSidepanel.checked
-    property alias cfg_showRootSidepanel: showRootSidepanel.checked
-    property alias cfg_showNetworkSidepanel: showNetworkSidepanel.checked
-    property alias cfg_showSettingsSidepanel: showSettingsSidepanel.checked
-    property alias cfg_showDevicesSidepanel: showDevicesSidepanel.checked
-    property alias cfg_showDefaultsSidepanel: showDefaultsSidepanel.checked
-    property alias cfg_showHelpSidepanel: showHelpSidepanel.checked
-    property alias cfg_showRunSidepanel: showRunSidepanel.checked
+    property alias cfg_sidePanelVisibility: sidePanelVisibility.text
 
+	TextField {
+		id: sidePanelVisibility
+		visible: false
+	}
+
+	Item {
+		id: visibilityManager
+		property var sidePanelVisibilityObject: {}
+		function addItem(n) {
+			if(typeof sidePanelVisibilityObject === "undefined")
+				sidePanelVisibilityObject = {};
+
+			sidePanelVisibilityObject[n] = 1;
+			sidePanelVisibility.text = JSON.stringify(sidePanelVisibilityObject);
+		}
+		function removeItem(n) {
+			delete sidePanelVisibilityObject[n];
+			if(typeof sidePanelVisibilityObject === "undefined")
+				sidePanelVisibilityObject = {};
+			sidePanelVisibility.text = JSON.stringify(sidePanelVisibilityObject);
+		}
+		function getItem(n) {
+			return sidePanelVisibilityObject[n];
+		}
+	}
+
+    SidePanelModels { id: sidePanelModels }
     ColumnLayout {
         anchors.left: parent.left
         anchors.right: parent.right
@@ -71,74 +84,78 @@ KCM.SimpleKCM {
 				elide: Text.ElideRight
 			}
 
-            title: i18n("Show side panel items")
+            title: i18n("Customize how links, icons, and menus look and behave.")
 
 			ColumnLayout {
-           		CheckBox {
-           		    id: showHomeSidepanel
-           		    text: i18n("Home directory")
-           		}
-           		CheckBox {
-           		    id: showDocumentsSidepanel
-           		    text: i18n("Documents")
-           		}
-           		CheckBox {
-           		    id: showPicturesSidepanel
-           		    text: i18n("Pictures")
-           		}
-           		CheckBox {
-           		    id: showMusicSidepanel
-           		    text: i18n("Music")
-           		}
-           		CheckBox {
-           		    id: showVideosSidepanel
-           		    text: i18n("Videos")
-           		}
-           		CheckBox {
-           		    id: showDownloadsSidepanel
-           		    text: i18n("Downloads")
-           		}
-           		CheckBox {
-           		    id: showGamesSidepanel
-           		    text: i18n("Games")
-           		}
-           		CheckBox {
-           		    id: showRecentItemsSidepanel
-           		    text: i18n("Recent Items")
-           		}
-           		CheckBox {
-           		    id: showRootSidepanel
-           		    text: i18n("Computer")
-           		}
-           		CheckBox {
-           		    id: showNetworkSidepanel
-           		    text: i18n("Network")
-           		}
-           		CheckBox {
-           		    id: showSettingsSidepanel
-           		    text: i18n("Control Panel")
-           		}
-           		CheckBox {
-           		    id: showDevicesSidepanel
-           		    text: i18n("Devices and Printers")
-           		}
-           		CheckBox {
-           		    id: showDefaultsSidepanel
-           		    text: i18n("Default Programs")
-           		}
-           		CheckBox {
-           		    id: showHelpSidepanel
-           		    text: i18n("Help and Support")
-           		}
-           		CheckBox {
-					id: showRunSidepanel
-					text: i18n("Run...")
+
+				Repeater {
+					model: sidePanelModels.firstCategory.length
+					delegate: CheckBox {
+						required property int index
+						text: sidePanelModels.firstCategory[index].name
+						icon.name: sidePanelModels.firstCategory[index].itemIcon
+						icon.source: sidePanelModels.firstCategory[index].itemIconFallback
+						icon.width: Kirigami.Units.iconSizes.small
+						icon.height: Kirigami.Units.iconSizes.small
+						checked: typeof visibilityManager.getItem(text) !== "undefined"
+						onCheckStateChanged: {
+							if(checkState === Qt.Checked) {
+								visibilityManager.addItem(text);
+							} else {
+								visibilityManager.removeItem(text);
+							}
+						}
+					}
+				}
+				Repeater {
+					model: sidePanelModels.secondCategory.length
+					delegate: CheckBox {
+						required property int index
+						text: sidePanelModels.secondCategory[index].name
+						icon.name: sidePanelModels.secondCategory[index].itemIcon
+						icon.source: sidePanelModels.secondCategory[index].itemIconFallback
+						icon.width: Kirigami.Units.iconSizes.small
+						icon.height: Kirigami.Units.iconSizes.small
+						checked: typeof visibilityManager.getItem(text) !== "undefined"
+						onCheckStateChanged: {
+							if(checkState === Qt.Checked) {
+								visibilityManager.addItem(text);
+							} else {
+								visibilityManager.removeItem(text);
+							}
+						}
+					}
+				}
+				Repeater {
+					model: sidePanelModels.thirdCategory.length
+					delegate: CheckBox {
+						required property int index
+						text: sidePanelModels.thirdCategory[index].name
+						icon.name: sidePanelModels.thirdCategory[index].itemIcon
+						icon.source: sidePanelModels.thirdCategory[index].itemIconFallback
+						icon.width: Kirigami.Units.iconSizes.small
+						icon.height: Kirigami.Units.iconSizes.small
+						checked: typeof visibilityManager.getItem(text) !== "undefined"
+						onCheckStateChanged: {
+							if(checkState === Qt.Checked) {
+								visibilityManager.addItem(text);
+							} else {
+								visibilityManager.removeItem(text);
+							}
+						}
+					}
 				}
 			}
         }
     }
     Component.onCompleted: {
 		if(Plasmoid.configuration.stickOutOrb) Plasmoid.setTransparentWindow();
+		var list = Plasmoid.configuration.sidePanelVisibility;
+		if(list !== "")
+			visibilityManager.sidePanelVisibilityObject = JSON.parse(list);
+
+		if(typeof visibilityManager.sidePanelVisibilityObject === "undefined")
+			visibilityManager.sidePanelVisibilityObject = {};
     }
 	Component.onDestruction: {
 		if(Plasmoid.configuration.stickOutOrb) Plasmoid.setTransparentWindow();
