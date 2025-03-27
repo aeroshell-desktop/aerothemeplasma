@@ -716,6 +716,10 @@ PlasmaCore.Dialog {
 				Layout.rightMargin: Plasmoid.configuration.accurateSearchBar ? 17 : Kirigami.Units.largeSpacing
 				Layout.leftMargin: Plasmoid.configuration.accurateSearchBar ? 13 : Kirigami.Units.largeSpacing
 
+				rightPadding: Kirigami.Units.largeSpacing
+				leftPadding: Kirigami.Units.largeSpacing
+				topPadding: Kirigami.Units.smallSpacing+1
+
 				background:	KSvg.FrameSvgItem {
 					anchors.fill: parent
 					anchors.left: parent.left
