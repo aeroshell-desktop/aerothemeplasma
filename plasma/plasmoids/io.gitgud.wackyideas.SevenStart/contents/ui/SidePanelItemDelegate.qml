@@ -160,4 +160,22 @@ Item {
         hoverEnabled: true
         anchors.fill: parent
     }
+
+    Timer {
+        id: recentsMenuTimer
+        interval: 500
+        running: sidePanelMouseArea.containsMouse && itemText == "Recent Items"
+        onTriggered: fileUsageMenu.openRelative();
+    }
+
+    Connections {
+        target: fileUsageMenu
+        enabled: sidePanelDelegate.itemText == "Recent Items"
+        function onStatusChanged() {
+            if(fileUsageMenu.status === 3) {
+                sidePanelDelegate.focus = false;
+                root.m_delayTimer.restart();
+            }
+        }
+    }
 }
