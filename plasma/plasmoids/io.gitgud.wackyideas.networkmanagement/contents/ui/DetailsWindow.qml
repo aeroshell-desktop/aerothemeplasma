@@ -13,14 +13,14 @@ import org.kde.plasma.plasmoid 2.0
 
 Window {
     id: detailsWindow
-    minimumWidth: 360
-    minimumHeight: 420
-    maximumWidth: 360
-    maximumHeight: 420
     title: networkName + " Status"
     color: "#f0f0f0"
     property color borderColor: "#b4b4b4"
     property alias tabBar: tabs
+    minimumWidth: 360
+    maximumWidth: 360
+    minimumHeight: 420
+    maximumHeight: 420
 
     property var devicePath: null
     property var connectionModel: null
@@ -34,33 +34,35 @@ Window {
                                 type === PlasmaNM.Enums.Gsm ||
                                 type === PlasmaNM.Enums.Cdma)
 
-    /*onSpeedVisibleChanged: {
-        connectionModel.setDeviceStatisticsRefreshRateMs(devicePath, speedVisible ? 2000 : 0)
-    }*/
+    property var detailsHeight: detailsLoader.item.implicitHeight
+    onDetailsHeightChanged: {
+        if(217+detailsLoader.item.implicitHeight > 420) {
+            maximumHeight = 217+detailsLoader.item.implicitHeight;
+            minimumHeight = maximumHeight;
+            height = maximumHeight;
+        }
+    }
 
-    onVisibilityChanged: {
+    Component.onCompleted: {
         handler.requestScan();
-        if(detailsWindow.visibility === Window.Windowed) { // Load pages
+        detailsLoader.setSource("NetworkDetailsPage.qml", {
+            networkName: detailsWindow.networkName,
+            uuid: detailsWindow.uuid,
+            connectionModel: detailsWindow.connectionModel
+        });
+        if (detailsLoader.status === Loader.Error) {
+            console.warn("Cannot create details page component");
+            return;
+        }
 
-            detailsLoader.setSource("NetworkDetailsPage.qml", {
-                networkName: detailsWindow.networkName,
-                uuid: detailsWindow.uuid,
-                connectionModel: detailsWindow.connectionModel
-            });
-            if (detailsLoader.status === Loader.Error) {
-                console.warn("Cannot create details page component");
-                return;
-            }
-
-            speedLoader.setSource("SpeedGraphPage.qml", {
-                networkName: detailsWindow.networkName,
-                uuid: detailsWindow.uuid,
-                connectionModel: detailsWindow.connectionModel
-            });
-            if (speedLoader.status === Loader.Error) {
-                console.warn("Cannot create speed graph component");
-                return;
-            }
+        speedLoader.setSource("SpeedGraphPage.qml", {
+            networkName: detailsWindow.networkName,
+            uuid: detailsWindow.uuid,
+            connectionModel: detailsWindow.connectionModel
+        });
+        if (speedLoader.status === Loader.Error) {
+            console.warn("Cannot create speed graph component");
+            return;
         }
     }
     TabBar {

@@ -49,7 +49,7 @@ ColumnLayout {
 
         Layout.fillWidth: true
         Layout.fillHeight: true
-        Layout.rightMargin: scrollBarVisible ? -Kirigami.Units.largeSpacing : 0
+        Layout.rightMargin: -Kirigami.Units.largeSpacing
         contentWidth: availableWidth - contentItem.leftMargin - contentItem.rightMargin
         property bool scrollBarVisible: QQC2.ScrollBar.vertical.visible
 
@@ -82,7 +82,6 @@ ColumnLayout {
         currentIndex: -1
         boundsBehavior: Flickable.StopAtBounds
         clip: true
-        property bool scrollBarVisible: QQC2.ScrollBar.vertical.visible
         section.property: showSeparator ? "Section" : ""
         section.delegate: ListItem {
             required property string section

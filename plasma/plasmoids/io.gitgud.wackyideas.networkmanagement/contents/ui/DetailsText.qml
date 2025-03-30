@@ -20,8 +20,8 @@ import org.kde.plasma.plasmoid 2.0
 
 MouseArea {
     id: detailsMA
-    height: detailsGrid.implicitHeight
 
+    implicitHeight: detailsGrid.height
     property var details: []
 
     property var modelIndex: -1
@@ -63,6 +63,7 @@ MouseArea {
             detailsMA.getModelIndex();
             connectionState = detailsMA.connectionModel.data(modelIndex, PlasmaNM.NetworkModel.ConnectionStateRole);
             details = detailsMA.connectionModel.data(modelIndex, PlasmaNM.NetworkModel.ConnectionDetailsRole);
+
             if(connectionState === PlasmaNM.Enums.Activated) {
                 txBytes = detailsMA.connectionModel.data(modelIndex, PlasmaNM.NetworkModel.TxBytesRole);
                 rxBytes = detailsMA.connectionModel.data(modelIndex, PlasmaNM.NetworkModel.RxBytesRole);
