@@ -221,7 +221,6 @@ FocusScope {
                     smallIcon: view.small
                     listView: listView
 
-                    onAddBreadcrumb: (model, title) => view.addBreadcrumb(model, title)
                     onReset: view.reset()
                 }
                 Column {

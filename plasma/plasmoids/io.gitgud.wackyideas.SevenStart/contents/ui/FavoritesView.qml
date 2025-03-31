@@ -27,7 +27,7 @@ import org.kde.plasma.plasmoid
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.components as PlasmaComponents
-import org.kde.draganddrop 2.0
+import org.kde.draganddrop
 
 import org.kde.plasma.private.kicker 0.1 as Kicker
 import org.kde.kirigami as Kirigami
@@ -109,9 +109,15 @@ Item {
             resetCurrentIndex();
     }
 
+    Rectangle {
+        id: dragIndicator
+        height: 1
+        color: "#ababab"
+        width: parent.width - Kirigami.Units.largeSpacing*2
+        visible: dropArea.containsDrag
+    }
     DropArea {
-        property int startRow: -1
-
+        id: dropArea
         function syncTarget(event) {
             if (favoritesView.animating) {
                 return;
@@ -120,7 +126,7 @@ Item {
             var above = listView.itemAt(pos.x, pos.y);
             var source = kicker.dragSource;
             if (above && above !== source && isChildOf(source, favoritesView)) {
-                favoritesView.model.moveRow(source.itemIndex, above.itemIndex);
+                favoritesView.model.moveRow(source.itemIndex, above.index);
                 // itemIndex changes directly after moving,
                 // we can just set the currentIndex to it then.
                 favoritesView.currentIndex = source.itemIndex;
@@ -130,12 +136,16 @@ Item {
         anchors.fill: parent
         enabled: Plasmoid.immutability !== PlasmaCore.Types.SystemImmutable
 
-        onDragEnter: event => {
+        onDrop: event => {
             syncTarget(event);
-            startRow = favoritesView.currentIndex;
         }
         onDragMove: event => {
-            syncTarget(event)
+            var pos = mapToItem(listView.contentItem, event.x, event.y);
+            var above = listView.itemAt(pos.x, pos.y);
+            if (above) {
+                dragIndicator.x = above.x + Kirigami.Units.largeSpacing
+                dragIndicator.y = above.y + (kicker.dragSource.itemIndex >= above.index ? 0 : above.height)
+            }
         }
     }
     Transition {
@@ -177,8 +187,8 @@ Item {
         anchors.fill: parent
         interactive: contentHeight > height
         model: globalFavorites
-        move: moveTransition
-        moveDisplaced: moveTransition
+        //move: moveTransition
+        //moveDisplaced: moveTransition
 
         onCountChanged: {
             animationDuration = 0;
