@@ -51,7 +51,7 @@ This section relates to the directories found in the ```plasma``` folder.
 1. Run the following scripts:
 ```bash
 $ chmod +x install_plasmoids.sh && ./install_plasmoids.sh
-$ chmod +x install_plasma_components.sh && install_plasma_components.sh # Requires authorization for SMOD resources and SDDM themes
+$ chmod +x install_plasma_components.sh && ./install_plasma_components.sh # Requires authorization for SMOD resources and SDDM themes
 ```
 
 ### Manual
