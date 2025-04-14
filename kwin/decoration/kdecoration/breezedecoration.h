@@ -116,6 +116,7 @@ public:
     inline bool hideInnerBorder() const;
 
     inline bool isGadgetExplorer() const;
+    inline bool isPolkit() const;
     //@}
 
 Q_SIGNALS:
@@ -252,13 +253,18 @@ bool Decoration::hideTitleBar() const
 bool Decoration::isGadgetExplorer() const
 {
     const auto c = window();
-    qInfo() << c->windowClass();
     if(c->caption() == QStringLiteral("plasmashell_explorer") && (c->windowClass() == QStringLiteral("plasmashell plasmashell") || c->windowClass() == QStringLiteral("plasmashell org.kde.plasmashell"))) return true;
+    return false;
+}
+bool Decoration::isPolkit() const
+{
+    const auto c = window();
+    if((c->windowClass() == QStringLiteral("polkit-kde-authentication-agent-1 polkit-kde-authentication-agent-1")) || c->windowClass() == QStringLiteral("polkit-kde-manager polkit-kde-manager") || c->windowClass() == QStringLiteral(" org.kde.polkit-kde-authentication-agent-1")) return true;
     return false;
 }
 bool Decoration::hideIcon() const
 {
-    if(isGadgetExplorer()) return true;
+    if(isGadgetExplorer() || isPolkit()) return true;
     return m_internalSettings->hideIcon() && !window()->isShaded();
 }
 

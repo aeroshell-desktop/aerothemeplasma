@@ -368,6 +368,8 @@ void StartupFeedbackEffect::start(const Startup &startup)
     m_cursorItem->setPosition(m_mouseCur->pos());
     connect(m_mouseCur, &Cursor::posChanged, m_cursorItem.get(), [this]() {
         m_cursorItem->setPosition(m_mouseCur->pos());
+        //if(effects->isEffectActive("shakecursor"))
+
         if(m_showBusyCursor) {
             effects->hideCursor();
         }
@@ -387,14 +389,12 @@ void StartupFeedbackEffect::toggleBusyCursor()
             while(!effects->isCursorHidden()) {
                 effects->hideCursor();
             }
-            qInfo() << "Hiding cursor";
             m_cursorItem->setOpacity(1.0);
         } else {
             m_showBusyCursor = false;
             while(effects->isCursorHidden()) {
                 effects->showCursor();
             }
-            qInfo() << "Showing cursor";
             m_cursorItem->setOpacity(0.0);
         }
     }

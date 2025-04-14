@@ -114,6 +114,23 @@ This section relates to the directories found in the ```misc``` folder.
 
 If SDDM fails to pick up on the cursor theme, go to System Settings -> Startup and Shutdown -> Login Screen (SDDM), and click on Apply Plasma Settings to enforce your current cursor theme, and other relevant settings. Do this *after* installing everything else. If even that fails, change the default cursor theme in ```/usr/share/icons/default/index.theme``` to say ```aero-drop```.
 
+## Polkit User Account Control modification
+
+# WARNING: 
+## Installing random modifications to programs that deal with privilege escalation (giving sudo or root access to users) from unknown or untrustworthy sources is reckless and a giant security risk. Even though this modification to KDE's polkit authentication UI is purely cosmetic (and even hotfixes a [longstanding](https://bugs.kde.org/show_bug.cgi?id=448554) [issue](https://bugs.kde.org/show_bug.cgi?id=502763)), it's generally not recommended to modify sensitive applications such as this. If you don't know what you're doing, or do not trust the modified source code, do not install this particular component of AeroThemePlasma.
+
+1. Navigate to the ```uac-polkitagent``` folder, and run ```install.sh``` (or ```install_ninja.sh``` if you have Ninja installed):
+
+```bash
+$ chmod +x install.sh && ./install.sh
+```
+
+2. To remove the minimize and maximize buttons from the window, run ```add_rule.sh``` which will generate the appropriate KWin rule: 
+
+```bash
+$ chmod +x add_rule.sh && ./add_rule.sh
+```
+
 ## Configuring AeroThemePlasma <a name="conf"></a>
 
 1. Apply the Global Theme after installing everything. Make sure to restart KDE Plasma and KWin as well, by restarting your session.

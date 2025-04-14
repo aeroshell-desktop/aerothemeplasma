@@ -52,7 +52,7 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 - [That Linux Dude Dominic Hayes](https://github.com/dominichayesferen) for making the following: 
     - Lock screen UI 
     - Icon theme
-- [catpswin56](https://gitgud.io/catpswin56/) for help with the Sound Mixer plasmoid, Gadgets menu, as well as many more contributions
+- [catpswin56](https://gitgud.io/catpswin56/) for help with the Sound Mixer plasmoid, Gadgets menu, Polkit UAC skin, as well as many more contributions
 - [QuinceTart10](https://github.com/QuinceTart10) and [Gamer95875](https://github.com/Gamer95875) for making the sound themes
 - (In collaboration with) [kfh83](https://github.com/kfh83), [TorutheRedFox](https://github.com/TorutheRedFox) and [ALTaleX](https://github.com/ALTaleX531/dwm_colorization_calculator/blob/main/main.py) for figuring out accurate Aero glass blur and colorization effects
 - [AngelBruni](https://github.com/angelbruni) for contributing several SVG textures, most notably the clock in DigitalClockLite Seven
@@ -81,76 +81,85 @@ Initially I wanted to make a Vista variant of AeroThemePlasma but [catpswin56](h
 
 ### Desktop
 
-<img src="screenshots/desktop.png">
+![desktop](screenshots/desktop.png)
 
 ### Start Menu
 
-<img src="screenshots/start_menu.png">
-<img src="screenshots/start_menu_search.png">
-<img src="screenshots/start_menu_apps.png">
-<img src="screenshots/start_menu_openshell.png">
+![start_menu](screenshots/start_menu.png)
+![start_menu_search](screenshots/start_menu_search.png)
+![start_menu_apps](screenshots/start_menu_apps.png)
+![start_menu_openshell](screenshots/start_menu_openshell.png)
 
 ### Clock
 
-<img src="screenshots/clock.png">
+![clock](screenshots/clock.png)
 
 ### System Tray
 
-<img src="screenshots/battery.png">
-<img src="screenshots/system_tray.png">
+![battery](screenshots/battery.png)
+![systray](screenshots/system_tray.png)
 
 ### Sound Mixer 
 
-<img src="screenshots/mixer.png">
-<img src="screenshots/mixer_expanded.png">
+![mixer](screenshots/mixer.png)
+![mixer_expanded](screenshots/mixer_expanded.png)
 
 ### Notifications 
 
-<img src="screenshots/notification.png">
-<img src="screenshots/notification-progress.png">
+![notification](screenshots/notification.png)
+![notification-progress](screenshots/notification-progress.png)
 
 ### Desktop Icons 
 
-<img src="screenshots/icons.png">
+![desktop-icons](screenshots/icons.png)
 
 ### Lockscreen 
 
-<img src="screenshots/lockscreen.png">
+![lockscreen](screenshots/lockscreen.png)
 
 ### Aero Peek
 
-<img src="screenshots/peek.png">
+![aero-peek](screenshots/peek.png)
 
 ### Alt-Tab Switcher
 
-<img src="screenshots/alt-tab.png">
+![alt-tab](screenshots/alt-tab.png)
 
 ### Colorization 
 
-<img src="screenshots/colorization.png">
+![colorization](screenshots/colorization.png)
 Regular colorization:
-<img src="screenshots/aeroblur.png">
+![regular-colorization](screenshots/aeroblur.png)
 Basic colorization:
-<img src="screenshots/aeroblursimple.png">
+![basic-colorization](screenshots/aeroblursimple.png)
 Maximized opaque colorization:
-<img src="screenshots/aeroblur_opaque.png">
+![maximized-colorization](screenshots/aeroblur_opaque.png)
 
 ### Decorations
 
-<img src="screenshots/decorations.png">
+![decorations](screenshots/decorations.png)
 
 Decoration themes:
 
-<img src="screenshots/smod_theme.png">
+![decoration-themes](screenshots/smod_theme.png)
 
 ### Gadgets 
 
-<img src="screenshots/gadgets.png">
+![gadgets](screenshots/gadgets.png)
+
+### Network details
+
+![network-details](screenshots/network-details.png)
 
 ### Librewolf
 
-<img src="screenshots/geckium.png">
+![librewolf](screenshots/geckium.png)
+
+### User Account Control (Polkit)
+
+![uac](screenshots/uac.png)
+![uac-trusted](screenshots/uac-trusted.png)
 
 ### Taskbar (Coming Soon™)
 
-<img src="screenshots/jumplist.png">
+![taskbar](screenshots/jumplist.png)
