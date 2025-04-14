@@ -16,6 +16,10 @@
 #include <QSharedMemory>
 #include <QDir>
 #include <KSvg/FrameSvg>
+#include <QDBusConnection>
+#include <QDBusMessage>
+#include <KConfigWatcher>
+#include <KSharedConfig>
 
 #include <unordered_map>
 
@@ -59,6 +63,7 @@ public:
     void prePaintScreen(ScreenPrePaintData &data, std::chrono::milliseconds presentTime) override;
     void prePaintWindow(EffectWindow *w, WindowPrePaintData &data, std::chrono::milliseconds presentTime) override;
     void drawWindow(const RenderTarget &renderTarget, const RenderViewport &viewport, EffectWindow *w, int mask, const QRegion &region, WindowPaintData &data) override;
+    QMatrix4x4 colorMatrix(const float &brightness, const float &saturation) const;
 
     //FF stuff
     QRegion applyBlurRegion(KWin::EffectWindow *w);
@@ -110,6 +115,7 @@ private:
         std::unique_ptr<GLTexture> sideGlowTexture_unfocus;
         std::unique_ptr<GLShader> shader;
 
+        int colorMatrixLocation;
         int textureSizeLocation;
         int windowPosLocation;
         int windowSizeLocation;
@@ -123,11 +129,12 @@ private:
 	std::unique_ptr<GLShader> shader;
 	std::unique_ptr<GLTexture> reflectTexture;
         int mvpMatrixLocation;
-	int screenResolutionLocation;
-	int windowPosLocation;
-	int windowSizeLocation;
-	int opacityLocation;
-	int translateTextureLocation;
+        int colorMatrixLocation;
+        int screenResolutionLocation;
+        int windowPosLocation;
+        int windowSizeLocation;
+        int opacityLocation;
+        int translateTextureLocation;
     } m_reflectPass;
     struct
     {
@@ -135,12 +142,14 @@ private:
         int mvpMatrixLocation;
         int offsetLocation;
         int halfpixelLocation;
+        int colorMatrixLocation;
     } m_downsamplePass;
 
     struct
     {
         std::unique_ptr<GLShader> shader;
         int mvpMatrixLocation;
+        int colorMatrixLocation;
         int offsetLocation;
         int halfpixelLocation;
 

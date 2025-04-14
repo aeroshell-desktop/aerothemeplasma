@@ -14,6 +14,8 @@ uniform float aeroBlurBalance;
 uniform bool  aeroColorize;
 uniform bool  basicColorization;
 
+uniform mat4 colorMatrix;
+
 in vec2 uv;
 
 out vec4 fragColor;
@@ -37,22 +39,27 @@ void main(void)
 
         if(basicColorization)
         {
-            color = vec4(aeroColorR, aeroColorG, aeroColorB, aeroColorBalance);
+            //color = vec4(aeroColorR, aeroColorG, aeroColorB, aeroColorBalance);
             vec4 baseColor = vec4(sum.x, sum.y, sum.z, 1.0 - aeroColorBalance);
             if(aeroColorA != -1.0) // Transparency is disabled
             {
                 baseColor = vec4(0.871, 0.871, 0.871, 1.0 - aeroColorA);
                 color = vec4(aeroColorR, aeroColorG, aeroColorB, aeroColorA);
+                fragColor = vec4(color.r * color.a + baseColor.r * baseColor.a,
+                             color.g * color.a + baseColor.g * baseColor.a,
+                             color.b * color.a + baseColor.b * baseColor.a, 1.0);
+                fragColor *= colorMatrix;
             }
             else
             {
                 baseColor = vec4(sum.x, sum.y, sum.z, 1.0 - aeroColorBalance);
                 color = vec4(aeroColorR, aeroColorG, aeroColorB, aeroColorBalance);
-            }
-
-            fragColor = vec4(color.r * color.a + baseColor.r * baseColor.a,
+                color *= colorMatrix;
+                fragColor = vec4(color.r * color.a + baseColor.r * baseColor.a,
                              color.g * color.a + baseColor.g * baseColor.a,
                              color.b * color.a + baseColor.b * baseColor.a, 1.0);
+            }
+
         }
         else
         {
@@ -62,9 +69,11 @@ void main(void)
                 fragColor = vec4(color.r * color.a + baseColor.r * baseColor.a,
                                  color.g * color.a + baseColor.g * baseColor.a,
                                  color.b * color.a + baseColor.b * baseColor.a, 1.0);
+                fragColor *= colorMatrix;
             }
             else
             {
+                color *= colorMatrix;
                 vec3 primaryColor   = color.rgb;
                 vec3 secondaryColor = color.rgb;
                 vec3 primaryLayer   = primaryColor * pow(aeroColorBalance, 1.1);
@@ -81,4 +90,5 @@ void main(void)
     {
         fragColor = sum;
     }
+
 }

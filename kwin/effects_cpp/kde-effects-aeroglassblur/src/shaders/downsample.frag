@@ -1,6 +1,7 @@
 uniform sampler2D texUnit;
 uniform float offset;
 uniform vec2 halfpixel;
+uniform mat4 colorMatrix;
 
 varying vec2 uv;
 

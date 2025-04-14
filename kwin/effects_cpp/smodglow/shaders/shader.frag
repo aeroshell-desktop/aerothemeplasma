@@ -5,6 +5,7 @@ uniform float borderleft;
 
 uniform vec2 targetrect;
 uniform vec2 texturerect;
+uniform mat4 colorMatrix;
 
 varying vec2 texcoord0;
 
@@ -30,4 +31,5 @@ void main()
     );
 
     gl_FragColor = texture2D(sampler, newUV) * opacity;
+    gl_FragColor *= colorMatrix;
 }

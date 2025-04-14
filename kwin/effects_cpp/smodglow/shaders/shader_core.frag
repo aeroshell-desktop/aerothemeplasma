@@ -7,6 +7,7 @@ uniform float borderleft;
 
 uniform vec2 targetrect;
 uniform vec2 texturerect;
+uniform mat4 colorMatrix;
 
 in vec2 texcoord0;
 out vec4 fragColor;
@@ -34,4 +35,5 @@ void main()
         processAxis(texcoord0.y, u_borders.y, u_dimensions.y)
     );
     fragColor = texture(sampler, newUV) * opacity;
+    fragColor *= colorMatrix;
 }

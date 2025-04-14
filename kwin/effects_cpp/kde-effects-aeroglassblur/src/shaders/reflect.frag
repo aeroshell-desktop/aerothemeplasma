@@ -3,6 +3,7 @@ uniform float opacity;
 uniform float translate;
 uniform vec2 screenResolution;
 uniform vec2 windowSize;
+uniform mat4 colorMatrix;
 
 uniform vec2 windowPos;
 
@@ -22,6 +23,7 @@ void main(void)
     result.a *= opacity;
 
     gl_FragColor = result;
+    gl_FragColor *= colorMatrix;
 
     //gl_FragColor.a = gl_FragColor.a * opacity;
 }

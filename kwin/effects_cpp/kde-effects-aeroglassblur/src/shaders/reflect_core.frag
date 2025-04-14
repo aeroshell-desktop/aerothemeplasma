@@ -8,6 +8,8 @@ uniform vec2 windowSize;
 
 uniform vec2 windowPos;
 
+uniform mat4 colorMatrix;
+
 out vec4 fragColor;
 
 void main(void)
@@ -24,6 +26,8 @@ void main(void)
     vec4 result = texture(texUnit, uv) * opacity;
     //result.a *= opacity;
     fragColor = result;
+
+    fragColor *= colorMatrix;
     //fragColor.a = fragColor.a * opacity;
 
 }

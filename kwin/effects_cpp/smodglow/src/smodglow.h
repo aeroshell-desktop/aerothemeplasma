@@ -91,6 +91,7 @@ private:
     void stopAllAnimations(const EffectWindow *w);
     QString currentlyRegisteredPath;
 
+
     bool m_resourcesFound = false;
     bool m_active = false;
     int previousDecorationCount = 0;
@@ -98,6 +99,7 @@ private:
     std::unique_ptr<GLShader> m_shader;
     QHash<const EffectWindow*, GlowHandler*> windows = QHash<const EffectWindow*, GlowHandler*>();
     QRegion m_prevPaint = QRegion();
+    QMatrix4x4 colorMatrix(const float &brightness, const float &saturation) const;
 
     WindowButtonsDPI m_current_dpi = DPI_100_PERCENT, m_next_dpi = DPI_100_PERCENT;
     bool m_needsDpiChange = false;

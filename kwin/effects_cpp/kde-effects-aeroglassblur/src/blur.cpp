@@ -74,6 +74,7 @@ BlurEffect::BlurEffect() : m_sharedMemory("kwinaero")
         m_downsamplePass.mvpMatrixLocation = m_downsamplePass.shader->uniformLocation("modelViewProjectionMatrix");
         m_downsamplePass.offsetLocation = m_downsamplePass.shader->uniformLocation("offset");
         m_downsamplePass.halfpixelLocation = m_downsamplePass.shader->uniformLocation("halfpixel");
+        m_downsamplePass.colorMatrixLocation = m_downsamplePass.shader->uniformLocation("colorMatrix");
     }
 
     m_upsamplePass.shader = ShaderManager::instance()->generateShaderFromFile(ShaderTrait::MapTexture,
@@ -86,6 +87,7 @@ BlurEffect::BlurEffect() : m_sharedMemory("kwinaero")
         m_upsamplePass.mvpMatrixLocation = m_upsamplePass.shader->uniformLocation("modelViewProjectionMatrix");
         m_upsamplePass.offsetLocation = m_upsamplePass.shader->uniformLocation("offset");
         m_upsamplePass.halfpixelLocation = m_upsamplePass.shader->uniformLocation("halfpixel");
+        m_upsamplePass.colorMatrixLocation = m_upsamplePass.shader->uniformLocation("colorMatrix");
 
         m_upsamplePass.basicColorizationLocation = m_upsamplePass.shader->uniformLocation("basicColorization");
         m_upsamplePass.aeroColorRLocation = m_upsamplePass.shader->uniformLocation("aeroColorR");
@@ -113,6 +115,7 @@ BlurEffect::BlurEffect() : m_sharedMemory("kwinaero")
         m_reflectPass.windowPosLocation = m_reflectPass.shader->uniformLocation("windowPos");
         m_reflectPass.windowSizeLocation = m_reflectPass.shader->uniformLocation("windowSize");
         m_reflectPass.translateTextureLocation = m_reflectPass.shader->uniformLocation("translate");
+        m_reflectPass.colorMatrixLocation = m_reflectPass.shader->uniformLocation("colorMatrix");
     }
     m_glowPass.shader = ShaderManager::instance()->generateShaderFromFile(
         ShaderTrait::MapTexture,
@@ -123,6 +126,7 @@ BlurEffect::BlurEffect() : m_sharedMemory("kwinaero")
         return;
     } else {
         m_glowPass.mvpMatrixLocation = m_glowPass.shader->uniformLocation("modelViewProjectionMatrix");
+        m_glowPass.colorMatrixLocation = m_glowPass.shader->uniformLocation("colorMatrix");
 		m_glowPass.opacityLocation   = m_glowPass.shader->uniformLocation("opacity");
         m_glowPass.textureSizeLocation = m_glowPass.shader->uniformLocation("textureSize");
         m_glowPass.windowPosLocation = m_glowPass.shader->uniformLocation("windowPos");
@@ -141,7 +145,6 @@ BlurEffect::BlurEffect() : m_sharedMemory("kwinaero")
     reconfigure(ReconfigureAll);
     defaultSvg.setImagePath(QStringLiteral(":/effects/aeroblur/region.svg"));
     defaultSvg.setUsingRenderingCache(false);
-
 
     if (effects->xcbConnection()) {
         net_wm_blur_region = effects->announceSupportProperty(s_blurAtomName, this);
@@ -181,7 +184,6 @@ BlurEffect::BlurEffect() : m_sharedMemory("kwinaero")
 
 
 }
-
 
 BlurEffect::~BlurEffect()
 {
@@ -1040,6 +1042,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
     }
 
     vbo->bindArrays();
+    QMatrix4x4 colorMat = colorMatrix(data.brightness(), data.saturation());
 
     {
         // The downsample pass of the dual Kawase algorithm: the background will be scaled down 50% every iteration.
@@ -1050,6 +1053,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 
             m_downsamplePass.shader->setUniform(m_downsamplePass.mvpMatrixLocation, projectionMatrix);
             m_downsamplePass.shader->setUniform(m_downsamplePass.offsetLocation, float(m_offset));
+            m_downsamplePass.shader->setUniform(m_downsamplePass.colorMatrixLocation, colorMat);
 
             for (size_t i = 1; i < renderInfo.framebuffers.size(); ++i) {
                 const auto &read = renderInfo.framebuffers[i - 1];
@@ -1151,6 +1155,8 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         m_upsamplePass.shader->setUniform(m_upsamplePass.aeroAfterglowBalanceLocation, sb / 100.0f);
         m_upsamplePass.shader->setUniform(m_upsamplePass.aeroBlurBalanceLocation,      bb / 100.0f);
 
+        m_upsamplePass.shader->setUniform(m_upsamplePass.colorMatrixLocation, colorMat);
+
         read->colorAttachment()->bind();
 
         // Modulate the blurred texture with the window opacity if the window isn't opaque
@@ -1204,6 +1210,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 			m_reflectPass.shader->setUniform(m_reflectPass.windowSizeLocation, QVector2D(windowSize.width(), windowSize.height()));
 			m_reflectPass.shader->setUniform(m_reflectPass.opacityLocation, float(finalOpacity));
 			m_reflectPass.shader->setUniform(m_reflectPass.translateTextureLocation, m_translateTexture ? float(1.0) : float(0.0));
+            m_reflectPass.shader->setUniform(m_reflectPass.colorMatrixLocation, colorMat);
 
             reflectTex->bind();
 
@@ -1233,6 +1240,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
             	m_glowPass.shader->setUniform(m_glowPass.windowSizeLocation, QVector2D(windowSize.width(), windowSize.height()));
             	m_glowPass.shader->setUniform(m_glowPass.textureSizeLocation, QVector2D(pixelGeometry.width(), pixelGeometry.height()));
             	m_glowPass.shader->setUniform(m_glowPass.scaleYLocation, scaleY);
+                m_glowPass.shader->setUniform(m_glowPass.colorMatrixLocation, colorMat);
                 glowTex->bind();
                 vbo->draw(GL_TRIANGLES, 6, vertexCount);
 
@@ -1244,6 +1252,28 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
     }
 
     vbo->unbindArrays();
+}
+
+QMatrix4x4 BlurEffect::colorMatrix(const float &brightness, const float &saturation) const
+{
+    QMatrix4x4 saturationMatrix;
+    if (saturation != 1.0) {
+        const qreal r = (1.0 - saturation) * .2126;
+        const qreal g = (1.0 - saturation) * .7152;
+        const qreal b = (1.0 - saturation) * .0722;
+
+        saturationMatrix = QMatrix4x4(r + saturation, r, r, 0.0,
+                                      g, g + saturation, g, 0.0,
+                                      b, b, b + saturation, 0.0,
+                                      0, 0, 0, 1.0);
+    }
+
+    QMatrix4x4 brightnessMatrix;
+    if (brightness != 1.0) {
+        brightnessMatrix.scale(brightness, brightness, brightness);
+    }
+
+    return saturationMatrix * brightnessMatrix;
 }
 bool BlurEffect::shouldHaveCornerGlow(const EffectWindow *w) const
 {

@@ -11,6 +11,7 @@ uniform float aeroAfterglowBalance;
 uniform float aeroBlurBalance;
 uniform bool  aeroColorize;
 
+uniform mat4 colorMatrix;
 varying vec2 uv;
 
 void main(void)
@@ -41,4 +42,6 @@ void main(void)
     {
         gl_FragColor = sum;
     }
+
+    gl_FragColor *= colorMatrix;
 }

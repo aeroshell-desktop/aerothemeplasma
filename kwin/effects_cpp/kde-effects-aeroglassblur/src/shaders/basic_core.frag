@@ -6,6 +6,7 @@ uniform vec2 windowSize;
 uniform vec2 textureSize;
 uniform vec2 windowPos;
 uniform bool scaleY;
+uniform mat4 colorMatrix;
 
 in vec2 uv;
 
@@ -29,5 +30,6 @@ void main(void)
     vec4 result = texture2D(texUnit, t_uv) * opacity;
 
     fragColor = result;
+    fragColor *= colorMatrix;
 }
 
