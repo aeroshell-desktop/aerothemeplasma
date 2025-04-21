@@ -107,6 +107,7 @@ PlasmaCore.Dialog {
 	}
     onVisibleChanged: {
 		popupPosition();
+		console.log(root.y - panelSvg.margins.top + " " + Plasmoid.containment.availableScreenRect.y)
         if (!visible) {
             reset();
         } else {
@@ -164,19 +165,37 @@ PlasmaCore.Dialog {
 		var availScreen = Plasmoid.containment.availableScreenRect;
 		var screen = kicker.screenGeometry;
 
-		x = pos.x;
-		y = pos.y - root.height;
+		if(Plasmoid.location === PlasmaCore.Types.BottomEdge) {
+			x = pos.x;
+			y = pos.y - root.height;
+		} else if(Plasmoid.location === PlasmaCore.Types.TopEdge) {
+			x = pos.x;
+			y = availScreen.y;
+		} else if(Plasmoid.location === PlasmaCore.Types.LeftEdge) {
+			x = availScreen.x;
+			y = pos.y;
+		} else if(Plasmoid.location === PlasmaCore.Types.RightEdge) {
+			x = pos.x - root.width;
+			y = pos.y;
+		}
 
-		if(x <= 0) x = availScreen.x;
-		if(x + root.width - screen.x >= availScreen.width) {
+		if(x < availScreen.x) x = availScreen.x;
+		if(x + root.width - screen.x >= availScreen.x + availScreen.width) {
 			x = screen.x + availScreen.width - root.width;
 		}
-		if(y <= 0) y = availScreen.y;
-		if(y + root.height - screen.y >= availScreen.height) {
+		if(y < availScreen.y) y = availScreen.y;
+		if(y + root.height - screen.y >= availScreen.y + availScreen.height) {
 			y = screen.y + availScreen.height - root.height;
 		}
+	}
 
-
+	function isTouchingTopEdge() {
+		if(Plasmoid.location === PlasmaCore.Types.LeftEdge || Plasmoid.location === PlasmaCore.Types.RightEdge)
+			return (root.y - panelSvg.margins.top) === Plasmoid.containment.availableScreenRect.y;
+		else if(Plasmoid.location === PlasmaCore.Types.TopEdge)
+			return true;
+		else
+			return false;
 	}
 
     FocusScope {
@@ -255,7 +274,7 @@ PlasmaCore.Dialog {
 				y: 0
 				backgroundHints: PlasmaCore.Types.NoBackground // To prevent the dialog background SVG from being rendered, we want a fully transparent window.
 				//visualParent: root
-				visible: root.visible && !searching && compositingEnabled && Plasmoid.location != PlasmaCore.Types.TopEdge
+				visible: root.visible && !searching && compositingEnabled && !root.isTouchingTopEdge() //Plasmoid.location != PlasmaCore.Types.TopEdge
 				opacity: iconUser.visible && firstTimePopup // To prevent even more NP-hard unpredictable behavior
 				mainItem: FloatingIcon {
 					id: compositingIcon
@@ -931,14 +950,14 @@ PlasmaCore.Dialog {
                 top: parent.top
                 bottomMargin: Kirigami.Units.largeSpacing
                 leftMargin: 5
-                topMargin: ((compositingEnabled && Plasmoid.location !== PlasmaCore.Types.TopEdge) ? Kirigami.Units.iconSizes.huge / 2 + Kirigami.Units.smallSpacing : 0) + Kirigami.Units.mediumSpacing
+                topMargin: ((compositingEnabled && !root.isTouchingTopEdge()) ? Kirigami.Units.iconSizes.huge / 2 + Kirigami.Units.smallSpacing : 0) + Kirigami.Units.mediumSpacing
 			}
 			spacing: Kirigami.Units.smallSpacing
 
 			FloatingIcon {
 				id: nonCompositingIcon
 				Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
-				visible: !compositingEnabled || Plasmoid.location === PlasmaCore.Types.TopEdge
+				visible: !compositingEnabled || root.isTouchingTopEdge()
 				opacity: !searching
 
 			}

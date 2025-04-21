@@ -67,19 +67,28 @@ PlasmaCore.Dialog {
 		var availScreen = Plasmoid.containment.availableScreenRect;
 		var screen = root.screenGeometry;
 
-		x = pos.x - calendar.width / 2 + root.width / 2
-		y = pos.y - calendar.height;
-
-		if(x <= 0) x += flyoutMargin;
-		if(x + calendar.width - screen.x >= availScreen.width) {
-			x = screen.x + availScreen.width - calendar.width - flyoutMargin;
-
+		if(Plasmoid.location === PlasmaCore.Types.BottomEdge) {
+			x = pos.x - calendar.width / 2 + root.width / 2
+			y = pos.y - calendar.height;
+		} else if(Plasmoid.location === PlasmaCore.Types.TopEdge) {
+			x = pos.x - calendar.width / 2 + root.width / 2
+			y = availScreen.y + flyoutMargin //pos.y - calendar.height;
+		} else if(Plasmoid.location === PlasmaCore.Types.LeftEdge) {
+			y = pos.y - calendar.height / 2 + root.height / 2
+			x = availScreen.x + flyoutMargin
+		} else if(Plasmoid.location === PlasmaCore.Types.RightEdge) {
+			y = pos.y - calendar.height / 2 + root.height / 2
+			x = availScreen.x + availScreen.width - flyoutMargin - calendar.width
 		}
-		if(y <= 0) y += flyoutMargin;
-		if(y + calendar.height - screen.y >= availScreen.height) {
+
+		if(x <= availScreen.x) x = availScreen.x + flyoutMargin;
+		if(x + calendar.width - screen.x >= availScreen.x + availScreen.width) {
+			x = screen.x + availScreen.width - calendar.width - flyoutMargin;
+		}
+		if(y <= availScreen.y) y = availScreen.y + flyoutMargin;
+		if(y + calendar.height - screen.y >= availScreen.y + availScreen.height) {
 			y = screen.y + availScreen.height - calendar.height - flyoutMargin;
 		}
-
 
 	}
 

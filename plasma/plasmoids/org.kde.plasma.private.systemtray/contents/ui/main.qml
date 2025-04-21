@@ -322,21 +322,34 @@ ContainmentItem {
             onWidthChanged: setDialogPosition();
             onHeightChanged: setDialogPosition();
             function setDialogPosition() {
-                var pos = root.mapToGlobal(root.x, root.y);
-                pos = root.mapToGlobal(currentHighlight.x, currentHighlight.y);
+                var rootPos = root.mapToGlobal(root.x, root.y);
+                var pos = root.mapToGlobal(currentHighlight.x, currentHighlight.y);
                 var availScreen = Plasmoid.containment.availableScreenRect;
                 var screen = root.screenGeometry;
 
-                x = pos.x - width / 2 + (expandedRepresentation.hiddenLayout.visible ? flyoutMargin + Kirigami.Units.smallSpacing/2 : currentHighlight.width / 2);
-                y = pos.y - height;
+                if(Plasmoid.location === PlasmaCore.Types.BottomEdge) {
+                    x = pos.x - width / 2 + (expandedRepresentation.hiddenLayout.visible ? flyoutMargin + Kirigami.Units.smallSpacing/2 : currentHighlight.width / 2);
+                    y = pos.y - height;
 
-                if(x <= 0) x += flyoutMargin;
-                if((x + dialog.width - screen.x) >= availScreen.width) {
-                    x = screen.x + availScreen.width - dialog.width - flyoutMargin;
+                } else if(Plasmoid.location === PlasmaCore.Types.LeftEdge) {
+                    y = pos.y - height / 2 + flyoutMargin;
+                    x = rootPos.x + root.width + flyoutMargin;
 
+                } else if(Plasmoid.location === PlasmaCore.Types.RightEdge) {
+                    y = pos.y - height / 2 + flyoutMargin;
+                    x = rootPos.x - flyoutMargin - width;
+
+                } else if(Plasmoid.location === PlasmaCore.Types.TopEdge) {
+                    x = pos.x - width / 2 + (expandedRepresentation.hiddenLayout.visible ? flyoutMargin + Kirigami.Units.smallSpacing/2 : currentHighlight.width / 2);
+                    y = rootPos.y + root.height + flyoutMargin;
                 }
-                if(y <= 0) y += flyoutMargin;
-                if((y + dialog.height - screen.y) >= availScreen.height) {
+
+                if(x <= availScreen.x) x = availScreen.x + flyoutMargin;
+                if((x + dialog.width - screen.x) >= availScreen.x + availScreen.width) {
+                    x = screen.x + availScreen.width - dialog.width - flyoutMargin;
+                }
+                if(y <= availScreen.y) y = availScreen.y + flyoutMargin;
+                if((y + dialog.height - screen.y) >= availScreen.y + availScreen.height) {
                     y = screen.y + availScreen.height - dialog.height - flyoutMargin;
                 }
                 /*if(root.vertical) {
