@@ -11,7 +11,7 @@ if [[ -z "$(command -v tar)" ]]; then
     exit
 fi
 if [[ -z "$(command -v sddmthemeinstaller)" ]]; then
-    echo "kpackagetool6 not found. Stopping."
+    echo "sddmthemeinstaller not found. Stopping."
     exit
 fi
 

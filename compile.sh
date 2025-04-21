@@ -42,6 +42,3 @@ for filename in "$PWD/kwin/effects_cpp/"*; do
     echo "Done."
     cd "$CUR_DIR"
 done
-
-
-

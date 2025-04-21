@@ -70,6 +70,15 @@ $ chmod +x install_plasma_components.sh && ./install_plasma_components.sh # Requ
 
 ## KWin components <a name="kwin"></a>
 
+### Install scripts
+
+1. Run the following script:
+```bash
+$ chmod +x install_kwin_components.sh && ./install_kwin_components.sh 
+```
+
+### Manual 
+
 This section relates to the directories found in the ```kwin``` folder.
 
 1. Move ```effects```, ```tabbox```, ```outline```, ```scripts``` to ```~/.local/share/kwin```.
@@ -102,6 +111,13 @@ This section relates to the directories found in the ```kwin``` folder.
     - Logout
 
 ## Miscellaneous components <a name="misc"></a>
+
+### Install scripts
+
+1. Run the following script:
+```bash
+$ chmod +x install_misc_components.sh && ./install_misc_components.sh 
+```
 
 This section relates to the directories found in the ```misc``` folder.
 
