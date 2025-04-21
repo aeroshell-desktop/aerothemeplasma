@@ -737,6 +737,7 @@ Item
                             font.pointSize: 9
                             text: i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Caps Lock is on");
                             width: implicitWidth
+                            renderType: Text.NativeRendering
                             color: "white"
                         }
                     }
@@ -901,6 +902,7 @@ Item
                 anchors.horizontalCenterOffset: 14
 
                 text: "The user name or password is incorrect."
+                renderType: Text.NativeRendering
                 Layout.alignment: Qt.AlignHCenter
                 font.pointSize: 9
 
@@ -954,6 +956,7 @@ Item
 
                     horizontalAlignment : Text.AlignHCenter
                     verticalAlignment : Text.AlignVCenter
+                    renderType: Text.NativeRendering
 
                     bottomPadding: 3
                     rightPadding: 1

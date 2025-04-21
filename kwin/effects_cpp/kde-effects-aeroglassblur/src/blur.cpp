@@ -395,24 +395,13 @@ QRegion BlurEffect::getForcedNewRegion()
 QRegion BlurEffect::applyBlurRegion(KWin::EffectWindow *w)
 {
     auto maximizeState = w->window()->maximizeMode();
-    if(maximizeState == MaximizeMode::MaximizeFull)
+    defaultSvg.resizeFrame(w->size());
+    QRegion mask = defaultSvg.mask();
+    if(mask.boundingRect().size() != w->size().toSize() && maximizeState != MaximizeMode::MaximizeFull)
     {
-        defaultSvg.resizeFrame(w->size());
-        QRegion mask = defaultSvg.mask();
-        return mask;
+        mask = getForcedNewRegion();
     }
-    else
-    {
-
-        defaultSvg.resizeFrame(w->size());
-        QRegion mask = defaultSvg.mask();
-        if(mask.boundingRect().size() != w->size().toSize())
-        {
-            mask = getForcedNewRegion();
-        }
-
-        return mask;
-    }
+    return mask;
 }
 void BlurEffect::updateBlurRegion(EffectWindow *w)
 {
