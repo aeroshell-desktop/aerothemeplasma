@@ -114,16 +114,7 @@ Item {
 
         focus: true
         appView: true
-        model: KItemModels.KSortFilterProxyModel {
-            sourceModel: rootModel
-            function modelForRow(i) {
-                return rootModel.modelForRow(i+1);
-            }
-            filterRowCallback: function(source_row, source_parent) {
-                return source_row > 0;
-            };
-
-        }
+        model: rootModel
 
         function clearBreadcrumbs() {
             applicationsView.listView.currentIndex = -1;

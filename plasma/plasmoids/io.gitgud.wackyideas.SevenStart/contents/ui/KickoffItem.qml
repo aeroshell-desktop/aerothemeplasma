@@ -124,7 +124,7 @@ Item {
 
         animated: false
 
-        source: (listItem.appView && Plasmoid.configuration.useGenericIcons) ? "folder" : (model ? model.decoration : "")
+        source: (listItem.appView && Plasmoid.configuration.useGenericIcons && model.hasChildren) ? "folder" : (model ? model.decoration : "")
     }
 
     PlasmaComponents.Label {
