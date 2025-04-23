@@ -1,0 +1,13 @@
+[Desktop Entry]
+Comment=
+Exec=sh -c 'qdbus6 org.kde.plasmashell /PlasmaShell toggleWidgetExplorer; qdbus6 org.kde.plasmashell /PlasmaShell editMode false'
+Icon=gadgets
+Name=Desktop Gadget Gallery
+NoDisplay=false
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=
