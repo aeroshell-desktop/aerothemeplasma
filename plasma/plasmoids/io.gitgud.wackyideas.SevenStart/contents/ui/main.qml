@@ -104,16 +104,17 @@ PlasmoidItem {
 
         appNameFormat: Plasmoid.configuration.appNameFormat
         flat: true
-        sorted: true
+        sorted: false
         showSeparators: false
         appletInterface: kicker
 
         paginate: false
         pageSize: Plasmoid.configuration.numberColumns *  Plasmoid.configuration.numberRows
 
+        showTopLevelItems: true
         showAllApps: false
         showAllAppsCategorized: false
-        showRecentApps: true
+        showRecentApps: false
         showRecentDocs: false
         //showRecentContacts: false
         showPowerSession: false

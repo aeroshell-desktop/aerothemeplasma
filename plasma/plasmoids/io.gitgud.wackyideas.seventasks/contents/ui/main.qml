@@ -477,13 +477,7 @@ PlasmoidItem {
                 return Qt.point(x+width/2, height);
             }
 
-            anchors {
-                left: parent.left
-                top: parent.top
-            }
-
-            height: taskList.childrenRect.height
-            width: taskList.childrenRect.width
+            anchors.fill: parent
 
             TaskList {
                 id: taskList
@@ -495,13 +489,7 @@ PlasmoidItem {
                     anchors.fill: parent
                     z: -1
                 }
-                anchors {
-                    left: parent.left
-                    leftMargin: 1
-                    top: parent.top
-                }
-                width: tasks.width
-                height: tasks.height
+                anchors.fill: parent
                 orientation: {
                     if(tasks.vertical) {
                         return ListView.Vertical
@@ -581,7 +569,7 @@ PlasmoidItem {
             return;
         }
 
-        var task = taskRepeater.itemAt(index);
+        var task = taskList.itemAtIndex(index);
         if (task) {
             TaskTools.activateTask(task.modelIndex(), task.model, null, task, Plasmoid, tasks, effectWatcher.registered);
         }
