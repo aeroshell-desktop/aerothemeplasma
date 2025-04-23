@@ -98,6 +98,7 @@ Item {
             main.draggingWidget = true;
         }
         Drag.onDragFinished: {
+            KWindowSystem.showingDesktop = false;
             main.draggingWidget = false;
         }
 
