@@ -1,0 +1,13 @@
+[Unit]
+Description=Update Plymouth Vista State (Quit)
+DefaultDependencies=no
+Before=plymouth-poweroff.service plymouth-reboot.service plymouth-halt.service
+
+[Service]
+Type=oneshot
+StandardOutput=journal
+ExecStart=/usr/share/plymouth/themes/PlymouthVista/plymouth_state_updater.sh --update-using-sddm-session-check
+RemainAfterExit=no
+
+[Install]
+WantedBy=plymouth-poweroff.service plymouth-reboot.service plymouth-halt.service

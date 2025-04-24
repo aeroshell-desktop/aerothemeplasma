@@ -1,0 +1,13 @@
+[Unit]
+Description=Update Plymouth Theme State (Logon)
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+StandardOutput=journal
+ExecStart=/usr/share/plymouth/themes/PlymouthVista/plymouth_state_updater.sh --set desktop
+ExecStop=/usr/share/plymouth/themes/PlymouthVista/plymouth_state_updater.sh --set sddm --assume-no-shutdown
+RemainAfterExit=yes
+
+[Install]
+WantedBy=graphical-session.target

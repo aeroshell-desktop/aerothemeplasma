@@ -1,0 +1,13 @@
+[Unit]
+Description=Update Plymouth Theme State (Boot)
+DefaultDependencies=no
+Before=plymouth-start.service
+
+[Service]
+Type=oneshot
+StandardOutput=journal
+ExecStart=/usr/share/plymouth/themes/PlymouthVista/plymouth_state_updater.sh --set sddm
+RemainAfterExit=no
+
+[Install]
+WantedBy=plymouth-start.service
