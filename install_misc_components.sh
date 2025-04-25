@@ -86,3 +86,20 @@ if [ "$answer" != "${answer#[Yy]}" ] ;then
     kfontinst "$TMP_DIR/TerminalVector.ttf"
 fi
 echo "Done."
+
+echo "Do you want to install the Plymouth theme? (y/N)"
+read answer
+if [ "$answer" != "${answer#[Yy]}" ] ;then
+    if [[ -z "$(command -v git)" ]]; then
+        echo "Git not found, download at https://github.com/furkrn/PlymouthVista"
+    else
+        git clone https://github.com/furkrn/PlymouthVista
+        cd PlymouthVista
+        chmod +x ./compile.sh
+        chmod +x ./install.sh
+        ./compile.sh
+        pkexec ./install.sh
+    fi
+fi
+
+echo "Done."
