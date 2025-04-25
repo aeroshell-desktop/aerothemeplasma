@@ -950,7 +950,7 @@ PlasmaCore.Dialog {
                 top: parent.top
                 bottomMargin: Kirigami.Units.largeSpacing
                 leftMargin: 5
-                topMargin: ((compositingEnabled && !root.isTouchingTopEdge()) ? Kirigami.Units.iconSizes.huge / 2 + Kirigami.Units.smallSpacing : 0) + Kirigami.Units.mediumSpacing
+                topMargin: ((compositingEnabled && !root.isTouchingTopEdge()) ? Kirigami.Units.iconSizes.huge / 2 + Kirigami.Units.mediumSpacing : 0) + Kirigami.Units.mediumSpacing
 			}
 			spacing: Kirigami.Units.smallSpacing
 
@@ -985,7 +985,7 @@ PlasmaCore.Dialog {
 			//Side panel items
             ColumnLayout {
                 id: columnItems
-                spacing: 3
+                spacing: 2
 				Layout.alignment: Qt.AlignTop
 				width: Math.max(cellWidthSide, columnItems.implicitWidth)
 
@@ -1028,8 +1028,10 @@ PlasmaCore.Dialog {
 					Layout.minimumWidth: 124
 					Layout.maximumWidth: 124
 					Layout.alignment: Qt.AlignHCenter
+					Layout.bottomMargin: -1
 				}
 				Repeater {
+					Layout.topMargin: -1
 					model: sidePanelModels.secondCategory.length
 					visible: false // Messes with separator visibility checks
 					delegate: SidePanelItemDelegate {
@@ -1053,9 +1055,11 @@ PlasmaCore.Dialog {
 					Layout.minimumWidth: 124
 					Layout.maximumWidth: 124
 					Layout.alignment: Qt.AlignHCenter
+					Layout.bottomMargin: -1
 				}
 				Repeater {
 					model: sidePanelModels.thirdCategory.length
+					Layout.topMargin: -1
 					visible: false // Messes with separator visibility checks
 					delegate: SidePanelItemDelegate {
 						required property int index
@@ -1082,7 +1086,7 @@ PlasmaCore.Dialog {
                 Item {
                     Layout.minimumWidth: cellWidthSide
                     Layout.fillWidth: true
-                    height: 1
+                    height: 2
                     visible: true
                 }
             }
