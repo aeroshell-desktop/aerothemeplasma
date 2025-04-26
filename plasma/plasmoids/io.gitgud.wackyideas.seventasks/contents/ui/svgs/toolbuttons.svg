@@ -1,0 +1,1535 @@
+<svg width="112" height="96" viewBox="0 0 112 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="media-controls">
+<g id="singlebtn">
+<g id="single-left">
+<rect id="Rectangle 98" y="4" width="1" height="16" fill="url(#paint0_linear_0_1)"/>
+<rect id="Rectangle 99" x="1" y="4" width="1" height="16" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100" opacity="0.01" x="2" y="4" width="2" height="16" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-bottom">
+<rect id="Rectangle 99_2" x="22" y="23" width="1" height="18" transform="rotate(90 22 23)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 104" x="4" y="22" width="18" height="1" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105" opacity="0.01" x="4" y="20" width="18" height="2" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-top">
+<rect id="Rectangle 100_2" x="22" width="1" height="18" transform="rotate(90 22 0)" fill="black" fill-opacity="0.28"/>
+<rect id="Rectangle 104_2" x="4" y="1" width="18" height="1" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105_2" opacity="0.01" x="4" y="2" width="18" height="2" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-bottomleft">
+<rect id="Rectangle 96" y="20" width="1" height="4" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 102" x="1" y="24" width="1" height="3" transform="rotate(-90 1 24)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103" x="1" y="20" width="1" height="3" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_3" x="2" y="22" width="2" height="1" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-topleft">
+<path id="Vector 52" d="M4 1V0C1.79086 0 0 1.79086 0 4H1C1 2.34766 2.34375 1 4 1Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53" d="M4 2V1C2.34315 1 1 2.34315 1 4H2C2 3 3 2 4 2Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-right">
+<rect id="Rectangle 98_2" width="1" height="16" transform="matrix(-1 0 0 1 26 4)" fill="url(#paint1_linear_0_1)"/>
+<rect id="Rectangle 99_3" width="1" height="16" transform="matrix(-1 0 0 1 25 4)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100_3" opacity="0.01" width="2" height="16" transform="matrix(-1 0 0 1 24 4)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-bottomright">
+<rect id="Rectangle 96_2" width="1" height="4" transform="matrix(-1 0 0 1 26 20)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 102_2" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 25 24)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103_2" width="1" height="3" transform="matrix(-1 0 0 1 25 20)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_4" width="2" height="1" transform="matrix(-1 0 0 1 24 22)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-topright">
+<path id="Vector 52_2" d="M22 1V0C24.2091 0 26 1.79086 26 4H25C25 2.34766 23.6562 1 22 1Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53_2" d="M22 2V1C23.6569 1 25 2.34315 25 4H24C24 3 23 2 22 2Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-center">
+<rect id="Rectangle 106" opacity="0.01" x="4" y="4" width="18" height="16" fill="#D9D9D9"/>
+</g>
+<g id="single-hover-left">
+<rect id="Rectangle 98_3" y="28" width="1" height="16" fill="url(#paint2_linear_0_1)"/>
+<rect id="Rectangle 99_4" x="1" y="28" width="1" height="16" fill="url(#paint3_linear_0_1)"/>
+<rect id="Rectangle 106_2" x="2" y="28" width="2" height="16" fill="url(#paint4_linear_0_1)"/>
+<path id="Rectangle 108" d="M2 44H4V36H2V44Z" fill="url(#paint5_radial_0_1)"/>
+<rect id="Rectangle 107" x="2" y="28" width="2" height="8" fill="url(#paint6_radial_0_1)"/>
+</g>
+<g id="single-hover-bottom">
+<rect id="Rectangle 99_5" x="22" y="47" width="1" height="18" transform="rotate(90 22 47)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 104_5" x="4" y="46" width="18" height="1" fill="#89B0C9"/>
+<rect id="Rectangle 105_3" x="4" y="44" width="18" height="2" fill="#176D9A"/>
+<path id="Rectangle 108_2" d="M4 47H22V44H4V47Z" fill="url(#paint7_radial_0_1)"/>
+</g>
+<g id="single-hover-top">
+<rect id="Rectangle 100_4" x="22" y="24" width="1" height="18" transform="rotate(90 22 24)" fill="black" fill-opacity="0.53"/>
+<rect id="Rectangle 104_6" x="4" y="25" width="18" height="1" fill="#D9E5EE"/>
+<rect id="Rectangle 105_4" x="4" y="26" width="18" height="2" fill="#548EB8"/>
+<rect id="Rectangle 107_2" x="4" y="26" width="18" height="2" fill="url(#paint8_radial_0_1)"/>
+</g>
+<g id="single-hover-bottomleft">
+<rect id="Rectangle 96_3" y="44" width="1" height="4" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 102_3" x="1" y="48" width="1" height="3" transform="rotate(-90 1 48)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_3" x="1" y="44" width="1" height="3" fill="#89B0C9"/>
+<rect id="Rectangle 104_7" x="2" y="46" width="2" height="1" fill="#89B0C9"/>
+<rect id="Rectangle 105_5" width="2" height="2" transform="matrix(-1 0 0 1 4 44)" fill="#176D9A"/>
+<path id="Rectangle 108_3" d="M1 47H4V44H1V47Z" fill="url(#paint9_radial_0_1)"/>
+</g>
+<g id="single-hover-topleft">
+<path id="Vector 52_3" d="M4 25V24C1.79086 24 0 25.7909 0 28H1C1 26.3477 2.34375 25 4 25Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_3" d="M4 26V25C2.34315 25 1 26.3431 1 28H2C2 27 3 26 4 26Z" fill="#D9E5EE"/>
+<path id="Rectangle 104_8" d="M2 28C2 26.8954 2.89543 26 4 26V28H2Z" fill="#548EB8"/>
+<path id="Rectangle 107_3" d="M2 28C2 26.8954 2.89543 26 4 26V28H2Z" fill="url(#paint10_radial_0_1)"/>
+</g>
+<g id="single-hover-right">
+<rect id="Rectangle 98_4" width="1" height="16" transform="matrix(-1 0 0 1 26 28)" fill="url(#paint11_linear_0_1)"/>
+<rect id="Rectangle 99_6" width="1" height="16" transform="matrix(-1 0 0 1 25 28)" fill="url(#paint12_linear_0_1)"/>
+<rect id="Rectangle 106_3" x="22" y="28" width="2" height="16" fill="url(#paint13_linear_0_1)"/>
+<path id="Rectangle 108_4" d="M24 44H22V36H24V44Z" fill="url(#paint14_radial_0_1)"/>
+<rect id="Rectangle 107_4" x="22" y="28" width="2" height="8" fill="url(#paint15_radial_0_1)"/>
+</g>
+<g id="single-hover-bottomright">
+<rect id="Rectangle 96_4" width="1" height="4" transform="matrix(-1 0 0 1 26 44)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 102_4" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 25 48)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_4" width="1" height="3" transform="matrix(-1 0 0 1 25 44)" fill="#89B0C9"/>
+<rect id="Rectangle 104_9" width="2" height="2" transform="matrix(-1 0 0 1 24 44)" fill="#176D9A"/>
+<rect id="Rectangle 105_6" width="2" height="1" transform="matrix(-1 0 0 1 24 46)" fill="#89B0C9"/>
+<path id="Rectangle 108_5" d="M25 47H22V44H25V47Z" fill="url(#paint16_radial_0_1)"/>
+</g>
+<g id="single-hover-topright">
+<path id="Vector 52_4" d="M22 25V24C24.2091 24 26 25.7909 26 28H25C25 26.3477 23.6562 25 22 25Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_4" d="M22 26V25C23.6569 25 25 26.3431 25 28H24C24 27 23 26 22 26Z" fill="#D9E5EE"/>
+<path id="Rectangle 104_10" d="M24 28C24 26.8954 23.1046 26 22 26V28H24Z" fill="#548EB8"/>
+<path id="Rectangle 107_5" d="M24 28C24 26.8954 23.1046 26 22 26V28H24Z" fill="url(#paint17_radial_0_1)"/>
+</g>
+<g id="single-hover-center">
+<rect id="Rectangle 106_4" x="4" y="28" width="18" height="16" fill="url(#paint18_linear_0_1)"/>
+<rect id="Rectangle 107_6" x="4" y="28" width="18" height="8" fill="url(#paint19_radial_0_1)"/>
+<rect id="Rectangle 108_6" width="18" height="8" transform="matrix(1 0 0 -1 4 44)" fill="url(#paint20_radial_0_1)"/>
+</g>
+<g id="single-pressed-left">
+<rect id="Rectangle 98_5" y="52" width="1" height="16" fill="url(#paint21_linear_0_1)"/>
+<rect id="Rectangle 99_7" x="1" y="52" width="1" height="16" fill="url(#paint22_linear_0_1)"/>
+<rect id="Rectangle 106_5" x="2" y="52" width="2" height="16" fill="url(#paint23_linear_0_1)"/>
+<path id="Rectangle 108_7" d="M2 68H4V60H2V68Z" fill="url(#paint24_radial_0_1)"/>
+<rect id="Rectangle 107_7" x="2" y="52" width="2" height="8" fill="url(#paint25_radial_0_1)"/>
+</g>
+<g id="single-pressed-bottom">
+<rect id="Rectangle 99_8" x="22" y="71" width="1" height="18" transform="rotate(90 22 71)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 104_11" x="4" y="70" width="18" height="1" fill="#8093A2"/>
+<rect id="Rectangle 105_7" x="4" y="68" width="18" height="2" fill="#052B46"/>
+<path id="Rectangle 108_8" d="M4 71H22V68H4V71Z" fill="url(#paint26_radial_0_1)"/>
+</g>
+<g id="single-pressed-top">
+<rect id="Rectangle 100_5" x="22" y="48" width="1" height="18" transform="rotate(90 22 48)" fill="black" fill-opacity="0.53"/>
+<rect id="Rectangle 104_12" x="4" y="49" width="18" height="1" fill="#D4D9DE"/>
+<rect id="Rectangle 105_8" x="4" y="50" width="18" height="2" fill="#2D465F"/>
+<rect id="Rectangle 107_8" x="4" y="50" width="18" height="2" fill="url(#paint27_radial_0_1)"/>
+</g>
+<g id="single-pressed-bottomleft">
+<rect id="Rectangle 96_5" y="68" width="1" height="4" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 102_5" x="1" y="72" width="1" height="3" transform="rotate(-90 1 72)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_5" x="1" y="68" width="1" height="3" fill="#8093A2"/>
+<rect id="Rectangle 104_13" x="2" y="70" width="2" height="1" fill="#8093A2"/>
+<rect id="Rectangle 105_9" width="2" height="2" transform="matrix(-1 0 0 1 4 68)" fill="#052B46"/>
+<path id="Rectangle 108_9" d="M1 71H4V68H1V71Z" fill="url(#paint28_radial_0_1)"/>
+</g>
+<g id="single-pressed-topleft">
+<path id="Vector 52_5" d="M4 49V48C1.79086 48 0 49.7909 0 52H1C1 50.3477 2.34375 49 4 49Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_5" d="M4 50V49C2.34315 49 1 50.3431 1 52H2C2 51 3 50 4 50Z" fill="#D4D9DE"/>
+<path id="Rectangle 104_14" d="M2 52C2 50.8954 2.89543 50 4 50V52H2Z" fill="#2D465F"/>
+<path id="Rectangle 107_9" d="M2 52C2 50.8954 2.89543 50 4 50V52H2Z" fill="url(#paint29_radial_0_1)"/>
+</g>
+<g id="single-pressed-right">
+<rect id="Rectangle 98_6" width="1" height="16" transform="matrix(-1 0 0 1 26 52)" fill="url(#paint30_linear_0_1)"/>
+<rect id="Rectangle 99_9" x="24" y="52" width="1" height="16" fill="url(#paint31_linear_0_1)"/>
+<rect id="Rectangle 106_6" x="22" y="52" width="2" height="16" fill="url(#paint32_linear_0_1)"/>
+<path id="Rectangle 108_10" d="M24 68H22V60H24V68Z" fill="url(#paint33_radial_0_1)"/>
+<rect id="Rectangle 107_10" x="22" y="52" width="2" height="8" fill="url(#paint34_radial_0_1)"/>
+</g>
+<g id="single-pressed-bottomright">
+<rect id="Rectangle 96_6" width="1" height="4" transform="matrix(-1 0 0 1 26 68)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 102_6" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 25 72)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_6" width="1" height="3" transform="matrix(-1 0 0 1 25 68)" fill="#8093A2"/>
+<rect id="Rectangle 105_10" width="2" height="1" transform="matrix(-1 0 0 1 24 70)" fill="#8093A2"/>
+<rect id="Rectangle 106_7" x="22" y="68" width="2" height="2" fill="#052B46"/>
+<path id="Rectangle 108_11" d="M25 71H22V68H25V71Z" fill="url(#paint35_radial_0_1)"/>
+</g>
+<g id="single-pressed-topright">
+<path id="Vector 52_6" d="M22 49V48C24.2091 48 26 49.7909 26 52H25C25 50.3477 23.6562 49 22 49Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_6" d="M22 50V49C23.6569 49 25 50.3431 25 52H24C24 51 23 50 22 50Z" fill="#D4D9DE"/>
+<path id="Rectangle 104_15" d="M24 52C24 50.8954 23.1046 50 22 50V52H24Z" fill="#2D465F"/>
+<path id="Rectangle 107_11" d="M24 52C24 50.8954 23.1046 50 22 50V52H24Z" fill="url(#paint36_radial_0_1)"/>
+</g>
+<g id="single-pressed-center">
+<rect id="Rectangle 106_8" x="4" y="52" width="18" height="16" fill="url(#paint37_linear_0_1)"/>
+<rect id="Rectangle 107_12" x="4" y="52" width="18" height="8" fill="url(#paint38_radial_0_1)"/>
+<rect id="Rectangle 108_12" width="18" height="8" transform="matrix(1 0 0 -1 4 68)" fill="url(#paint39_radial_0_1)"/>
+</g>
+<g id="single-disabled-left">
+<rect id="Rectangle 98_7" y="76" width="1" height="16" fill="url(#paint40_linear_0_1)"/>
+<rect id="Rectangle 99_10" x="1" y="76" width="1" height="16" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100_6" opacity="0.01" x="2" y="76" width="2" height="16" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-disabled-bottom">
+<rect id="Rectangle 99_11" x="22" y="95" width="1" height="18" transform="rotate(90 22 95)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 104_16" x="4" y="94" width="18" height="1" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105_11" opacity="0.01" x="4" y="92" width="18" height="2" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-disabled-top">
+<rect id="Rectangle 100_7" x="22" y="72" width="1" height="18" transform="rotate(90 22 72)" fill="black" fill-opacity="0.28"/>
+<rect id="Rectangle 104_17" x="4" y="73" width="18" height="1" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105_12" opacity="0.01" x="4" y="74" width="18" height="2" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-disabled-bottomleft">
+<rect id="Rectangle 96_7" y="92" width="1" height="4" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 102_7" x="1" y="96" width="1" height="3" transform="rotate(-90 1 96)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103_7" x="1" y="92" width="1" height="3" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_18" x="2" y="94" width="2" height="1" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-disabled-topleft">
+<path id="Vector 52_7" d="M4 73V72C1.79086 72 0 73.7909 0 76H1C1 74.3477 2.34375 73 4 73Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53_7" d="M4 74V73C2.34315 73 1 74.3431 1 76H2C2 75 3 74 4 74Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-disabled-right">
+<rect id="Rectangle 98_8" width="1" height="16" transform="matrix(-1 0 0 1 26 76)" fill="url(#paint41_linear_0_1)"/>
+<rect id="Rectangle 99_12" width="1" height="16" transform="matrix(-1 0 0 1 25 76)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100_8" opacity="0.01" width="2" height="16" transform="matrix(-1 0 0 1 24 76)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-disabled-bottomright">
+<rect id="Rectangle 96_8" width="1" height="4" transform="matrix(-1 0 0 1 26 92)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 102_8" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 25 96)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103_8" width="1" height="3" transform="matrix(-1 0 0 1 25 92)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_19" width="2" height="1" transform="matrix(-1 0 0 1 24 94)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-disabled-topright">
+<path id="Vector 52_8" d="M22 73V72C24.2091 72 26 73.7909 26 76H25C25 74.3477 23.6562 73 22 73Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53_8" d="M22 74V73C23.6569 73 25 74.3431 25 76H24C24 75 23 74 22 74Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="single-disabled-center">
+<rect id="Rectangle 106_9" opacity="0.01" x="4" y="76" width="18" height="16" fill="#D9D9D9"/>
+</g>
+</g>
+<g id="leftbtn">
+<g id="left-right">
+<rect id="Rectangle 99_13" width="1" height="16" transform="matrix(-1 0 0 1 61 4)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100_9" opacity="0.01" width="2" height="16" transform="matrix(-1 0 0 1 60 4)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-bottom">
+<rect id="Rectangle 99_14" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 40 23)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 104_20" width="18" height="1" transform="matrix(-1 0 0 1 58 22)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105_13" opacity="0.01" width="18" height="2" transform="matrix(-1 0 0 1 58 20)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-top">
+<rect id="Rectangle 100_10" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 40 0)" fill="black" fill-opacity="0.28"/>
+<rect id="Rectangle 104_21" width="18" height="1" transform="matrix(-1 0 0 1 58 1)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105_14" opacity="0.01" width="18" height="2" transform="matrix(-1 0 0 1 58 2)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-bottomright">
+<rect id="Rectangle 102_9" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 61 24)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103_9" width="1" height="3" transform="matrix(-1 0 0 1 61 20)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_22" width="2" height="1" transform="matrix(-1 0 0 1 60 22)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-topright">
+<path id="Vector 52_9" d="M58 0H61V1H58V0Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53_9" d="M61 1V4H60V2H58V1H61Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-left">
+<rect id="Rectangle 98_9" x="36" y="4" width="1" height="16" fill="url(#paint42_linear_0_1)"/>
+<rect id="Rectangle 99_15" x="37" y="4" width="1" height="16" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100_11" opacity="0.01" x="38" y="4" width="2" height="16" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-bottomleft">
+<rect id="Rectangle 96_9" x="36" y="20" width="1" height="4" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 102_10" x="37" y="24" width="1" height="3" transform="rotate(-90 37 24)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103_10" x="37" y="20" width="1" height="3" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_23" x="38" y="22" width="2" height="1" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-topleft">
+<path id="Vector 52_10" d="M40 1V0C37.7909 0 36 1.79086 36 4H37C37 2.34766 38.3438 1 40 1Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53_10" d="M40 2V1C38.3431 1 37 2.34315 37 4H38C38 3 39 2 40 2Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-center">
+<rect id="Rectangle 106_10" opacity="0.01" width="18" height="16" transform="matrix(-1 0 0 1 58 4)" fill="#D9D9D9"/>
+</g>
+<g id="left-hover-right">
+<rect id="Rectangle 99_16" width="1" height="16" transform="matrix(-1 0 0 1 61 28)" fill="url(#paint43_linear_0_1)"/>
+<rect id="Rectangle 106_11" width="2" height="16" transform="matrix(-1 0 0 1 60 28)" fill="url(#paint44_linear_0_1)"/>
+<path id="Rectangle 108_13" d="M60 44H58V36H60V44Z" fill="url(#paint45_radial_0_1)"/>
+<rect id="Rectangle 107_13" width="2" height="8" transform="matrix(-1 0 0 1 60 28)" fill="url(#paint46_radial_0_1)"/>
+</g>
+<g id="left-hover-bottom">
+<rect id="Rectangle 99_17" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 40 47)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 104_24" width="18" height="1" transform="matrix(-1 0 0 1 58 46)" fill="#89B0C9"/>
+<rect id="Rectangle 105_15" width="18" height="2" transform="matrix(-1 0 0 1 58 44)" fill="#176D9A"/>
+<path id="Rectangle 108_14" d="M58 47H40V44H58V47Z" fill="url(#paint47_radial_0_1)"/>
+</g>
+<g id="left-hover-top">
+<rect id="Rectangle 100_12" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 40 24)" fill="black" fill-opacity="0.53"/>
+<rect id="Rectangle 104_25" width="18" height="1" transform="matrix(-1 0 0 1 58 25)" fill="#D9E5EE"/>
+<rect id="Rectangle 105_16" width="18" height="2" transform="matrix(-1 0 0 1 58 26)" fill="#548EB8"/>
+<rect id="Rectangle 107_14" width="18" height="2" transform="matrix(-1 0 0 1 58 26)" fill="url(#paint48_radial_0_1)"/>
+</g>
+<g id="left-hover-bottomright">
+<rect id="Rectangle 102_11" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 61 48)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_11" width="1" height="3" transform="matrix(-1 0 0 1 61 44)" fill="#89B0C9"/>
+<rect id="Rectangle 104_26" width="2" height="1" transform="matrix(-1 0 0 1 60 46)" fill="#89B0C9"/>
+<rect id="Rectangle 105_17" x="58" y="44" width="2" height="2" fill="#176D9A"/>
+<path id="Rectangle 108_15" d="M61 47H58V44H61V47Z" fill="url(#paint49_radial_0_1)"/>
+</g>
+<g id="left-hover-topright">
+<path id="Vector 52_11" d="M58 24H61V25H58V24Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_11" d="M61 25V28H60V26H58V25H61Z" fill="#D9E5EE"/>
+<path id="Rectangle 104_27" d="M60 26H58V28H60V26Z" fill="#548EB8"/>
+<rect id="Rectangle 107_15" width="2" height="2" transform="matrix(-1 0 0 1 60 26)" fill="url(#paint50_radial_0_1)"/>
+</g>
+<g id="left-hover-left">
+<rect id="Rectangle 98_10" x="36" y="28" width="1" height="16" fill="url(#paint51_linear_0_1)"/>
+<rect id="Rectangle 99_18" x="37" y="28" width="1" height="16" fill="url(#paint52_linear_0_1)"/>
+<rect id="Rectangle 106_12" width="2" height="16" transform="matrix(-1 0 0 1 40 28)" fill="url(#paint53_linear_0_1)"/>
+<path id="Rectangle 108_16" d="M38 44H40V36H38V44Z" fill="url(#paint54_radial_0_1)"/>
+<rect id="Rectangle 107_16" width="2" height="8" transform="matrix(-1 0 0 1 40 28)" fill="url(#paint55_radial_0_1)"/>
+</g>
+<g id="left-hover-bottomleft">
+<rect id="Rectangle 96_10" x="36" y="44" width="1" height="4" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 102_12" x="37" y="48" width="1" height="3" transform="rotate(-90 37 48)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_12" x="37" y="44" width="1" height="3" fill="#89B0C9"/>
+<rect id="Rectangle 104_28" x="38" y="44" width="2" height="2" fill="#176D9A"/>
+<rect id="Rectangle 105_18" x="38" y="46" width="2" height="1" fill="#89B0C9"/>
+<path id="Rectangle 108_17" d="M37 47H40V44H37V47Z" fill="url(#paint56_radial_0_1)"/>
+</g>
+<g id="left-hover-topleft">
+<path id="Vector 52_12" d="M40 25V24C37.7909 24 36 25.7909 36 28H37C37 26.3477 38.3438 25 40 25Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_12" d="M40 26V25C38.3431 25 37 26.3431 37 28H38C38 27 39 26 40 26Z" fill="#D9E5EE"/>
+<path id="Rectangle 104_29" d="M38 28C38 26.8954 38.8954 26 40 26V28H38Z" fill="#548EB8"/>
+<path id="Rectangle 107_17" d="M38 28C38 26.8954 38.8954 26 40 26V28H38Z" fill="url(#paint57_radial_0_1)"/>
+</g>
+<g id="left-hover-center">
+<rect id="Rectangle 106_13" width="18" height="16" transform="matrix(-1 0 0 1 58 28)" fill="url(#paint58_linear_0_1)"/>
+<rect id="Rectangle 107_18" width="18" height="8" transform="matrix(-1 0 0 1 58 28)" fill="url(#paint59_radial_0_1)"/>
+<rect id="Rectangle 108_18" x="58" y="44" width="18" height="8" transform="rotate(180 58 44)" fill="url(#paint60_radial_0_1)"/>
+</g>
+<g id="left-pressed-right">
+<rect id="Rectangle 99_19" width="1" height="16" transform="matrix(-1 0 0 1 61 52)" fill="url(#paint61_linear_0_1)"/>
+<rect id="Rectangle 106_14" width="2" height="16" transform="matrix(-1 0 0 1 60 52)" fill="url(#paint62_linear_0_1)"/>
+<path id="Rectangle 108_19" d="M60 68H58V60H60V68Z" fill="url(#paint63_radial_0_1)"/>
+<rect id="Rectangle 107_19" width="2" height="8" transform="matrix(-1 0 0 1 60 52)" fill="url(#paint64_radial_0_1)"/>
+</g>
+<g id="left-pressed-bottom">
+<rect id="Rectangle 99_20" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 40 71)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 104_30" width="18" height="1" transform="matrix(-1 0 0 1 58 70)" fill="#8093A2"/>
+<rect id="Rectangle 105_19" width="18" height="2" transform="matrix(-1 0 0 1 58 68)" fill="#052B46"/>
+<path id="Rectangle 108_20" d="M58 71H40V68H58V71Z" fill="url(#paint65_radial_0_1)"/>
+</g>
+<g id="left-pressed-top">
+<rect id="Rectangle 100_13" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 40 48)" fill="black" fill-opacity="0.53"/>
+<rect id="Rectangle 104_31" width="18" height="1" transform="matrix(-1 0 0 1 58 49)" fill="#D4D9DE"/>
+<rect id="Rectangle 105_20" width="18" height="2" transform="matrix(-1 0 0 1 58 50)" fill="#2D465F"/>
+<rect id="Rectangle 107_20" width="18" height="2" transform="matrix(-1 0 0 1 58 50)" fill="url(#paint66_radial_0_1)"/>
+</g>
+<g id="left-pressed-bottomright">
+<rect id="Rectangle 102_13" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 61 72)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_13" width="1" height="3" transform="matrix(-1 0 0 1 61 68)" fill="#8093A2"/>
+<rect id="Rectangle 104_32" width="2" height="1" transform="matrix(-1 0 0 1 60 70)" fill="#8093A2"/>
+<rect id="Rectangle 105_21" x="58" y="68" width="2" height="2" fill="#052B46"/>
+<path id="Rectangle 108_21" d="M61 71H58V68H61V71Z" fill="url(#paint67_radial_0_1)"/>
+</g>
+<g id="left-pressed-topright">
+<path id="Vector 52_13" d="M58 48H61V49H58V48Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_13" d="M61 49V52H60V50H58V49H61Z" fill="#D4D9DE"/>
+<path id="Rectangle 104_33" d="M60 50H58V52H60V50Z" fill="#2D465F"/>
+<rect id="Rectangle 107_21" width="2" height="2" transform="matrix(-1 0 0 1 60 50)" fill="url(#paint68_radial_0_1)"/>
+</g>
+<g id="left-pressed-left">
+<rect id="Rectangle 98_11" x="36" y="52" width="1" height="16" fill="url(#paint69_linear_0_1)"/>
+<rect id="Rectangle 99_21" width="1" height="16" transform="matrix(-1 0 0 1 38 52)" fill="url(#paint70_linear_0_1)"/>
+<rect id="Rectangle 106_15" width="2" height="16" transform="matrix(-1 0 0 1 40 52)" fill="url(#paint71_linear_0_1)"/>
+<path id="Rectangle 108_22" d="M38 68H40V60H38V68Z" fill="url(#paint72_radial_0_1)"/>
+<rect id="Rectangle 107_22" width="2" height="8" transform="matrix(-1 0 0 1 40 52)" fill="url(#paint73_radial_0_1)"/>
+</g>
+<g id="left-pressed-bottomleft">
+<rect id="Rectangle 96_11" x="36" y="68" width="1" height="4" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 102_14" x="37" y="72" width="1" height="3" transform="rotate(-90 37 72)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_14" x="37" y="68" width="1" height="3" fill="#8093A2"/>
+<rect id="Rectangle 105_22" x="38" y="70" width="2" height="1" fill="#8093A2"/>
+<rect id="Rectangle 106_16" width="2" height="2" transform="matrix(-1 0 0 1 40 68)" fill="#052B46"/>
+<path id="Rectangle 108_23" d="M37 71H40V68H37V71Z" fill="url(#paint74_radial_0_1)"/>
+</g>
+<g id="left-pressed-topleft">
+<path id="Vector 52_14" d="M40 49V48C37.7909 48 36 49.7909 36 52H37C37 50.3477 38.3438 49 40 49Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_14" d="M40 50V49C38.3431 49 37 50.3431 37 52H38C38 51 39 50 40 50Z" fill="#D4D9DE"/>
+<path id="Rectangle 104_34" d="M38 52C38 50.8954 38.8954 50 40 50V52H38Z" fill="#2D465F"/>
+<path id="Rectangle 107_23" d="M38 52C38 50.8954 38.8954 50 40 50V52H38Z" fill="url(#paint75_radial_0_1)"/>
+</g>
+<g id="left-pressed-center">
+<rect id="Rectangle 106_17" width="18" height="16" transform="matrix(-1 0 0 1 58 52)" fill="url(#paint76_linear_0_1)"/>
+<rect id="Rectangle 107_24" width="18" height="8" transform="matrix(-1 0 0 1 58 52)" fill="url(#paint77_radial_0_1)"/>
+<rect id="Rectangle 108_24" x="58" y="68" width="18" height="8" transform="rotate(180 58 68)" fill="url(#paint78_radial_0_1)"/>
+</g>
+<g id="left-disabled-right">
+<rect id="Rectangle 99_22" width="1" height="16" transform="matrix(-1 0 0 1 61 76)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100_14" opacity="0.01" width="2" height="16" transform="matrix(-1 0 0 1 60 76)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-disabled-bottom">
+<rect id="Rectangle 99_23" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 40 95)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 104_35" width="18" height="1" transform="matrix(-1 0 0 1 58 94)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105_23" opacity="0.01" width="18" height="2" transform="matrix(-1 0 0 1 58 92)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-disabled-top">
+<rect id="Rectangle 100_15" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 40 72)" fill="black" fill-opacity="0.28"/>
+<rect id="Rectangle 104_36" width="18" height="1" transform="matrix(-1 0 0 1 58 73)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105_24" opacity="0.01" width="18" height="2" transform="matrix(-1 0 0 1 58 74)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-disabled-bottomright">
+<rect id="Rectangle 102_15" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 61 96)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103_15" width="1" height="3" transform="matrix(-1 0 0 1 61 92)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_37" width="2" height="1" transform="matrix(-1 0 0 1 60 94)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-disabled-topright">
+<path id="Vector 52_15" d="M58 72H61V73H58V72Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53_15" d="M61 73V76H60V74H58V73H61Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-disabled-left">
+<rect id="Rectangle 98_12" x="36" y="76" width="1" height="16" fill="url(#paint79_linear_0_1)"/>
+<rect id="Rectangle 99_24" x="37" y="76" width="1" height="16" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100_16" opacity="0.01" x="38" y="76" width="2" height="16" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-disabled-bottomleft">
+<rect id="Rectangle 96_12" x="36" y="92" width="1" height="4" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 102_16" x="37" y="96" width="1" height="3" transform="rotate(-90 37 96)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103_16" x="37" y="92" width="1" height="3" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_38" x="38" y="94" width="2" height="1" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-disabled-topleft">
+<path id="Vector 52_16" d="M40 73V72C37.7909 72 36 73.7909 36 76H37C37 74.3477 38.3438 73 40 73Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53_16" d="M40 74V73C38.3431 73 37 74.3431 37 76H38C38 75 39 74 40 74Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="left-disabled-center">
+<rect id="Rectangle 106_18" opacity="0.01" width="18" height="16" transform="matrix(-1 0 0 1 58 76)" fill="#D9D9D9"/>
+</g>
+</g>
+<g id="centerbtn">
+<g id="center-right">
+<rect id="Rectangle 99_25" width="1" height="16" transform="matrix(-1 0 0 1 86 4)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100_17" opacity="0.01" width="2" height="16" transform="matrix(-1 0 0 1 85 4)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-bottom">
+<rect id="Rectangle 99_26" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 65 23)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 104_39" width="18" height="1" transform="matrix(-1 0 0 1 83 22)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105_25" opacity="0.01" width="18" height="2" transform="matrix(-1 0 0 1 83 20)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-top">
+<rect id="Rectangle 100_18" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 65 0)" fill="black" fill-opacity="0.28"/>
+<rect id="Rectangle 104_40" width="18" height="1" transform="matrix(-1 0 0 1 83 1)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105_26" opacity="0.01" width="18" height="2" transform="matrix(-1 0 0 1 83 2)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-bottomright">
+<rect id="Rectangle 102_17" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 86 24)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103_17" width="1" height="3" transform="matrix(-1 0 0 1 86 20)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_41" width="2" height="1" transform="matrix(-1 0 0 1 85 22)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-topright">
+<path id="Vector 52_17" d="M83 0H86V1H83V0Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53_17" d="M86 1V4H85V2H83V1H86Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-left">
+<rect id="Rectangle 98_13" x="61" y="4" width="1" height="16" fill="url(#paint80_linear_0_1)"/>
+<rect id="Rectangle 99_27" x="62" y="4" width="1" height="16" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100_19" opacity="0.01" x="63" y="4" width="2" height="16" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-bottomleft">
+<rect id="Rectangle 96_13" x="61" y="20" width="1" height="4" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 102_18" x="62" y="24" width="1" height="3" transform="rotate(-90 62 24)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103_18" x="62" y="20" width="1" height="3" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_42" x="63" y="22" width="2" height="1" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-topleft">
+<path id="Vector 52_18" d="M61 0V4H62V1H65V0H61Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53_18" d="M62 1V4H63V2H65V1H62Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-center">
+<rect id="Rectangle 106_19" opacity="0.01" width="18" height="16" transform="matrix(-1 0 0 1 83 4)" fill="#D9D9D9"/>
+</g>
+<g id="center-hover-right">
+<rect id="Rectangle 99_28" width="1" height="16" transform="matrix(-1 0 0 1 86 28)" fill="url(#paint81_linear_0_1)"/>
+<rect id="Rectangle 106_20" width="2" height="16" transform="matrix(-1 0 0 1 85 28)" fill="url(#paint82_linear_0_1)"/>
+<path id="Rectangle 108_25" d="M85 44H83V36H85V44Z" fill="url(#paint83_radial_0_1)"/>
+<rect id="Rectangle 107_25" width="2" height="8" transform="matrix(-1 0 0 1 85 28)" fill="url(#paint84_radial_0_1)"/>
+</g>
+<g id="center-hover-bottom">
+<rect id="Rectangle 99_29" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 65 47)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 104_43" width="18" height="1" transform="matrix(-1 0 0 1 83 46)" fill="#89B0C9"/>
+<rect id="Rectangle 105_27" width="18" height="2" transform="matrix(-1 0 0 1 83 44)" fill="#176D9A"/>
+<path id="Rectangle 108_26" d="M83 47H65V44H83V47Z" fill="url(#paint85_radial_0_1)"/>
+</g>
+<g id="center-hover-top">
+<rect id="Rectangle 100_20" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 65 24)" fill="black" fill-opacity="0.53"/>
+<rect id="Rectangle 104_44" width="18" height="1" transform="matrix(-1 0 0 1 83 25)" fill="#D9E5EE"/>
+<rect id="Rectangle 105_28" width="18" height="2" transform="matrix(-1 0 0 1 83 26)" fill="#548EB8"/>
+<rect id="Rectangle 107_26" width="18" height="2" transform="matrix(-1 0 0 1 83 26)" fill="url(#paint86_radial_0_1)"/>
+</g>
+<g id="center-hover-bottomright">
+<rect id="Rectangle 102_19" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 86 48)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_19" width="1" height="3" transform="matrix(-1 0 0 1 86 44)" fill="#89B0C9"/>
+<rect id="Rectangle 104_45" width="2" height="1" transform="matrix(-1 0 0 1 85 46)" fill="#89B0C9"/>
+<rect id="Rectangle 105_29" x="83" y="44" width="2" height="2" fill="#176D9A"/>
+<path id="Rectangle 108_27" d="M86 47H83V44H86V47Z" fill="url(#paint87_radial_0_1)"/>
+</g>
+<g id="center-hover-topright">
+<path id="Vector 52_19" d="M83 24H86V25H83V24Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_19" d="M86 25V28H85V26H83V25H86Z" fill="#D9E5EE"/>
+<path id="Rectangle 104_46" d="M85 26H83V28H85V26Z" fill="#548EB8"/>
+<rect id="Rectangle 107_27" width="2" height="2" transform="matrix(-1 0 0 1 85 26)" fill="url(#paint88_radial_0_1)"/>
+</g>
+<g id="center-hover-left">
+<rect id="Rectangle 98_14" x="61" y="28" width="1" height="16" fill="url(#paint89_linear_0_1)"/>
+<rect id="Rectangle 99_30" x="62" y="28" width="1" height="16" fill="url(#paint90_linear_0_1)"/>
+<rect id="Rectangle 106_21" width="2" height="16" transform="matrix(-1 0 0 1 65 28)" fill="url(#paint91_linear_0_1)"/>
+<path id="Rectangle 108_28" d="M63 44H65V36H63V44Z" fill="url(#paint92_radial_0_1)"/>
+<rect id="Rectangle 107_28" width="2" height="8" transform="matrix(-1 0 0 1 65 28)" fill="url(#paint93_radial_0_1)"/>
+</g>
+<g id="center-hover-bottomleft">
+<rect id="Rectangle 96_14" x="61" y="44" width="1" height="4" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 102_20" x="62" y="48" width="1" height="3" transform="rotate(-90 62 48)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_20" x="62" y="44" width="1" height="3" fill="#89B0C9"/>
+<rect id="Rectangle 104_47" x="63" y="44" width="2" height="2" fill="#176D9A"/>
+<rect id="Rectangle 105_30" x="63" y="46" width="2" height="1" fill="#89B0C9"/>
+<path id="Rectangle 108_29" d="M62 47H65V44H62V47Z" fill="url(#paint94_radial_0_1)"/>
+</g>
+<g id="center-hover-topleft">
+<path id="Vector 52_20" d="M61 24V28H62V25H65V24H61Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_20" d="M62 25V28H63V26H65V25H62Z" fill="#D9E5EE"/>
+<path id="Rectangle 104_48" d="M63 26H65V28H63V26Z" fill="#548EB8"/>
+<rect id="Rectangle 107_29" x="63" y="26" width="2" height="2" fill="url(#paint95_radial_0_1)"/>
+</g>
+<g id="center-hover-center">
+<rect id="Rectangle 106_22" width="18" height="16" transform="matrix(-1 0 0 1 83 28)" fill="url(#paint96_linear_0_1)"/>
+<rect id="Rectangle 107_30" width="18" height="8" transform="matrix(-1 0 0 1 83 28)" fill="url(#paint97_radial_0_1)"/>
+<rect id="Rectangle 108_30" x="83" y="44" width="18" height="8" transform="rotate(180 83 44)" fill="url(#paint98_radial_0_1)"/>
+</g>
+<g id="center-pressed-right">
+<rect id="Rectangle 99_31" width="1" height="16" transform="matrix(-1 0 0 1 86 52)" fill="url(#paint99_linear_0_1)"/>
+<rect id="Rectangle 106_23" width="2" height="16" transform="matrix(-1 0 0 1 85 52)" fill="url(#paint100_linear_0_1)"/>
+<path id="Rectangle 108_31" d="M85 68H83V60H85V68Z" fill="url(#paint101_radial_0_1)"/>
+<rect id="Rectangle 107_31" width="2" height="8" transform="matrix(-1 0 0 1 85 52)" fill="url(#paint102_radial_0_1)"/>
+</g>
+<g id="center-pressed-bottom">
+<rect id="Rectangle 99_32" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 65 71)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 104_49" width="18" height="1" transform="matrix(-1 0 0 1 83 70)" fill="#8093A2"/>
+<rect id="Rectangle 105_31" width="18" height="2" transform="matrix(-1 0 0 1 83 68)" fill="#052B46"/>
+<path id="Rectangle 108_32" d="M83 71H65V68H83V71Z" fill="url(#paint103_radial_0_1)"/>
+</g>
+<g id="center-pressed-top">
+<rect id="Rectangle 100_21" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 65 48)" fill="black" fill-opacity="0.53"/>
+<rect id="Rectangle 104_50" width="18" height="1" transform="matrix(-1 0 0 1 83 49)" fill="#D4D9DE"/>
+<rect id="Rectangle 105_32" width="18" height="2" transform="matrix(-1 0 0 1 83 50)" fill="#2D465F"/>
+<rect id="Rectangle 107_32" width="18" height="2" transform="matrix(-1 0 0 1 83 50)" fill="url(#paint104_radial_0_1)"/>
+</g>
+<g id="center-pressed-bottomright">
+<rect id="Rectangle 102_21" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 86 72)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_21" width="1" height="3" transform="matrix(-1 0 0 1 86 68)" fill="#8093A2"/>
+<rect id="Rectangle 104_51" width="2" height="1" transform="matrix(-1 0 0 1 85 70)" fill="#8093A2"/>
+<rect id="Rectangle 105_33" x="83" y="68" width="2" height="2" fill="#052B46"/>
+<path id="Rectangle 108_33" d="M86 71H83V68H86V71Z" fill="url(#paint105_radial_0_1)"/>
+</g>
+<g id="center-pressed-topright">
+<path id="Vector 52_21" d="M83 48H86V49H83V48Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_21" d="M86 49V52H85V50H83V49H86Z" fill="#D4D9DE"/>
+<path id="Rectangle 104_52" d="M85 50H83V52H85V50Z" fill="#2D465F"/>
+<rect id="Rectangle 107_33" width="2" height="2" transform="matrix(-1 0 0 1 85 50)" fill="url(#paint106_radial_0_1)"/>
+</g>
+<g id="center-pressed-left">
+<rect id="Rectangle 98_15" x="61" y="52" width="1" height="16" fill="url(#paint107_linear_0_1)"/>
+<rect id="Rectangle 99_33" width="1" height="16" transform="matrix(-1 0 0 1 63 52)" fill="url(#paint108_linear_0_1)"/>
+<rect id="Rectangle 106_24" width="2" height="16" transform="matrix(-1 0 0 1 65 52)" fill="url(#paint109_linear_0_1)"/>
+<path id="Rectangle 108_34" d="M63 68H65V60H63V68Z" fill="url(#paint110_radial_0_1)"/>
+<rect id="Rectangle 107_34" width="2" height="8" transform="matrix(-1 0 0 1 65 52)" fill="url(#paint111_radial_0_1)"/>
+</g>
+<g id="center-pressed-bottomleft">
+<rect id="Rectangle 96_15" x="61" y="68" width="1" height="4" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 102_22" x="62" y="72" width="1" height="3" transform="rotate(-90 62 72)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_22" x="62" y="68" width="1" height="3" fill="#8093A2"/>
+<rect id="Rectangle 105_34" x="63" y="70" width="2" height="1" fill="#8093A2"/>
+<rect id="Rectangle 106_25" width="2" height="2" transform="matrix(-1 0 0 1 65 68)" fill="#052B46"/>
+<path id="Rectangle 108_35" d="M62 71H65V68H62V71Z" fill="url(#paint112_radial_0_1)"/>
+</g>
+<g id="center-pressed-topleft">
+<path id="Vector 52_22" d="M61 48V52H62C62 50.3477 63.3438 49 65 49V48H61Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_22" d="M62 49V52H63C63 51 64 50 65 50V49H62Z" fill="#D4D9DE"/>
+<path id="Rectangle 104_53" d="M63 50H65V52H63V50Z" fill="#2D465F"/>
+<rect id="Rectangle 107_35" x="63" y="50" width="2" height="2" fill="url(#paint113_radial_0_1)"/>
+</g>
+<g id="center-pressed-center">
+<rect id="Rectangle 106_26" width="18" height="16" transform="matrix(-1 0 0 1 83 52)" fill="url(#paint114_linear_0_1)"/>
+<rect id="Rectangle 107_36" width="18" height="8" transform="matrix(-1 0 0 1 83 52)" fill="url(#paint115_radial_0_1)"/>
+<rect id="Rectangle 108_36" x="83" y="68" width="18" height="8" transform="rotate(180 83 68)" fill="url(#paint116_radial_0_1)"/>
+</g>
+<g id="center-disabled-right">
+<rect id="Rectangle 99_34" width="1" height="16" transform="matrix(-1 0 0 1 86 76)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100_22" opacity="0.01" width="2" height="16" transform="matrix(-1 0 0 1 85 76)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-disabled-bottom">
+<rect id="Rectangle 99_35" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 65 95)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 104_54" width="18" height="1" transform="matrix(-1 0 0 1 83 94)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105_35" opacity="0.01" width="18" height="2" transform="matrix(-1 0 0 1 83 92)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-disabled-top">
+<rect id="Rectangle 100_23" width="1" height="18" transform="matrix(4.37114e-08 1 1 -4.37114e-08 65 72)" fill="black" fill-opacity="0.28"/>
+<rect id="Rectangle 104_55" width="18" height="1" transform="matrix(-1 0 0 1 83 73)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105_36" opacity="0.01" width="18" height="2" transform="matrix(-1 0 0 1 83 74)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-disabled-bottomright">
+<rect id="Rectangle 102_23" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 86 96)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103_23" width="1" height="3" transform="matrix(-1 0 0 1 86 92)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_56" width="2" height="1" transform="matrix(-1 0 0 1 85 94)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-disabled-topright">
+<path id="Vector 52_23" d="M83 72H86V73H83V72Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53_23" d="M86 73V76H85V74H83V73H86Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-disabled-left">
+<rect id="Rectangle 98_16" x="61" y="76" width="1" height="16" fill="url(#paint117_linear_0_1)"/>
+<rect id="Rectangle 99_36" x="62" y="76" width="1" height="16" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100_24" opacity="0.01" x="63" y="76" width="2" height="16" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-disabled-bottomleft">
+<rect id="Rectangle 96_16" x="61" y="92" width="1" height="4" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 102_24" x="62" y="96" width="1" height="3" transform="rotate(-90 62 96)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103_24" x="62" y="92" width="1" height="3" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_57" x="63" y="94" width="2" height="1" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-disabled-topleft">
+<path id="Vector 52_24" d="M61 72V76H62V73H65V72H61Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53_24" d="M62 73V76H63V74H65V73H62Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="center-disabled-center">
+<rect id="Rectangle 106_27" opacity="0.01" width="18" height="16" transform="matrix(-1 0 0 1 83 76)" fill="#D9D9D9"/>
+</g>
+</g>
+<g id="rightbtn">
+<g id="right-left">
+<rect id="Rectangle 98_17" x="86" y="4" width="1" height="16" fill="url(#paint118_linear_0_1)"/>
+<rect id="Rectangle 99_37" x="87" y="4" width="1" height="16" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100_25" opacity="0.01" x="88" y="4" width="2" height="16" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-bottom">
+<rect id="Rectangle 99_38" x="108" y="23" width="1" height="18" transform="rotate(90 108 23)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 104_58" x="90" y="22" width="18" height="1" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105_37" opacity="0.01" x="90" y="20" width="18" height="2" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-top">
+<rect id="Rectangle 100_26" x="108" width="1" height="18" transform="rotate(90 108 0)" fill="black" fill-opacity="0.28"/>
+<rect id="Rectangle 104_59" x="90" y="1" width="18" height="1" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105_38" opacity="0.01" x="90" y="2" width="18" height="2" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-bottomleft">
+<rect id="Rectangle 96_17" x="86" y="20" width="1" height="4" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 102_25" x="87" y="24" width="1" height="3" transform="rotate(-90 87 24)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103_25" x="87" y="20" width="1" height="3" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_60" x="88" y="22" width="2" height="1" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-topleft">
+<path id="Vector 52_25" d="M86 0V4H87V1H90V0H86Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53_25" d="M87 1V4H88V2H90V1H87Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-right">
+<rect id="Rectangle 98_18" width="1" height="16" transform="matrix(-1 0 0 1 112 4)" fill="url(#paint119_linear_0_1)"/>
+<rect id="Rectangle 99_39" width="1" height="16" transform="matrix(-1 0 0 1 111 4)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100_27" opacity="0.01" width="2" height="16" transform="matrix(-1 0 0 1 110 4)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-bottomright">
+<rect id="Rectangle 96_18" width="1" height="4" transform="matrix(-1 0 0 1 112 20)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 102_26" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 111 24)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103_26" width="1" height="3" transform="matrix(-1 0 0 1 111 20)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_61" width="2" height="1" transform="matrix(-1 0 0 1 110 22)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-topright">
+<path id="Vector 52_26" d="M108 1V0C110.209 0 112 1.79086 112 4H111C111 2.34766 109.656 1 108 1Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53_26" d="M108 2V1C109.657 1 111 2.34315 111 4H110C110 3 109 2 108 2Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-center">
+<rect id="Rectangle 106_28" opacity="0.01" x="90" y="4" width="18" height="16" fill="#D9D9D9"/>
+</g>
+<g id="right-hover-left">
+<rect id="Rectangle 98_19" x="86" y="28" width="1" height="16" fill="url(#paint120_linear_0_1)"/>
+<rect id="Rectangle 99_40" x="87" y="28" width="1" height="16" fill="url(#paint121_linear_0_1)"/>
+<rect id="Rectangle 106_29" x="88" y="28" width="2" height="16" fill="url(#paint122_linear_0_1)"/>
+<path id="Rectangle 108_37" d="M88 44H90V36H88V44Z" fill="url(#paint123_radial_0_1)"/>
+<rect id="Rectangle 107_37" x="88" y="28" width="2" height="8" fill="url(#paint124_radial_0_1)"/>
+</g>
+<g id="right-hover-bottom">
+<rect id="Rectangle 99_41" x="108" y="47" width="1" height="18" transform="rotate(90 108 47)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 104_62" x="90" y="46" width="18" height="1" fill="#89B0C9"/>
+<rect id="Rectangle 105_39" x="90" y="44" width="18" height="2" fill="#176D9A"/>
+<path id="Rectangle 108_38" d="M90 47H108V44H90V47Z" fill="url(#paint125_radial_0_1)"/>
+</g>
+<g id="right-hover-top">
+<rect id="Rectangle 100_28" x="108" y="24" width="1" height="18" transform="rotate(90 108 24)" fill="black" fill-opacity="0.53"/>
+<rect id="Rectangle 104_63" x="90" y="25" width="18" height="1" fill="#D9E5EE"/>
+<rect id="Rectangle 105_40" x="90" y="26" width="18" height="2" fill="#548EB8"/>
+<rect id="Rectangle 107_38" x="90" y="26" width="18" height="2" fill="url(#paint126_radial_0_1)"/>
+</g>
+<g id="right-hover-bottomleft">
+<rect id="Rectangle 96_19" x="86" y="44" width="1" height="4" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 102_27" x="87" y="48" width="1" height="3" transform="rotate(-90 87 48)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_27" x="87" y="44" width="1" height="3" fill="#89B0C9"/>
+<rect id="Rectangle 104_64" x="88" y="46" width="2" height="1" fill="#89B0C9"/>
+<rect id="Rectangle 105_41" width="2" height="2" transform="matrix(-1 0 0 1 90 44)" fill="#176D9A"/>
+<path id="Rectangle 108_39" d="M87 47H90V44H87V47Z" fill="url(#paint127_radial_0_1)"/>
+</g>
+<g id="right-hover-topleft">
+<path id="Vector 52_27" d="M86 24V28H87V25H90V24H86Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_27" d="M87 25V28H88V26H90V25H87Z" fill="#D9E5EE"/>
+<path id="Rectangle 104_65" d="M88 26H90V28H88V26Z" fill="#548EB8"/>
+<rect id="Rectangle 107_39" x="88" y="26" width="2" height="2" fill="url(#paint128_radial_0_1)"/>
+</g>
+<g id="right-hover-right">
+<rect id="Rectangle 98_20" width="1" height="16" transform="matrix(-1 0 0 1 112 28)" fill="url(#paint129_linear_0_1)"/>
+<rect id="Rectangle 99_42" width="1" height="16" transform="matrix(-1 0 0 1 111 28)" fill="url(#paint130_linear_0_1)"/>
+<rect id="Rectangle 106_30" x="108" y="28" width="2" height="16" fill="url(#paint131_linear_0_1)"/>
+<path id="Rectangle 108_40" d="M110 44H108V36H110V44Z" fill="url(#paint132_radial_0_1)"/>
+<rect id="Rectangle 107_40" x="108" y="28" width="2" height="8" fill="url(#paint133_radial_0_1)"/>
+</g>
+<g id="right-hover-bottomright">
+<rect id="Rectangle 96_20" width="1" height="4" transform="matrix(-1 0 0 1 112 44)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 102_28" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 111 48)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_28" width="1" height="3" transform="matrix(-1 0 0 1 111 44)" fill="#89B0C9"/>
+<rect id="Rectangle 104_66" width="2" height="2" transform="matrix(-1 0 0 1 110 44)" fill="#176D9A"/>
+<rect id="Rectangle 105_42" width="2" height="1" transform="matrix(-1 0 0 1 110 46)" fill="#89B0C9"/>
+<path id="Rectangle 108_41" d="M111 47H108V44H111V47Z" fill="url(#paint134_radial_0_1)"/>
+</g>
+<g id="right-hover-topright">
+<path id="Vector 52_28" d="M108 25V24C110.209 24 112 25.7909 112 28H111C111 26.3477 109.656 25 108 25Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_28" d="M108 26V25C109.657 25 111 26.3431 111 28H110C110 27 109 26 108 26Z" fill="#D9E5EE"/>
+<path id="Rectangle 104_67" d="M110 28C110 26.8954 109.105 26 108 26V28H110Z" fill="#548EB8"/>
+<path id="Rectangle 107_41" d="M110 28C110 26.8954 109.105 26 108 26V28H110Z" fill="url(#paint135_radial_0_1)"/>
+</g>
+<g id="right-hover-center">
+<rect id="Rectangle 106_31" x="90" y="28" width="18" height="16" fill="url(#paint136_linear_0_1)"/>
+<rect id="Rectangle 107_42" x="90" y="28" width="18" height="8" fill="url(#paint137_radial_0_1)"/>
+<rect id="Rectangle 108_42" width="18" height="8" transform="matrix(1 0 0 -1 90 44)" fill="url(#paint138_radial_0_1)"/>
+</g>
+<g id="right-pressed-left">
+<rect id="Rectangle 98_21" x="86" y="52" width="1" height="16" fill="url(#paint139_linear_0_1)"/>
+<rect id="Rectangle 99_43" x="87" y="52" width="1" height="16" fill="url(#paint140_linear_0_1)"/>
+<rect id="Rectangle 106_32" x="88" y="52" width="2" height="16" fill="url(#paint141_linear_0_1)"/>
+<path id="Rectangle 108_43" d="M88 68H90V60H88V68Z" fill="url(#paint142_radial_0_1)"/>
+<rect id="Rectangle 107_43" x="88" y="52" width="2" height="8" fill="url(#paint143_radial_0_1)"/>
+</g>
+<g id="right-pressed-bottom">
+<rect id="Rectangle 99_44" x="108" y="71" width="1" height="18" transform="rotate(90 108 71)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 104_68" x="90" y="70" width="18" height="1" fill="#8093A2"/>
+<rect id="Rectangle 105_43" x="90" y="68" width="18" height="2" fill="#052B46"/>
+<path id="Rectangle 108_44" d="M90 71H108V68H90V71Z" fill="url(#paint144_radial_0_1)"/>
+</g>
+<g id="right-pressed-top">
+<rect id="Rectangle 100_29" x="108" y="48" width="1" height="18" transform="rotate(90 108 48)" fill="black" fill-opacity="0.53"/>
+<rect id="Rectangle 104_69" x="90" y="49" width="18" height="1" fill="#D4D9DE"/>
+<rect id="Rectangle 105_44" x="90" y="50" width="18" height="2" fill="#2D465F"/>
+<rect id="Rectangle 107_44" x="90" y="50" width="18" height="2" fill="url(#paint145_radial_0_1)"/>
+</g>
+<g id="right-pressed-bottomleft">
+<rect id="Rectangle 96_21" x="86" y="68" width="1" height="4" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 102_29" x="87" y="72" width="1" height="3" transform="rotate(-90 87 72)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_29" x="87" y="68" width="1" height="3" fill="#8093A2"/>
+<rect id="Rectangle 104_70" x="88" y="70" width="2" height="1" fill="#8093A2"/>
+<rect id="Rectangle 105_45" width="2" height="2" transform="matrix(-1 0 0 1 90 68)" fill="#052B46"/>
+<path id="Rectangle 108_45" d="M87 71H90V68H87V71Z" fill="url(#paint146_radial_0_1)"/>
+</g>
+<g id="right-pressed-topleft">
+<path id="Vector 52_29" d="M86 48V52H87V49H90V48H86Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_29" d="M87 49V52H88V50H90V49H87Z" fill="#D4D9DE"/>
+<path id="Rectangle 104_71" d="M88 50H90V52H88V50Z" fill="#2D465F"/>
+<rect id="Rectangle 107_45" x="88" y="50" width="2" height="2" fill="url(#paint147_radial_0_1)"/>
+</g>
+<g id="right-pressed-right">
+<rect id="Rectangle 98_22" width="1" height="16" transform="matrix(-1 0 0 1 112 52)" fill="url(#paint148_linear_0_1)"/>
+<rect id="Rectangle 99_45" x="110" y="52" width="1" height="16" fill="url(#paint149_linear_0_1)"/>
+<rect id="Rectangle 106_33" x="108" y="52" width="2" height="16" fill="url(#paint150_linear_0_1)"/>
+<path id="Rectangle 108_46" d="M110 68H108V60H110V68Z" fill="url(#paint151_radial_0_1)"/>
+<rect id="Rectangle 107_46" x="108" y="52" width="2" height="8" fill="url(#paint152_radial_0_1)"/>
+</g>
+<g id="right-pressed-bottomright">
+<rect id="Rectangle 96_22" width="1" height="4" transform="matrix(-1 0 0 1 112 68)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 102_30" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 111 72)" fill="black" fill-opacity="0.71"/>
+<rect id="Rectangle 103_30" width="1" height="3" transform="matrix(-1 0 0 1 111 68)" fill="#8093A2"/>
+<rect id="Rectangle 105_46" width="2" height="1" transform="matrix(-1 0 0 1 110 70)" fill="#8093A2"/>
+<rect id="Rectangle 106_34" x="108" y="68" width="2" height="2" fill="#052B46"/>
+<path id="Rectangle 108_47" d="M111 71H108V68H111V71Z" fill="url(#paint153_radial_0_1)"/>
+</g>
+<g id="right-pressed-topright">
+<path id="Vector 52_30" d="M108 49V48C110.209 48 112 49.7909 112 52H111C111 50.3477 109.656 49 108 49Z" fill="black" fill-opacity="0.53"/>
+<path id="Vector 53_30" d="M108 50V49C109.657 49 111 50.3431 111 52H110C110 51 109 50 108 50Z" fill="#D4D9DE"/>
+<path id="Rectangle 104_72" d="M110 52C110 50.8954 109.105 50 108 50V52H110Z" fill="#2D465F"/>
+<path id="Rectangle 107_47" d="M110 52C110 50.8954 109.105 50 108 50V52H110Z" fill="url(#paint154_radial_0_1)"/>
+</g>
+<g id="right-pressed-center">
+<rect id="Rectangle 106_35" x="90" y="52" width="18" height="16" fill="url(#paint155_linear_0_1)"/>
+<rect id="Rectangle 107_48" x="90" y="52" width="18" height="8" fill="url(#paint156_radial_0_1)"/>
+<rect id="Rectangle 108_48" width="18" height="8" transform="matrix(1 0 0 -1 90 68)" fill="url(#paint157_radial_0_1)"/>
+</g>
+<g id="right-disabled-left">
+<rect id="Rectangle 98_23" x="86" y="76" width="1" height="16" fill="url(#paint158_linear_0_1)"/>
+<rect id="Rectangle 99_46" x="87" y="76" width="1" height="16" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100_30" opacity="0.01" x="88" y="76" width="2" height="16" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-disabled-bottom">
+<rect id="Rectangle 99_47" x="108" y="95" width="1" height="18" transform="rotate(90 108 95)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 104_73" x="90" y="94" width="18" height="1" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105_47" opacity="0.01" x="90" y="92" width="18" height="2" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-disabled-top">
+<rect id="Rectangle 100_31" x="108" y="72" width="1" height="18" transform="rotate(90 108 72)" fill="black" fill-opacity="0.28"/>
+<rect id="Rectangle 104_74" x="90" y="73" width="18" height="1" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 105_48" opacity="0.01" x="90" y="74" width="18" height="2" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-disabled-bottomleft">
+<rect id="Rectangle 96_23" x="86" y="92" width="1" height="4" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 102_31" x="87" y="96" width="1" height="3" transform="rotate(-90 87 96)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103_31" x="87" y="92" width="1" height="3" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_75" x="88" y="94" width="2" height="1" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-disabled-topleft">
+<path id="Vector 52_31" d="M86 72V76H87V73H90V72H86Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53_31" d="M87 73V76H88V74H90V73H87Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-disabled-right">
+<rect id="Rectangle 98_24" width="1" height="16" transform="matrix(-1 0 0 1 112 76)" fill="url(#paint159_linear_0_1)"/>
+<rect id="Rectangle 99_48" width="1" height="16" transform="matrix(-1 0 0 1 111 76)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 100_32" opacity="0.01" width="2" height="16" transform="matrix(-1 0 0 1 110 76)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-disabled-bottomright">
+<rect id="Rectangle 96_24" width="1" height="4" transform="matrix(-1 0 0 1 112 92)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 102_32" width="1" height="3" transform="matrix(-1.19249e-08 -1 -1 1.19249e-08 111 96)" fill="black" fill-opacity="0.46"/>
+<rect id="Rectangle 103_32" width="1" height="3" transform="matrix(-1 0 0 1 111 92)" fill="white" fill-opacity="0.2"/>
+<rect id="Rectangle 104_76" width="2" height="1" transform="matrix(-1 0 0 1 110 94)" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-disabled-topright">
+<path id="Vector 52_32" d="M108 73V72C110.209 72 112 73.7909 112 76H111C111 74.3477 109.656 73 108 73Z" fill="black" fill-opacity="0.28"/>
+<path id="Vector 53_32" d="M108 74V73C109.657 73 111 74.3431 111 76H110C110 75 109 74 108 74Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g id="right-disabled-center">
+<rect id="Rectangle 106_36" opacity="0.01" x="90" y="76" width="18" height="16" fill="#D9D9D9"/>
+</g>
+</g>
+<rect id="hint-stretch-borders" x="30" y="1" width="2" height="2" fill="#1C756A"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_1" x1="0.5" y1="4" x2="0.5" y2="20" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.282353"/>
+<stop offset="1" stop-opacity="0.462745"/>
+</linearGradient>
+<linearGradient id="paint1_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.282353"/>
+<stop offset="1" stop-opacity="0.462745"/>
+</linearGradient>
+<linearGradient id="paint2_linear_0_1" x1="0.5" y1="28" x2="0.5" y2="44" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.533333"/>
+<stop offset="1" stop-opacity="0.709804"/>
+</linearGradient>
+<linearGradient id="paint3_linear_0_1" x1="1.5" y1="28" x2="1.5" y2="44" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D9E5EE"/>
+<stop offset="0.5" stop-color="#9FBCD2"/>
+<stop offset="0.5" stop-color="#708CA1"/>
+<stop offset="1" stop-color="#89B0C9"/>
+</linearGradient>
+<linearGradient id="paint4_linear_0_1" x1="3" y1="28" x2="3" y2="44" gradientUnits="userSpaceOnUse">
+<stop stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#1A527C"/>
+<stop offset="1" stop-color="#176E9B"/>
+</linearGradient>
+<radialGradient id="paint5_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 47) rotate(-90) scale(8.5 10.478)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint6_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 26) rotate(90) scale(10 25.1675)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint7_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 47) rotate(-90) scale(8.5 10.478)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint8_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 26) rotate(90) scale(10 24.8768)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint9_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 47) rotate(-90) scale(8.5 10.5077)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint10_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 26) rotate(90) scale(10 25.2054)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint11_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.53"/>
+<stop offset="1" stop-opacity="0.71"/>
+</linearGradient>
+<linearGradient id="paint12_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D9E5EE"/>
+<stop offset="0.5" stop-color="#9FBCD2"/>
+<stop offset="0.5" stop-color="#708CA1"/>
+<stop offset="1" stop-color="#89B0C9"/>
+</linearGradient>
+<linearGradient id="paint13_linear_0_1" x1="23" y1="28" x2="23" y2="44" gradientUnits="userSpaceOnUse">
+<stop stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#1A527C"/>
+<stop offset="1" stop-color="#176E9B"/>
+</linearGradient>
+<radialGradient id="paint14_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 47) rotate(-90) scale(8.5 10.5424)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint15_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 26) rotate(90) scale(10 24.9405)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint16_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 47) rotate(-90) scale(8.5 10.5721)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint17_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 26) rotate(90) scale(10 25.2432)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint18_linear_0_1" x1="13" y1="28" x2="13" y2="44" gradientUnits="userSpaceOnUse">
+<stop stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#1A527C"/>
+<stop offset="1" stop-color="#176E9B"/>
+</linearGradient>
+<radialGradient id="paint19_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 26) rotate(90) scale(10 25.0089)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint20_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(9 -3) rotate(90) scale(8.5 10.478)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint21_linear_0_1" x1="0.5" y1="52" x2="0.5" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.533333"/>
+<stop offset="1" stop-opacity="0.709804"/>
+</linearGradient>
+<linearGradient id="paint22_linear_0_1" x1="1.5" y1="52" x2="1.5" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D4D9DE"/>
+<stop offset="0.5" stop-color="#96A2AF"/>
+<stop offset="0.5" stop-color="#697481"/>
+<stop offset="1" stop-color="#8093A2"/>
+</linearGradient>
+<linearGradient id="paint23_linear_0_1" x1="3" y1="52" x2="3" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#031A32"/>
+<stop offset="1" stop-color="#052B46"/>
+</linearGradient>
+<radialGradient id="paint24_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 71) rotate(-90) scale(8.5 10.5092)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint25_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 50) rotate(90) scale(10 25.1675)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint26_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 71) rotate(-90) scale(8.5 10.5092)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint27_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 50) rotate(90) scale(10 24.8768)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint28_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 71) rotate(-90) scale(8.5 10.5285)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint29_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 50) rotate(90) scale(10 25.2054)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint30_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.53"/>
+<stop offset="1" stop-opacity="0.71"/>
+</linearGradient>
+<linearGradient id="paint31_linear_0_1" x1="24.5" y1="52" x2="24.5" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D4D9DE"/>
+<stop offset="0.5" stop-color="#96A2AF"/>
+<stop offset="0.5" stop-color="#697481"/>
+<stop offset="1" stop-color="#8093A2"/>
+</linearGradient>
+<linearGradient id="paint32_linear_0_1" x1="23" y1="52" x2="23" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#031A32"/>
+<stop offset="1" stop-color="#052B46"/>
+</linearGradient>
+<radialGradient id="paint33_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 71) rotate(-90) scale(8.5 10.5762)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint34_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 50) rotate(90) scale(10 24.9405)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint35_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 71) rotate(-90) scale(8.5 10.5147)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint36_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 50) rotate(90) scale(10 25.2432)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint37_linear_0_1" x1="13" y1="52" x2="13" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#031A32"/>
+<stop offset="1" stop-color="#052B46"/>
+</linearGradient>
+<radialGradient id="paint38_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(13 50) rotate(90) scale(10 25.0089)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint39_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(9 -3) rotate(90) scale(8.5 10.567)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint40_linear_0_1" x1="0.5" y1="76" x2="0.5" y2="92" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.282353"/>
+<stop offset="1" stop-opacity="0.462745"/>
+</linearGradient>
+<linearGradient id="paint41_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.282353"/>
+<stop offset="1" stop-opacity="0.462745"/>
+</linearGradient>
+<linearGradient id="paint42_linear_0_1" x1="36.5" y1="4" x2="36.5" y2="20" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.282353"/>
+<stop offset="1" stop-opacity="0.462745"/>
+</linearGradient>
+<linearGradient id="paint43_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D9E5EE"/>
+<stop offset="0.5" stop-color="#9FBCD2"/>
+<stop offset="0.5" stop-color="#708CA1"/>
+<stop offset="1" stop-color="#89B0C9"/>
+</linearGradient>
+<linearGradient id="paint44_linear_0_1" x1="1" y1="0" x2="1" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#1A527C"/>
+<stop offset="1" stop-color="#176E9B"/>
+</linearGradient>
+<radialGradient id="paint45_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49 46) rotate(-90) scale(7.5 10)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint46_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11 -2) rotate(90) scale(10 25.1675)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint47_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49 47) rotate(-90) scale(10.5 10.4675)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint48_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(9) rotate(90) scale(10 24.8768)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint49_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49 47) rotate(-90) scale(8.5 10.6133)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint50_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11) rotate(90) scale(10 25.2054)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint51_linear_0_1" x1="36.5" y1="28" x2="36.5" y2="44" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.53"/>
+<stop offset="1" stop-opacity="0.71"/>
+</linearGradient>
+<linearGradient id="paint52_linear_0_1" x1="37.5" y1="28" x2="37.5" y2="44" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D9E5EE"/>
+<stop offset="0.5" stop-color="#9FBCD2"/>
+<stop offset="0.5" stop-color="#708CA1"/>
+<stop offset="1" stop-color="#89B0C9"/>
+</linearGradient>
+<linearGradient id="paint53_linear_0_1" x1="1" y1="0" x2="1" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#1A527C"/>
+<stop offset="1" stop-color="#176E9B"/>
+</linearGradient>
+<radialGradient id="paint54_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49 46) rotate(-90) scale(7.5 10)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint55_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-9 -2) rotate(90) scale(10 24.9405)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint56_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49 47) rotate(-90) scale(8.5 10.5853)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint57_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49 26) rotate(90) scale(10 25.2432)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint58_linear_0_1" x1="9" y1="0" x2="9" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#1A527C"/>
+<stop offset="1" stop-color="#176E9B"/>
+</linearGradient>
+<radialGradient id="paint59_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(9 -2) rotate(90) scale(10 25.0089)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint60_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(67 42) rotate(90) scale(7.5 9.91433)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint61_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D4D9DE"/>
+<stop offset="0.5" stop-color="#96A2AF"/>
+<stop offset="0.5" stop-color="#697481"/>
+<stop offset="1" stop-color="#8093A2"/>
+</linearGradient>
+<linearGradient id="paint62_linear_0_1" x1="1" y1="0" x2="1" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#031A32"/>
+<stop offset="1" stop-color="#052B46"/>
+</linearGradient>
+<radialGradient id="paint63_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49 71) rotate(-90) scale(8.5 10.5571)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint64_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11 -2) rotate(90) scale(10 25.1675)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint65_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49 71) rotate(-90) scale(8.5 10.6296)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint66_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(9) rotate(90) scale(10 24.8768)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint67_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49 71) rotate(-90) scale(8.5 10.4637)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint68_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11) rotate(90) scale(10 25.2054)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint69_linear_0_1" x1="36.5" y1="52" x2="36.5" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.53"/>
+<stop offset="1" stop-opacity="0.71"/>
+</linearGradient>
+<linearGradient id="paint70_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D4D9DE"/>
+<stop offset="0.5" stop-color="#96A2AF"/>
+<stop offset="0.5" stop-color="#697481"/>
+<stop offset="1" stop-color="#8093A2"/>
+</linearGradient>
+<linearGradient id="paint71_linear_0_1" x1="1" y1="0" x2="1" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#031A32"/>
+<stop offset="1" stop-color="#052B46"/>
+</linearGradient>
+<radialGradient id="paint72_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49 71) rotate(-90) scale(8.5 10.5694)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint73_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-9 -2) rotate(90) scale(10 24.9405)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint74_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49 71) rotate(-90) scale(8.5 10.5067)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint75_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49 50) rotate(90) scale(10 25.2432)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint76_linear_0_1" x1="9" y1="0" x2="9" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#031A32"/>
+<stop offset="1" stop-color="#052B46"/>
+</linearGradient>
+<radialGradient id="paint77_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(9 -2) rotate(90) scale(10 25.0089)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint78_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(67 65) rotate(90) scale(8.5 10.4735)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint79_linear_0_1" x1="36.5" y1="76" x2="36.5" y2="92" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.282353"/>
+<stop offset="1" stop-opacity="0.462745"/>
+</linearGradient>
+<linearGradient id="paint80_linear_0_1" x1="61.5" y1="4" x2="61.5" y2="20" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.282353"/>
+<stop offset="1" stop-opacity="0.462745"/>
+</linearGradient>
+<linearGradient id="paint81_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D9E5EE"/>
+<stop offset="0.5" stop-color="#9FBCD2"/>
+<stop offset="0.5" stop-color="#708CA1"/>
+<stop offset="1" stop-color="#89B0C9"/>
+</linearGradient>
+<linearGradient id="paint82_linear_0_1" x1="1" y1="0" x2="1" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#1A527C"/>
+<stop offset="1" stop-color="#176E9B"/>
+</linearGradient>
+<radialGradient id="paint83_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(74 46) rotate(-90) scale(7.5 10)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint84_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11 -2) rotate(90) scale(10 25.1675)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint85_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(74 47) rotate(-90) scale(10.5 10.4675)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint86_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(9) rotate(90) scale(10 24.8768)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint87_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(74 47) rotate(-90) scale(8.5 10.6927)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint88_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11) rotate(90) scale(10 25.2054)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint89_linear_0_1" x1="61.5" y1="28" x2="61.5" y2="44" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.53"/>
+<stop offset="1" stop-opacity="0.71"/>
+</linearGradient>
+<linearGradient id="paint90_linear_0_1" x1="62.5" y1="28" x2="62.5" y2="44" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D9E5EE"/>
+<stop offset="0.5" stop-color="#9FBCD2"/>
+<stop offset="0.5" stop-color="#708CA1"/>
+<stop offset="1" stop-color="#89B0C9"/>
+</linearGradient>
+<linearGradient id="paint91_linear_0_1" x1="1" y1="0" x2="1" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#1A527C"/>
+<stop offset="1" stop-color="#176E9B"/>
+</linearGradient>
+<radialGradient id="paint92_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(74 46) rotate(-90) scale(7.5 10)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint93_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-9 -2) rotate(90) scale(10 24.9405)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint94_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(74 47) rotate(-90) scale(8.5 10.5069)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint95_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(74 26) rotate(90) scale(10 25.2432)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint96_linear_0_1" x1="9" y1="0" x2="9" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#1A527C"/>
+<stop offset="1" stop-color="#176E9B"/>
+</linearGradient>
+<radialGradient id="paint97_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(9 -2) rotate(90) scale(10 25.0089)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint98_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(92 42) rotate(90) scale(7.5 9.91433)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint99_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D4D9DE"/>
+<stop offset="0.5" stop-color="#96A2AF"/>
+<stop offset="0.5" stop-color="#697481"/>
+<stop offset="1" stop-color="#8093A2"/>
+</linearGradient>
+<linearGradient id="paint100_linear_0_1" x1="1" y1="0" x2="1" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#031A32"/>
+<stop offset="1" stop-color="#052B46"/>
+</linearGradient>
+<radialGradient id="paint101_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(74 71) rotate(-90) scale(8.5 10.5532)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint102_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11 -2) rotate(90) scale(10 25.1675)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint103_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(74 71) rotate(-90) scale(8.5 10.4431)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint104_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(9) rotate(90) scale(10 24.8768)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint105_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(74 71) rotate(-90) scale(8.5 10.5)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint106_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11) rotate(90) scale(10 25.2054)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint107_linear_0_1" x1="61.5" y1="52" x2="61.5" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.53"/>
+<stop offset="1" stop-opacity="0.71"/>
+</linearGradient>
+<linearGradient id="paint108_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D4D9DE"/>
+<stop offset="0.5" stop-color="#96A2AF"/>
+<stop offset="0.5" stop-color="#697481"/>
+<stop offset="1" stop-color="#8093A2"/>
+</linearGradient>
+<linearGradient id="paint109_linear_0_1" x1="1" y1="0" x2="1" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#031A32"/>
+<stop offset="1" stop-color="#052B46"/>
+</linearGradient>
+<radialGradient id="paint110_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(74 71) rotate(-90) scale(8.5 10.5179)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint111_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-9 -2) rotate(90) scale(10 24.9405)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint112_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(74 71) rotate(-90) scale(8.5 10.4641)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint113_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(74 50) rotate(90) scale(10 25.2432)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint114_linear_0_1" x1="9" y1="0" x2="9" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#031A32"/>
+<stop offset="1" stop-color="#052B46"/>
+</linearGradient>
+<radialGradient id="paint115_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(9 -2) rotate(90) scale(10 25.0089)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint116_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(92 65) rotate(90) scale(8.5 10.6035)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint117_linear_0_1" x1="61.5" y1="76" x2="61.5" y2="92" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.282353"/>
+<stop offset="1" stop-opacity="0.462745"/>
+</linearGradient>
+<linearGradient id="paint118_linear_0_1" x1="86.5" y1="4" x2="86.5" y2="20" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.282353"/>
+<stop offset="1" stop-opacity="0.462745"/>
+</linearGradient>
+<linearGradient id="paint119_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.282353"/>
+<stop offset="1" stop-opacity="0.462745"/>
+</linearGradient>
+<linearGradient id="paint120_linear_0_1" x1="86.5" y1="28" x2="86.5" y2="44" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.533333"/>
+<stop offset="1" stop-opacity="0.709804"/>
+</linearGradient>
+<linearGradient id="paint121_linear_0_1" x1="87.5" y1="28" x2="87.5" y2="44" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D9E5EE"/>
+<stop offset="0.5" stop-color="#9FBCD2"/>
+<stop offset="0.5" stop-color="#708CA1"/>
+<stop offset="1" stop-color="#89B0C9"/>
+</linearGradient>
+<linearGradient id="paint122_linear_0_1" x1="89" y1="28" x2="89" y2="44" gradientUnits="userSpaceOnUse">
+<stop stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#1A527C"/>
+<stop offset="1" stop-color="#176E9B"/>
+</linearGradient>
+<radialGradient id="paint123_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 46) rotate(-90) scale(7.5 10)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint124_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 26) rotate(90) scale(10 25.1675)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint125_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 47) rotate(-90) scale(10.5 10.4675)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint126_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 26) rotate(90) scale(10 24.8768)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint127_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 47) rotate(-90) scale(8.5 10.3476)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint128_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 26) rotate(90) scale(10 25.2054)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint129_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.53"/>
+<stop offset="1" stop-opacity="0.71"/>
+</linearGradient>
+<linearGradient id="paint130_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D9E5EE"/>
+<stop offset="0.5" stop-color="#9FBCD2"/>
+<stop offset="0.5" stop-color="#708CA1"/>
+<stop offset="1" stop-color="#89B0C9"/>
+</linearGradient>
+<linearGradient id="paint131_linear_0_1" x1="109" y1="28" x2="109" y2="44" gradientUnits="userSpaceOnUse">
+<stop stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#1A527C"/>
+<stop offset="1" stop-color="#176E9B"/>
+</linearGradient>
+<radialGradient id="paint132_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 46) rotate(-90) scale(7.5 10)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint133_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 26) rotate(90) scale(10 24.9405)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint134_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 47) rotate(-90) scale(8.5 10.4969)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint135_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 26) rotate(90) scale(10 25.2432)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint136_linear_0_1" x1="99" y1="28" x2="99" y2="44" gradientUnits="userSpaceOnUse">
+<stop stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#548EB8"/>
+<stop offset="0.5" stop-color="#1A527C"/>
+<stop offset="1" stop-color="#176E9B"/>
+</linearGradient>
+<radialGradient id="paint137_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 26) rotate(90) scale(10 25.0089)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint138_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(9 -2) rotate(90) scale(7.5 9.91433)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint139_linear_0_1" x1="86.5" y1="52" x2="86.5" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.533333"/>
+<stop offset="1" stop-opacity="0.709804"/>
+</linearGradient>
+<linearGradient id="paint140_linear_0_1" x1="87.5" y1="52" x2="87.5" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D4D9DE"/>
+<stop offset="0.5" stop-color="#96A2AF"/>
+<stop offset="0.5" stop-color="#697481"/>
+<stop offset="1" stop-color="#8093A2"/>
+</linearGradient>
+<linearGradient id="paint141_linear_0_1" x1="89" y1="52" x2="89" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#031A32"/>
+<stop offset="1" stop-color="#052B46"/>
+</linearGradient>
+<radialGradient id="paint142_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 71) rotate(-90) scale(8.5 10.4082)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint143_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 50) rotate(90) scale(10 25.1675)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint144_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 71) rotate(-90) scale(8.5 10.4762)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint145_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 50) rotate(90) scale(10 24.8768)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint146_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 71) rotate(-90) scale(8.5 10.5096)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint147_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 50) rotate(90) scale(10 25.2054)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint148_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.53"/>
+<stop offset="1" stop-opacity="0.71"/>
+</linearGradient>
+<linearGradient id="paint149_linear_0_1" x1="110.5" y1="52" x2="110.5" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D4D9DE"/>
+<stop offset="0.5" stop-color="#96A2AF"/>
+<stop offset="0.5" stop-color="#697481"/>
+<stop offset="1" stop-color="#8093A2"/>
+</linearGradient>
+<linearGradient id="paint150_linear_0_1" x1="109" y1="52" x2="109" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#031A32"/>
+<stop offset="1" stop-color="#052B46"/>
+</linearGradient>
+<radialGradient id="paint151_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 71) rotate(-90) scale(8.5 10.5613)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint152_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 50) rotate(90) scale(10 24.9405)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint153_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 71) rotate(-90) scale(8.5 10.5943)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint154_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 50) rotate(90) scale(10 25.2432)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint155_linear_0_1" x1="99" y1="52" x2="99" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#2D465F"/>
+<stop offset="0.5" stop-color="#031A32"/>
+<stop offset="1" stop-color="#052B46"/>
+</linearGradient>
+<radialGradient id="paint156_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(99 50) rotate(90) scale(10 25.0089)">
+<stop stop-color="white" stop-opacity="0.65"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint157_radial_0_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(9 -3) rotate(90) scale(8.5 10.4589)">
+<stop stop-color="#57FAFF"/>
+<stop offset="1" stop-color="#1CE6EC" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint158_linear_0_1" x1="86.5" y1="76" x2="86.5" y2="92" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.282353"/>
+<stop offset="1" stop-opacity="0.462745"/>
+</linearGradient>
+<linearGradient id="paint159_linear_0_1" x1="0.5" y1="0" x2="0.5" y2="16" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.282353"/>
+<stop offset="1" stop-opacity="0.462745"/>
+</linearGradient>
+</defs>
+</svg>

@@ -137,6 +137,6 @@ QColor SevenTasks::getDominantColor(QVariant src)
     return finalCol;
 }
 
-K_PLUGIN_CLASS_WITH_JSON(SevenTasks, "metadata.json")
+K_PLUGIN_CLASS(SevenTasks)
 
 #include "seventasks.moc"

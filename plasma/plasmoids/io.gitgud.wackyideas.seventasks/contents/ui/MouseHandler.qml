@@ -19,7 +19,6 @@ DropArea {
     property Item target
     property Item ignoredItem
     property Item hoveredItem
-    property bool isGroupDialog: false
     property bool moved: false
 
     property alias handleWheelEvents: wheelHandler.handleWheelEvents
@@ -34,15 +33,10 @@ DropArea {
     onPositionChanged: event => {
         let i = target.indexAt(event.x, event.y);
         let above;
-        if (isGroupDialog) {
-            above = target.itemAtIndex(i);
-        } else {
-            above = target.itemAtIndex(i);
-        }
+        above = target.itemAtIndex(i);
 
         if (!above) {
             hoveredItem = null;
-            activationTimer.stop();
 
             return;
         }
@@ -67,13 +61,11 @@ DropArea {
         if (!tasks.dragItem && hoveredItem !== above) {
         console.log(hoveredItem + " " + above);
             hoveredItem = above;
-            activationTimer.restart();
         }
     }
 
     onExited: {
         hoveredItem = null;
-        activationTimer.stop();
     }
 
     onDropped: event => {
@@ -114,21 +106,6 @@ DropArea {
 
         onTriggered: {
             ignoredItem = null;
-        }
-    }
-
-    Timer {
-        id: activationTimer
-
-        interval: 250
-        repeat: false
-
-        onTriggered: {
-            if (parent.hoveredItem.model.IsGroupParent) {
-                TaskTools.createGroupDialog(parent.hoveredItem, tasks);
-            } else if (!parent.hoveredItem.model.IsLauncher) {
-                tasksModel.requestActivate(parent.hoveredItem.modelIndex());
-            }
         }
     }
 

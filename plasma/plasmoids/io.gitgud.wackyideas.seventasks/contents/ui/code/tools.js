@@ -135,12 +135,11 @@ function activateTask(index, model, modifiers, task, plasmoid, tasks, windowView
         // Option 2: show tooltips for all child tasks
         // ===========================================
         else if (plasmoid.configuration.groupedTaskVisualization === 1) {
-            if (tasks.toolTipOpenedByClick) {
-                task.hideImmediately();
+            if (tasks.toolTipItem.visible) {
+                tasks.toolTipItem.visible = false;
             } else {
-                tasks.toolTipOpenedByClick = task;
-                task.updateMainItemBindings(); // BUG 452187
                 task.showToolTip();
+                task.updateToolTipBindings(true);
             }
         }
 
@@ -149,21 +148,7 @@ function activateTask(index, model, modifiers, task, plasmoid, tasks, windowView
         // Make sure the Window View effect is  are actually enabled though;
         // if not, fall through to the next option.
         else if (plasmoid.configuration.groupedTaskVisualization === 2 && windowViewAvailable) {
-            task.hideToolTip();
             tasks.activateWindowView(model.WinIdList);
-        }
-
-        // Option 4: show group dialog/textual list
-        // ========================================
-        // This is also the final fallback option if Window View
-        // is chosen but not actually available
-        else {
-            if (tasks.groupDialog) {
-                task.hideToolTip();
-                tasks.groupDialog.visible = false;
-            } else {
-                createGroupDialog(task, tasks);
-            }
         }
     } else {
         if (model.IsMinimized) {
@@ -202,17 +187,4 @@ function taskPrefixHovered(prefix, location) {
         ...prefix ? taskPrefix("hover", location) : [],
         ...taskPrefix(prefix, location),
     ];
-}
-
-function createGroupDialog(visualParent, tasks) {
-    if (!visualParent) {
-        return;
-    }
-
-    if (tasks.groupDialog) {
-        tasks.groupDialog.visualParent = visualParent;
-        return;
-    }
-
-    tasks.groupDialog = tasks.groupDialogComponent.createObject(tasks, { visualParent });
 }

@@ -472,7 +472,6 @@ PlasmaCore.Dialog {
                 && get(atm.IsLauncher) !== true
                 && get(atm.IsStartup) !== true
                 && plasmoid.immutability !== PlasmaCore.Types.SystemImmutable
-                && (activityInfo.numberOfRunningActivities < 2)
                 && !doesBelongToCurrentActivity()
 
                 enabled: visible
@@ -494,8 +493,7 @@ PlasmaCore.Dialog {
                 enabled: visible
                 visible: (visualParent
                 && Plasmoid.immutability !== PlasmaCore.Types.SystemImmutable
-                && !launcherToggleAction.visible
-                && activityInfo.numberOfRunningActivities < 2)
+                && !launcherToggleAction.visible)
 
                 text: i18n("Unpin program from taskbar")
                 icon: "window-unpin"
@@ -580,6 +578,26 @@ PlasmaCore.Dialog {
             }
             z: -1
             color: backgroundColorStatic
+            visible: !menuitems.isEmpty();
+        }
+        Rectangle {
+            id: bgStaticGradient
+            anchors {
+                top: staticMenuItems.top
+                bottom: parent.bottom
+                left: parent.left
+                right: parent.right
+                leftMargin: 0
+                rightMargin: 0
+                topMargin: -4
+            }
+            z: -1
+            gradient: Gradient {
+                GradientStop { position: 0; color: backgroundColorStatic }
+                GradientStop { position: 0.5; color: backgroundColorGradient }
+                GradientStop { position: 1; color: backgroundColorStatic }
+            }
+            visible: menuitems.isEmpty();
         }
         function decreaseItemIndex() {
             currentItemIndex--;
