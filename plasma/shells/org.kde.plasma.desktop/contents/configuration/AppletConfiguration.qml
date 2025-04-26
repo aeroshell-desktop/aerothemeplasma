@@ -286,6 +286,8 @@ Rectangle {
                     Accessible.onPressAction: ma.clicked(null)
 
                     Layout.leftMargin: Kirigami.Units.largeSpacing
+                    Layout.maximumWidth: categoriesScroll.width
+                    Layout.rightMargin: Kirigami.Units.largeSpacing
                     spacing: Kirigami.Units.largeSpacing
                     property bool highlighted: {
                         if (app.pageStack.currentItem) {
@@ -298,7 +300,7 @@ Rectangle {
                         return false
                     }
                     Kirigami.Icon {
-                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        Layout.alignment: Qt.AlignTop
                         implicitWidth: Kirigami.Units.iconSizes.small
                         implicitHeight: Kirigami.Units.iconSizes.small
                         source: delegate.model.icon
@@ -309,6 +311,8 @@ Rectangle {
                         font.bold: parent.highlighted || delegate.focus
                         text: parent.model.name
                         wrapMode: Text.WordWrap
+                        Layout.fillWidth: true
+                        rightPadding: Kirigami.Units.largeSpacing
 
                         MouseArea {
                             id: ma
@@ -322,21 +326,6 @@ Rectangle {
                     }
                 }
 
-                /*ConfigCategoryDelegate {
-                    id: delegate
-                    onActivated: categories.openCategory(model);
-                    highlighted: {
-                        if (app.pageStack.currentItem) {
-                            if (model.kcm && app.pageStack.currentItem.kcm) {
-                                return model.kcm == app.pageStack.currentItem.kcm
-                            } else {
-                                return root.currentSource == model.source
-                            }
-                        }
-                        return false
-                    }
-                    item: model
-                }*/
             }
 
             Repeater {
