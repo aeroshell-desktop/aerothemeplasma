@@ -40,8 +40,8 @@ MouseArea {
 
     implicitWidth: 164 + margins
     implicitHeight: thumbnailHeight + margins +
-        (tasks.iconsOnly ? header.implicitHeight : 0) +
-        (mprisControls.visible ? (mprisControls.height - (Kirigami.Units.smallSpacing*2)) : 0)
+        (tasks.iconsOnly ? header.height : 0) +
+        (mprisControls.active ? (mprisControls.height - (Kirigami.Units.smallSpacing*2)) : 0)
 
     onImplicitHeightChanged: if(isGroupDelegate) ListView.view.updateMaxHeight()
 
@@ -188,10 +188,10 @@ MouseArea {
         id: content
 
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: mprisControls.visible ? -(mprisControls.height / 4) - 2 : 0
+        anchors.verticalCenterOffset: mprisControls.active ? -(mprisControls.height / 4) - 2 : 0
 
         width: parent.width - margins
-        height: parent.height - margins - (mprisControls.visible ? (mprisControls.height - (Kirigami.Units.smallSpacing*2)) : 0)
+        height: parent.height - margins - (mprisControls.active ? (mprisControls.height - (Kirigami.Units.smallSpacing*2)) : 0)
 
         spacing: Kirigami.Units.smallSpacing/2
 
