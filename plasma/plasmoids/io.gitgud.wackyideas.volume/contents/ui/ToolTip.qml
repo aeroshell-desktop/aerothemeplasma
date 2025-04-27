@@ -25,7 +25,7 @@ T.ToolTip {
     timeout: -1
 
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, contentHeight + topPadding + bottomPadding)
-    implicitWidth: (contentWidth + leftPadding + rightPadding)
+    implicitWidth: (contentItem.implicitWidth + leftPadding + rightPadding)
 
     margins: Kirigami.Units.smallSpacing
 

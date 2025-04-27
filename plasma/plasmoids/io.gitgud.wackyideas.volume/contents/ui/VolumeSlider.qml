@@ -93,7 +93,7 @@ PC3.Slider {
         }     
     }
     ToolTip {
-        x: -implicitWidth-2
+        x: Math.max(-25, Math.floor(-implicitWidth-2))
         y: Math.floor(-parent.height / 2)
         parent: control.handle
         visible: control.pressed
