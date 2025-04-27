@@ -46,6 +46,9 @@ PlasmoidItem {
     fullRepresentation: menuRepresentation
     Plasmoid.constraintHints: Plasmoid.CanFillArea
 
+    toolTipMainText: i18n("Start")
+    toolTipSubText: ""
+
     Component {
         id: compactRepresentation
         CompactRepresentation { id: compactRepresentation }
