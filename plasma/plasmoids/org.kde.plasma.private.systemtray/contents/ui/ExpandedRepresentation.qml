@@ -53,7 +53,7 @@ Item {
     // Header
     ToolButton {
         id: pinButton
-        visible: !hiddenItemsView.visible
+        visible: !hiddenItemsView.visible && Plasmoid.configuration.showPinButton
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.bottomMargin: popup.flyoutWidth <= 68 ? 2 : Kirigami.Units.mediumSpacing

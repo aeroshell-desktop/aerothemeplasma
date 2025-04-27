@@ -53,7 +53,7 @@ SimpleKCM {
     property string cfg_dateFormat: "shortDate"
     property alias cfg_customFormat: customFormatField.text
     property alias cfg_use24hFormat: use24hFormat.checkState
-
+    property alias cfg_showPinButton: showPinButton.checked
 
     onCfg_fontFamilyChanged: {
         // HACK by the time we populate our model and/or the ComboBox is finished the value is still undefined
@@ -117,6 +117,10 @@ SimpleKCM {
                 QtControls.CheckBox {
                     id: showSeconds
                     text: i18n("Show seconds")
+                }
+                QtControls.CheckBox {
+                    id: showPinButton
+                    text: i18n("Show pin button")
                 }
 
                 QtControls.CheckBox {

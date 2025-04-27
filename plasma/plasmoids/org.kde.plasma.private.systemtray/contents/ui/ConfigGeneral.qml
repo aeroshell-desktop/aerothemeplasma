@@ -16,10 +16,20 @@ import org.kde.kcmutils as KCM
 KCM.SimpleKCM {
     property bool cfg_scaleIconsToFit
     property int cfg_iconSpacing
+    property bool cfg_showPinButton
+    property bool cfg_pin
 
     Kirigami.FormLayout {
         Layout.fillHeight: true
 
+        QQC2.CheckBox {
+            text: i18n("Show pin button")
+            checked: cfg_showPinButton
+            onToggled: {
+                cfg_showPinButton = checked
+                if(!cfg_showPinButton) cfg_pin = false;
+            }
+        }
         QQC2.RadioButton {
             Kirigami.FormData.label: i18nc("The arrangement of system tray icons in the Panel", "Panel icon size:")
             enabled: !Kirigami.Settings.tabletMode
