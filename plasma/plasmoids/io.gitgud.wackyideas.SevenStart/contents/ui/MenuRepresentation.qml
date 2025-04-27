@@ -205,7 +205,7 @@ PlasmaCore.Dialog {
 		Layout.maximumWidth: Math.max(397, root.cellWidth + Kirigami.Units.mediumSpacing + columnItems.width) + Kirigami.Units.mediumSpacing*2
 
 		property int mainPanelHeight: leftSidebar.height + bottomControls.height
-		property int sidePanelHeight: backgroundBorderLine.height + searchBackground.height + columnItems.height + (compositingEnabled ? Kirigami.Units.iconSizes.huge / 2 + Kirigami.Units.smallSpacing : nonCompositingIcon.height + Kirigami.Units.smallSpacing);
+		property int sidePanelHeight: backgroundBorderLine.height + searchBackground.height + columnItems.height + ((compositingEnabled && !root.isTouchingTopEdge()) ? Kirigami.Units.iconSizes.huge / 2 + Kirigami.Units.smallSpacing : nonCompositingIcon.height + Kirigami.Units.smallSpacing);
 		//property bool sidePanelOverflow: mainPanelHeight <= sidePanelHeight;
 
         Layout.minimumHeight: Math.max(Math.max(mainPanelHeight, sidePanelHeight), 377) + Kirigami.Units.smallSpacing/2 + Kirigami.Units.mediumSpacing*2
