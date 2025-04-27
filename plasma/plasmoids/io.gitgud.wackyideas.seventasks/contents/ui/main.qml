@@ -44,6 +44,7 @@ PlasmoidItem {
 
     property var jumpListItem: null
     property var toolTipItem: null
+    property bool pinnedToolTipOpen: false
     onJumpListItemChanged: {
         taskList.forceMouseEvent();
     }
@@ -502,7 +503,6 @@ PlasmoidItem {
 
     function createToolTip(rootTask, modelIndex, args = {}) {
         const initialArgs = Object.assign(args, {
-            visualParent: KWindowSystem.isPlatformX11 ? rootTask : null, // positioning breaks on wayland when you set visualParent
             modelIndex: modelIndex,
             taskWidth: rootTask.width,
             taskHeight: rootTask.height,

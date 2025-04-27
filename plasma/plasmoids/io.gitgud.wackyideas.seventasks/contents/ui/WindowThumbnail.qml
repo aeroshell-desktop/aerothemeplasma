@@ -34,7 +34,7 @@ MouseArea {
     readonly property var windows: isGroupDelegate ? model.WinIdList : root.windows
     readonly property var minimized: isGroupDelegate ? model.IsMinimized : root.minimized
 
-    property real thumbnailHeight: KWindowSystem.isPlatformWayland ? 94 : 0
+    property real thumbnailHeight: 94
 
     readonly property int margins: Kirigami.Units.smallSpacing*8
 
@@ -43,7 +43,7 @@ MouseArea {
         (tasks.iconsOnly ? header.height : 0) +
         (mprisControls.active ? (mprisControls.height - (Kirigami.Units.smallSpacing*2)) : 0)
 
-    onImplicitHeightChanged: if(isGroupDelegate) ListView.view.updateMaxHeight()
+    onImplicitHeightChanged: if(isGroupDelegate) ListView.view.updateMaxSize()
 
     width: implicitWidth
     height: {
@@ -88,7 +88,7 @@ MouseArea {
 
         imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
         prefix: {
-            if (contentMa.containsPress) return "pressed";
+            if(contentMa.containsPress) return "pressed";
             else return "hover";
         }
 
@@ -214,6 +214,7 @@ MouseArea {
             }
 
             Text {
+                id: txt
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
@@ -280,13 +281,19 @@ MouseArea {
                 asynchronous: true
                 sourceComponent: minimized ? appIcon : (KWindowSystem.isPlatformWayland ? waylandThumbnail : x11Thumbnail)
 
+                onLoaded: {
+                    // It IS possible to make the thumbnail follow
+                    // the Wayland thumbnail height but I suck
+                    // at math too much to know how
+                    if(sourceComponent !== x11Thumbnail) thumbnailRoot.thumbnailHeight = thumbnailLoader.height;
+                    if(isGroupDelegate) ListView.view.updateMaxSize()
+                }
+
                 Component {
                     id: x11Thumbnail
 
                     PlasmaCore.WindowThumbnail {
-                        id: windowThumbnailX11
-
-                        winId: windows[0]
+                        winId: windows !== undefined ? windows[0] : undefined
 
                         onPaintedSizeChanged: thumbnailRoot.thumbnailHeight = paintedHeight;
 
@@ -295,9 +302,7 @@ MouseArea {
 
                             width: parent.paintedWidth+2
                             height: parent.paintedHeight+2
-
                             color: "transparent"
-
                             border.width: 1
                             border.color: "black"
 
@@ -310,8 +315,6 @@ MouseArea {
                     id: waylandThumbnail
 
                     PipeWire.PipeWireSourceItem {
-                        id: pipeWireSourceItem
-
                         nodeId: waylandItem.nodeId
 
                         TaskManager.ScreencastingRequest {
@@ -321,9 +324,9 @@ MouseArea {
 
                         Rectangle {
                             anchors.fill: parent
+                            anchors.margins: -1
 
                             color: "black"
-
                             border.width: 1
                             border.color: "black"
 
@@ -388,9 +391,12 @@ MouseArea {
 
                 sourceComponent: DropShadow {
                     id: realShadow
+
                     horizontalOffset: 1
-                    verticalOffset: thumbnailLoader.sourceComponent == appIcon ? 2 : 1 // Fix for shadow not appearing properly at the bottom when appIcon was the
-                                                                                       // sourceComponent.
+                    // Fix for shadow not appearing properly at the bottom
+                    // when appIcon is the sourceComponent.
+                    verticalOffset: thumbnailLoader.sourceComponent == appIcon ? 2 : 1
+
                     radius: 1
                     samples: 1
                     color: "#70000000"
@@ -443,16 +449,12 @@ MouseArea {
         anchors.right: parent.right
         anchors.left: parent.left
 
+        readonly property QtObject root: thumbnailRoot.root
+
         active: root.playerData !== null
         asynchronous: true
-        sourceComponent: mediaControlsComponent
-
-        Component {
-            id: mediaControlsComponent
-
-            PlayerController { root: thumbnailRoot.root }
-        }
+        source: "PlayerController.qml"
     }
 
-    Component.onDestruction: if(isGroupDelegate) ListView.view.updateMaxHeight()
+    Component.onDestruction: if(isGroupDelegate) ListView.view.updateMaxSize()
 }

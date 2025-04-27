@@ -95,6 +95,8 @@ Item {
     property bool jumpListOpen: jumpList !== null
     property bool wasActive: false
 
+    property bool showPreviews: Plasmoid.configuration.showPreviews && model.IsWindow
+
     onJumpListOpenChanged: {
         if(jumpList !== null) {
             Qt.callLater(() => { Plasmoid.setMouseGrab(true, jumpList); } );
@@ -289,12 +291,10 @@ TaskManagerApplet.SmartLauncherItem { }
 
     function showToolTip(args) {
         tasksRoot.toolTipItem = tasksRoot.createToolTip(task, modelIndex(), args);
-        Qt.callLater(() => { toolTip.visible = true; });
+        Qt.callLater(() => { toolTip.firstCreation = true; toolTip.show(); });
     }
 
-    function updateToolTipBindings(firstCreation) {
-        toolTip.firstCreation = firstCreation;
-
+    function updateToolTipBindings() {
         toolTip.parentTask = Qt.binding(() => task);
 
         toolTip.taskWidth = Qt.binding(() => task.width);
@@ -567,11 +567,16 @@ TaskManagerApplet.SmartLauncherItem { }
         onTapped: leftClick()
 
         function leftClick() {
+            if(tasksRoot.pinnedToolTipOpen) {
+                pinnedToolTip.hideImmediately();
+                tasksRoot.pinnedToolTipOpen = false;
+            }
+
             if(model.ChildCount > 1) {
                 if(!toolTip) {
                     showToolTip();
-                    updateToolTipBindings(true);
-                } else if(toolTip) updateToolTipBindings(false);
+                    updateToolTipBindings();
+                } else if(toolTip) updateToolTipBindings();
                 toolTipOpenTimer.stop();
             } else {
                 if(toolTip) {
@@ -1375,18 +1380,41 @@ TaskManagerApplet.SmartLauncherItem { }
         }
     }
 
+    PlasmaCore.ToolTipArea {
+        id: pinnedToolTip
+
+        anchors.fill: parent
+
+        active: !showPreviews
+        mainText: model.display
+        location: Plasmoid.location
+        interactive: true
+
+        onToolTipVisibleChanged: (toolTipVisible) => tasksRoot.pinnedToolTipOpen = toolTipVisible;
+    }
+
     Timer {
         id: toolTipOpenTimer
-        interval: 500
+
+        interval: tasksRoot.pinnedToolTipOpen ? 0 : 500
         running: dragArea.containsMouse && !dragArea.held
         onTriggered: {
-            if(model.ChildCount > 0 && !tasksRoot.compositionEnabled) return;
-            else {
-                if(!toolTip) {
-                    showToolTip();
-                    updateToolTipBindings(true);
-                } else if(toolTip) updateToolTipBindings(false);
-            }
+            if(showPreviews) {
+                if(tasksRoot.pinnedToolTipOpen) {
+                    pinnedToolTip.hideImmediately();
+                    toolTipOpenTimer.restart();
+                    return;
+                }
+
+                if(model.ChildCount > 0 && !tasksRoot.compositionEnabled)
+                    return;
+                else {
+                    if(!toolTip) {
+                        showToolTip();
+                        updateToolTipBindings();
+                    } else if(toolTip) updateToolTipBindings();
+                }
+            } else pinnedToolTip.showToolTip();
         }
     }
 
@@ -1404,11 +1432,11 @@ TaskManagerApplet.SmartLauncherItem { }
             }
         }
         onContainsMouseChanged: {
-            if (containsMouse) {
+            if(containsMouse) {
                 if(toolTip && !model.IsLauncher) {
                     if(toolTip.pinned && !model.IsLauncher) return;
                     if(!toolTip.pinned && model.IsLauncher) return;
-                    task.updateToolTipBindings(false);
+                    task.updateToolTipBindings();
                 }
             }
         }
@@ -1575,7 +1603,7 @@ TaskManagerApplet.SmartLauncherItem { }
                     if(!toolTip) {
                         showToolTip()
                         toolTip.dragDrop = true;
-                        updateToolTipBindings(true);
+                        updateToolTipBindings();
                     }
                 }
                 else {

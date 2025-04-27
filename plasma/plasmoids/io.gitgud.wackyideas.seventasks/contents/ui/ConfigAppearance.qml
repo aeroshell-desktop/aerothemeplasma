@@ -84,7 +84,7 @@ KCM.SimpleKCM {
                         Layout.fillWidth: true
 
                         wrapMode: Text.WordWrap
-                        text: i18n("There are currently some Wayland specific bugs, which causes for the window preview freeze in place sometimes, along with some other bugs")
+                        text: i18n("Preview might freeze in place sometimes under Wayland, along with the slide open animation not working")
                     }
 
                     visible: showPreviews.checked && KWindowSystem.isPlatformWayland

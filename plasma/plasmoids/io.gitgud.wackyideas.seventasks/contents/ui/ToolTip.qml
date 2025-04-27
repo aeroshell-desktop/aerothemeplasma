@@ -18,6 +18,12 @@ PlasmaCore.Dialog {
     readonly property Mpris.PlayerContainer playerData: mpris2Source.playerForLauncherUrl(launcherUrl, pidParent)
 
     property QtObject parentTask
+    onParentTaskChanged: {
+        if(parentTask !== null) {
+            loaderItem.active = true;
+            // visualParent = parentTask;
+        }
+    }
 
     property string display: "undefined"
     property var icon: "undefined"
@@ -43,21 +49,12 @@ PlasmaCore.Dialog {
     property int taskX: 0
     property int taskY: 0
 
-    property bool shouldDisplayToolTip: {
-        if(!Plasmoid.configuration.showPreviews) return true
-        else {
-            if(pinned) return true
-            if(startup) return true
-            if(!compositionEnabled && childCount == 0) return true
-            return false
-        }
-    }
-    property bool firstCreation: false
+    property bool firstCreation: true
     property bool compositionEnabled: tasks.compositionEnabled
 
     property bool containsDrag: false
 
-    readonly property int flyoutMargin: !tooltip.shouldDisplayToolTip && compositionEnabled ? (Kirigami.Units.smallSpacing*2 - Kirigami.Units.smallSpacing/2) : 0
+    readonly property int flyoutMargin: compositionEnabled ? (Kirigami.Units.smallSpacing*2 - Kirigami.Units.smallSpacing/2) : 0
 
     onTaskXChanged: correctScreenLocation()
 
@@ -73,61 +70,99 @@ PlasmaCore.Dialog {
 
     function correctScreenLocation() {
         var rootPos = tasks.mapToGlobal(tasks.x, tasks.y);
-        var pos = tasks.mapToGlobal(parentTask.x, parentTask.y);
+        var pos = tasks.mapToGlobal(taskX, taskY);
         var availScreen = Plasmoid.containment.availableScreenRect;
         var screen = Plasmoid.containment.screenGeometry;
 
-        if(Plasmoid.location === PlasmaCore.Types.BottomEdge) {
-            x = pos.x - width / 2 + taskWidth / 2;
-            y = pos.y - height - flyoutMargin;
+        // if(KWindowSystem.isPlatformWayland) visualParent = null; // to reposition the preview without issues
 
-        } else if(Plasmoid.location === PlasmaCore.Types.LeftEdge) {
-            y = pos.y - height / 2 + flyoutMargin;
-            x = rootPos.x + tasks.width + flyoutMargin;
+        switch(Plasmoid.location) {
+            case(PlasmaCore.Types.BottomEdge):
+                x = pos.x - width / 2 + taskWidth / 2;
+                y = pos.y - height - flyoutMargin;
+                break;
+            case(PlasmaCore.Types.TopEdge):
+                x = pos.x - width / 2 + taskWidth / 2;
+                y = rootPos.y + tasks.height + flyoutMargin;
+                break;
 
-        } else if(Plasmoid.location === PlasmaCore.Types.RightEdge) {
-            y = pos.y - height / 2 + flyoutMargin;
-            x = rootPos.x - flyoutMargin - width;
-
-        } else if(Plasmoid.location === PlasmaCore.Types.TopEdge) {
-            x = pos.x - width / 2 + taskWidth / 2;
-            y = rootPos.y + tasks.height + flyoutMargin;
+            case(PlasmaCore.Types.RightEdge):
+                y = pos.y - height / 2 + flyoutMargin;
+                x = rootPos.x - flyoutMargin - width;
+                break;
+            case(PlasmaCore.Types.LeftEdge):
+                y = pos.y - height / 2 + flyoutMargin;
+                x = rootPos.x + tasks.width + flyoutMargin;
+                break;
         }
+
+        // if(KWindowSystem.isPlatformWayland) {
+        //     visualParent = parentTask; // re-set the visualParent
+        //     refreshBlur(); // blur can break during this change so refresh it
+        // }
 
         if(x <= availScreen.x) x = availScreen.x + flyoutMargin;
         if((x + tooltip.width - screen.x) >= availScreen.x + availScreen.width) {
             x = screen.x + availScreen.width - tooltip.width - flyoutMargin;
         }
-        if(y <= availScreen.y) y = availScreen.y + flyoutMargin;
+        if(y <= availScreen.y) ypos = availScreen.y + flyoutMargin;
         if((y + tooltip.height - screen.y) >= availScreen.y + availScreen.height) {
             y = screen.y + availScreen.height - tooltip.height - flyoutMargin;
         }
+
+        fixScreenPos.start()
     }
 
+    opacity: 0
+
     function refreshBlur() {
-        Plasmoid.setToolTip(tooltip, loaderItem.item.bg.mask, loaderItem.item.bg.imagePath);
-        if(KWindowSystem.isPlatformWayland) blurFix.start();
+        if(loaderItem.thumbnailLoaded) Plasmoid.setToolTip(tooltip, loaderItem.item.bg.mask, loaderItem.item.bg.imagePath);
+        blurFix.start();
+    }
+
+    function show() {
+        correctScreenLocation();
+        Qt.callLater(() => {
+            // Dialog freezing gets worse with this under Wayland.
+            if(KWindowSystem.isPlatformX11) tooltip.y += taskHeight/2;
+            refreshBlur();
+            tooltip.visible = true;
+        });
     }
 
     onVisibleChanged: if(!visible) tooltip.destroy();
+    onOpacityChanged: if(tooltip.opacity == 1 && firstCreation) firstCreation = false;
 
     onWidthChanged: {
         correctScreenLocation();
-        Qt.callLater(() => {fixScreenPos.start()});
         Qt.callLater(() => {refreshBlur()});
     }
     onHeightChanged: {
         correctScreenLocation();
-        Qt.callLater(() => {fixScreenPos.start()});
         Qt.callLater(() => {refreshBlur()});
     }
 
     mainItem: Loader {
         id: loaderItem
 
-        active: tooltip.visible
+        property bool thumbnailLoaded: false
+
+        active: false
         asynchronous: true
-        sourceComponent: shouldDisplayToolTip ? pinnedToolTip : (childCount > 1 ? groupThumbnails : windowThumbnail)
+        sourceComponent: childCount > 1 ? groupThumbnails : windowThumbnail
+
+        onLoaded: {
+            thumbnailLoaded = true;
+            refreshBlur();
+            if(loaderItem.item.thumbnailHeight == 94 || loaderItem.item.thumbnailHeight === undefined) tooltip.opacity = 1;
+        }
+
+        Connections {
+            target: loaderItem.item
+            function onThumbnailHeightChanged() {
+                if(tooltip.firstCreation) tooltip.opacity = 1;
+            }
+        }
 
         // I hate how I have to run this part of the positioning code
         // again but delayed for the tooltip to not go off-bounds.
@@ -144,7 +179,7 @@ PlasmaCore.Dialog {
                 if((tooltip.x + tooltip.width - screen.x) >= availScreen.x + availScreen.width) {
                     tooltip.x = screen.x + availScreen.width - tooltip.width - flyoutMargin;
                 }
-                if(y <= availScreen.y) tooltip.y = availScreen.y + flyoutMargin;
+                if(tooltip.y <= availScreen.y) tooltip.y = availScreen.y + flyoutMargin;
                 if((tooltip.y + tooltip.height - screen.y) >= availScreen.y + availScreen.height) {
                     tooltip.y = screen.y + availScreen.height - tooltip.height - flyoutMargin;
                 }
@@ -188,11 +223,5 @@ PlasmaCore.Dialog {
 
             WindowThumbnail { root: toolTipItem; parent: loaderItem }
         }
-    }
-
-    Component.onCompleted: {
-        correctScreenLocation();
-        Qt.callLater(() => {fixScreenPos.start()});
-        Qt.callLater(() => {refreshBlur()});
     }
 }

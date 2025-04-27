@@ -10,9 +10,9 @@
 "use strict";
 
 var morphingEffect = {
-    duration: animationTime(215),
+    duration: animationTime(300),
     loadConfig: function () {
-        morphingEffect.duration = animationTime(215);
+        morphingEffect.duration = animationTime(300);
     },
 
     handleFrameGeometryAboutToChange: function (window) {
@@ -55,9 +55,9 @@ var morphingEffect = {
                     value2: newGeometry.y + newGeometry.height / 2
                 }, morphingEffect.duration);
             }
-        } else {
+        } /*else {
             oldGeometry = newGeometry;
-        }
+        }*/
 
 
         if (!couldRetarget) {

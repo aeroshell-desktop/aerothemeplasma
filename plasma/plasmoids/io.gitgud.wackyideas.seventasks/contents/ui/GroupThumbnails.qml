@@ -5,8 +5,9 @@ import QtQuick.Controls as QQC2
 import Qt5Compat.GraphicalEffects
 
 import org.kde.kirigami as Kirigami
-import org.kde.plasma.plasmoid as Plasmoid
+import org.kde.plasma.plasmoid
 import org.kde.ksvg as KSvg
+import org.kde.kwindowsystem
 
 import org.kde.plasma.core as PlasmaCore
 
@@ -17,13 +18,15 @@ MouseArea {
 
     readonly property alias bg: bg
 
-    readonly property bool isList: thumbnailModel.count >= 8
+    readonly property bool isList: thumbnailModel.count >= 8 || !Plasmoid.configuration.showPreviews
     readonly property bool compositionEnabled: root.compositionEnabled
 
     readonly property bool containsDrag: root.containsDrag
 
-    implicitWidth: (isList || !compositionEnabled ? thumbnailList.maxThumbnailWidth : thumbnailList.contentWidth) + thumbnailList.anchors.rightMargin + thumbnailList.anchors.leftMargin
-    implicitHeight: (isList || !compositionEnabled ? thumbnailList.contentHeight : thumbnailList.maxThumbnailHeight) + thumbnailList.anchors.topMargin + thumbnailList.anchors.bottomMargin
+    readonly property alias thumbnailHeight: thumbnailList.maxThumbnailHeight
+
+    implicitWidth: (isList || !compositionEnabled ? thumbnailList.maxThumbnailWidth : thumbnailList.listWidth) + thumbnailList.anchors.rightMargin + thumbnailList.anchors.leftMargin
+    implicitHeight: (isList || !compositionEnabled ? thumbnailList.listHeight : thumbnailList.maxThumbnailHeight) + thumbnailList.anchors.topMargin + thumbnailList.anchors.bottomMargin
 
     hoverEnabled: true
     propagateComposedEvents: true
@@ -72,8 +75,6 @@ MouseArea {
         model: tasksModel
         rootIndex: tasksModel.makeModelIndex(root.taskIndex)
         delegate: WindowThumbnail {
-            id: thumbnailDelegate
-
             isGroupDelegate: true
             root: groupThumbnails.root
         }
@@ -84,8 +85,6 @@ MouseArea {
         model: tasksModel
         rootIndex: tasksModel.makeModelIndex(root.taskIndex)
         delegate: WindowListDelegate {
-            id: listDelegate
-
             root: groupThumbnails.root
             compositionEnabled: groupThumbnails.compositionEnabled
         }
@@ -98,6 +97,9 @@ MouseArea {
         property int maxThumbnailHeight: maxThumbnailItem.implicitHeight
         property Item maxThumbnailItem
 
+        property int listWidth: contentWidth == 0 ? 196 : contentWidth
+        property int listHeight: contentHeight == 0 ? 142 : contentHeight
+
         anchors.fill: parent
         anchors.bottomMargin: !isList ? 0 : (compositionEnabled ? Kirigami.Units.smallSpacing*2 : 0)
         anchors.topMargin: !isList ? 0 : (compositionEnabled ? Kirigami.Units.smallSpacing*2 : 0)
@@ -106,21 +108,17 @@ MouseArea {
 
         function updateMaxSize() {
             if(isList) {
-                for(var i = 0; i < count; i++) {
+                for(var i = 0; i < thumbnailList.count; i++) {
                     var thumbnailItem = itemAtIndex(i);
-                    if(thumbnailItem.implicitWidth > thumbnailList.maxThumbnailWidth) {
+                    if(thumbnailItem.implicitWidth >= thumbnailList.maxThumbnailWidth)
                         thumbnailList.maxThumbnailItem = thumbnailItem;
-                        thumbnailList.maxThumbnailWidth = thumbnailItem.implicitWidth;
-                    }
                 }
             }
             else {
-                for(var i = 0; i < count; i++) {
+                for(var i = 0; i < thumbnailList.count; i++) {
                     var thumbnailItem = itemAtIndex(i);
-                    if(thumbnailItem.implicitHeight > thumbnailList.maxThumbnailHeight) {
+                    if(thumbnailItem.implicitHeight >= thumbnailList.maxThumbnailHeight)
                         thumbnailList.maxThumbnailItem = thumbnailItem;
-                        thumbnailList.maxThumbnailHeight = thumbnailItem.implicitHeight;
-                    }
                 }
             }
         }
@@ -128,11 +126,10 @@ MouseArea {
         interactive: false
         spacing: -Kirigami.Units.smallSpacing*4
         orientation: !isList ? (compositionEnabled ? ListView.Horizontal : ListView.Vertical) : ListView.Vertical
-
         model: !isList ? (compositionEnabled ? thumbnailModel : listModel) : listModel
 
         // HACK: delay the update by 5 ms to leave time for the thumbnail item's implicitHeight property to correct itself
-        onCountChanged: updateDelayTimer.start()
+        onCountChanged: if(count > 1) updateDelayTimer.start()
 
         Timer {
             id: updateDelayTimer

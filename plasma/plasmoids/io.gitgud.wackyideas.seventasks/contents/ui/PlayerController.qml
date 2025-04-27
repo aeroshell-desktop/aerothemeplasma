@@ -17,8 +17,6 @@ import org.kde.plasma.plasmoid
 import org.kde.plasma.private.mpris as Mpris
 
 RowLayout {
-    property QtObject root
-
     readonly property bool isPlaying: root.playerData.playbackStatus === Mpris.PlaybackStatus.Playing
 
     spacing: -1
