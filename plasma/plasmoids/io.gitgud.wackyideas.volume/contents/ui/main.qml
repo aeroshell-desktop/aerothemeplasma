@@ -206,6 +206,7 @@ PlasmoidItem {
                 if(mixerWindow) {
                     mixerWindow.visibility = Window.AutomaticVisibility;
                     mixerWindow.raise();
+                    mixerWindow.requestActivate();
                 }
                 else main.expanded = !wasExpanded;
             }
@@ -261,6 +262,7 @@ PlasmoidItem {
             } else {
                 mixerWindow.visibility = Window.AutomaticVisibility;
                 mixerWindow.raise();
+                    mixerWindow.requestActivate();
             }
         }
 
