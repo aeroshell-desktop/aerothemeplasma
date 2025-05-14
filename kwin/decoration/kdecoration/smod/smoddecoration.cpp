@@ -7,6 +7,7 @@
 #include <QPainterPath>
 #include <QString>
 #include <QPixmapCache>
+#include <QRegularExpression>
 
 #include <KDecoration3/DecorationButtonGroup>
 
@@ -281,7 +282,8 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRectF &repaintRegio
         QStringList programname = caption.split(" — ");
         caption.remove(" — " + programname.at(programname.size()-1));
         QFontMetrics fm(settings()->font());
-        auto rect = fm.boundingRect(caption);
+        QString fixedCaption = caption;
+        auto rect = fm.boundingRect(fixedCaption.replace(QRegularExpression("\\p{Extended_Pictographic}", QRegularExpression::UseUnicodePropertiesOption), "█"));
         int blurWidth = rect.width() + 30;
         int blurHeight = rect.height();
 
