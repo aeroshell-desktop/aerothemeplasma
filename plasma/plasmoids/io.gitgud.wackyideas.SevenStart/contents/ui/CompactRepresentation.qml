@@ -92,6 +92,7 @@ Item {
         Plasmoid.setDialogAppearance(dashWindow, dashWindow.dialogBackgroundTexture.mask);
         dashWindow.m_searchField.focus = true;
         orb.raise();
+
     }
     function updateSizeHints() {
         return;
@@ -136,8 +137,6 @@ Item {
         Plasmoid.activated.connect(function () {
             showMenu();
         });
-
-
     }
     onCompositingChanged: {
         updateSizeHints();
