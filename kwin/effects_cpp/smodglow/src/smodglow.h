@@ -130,7 +130,7 @@ public:
             hoverAnimation = new QPropertyAnimation(this, "hoverProgress");
             m_hoverAnimation = hoverAnimation;
 
-            QObject::connect(hoverAnimation, &QAbstractAnimation::finished, this, &GlowAnimationHandler::animFinished);
+            QObject::connect(hoverAnimation, &QAbstractAnimation::finished, this, &GlowAnimationHandler::animFinished, Qt::UniqueConnection);
         } else {
             return;
         }
@@ -176,6 +176,11 @@ public:
             m_hoverProgress = hoverProgress;
         }
     }
+    ~GlowAnimationHandler()
+    {
+        if(!m_hoverAnimation.isNull())
+            delete m_hoverAnimation;
+    }
 
     QPointer<QPropertyAnimation> m_hoverAnimation = QPointer<QPropertyAnimation>();
     qreal m_hoverProgress = 0.0;
@@ -197,14 +202,21 @@ public:
         m_max   = new GlowAnimationHandler(this);
         m_close = new GlowAnimationHandler(this);
 
-        QObject::connect(m_min, &GlowAnimationHandler::animStarted, this, &GlowHandler::animStarted);
-        QObject::connect(m_max, &GlowAnimationHandler::animStarted, this, &GlowHandler::animStarted);
-        QObject::connect(m_close, &GlowAnimationHandler::animStarted, this, &GlowHandler::animStarted);
+        QObject::connect(m_min, &GlowAnimationHandler::animStarted, this, &GlowHandler::animStarted, Qt::UniqueConnection);
+        QObject::connect(m_max, &GlowAnimationHandler::animStarted, this, &GlowHandler::animStarted, Qt::UniqueConnection);
+        QObject::connect(m_close, &GlowAnimationHandler::animStarted, this, &GlowHandler::animStarted, Qt::UniqueConnection);
 
-        QObject::connect(m_min, &GlowAnimationHandler::animFinished, this, &GlowHandler::animFinished);
-        QObject::connect(m_max, &GlowAnimationHandler::animFinished, this, &GlowHandler::animFinished);
-        QObject::connect(m_close, &GlowAnimationHandler::animFinished, this, &GlowHandler::animFinished);
+        QObject::connect(m_min, &GlowAnimationHandler::animFinished, this, &GlowHandler::animFinished, Qt::UniqueConnection);
+        QObject::connect(m_max, &GlowAnimationHandler::animFinished, this, &GlowHandler::animFinished, Qt::UniqueConnection);
+        QObject::connect(m_close, &GlowAnimationHandler::animFinished, this, &GlowHandler::animFinished, Qt::UniqueConnection);
     };
+
+    ~GlowHandler()
+    {
+        delete m_min;
+        delete m_max;
+        delete m_close;
+    }
 
     void stopAll()
     {
