@@ -25,6 +25,7 @@ Item {
     required property var model
     property string type
     property bool isStream: false
+    property bool isInWindow: false
 
     property string name: "unknown"
     property string iconName: model.IconName
@@ -62,7 +63,7 @@ Item {
             Layout.leftMargin: (iconMa.containsPress ? 1 : 0) - 2
             Layout.preferredWidth: Kirigami.Units.iconSizes.medium
             Layout.preferredHeight: Kirigami.Units.iconSizes.medium
-            Layout.topMargin: -3
+            Layout.topMargin: item.isInWindow ? 0 : -3
 
             source: type == "sink-output" ? "audio-speakers" : (type == "sink-input" ? "audio-input-microphone" : item.iconName)
 
