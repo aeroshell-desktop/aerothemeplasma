@@ -25,6 +25,7 @@ Item {
     required property var model
     property string type
     property bool isStream: false
+    property bool isInWindow: false
 
     property string name: "unknown"
     property string iconName: model.IconName
@@ -47,6 +48,7 @@ Item {
         id: controlsRow
 
         anchors.fill: parent
+        anchors.topMargin: 1
 
         spacing: 17
 
@@ -58,9 +60,10 @@ Item {
             }
 
             Layout.alignment: Qt.AlignHCenter
-            Layout.leftMargin: iconMa.containsPress ? 1 : 0
+            Layout.leftMargin: (iconMa.containsPress ? 1 : 0) - 2
             Layout.preferredWidth: Kirigami.Units.iconSizes.medium
             Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+            Layout.topMargin: item.isInWindow ? 0 : -3
 
             source: type == "sink-output" ? "audio-speakers" : (type == "sink-input" ? "audio-input-microphone" : item.iconName)
 
@@ -228,9 +231,12 @@ Item {
                 }
             }
 
+            Layout.topMargin: Kirigami.Units.smallSpacing
+            Layout.bottomMargin: -Kirigami.Units.smallSpacing
             Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
-            Layout.maximumHeight: 115
+            Layout.preferredHeight: 121
+            Layout.rightMargin: Kirigami.Units.largeSpacing+2
 
             from: PulseAudio.MinimalVolume
             to: forceRaiseMaxVolume || item.model.Volume >= PulseAudio.NormalVolume * 1.01 ? PulseAudio.MaximalVolume : PulseAudio.NormalVolume
@@ -282,6 +288,7 @@ Item {
             Layout.preferredWidth: 32
             Layout.preferredHeight: 30
             Layout.alignment: Qt.AlignHCenter
+            Layout.bottomMargin: 3
 
             property bool isMuted: item.model.Muted //|| slider.value === PulseAudio.MinimalVolume
 

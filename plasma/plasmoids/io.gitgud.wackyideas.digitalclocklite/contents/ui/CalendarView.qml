@@ -568,6 +568,10 @@ PlasmaCore.Dialog {
 		ToolButton {
 			id: pinButton
 
+			visible: Plasmoid.configuration.showPinButton
+			onVisibleChanged: {
+				if(!visible) Plasmoid.configuration.pin = false;
+			}
 			anchors.bottom: parent.bottom
 			anchors.right: parent.right
 			anchors.rightMargin: dialogSvg.margins.right + Kirigami.Units.mediumSpacing + 2

@@ -65,25 +65,10 @@ PlasmoidItem {
         dataSource.connectedSources = root.allTimezones;
     }
 
-	//This is done to better control how the plasmoid should look and feel in a panel.
-    //preferredRepresentation: fullRepresentation
-    //compactRepresentation: null
-    //fullRepresentation: smallRepresentation
-
     preferredRepresentation: fullRepresentation
     compactRepresentation: null
     fullRepresentation: smallRepresentation
 
-    /*toolTipItem: Loader {
-        id: tooltipLoader
-
-        Layout.minimumWidth: item ? item.width : 0
-        Layout.maximumWidth: item ? item.width : 0
-        Layout.minimumHeight: item ? item.height : 0
-        Layout.maximumHeight: item ? item.height : 0
-
-        source: "Tooltip.qml"
-    }*/
     KSvg.Svg {
         id: buttonIcons
         imagePath: Qt.resolvedUrl("svgs/icons.svg");

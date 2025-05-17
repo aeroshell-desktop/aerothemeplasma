@@ -40,6 +40,10 @@
       <label>Whether the popup should remain open when another window is activated</label>
       <default>false</default>
     </entry>
+    <entry name="showPinButton" type="Bool">
+      <label>Whether the pin button should be visible</label>
+      <default>true</default>
+    </entry>
   </group>
 
 </kcfg>

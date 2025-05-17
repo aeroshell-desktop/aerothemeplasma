@@ -98,25 +98,25 @@ void SmodGlowEffect::reconfigure(Effect::ReconfigureFlags flags)
 
 void SmodGlowEffect::setupEffectHandlerConnections()
 {
-    connect(effects, &EffectsHandler::windowAdded, this, &SmodGlowEffect::windowAdded);
-    connect(effects, &EffectsHandler::windowClosed, this, &SmodGlowEffect::windowClosed);
+    connect(effects, &EffectsHandler::windowAdded, this, &SmodGlowEffect::windowAdded, Qt::UniqueConnection);
+    connect(effects, &EffectsHandler::windowClosed, this, &SmodGlowEffect::windowClosed, Qt::UniqueConnection);
 #ifndef BUILD_KF6
-    connect(effects, &EffectsHandler::windowMaximizedStateChanged, this, &SmodGlowEffect::windowMaximizedStateChanged);
-    connect(effects, &EffectsHandler::windowMinimized, this, &SmodGlowEffect::windowMinimized);
-    connect(effects, &EffectsHandler::windowStartUserMovedResized, this, &SmodGlowEffect::windowStartUserMovedResized);
-    connect(effects, &EffectsHandler::windowFullScreenChanged, this, &SmodGlowEffect::effectWindowFullScreenChanged);
-    connect(effects, &EffectsHandler::windowDecorationChanged, this, &SmodGlowEffect::windowDecorationChanged);
+    connect(effects, &EffectsHandler::windowMaximizedStateChanged, this, &SmodGlowEffect::windowMaximizedStateChanged, Qt::UniqueConnection);
+    connect(effects, &EffectsHandler::windowMinimized, this, &SmodGlowEffect::windowMinimized, Qt::UniqueConnection);
+    connect(effects, &EffectsHandler::windowStartUserMovedResized, this, &SmodGlowEffect::windowStartUserMovedResized, Qt::UniqueConnection);
+    connect(effects, &EffectsHandler::windowFullScreenChanged, this, &SmodGlowEffect::effectWindowFullScreenChanged, Qt::UniqueConnection);
+    connect(effects, &EffectsHandler::windowDecorationChanged, this, &SmodGlowEffect::windowDecorationChanged, Qt::UniqueConnection);
 #endif
 }
 
 void SmodGlowEffect::setupEffectWindowConnections(const EffectWindow *w)
 {
 #ifdef BUILD_KF6
-    connect(w, &EffectWindow::windowMaximizedStateChanged, this, &SmodGlowEffect::windowMaximizedStateChanged);
-    connect(w, &EffectWindow::minimizedChanged, this, &SmodGlowEffect::windowMinimized);
-    connect(w, &EffectWindow::windowStartUserMovedResized, this, &SmodGlowEffect::windowStartUserMovedResized);
-    connect(w, &EffectWindow::windowFullScreenChanged, this, &SmodGlowEffect::effectWindowFullScreenChanged);
-    connect(w, &EffectWindow::windowDecorationChanged, this, &SmodGlowEffect::windowDecorationChanged);
+    connect(w, &EffectWindow::windowMaximizedStateChanged, this, &SmodGlowEffect::windowMaximizedStateChanged, Qt::UniqueConnection);
+    connect(w, &EffectWindow::minimizedChanged, this, &SmodGlowEffect::windowMinimized, Qt::UniqueConnection);
+    connect(w, &EffectWindow::windowStartUserMovedResized, this, &SmodGlowEffect::windowStartUserMovedResized, Qt::UniqueConnection);
+    connect(w, &EffectWindow::windowFullScreenChanged, this, &SmodGlowEffect::effectWindowFullScreenChanged, Qt::UniqueConnection);
+    connect(w, &EffectWindow::windowDecorationChanged, this, &SmodGlowEffect::windowDecorationChanged, Qt::UniqueConnection);
 #endif
 }
 
@@ -137,11 +137,12 @@ void SmodGlowEffect::registerWindow(const EffectWindow *w)
     }
 
     // Attempt to connect to the decoration signal.
+
 #if TESTING_NEW_DPI
-    auto connection = QObject::connect(smoddecoration, &SmodDecoration::buttonHoveredChanged, this,
+    auto connection = connect(smoddecoration, &SmodDecoration::buttonHoveredChanged, this,
         [w, this](KDecoration3::DecorationButtonType button, bool hovered, QPoint pos, int dpi) {
 #else
-    auto connection = QObject::connect(smoddecoration, &SmodDecoration::buttonHoverStatus, this,
+    auto connection = connect(smoddecoration, &SmodDecoration::buttonHoverStatus, this,
         [w, this](KDecoration3::DecorationButtonType button, bool hovered, QPoint pos) {
         int dpi = m_current_dpi;
 #endif
@@ -213,7 +214,8 @@ void SmodGlowEffect::unregisterWindow(const EffectWindow *w)
     if (windows.contains(w))
     {
         windows.value(w)->stopAll();
-        QObject::disconnect(windows.value(w)->m_decoration_connection);
+        disconnect(windows.value(w)->m_decoration_connection);
+        delete windows.value(w);
         windows.remove(w);
     }
 }
