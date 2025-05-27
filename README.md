@@ -10,7 +10,7 @@ This is a project which aims to recreate the look and feel of Windows 7 as much 
 It is still in heavy development and testing. ATP has been tested on:
 
 1. Arch Linux x64 and other Arch derivatives
-2. Plasma 6.3.0, KDE Frameworks 6.10.0, Qt 6.8.2
+2. Plasma 6.3.4, KDE Frameworks 6.12.0, Qt 6.9.0
 3. 96 DPI scaling, multi monitor
 4. X11, Wayland*
 
@@ -57,6 +57,7 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 - (In collaboration with) [kfh83](https://github.com/kfh83), [TorutheRedFox](https://github.com/TorutheRedFox) and [ALTaleX](https://github.com/ALTaleX531/dwm_colorization_calculator/blob/main/main.py) for figuring out accurate Aero glass blur and colorization effects
 - [AngelBruni](https://github.com/angelbruni) for contributing several SVG textures, most notably the clock in DigitalClockLite Seven
 - [ricewind012](https://github.com/ricewind012/) for .bashrc Microsoft Windows header
+- [furkrn](https://gitgud.io/furkrn) for creating and maintaining the [Plymouth theme](https://github.com/furkrn/PlymouthVista)
 
 ### Special Thanks 
 

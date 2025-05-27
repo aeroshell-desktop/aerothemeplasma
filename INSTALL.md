@@ -130,6 +130,10 @@ This section relates to the directories found in the ```misc``` folder.
 
 If SDDM fails to pick up on the cursor theme, go to System Settings -> Startup and Shutdown -> Login Screen (SDDM), and click on Apply Plasma Settings to enforce your current cursor theme, and other relevant settings. Do this *after* installing everything else. If even that fails, change the default cursor theme in ```/usr/share/icons/default/index.theme``` to say ```aero-drop```.
 
+### Plymouth theme
+
+Optionally, install [PlymouthVista](https://github.com/furkrn/PlymouthVista) which supports Windows 7 boot animations, and features a more detailed setup guide. 
+
 ## Polkit User Account Control modification
 
 # WARNING: 
