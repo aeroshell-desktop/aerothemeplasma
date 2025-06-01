@@ -153,7 +153,16 @@ private:
         int offsetLocation;
         int halfpixelLocation;
 
-        int basicColorizationLocation;
+    } m_upsamplePass;
+
+    struct AeroShader
+    {
+        std::unique_ptr<GLShader> shader;
+        int mvpMatrixLocation;
+        int colorMatrixLocation;
+        int offsetLocation;
+        int halfpixelLocation;
+
         int aeroColorRLocation;
         int aeroColorGLocation;
         int aeroColorBLocation;
@@ -161,8 +170,14 @@ private:
         int aeroColorBalanceLocation;
         int aeroAfterglowBalanceLocation;
         int aeroBlurBalanceLocation;
-        int aeroColorizeLocation;
-    } m_upsamplePass;
+    };
+    enum AeroPasses { AERO = 0, BASIC, OPAQUE };
+    AeroShader m_aeroPasses[3];
+    QString aeroShaderLocations[3] = {
+        QString(":/effects/aeroblur/shaders/aero/advanced.frag"),
+        QString(":/effects/aeroblur/shaders/aero/basic.frag"),
+        QString(":/effects/aeroblur/shaders/aero/opaque.frag")
+    };
 
     bool m_valid = false;
     long net_wm_blur_region = 0;

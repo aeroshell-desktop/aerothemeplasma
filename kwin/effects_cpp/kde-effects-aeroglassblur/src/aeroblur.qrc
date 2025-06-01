@@ -2,14 +2,22 @@
 <qresource prefix="/effects/aeroblur/">
   <file>shaders/downsample.frag</file>
   <file>shaders/downsample_core.frag</file>
-  <file>shaders/basic.frag</file>
-  <file>shaders/basic_core.frag</file>
+  <file>shaders/glow.frag</file>
+  <file>shaders/glow_core.frag</file>
   <file>shaders/reflect.frag</file>
   <file>shaders/reflect_core.frag</file>
   <file>shaders/upsample.frag</file>
   <file>shaders/upsample_core.frag</file>
   <file>shaders/vertex.vert</file>
   <file>shaders/vertex_core.vert</file>
+
+  <file>shaders/aero/opaque.frag</file>
+  <file>shaders/aero/opaque_core.frag</file>
+  <file>shaders/aero/basic.frag</file>
+  <file>shaders/aero/basic_core.frag</file>
+  <file>shaders/aero/advanced.frag</file>
+  <file>shaders/aero/advanced_core.frag</file>
+
   <file>reflection.png</file>
   <file>framecornereffect.png</file>
   <file>framecornereffect-unfocus.png</file>

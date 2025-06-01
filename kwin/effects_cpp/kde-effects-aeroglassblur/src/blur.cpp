@@ -88,16 +88,30 @@ BlurEffect::BlurEffect() : m_sharedMemory("kwinaero")
         m_upsamplePass.offsetLocation = m_upsamplePass.shader->uniformLocation("offset");
         m_upsamplePass.halfpixelLocation = m_upsamplePass.shader->uniformLocation("halfpixel");
         m_upsamplePass.colorMatrixLocation = m_upsamplePass.shader->uniformLocation("colorMatrix");
+    }
 
-        m_upsamplePass.basicColorizationLocation = m_upsamplePass.shader->uniformLocation("basicColorization");
-        m_upsamplePass.aeroColorRLocation = m_upsamplePass.shader->uniformLocation("aeroColorR");
-        m_upsamplePass.aeroColorGLocation = m_upsamplePass.shader->uniformLocation("aeroColorG");
-        m_upsamplePass.aeroColorBLocation = m_upsamplePass.shader->uniformLocation("aeroColorB");
-        m_upsamplePass.aeroColorALocation = m_upsamplePass.shader->uniformLocation("aeroColorA");
-        m_upsamplePass.aeroColorBalanceLocation = m_upsamplePass.shader->uniformLocation("aeroColorBalance");
-        m_upsamplePass.aeroAfterglowBalanceLocation = m_upsamplePass.shader->uniformLocation("aeroAfterglowBalance");
-        m_upsamplePass.aeroBlurBalanceLocation = m_upsamplePass.shader->uniformLocation("aeroBlurBalance");
-        m_upsamplePass.aeroColorizeLocation = m_upsamplePass.shader->uniformLocation("aeroColorize");
+    for(int i = 0; i < 3; i++) {
+        qCWarning(KWIN_BLUR) << "Loading shader " << aeroShaderLocations[i];
+        m_aeroPasses[i].shader = ShaderManager::instance()->generateShaderFromFile(ShaderTrait::MapTexture,
+                                                                                  QStringLiteral(":/effects/aeroblur/shaders/vertex.vert"),
+                                                                                  aeroShaderLocations[i]);
+        if (!m_aeroPasses[i].shader) {
+            qCWarning(KWIN_BLUR) << "Failed to load aero pass shader " << aeroShaderLocations[i];
+            return;
+        } else {
+            m_aeroPasses[i].mvpMatrixLocation            = m_aeroPasses[i].shader->uniformLocation("modelViewProjectionMatrix");
+            m_aeroPasses[i].offsetLocation               = m_aeroPasses[i].shader->uniformLocation("offset");
+            m_aeroPasses[i].halfpixelLocation            = m_aeroPasses[i].shader->uniformLocation("halfpixel");
+            m_aeroPasses[i].colorMatrixLocation          = m_aeroPasses[i].shader->uniformLocation("colorMatrix");
+            m_aeroPasses[i].aeroColorRLocation           = m_aeroPasses[i].shader->uniformLocation("aeroColorR");
+            m_aeroPasses[i].aeroColorGLocation           = m_aeroPasses[i].shader->uniformLocation("aeroColorG");
+            m_aeroPasses[i].aeroColorBLocation           = m_aeroPasses[i].shader->uniformLocation("aeroColorB");
+            m_aeroPasses[i].aeroColorALocation           = m_aeroPasses[i].shader->uniformLocation("aeroColorA");
+            m_aeroPasses[i].aeroColorBalanceLocation     = m_aeroPasses[i].shader->uniformLocation("aeroColorBalance");
+            m_aeroPasses[i].aeroAfterglowBalanceLocation = m_aeroPasses[i].shader->uniformLocation("aeroAfterglowBalance");
+            m_aeroPasses[i].aeroBlurBalanceLocation      = m_aeroPasses[i].shader->uniformLocation("aeroBlurBalance");
+        }
+
     }
 
     m_reflectPass.shader = ShaderManager::instance()->generateShaderFromFile(
@@ -120,7 +134,7 @@ BlurEffect::BlurEffect() : m_sharedMemory("kwinaero")
     m_glowPass.shader = ShaderManager::instance()->generateShaderFromFile(
         ShaderTrait::MapTexture,
         QStringLiteral(":/effects/aeroblur/shaders/vertex.vert"),
-        QStringLiteral(":/effects/aeroblur/shaders/basic.frag"));
+        QStringLiteral(":/effects/aeroblur/shaders/glow.frag"));
     if (!m_glowPass.shader) {
         qCWarning(KWIN_BLUR) << "Failed to load sideglow pass shader";
         return;
@@ -485,6 +499,7 @@ void BlurEffect::slotWindowAdded(EffectWindow *w)
 {
     SurfaceInterface *surf = w->surface();
 
+    printf("Title: %s\n", w->caption().toStdString().c_str());
     if (surf) {
         windowBlurChangedConnections[w] = connect(surf, &SurfaceInterface::blurChanged, this, [this, w]() {
             if (w) {
@@ -1070,7 +1085,6 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 
         m_upsamplePass.shader->setUniform(m_upsamplePass.mvpMatrixLocation, projectionMatrix);
         m_upsamplePass.shader->setUniform(m_upsamplePass.offsetLocation, float(m_offset / 2.5f));
-        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorizeLocation, false);
 
         for (size_t i = renderInfo.framebuffers.size() - 1; i > 1; --i) {
             GLFramebuffer::popFramebuffer();
@@ -1084,6 +1098,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 
             vbo->draw(GL_TRIANGLES, 0, 6);
         }
+        ShaderManager::instance()->popShader();
 
         // The last upsampling pass is rendered on the screen, not in framebuffers[0].
         GLFramebuffer::popFramebuffer();
@@ -1095,22 +1110,17 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         {
             projectionMatrix *= transformedMatrix;
         }*/
-        m_upsamplePass.shader->setUniform(m_upsamplePass.mvpMatrixLocation, projectionMatrix);
 
-        const QVector2D halfpixel(0.5 / (double)read->colorAttachment()->width(),
-                                  0.5 / (double)read->colorAttachment()->height());
-        m_upsamplePass.shader->setUniform(m_upsamplePass.halfpixelLocation, halfpixel);
-
-        // aero
-
-        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorizeLocation, true);
+        /*********************
+         * COLORIZATION PASS *
+         *********************/
+        float basicAlpha = m_aeroIntensity / 255.0f;
 
         float pb = m_aeroPrimaryBalance;
         float sb = m_aeroSecondaryBalance;
         float bb = m_aeroBlurBalance;
 
-        float al = (m_transparencyEnabled) ? -1.0f : m_aeroColorA;
-        float basicAlpha = m_aeroIntensity / 255.0f;
+        float al = m_aeroColorA;
 		if(!treatAsActive(w))
         {
             pb = m_aeroPrimaryBalanceInactive;
@@ -1121,30 +1131,45 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         float r = m_aeroColorR;
         float g = m_aeroColorG;
         float b = m_aeroColorB;
+
+        AeroPasses selectedPass = AeroPasses::AERO;
+
         // A window is maximized, use opaque colorization
         auto maximizeState = w->window()->maximizeMode();
         bool basicCol = m_basicColorization;
+        bool useTransparency = m_transparencyEnabled;
+
         QString windowClass = w->windowClass().split(' ')[1];
         bool opaqueMaximize = (maximizeState == MaximizeMode::MaximizeFull || (m_maximizedWindows.size() != 0 && w->isDock())) && m_maximizeColorization && windowClass != "kwin";
+
         if(opaqueMaximize)
         {
-            al = -1.0f;
             getMaximizedColorization(m_aeroIntensity, m_aeroColorR, m_aeroColorG, m_aeroColorB, r, g, b);
             basicAlpha = 1.0;
             basicCol = true;
+            useTransparency = true;
         }
 
-        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorRLocation, r);
-        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorGLocation, g);
-        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorBLocation, b);
-        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorALocation, al);
-        m_upsamplePass.shader->setUniform(m_upsamplePass.basicColorizationLocation, basicCol);
+        if(basicCol) selectedPass = AeroPasses::BASIC;
+        if(!useTransparency) selectedPass = AeroPasses::OPAQUE;
 
-        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroColorBalanceLocation,     (basicCol) ? basicAlpha : (pb / 100.0f));
-        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroAfterglowBalanceLocation, sb / 100.0f);
-        m_upsamplePass.shader->setUniform(m_upsamplePass.aeroBlurBalanceLocation,      bb / 100.0f);
+        ShaderManager::instance()->pushShader(m_aeroPasses[selectedPass].shader.get());
 
-        m_upsamplePass.shader->setUniform(m_upsamplePass.colorMatrixLocation, colorMat);
+        m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].mvpMatrixLocation, projectionMatrix);
+
+        const QVector2D halfpixel(0.5 / (double)read->colorAttachment()->width(),
+                                  0.5 / (double)read->colorAttachment()->height());
+        m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].halfpixelLocation, halfpixel);
+
+
+        m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].aeroColorRLocation, r);
+        m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].aeroColorGLocation, g);
+        m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].aeroColorBLocation, b);
+        m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].aeroColorALocation, al);
+        m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].aeroColorBalanceLocation,     (basicCol) ? basicAlpha : (pb / 100.0f));
+        m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].aeroAfterglowBalanceLocation, sb / 100.0f);
+        m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].aeroBlurBalanceLocation,      bb / 100.0f);
+        m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].colorMatrixLocation, colorMat);
 
         read->colorAttachment()->bind();
 
@@ -1164,6 +1189,8 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         }
 
         ShaderManager::instance()->popShader();
+
+        //bool opaqueMaximize = false;
 
         glEnable(GL_BLEND);
 
@@ -1267,7 +1294,7 @@ QMatrix4x4 BlurEffect::colorMatrix(const float &brightness, const float &saturat
 bool BlurEffect::shouldHaveCornerGlow(const EffectWindow *w) const
 {
 	QString windowClass = w->windowClass().split(' ')[1];
-    if(w->isTooltip()) return false;
+    if(w->isTooltip() || w->isSplash()) return false;
     if(w->caption() == "sevenstart-menurepresentation" || (windowClass != "kwin" && w->isDock())) return false; // Disables panels and start menu
     return true;
 }
