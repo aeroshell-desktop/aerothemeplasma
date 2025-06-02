@@ -17,15 +17,12 @@
 #include <QVariant>
 #include <QtQuick/QQuickItem>
 #include <QtQuick/QQuickItemGrabResult>
-#include <QtQuick/QQuickWindow>
 #include <QWindow>
 #include <QCursor>
 #include <QKeySequence>
 #include <QVariantList>
 #include <kx11extras.h>
 #include <kwindoweffects.h>
-#include "dialogshadows_p.h"
-#include <plasmaquick/dialog.h>
 
 class SevenTasks : public Plasma::Applet
 {
@@ -42,35 +39,6 @@ public:
     {
         KWindowEffects::enableBlurBehind(w, false, QRegion(0,0, w->width(), w->height()));
     }
-
-    // Prepare the window thumbnail
-    Q_INVOKABLE void setToolTip(QQuickWindow* w, QRegion mask, QUrl svg)
-    {
-        toolTip = w;
-        if(!shadow)
-        {
-            shadow = new DialogShadows(this, svg.toString());
-        }
-        if(!w) return;
-        enableBlurBehind(w, mask);
-        enableShadow(true);
-    }
-
-    // Used to enable blur behind the window thumbnails
-    Q_INVOKABLE void enableBlurBehind(QQuickWindow* w, QRegion mask)
-    {
-        if(w == nullptr) return;
-        KWindowEffects::enableBlurBehind(w, true, mask);
-    }
-    // Used for shadows in the window thumbnails
-    Q_INVOKABLE void enableShadow(bool enable)
-    {
-        QWindow *window = static_cast<QWindow *>(toolTip);
-        if(window == nullptr) return;
-        shadow->addWindow(window);
-        shadow->setEnabledBorders(window, KSvg::FrameSvg::AllBorders);
-    }
-
     // Forces the MouseArea object to evaluate the event which partly resolves the issue of task icons being kept in the wrong state
     Q_INVOKABLE void sendMouseEvent(QQuickItem* mouseArea)
     {
@@ -137,8 +105,6 @@ protected:
         }
         return QObject::eventFilter(watched, event);
     }
-    QQuickWindow* toolTip = nullptr;
-    DialogShadows* shadow = nullptr;
 signals:
     void mouseEventDetected();
 };

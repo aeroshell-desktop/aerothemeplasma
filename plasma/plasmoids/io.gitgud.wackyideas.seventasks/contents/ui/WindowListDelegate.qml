@@ -20,7 +20,6 @@ MouseArea {
         if(Plasmoid.configuration.thmbnlCaptionAlignment == 1) return Text.AlignHCenter
         if(Plasmoid.configuration.thmbnlCaptionAlignment == 2) return Text.AlignRight
     }
-    property bool compositionEnabled
 
     property var display: model.display
     property var icon: model.decoration
@@ -30,6 +29,8 @@ MouseArea {
     property var minimized: model.IsMinimized
 
     implicitWidth: captionIcon.width + captionTitle.implicitWidth + 14 + Kirigami.Units.largeSpacing*8
+    onImplicitWidthChanged: ListView.view.updateMaxSize()
+
     implicitHeight: 33 + Kirigami.Units.smallSpacing*4
 
     width: {
@@ -42,41 +43,51 @@ MouseArea {
     hoverEnabled: true
     propagateComposedEvents: true
 
-    Timer {
-        id: animationTimer
-        interval: 205
-        running: root.visible
-        onTriggered: root.opacity = 1;
-    }
-
-    // TODO: add attention state
-    KSvg.FrameSvgItem {
-        id: activeTexture
-
-        anchors.fill: hoverTexture
-
-        imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
-        prefix: "active"
-
-        visible: active
-    }
-
-    KSvg.FrameSvgItem {
-        id: hoverTexture
+    Item {
+        id: frames
 
         anchors.fill: content
         anchors.margins: -Kirigami.Units.smallSpacing*2
 
-        imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
-        prefix: {
-            if (contentMa.containsPress) return "pressed";
-            else return "hover";
+        KSvg.FrameSvgItem {
+            id: attentionTexture
+
+            anchors.fill: parent
+
+            imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
+            prefix: "attention"
+
+            visible: demandsAttention
+            opacity: root.parentTask.attentionAnimOpacity
         }
 
-        opacity: contentMa.containsMouse || closeMa.containsMouse
+        KSvg.FrameSvgItem {
+            id: activeTexture
 
-        Behavior on opacity {
-            NumberAnimation { duration: compositionEnabled ? 250 : 0 }
+            anchors.fill: parent
+
+            imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
+            prefix: "active"
+
+            visible: active
+        }
+
+        KSvg.FrameSvgItem {
+            id: hoverTexture
+
+            anchors.fill: parent
+
+            imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
+            prefix: {
+                if(contentMa.containsPress) return "pressed";
+                else return "hover";
+            }
+
+            opacity: contentMa.containsMouse || closeMa.containsMouse || (!tasks.iconsOnly && root.taskHovered && !isGroupDelegate)
+
+            Behavior on opacity {
+                NumberAnimation { duration: 250 }
+            }
         }
     }
 
@@ -130,15 +141,37 @@ MouseArea {
 
         hoverEnabled: true
         propagateComposedEvents: true
-        enabled: root.opacity == 1
-
+        acceptedButtons: Qt.LeftButton | Qt.MiddleButton
         onContainsMouseChanged: {
-            if(!minimized) tasks.windowsHovered(thumbnailRoot.windows, containsMouse)
+            if(containsMouse) windowPeek.start();
+            else {
+                windowPeek.stop();
+                root.isPeeking = false;
+                tasks.windowsHovered(thumbnailRoot.windows, false)
+            }
         }
+        onClicked: (mouse) => {
+            if(mouse.button == Qt.LeftButton) {
+                tasksModel.requestActivate(modelIndex);
+                tasks.windowsHovered(thumbnailRoot.windows, false)
+                root.parentTask.hideImmediately();
+            }
+            if(mouse.button == Qt.MiddleButton) {
+                tasksModel.requestClose(modelIndex);
+            }
+        }
+    }
 
-        onClicked: {
-            tasksModel.requestActivate(modelIndex);
-            root.visible = false;
+    Timer {
+        id: windowPeek
+
+        interval: root.isPeeking ? 1 : 800
+        repeat: false
+        onTriggered: {
+            if(!minimized) {
+                tasks.windowsHovered(thumbnailRoot.windows, true);
+                root.isPeeking = true;
+            }
         }
     }
 
@@ -213,4 +246,6 @@ MouseArea {
             }
         }
     }
+
+    Component.onDestruction: ListView.view.updateMaxSize()
 }

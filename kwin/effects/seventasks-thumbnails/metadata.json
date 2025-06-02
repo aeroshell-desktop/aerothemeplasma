@@ -3,6 +3,9 @@
     "KPlugin": {
         "Authors": [
             {
+                "Name": "catpswin56"
+            },
+            {
                 "Email": "mart@kde.org",
                 "Name": "Marco Martin",
                 "Name[ar]": "ماركو مارتن",
@@ -49,9 +52,6 @@
                 "Name[x-test]": "xxMarco Martinxx",
                 "Name[zh_CN]": "Marco Martin",
                 "Name[zh_TW]": "Marco Martin"
-            },
-            {
-                "Name": "catpswin56"
             }
         ],
         "Category": "Appearance",
@@ -60,7 +60,7 @@
         "Icon": "preferences-system-windows-effect-morphingpopups",
         "Id": "seventasks-thumbnails",
         "License": "GPL",
-        "Name": "Animations for SevenTasks Thumbnails",
+        "Name": "Animations for SevenTasks Thumbnails"
     },
     "X-KDE-Ordering": 60,
     "X-Plasma-API": "javascript"

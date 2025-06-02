@@ -68,27 +68,6 @@ KCM.SimpleKCM {
                     id: showPreviews
                     text: i18n("Enabled")
                 }
-                RowLayout {
-                    Layout.fillWidth: true
-
-                    Kirigami.Icon {
-                        implicitWidth: 16
-                        implicitHeight: 16
-
-                        Layout.alignment: Qt.AlignTop
-
-                        source: "dialog-warning"
-                    }
-
-                    Text {
-                        Layout.fillWidth: true
-
-                        wrapMode: Text.WordWrap
-                        text: i18n("Preview might freeze in place sometimes under Wayland, along with the slide open animation not working")
-                    }
-
-                    visible: showPreviews.checked && KWindowSystem.isPlatformWayland
-                }
                 CheckBox {
                     id: highlightWindows
                     text: i18n("Use Window Peek to peek at a single application")

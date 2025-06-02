@@ -43,15 +43,14 @@ PlasmoidItem {
     }
 
     property var jumpListItem: null
-    property var toolTipItem: null
     property bool pinnedToolTipOpen: false
+    property bool toolTipOpen: false
     onJumpListItemChanged: {
         taskList.forceMouseEvent();
     }
 
     property QtObject jumpListComponent: Qt.createComponent("TasksMenu.qml");
     property QtObject contextMenuComponent: Qt.createComponent("ContextMenu.qml")
-    property QtObject toolTipComponent: Qt.createComponent("ToolTip.qml");
     property QtObject pulseAudioComponent: Qt.createComponent("PulseAudio.qml")
 
     property bool needLayoutRefresh: false;
@@ -171,6 +170,8 @@ PlasmoidItem {
             taskList.width -= 1;
         }
     }
+
+    property Item taskThumbnail: ToolTip {  }
 
     property TaskManager.TasksModel tasksModel: TaskManager.TasksModel {
         id: tasksModel
@@ -499,17 +500,6 @@ PlasmoidItem {
             backend,
         });
         return contextMenuComponent.createObject(rootTask, initialArgs);
-    }
-
-    function createToolTip(rootTask, modelIndex, args = {}) {
-        const initialArgs = Object.assign(args, {
-            modelIndex: modelIndex,
-            taskWidth: rootTask.width,
-            taskHeight: rootTask.height,
-            taskX: rootTask.x,
-            taskY: rootTask.y
-        });
-        return toolTipComponent.createObject(rootTask, initialArgs);
     }
 
     Component.onCompleted: {

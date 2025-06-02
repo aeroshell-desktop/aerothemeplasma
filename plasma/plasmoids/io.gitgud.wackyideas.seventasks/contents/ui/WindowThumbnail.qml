@@ -18,8 +18,6 @@ MouseArea {
 
     property QtObject root
 
-    readonly property alias bg: bg
-
     property bool isGroupDelegate: false
     readonly property var captionAlignment: {
         if(Plasmoid.configuration.thmbnlCaptionAlignment == 0) return Text.AlignLeft
@@ -33,6 +31,7 @@ MouseArea {
     readonly property var modelIndex: isGroupDelegate ? (tasksModel.makeModelIndex(root.taskIndex, index)) : root.modelIndex
     readonly property var windows: isGroupDelegate ? model.WinIdList : root.windows
     readonly property var minimized: isGroupDelegate ? model.IsMinimized : root.minimized
+    readonly property var demandsAttention: isGroupDelegate ? model.IsDemandingAttention : root.demandsAttention
 
     property real thumbnailHeight: 94
 
@@ -56,46 +55,51 @@ MouseArea {
     hoverEnabled: true
     propagateComposedEvents: true
 
-    KSvg.FrameSvgItem {
-        id: bg
-
-        anchors.fill: parent
-
-        imagePath: Qt.resolvedUrl("svgs/tooltip.svg")
-
-        z: -1
-        visible: !isGroupDelegate
-    }
-
-    // TODO: add attention state
-
-    KSvg.FrameSvgItem {
-        id: activeTexture
-
-        anchors.fill: hoverTexture
-
-        imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
-        prefix: "active"
-
-        visible: active
-    }
-
-    KSvg.FrameSvgItem {
-        id: hoverTexture
+    Item {
+        id: frames
 
         anchors.fill: content
         anchors.margins: -Kirigami.Units.smallSpacing*2
 
-        imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
-        prefix: {
-            if(contentMa.containsPress) return "pressed";
-            else return "hover";
+        KSvg.FrameSvgItem {
+            id: attentionTexture
+
+            anchors.fill: parent
+
+            imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
+            prefix: "attention"
+
+            visible: demandsAttention
+            opacity: root.parentTask.attentionAnimOpacity
         }
 
-        opacity: contentMa.containsMouse || closeMa.containsMouse || (!tasks.iconsOnly && root.taskHovered && !isGroupDelegate)
+        KSvg.FrameSvgItem {
+            id: activeTexture
 
-        Behavior on opacity {
-            NumberAnimation { duration: 250 }
+            anchors.fill: parent
+
+            imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
+            prefix: "active"
+
+            visible: active
+        }
+
+        KSvg.FrameSvgItem {
+            id: hoverTexture
+
+            anchors.fill: parent
+
+            imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
+            prefix: {
+                if(contentMa.containsPress) return "pressed";
+                else return "hover";
+            }
+
+            opacity: contentMa.containsMouse || closeMa.containsMouse || (!tasks.iconsOnly && root.taskHovered && !isGroupDelegate)
+
+            Behavior on opacity {
+                NumberAnimation { duration: 250 }
+            }
         }
     }
 
@@ -141,7 +145,7 @@ MouseArea {
 
         hoverEnabled: true
         propagateComposedEvents: true
-        enabled: root.opacity == 1
+        acceptedButtons: Qt.LeftButton | Qt.MiddleButton
         onContainsMouseChanged: {
             if(containsMouse) windowPeek.start();
             else {
@@ -150,10 +154,16 @@ MouseArea {
                 tasks.windowsHovered(thumbnailRoot.windows, false)
             }
         }
-        onClicked: {
-            tasksModel.requestActivate(modelIndex);
-            tasks.windowsHovered(thumbnailRoot.windows, false)
-            root.visible = false;
+        onClicked: (mouse) => {
+            if(mouse.button == Qt.LeftButton) {
+                tasksModel.requestActivate(modelIndex);
+                tasks.windowsHovered(thumbnailRoot.windows, false)
+                root.parentTask.hideImmediately();
+            }
+            if(mouse.button == Qt.MiddleButton) {
+                tasksModel.requestClose(modelIndex);
+                if(!isGroupDelegate) root.parentTask.hideImmediately();
+            }
         }
     }
 
@@ -168,20 +178,6 @@ MouseArea {
                 root.isPeeking = true;
             }
         }
-    }
-
-    Timer {
-        id: primaryCloseTimer
-        interval: 175
-        running: (!parent.containsMouse && !root.taskHovered) && !isGroupDelegate
-        onTriggered: root.destroy();
-    }
-
-    Timer {
-        id: secondaryCloseTimer
-        interval: 0
-        running: root.parentTask.contextMenu || root.parentTask.jumpList
-        onTriggered: root.destroy();
     }
 
     ColumnLayout {
@@ -285,8 +281,9 @@ MouseArea {
                     // It IS possible to make the thumbnail follow
                     // the Wayland thumbnail height but I suck
                     // at math too much to know how
+                    // -catpswin56
                     if(sourceComponent !== x11Thumbnail) thumbnailRoot.thumbnailHeight = thumbnailLoader.height;
-                    if(isGroupDelegate) ListView.view.updateMaxSize()
+                    if(isGroupDelegate && ListView.view !== null) ListView.view.updateMaxSize()
                 }
 
                 Component {
@@ -435,7 +432,7 @@ MouseArea {
 
                     onClicked: {
                         tasksModel.requestClose(modelIndex);
-                        if(!isGroupDelegate) root.destroy();
+                        if(!isGroupDelegate) root.parentTask.hideImmediately();
                     }
                 }
             }

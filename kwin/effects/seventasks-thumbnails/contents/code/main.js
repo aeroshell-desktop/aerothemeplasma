@@ -91,7 +91,7 @@ var morphingEffect = {
     },
 
     manage: function (window) {
-        if(window.dock && window.windowType === 2/* && window.windowClass === "plasmashell plasmashell"*/) {
+        if(window.caption === "seventasks-tooltip" || (window.splash && window.caption === "")) {
             window.windowFrameGeometryAboutToChange.connect(morphingEffect.handleFrameGeometryAboutToChange);
             window.windowFrameGeometryChanged.connect(morphingEffect.handleFrameGeometryChanged);
         }

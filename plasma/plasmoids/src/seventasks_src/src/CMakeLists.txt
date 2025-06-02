@@ -5,7 +5,6 @@ add_definitions(-DTRANSLATION_DOMAIN=\"plasma_applet_io.gitgud.wackyideas.sevent
 
 set(seventasks_SRCS
     seventasks.cpp
-    dialogshadows.cpp
 )
 
 add_library(io.gitgud.wackyideas.seventasks MODULE ${seventasks_SRCS})
@@ -24,7 +23,7 @@ target_link_libraries(io.gitgud.wackyideas.seventasks
 
 
 #target_link_libraries(plasma_applet_seventasks KF5::WindowSystem)
-include_directories(/usr/include/Plasma /usr/include/KF6/KConfigCore/ /usr/include/KF6/KConfig/ /usr/include/KF6/KCoreAddons/ /usr/include/PlasmaQuick/)
+include_directories(/usr/include/Plasma /usr/include/KF6/KConfigCore/ /usr/include/KF6/KConfig/ /usr/include/KF6/KCoreAddons/)
 
 install(TARGETS io.gitgud.wackyideas.seventasks DESTINATION ${KDE_INSTALL_PLUGINDIR}/plasma/applets)
 
