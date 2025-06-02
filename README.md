@@ -44,7 +44,7 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 ### Contributors
 - [Souris-2d07](https://gitgud.io/souris) for making the following: 
     - Cursor theme
-    - Plymouth theme 
+    - Plymouth theme (old)
     - SDDM theme
     - KWin decoration theme
     - Most KWin C++ effects
@@ -52,7 +52,7 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 - [That Linux Dude Dominic Hayes](https://github.com/dominichayesferen) for making the following: 
     - Lock screen UI 
     - Icon theme
-- [catpswin56](https://gitgud.io/catpswin56/) for help with the Sound Mixer plasmoid, Gadgets menu, Polkit UAC skin, as well as many more contributions
+- [catpswin56](https://gitgud.io/catpswin56/) for help with SevenTasks, Sound Mixer plasmoid, Gadgets menu, Polkit UAC skin, as well as many more contributions
 - [QuinceTart10](https://github.com/QuinceTart10) and [Gamer95875](https://github.com/Gamer95875) for making the sound themes
 - (In collaboration with) [kfh83](https://github.com/kfh83), [TorutheRedFox](https://github.com/TorutheRedFox) and [ALTaleX](https://github.com/ALTaleX531/dwm_colorization_calculator/blob/main/main.py) for figuring out accurate Aero glass blur and colorization effects
 - [AngelBruni](https://github.com/angelbruni) for contributing several SVG textures, most notably the clock in DigitalClockLite Seven
@@ -70,6 +70,7 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 - [VistaThemePlasma](https://gitgud.io/catpswin56/vistathemeplasma/) by catpswin56
 - [LonghornThemePlasma](https://gitgud.io/catpswin56/longhornthemeplasma) by catpswin56
 - [VB1ThemePlasma](https://gitgud.io/catpswin56/vista-beta-plasma) by catpswin56
+- [Harmony](https://gitgud.io/catpswin56/harmony) by catpswin56
 - [Gadgets](https://gitgud.io/catpswin56/win-gadgets) by catpswin56
 - [SMOD Themes](https://gitgud.io/catpswin56/smod-themes) by catpswin56, a collection of themes that can be used with the SMOD window decoration theme
 - [Ice2K.sys](https://toiletflusher.neocities.org/ice2k/) by 0penrc
@@ -161,6 +162,9 @@ Decoration themes:
 ![uac](screenshots/uac.png)
 ![uac-trusted](screenshots/uac-trusted.png)
 
-### Taskbar (Coming Soon™)
+### Taskbar
 
 ![taskbar](screenshots/jumplist.png)
+![taskbar_tooltips](screenshots/seventasks_media.png)
+![taskbar_inactive](screenshots/seventasks_inactive.png)
+![taskbar_compact](screenshots/seventasks_compact.png)
