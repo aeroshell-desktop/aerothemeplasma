@@ -30,6 +30,7 @@ fi
 cp DefaultToolTip.qml ./build/$SRCDIR/src/declarativeimports/core/private/DefaultToolTip.qml
 cp tooltiparea.h ./build/$SRCDIR/src/declarativeimports/core/tooltiparea.h
 cp tooltiparea.cpp ./build/$SRCDIR/src/declarativeimports/core/tooltiparea.cpp
+cp tooltipdialog.cpp ./build/$SRCDIR/src/declarativeimports/core/tooltipdialog.cpp
 cp plasmawindow.cpp ./build/$SRCDIR/src/plasmaquick/plasmawindow.cpp
 cd ./build/$SRCDIR/
 mkdir build
@@ -40,7 +41,7 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr ..
 cmake --build . --target corebindingsplugin # Implicitly compiles plasmaquick
 sudo cp ./bin/org/kde/plasma/core/libcorebindingsplugin.so $INSTALLDST
 
-for filename in "$PWD/bin/libPlasma".so*; do
+for filename in "$PWD/bin/libPlasma"*; do
 	echo "Copying $filename to $LIBDIR"
 	sudo cp "$filename" "$LIBDIR"
 done
