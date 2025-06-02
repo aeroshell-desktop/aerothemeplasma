@@ -1,2 +1,0 @@
-set(__QT_DEPLOY_TARGET_plasma_applet_seventasks_FILE /home/pswin56/Escritorio/seventasks_src/src/plasma_applet_seventasks.so)
-set(__QT_DEPLOY_TARGET_plasma_applet_seventasks_TYPE MODULE_LIBRARY)

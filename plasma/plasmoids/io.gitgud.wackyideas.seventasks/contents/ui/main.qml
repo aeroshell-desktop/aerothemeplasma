@@ -16,11 +16,12 @@ import org.kde.plasma.private.mpris as Mpris
 import org.kde.kirigami 2.20 as Kirigami
 import org.kde.kitemmodels as KItemModels
 
-import org.kde.plasma.workspace.trianglemousefilter 1.0
-
 import org.kde.taskmanager 0.1 as TaskManager
 import org.kde.plasma.private.taskmanager 0.1 as TaskManagerApplet
 import org.kde.plasma.workspace.dbus as DBus
+
+import org.kde.kquickcontrolsaddons
+import org.kde.kwindowsystem
 
 import "code/layoutmetrics.js" as LayoutMetrics
 import "code/tools.js" as TaskTools
@@ -41,9 +42,9 @@ PlasmoidItem {
         iconGeometryTimer.start();
     }
 
-    property var toolTipOpenedByClick: null
-    property var toolTipAreaItem: null
     property var jumpListItem: null
+    property bool pinnedToolTipOpen: false
+    property bool toolTipOpen: false
     onJumpListItemChanged: {
         taskList.forceMouseEvent();
     }
@@ -59,6 +60,12 @@ PlasmoidItem {
 
     property alias taskBackend: backend
     property alias mediaBackend: mpris2Source
+
+    property bool compositionEnabled: {
+        if(KWindowSystem.isPlatformX11) {
+            return KX11Extras.compositingActive;
+        } else return true; // Composition is always enabled in Wayland
+    }
 
     Item {
         id: animationManager
@@ -86,12 +93,6 @@ PlasmoidItem {
 
     Plasmoid.constraintHints: Plasmoid.CanFillArea
 
-    Plasmoid.onUserConfiguringChanged: {
-        if (Plasmoid.userConfiguring && !!tasks.groupDialog) {
-            tasks.groupDialog.visible = false;
-        }
-    }
-
     Layout.fillWidth: tasks.vertical ? true : Plasmoid.configuration.fill
     Layout.fillHeight: !tasks.vertical ? true : Plasmoid.configuration.fill
     Layout.minimumWidth: {
@@ -106,27 +107,6 @@ PlasmoidItem {
         }
         return !tasks.vertical ? 0 : LayoutMetrics.preferredMinHeight();
     }
-
-/*//BEGIN TODO: this is not precise enough: launchers are smaller than full tasks
-    Layout.preferredWidth: {
-        if (shouldShrinkToZero) {
-            return 0.01;
-        }
-        if (tasks.vertical) {
-            return Kirigami.Units.iconSizes.small * 10;
-        }
-        return taskList.Layout.maximumWidth
-    }
-    Layout.preferredHeight: {
-        if (shouldShrinkToZero) {
-            return 0.01;
-        }
-        if (tasks.vertical) {
-            return taskList.Layout.maximumHeight
-        }
-        return Kirigami.Units.iconSizes.small * 2;
-    }
-//END TODO*/
 
     function setRequestedInhibitDnd(value) {
         // This is modifying the value in the panel containment that
@@ -190,6 +170,8 @@ PlasmoidItem {
             taskList.width -= 1;
         }
     }
+
+    property Item taskThumbnail: ToolTip {  }
 
     property TaskManager.TasksModel tasksModel: TaskManager.TasksModel {
         id: tasksModel
@@ -271,10 +253,6 @@ PlasmoidItem {
             launcherList = Plasmoid.configuration.launchers;
             groupingAppIdBlacklist = Plasmoid.configuration.groupingAppIdBlacklist;
             groupingLauncherUrlBlacklist = Plasmoid.configuration.groupingLauncherUrlBlacklist;
-
-            // Only hook up view only after the above churn is done.
-            //taskRepeater.model = tasksModel;
-            //taskList.model = tasksModel;
         }
     }
 
@@ -428,85 +406,31 @@ PlasmoidItem {
                 if (!hoveredItem) {
                     return;
                 }
-
-                // Otherwise we'll just start a new instance of the application with the URLs as argument,
-                // as you probably don't expect some of your files to open in the app and others to spawn launchers.
-                tasksModel.requestOpenUrls(hoveredItem.modelIndex(), urls);
             }
         }
 
-        ToolTipDelegate {
-            id: openWindowToolTipDelegate
-            visible: false
-        }
-
-        ToolTipDelegate {
-            id: pinnedAppToolTipDelegate
-            visible: false
-        }
-
-        TriangleMouseFilter {
-            id: tmf
-            filterTimeOut: 300
-            active: tasks.toolTipAreaItem && tasks.toolTipAreaItem.toolTipOpen
-            blockFirstEnter: false
-
-            edge: {
-                switch (Plasmoid.location) {
-                    case PlasmaCore.Types.BottomEdge:
-                        return Qt.TopEdge;
-                    case PlasmaCore.Types.TopEdge:
-                        return Qt.BottomEdge;
-                    case PlasmaCore.Types.LeftEdge:
-                        return Qt.RightEdge;
-                    case PlasmaCore.Types.RightEdge:
-                        return Qt.LeftEdge;
-                    default:
-                        return Qt.TopEdge;
-                }
-            }
-
-            secondaryPoint: {
-                if (tasks.toolTipAreaItem === null) {
-                    return Qt.point(0, 0);
-                }
-                const x = tasks.toolTipAreaItem.x;
-                const y = tasks.toolTipAreaItem.y;
-                const height = tasks.toolTipAreaItem.height;
-                const width = tasks.toolTipAreaItem.width;
-                return Qt.point(x+width/2, height);
-            }
+        TaskList {
+            id: taskList
 
             anchors.fill: parent
+            anchors.leftMargin: 1
 
-            TaskList {
-                id: taskList
-
-                Rectangle {
-                    id: testRe
-                    color: "red"
-                    opacity: 0
-                    anchors.fill: parent
-                    z: -1
+            orientation: {
+                if(tasks.vertical) {
+                    return ListView.Vertical
                 }
-                anchors.fill: parent
-                orientation: {
-                    if(tasks.vertical) {
-                        return ListView.Vertical
-                    }
-                    return ListView.Horizontal
-                }
+                return ListView.Horizontal
+            }
 
-                // Is this really needed?
-                // It apparently is, this somehow resets MouseArea and makes stuff actually work
-                function forceMouseEvent() {
-                    for(var child in taskList.contentItem.children) {
-                        var t = taskList.contentItem.children[child];
-                        if(typeof t !== "undefined") {
-                            if(t.isLauncher) {
-                                t.visible = false;
-                                t.visible = true;
-                            }
+            // Is this really needed?
+            // It apparently is, this somehow resets MouseArea and makes stuff actually work
+            function forceMouseEvent() {
+                for(var child in taskList.contentItem.children) {
+                    var t = taskList.contentItem.children[child];
+                    if(typeof t !== "undefined") {
+                        if(t.isLauncher) {
+                            t.visible = false;
+                            t.visible = true;
                         }
                     }
                 }
@@ -515,35 +439,14 @@ PlasmoidItem {
                         tasks.publishIconGeometries(visibleChildren, tasks);
                     }
                 }
-                delegate: Task {
-                    tasksRoot: tasks
-                }
-                model: tasksModel
-                /*model: KItemModels.KSortFilterProxyModel {
-                    sourceModel: tasksModel
-
-                    filterRowCallback: function(source_row, source_parent) {
-                        const IsStartup = sourceModel.KItemModels.KRoleNames.role("IsStartup");
-                        const IsLauncher = sourceModel.KItemModels.KRoleNames.role("AppId");
-                        const launcher = sourceModel.data(sourceModel.index(source_row, 0, source_parent), IsLauncher);
-                        const startup = sourceModel.data(sourceModel.index(source_row, 0, source_parent), IsStartup);
-                        var inLauncherList = false;
-                        for(var i = 0; i < tasksModel.launcherList.length; i++) {
-                            if(sourceModel.launcherList[i].includes(launcher)) {
-                                inLauncherList = true;
-                                break;
-                            }
-                        }
-                        return !(startup && !inLauncherList); // Removes startups that do not belong to launchers
-                    }
-
-                }*/
             }
+
+            delegate: Task {
+                tasksRoot: tasks
+            }
+            model: tasksModel
         }
     }
-
-    readonly property Component groupDialogComponent: Qt.createComponent("GroupDialog.qml")
-    property GroupDialog groupDialog: null
 
     readonly property bool supportsLaunchers: true
 
@@ -571,7 +474,7 @@ PlasmoidItem {
 
         var task = taskList.itemAtIndex(index);
         if (task) {
-            TaskTools.activateTask(task.modelIndex(), task.model, null, task, Plasmoid, tasks, effectWatcher.registered);
+            task.leftTapHandler.leftClick();
         }
     }
 

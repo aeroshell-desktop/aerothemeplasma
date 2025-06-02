@@ -7,6 +7,7 @@
 import QtQuick 2.15
 
 import org.kde.plasma.private.volume 0.1
+import org.kde.plasma.private.mpris as Mpris
 
 QtObject {
     id: pulseAudio

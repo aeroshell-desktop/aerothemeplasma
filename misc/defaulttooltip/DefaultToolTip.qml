@@ -8,24 +8,14 @@ import QtQuick
 import QtQuick.Layouts
 import org.kde.plasma.components as PlasmaComponents
 import org.kde.kirigami as Kirigami
-import org.kde.kwindowsystem 1.0
 import org.kde.ksvg as KSvg
 
 Item {
     property Item toolTip
     property int preferredTextWidth: Kirigami.Units.gridUnit * 10
-    property bool compositing: KWindowSystem.isPlatformX11 ? KX11Extras.compositingActive : true
-    //KWindowSystem { id: kwindowsystem }
 
-    // Used for margins
-    KSvg.FrameSvgItem {
-        id: tooltipSvg
-        imagePath: compositing ? "widgets/tooltip" : "opaque/widgets/tooltip"
-        visible: false
-    }
-
-    implicitWidth: mainLayout.implicitWidth - tooltipSvg.margins.left
-    implicitHeight: mainLayout.implicitHeight - tooltipSvg.margins.left*2 + Kirigami.Units.smallSpacing
+    implicitWidth: mainLayout.implicitWidth
+    implicitHeight: mainLayout.implicitHeight
 
     LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
@@ -33,21 +23,6 @@ Item {
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: false
 
-    KSvg.FrameSvgItem {
-        id: tooltipBackground
-        imagePath: "solid/widgets/tooltip"
-        prefix: ""
-        anchors {
-            //fill: parent
-            top: parent.top
-            left: parent.left
-            leftMargin: -tooltipSvg.margins.left
-            topMargin: -tooltipSvg.margins.top
-        }
-
-        width: mainLayout.width + tooltipSvg.margins.left
-        height: mainLayout.height + Kirigami.Units.smallSpacing
-    }
     RowLayout {
         id: mainLayout
         anchors.centerIn: parent

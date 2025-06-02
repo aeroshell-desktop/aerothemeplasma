@@ -774,10 +774,6 @@ PlasmaExtras.Menu {
         icon: "window-close"
 
         onClicked: {
-            if (tasks.groupDialog !== null && tasks.groupDialog.visualParent === visualParent) {
-                tasks.groupDialog.visible = false;
-            }
-
             tasksModel.requestClose(modelIndex);
         }
     }

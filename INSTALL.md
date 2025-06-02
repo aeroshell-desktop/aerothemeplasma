@@ -107,6 +107,7 @@ This section relates to the directories found in the `kwin` folder.
   - Squash
   - SMOD Peek
   - Dim Screen for Administrator Mode
+  - Animations for SevenTasks Thumbnails
 - In Window Behavior -> Desktop Effects, **disable** the following:
   - Background Contrast
   - Blur
