@@ -34,6 +34,8 @@ cp plasmawindow.cpp ./build/$SRCDIR/src/plasmaquick/plasmawindow.cpp
 cd ./build/$SRCDIR/
 mkdir build
 cd build
+echo "Stopping plasmashell to prevent crashes. Will be restarted after the script has finished."
+killall plasmashell
 cmake -DCMAKE_INSTALL_PREFIX=/usr -G Ninja ..
 cmake --build . --target corebindingsplugin # Implicitly compiles plasmaquick
 sudo cp ./bin/org/kde/plasma/core/libcorebindingsplugin.so $INSTALLDST
@@ -42,5 +44,5 @@ for filename in "$PWD/bin/libPlasma"*; do
 	echo "Copying $filename to $LIBDIR"
 	sudo cp "$filename" "$LIBDIR"
 done
-#plasmashell --replace & disown
+setsid plasmashell --replace &
 echo "Done."
