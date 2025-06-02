@@ -269,6 +269,8 @@ PlasmaCore.Dialog {
         var playerData = mpris2Source.playerForLauncherUrl(launcherUrl, get(atm.AppPid));
 
         if (playerData && playerData.canControl && !(get(atm.WinIdList) !== undefined && get(atm.WinIdList).length > 1)) {
+            var sepHeader = tasksMenu.newSeparator(menuitems);
+            sepHeader.menuText = i18n("Media");
             var menuItem = tasksMenu.newMenuItem(menuitems);
             menuItem.text = i18nc("Play previous track", "Previous Track");
             menuItem.icon = "media-skip-backward";
