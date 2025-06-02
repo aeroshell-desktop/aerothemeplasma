@@ -26,6 +26,7 @@ PlasmaCore.ToolTipArea {
     property real attentionAnimOpacity: attentionFrame.opacity > 0 ? 1 : attentionGlow.opacity
     property Item taskThumbnail: tasksRoot.taskThumbnail
 
+    active: !jumpListOpen
     mainItem: showPreviews ? taskThumbnail : null
     mainText: showPreviews ? "" : model.display
     location: Plasmoid.location
@@ -152,6 +153,11 @@ PlasmaCore.ToolTipArea {
             Qt.callLater(() => { Plasmoid.setMouseGrab(true, jumpList); } );
         } else {
             task.wasActive = false;
+        }
+        if(jumpListOpen) {
+            task.hideImmediately();
+            tasksRoot.toolTipOpen = false;
+            tasksRoot.pinnedToolTipOpen = false;
         }
     }
     readonly property bool smartLauncherEnabled: !model.IsStartup
