@@ -1,6 +1,0 @@
-/home/anon/Desktop/plymouth-theme-smod/build/CMakeFiles/edit_cache.dir
-/home/anon/Desktop/plymouth-theme-smod/build/CMakeFiles/rebuild_cache.dir
-/home/anon/Desktop/plymouth-theme-smod/build/CMakeFiles/list_install_components.dir
-/home/anon/Desktop/plymouth-theme-smod/build/CMakeFiles/install.dir
-/home/anon/Desktop/plymouth-theme-smod/build/CMakeFiles/install/local.dir
-/home/anon/Desktop/plymouth-theme-smod/build/CMakeFiles/install/strip.dir
