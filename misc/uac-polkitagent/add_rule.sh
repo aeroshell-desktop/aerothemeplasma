@@ -26,7 +26,13 @@ kwriteconfig6 --file $CONFIG_DIR --group General --key rules $RULES,$UUID
 
 echo "Reloading KWin..."
 
-qdbus6 org.kde.KWin /KWin reconfigure
+QDBUS_COMMAND=qdbus6
+
+if ! command -v $QDBUS_COMMAND; then
+	QDBUS_COMMAND=qdbus
+fi
+
+$QDBUS_COMMAND org.kde.KWin /KWin reconfigure
 
 echo "Done."
 
