@@ -48,6 +48,7 @@ Item {
         onClicked: {
             tasksMenu.setCurrentItem(wrapperItem);
             tasksMenuItem.clicked();
+            tasksMenu.closeMenu();
         }
         onPositionChanged: {
             tasksMenu.setCurrentItem(wrapperItem);

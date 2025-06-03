@@ -45,9 +45,11 @@ Item {
         sequence: tasksWrapper.Kirigami.MnemonicData.sequence
         onActivated: {
             renderItem.clicked();
+            tasksMenu.closeMenu();
         }
         onActivatedAmbiguously: {
             renderItem.clicked();
+            tasksMenu.closeMenu();
         }
     }
 

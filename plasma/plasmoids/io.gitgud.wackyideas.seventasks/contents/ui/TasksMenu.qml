@@ -176,7 +176,7 @@ PlasmaCore.Dialog {
     }
 
     onActiveChanged: {
-        if(!active) tasksMenu.close();
+        if(!active) tasksMenu.closeMenu();
     }
     // Set to Floating so that the borders are visible all the time, even when it is right next to another object.
     location: PlasmaCore.Types.Floating;
@@ -654,6 +654,8 @@ PlasmaCore.Dialog {
             else if(event.key == Qt.Key_Enter || event.key == Qt.Key_Return) {
                 if(currentItem !== null) {
                     currentItem.clicked();
+                    tasksMenu.closeMenu();
+
                 }
             }
 
