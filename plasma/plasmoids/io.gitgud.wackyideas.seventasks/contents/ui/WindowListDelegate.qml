@@ -40,6 +40,10 @@ MouseArea {
             return implicitWidth;
     }
 
+    function closeTask() {
+        tasksModel.requestClose(modelIndex);
+        if(!isGroupDelegate) root.parentTask.hideImmediately();
+    }
     hoverEnabled: true
     propagateComposedEvents: true
 
@@ -157,7 +161,7 @@ MouseArea {
                 root.parentTask.hideImmediately();
             }
             if(mouse.button == Qt.MiddleButton) {
-                tasksModel.requestClose(modelIndex);
+                thumbnailRoot.closeTask();
             }
         }
     }
@@ -240,7 +244,7 @@ MouseArea {
                     propagateComposedEvents: true
 
                     onClicked: {
-                        tasksModel.requestClose(modelIndex);
+                        thumbnailRoot.closeTask();
                     }
                 }
             }

@@ -177,7 +177,7 @@ PlasmaCore.ToolTipArea {
     readonly property bool highlighted: dragArea.containsMouse
         || (task.contextMenu && task.contextMenu.status === PlasmaExtras.Menu.Open)
         || (task.jumpList)
-        || tasksRoot.toolTipOpen && taskThumbnail.taskIndex == model.index
+        || tasksRoot.toolTipOpen && taskThumbnail?.taskIndex == model.index
 
     readonly property bool animateLabel: (!model.IsStartup && !model.IsLauncher) && !tasksRoot.iconsOnly
     readonly property bool shouldHideOnRemoval: model.IsStartup || model.IsLauncher

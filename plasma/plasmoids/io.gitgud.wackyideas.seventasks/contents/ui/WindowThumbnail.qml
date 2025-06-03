@@ -95,7 +95,7 @@ MouseArea {
                 else return "hover";
             }
 
-            opacity: contentMa.containsMouse || closeMa.containsMouse || (!tasks.iconsOnly && root.taskHovered && !isGroupDelegate)
+            opacity: thumbnailCloseMa.containsMouse || contentMa.containsMouse || closeMa.containsMouse || (!tasks.iconsOnly && root.taskHovered && !isGroupDelegate)
 
             Behavior on opacity {
                 NumberAnimation { duration: 250 }
@@ -103,6 +103,10 @@ MouseArea {
         }
     }
 
+    function closeTask() {
+        tasksModel.requestClose(modelIndex);
+        if(!isGroupDelegate) root.parentTask.hideImmediately();
+    }
     DropArea {
         signal urlsDropped(var urls)
 
@@ -161,8 +165,7 @@ MouseArea {
                 root.parentTask.hideImmediately();
             }
             if(mouse.button == Qt.MiddleButton) {
-                tasksModel.requestClose(modelIndex);
-                if(!isGroupDelegate) root.parentTask.hideImmediately();
+                thumbnailRoot.closeTask();
             }
         }
     }
@@ -251,8 +254,7 @@ MouseArea {
                     propagateComposedEvents: true
 
                     onClicked: {
-                        tasksModel.requestClose(modelIndex);
-                        if(!isGroupDelegate) root.destroy();
+                        thumbnailRoot.closeTask();
                     }
                 }
             }
@@ -401,7 +403,7 @@ MouseArea {
                 }
             }
 
-            KSvg.FrameSvgItem {
+            KSvg.FrameSvgItem { // Shown when labels are turned on
                 id: thumbnailClose
 
                 anchors {
@@ -431,8 +433,7 @@ MouseArea {
                     propagateComposedEvents: true
 
                     onClicked: {
-                        tasksModel.requestClose(modelIndex);
-                        if(!isGroupDelegate) root.parentTask.hideImmediately();
+                        thumbnailRoot.closeTask();
                     }
                 }
             }
