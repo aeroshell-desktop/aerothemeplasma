@@ -4,7 +4,6 @@
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
-
 #include "QuickAuthDialog.h"
 #include "IdentitiesModel.h"
 
@@ -12,6 +11,7 @@
 
 #include <KLocalizedQmlContext>
 #include <KLocalizedString>
+#include <KNotification>
 #include <KRuntimePlatform>
 #include <KUser>
 
@@ -19,9 +19,6 @@
 #include <QQmlContext>
 #include <QQuickWindow>
 #include <QTimer>
-#include <KNotification>
-#include <QPixmap>
-
 
 QuickAuthDialog::QuickAuthDialog(const QString &actionId,
                                  const QString &message,
@@ -72,8 +69,6 @@ QuickAuthDialog::QuickAuthDialog(const QString &actionId,
     connect(m_theDialog, SIGNAL(accept()), this, SIGNAL(okClicked()));
     connect(m_theDialog, SIGNAL(reject()), this, SIGNAL(rejected()));
     connect(m_theDialog, SIGNAL(userSelected()), this, SIGNAL(userSelected()));
-
-
 }
 
 enum KirigamiInlineMessageTypes { Information = 0, Positive = 1, Warning = 2, Error = 3 };
@@ -113,9 +108,7 @@ void QuickAuthDialog::authenticationFailure()
 void QuickAuthDialog::show()
 {
     KNotification *notification = new KNotification("authenticate");
-    notification->setComponentName("policykit1-kde");
-    //notification->setWindow(m_theDialog);
-    //notification->setFlags(KNotification::CloseOnTimeout | KNotification::CloseWhenWindowActivated);
+    notification->setText(i18n("Authentication Required"));
     notification->sendEvent();
     QTimer::singleShot(0, m_theDialog, SLOT(show()));
 }

@@ -31,8 +31,6 @@ cmake --build .
 
 echo "Installing..."
 systemctl --user stop plasma-polkit-agent
-kwriteconfig6 --file ~/.config/plasmanotifyrc --group Services --group policykit1-kde --key ShowPopups --notify --type bool false # Disable notification popup
-kwriteconfig6 --file ~/.config/plasmanotifyrc --group Services --group policykit1-kde --key ShowInHistory --notify --type bool false # Disable notification in history
 sudo cp ./bin/polkit-kde-authentication-agent-1 $INSTALLDST
 echo "Restarting systemd service..."
 systemctl --user start plasma-polkit-agent
