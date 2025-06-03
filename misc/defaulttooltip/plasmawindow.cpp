@@ -219,6 +219,9 @@ void PlasmaWindow::setBackgroundHints(BackgroundHints hints)
         prefix = QStringLiteral("solid/");
     }
     d->dialogBackground->setImagePath(prefix + d->svgPrefix);
+    d->shadows->removeWindow(this);
+    d->shadows = DialogShadows::instance(prefix + d->svgPrefix);
+    d->shadows->addWindow(this, d->dialogBackground->enabledBorders());
 
     Q_EMIT backgroundHintsChanged();
 }
