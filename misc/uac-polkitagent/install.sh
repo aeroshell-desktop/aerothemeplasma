@@ -10,6 +10,10 @@ SRCDIR="polkit-kde-agent-1-master"
 INSTALLDST="/usr/lib/x86_64-linux-gnu/polkit-kde-authentication-agent-1"
 
 if [ ! -f ${INSTALLDST} ]; then
+	INSTALLDST="/usr/libexec/kf6/polkit-kde-authentication-agent-1"
+fi
+
+if [ ! -f ${INSTALLDST} ]; then
 	INSTALLDST="/usr/lib64/polkit-kde-authentication-agent-1"
 fi
 
@@ -34,4 +38,11 @@ sudo cp ./bin/polkit-kde-authentication-agent-1 $INSTALLDST
 echo "Restarting systemd service..."
 systemctl --user start plasma-polkit-agent
 echo "Done, refreshing plasmashell..."
-qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.refreshCurrentShell
+
+QDBUS_COMMAND=qdbus6
+
+if ! command -v $QDBUS_COMMAND; then
+	QDBUS_COMMAND=qdbus
+fi
+
+$QDBUS_COMMAND org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.refreshCurrentShell
