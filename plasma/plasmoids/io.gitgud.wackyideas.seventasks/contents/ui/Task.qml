@@ -177,7 +177,7 @@ PlasmaCore.ToolTipArea {
     readonly property bool highlighted: dragArea.containsMouse
         || (task.contextMenu && task.contextMenu.status === PlasmaExtras.Menu.Open)
         || (task.jumpList)
-        || tasksRoot.toolTipOpen && taskThumbnail?.taskIndex == model.index
+        //|| tasksRoot.toolTipOpen && taskThumbnail?.taskIndex == model.index
 
     readonly property bool animateLabel: (!model.IsStartup && !model.IsLauncher) && !tasksRoot.iconsOnly
     readonly property bool shouldHideOnRemoval: model.IsStartup || model.IsLauncher
@@ -1288,7 +1288,7 @@ TaskManagerApplet.SmartLauncherItem { }
                 rightMargin: (task.childCount !== 0) ? groupIndicator.margins.right : 0
             }
             imagePath: Qt.resolvedUrl("svgs/tasks.svg")
-            property bool isHovered: (task.highlighted && Plasmoid.configuration.taskHoverEffect)
+            property bool isHovered: ((task.highlighted) && Plasmoid.configuration.taskHoverEffect)
             property bool isActive: model.IsActive || dragArea.containsPress || dragArea.held || task.wasActive
             property string basePrefix: {
                 if(model.IsLauncher) return "";
