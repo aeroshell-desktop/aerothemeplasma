@@ -19,159 +19,52 @@ import org.kde.plasma.private.mpris as Mpris
 RowLayout {
     readonly property bool isPlaying: root.playerData.playbackStatus === Mpris.PlaybackStatus.Playing
 
-    spacing: -1
+    spacing: 0
 
     Item {
         Layout.fillWidth: true
     }
 
-    KSvg.FrameSvgItem {
+    MediaButton {
         id: previousBtn
-
-        property string state: backMa.containsMouse ? (backMa.containsPress ? "-pressed" : "-hover") : ""
-
-        Layout.preferredWidth: 26
-        Layout.preferredHeight: 24
-
-        imagePath: Qt.resolvedUrl("svgs/toolbuttons.svg")
-        prefix: "left" + state
-
-        KSvg.SvgItem {
-            anchors.centerIn: parent
-
-            width: 13
-            height: 11
-
-            imagePath: Qt.resolvedUrl("svgs/media-icons.svg")
-            elementId: root.playerData.canGoPrevious ? "previous" : "previous-disabled"
-
-            opacity: root.playerData.canGoPrevious ? 1.0 : 0.5
-        }
-
-        MouseArea {
-            id: backMa
-
-            anchors.fill: parent
-
-            hoverEnabled: true
-            propagateComposedEvents: true
-
-            onClicked: root.playerData.Previous();
-
-            visible: root.playerData.canGoPrevious
-        }
+        orientation: "left"
+        mediaIcon: "previous"
+        onClicked: root.playerData.Previous();
+        enableButton: root.playerData.canGoPrevious
+        iconWidth: 13
+        iconHeight: 11
     }
-    KSvg.FrameSvgItem {
+    MediaButton {
         id: playbackBtn
-
-        property string state: playbackMa.containsMouse ? (playbackMa.containsPress ? "-pressed" : "-hover") : ""
-
-        Layout.preferredWidth: 27
-        Layout.preferredHeight: 24
-
-        imagePath: Qt.resolvedUrl("svgs/toolbuttons.svg")
-        prefix: "center" + state
-
-        KSvg.SvgItem {
-            anchors.centerIn: parent
-
-            width: isPlaying ? 10 : 12
-            height: isPlaying ? 11 : 13
-
-            imagePath: Qt.resolvedUrl("svgs/media-icons.svg")
-            elementId: isPlaying ? (root.playerData.canPause ? "pause" : "pause-disabled") : (root.playerData.canPlay ? "play" : "play-disabled")
-
-            opacity: root.playerData.canPause || root.playerData.canPlay ? 1.0 : 0.5
+        orientation: "center"
+        mediaIcon: isPlaying ? "pause" : "play"
+        onClicked: {
+            if(isPlaying) root.playerData.Pause();
+            else root.playerData.Play();
         }
-
-        MouseArea {
-            id: playbackMa
-
-            anchors.fill: parent
-
-            hoverEnabled: true
-            propagateComposedEvents: true
-
-            visible: root.playerData.canPause || root.playerData.canPlay
-
-            onClicked: {
-                if(isPlaying) root.playerData.Pause();
-                else root.playerData.Play();
-            }
-        }
+        enableButton: root.playerData.canPause || root.playerData.canPlay
+        iconWidth: isPlaying ? 10 : 12
+        iconHeight: isPlaying ? 11 : 13
     }
-    KSvg.FrameSvgItem {
+    MediaButton {
         id: skipBtn
-
-        property string state: skipMa.containsMouse ? (skipMa.containsPress ? "-pressed" : "-hover") : ""
-
-        Layout.preferredWidth: 25
-        Layout.preferredHeight: 24
-
-        imagePath: Qt.resolvedUrl("svgs/toolbuttons.svg")
-        prefix: Plasmoid.configuration.showMuteBtn ? ("center" + state) : ("right" + state)
-
-        KSvg.SvgItem {
-            anchors.centerIn: parent
-
-            width: 13
-            height: 11
-
-            imagePath: Qt.resolvedUrl("svgs/media-icons.svg")
-            elementId: root.playerData.canGoNext ? "skip" : "skip-disabled"
-
-            opacity: root.playerData.canGoNext ? 1.0 : 0.5
-        }
-
-        MouseArea {
-            id: skipMa
-
-            anchors.fill: parent
-
-            hoverEnabled: true
-            propagateComposedEvents: true
-
-            onClicked: root.playerData.Next();
-
-            visible: root.playerData.canGoNext
-        }
+        orientation: Plasmoid.configuration.showMuteBtn ? "center" : "right"
+        mediaIcon: "skip"
+        onClicked: root.playerData.Next();
+        enableButton: root.playerData.canGoNext
+        iconWidth: 13
+        iconHeight: 11
     }
-
-    KSvg.FrameSvgItem {
+    MediaButton {
         id: muteBtn
-
-        property string state: muteMa.containsMouse ? (muteMa.containsPress ? "-pressed" : "-hover") : ""
-
-        Layout.preferredWidth: 26
-        Layout.preferredHeight: 24
-
-        imagePath: Qt.resolvedUrl("svgs/toolbuttons.svg")
-        prefix: "right" + state
-
-        KSvg.SvgItem {
-            anchors.centerIn: parent
-
-            width: root.parentTask.muted ? 16 : 17
-            height: 14
-
-            imagePath: Qt.resolvedUrl("svgs/media-icons.svg")
-            elementId: root.parentTask.muted ? "unmute" : "mute"
-        }
-
-        MouseArea {
-            id: muteMa
-
-            anchors.fill: parent
-
-            hoverEnabled: true
-            propagateComposedEvents: true
-
-            onClicked: root.parentTask.toggleMuted();
-        }
-
+        orientation: "right"
+        mediaIcon: root.parentTask.muted ? "unmute" : "mute"
+        onClicked: root.parentTask.toggleMuted();
+        enableButton: visible
         visible: Plasmoid.configuration.showMuteBtn
+        iconWidth: root.parentTask.muted ? 16 : 17
+        iconHeight: 14
     }
-
     Item {
         Layout.fillWidth: true
     }
