@@ -156,6 +156,8 @@ PlasmaCore.Dialog {
     onVisibleChanged: {
         if(visible) {
             var globalPos = parent.mapToGlobal(tasks.x, tasks.y);
+            var screen = tasks.screenGeometry;
+
             tasksMenu.y = globalPos.y - tasksMenu.height;
             //var diff = parent.mapToGlobal(tasksMenu.x, tasksMenu.y).x - tasksMenu.x;
 
@@ -164,9 +166,13 @@ PlasmaCore.Dialog {
             tasksMenu.x = parentPos.x + taskWidth / 2;
             xpos = parentPos.x +  taskWidth / 2 - Kirigami.Units.largeSpacing + 1;
             xpos -= menuWidth / 2;
-            if(xpos <= 0) {
-               xpos = Kirigami.Units.largeSpacing;
-               tasksMenu.x = Kirigami.Units.largeSpacing;
+            if(xpos <= screen.x) {
+               xpos = screen.x + Kirigami.Units.largeSpacing;
+               tasksMenu.x = screen.x + Kirigami.Units.largeSpacing;
+            }
+            if((xpos+tasksMenu.menuWidth) > (screen.x+screen.width)) {
+                xpos = screen.x + screen.width - tasksMenu.menuWidth - Kirigami.Units.largeSpacing*3;
+                tasksMenu.x = screen.x + screen.width - tasksMenu.menuWidth - Kirigami.Units.largeSpacing*3;
             }
             tasksMenu.x = xpos;
         }
