@@ -51,10 +51,7 @@ PlasmoidItem {
         return -1;
     }
     function pinTask(desktopItem) {
-        const pinnedTasks = Plasmoid.configuration.launchers;
-        pinnedTasks.push(desktopItem);
-        Plasmoid.configuration.launchers = pinnedTasks;
-        Plasmoid.configuration.writeConfig();
+        tasksModel.requestAddLauncher(desktopItem);
     }
     function unpinTask(desktopItem) {
         var pinnedTasks = Plasmoid.configuration.launchers;
@@ -62,8 +59,7 @@ PlasmoidItem {
         if(pinnedTaskIndex == -1) {
             return false;
         }
-        pinnedTasks.splice(pinnedTaskIndex, 1);
-        Plasmoid.configuration.writeConfig();
+        tasksModel.requestRemoveLauncher(desktopItem);
         return true;
 
     }
