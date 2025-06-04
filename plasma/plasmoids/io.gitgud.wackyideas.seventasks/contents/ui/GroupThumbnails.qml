@@ -72,16 +72,18 @@ MouseArea {
             property int listHeight: contentHeight == 0 ? 142 : contentHeight
 
             function updateMaxSize() {
-                var thumbnailItem = itemAtIndex(i);
+                var thumbnailItem = itemAtIndex(0);
                 if(thumbnailItem !== null) {
                     if(isList) {
                         for(var i = 0; i < thumbnailList.count; i++) {
+                            thumbnailItem = itemAtIndex(i);
                             if(thumbnailItem.implicitWidth >= thumbnailList.maxThumbnailWidth)
                                 thumbnailList.maxThumbnailItem = thumbnailItem;
                         }
                     }
                     else {
                         for(var i = 0; i < thumbnailList.count; i++) {
+                            thumbnailItem = itemAtIndex(i);
                             if(thumbnailItem.implicitHeight >= thumbnailList.maxThumbnailHeight)
                                 thumbnailList.maxThumbnailItem = thumbnailItem;
                         }
@@ -90,7 +92,7 @@ MouseArea {
             }
 
             interactive: false
-            spacing: -Kirigami.Units.smallSpacing*4
+            spacing: -Kirigami.Units.smallSpacing*4 + 2
             orientation: !isList ? ListView.Horizontal : ListView.Vertical
             model: !isList ? thumbnailModel : listModel
             clip: true
