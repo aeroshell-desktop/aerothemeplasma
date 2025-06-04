@@ -71,6 +71,31 @@ Item {
 
     onAboutToShowActionMenu: (actionMenu) => {
         var actionList = hasActionList ? model.actionList : [];
+        if(kicker.isValidUrl(model.url)) { // If we have a launchable application, try allowing the user to pin it
+            // Find seventasks instance, if available
+            const entry = kicker.convertUrl(model.url);
+            var panel = kicker.parent;
+            while(panel !== null && typeof panel.sevenTasksReference === "undefined") { // Find seventasks loader reference from the panel
+                panel = panel.parent;
+            }
+            if(panel.sevenTasksReference) { // If found, add the pin/unpin menu item
+                const unpin = (panel.sevenTasksReference.applet.findTask(entry) !== -1);
+                var pinAction = {   // Add custom action
+                    icon: "pin",
+                    actionId: "pinToTasks",
+                    text: unpin ? i18n("Unpin from taskbar") : i18n("Pin to taskbar"),
+                    action: () => {
+                        if(unpin) {
+                            panel.sevenTasksReference.applet.unpinTask(entry);
+                        } else {
+                            panel.sevenTasksReference.applet.pinTask(entry);
+                        }
+                    }};
+                    actionList.push(pinAction);
+                    actionList = [...actionList, pinAction]; // Use spread operator and pass that to the fillActionMenu function
+            }
+        }
+
         Tools.fillActionMenu(i18n, actionMenu, actionList, listItem.childModel.favoritesModel, model.favoriteId);
     }
 

@@ -56,7 +56,7 @@ Item {
 
     property bool dropEnabled: false
     property bool appView: false
-    property bool modelChildren: model ? (typeof model.hasChildren !== "undefined" ? model.hasChildren : false) : false
+    property bool modelChildren: model ? (typeof model?.hasChildren !== "undefined" ? model?.hasChildren : false) : false
     property bool isCurrent: listItem.listView.currentIndex === index;
     property bool showAppsByName: Plasmoid.configuration.showAppsByName
 
@@ -68,8 +68,32 @@ Item {
     property var childModel
     property var listView: listItem.ListView.view
 
-    onAboutToShowActionMenu: (actionMenu) => {
+    onAboutToShowActionMenu: (actionMenu) => { // Loads context menu items here
         var actionList = hasActionList ? model.actionList : [];
+        if(kicker.isValidUrl(model.url)) { // If we have a launchable application, try allowing the user to pin it
+            // Find seventasks instance, if available
+            const entry = kicker.convertUrl(model.url);
+            var panel = kicker.parent;
+            while(panel !== null && typeof panel.sevenTasksReference === "undefined") { // Find seventasks loader reference from the panel
+                panel = panel.parent;
+            }
+            if(panel.sevenTasksReference) { // If found, add the pin/unpin menu item
+                const unpin = (panel.sevenTasksReference.applet.findTask(entry) !== -1);
+                var pinAction = {   // Add custom action
+                                    icon: "pin",
+                                    actionId: "pinToTasks",
+                                    text: unpin ? i18n("Unpin from taskbar") : i18n("Pin to taskbar"),
+                                    action: () => {
+                                        if(unpin) {
+                                            panel.sevenTasksReference.applet.unpinTask(entry);
+                                        } else {
+                                            panel.sevenTasksReference.applet.pinTask(entry);
+                                        }
+                                }};
+                actionList.push(pinAction);
+                actionList = [...actionList, pinAction]; // Use spread operator and pass that to the fillActionMenu function
+            }
+        }
         Tools.fillActionMenu(i18n, actionMenu, actionList, listItem.listView.model.favoritesModel, model.favoriteId);
     }
 
@@ -84,7 +108,7 @@ Item {
     function activate() {
         var view = listView;
 
-        if (model.hasChildren) {
+        if (model?.hasChildren) {
             childModel = view.model.modelForRow(index);
             listItem.expanded = !listItem.expanded;
         } else {
@@ -124,7 +148,7 @@ Item {
 
         animated: false
 
-        source: (listItem.appView && Plasmoid.configuration.useGenericIcons && model.hasChildren) ? "folder" : (model ? model.decoration : "")
+        source: (listItem.appView && Plasmoid.configuration.useGenericIcons && model?.hasChildren) ? "folder" : (model ? model.decoration : "")
     }
 
     PlasmaComponents.Label {

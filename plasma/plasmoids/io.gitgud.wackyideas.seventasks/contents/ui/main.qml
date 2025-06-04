@@ -42,6 +42,32 @@ PlasmoidItem {
         iconGeometryTimer.start();
     }
 
+    function findTask(desktopItem) {
+        const pinnedTasks = Plasmoid.configuration.launchers;
+        for(var i = 0; i < pinnedTasks.length; i++) {
+            if(pinnedTasks[i] == desktopItem)
+                return i;
+        }
+        return -1;
+    }
+    function pinTask(desktopItem) {
+        const pinnedTasks = Plasmoid.configuration.launchers;
+        pinnedTasks.push(desktopItem);
+        Plasmoid.configuration.launchers = pinnedTasks;
+        Plasmoid.configuration.writeConfig();
+    }
+    function unpinTask(desktopItem) {
+        var pinnedTasks = Plasmoid.configuration.launchers;
+        const pinnedTaskIndex = findTask(desktopItem);
+        if(pinnedTaskIndex == -1) {
+            return false;
+        }
+        pinnedTasks.splice(pinnedTaskIndex, 1);
+        Plasmoid.configuration.writeConfig();
+        return true;
+
+    }
+
     property var jumpListItem: null
     property bool pinnedToolTipOpen: false
     property bool toolTipOpen: false

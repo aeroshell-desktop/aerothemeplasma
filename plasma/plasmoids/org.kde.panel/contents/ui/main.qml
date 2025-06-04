@@ -29,6 +29,7 @@ ContainmentItem {
 
     property Item isShowDesktopApplet: gradientRect.updateProps, getShowDesktopApplet()
 
+    property alias sevenTasksReference: gradientRect.applet
     function getShowDesktopApplet() {
         if(currentLayout.visibleChildren.length === 0) return null;
         var item = currentLayout.visibleChildren[currentLayout.visibleChildren.length-2];

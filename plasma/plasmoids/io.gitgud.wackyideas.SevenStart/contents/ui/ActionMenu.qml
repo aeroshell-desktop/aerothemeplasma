@@ -100,7 +100,11 @@ Item {
             text: actionItem.text ? actionItem.text : ""
 
             onClicked: {
-                root.actionClicked(actionItem.actionId, actionItem.actionArgument);
+                if(typeof actionItem.action !== "undefined") {
+                    actionItem.action();
+                } else {
+                    root.actionClicked(actionItem.actionId, actionItem.actionArgument);
+                }
             }
         }
     }

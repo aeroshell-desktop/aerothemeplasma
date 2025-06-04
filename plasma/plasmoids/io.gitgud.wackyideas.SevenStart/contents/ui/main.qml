@@ -18,6 +18,7 @@
  ***************************************************************************/
 pragma ComponentBehavior: Bound
 import QtQuick 2.0
+import QtCore
 import QtQuick.Layouts 1.1
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core as PlasmaCore
@@ -229,6 +230,18 @@ PlasmoidItem {
         text: (toolTip != null) ? toolTip.text : ""
     }
 
+    function isValidUrl(url) {
+        if(url) {
+            if(url.toString().startsWith("file:///usr/share/applications") ||
+               url.toString().startsWith("file:///usr/local/share/applications") ||
+               url.toString().startsWith(StandardPaths.writableLocation(StandardPaths.ApplicationsLocation)))
+                return true;
+        }
+        return false;
+    }
+    function convertUrl(url) {
+        return "applications:" + url.toString().split("/").pop();
+    }
     function resetDragSource() {
         dragSource = null;
     }
