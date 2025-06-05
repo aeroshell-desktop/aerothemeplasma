@@ -277,7 +277,7 @@ MouseArea {
 
                 active: true
                 asynchronous: true
-                sourceComponent: minimized ? appIcon : (KWindowSystem.isPlatformWayland ? waylandThumbnail : x11Thumbnail)
+                sourceComponent: minimized ? appIcon : (KWindowSystem.isPlatformWayland ? (tasks.toolTipOpen ? waylandThumbnail : undefined) : x11Thumbnail)
 
                 onLoaded: {
                     // It IS possible to make the thumbnail follow

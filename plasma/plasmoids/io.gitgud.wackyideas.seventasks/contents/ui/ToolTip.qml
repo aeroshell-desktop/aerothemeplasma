@@ -23,7 +23,6 @@ Item {
             loaderItem.active = true;
         }
     }
-
     property string display: "undefined"
     property var icon: "undefined"
     property bool active: false
