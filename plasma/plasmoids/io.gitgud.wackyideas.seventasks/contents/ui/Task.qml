@@ -956,8 +956,13 @@ TaskManagerApplet.SmartLauncherItem { }
             anchors.fill: parent
             anchors.margins: 2
             visible: !model.IsLauncher && !Plasmoid.configuration.disableHottracking
-            opacity: ((frame.isHovered && !dragArea.held && !(attentionFadeIn.running || attentionFadeOut.running)) ? 1 : 0) * canShow
+            property bool shouldShow: ((frame.isHovered && !dragArea.held && !(attentionFadeIn.running || attentionFadeOut.running)) ? 1 : 0) * canShow
+            opacity: shouldShow ? 1 : 0
             property real canShow: containerRect.state === "startup" ? 0 : 1 // Used for the startup animation
+
+            onShouldShowChanged: {
+                opacity = Qt.binding(() => {return glow.shouldShow; });
+            }
             Behavior on opacity {
                 NumberAnimation { id: glowAnimation; duration: 250; easing.type: Easing.Linear }
             }
@@ -995,7 +1000,12 @@ TaskManagerApplet.SmartLauncherItem { }
             anchors.fill: borderGradient
             source: borderGradient
             visible: !model.IsLauncher && !Plasmoid.configuration.disableHottracking
-            opacity: (frame.isHovered && !dragArea.held && !(attentionFadeIn.running || attentionFadeOut.running)) ? 1 : 0
+            property bool shouldShow: (frame.isHovered && !dragArea.held && !(attentionFadeIn.running || attentionFadeOut.running)) ? 1 : 0
+            opacity: shouldShow ? 1 : 0
+
+            onShouldShowChanged: {
+                opacity = Qt.binding(() => {return borderGradientRender.shouldShow; });
+            }
             Behavior on opacity {
                 NumberAnimation { duration: 250; easing.type: Easing.Linear }
             }
