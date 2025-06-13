@@ -19,6 +19,7 @@ import org.kde.kitemmodels as KItemModels
 import org.kde.taskmanager 0.1 as TaskManager
 import org.kde.plasma.private.taskmanager 0.1 as TaskManagerApplet
 import org.kde.plasma.workspace.dbus as DBus
+import org.kde.plasma.plasma5support as Plasma5Support
 
 import org.kde.kquickcontrolsaddons
 import org.kde.kwindowsystem
@@ -37,6 +38,39 @@ PlasmoidItem {
     readonly property bool shouldShrinkToZero: tasksModel.count === 0
     property bool vertical: Plasmoid.formFactor === PlasmaCore.Types.Vertical
     property bool iconsOnly: !Plasmoid.configuration.showLabels //Plasmoid.pluginName === "org.kde.plasma.icontasks"
+
+    // Used to run separate programs through this plasmoid.
+    Plasma5Support.DataSource {
+        id: menu_executable
+        engine: "executable"
+        connectedSources: []
+        onNewData: (sourceName, data) => {
+            var exitCode = data["exit code"]
+            var exitStatus = data["exit status"]
+            var stdout = data["stdout"]
+            var stderr = data["stderr"]
+            exited(sourceName, exitCode, exitStatus, stdout, stderr)
+            disconnectSource(sourceName)
+        }
+        function exec(cmd) {
+            if (cmd) {
+                connectSource(cmd)
+            }
+        }
+        signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
+    }
+
+    Plasmoid.contextualActions: [
+        PlasmaCore.Action {
+            text: i18n("Task Manager")
+            icon.name: "ksysguardd"
+            onTriggered: {
+                menu_executable.exec("kstart ksysguard");
+
+            }
+        }
+    ]
+
 
     onIconsOnlyChanged: {
         iconGeometryTimer.start();
