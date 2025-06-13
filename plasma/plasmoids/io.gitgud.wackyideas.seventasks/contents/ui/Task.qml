@@ -265,6 +265,7 @@ PlasmaCore.ToolTipArea {
     onHighlightedChanged: {
         // ensure it doesn't get stuck with a window highlighted
         backend.cancelHighlightWindows();
+
     }
 
     onPidChanged: updateAudioStreams({delay: false})
@@ -1409,10 +1410,14 @@ TaskManagerApplet.SmartLauncherItem { }
         id: backAnim
         NumberAnimation { id: backAnimX; target: containerRect; property: "x"; easing.type: Easing.OutQuad }
         NumberAnimation { id: backAnimY; target: containerRect; property: "y"; easing.type: Easing.OutQuad }
-        onRunningChanged: {
-            if(!running) {
-                dragArea.held = false;
-            }
+    }
+    Timer {
+        id: resetDrag
+        interval: 250
+        onTriggered: {
+            dragArea.held = false;
+            dragArea.dragThreshold = Qt.point(-1,-1);
+            //containerRect.parent = task;
         }
     }
 
@@ -1482,10 +1487,9 @@ TaskManagerApplet.SmartLauncherItem { }
             }
         }
         onEntered: {
-            if(!held) Plasmoid.sendMouseEvent(dragArea);
+            //if(!held) Plasmoid.sendMouseEvent(dragArea);
         }
         onPositionChanged: {
-            //task.containsMouseFalsePositive = false;
             if(dragArea.containsPress && (dragThreshold.x !== -1 && dragThreshold.y !== -1)) {
                 if(Math.abs(dragThreshold.x - mouseX) > 10 || Math.abs(dragThreshold.y - mouseY) > 10) {
                     held = true;
@@ -1500,6 +1504,7 @@ TaskManagerApplet.SmartLauncherItem { }
             backAnimY.from = currentDrag.y// - taskList.contentY;
             backAnimY.to = beginDrag.y - taskList.contentY;
             backAnim.start();
+            resetDrag.start();
             dragThreshold = Qt.point(-1,-1);
         }
         onReleased: event => {
