@@ -11,6 +11,9 @@ import org.kde.kitemmodels as KItemModels
 import org.kde.plasma.core as PlasmaCore
 
 import org.kde.plasma.private.volume
+import org.kde.kwindowsystem
+import org.kde.kwin.private.kdecoration as KDecoration
+
 
 Window {
     id: mixer
@@ -20,6 +23,22 @@ Window {
     width: 473
     height: 311
 
+    KDecoration.Bridge {
+        id: bridgeItem
+        plugin: KWindowSystem.isPlatformWayland ? Plasmoid.getDecorationPluginName() : "";
+        theme:  KWindowSystem.isPlatformWayland ? Plasmoid.getDecorationThemeName() : "";
+    }
+    KDecoration.Settings {
+        id: settingsItem
+        bridge: bridgeItem.bridge
+    }
+    KDecoration.Decoration {
+        id: decorationMetrics
+        bridge: bridgeItem.bridge
+        settings: settingsItem
+        anchors.fill: parent
+        visible: false
+    }
     onVisibleChanged: {
         if(visible) {
 
@@ -38,7 +57,13 @@ Window {
                 x = pos.x - mixer.width;
                 y = pos.y - mixer.height / 2;
             }
-
+            if(KWindowSystem.isPlatformWayland) {
+                var wl_width = mixer.width + decorationMetrics.decoration.borderLeft + decorationMetrics.decoration.borderRight
+                var wl_height = mixer.height + decorationMetrics.decoration.borderTop + decorationMetrics.decoration.borderBottom
+                var wl_x = Math.max(availScreen.x, Math.min(x, availScreen.width-wl_width));
+                var wl_y = Math.max(availScreen.y, Math.min(y, availScreen.height-wl_height));
+                Plasmoid.setPopupPosition(mixer, wl_x, wl_y);
+            }
         }
     }
 
