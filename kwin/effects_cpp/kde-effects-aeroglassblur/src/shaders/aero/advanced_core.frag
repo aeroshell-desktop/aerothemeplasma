@@ -34,7 +34,7 @@ void main(void)
     color *= colorMatrix;
     vec3 primaryColor   = color.rgb;
     vec3 secondaryColor = color.rgb;
-    vec3 primaryLayer   = primaryColor * pow(aeroColorBalance, 1.1);
+    vec3 primaryLayer   = primaryColor * aeroColorBalance; //pow(aeroColorBalance, 1.1);
     vec3 secondaryLayer = (secondaryColor * dot(sum.xyz, vec3(0.299, 0.587, 0.114))) * aeroAfterglowBalance;
     vec3 blurLayer      = sum.xyz * aeroBlurBalance;
 
