@@ -21,6 +21,7 @@
 #include <QCursor>
 #include <QKeySequence>
 #include <QVariantList>
+#include <kwindowsystem.h>
 #include <kx11extras.h>
 #include <kwindoweffects.h>
 
@@ -81,6 +82,12 @@ public:
      */
     Q_INVOKABLE void setMouseGrab(bool arg, QWindow* w)
     {
+        if(KWindowSystem::isPlatformWayland())
+        {
+            auto flags = w->flags();
+            flags &= ~Qt::Dialog;
+            w->setFlags(flags | Qt::Popup);
+        }
         if(arg)
         {
             w->installEventFilter(this);
@@ -90,6 +97,13 @@ public:
             w->removeEventFilter(this);
         }
         w->setMouseGrabEnabled(arg);
+        if(KWindowSystem::isPlatformWayland()) // Hack to prevent weird positioning errors, we essentially trick QtWayland into thinking this is a popup window
+        {
+            auto flags = w->flags();
+            flags |= Qt::Dialog;
+            w->setFlags(flags);
+        }
+
     }
     Q_INVOKABLE QPointF getPosition(QQuickItem* w)
     {

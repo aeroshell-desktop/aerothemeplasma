@@ -16,6 +16,7 @@ import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.plasma.private.mpris as Mpris
+import org.kde.kwindowsystem
 
 import org.kde.taskmanager as TaskManager
 
@@ -158,8 +159,7 @@ PlasmaCore.Dialog {
             var globalPos = parent.mapToGlobal(tasks.x, tasks.y);
             var screen = tasks.screenGeometry;
 
-            tasksMenu.y = globalPos.y - tasksMenu.height;
-            //var diff = parent.mapToGlobal(tasksMenu.x, tasksMenu.y).x - tasksMenu.x;
+            tasksMenu.y = globalPos.y - Math.max(80, tasksMenu.height); // Wayland bugs out with small jumplists for some reason
 
             var parentPos = parent.mapToGlobal(taskX, taskY);
             xpos = parentPos.x + taskWidth / 2;
@@ -190,7 +190,7 @@ PlasmaCore.Dialog {
     function show() {
         loadDynamicLauncherActions(get(atm.LauncherUrlWithoutIcon));
         visible = true;
-        tasksMenu.y -= slide;
+        if(KWindowSystem.isPlatformX11) tasksMenu.y -= slide;
         opacity = 1;
         Qt.callLater(() => {Plasmoid.setMouseGrab(true, tasksMenu); tasksMenu.x = xpos;});
         if(xpos !== tasksMenu.x) tasksMenu.x = xpos;
@@ -199,7 +199,7 @@ PlasmaCore.Dialog {
     // Closes the menu gracefully, by first showing a fade out animation before freeing the object from memory.
     function closeMenu() {
         Plasmoid.disableBlurBehind(tasksMenu);
-        tasksMenu.y += slide;
+        if(KWindowSystem.isPlatformX11) tasksMenu.y += slide;
         opacity = 0;
         closeTimer.start();
     }
