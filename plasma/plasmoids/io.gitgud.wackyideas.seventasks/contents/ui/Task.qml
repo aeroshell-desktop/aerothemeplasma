@@ -1423,6 +1423,7 @@ TaskManagerApplet.SmartLauncherItem { }
         enabled: ((tasksRoot.jumpListItem === jumpList) || (tasksRoot.jumpListItem === null))
         propagateComposedEvents: true
         anchors.fill: parent
+        anchors.margins: -1
 
         onCanceled: {
             if(held) {
