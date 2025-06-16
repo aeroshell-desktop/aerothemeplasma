@@ -31,11 +31,10 @@ void main(void)
 
     sum /= 12.0;
 
-    vec4 color = vec4(aeroColorR, aeroColorG, aeroColorB, aeroColorA);
+    // This is the colorization part
     vec4 baseColor = vec4(sum.x, sum.y, sum.z, 1.0 - aeroColorBalance);
-    baseColor = vec4(sum.x, sum.y, sum.z, 1.0 - aeroColorBalance);
-    color = vec4(aeroColorR, aeroColorG, aeroColorB, aeroColorBalance);
-    color *= colorMatrix;
+    vec4 color = vec4(aeroColorR, aeroColorG, aeroColorB, aeroColorBalance); // glass accent color
+    color *= colorMatrix; // The colorMatrix is irrelevant here
     fragColor = vec4(color.r * color.a + baseColor.r * baseColor.a,
                      color.g * color.a + baseColor.g * baseColor.a,
                      color.b * color.a + baseColor.b * baseColor.a, 1.0);

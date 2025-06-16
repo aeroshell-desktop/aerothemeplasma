@@ -29,10 +29,8 @@ void main(void)
 
     sum /= 12.0;
 
-    vec4 color = vec4(aeroColorR, aeroColorG, aeroColorB, aeroColorA);
     vec4 baseColor = vec4(sum.x, sum.y, sum.z, 1.0 - aeroColorBalance);
-    baseColor = vec4(sum.x, sum.y, sum.z, 1.0 - aeroColorBalance);
-    color = vec4(aeroColorR, aeroColorG, aeroColorB, aeroColorBalance);
+    vec4 color = vec4(aeroColorR, aeroColorG, aeroColorB, aeroColorBalance);
     color *= colorMatrix;
     gl_FragColor = vec4(color.r * color.a + baseColor.r * baseColor.a,
                      color.g * color.a + baseColor.g * baseColor.a,

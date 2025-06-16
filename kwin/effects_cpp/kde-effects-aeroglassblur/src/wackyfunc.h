@@ -1,6 +1,6 @@
 #pragma once
 
-void getMaximizedColorization(int alpha, float red, float green, float blue, float &r, float &g, float &b)
+void getMaximizedColorization(int alpha, float red, float green, float blue, float &r, float &g, float &b) // r, g, b are the return values
 {
 	if(alpha <= 26 || alpha > 217)
 	{
@@ -9,12 +9,12 @@ void getMaximizedColorization(int alpha, float red, float green, float blue, flo
 		b = 0;
 		return;
 	}
-
+	// Not used because the return values are in the range [0, 1] because of GLSL
 	/*auto roundNum = [&](double a) -> int {
 		double rem = a - (int)a;
 		return (int)a + (rem >= 0.95f ? 1 : 0);
 	};*/
-	double p = (0.746032 * (double)alpha + 0.111104) / 255.0;
+	double p = (0.746032 * (double)alpha + 0.111104) / 255.0; // Divided by 255 to normalize the value into the [0, 1] range
 	r = p*red;
 	g = p*green;
 	b = p*blue;
