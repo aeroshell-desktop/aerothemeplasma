@@ -153,28 +153,35 @@ PlasmaCore.Dialog {
             tasksMenu.x = xpos;
         }
     }
+    onHeightChanged: {
+        if(KWindowSystem.isPlatformWayland) setPopupPosition();
+    }
+    function setPopupPosition() {
+        var globalPos = parent.mapToGlobal(tasks.x, tasks.y);
+        var screen = tasks.screenGeometry;
+
+        tasksMenu.y = globalPos.y - tasksMenu.height - ((menuitems.isEmpty() && KWindowSystem.isPlatformWayland) ? Kirigami.Units.smallSpacing*3 : 0); // Wayland bugs out with small jumplists for some reason
+
+        var parentPos = parent.mapToGlobal(taskX, taskY);
+        xpos = parentPos.x + taskWidth / 2;
+        tasksMenu.x = parentPos.x + taskWidth / 2;
+        xpos = parentPos.x +  taskWidth / 2 - Kirigami.Units.largeSpacing + 1;
+        xpos -= menuWidth / 2;
+        if(xpos <= screen.x) {
+            xpos = screen.x + Kirigami.Units.largeSpacing;
+            tasksMenu.x = screen.x + Kirigami.Units.largeSpacing;
+        }
+        if((xpos+tasksMenu.menuWidth) > (screen.x+screen.width)) {
+            xpos = screen.x + screen.width - tasksMenu.menuWidth - Kirigami.Units.largeSpacing*3;
+            tasksMenu.x = screen.x + screen.width - tasksMenu.menuWidth - Kirigami.Units.largeSpacing*3;
+        }
+        tasksMenu.x = xpos;
+
+    }
     // If the context menu is no longer visible (most often when it loses focus), close the menu.
     onVisibleChanged: {
         if(visible) {
-            var globalPos = parent.mapToGlobal(tasks.x, tasks.y);
-            var screen = tasks.screenGeometry;
-
-            tasksMenu.y = globalPos.y - Math.max(80, tasksMenu.height); // Wayland bugs out with small jumplists for some reason
-
-            var parentPos = parent.mapToGlobal(taskX, taskY);
-            xpos = parentPos.x + taskWidth / 2;
-            tasksMenu.x = parentPos.x + taskWidth / 2;
-            xpos = parentPos.x +  taskWidth / 2 - Kirigami.Units.largeSpacing + 1;
-            xpos -= menuWidth / 2;
-            if(xpos <= screen.x) {
-               xpos = screen.x + Kirigami.Units.largeSpacing;
-               tasksMenu.x = screen.x + Kirigami.Units.largeSpacing;
-            }
-            if((xpos+tasksMenu.menuWidth) > (screen.x+screen.width)) {
-                xpos = screen.x + screen.width - tasksMenu.menuWidth - Kirigami.Units.largeSpacing*3;
-                tasksMenu.x = screen.x + screen.width - tasksMenu.menuWidth - Kirigami.Units.largeSpacing*3;
-            }
-            tasksMenu.x = xpos;
+            setPopupPosition();
         }
         else if(!visible) {
             tasksMenu.closeMenu();
