@@ -1,22 +1,21 @@
 # AEROTHEMEPLASMA FOR KDE 6
 
-## WARNING: This version is very early WIP and is not fully finished. Proceed with caution.
-
 ## Microsoft® Windows™ is a registered trademark of Microsoft® Corporation. This name is used for referential use only, and does not aim to usurp copyrights from Microsoft. Microsoft Ⓒ 2025 All rights reserved. All resources belong to Microsoft Corporation.
 
 ## Introduction
 
 This is a project which aims to recreate the look and feel of Windows 7 as much as possible on KDE Plasma, whilst adapting the design to fit in with modern features provided by KDE Plasma and Linux.
-It is still in heavy development and testing. ATP has been tested on:
 
-1. Arch Linux x64 and other Arch derivatives
-2. Plasma 6.3.4, KDE Frameworks 6.12.0, Qt 6.9.0
-3. 96 DPI scaling, multi monitor
-4. X11, Wayland*
+ATP is in constant development and testing, it has been tested on:
+
+- Arch Linux x64 and other Arch derivatives
+- Plasma 6.3.4, KDE Frameworks 6.12.0, Qt 6.9.0
+- 96 DPI scaling, multi monitor
+- X11, Wayland*
 
 *AeroThemePlasma currently lacks full Wayland support, which may result in Wayland-specific issues. 
 
-## This release is meant for early adopters, debuggers and developers alike. This port lacks certain components which still need to be ported over to KDE Plasma 6. I am not responsible for broken systems, please proceed with caution.
+## This project overwrites a small number of [system](https://gitgud.io/wackyideas/aerothemeplasma/-/tree/master/misc/defaulttooltip) [files](https://gitgud.io/wackyideas/aerothemeplasma/-/tree/master/misc/uac-polkitagent), it's always recommended to make backups of your system just in case. I am not responsible for broken systems, please proceed with caution.
 
 The Plasma 5 version of ATP is available as a tag in this repository, however it is unmaintained and no longer supported.
 
