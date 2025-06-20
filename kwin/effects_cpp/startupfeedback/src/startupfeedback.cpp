@@ -26,14 +26,14 @@
 #include <KSharedConfig>
 #include <KWindowSystem>
 // KWin
-#include <kwin/core/output.h>
-#include <kwin/core/pixelgrid.h>
-#include <kwin/core/rendertarget.h>
-#include <kwin/core/renderviewport.h>
-#include <kwin/cursor.h>
-#include <kwin/cursorsource.h>
-#include <kwin/effect/effecthandler.h>
-#include <kwin/opengl/glutils.h>
+#include "core/output.h"
+#include "core/pixelgrid.h"
+#include "core/rendertarget.h"
+#include "core/renderviewport.h"
+#include "cursor.h"
+#include "cursorsource.h"
+#include "effect/effecthandler.h"
+#include "opengl/glutils.h"
 
 // based on StartupId in KRunner by Lubos Lunak
 // SPDX-FileCopyrightText: 2001 Lubos Lunak <l.lunak@kde.org>

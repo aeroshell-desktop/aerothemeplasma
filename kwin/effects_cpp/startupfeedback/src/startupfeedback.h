@@ -8,15 +8,15 @@
 */
 
 #pragma once
-#include <kwin/effect/effect.h>
 #include <KConfigWatcher>
-#include <kwin/cursor.h>
-#include <kwin/cursorsource.h>
-#include <kwin/scene/cursoritem.h>
-#include <kwin/scene/imageitem.h>
-#include <kwin/scene/scene.h>
-#include <kwin/scene/itemrenderer.h>
-#include <kwin/scene/workspacescene.h>
+#include "effect/effect.h"
+#include "cursor.h"
+#include "cursorsource.h"
+#include "scene/cursoritem.h"
+#include "scene/imageitem.h"
+#include "scene/scene.h"
+#include "scene/itemrenderer.h"
+#include "scene/workspacescene.h"
 
 #if KWIN_BUILD_X11
 #include <KStartupInfo>
