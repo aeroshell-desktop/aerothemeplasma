@@ -7,14 +7,14 @@
 #include <QPropertyAnimation>
 
 #ifdef BUILD_KF6
-#include <kwin/window.h>
-#include <kwin/effect/effecthandler.h>
-#include <kwin/effect/effectwindow.h>
-#include <kwin/opengl/glshadermanager.h>
-#include <kwin/opengl/glshader.h>
-#include <kwin/opengl/gltexture.h>
-#include <kwin/core/renderviewport.h>
-#include <kwin/core/pixelgrid.h>
+#include "window.h"
+#include "effect/effecthandler.h"
+#include "effect/effectwindow.h"
+#include "opengl/glshadermanager.h"
+#include "opengl/glshader.h"
+#include "opengl/gltexture.h"
+#include "core/renderviewport.h"
+#include "core/pixelgrid.h"
 #else
 #include <kwineffects.h>
 #include <kwinglutils.h>

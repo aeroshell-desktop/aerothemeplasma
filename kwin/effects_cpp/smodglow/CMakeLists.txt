@@ -4,6 +4,8 @@ project(effect_smodglow)
 
 option(BUILD_KF6 "Build for KDE Plasma 6" OFF)
 
+option(KWIN_BUILD_WAYLAND "Build with Wayland support" OFF)
+
 if (BUILD_KF6)
 set(QT_MAJOR_VERSION "6")
 set(TARGET_NAME "smodglow")
@@ -54,7 +56,13 @@ find_package(KWinEffects REQUIRED
 find_package(XCB REQUIRED XCB)
 find_package(epoxy REQUIRED)
 else ()
-find_package(KWin REQUIRED kwineffects)
+
+if(KWIN_BUILD_WAYLAND)
+    find_package(KWin REQUIRED kwineffects)
+else()
+    find_package(KWinX11 REQUIRED kwineffects)
+endif()
+
 endif ()
 
 find_package(KDecoration3 REQUIRED)
@@ -109,15 +117,27 @@ target_link_libraries(${TARGET_NAME}
         KWinEffects::kwinglutils
 )
 else ()
-target_link_libraries(${TARGET_NAME}
-    PRIVATE
-        KWin::kwin
-)
+
+if(KWIN_BUILD_WAYLAND)
+    target_link_libraries(${TARGET_NAME} PRIVATE KWin::kwin)
+else()
+    target_link_libraries(${TARGET_NAME} PRIVATE KWinX11::kwin)
+endif()
+
 endif ()
 
+if(KWIN_BUILD_WAYLAND)
 install(
     TARGETS
         ${TARGET_NAME}
     DESTINATION
         ${KDE_INSTALL_PLUGINDIR}/kwin/effects/plugins
 )
+else()
+install(
+    TARGETS
+        ${TARGET_NAME}
+    DESTINATION
+        ${KDE_INSTALL_PLUGINDIR}/kwin-x11/effects/plugins
+)
+endif()
