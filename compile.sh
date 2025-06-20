@@ -38,7 +38,7 @@ echo "Compiling KWin effects..."
 for filename in "$PWD/kwin/effects_cpp/"*; do
     cd "$filename"
     echo "Compiling $(pwd)"
-    sh $USE_SCRIPT
+    sh $USE_SCRIPT $1
     echo "Done."
     cd "$CUR_DIR"
 done

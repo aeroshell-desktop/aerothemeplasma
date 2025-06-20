@@ -2,6 +2,14 @@
 rm -rf build
 mkdir build
 cd build
-cmake ../ -DCMAKE_INSTALL_PREFIX=/usr -G Ninja
+if [ "$1" == "--wayland" ]
+then
+    echo "Building Wayland effect..."
+    cmake ../ -DCMAKE_INSTALL_PREFIX=/usr -G Ninja -DKWIN_BUILD_WAYLAND=ON
+else
+    echo "Building X11 effect..."
+    cmake ../ -DCMAKE_INSTALL_PREFIX=/usr -G Ninja
+fi
+
 ninja
 sudo ninja install

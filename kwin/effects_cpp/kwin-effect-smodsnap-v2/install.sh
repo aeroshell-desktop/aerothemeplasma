@@ -1,5 +1,16 @@
 #!/bin/bash
-rm -rf build-kf6
-cmake -B build-kf6 -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DBUILD_KF6=ON .
-make -C build-kf6
-sudo make -C build-kf6 install
+rm -rf build
+mkdir build
+cd build
+
+if [ "$1" == "--wayland" ]
+then
+    echo "Building Wayland effect..."
+    cmake ../ -DCMAKE_INSTALL_PREFIX=/usr -DKWIN_BUILD_WAYLAND=ON
+else
+    echo "Building X11 effect..."
+    cmake ../ -DCMAKE_INSTALL_PREFIX=/usr
+fi
+
+make
+sudo make install

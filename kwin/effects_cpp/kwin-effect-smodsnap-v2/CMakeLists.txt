@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16.0)
 
 project(effect_smodsnap)
 
-option(BUILD_KF6 "Build for KDE Plasma 6" OFF)
+option(BUILD_KF6 "Build for KDE Plasma 6" ON)
 option(KWIN_BUILD_WAYLAND "Build with Wayland support" OFF)
 
 if (BUILD_KF6)

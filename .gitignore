@@ -6,10 +6,10 @@ plasma/plasmoids/src/volume_src/build
 plasma/plasmoids/src/sevenstart_src/build
 plasma/plasmoids/src/seventasks_src/build
 plasma/plasmoids/src/desktopcontainment/build
-kwin/effects_cpp/kwin-effect-smodsnap-v2/build-kf6
 kwin/effects_cpp/kde-effects-aeroglassblur/build
-kwin/effects_cpp/smodglow/build-kf6
-kwin/effects_cpp/aeroglide/build-kf6
-kwin/effects_cpp/startupfeedback/build-kf6
-kwin/effects_cpp/minimize3d/build-kf6
+kwin/effects_cpp/kwin-effect-smodsnap-v2/build
+kwin/effects_cpp/smodglow/build
+kwin/effects_cpp/aeroglide/build
+kwin/effects_cpp/startupfeedback/build
+kwin/effects_cpp/minimize3d/build
 experimental/
