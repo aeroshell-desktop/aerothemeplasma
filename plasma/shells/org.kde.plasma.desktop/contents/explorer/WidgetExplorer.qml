@@ -338,6 +338,10 @@ PC3.Page {
             //categoryButton.text = (model.filterData ? model.display : i18nd("plasma_shell_org.kde.plasma.desktop", "All Widgets"))
             widgetExplorer.widgetsModel.filterQuery = model.filterData
             widgetExplorer.widgetsModel.filterType = model.filterType
+            pageSwitcher.pageIndex = 0;
+            list.positionViewAtBeginning()
+            list.currentIndex = list.count ? 0 : -1
+
         }
     }
 
