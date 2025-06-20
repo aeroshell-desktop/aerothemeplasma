@@ -812,7 +812,7 @@ void BlurEffect::ensureReflectTexture()
 	QImage textureImage(m_texturePath);
 	if(effects->waylandDisplay())
 	{
-		textureImage.mirror(true, false);
+		textureImage.flip(Qt::Horizontal);
 	}
 
 	m_reflectPass.reflectTexture = GLTexture::upload(textureImage);
@@ -1132,6 +1132,11 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         float g = m_aeroColorG;
         float b = m_aeroColorB;
 
+        if(w->isOnScreenDisplay())
+        {
+            bb *= 0.66;
+        }
+
         AeroPasses selectedPass = AeroPasses::AERO;
 
         // A window is maximized, use opaque colorization
@@ -1303,7 +1308,7 @@ bool BlurEffect::treatAsActive(const EffectWindow *w)
 {
 	QString windowClass = w->windowClass().split(' ')[1];
     if (m_basicColorization && (w->isDock() || w->caption() == "sevenstart-menurepresentation")) return false;
-	return (w->isFullScreen() || windowClass == "plasmashell" || windowClass == "kwin" || w == effects->activeWindow());
+	return (w->isOnScreenDisplay() || w->isFullScreen() || windowClass == "plasmashell" || windowClass == "kwin" || w == effects->activeWindow());
 }
 
 bool BlurEffect::isActive() const

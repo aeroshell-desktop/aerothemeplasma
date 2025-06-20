@@ -20,6 +20,8 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DQT_NO_DEBUG_OUTPUT")
 find_package(ECM REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
+option(KWIN_BUILD_WAYLAND "Build with Wayland support" OFF)
+
 include(FeatureSummary)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
@@ -64,9 +66,15 @@ find_package(epoxy REQUIRED)
 find_package(X11 REQUIRED)
 find_package(XCB REQUIRED COMPONENTS XCB)
 
-find_package(KWin REQUIRED COMPONENTS
-    kwineffects
-)
+if (KWIN_BUILD_WAYLAND)
+    find_package(KWin REQUIRED COMPONENTS
+        kwineffects
+    )
+else()
+    find_package(KWinX11 REQUIRED COMPONENTS
+        kwineffects
+    )
+endif()
 
 find_package(KDecoration3 REQUIRED)
 

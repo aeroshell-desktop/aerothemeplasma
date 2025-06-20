@@ -25,4 +25,8 @@ target_link_libraries(kwin_aeroglassblur_config
     KF6::WindowSystem
 )
 
-install(TARGETS kwin_aeroglassblur_config DESTINATION ${KDE_INSTALL_PLUGINDIR}/kwin/effects/configs)
+if (KWIN_BUILD_WAYLAND)
+    install(TARGETS kwin_aeroglassblur_config DESTINATION ${KDE_INSTALL_PLUGINDIR}/kwin/effects/configs)
+else()
+    install(TARGETS kwin_aeroglassblur_config DESTINATION ${KDE_INSTALL_PLUGINDIR}/kwin-x11/effects/configs)
+endif()
