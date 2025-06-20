@@ -6,7 +6,7 @@
 
 import QtQuick
 
-import org.kde.taskmanager 0.1 as TaskManager
+import org.kde.taskmanager as TaskManager
 import org.kde.plasma.plasmoid 2.0
 
 import "code/tools.js" as TaskTools

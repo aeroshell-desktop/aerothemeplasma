@@ -12,7 +12,7 @@ import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 
-import org.kde.taskmanager 0.1 as TaskManager
+import org.kde.taskmanager as TaskManager
 import org.kde.plasma.private.mpris as Mpris
 
 import "code/layoutmetrics.js" as LayoutMetrics

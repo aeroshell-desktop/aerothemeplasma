@@ -6,7 +6,7 @@
 
 import QtQuick 2.15
 import org.kde.pipewire 0.1 as PipeWire
-import org.kde.taskmanager 0.1 as TaskManager
+import org.kde.taskmanager as TaskManager
 
 PipeWire.PipeWireSourceItem {
     id: pipeWireSourceItem
