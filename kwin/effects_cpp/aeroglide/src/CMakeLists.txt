@@ -14,11 +14,19 @@ add_library(aeroglide MODULE ${aeroglide_SOURCES})
 
 #kwin_add_builtin_effect(glide ${glide_SOURCES})
 target_link_libraries(aeroglide PRIVATE
-    kwin
-
     KF6::CoreAddons
     KF6::ConfigGui
 )
+if (KWIN_BUILD_WAYLAND)
+    target_link_libraries(aeroglide PRIVATE
+        KWin::kwin
+    )
+else()
+    target_link_libraries(aeroglide PRIVATE
+        KWinX11::kwin
+    )
+endif()
+
 
 #######################################
 # Config
@@ -39,5 +47,10 @@ target_link_libraries(kwin_aeroglide_config
     #KWinEffectsInterface
 )
 
-install(TARGETS aeroglide DESTINATION ${KDE_INSTALL_PLUGINDIR}/kwin/effects/plugins)
-install(TARGETS kwin_aeroglide_config DESTINATION ${KDE_INSTALL_PLUGINDIR}/kwin/effects/configs)
+if (KWIN_BUILD_WAYLAND)
+    install(TARGETS aeroglide DESTINATION ${KDE_INSTALL_PLUGINDIR}/kwin/effects/plugins)
+    install(TARGETS kwin_aeroglide_config DESTINATION ${KDE_INSTALL_PLUGINDIR}/kwin/effects/configs)
+else()
+    install(TARGETS aeroglide DESTINATION ${KDE_INSTALL_PLUGINDIR}/kwin-x11/effects/plugins)
+    install(TARGETS kwin_aeroglide_config DESTINATION ${KDE_INSTALL_PLUGINDIR}/kwin-x11/effects/configs)
+endif()

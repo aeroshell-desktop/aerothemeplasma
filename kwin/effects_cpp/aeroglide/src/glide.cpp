@@ -16,10 +16,10 @@
 // KConfigSkeleton
 #include "glideconfig.h"
 
-#include <kwin/core/rendertarget.h>
-#include <kwin/core/renderviewport.h>
-#include <kwin/effect/effecthandler.h>
-#include <kwin/scene/windowitem.h>
+#include "core/rendertarget.h"
+#include "core/renderviewport.h"
+#include "effect/effecthandler.h"
+#include "scene/windowitem.h"
 
 // Qt
 #include <QMatrix4x4>

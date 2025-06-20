@@ -13,10 +13,10 @@
 #pragma once
 
 // kwineffects
-#include <kwin/effect/effectwindow.h>
-#include <kwin/effect/offscreeneffect.h>
-#include <kwin/effect/timeline.h>
-#include <kwin/scene/item.h>
+#include "effect/effectwindow.h"
+#include "effect/offscreeneffect.h"
+#include "effect/timeline.h"
+#include "scene/item.h"
 
 #include <unordered_map>
 
