@@ -12,7 +12,7 @@ import org.kde.ksvg 1.0 as KSvg
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.kirigami 2.20 as Kirigami
-import org.kde.plasma.private.taskmanager 0.1 as TaskManagerApplet
+import org.kde.plasma.private.taskmanager as TaskManagerApplet
 import org.kde.plasma.plasmoid 2.0
 import Qt5Compat.GraphicalEffects
 
@@ -264,8 +264,7 @@ PlasmaCore.ToolTipArea {
 
     onHighlightedChanged: {
         // ensure it doesn't get stuck with a window highlighted
-        backend.cancelHighlightWindows();
-
+        tasksRoot.cancelHighlightWindows();
     }
 
     onPidChanged: updateAudioStreams({delay: false})
@@ -645,7 +644,7 @@ TaskManagerApplet.SmartLauncherItem { }
                           }
                       }
 
-                      backend.cancelHighlightWindows();
+                      tasksRoot.cancelHighlightWindows();
                   }
     }
     Rectangle {

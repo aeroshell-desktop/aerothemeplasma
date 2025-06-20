@@ -16,8 +16,8 @@ import org.kde.plasma.private.mpris as Mpris
 import org.kde.kirigami 2.20 as Kirigami
 import org.kde.kitemmodels as KItemModels
 
-import org.kde.taskmanager 0.1 as TaskManager
-import org.kde.plasma.private.taskmanager 0.1 as TaskManagerApplet
+import org.kde.taskmanager as TaskManager
+import org.kde.plasma.private.taskmanager as TaskManagerApplet
 import org.kde.plasma.workspace.dbus as DBus
 import org.kde.plasma.plasma5support as Plasma5Support
 
@@ -180,8 +180,25 @@ PlasmoidItem {
     property Item dragItem: null
 
     signal requestLayout
-    signal windowsHovered(variant winIds, bool hovered)
-    signal activateWindowView(variant winIds)
+
+    function windowsHovered(winIds: var, hovered: bool): DBus.DBusPendingReply {
+        if (!Plasmoid.configuration.highlightWindows) {
+            return;
+        }
+        return DBus.SessionBus.asyncCall({service: "org.kde.KWin.HighlightWindow", path: "/org/kde/KWin/HighlightWindow", iface: "org.kde.KWin.HighlightWindow", member: "highlightWindows", arguments: [hovered ? winIds : []], signature: "(as)"});
+    }
+
+    function cancelHighlightWindows(): DBus.DBusPendingReply {
+        return DBus.SessionBus.asyncCall({service: "org.kde.KWin.HighlightWindow", path: "/org/kde/KWin/HighlightWindow", iface: "org.kde.KWin.HighlightWindow", member: "highlightWindows", arguments: [[]], signature: "(as)"});
+    }
+
+    function activateWindowView(winIds: var): DBus.DBusPendingReply {
+        if (!effectWatcher.registered) {
+            return;
+        }
+        cancelHighlightWindows();
+        return DBus.SessionBus.asyncCall({service: "org.kde.KWin.Effect.WindowView1", path: "/org/kde/KWin/Effect/WindowView1", iface: "org.kde.KWin.Effect.WindowView1", member: "activate", arguments: [winIds.map(s => String(s))], signature: "(as)"});
+    }
 
     Timer {
         id: syncDelay
@@ -314,7 +331,6 @@ PlasmoidItem {
 
     property TaskManagerApplet.Backend backend: TaskManagerApplet.Backend {
         id: backend
-        highlightWindows: Plasmoid.configuration.highlightWindows
 
         onAddLauncher: {
             tasks.addLauncher(url);

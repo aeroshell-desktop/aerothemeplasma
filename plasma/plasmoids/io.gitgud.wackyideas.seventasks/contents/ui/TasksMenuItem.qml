@@ -29,6 +29,15 @@ Item {
     property bool selected: false
     property QtObject wrapperItem: tasksMenuItem.parent
 
+    onSelectedChanged: {
+        if(selected) {
+            toolTipTimer.start()
+        } else {
+            toolTipTimer.stop();
+            toolTip.hideToolTip();
+        }
+    }
+
     KSvg.FrameSvgItem {
         id: texture
         z: -1
@@ -38,6 +47,26 @@ Item {
         visible: (tasksMA.containsMouse || selected) && parent.enabled
         opacity: selected ? 1.0 : 0.6
     }
+    Timer {
+        id: toolTipTimer
+        interval: Kirigami.Units.longDuration*2
+        onTriggered: {
+            toolTip.showToolTip();
+        }
+    }
+    PlasmaCore.ToolTipArea {
+        id: toolTip
+
+        anchors {
+            fill: parent
+        }
+
+        active: menuTitle.truncated
+        interactive: false
+
+        mainText: menuTitle.text
+    }
+
     MouseArea {
         id: tasksMA
         z: 1
@@ -53,6 +82,7 @@ Item {
         onPositionChanged: {
             tasksMenu.setCurrentItem(wrapperItem);
         }
+
         onEntered: {
             tasksMenu.setCurrentItem(wrapperItem);
             //tasksMenu.clearIndices();

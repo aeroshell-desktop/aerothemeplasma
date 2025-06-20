@@ -84,6 +84,7 @@ MouseArea {
                     else {
                         for(var i = 0; i < thumbnailList.count; i++) {
                             thumbnailItem = itemAtIndex(i);
+                            console.log(thumbnailItem.implicitHeight);
                             if(thumbnailItem.implicitHeight >= thumbnailList.maxThumbnailHeight)
                                 thumbnailList.maxThumbnailItem = thumbnailItem;
                         }
