@@ -51,6 +51,22 @@ or
 $ sh compile.sh
 ```
 
+## Note for Wayland users:
+
+The compile script must be run while passing the `--wayland` argument for KWin effects:
+
+```bash
+$ ./compile.sh --wayland
+$ sh compile.sh --wayland # Or like this
+```
+
+If compiling individual KWin effects by running their respective `install.sh` or `install_ninja.sh`, you can also pass the `--wayland` argument there:
+
+```bash
+$ ./install_ninja.sh --wayland
+$ sh install_ninja.sh --wayland # Or like this
+```
+
 ## Plasma components <a name="plasma"></a>
 
 This section relates to the directories found in the `plasma` folder.
