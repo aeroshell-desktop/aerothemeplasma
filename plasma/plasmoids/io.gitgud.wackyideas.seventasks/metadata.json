@@ -1,4 +1,5 @@
 {
+    "KPackageStructure": "Plasma/Applet",
     "KPlugin": {
         "Authors": [
             {
@@ -89,7 +90,7 @@
         "Name[zh_TW]": "SevenTasks",
         "KPackageStructure": "Plasma/Applet",
         "Version": "1.0",
-        "Website": "https://plasma.kde.org/"
+        "Website": "https://gitgud.io/wackyideas/aerothemeplasma"
     },
     "X-Plasma-API-Minimum-Version": "6.0",
     "X-Plasma-Provides": [
