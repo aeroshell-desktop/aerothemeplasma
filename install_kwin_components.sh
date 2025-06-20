@@ -46,6 +46,10 @@ KWIN_DIR="$HOME/.local/share/kwin"
 cp -r "$PWD/kwin/outline" "$KWIN_DIR"
 echo "Done."
 
+echo "Making kwin-x11 and kwin-wayland symlinks..."
+ln -s kwin kwin-x11
+ln -s kwin kwin-wayland
+echo "Done."
 
 
 

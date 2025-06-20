@@ -20,6 +20,13 @@ Required packages:
 pacman -S cmake extra-cmake-modules ninja qt6-virtualkeyboard qt6-multimedia qt6-5compat plasma-wayland-protocols plasma5support kvantum base-devel
 ```
 
+### Note:
+
+Since Plasma 6.4, the X11 session has been separated from the main codebase. On Arch Linux, additional dependencies for X11 include:
+
+- `kwin-x11`
+- `plasma-x11-session`
+
 KSysGuard has been officially deprecated by KDE, however an unofficial [port](https://github.com/zvova7890/ksysguard6) exists for Qt6, which can be installed using the [AUR](https://aur.archlinux.org/packages/ksysguard6-git) package on Arch-based distros.
 
 ### Fedora KDE
@@ -87,7 +94,14 @@ $ chmod +x install_kwin_components.sh && ./install_kwin_components.sh
 This section relates to the directories found in the `kwin` folder.
 
 1. Move `effects`, `tabbox`, `outline`, `scripts` to `~/.local/share/kwin`.
-2. In System Settings, apply the following settings:
+2. Run the following inside `~/.local/share/`:
+
+```bash
+$ ln -s kwin kwin-x11
+$ ln -s kwin kwin-wayland
+```
+
+3. In System Settings, apply the following settings:
 
 - In Window Behavior -> Titlebar Actions:
   - Mouse wheel: Do nothing
