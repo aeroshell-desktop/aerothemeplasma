@@ -13,13 +13,13 @@
 #define IS_KF6 QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 
 #if IS_KF6
-#include <kwin/effect/effecthandler.h>
-#include <kwin/effect/effectwindow.h>
-#include <kwin/opengl/glshadermanager.h>
-#include <kwin/opengl/glshader.h>
-#include <kwin/opengl/gltexture.h>
-#include <kwin/core/renderviewport.h>
-#include <kwin/core/pixelgrid.h>
+#include "effect/effecthandler.h"
+#include "effect/effectwindow.h"
+#include "opengl/glshadermanager.h"
+#include "opengl/glshader.h"
+#include "opengl/gltexture.h"
+#include "core/renderviewport.h"
+#include "core/pixelgrid.h"
 #else
 #include <kwineffects.h>
 #include <kwinglutils.h>
