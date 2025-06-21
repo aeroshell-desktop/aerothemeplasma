@@ -133,6 +133,7 @@ Item {
     anchors.fill: parent
     anchors.leftMargin: Kirigami.Units.iconSizes.small
     opacity: (listView.currentIndex === index) * 0.7 + ma.containsMouse * 0.3
+    z: -1
   }
 
   Timer {
