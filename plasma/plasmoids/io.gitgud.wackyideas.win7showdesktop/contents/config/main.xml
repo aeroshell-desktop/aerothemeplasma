@@ -4,10 +4,10 @@
 
 	<group name="General">
 		<entry name="click_action" type="string">
-			<default>run_command</default>
+			<default>minimizeall</default>
 		</entry>
 		<entry name="click_command" type="string">
-			<default>qdbus6 org.kde.kglobalaccel /component/kwin invokeShortcut "MinimizeAll"</default>
+			<default>qdbus6 org.kde.kglobalaccel /component/kwin invokeShortcut "ExposeAll"</default>
 		</entry>
 		<entry name="mousewheel_action" type="string">
 			<default>run_commands</default>
@@ -26,15 +26,6 @@
 		</entry>
 		<entry name="peekingThreshold" type="int">
 			<default>750</default>
-		</entry>
-		<entry name="edgeColor" type="string">
-			<default></default>
-		</entry>
-		<entry name="hoveredColor" type="string">
-			<default></default>
-		</entry>
-		<entry name="pressedColor" type="string">
-			<default></default>
 		</entry>
 	</group>
 </kcfg>

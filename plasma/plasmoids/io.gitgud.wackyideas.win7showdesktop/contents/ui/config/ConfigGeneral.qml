@@ -9,7 +9,7 @@ import "../lib"
 
 ConfigPage {
 	id: page
-	showAppletVersion: true
+	showAppletVersion: false
 
 	property string cfg_click_action: 'showdesktop'
 	property alias cfg_click_command: click_command.text
@@ -48,27 +48,6 @@ ConfigPage {
 				Kirigami.FormData.label: i18n("Size:")
 				configKey: 'size'
 				suffix: i18n("px")
-			}
-
-			ConfigColor {
-				Kirigami.FormData.label: i18n("Edge Color:")
-				configKey: "edgeColor"
-				defaultColor: config.defaultEdgeColor
-				label: ""
-			}
-
-			ConfigColor {
-				Kirigami.FormData.label: i18n("Hovered Color:")
-				configKey: "hoveredColor"
-				defaultColor: config.defaultHoveredColor
-				label: ""
-			}
-
-			ConfigColor {
-				Kirigami.FormData.label: i18n("Pressed Color:")
-				configKey: "pressedColor"
-				defaultColor: config.defaultPressedColor
-				label: ""
 			}
 		}
 	}
@@ -141,7 +120,7 @@ ConfigPage {
 	ConfigSection {
 		title: i18n("Mouse Wheel")
 
-
+		visible: false
 		RadioButton {
 			id: mousewheelGroup_runcommands
 			ButtonGroup.group: mousewheelGroup

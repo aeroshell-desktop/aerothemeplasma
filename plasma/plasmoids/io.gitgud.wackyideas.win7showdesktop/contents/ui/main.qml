@@ -15,6 +15,8 @@ import org.kde.plasma.plasma5support as Plasma5Support
 import org.kde.kirigami as Kirigami
 import org.kde.ksvg as KSvg
 
+import org.kde.plasma.workspace.dbus as DBus
+
 import org.kde.plasma.plasmoid
 
 PlasmoidItem {
@@ -217,44 +219,6 @@ PlasmoidItem {
 
 		}
 
-		/*ButtonSurface {
-			id: hoverSurface
-			color: Plasmoid.configuration.hoveredColor
-			opacity: mouseArea.state === "hover" ? 1 : 0
-		}
-
-		ButtonSurface {
-			id: pressedSurface
-			color: Plasmoid.configuration.pressedColor
-			opacity: mouseArea.state === "pressed" ? 1 : 0
-		}
-
-		ButtonSurface {
-			id: edgeLine
-			border.color: Plasmoid.configuration.edgeColor
-			color: "transparent"
-			border.width: 1
-			KSvg.FrameSvgItem {
-				anchors {
-					fill: parent;
-				}
-				imagePath: Qt.resolvedUrl("svgs/showdesktop.svg")
-				prefix: {
-					return "normal"
-				}
-
-			}
-
-		}*/
-
-
-		/*PlasmaCore.ToolTipArea {
-			id: toolTip
-			anchors.fill: parent
-			mainText: Plasmoid.title
-			subText: toolTipSubText
-			textFormat: Text.PlainText
-		}*/
 	}
 
 	// org.kde.plasma.mediacontrollercompact
@@ -285,22 +249,14 @@ PlasmoidItem {
 	}
 
 	function performMouseWheelUp() {
-		root.exec(Plasmoid.configuration.mousewheel_up)
+		DBus.SessionBus.asyncCall({service: "org.kde.kglobalaccel", path: "/component/kmix", iface: "org.kde.kglobalaccel.Component", member: "invokeShortcut", arguments: [new DBus.string("increase_volume")], signature: "(s)"});
 	}
 
 	function performMouseWheelDown() {
-		root.exec(Plasmoid.configuration.mousewheel_down)
+		DBus.SessionBus.asyncCall({service: "org.kde.kglobalaccel", path: "/component/kmix", iface: "org.kde.kglobalaccel.Component", member: "invokeShortcut", arguments: [new DBus.string("decrease_volume")], signature: "(s)"});
 	}
 
 	Plasmoid.contextualActions: [
-		PlasmaCore.Action {
-			text: i18n("Toggle Lock Widgets")
-			icon.name: "object-locked"
-			onTriggered: {
-				var cmd = 'qdbus org.kde.plasmashell /PlasmaShell evaluateScript "lockCorona(!locked)"'
-				root.exec(cmd)
-			}
-		},
 		PlasmaCore.Action {
 			text: minimizeAllController.titleInactive
 			checkable: true
