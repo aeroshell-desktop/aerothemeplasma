@@ -199,6 +199,7 @@ FocusScope {
                 property alias delegateRepeater: colRepeater
                 readonly property bool expanded: delegateItem.expanded
                 readonly property int childCount: colRepeater.count
+                property alias isNew: delegateItem.isNew
                 spacing: 0
 
                 property int childIndex: -1
@@ -207,6 +208,8 @@ FocusScope {
                     if(childItem) childIndex = childItem.itemIndex;
                     else childIndex = -1;
                 }
+
+                Component.onCompleted: root.checkForNewItems();
 
                 KickoffItem {
                     id: delegateItem
@@ -220,6 +223,8 @@ FocusScope {
                     showAppsByName: view.showAppsByName
                     smallIcon: view.small
                     listView: listView
+
+                    onIsNewChanged: root.checkForNewItems();
 
                     onReset: view.reset()
                 }

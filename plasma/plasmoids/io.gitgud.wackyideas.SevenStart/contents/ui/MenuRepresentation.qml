@@ -91,6 +91,20 @@ PlasmaCore.Dialog {
 	property alias m_delayTimer: delayTimer
 	property alias dialogBackgroundTexture: dialogBackground
 
+	property bool newItemsAvailable: false
+
+	function checkForNewItems() {
+		for(var i = 0; i < appsView.count; i++) {
+			var item = appsView.listView.itemAtIndex(i);
+			if(item?.isNew) {
+				root.newItemsAvailable = true;
+				return;
+			}
+		}
+		root.newItemsAvailable = false;
+		return;
+	}
+
 	function setFloatingAvatarPosition()  {
 		// It's at this point where everything actually gets properly initialized and we don't have to worry about
 		// random unpredictable values, so we can safely allow the popup icon to show up.
@@ -157,6 +171,7 @@ PlasmaCore.Dialog {
 		compositingIcon.iconSource = "";
 		nonCompositingIcon.iconSource = "";
 		searchField.forceActiveFocus();
+		checkForNewItems();
     }
     property int shutdownIndex: -1
 	
@@ -657,6 +672,22 @@ PlasmaCore.Dialog {
 					}
 				}
 				Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium+1
+
+				KSvg.FrameSvgItem {
+					id: allPBNew
+
+					anchors.fill: parent
+
+					imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
+					prefix: "new"
+
+					visible: root.newItemsAvailable
+					opacity: !showingAllPrograms
+
+					Behavior on opacity {
+						NumberAnimation { easing.type: Easing.Linear; duration: animationDuration }
+					}
+				}
 
 				KSvg.FrameSvgItem {
 					id: allProgramsButton
@@ -1253,6 +1284,6 @@ PlasmaCore.Dialog {
 		
 		popupPosition();
 		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
-
+		checkForNewItems();
 	}
 }

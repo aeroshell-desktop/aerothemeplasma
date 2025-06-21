@@ -68,6 +68,8 @@ Item {
     property var childModel
     property var listView: listItem.ListView.view
 
+    readonly property bool isNew: model?.isNewlyInstalled ?? false
+
     onAboutToShowActionMenu: (actionMenu) => { // Loads context menu items here
         var actionList = hasActionList ? model.actionList : [];
         if(kicker.isValidUrl(model.url)) { // If we have a launchable application, try allowing the user to pin it
@@ -135,6 +137,44 @@ Item {
         }
     }
 
+    KSvg.FrameSvgItem {
+        id: newHighlight
+
+        property bool completed: false
+
+        anchors.fill: background
+
+        imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
+        prefix: "new"
+
+        visible: isNew
+
+        Rectangle {
+            anchors.fill: parent
+
+            color: "#ffe599"
+
+            visible: listItem.smallIcon
+        }
+    }
+
+    KSvg.FrameSvgItem {
+        id: background
+        imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
+        prefix: "hover"
+        opacity: {
+            if(ma.containsMouse) return 1;
+            if(listItem.listView.currentIndex === listItem.itemIndex && listItem.parent.childIndex === -1) return 0.5;
+            return 0;
+        }
+        anchors {
+            fill: parent
+            leftMargin: listItem.smallIcon ? Kirigami.Units.smallSpacing/2+1 : Kirigami.Units.smallSpacing
+            rightMargin: listItem.smallIcon ? Kirigami.Units.smallSpacing/2+1 : Kirigami.Units.smallSpacing
+
+        }
+    }
+
     Kirigami.Icon {
         id: elementIcon
 
@@ -193,24 +233,6 @@ Item {
         } else if ((event.key === Qt.Key_Enter || event.key === Qt.Key_Return)) {
             event.accepted = true;
             listItem.activate();
-        }
-    }
-
-    KSvg.FrameSvgItem {
-        id: background
-        imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
-        prefix: "hover"
-        opacity: {
-            if(ma.containsMouse) return 1;
-            if(listItem.listView.currentIndex === listItem.itemIndex && listItem.parent.childIndex === -1) return 0.5;
-            return 0;
-        }
-        z: -1
-        anchors {
-            fill: parent
-            leftMargin: listItem.smallIcon ? Kirigami.Units.smallSpacing/2+1 : Kirigami.Units.smallSpacing
-            rightMargin: listItem.smallIcon ? Kirigami.Units.smallSpacing/2+1 : Kirigami.Units.smallSpacing
-
         }
     }
     PlasmaCore.ToolTipArea {
