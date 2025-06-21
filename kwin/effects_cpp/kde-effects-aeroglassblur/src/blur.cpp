@@ -1146,7 +1146,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         bool useTransparency = m_transparencyEnabled;
 
         QString windowClass = w->windowClass().split(' ')[1];
-        bool opaqueMaximize = (maximizeState == MaximizeMode::MaximizeFull || (m_maximizedWindows.size() != 0 && w->isDock())) && m_maximizeColorization && windowClass != "kwin";
+        bool opaqueMaximize = (maximizeState == MaximizeMode::MaximizeFull || (m_maximizedWindows.size() != 0 && w->isDock())) && m_maximizeColorization && windowClass != "kwin" && w->caption() != "sevenstart-menurepresentation";
 
         if(opaqueMaximize)
         {
