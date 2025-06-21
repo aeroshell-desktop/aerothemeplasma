@@ -209,8 +209,6 @@ FocusScope {
                     else childIndex = -1;
                 }
 
-                Component.onCompleted: root.checkForNewItems();
-
                 KickoffItem {
                     id: delegateItem
 
@@ -223,8 +221,6 @@ FocusScope {
                     showAppsByName: view.showAppsByName
                     smallIcon: view.small
                     listView: listView
-
-                    onIsNewChanged: root.checkForNewItems();
 
                     onReset: view.reset()
                 }

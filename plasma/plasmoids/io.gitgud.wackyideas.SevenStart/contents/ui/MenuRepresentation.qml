@@ -91,19 +91,7 @@ PlasmaCore.Dialog {
 	property alias m_delayTimer: delayTimer
 	property alias dialogBackgroundTexture: dialogBackground
 
-	property bool newItemsAvailable: false
-
-	function checkForNewItems() {
-		for(var i = 0; i < appsView.count; i++) {
-			var item = appsView.listView.itemAtIndex(i);
-			if(item?.isNew) {
-				root.newItemsAvailable = true;
-				return;
-			}
-		}
-		root.newItemsAvailable = false;
-		return;
-	}
+	property bool newItemsAvailable: filteredNewItems.count > 0
 
 	function setFloatingAvatarPosition()  {
 		// It's at this point where everything actually gets properly initialized and we don't have to worry about
@@ -171,7 +159,6 @@ PlasmaCore.Dialog {
 		compositingIcon.iconSource = "";
 		nonCompositingIcon.iconSource = "";
 		searchField.forceActiveFocus();
-		checkForNewItems();
     }
     property int shutdownIndex: -1
 	
@@ -228,6 +215,19 @@ PlasmaCore.Dialog {
         
         focus: true
 		clip: false
+
+		KItemModels.KSortFilterProxyModel {
+			id: filteredNewItems
+			sourceModel: kicker.rootModel
+
+			function containsNewItem(sourceRow, sourceParent) {
+				const isNewlyInstalledRole = sourceModel.KItemModels.KRoleNames.role("isNewlyInstalled");
+				const isNewlyInstalled = sourceModel.data(sourceModel.index(sourceRow, 0, sourceParent), isNewlyInstalledRole);
+				return isNewlyInstalled === true;
+			}
+			filterRowCallback: (sourceRow, sourceParent) => containsNewItem(sourceRow, sourceParent)
+		}
+
 
 		Timer {
 			id: shadow_fix
@@ -1284,6 +1284,5 @@ PlasmaCore.Dialog {
 		
 		popupPosition();
 		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
-		checkForNewItems();
 	}
 }
