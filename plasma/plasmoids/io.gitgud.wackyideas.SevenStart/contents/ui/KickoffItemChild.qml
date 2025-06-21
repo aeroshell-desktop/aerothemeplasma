@@ -135,6 +135,42 @@ Item {
         }
     }
 
+    KSvg.FrameSvgItem {
+        id: newHighlight
+
+        anchors.fill: background
+
+        imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
+        prefix: "new"
+
+        visible: model?.isNewlyInstalled ?? false
+
+        Rectangle {
+            anchors.fill: parent
+
+            color: "#ffe599"
+
+            visible: listItem.smallIcon
+        }
+    }
+
+    KSvg.FrameSvgItem {
+        id: background
+        imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
+        prefix: "hover"
+        opacity: {
+            if(ma.containsMouse) return 1;
+            if(listItem.parentLayout.childIndex === model.index) return 0.5;
+            return 0;
+        }
+        anchors {
+            fill: parent
+            leftMargin: listItem.smallIcon ? Kirigami.Units.smallSpacing/2+1 : Kirigami.Units.smallSpacing
+            rightMargin: listItem.smallIcon ? Kirigami.Units.smallSpacing/2+1 : Kirigami.Units.smallSpacing
+
+        }
+    }
+
     Kirigami.Icon {
         id: elementIcon
 
@@ -193,24 +229,6 @@ Item {
         } else if ((event.key === Qt.Key_Enter || event.key === Qt.Key_Return)) {
             event.accepted = true;
             listItem.activate();
-        }
-    }
-
-    KSvg.FrameSvgItem {
-        id: background
-        imagePath: Qt.resolvedUrl("svgs/menuitem.svg")
-        prefix: "hover"
-        opacity: {
-            if(ma.containsMouse) return 1;
-            if(listItem.parentLayout.childIndex === model.index) return 0.5;
-            return 0;
-        }
-        z: -1
-        anchors {
-            fill: parent
-            leftMargin: listItem.smallIcon ? Kirigami.Units.smallSpacing/2+1 : Kirigami.Units.smallSpacing
-            rightMargin: listItem.smallIcon ? Kirigami.Units.smallSpacing/2+1 : Kirigami.Units.smallSpacing
-
         }
     }
     PlasmaCore.ToolTipArea {
