@@ -6,12 +6,13 @@ import QtQuick.Dialogs
 import QtQuick.Window 2.1
 
 import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.components as PlasmaComponents
-import org.kde.plasma.extras 2.0 as PlasmaExtras
+import org.kde.plasma.extras as PlasmaExtras
 import org.kde.kwindowsystem 1.0
 import org.kde.ksvg as KSvg
 import org.kde.kirigami as Kirigami
+
 
 Item {
     id: sidePanelDelegate
@@ -166,11 +167,7 @@ Item {
             if(executeProgram)
                 executable.exec(executableString);
             else {
-                if(KWindowSystem.isPlatformX11)
-                    Qt.callLater(Qt.openUrlExternally, executableString)
-                else // Workaround for Wayland to prevent crashing
-                    executable.exec("xdg-open " + executableString)
-
+                Qt.callLater(Qt.openUrlExternally, executableString)
             }
         }
         hoverEnabled: true
