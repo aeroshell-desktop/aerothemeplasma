@@ -224,6 +224,8 @@ private:
     bool m_maximizeColorization;
     bool m_enableCornerGlow;
 
+    bool m_maximizedWindowsInCurrentActivity = false;
+
     struct OffsetStruct
     {
         float minOffset;

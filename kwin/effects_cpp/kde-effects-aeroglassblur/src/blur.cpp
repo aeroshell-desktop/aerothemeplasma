@@ -693,6 +693,15 @@ void BlurEffect::prePaintScreen(ScreenPrePaintData &data, std::chrono::milliseco
     m_currentBlur = QRegion();
     m_currentScreen = effects->waylandDisplay() ? data.screen : nullptr;
 
+    // We can avoid checking for every window by evaluating the condition here
+    auto maximizedWindowsOnCurrentActivity = [&]() -> bool {
+        return std::find_if(m_maximizedWindows.begin(), m_maximizedWindows.end(),
+                            [](const EffectWindow *a) { return a->isOnCurrentDesktop() && a->isOnCurrentActivity(); }) != m_maximizedWindows.end();
+    };
+    if(m_maximizeColorization) {
+        m_maximizedWindowsInCurrentActivity = maximizedWindowsOnCurrentActivity();
+    }
+
     effects->prePaintScreen(data, presentTime);
 }
 
@@ -1107,10 +1116,6 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 
         projectionMatrix = viewport.projectionMatrix();
         projectionMatrix.translate(deviceBackgroundRect.x(), deviceBackgroundRect.y());
-        /*if(!winData.isNull())
-        {
-            projectionMatrix *= transformedMatrix;
-        }*/
 
         /*********************
          * COLORIZATION PASS *
@@ -1145,8 +1150,20 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         bool basicCol = m_basicColorization;
         bool useTransparency = m_transparencyEnabled;
 
+        auto maximizedWindowsShareScreen = [&]() -> bool {
+            return std::find_if(m_maximizedWindows.begin(), m_maximizedWindows.end(),
+                                [&](const EffectWindow *a) { return a->screen() == w->screen(); }) != m_maximizedWindows.end();
+        };
         QString windowClass = w->windowClass().split(' ')[1];
-        bool opaqueMaximize = (maximizeState == MaximizeMode::MaximizeFull || (m_maximizedWindows.size() != 0 && w->isDock())) && m_maximizeColorization && windowClass != "kwin" && w->caption() != "sevenstart-menurepresentation";
+        bool opaqueMaximize = false;
+        if(m_maximizeColorization) {
+            if(maximizeState != MaximizeMode::MaximizeFull && !w->isDock()) opaqueMaximize = false;
+            else if(!m_maximizedWindowsInCurrentActivity) opaqueMaximize = false;
+            else if (w->isDock()) {
+                if(maximizedWindowsShareScreen()) opaqueMaximize = true;
+            }
+            else opaqueMaximize = maximizeState == MaximizeMode::MaximizeFull && windowClass != "kwin" && w->caption() != "sevenstart-menurepresentation";
+        }
 
         if(opaqueMaximize)
         {
@@ -1224,7 +1241,6 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 
             QMatrix4x4 projectionMatrix = viewport.projectionMatrix();
             projectionMatrix.translate(deviceBackgroundRect.x(), deviceBackgroundRect.y());
-			
 
             m_reflectPass.shader->setUniform(m_reflectPass.mvpMatrixLocation, projectionMatrix);
 			m_reflectPass.shader->setUniform(m_reflectPass.screenResolutionLocation, QVector2D(screenSize.width(), screenSize.height()));
