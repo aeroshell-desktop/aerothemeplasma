@@ -1241,11 +1241,12 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 
             QMatrix4x4 projectionMatrix = viewport.projectionMatrix();
             projectionMatrix.translate(deviceBackgroundRect.x(), deviceBackgroundRect.y());
+            const auto scale = viewport.scale();
 
             m_reflectPass.shader->setUniform(m_reflectPass.mvpMatrixLocation, projectionMatrix);
-			m_reflectPass.shader->setUniform(m_reflectPass.screenResolutionLocation, QVector2D(screenSize.width(), screenSize.height()));
-			m_reflectPass.shader->setUniform(m_reflectPass.windowPosLocation, QVector2D(windowPos.x(), windowPos.y()));
-			m_reflectPass.shader->setUniform(m_reflectPass.windowSizeLocation, QVector2D(windowSize.width(), windowSize.height()));
+			m_reflectPass.shader->setUniform(m_reflectPass.screenResolutionLocation, QVector2D(screenSize.width() * scale, screenSize.height() * scale));
+			m_reflectPass.shader->setUniform(m_reflectPass.windowPosLocation, QVector2D(deviceBackgroundRect.x(), deviceBackgroundRect.y()));
+			m_reflectPass.shader->setUniform(m_reflectPass.windowSizeLocation, QVector2D(backgroundRect.width(), backgroundRect.height()));
 			m_reflectPass.shader->setUniform(m_reflectPass.opacityLocation, float(finalOpacity));
 			m_reflectPass.shader->setUniform(m_reflectPass.translateTextureLocation, m_translateTexture ? float(1.0) : float(0.0));
             m_reflectPass.shader->setUniform(m_reflectPass.colorMatrixLocation, colorMat);
@@ -1270,12 +1271,12 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
                 const auto scale = viewport.scale();
 
                 bool scaleY = false;
-                if(deviceBackgroundRect.height() != windowSize.height() && !scaledOrTransformed(w, mask, data)) scaleY = true;
+                if(backgroundRect.height() != windowSize.height() && !scaledOrTransformed(w, mask, data)) scaleY = true;
                 const QRectF pixelGeometry = snapToPixelGridF(scaledRect(QRectF(0, 0, glowTex->width(), glowTex->height()), scale));
                 m_glowPass.shader->setUniform(m_glowPass.mvpMatrixLocation, projectionMatrix);
             	m_glowPass.shader->setUniform(m_glowPass.opacityLocation, float(opacity*0.8));
-            	m_glowPass.shader->setUniform(m_glowPass.windowPosLocation, QVector2D(windowPos.x(), windowPos.y()));
-            	m_glowPass.shader->setUniform(m_glowPass.windowSizeLocation, QVector2D(windowSize.width(), windowSize.height()));
+            	m_glowPass.shader->setUniform(m_glowPass.windowPosLocation, QVector2D(deviceBackgroundRect.x(), deviceBackgroundRect.y()));
+            	m_glowPass.shader->setUniform(m_glowPass.windowSizeLocation, QVector2D(backgroundRect.width(), backgroundRect.height()));
             	m_glowPass.shader->setUniform(m_glowPass.textureSizeLocation, QVector2D(pixelGeometry.width(), pixelGeometry.height()));
             	m_glowPass.shader->setUniform(m_glowPass.scaleYLocation, scaleY);
                 m_glowPass.shader->setUniform(m_glowPass.colorMatrixLocation, colorMat);
