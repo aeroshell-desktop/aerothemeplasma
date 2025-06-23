@@ -910,7 +910,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         renderInfo.textures.clear();
 
         for (size_t i = 0; i <= m_iterationCount; ++i) {
-            const QSize textureSize(std::max(1, deviceBackgroundRect.width() / (1 << i)), std::max(1, deviceBackgroundRect.height() / (1 << i)));
+            const QSize textureSize(std::max(1, backgroundRect.width() / (1 << i)), std::max(1, backgroundRect.height() / (1 << i)));
             auto texture = GLTexture::allocate(textureFormat, textureSize);
             if (!texture) {
                 qCWarning(KWIN_BLUR) << "Failed to allocate an offscreen texture";
