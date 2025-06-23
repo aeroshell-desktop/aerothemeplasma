@@ -129,24 +129,22 @@ $ ln -s kwin kwin-wayland
   - Enable Minimize All, SMOD Peek
 - In Window Behavior -> Desktop Effects, enable the following:
   - Aero Glass Blur
-  - Aero Glide
   - Desaturate Unresponsive Applications
-  - Fading Popups
-  - Login
   - SMOD Glow
   - SMOD Snap
-  - Squash
-  - SMOD Peek
   - Dim Screen for Administrator Mode
   - Animations for SevenTasks Thumbnails
 - In Window Behavior -> Desktop Effects, **disable** the following:
   - Background Contrast
   - Blur
   - Maximize
-  - Sliding Popups
   - Dialog Parent
   - Dim Inactive
-  - Logout
+  
+4. Configure KWin animations to the following:
+
+![animations](screenshots/animations.png)
+
 
 ## Miscellaneous components <a name="misc"></a>
 
