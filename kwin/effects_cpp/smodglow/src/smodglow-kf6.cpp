@@ -127,7 +127,7 @@ void SmodGlowEffect::paintWindow(const RenderTarget &renderTarget, const RenderV
         float opacity = handler->m_min->hoverProgress() * w->opacity() * data.opacity();
         const QRectF pixelGeometry = snapToPixelGridF(scaledRect(handler->m_min_rect, scale));
         QMatrix4x4 mvp = viewport.projectionMatrix();
-        mvp.translate(handler->m_min_rect.x(), handler->m_min_rect.y());
+        mvp.translate(handler->m_min_rect.x() * scale, handler->m_min_rect.y() * scale);
         m_shader->setUniform(GLShader::Mat4Uniform::ModelViewProjectionMatrix, mvp);
         m_shader->setUniform(uniform_opacity, opacity);
         m_shader->setUniform(uniform_bordertop, MINMAXGLOW_SMT);
@@ -144,7 +144,7 @@ void SmodGlowEffect::paintWindow(const RenderTarget &renderTarget, const RenderV
         float opacity = handler->m_max->hoverProgress() * w->opacity() * data.opacity();
         const QRectF pixelGeometry = snapToPixelGridF(scaledRect(handler->m_max_rect, scale));
         QMatrix4x4 mvp = viewport.projectionMatrix();
-        mvp.translate(handler->m_max_rect.x(), handler->m_max_rect.y());
+        mvp.translate(handler->m_max_rect.x() * scale, handler->m_max_rect.y() * scale);
         m_shader->setUniform(GLShader::Mat4Uniform::ModelViewProjectionMatrix, mvp);
         m_shader->setUniform(uniform_opacity, opacity);
         m_shader->setUniform(uniform_bordertop, MINMAXGLOW_SMT);
@@ -161,7 +161,7 @@ void SmodGlowEffect::paintWindow(const RenderTarget &renderTarget, const RenderV
         float opacity = handler->m_close->hoverProgress() * w->opacity() * data.opacity();
         const QRectF pixelGeometry = snapToPixelGridF(scaledRect(handler->m_close_rect, scale));
         QMatrix4x4 mvp = viewport.projectionMatrix();
-        mvp.translate(handler->m_close_rect.x(), handler->m_close_rect.y());
+        mvp.translate(handler->m_close_rect.x() * scale, handler->m_close_rect.y() * scale);
         m_shader->setUniform(GLShader::Mat4Uniform::ModelViewProjectionMatrix, mvp);
         m_shader->setUniform(uniform_opacity, opacity);
         m_shader->setUniform(uniform_bordertop, CLOSEGLOW_SMT);
