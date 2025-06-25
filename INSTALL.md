@@ -3,11 +3,12 @@
 ## TABLE OF CONTENTS
 
 1. [Prerequisites](#preq)
-2. [Plasma components](#plasma)
+2. [Getting Started](#started)
 3. [Compiling](#compile)
-4. [KWin components](#kwin)
-5. [Miscellaneous components](#misc)
-6. [Configuring AeroThemePlasma](#conf)
+4. [Plasma components](#plasma)
+5. [KWin components](#kwin)
+6. [Miscellaneous components](#misc)
+7. [Configuring AeroThemePlasma](#conf)
 
 ## Prerequisites <a name="preq"></a>
 
@@ -18,7 +19,7 @@
 Required packages:
 
 ```bash
-pacman -S cmake extra-cmake-modules ninja qt6-virtualkeyboard qt6-multimedia qt6-5compat plasma-wayland-protocols plasma5support kvantum base-devel
+pacman -S git cmake extra-cmake-modules ninja qt6-virtualkeyboard qt6-multimedia qt6-5compat plasma-wayland-protocols plasma5support kvantum base-devel
 ```
 
 ### Note:
@@ -37,6 +38,36 @@ Required Packages:
 ```bash
 dnf install plasma-workspace-devel kvantum qt6-qtmultimedia-devel qt6-qt5compat-devel libplasma-devel qt6-qtbase-devel qt6-qtwayland-devel plasma-activities-devel kf6-kpackage-devel kf6-kglobalaccel-devel qt6-qtsvg-devel wayland-devel plasma-wayland-protocols kf6-ksvg-devel kf6-kcrash-devel kf6-kguiaddons-devel kf6-kcmutils-devel kf6-kio-devel kdecoration-devel kf6-ki18n-devel kf6-knotifications-devel kf6-kirigami-devel kf6-kiconthemes-devel cmake gmp-ecm-devel kf5-plasma-devel libepoxy-devel kwin-devel kf6-karchive kf6-karchive-devel plasma-wayland-protocols-devel qt6-qtbase-private-devel qt6-qtbase-devel kf6-knewstuff-devel kf6-knotifyconfig-devel kf6-attica-devel kf6-krunner-devel kf6-kdbusaddons-devel kf6-sonnet-devel plasma5support-devel plasma-activities-stats-devel polkit-qt6-1-devel qt-devel libdrm-devel
 ```
+
+## Getting started <a name="started"></a>
+
+To download this repository, clone it with `git`: 
+
+```bash
+$ git clone https://gitgud.io/wackyideas/aerothemeplasma.git aerothemeplasma 
+$ cd aerothemeplasma
+```
+
+Whenever a new update is released, update the downloaded repository by pulling the new changes:
+
+```bash
+$ cd /path/to/aerothemeplasma
+$ git pull
+```
+
+and re-run the install scripts:
+
+```sh
+$ sh compile.sh
+$ sh install_plasmoids.sh
+$ sh install_kwin_components.sh
+$ sh install_plasma_components.sh
+$ sh install_misc_components.sh # Usually not required to run again
+```
+
+Typically it's enough to run the first four scripts after ATP has been updated, although it's recommended to check new commits to see what has actually changed. 
+
+When doing a full system upgrade, KWin effects and `libplasma` modifications tend to stop working. Running `compile.sh` after a full system upgrade is required for them to work again (assuming no breaking upstream changes).
 
 ## Compiling <a name="compile"></a>
 
