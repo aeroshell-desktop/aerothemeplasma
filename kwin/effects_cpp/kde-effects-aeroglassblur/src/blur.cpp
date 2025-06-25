@@ -1138,10 +1138,6 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         float g = m_aeroColorG;
         float b = m_aeroColorB;
 
-        if(w->isOnScreenDisplay())
-        {
-            bb *= 0.66;
-        }
 
         AeroPasses selectedPass = AeroPasses::AERO;
 
@@ -1164,6 +1160,8 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
             }
             else opaqueMaximize = maximizeState == MaximizeMode::MaximizeFull && windowClass != "kwin" && w->caption() != "sevenstart-menurepresentation";
         }
+
+        if(w->isOnScreenDisplay()) opaqueMaximize = true;
 
         if(opaqueMaximize)
         {
@@ -1317,7 +1315,7 @@ QMatrix4x4 BlurEffect::colorMatrix(const float &brightness, const float &saturat
 bool BlurEffect::shouldHaveCornerGlow(const EffectWindow *w) const
 {
 	QString windowClass = w->windowClass().split(' ')[1];
-    if(w->isTooltip() || w->isSplash()) return false;
+    if(w->isOnScreenDisplay() || w->isTooltip() || w->isSplash()) return false;
     if(w->caption() == "sevenstart-menurepresentation" || (windowClass != "kwin" && w->isDock())) return false; // Disables panels and start menu
     return true;
 }
