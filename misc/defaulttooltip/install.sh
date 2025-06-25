@@ -1,5 +1,19 @@
 #!/bin/bash
 
+USE_NINJA=
+
+if [[ "$*" == *"--ninja"* ]]
+then
+    if [[ -z "$(command -v ninja)" ]]; then
+        echo "Attempted to build using Ninja, but Ninja was not found on the system. Falling back to GNU Make."
+    else
+        echo "Compiling using Ninja"
+        USE_NINJA="-G Ninja"
+    fi
+fi
+
+
+
 OUTPUT=$(plasmashell --version)
 IFS=' ' read -a array <<< "$OUTPUT"
 VERSION="${array[1]}"
@@ -37,7 +51,7 @@ mkdir build
 cd build
 echo "Stopping plasmashell to prevent crashes. Will be restarted after the script has finished."
 killall plasmashell
-cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+cmake -DCMAKE_INSTALL_PREFIX=/usr .. $USE_NINJA
 cmake --build . --target corebindingsplugin # Implicitly compiles plasmaquick
 sudo cp ./bin/org/kde/plasma/core/libcorebindingsplugin.so $INSTALLDST
 

@@ -12,4 +12,10 @@ kwin/effects_cpp/smodglow/build
 kwin/effects_cpp/aeroglide/build
 kwin/effects_cpp/startupfeedback/build
 kwin/effects_cpp/minimize3d/build
+kwin/effects_cpp/kde-effects-aeroglassblur/build-wl
+kwin/effects_cpp/kwin-effect-smodsnap-v2/build-wl
+kwin/effects_cpp/smodglow/build-wl
+kwin/effects_cpp/aeroglide/build-wl
+kwin/effects_cpp/startupfeedback/build-wl
+kwin/effects_cpp/minimize3d/build-wl
 experimental/

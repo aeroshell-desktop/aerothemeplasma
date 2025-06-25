@@ -1,14 +1,13 @@
 #!/bin/bash
 
 CUR_DIR=$(pwd)
-USE_SCRIPT="install_ninja.sh"
+USE_SCRIPT="install.sh"
 
 if [[ -z "$(command -v cmake)" ]]; then
     echo "CMake not found. Stopping."
     exit
 fi
 if [[ -z "$(command -v ninja)" ]]; then
-    USE_SCRIPT="install.sh"
     if [[ -z "$(command -v make)" ]]; then
         echo "Neither Ninja or GNU Make were found. Stopping"
         exit
@@ -16,7 +15,7 @@ if [[ -z "$(command -v ninja)" ]]; then
 fi
 
 cd "$PWD/misc/defaulttooltip"
-sh $USE_SCRIPT
+sh $USE_SCRIPT $@
 cd "$CUR_DIR"
 #echo "Compiling plasmoids..."
 
@@ -30,7 +29,7 @@ cd "$CUR_DIR"
 
 echo "Compiling SMOD decorations..."
 cd "$PWD/kwin/decoration"
-sh $USE_SCRIPT
+sh $USE_SCRIPT $@
 cd "$CUR_DIR"
 echo "Done."
 
@@ -38,7 +37,7 @@ echo "Compiling KWin effects..."
 for filename in "$PWD/kwin/effects_cpp/"*; do
     cd "$filename"
     echo "Compiling $(pwd)"
-    sh $USE_SCRIPT $1
+    sh $USE_SCRIPT $@
     echo "Done."
     cd "$CUR_DIR"
 done

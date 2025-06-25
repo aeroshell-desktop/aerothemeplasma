@@ -52,20 +52,32 @@ or
 $ sh compile.sh
 ```
 
+You can additionally pass `--ninja` to any of the following scripts in order to build using Ninja, which is recommended to reduce build times:
+
+- `compile.sh`
+- `install_plasmoids.sh`
+- Any individual `install.sh` script
+
+Example: 
+
+```bash
+$ sh compile.sh --ninja
+```
+
 ## Note for Wayland users:
 
 The compile script must be run while passing the `--wayland` argument for KWin effects:
 
 ```bash
-$ ./compile.sh --wayland
-$ sh compile.sh --wayland # Or like this
+$ ./compile.sh --wayland --ninja
+$ sh compile.sh --wayland --ninja # Or like this
 ```
 
-If compiling individual KWin effects by running their respective `install.sh` or `install_ninja.sh`, you can also pass the `--wayland` argument there:
+If compiling individual KWin effects by running their respective `install.sh` scripts, you can also pass the `--wayland` argument there:
 
 ```bash
-$ ./install_ninja.sh --wayland
-$ sh install_ninja.sh --wayland # Or like this
+$ ./install_ninja.sh --wayland --ninja
+$ sh install_ninja.sh --wayland --ninja # Or like this
 ```
 
 ## Plasma components <a name="plasma"></a>
@@ -77,7 +89,7 @@ This section relates to the directories found in the `plasma` folder.
 1. Run the following scripts:
 
 ```bash
-$ chmod +x install_plasmoids.sh && ./install_plasmoids.sh
+$ chmod +x install_plasmoids.sh && ./install_plasmoids.sh --ninja
 $ chmod +x install_plasma_components.sh && ./install_plasma_components.sh # Requires authorization for SMOD resources and SDDM themes
 ```
 
