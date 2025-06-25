@@ -60,6 +60,7 @@ and re-run the install scripts:
 ```sh
 $ sh compile.sh
 $ sh install_plasmoids.sh
+$ sh install_plasmoids.sh --no-compile # If there's no need to recompile the C++ parts of the plasmoids, you can just run this
 $ sh install_kwin_components.sh
 $ sh install_plasma_components.sh
 $ sh install_misc_components.sh # Usually not required to run again
@@ -107,8 +108,8 @@ $ sh compile.sh --wayland --ninja # Or like this
 If compiling individual KWin effects by running their respective `install.sh` scripts, you can also pass the `--wayland` argument there:
 
 ```bash
-$ ./install_ninja.sh --wayland --ninja
-$ sh install_ninja.sh --wayland --ninja # Or like this
+$ ./install.sh --wayland --ninja
+$ sh install.sh --wayland --ninja # Or like this
 ```
 
 ## Plasma components <a name="plasma"></a>
@@ -218,12 +219,12 @@ Optionally, install [PlymouthVista](https://github.com/furkrn/PlymouthVista) whi
 
 # WARNING:
 
-## Installing random modifications to programs that deal with privilege escalation (giving sudo or root access to users) from unknown or untrustworthy sources is reckless and a giant security risk. Even though this modification to KDE's polkit authentication UI is purely cosmetic (and even hotfixes a [longstanding](https://bugs.kde.org/show_bug.cgi?id=448554) [issue](https://bugs.kde.org/show_bug.cgi?id=502763)), it's generally not recommended to modify sensitive applications such as this. If you don't know what you're doing, or do not trust the modified source code, do not install this particular component of AeroThemePlasma.
+## Installing random modifications to programs that deal with privilege escalation (giving sudo or root access to users) from unknown or untrustworthy sources is reckless and a giant security risk. Even though this modification to KDE's polkit authentication UI is purely cosmetic, it's generally not recommended to modify sensitive applications such as this. If you don't know what you're doing, or do not trust the modified source code, do not install this particular component of AeroThemePlasma.
 
-1. Navigate to the `uac-polkitagent` folder, and run `install.sh` (or `install_ninja.sh` if you have Ninja installed):
+1. Navigate to the `uac-polkitagent` folder, and run `install.sh`:
 
 ```bash
-$ chmod +x install.sh && ./install.sh
+$ chmod +x install.sh && ./install.sh --ninja
 ```
 
 2. To remove the minimize and maximize buttons from the window, run `add_rule.sh` which will generate the appropriate KWin rule:
