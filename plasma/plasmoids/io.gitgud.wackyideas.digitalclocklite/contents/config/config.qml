@@ -23,7 +23,7 @@ import QtQuick 2.0
 import QtQml 2.2
 
 import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.configuration 2.0
+import org.kde.plasma.configuration
 import org.kde.plasma.workspace.calendar 2.0 as PlasmaCalendar
 
 ConfigModel {
@@ -57,7 +57,6 @@ ConfigModel {
             name: model.display
             icon: model.decoration
             source: model.configUi
-            includeMargins: false
             visible: Plasmoid.configuration.enabledCalendarPlugins.indexOf(model.pluginId) > -1
         }
 
