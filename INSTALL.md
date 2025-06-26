@@ -125,6 +125,10 @@ $ chmod +x install_plasmoids.sh && ./install_plasmoids.sh --ninja
 $ chmod +x install_plasma_components.sh && ./install_plasma_components.sh # Requires authorization for SMOD resources and SDDM themes
 ```
 
+### Note for SevenTasks:
+
+SevenTasks relies on modifications found in `misc/defaulttooltip` in order to work properly. Make sure that they're compiled and installed correctly before enabling SevenTasks.
+
 ### Manual
 
 1. Move the `smod` folder to `~/.local/share`, or `/usr/share/` for a system-wide installation. This will install the resources required by many other components in this project.
