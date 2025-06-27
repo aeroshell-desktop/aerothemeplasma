@@ -149,10 +149,10 @@ BlurEffect::BlurEffect() : m_sharedMemory("kwinaero")
     }
 
     m_glowPass.sideGlowTexture = GLTexture::upload(QPixmap(QStringLiteral(":/effects/aeroblur/framecornereffect.png")));
-    m_glowPass.sideGlowTexture->setFilter(GL_LINEAR);
+    m_glowPass.sideGlowTexture->setFilter(GL_LINEAR_MIPMAP_LINEAR);
     m_glowPass.sideGlowTexture->setWrapMode(GL_CLAMP_TO_EDGE);
     m_glowPass.sideGlowTexture_unfocus = GLTexture::upload(QPixmap(QStringLiteral(":/effects/aeroblur/framecornereffect-unfocus.png")));
-    m_glowPass.sideGlowTexture_unfocus->setFilter(GL_LINEAR);
+    m_glowPass.sideGlowTexture_unfocus->setFilter(GL_LINEAR_MIPMAP_LINEAR);
     m_glowPass.sideGlowTexture_unfocus->setWrapMode(GL_CLAMP_TO_EDGE);
 
     initBlurStrengthValues();
@@ -499,7 +499,6 @@ void BlurEffect::slotWindowAdded(EffectWindow *w)
 {
     SurfaceInterface *surf = w->surface();
 
-    printf("Title: %s\n", w->caption().toStdString().c_str());
     if (surf) {
         windowBlurChangedConnections[w] = connect(surf, &SurfaceInterface::blurChanged, this, [this, w]() {
             if (w) {
@@ -767,11 +766,11 @@ bool BlurEffect::scaledOrTransformed(const EffectWindow *w, int mask, const Wind
 bool BlurEffect::shouldBlur(const EffectWindow *w, int mask, const WindowPaintData &data) const
 {
     QString windowClass = w->windowClass().split(' ')[0];
-    //printf("%d %s\n", w->windowType(), windowClass.toStdString().c_str());
+    //qCWarning(KWIN_BLUR) << w->windowClass();
+    //printf("%d %s %s %s\n", w->windowType(), windowClass.toStdString().c_str(), w->isSpecialWindow() ? "specil true" : "specil false", w->caption().toStdString().c_str());
     if (effects->activeFullScreenEffect() && !w->data(WindowForceBlurRole).toBool()) {
         return false;
     }
-
 
     if (w->isOutline() || w->isDesktop() || (!w->isManaged() && !(windowClass == "plasmashell" || windowClass == "kwin_x11" || windowClass == "kwin_wayland"))) {
         return false;
@@ -792,6 +791,12 @@ bool BlurEffect::shouldBlur(const EffectWindow *w, int mask, const WindowPaintDa
 bool BlurEffect::shouldForceBlur(const EffectWindow *w) const
 {
     if ((!m_blurDocks && w->isDock()) || (!m_blurMenus && (w->isMenu() || w->isDropdownMenu() || w->isPopupMenu()))) {
+        return false;
+    }
+    // For some reason, the Alt+Tab window on Wayland is made up of two windows, one of which is completely empty
+    // and has an empty window class, and.. isn't a Wayland client???'
+    if(effects->waylandDisplay() && !w->isWaylandClient() && w->window()->resourceName() == "")
+    {
         return false;
     }
 
@@ -825,7 +830,7 @@ void BlurEffect::ensureReflectTexture()
 	}
 
 	m_reflectPass.reflectTexture = GLTexture::upload(textureImage);
-	m_reflectPass.reflectTexture->setFilter(GL_LINEAR);
+	m_reflectPass.reflectTexture->setFilter(GL_LINEAR_MIPMAP_LINEAR);
 	m_reflectPass.reflectTexture->setWrapMode(GL_REPEAT);
 }
 
