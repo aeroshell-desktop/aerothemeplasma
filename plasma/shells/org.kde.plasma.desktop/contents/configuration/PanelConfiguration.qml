@@ -97,11 +97,13 @@ ColumnLayout {
 
 
     PlasmaExtras.PlasmoidHeading {
+        Layout.leftMargin: Kirigami.Units.largeSpacing * 2
+        Layout.rightMargin: Kirigami.Units.largeSpacing * 2
         RowLayout {
             anchors.fill: parent
             anchors.topMargin: Kirigami.Units.smallSpacing
-            anchors.rightMargin: Kirigami.Units.smallSpacing
-            anchors.leftMargin: Kirigami.Units.smallSpacing
+            anchors.rightMargin: -Kirigami.Units.largeSpacing
+            anchors.leftMargin: -Kirigami.Units.largeSpacing
             spacing: Kirigami.Units.largeSpacing
 
             Kirigami.Heading {
@@ -111,6 +113,7 @@ ColumnLayout {
                 textFormat: Text.PlainText
                 Kirigami.Theme.colorSet: Kirigami.Theme.View
                 Kirigami.Theme.inherit: false
+                level: 4
             }
 
             Item { Layout.fillWidth: true }
@@ -641,9 +644,11 @@ ColumnLayout {
         position: PlasmaExtras.PlasmoidHeading.Footer
         Layout.topMargin: Kirigami.Units.smallSpacing
         topPadding: Kirigami.Units.smallSpacing * 2
-        leftPadding: Kirigami.Units.smallSpacing
-        rightPadding: Kirigami.Units.smallSpacing
+        leftPadding: -Kirigami.Units.largeSpacing
+        rightPadding: -Kirigami.Units.largeSpacing
         bottomPadding: Kirigami.Units.smallSpacing
+        Layout.leftMargin: Kirigami.Units.largeSpacing * 2
+        Layout.rightMargin: Kirigami.Units.largeSpacing * 2
 
         Layout.fillWidth: true
         RowLayout {
