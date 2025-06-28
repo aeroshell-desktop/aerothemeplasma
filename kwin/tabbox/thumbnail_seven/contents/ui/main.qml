@@ -50,6 +50,7 @@ KWin.TabBoxSwitcher {
         flags: Qt.BypassWindowManagerHint | Qt.WindowStaysOnTopHint | Qt.Popup
         x: tabBox.screenGeometry.x + tabBox.screenGeometry.width * 0.5 - dialogMainItem.width * 0.5
         y: tabBox.screenGeometry.y + tabBox.screenGeometry.height * 0.5 - dialogMainItem.height * 0.5
+        title: "aerothemeplasma-tabbox"
 
         onVisibleChanged: {
             if(!visible) {

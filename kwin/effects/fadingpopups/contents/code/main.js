@@ -23,7 +23,8 @@ var blacklist = [
 var blacklistNames = [
     "seventasks-floatingavatar",
     "aerothemeplasma-windowframe-special",
-    "sevenstart-menurepresentation"
+    "sevenstart-menurepresentation",
+    "aerothemeplasma-tabbox"
 ];
 
 function isPopupWindow(window) {

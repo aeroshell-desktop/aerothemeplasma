@@ -1329,6 +1329,7 @@ bool BlurEffect::treatAsActive(const EffectWindow *w)
 {
 	QString windowClass = w->windowClass().split(' ')[1];
     if (m_basicColorization && (w->isDock() || w->caption() == "sevenstart-menurepresentation")) return false;
+    if(w->caption() == "aerothemeplasma-tabbox" && !w->isManaged()) return true;
 	return (w->isOnScreenDisplay() || w->isFullScreen() || windowClass == "plasmashell" || windowClass == "kwin" || w == effects->activeWindow());
 }
 
