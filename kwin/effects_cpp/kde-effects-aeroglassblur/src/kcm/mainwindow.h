@@ -42,6 +42,7 @@ public:
     void resetToDefault();
 protected:
     void closeEvent(QCloseEvent *event) override;
+    void showEvent(QShowEvent *event) override;
 private slots:
     void on_colorMixerLabel_linkActivated(const QString &link);
     void on_hue_Slider_valueChanged(int value);

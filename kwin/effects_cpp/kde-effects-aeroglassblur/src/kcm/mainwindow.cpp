@@ -91,8 +91,14 @@ MainWindow::MainWindow(QSpinBox *spinbox, QCheckBox *checkbox,
   ui->kcfg_EnableTransparency->setChecked(checkbox->isChecked());
   // Setting attributes which will allow the window to have a transparent
   // blurred background.
-  //this->setAttribute(Qt::WA_TranslucentBackground, true);
-  //this->setAttribute(Qt::WA_NoSystemBackground, true);
+  this->setObjectName("main");
+  this->setAttribute(Qt::WA_TranslucentBackground, true);
+  this->setAttribute(Qt::WA_NoSystemBackground, true);
+  this->setStyleSheet(
+    "QMainWindow#main {"
+    "background: transparent;"
+    "}"
+  );
 
   /*this->winId();
   KWindowEffects::enableBlurBehind(
@@ -186,6 +192,10 @@ MainWindow::~MainWindow() {
   delete ui;
 }
 
+void MainWindow::showEvent(QShowEvent *event)
+{
+    KWindowEffects::enableBlurBehind(this->windowHandle(), true, QRegion(0,0, 0, 0));
+}
 /*
  * Returns the currently set color. Depending on the transparency settings, the
  * alpha value will either be directly used as the transparency value, or it
