@@ -273,7 +273,7 @@ bool BlurEffect::readMemory(bool *skipFunc)
 {
 	if(!m_sharedMemory.attach())
     {
-        printf("Couldn't access shared memory! %s %d\n", m_sharedMemory.nativeKey().toStdString().c_str(), m_sharedMemory.error());
+        qCWarning(KWIN_BLUR) << "Couldn't access shared memory! " << m_sharedMemory.nativeKey() << " " << m_sharedMemory.error();
         if(m_sharedMemory.error())
             return false;
     }
