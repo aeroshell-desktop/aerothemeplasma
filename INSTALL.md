@@ -174,11 +174,11 @@ $ ln -s kwin kwin-wayland
   - Main: Thumbnail Seven, Include "Show Desktop" entry
   - Alternative: Flip Switch, Forward shortcut: Meta+Tab
 - In Window Behavior -> KWin Scripts:
-  - Enable Minimize All, SMOD Peek
+  - Enable Minimize All, SMOD Peek (**Wayland users should keep SMOD Peek disabled as it doesn't work and can cause freezing**)
 - In Window Behavior -> Desktop Effects, enable the following:
   - Aero Glass Blur
   - Desaturate Unresponsive Applications
-  - SMOD Glow
+  - SMOD Glow 
   - SMOD Snap
   - Dim Screen for Administrator Mode
   - Animations for SevenTasks Thumbnails
