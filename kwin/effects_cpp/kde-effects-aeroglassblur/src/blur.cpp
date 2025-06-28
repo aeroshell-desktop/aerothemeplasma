@@ -1167,6 +1167,11 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         }
 
         if(w->isOnScreenDisplay()) opaqueMaximize = true;
+        // X11 Alt+Tab window
+        if(w->caption() == "" && windowClass == "kwin") opaqueMaximize = false;
+        // Wayland Alt+Tab window
+        if(effects->waylandDisplay() && !w->isWaylandClient() && w->window()->resourceName() == "") opaqueMaximize = false;
+
 
         if(opaqueMaximize)
         {
@@ -1330,6 +1335,7 @@ bool BlurEffect::treatAsActive(const EffectWindow *w)
 	QString windowClass = w->windowClass().split(' ')[1];
     if (m_basicColorization && (w->isDock() || w->caption() == "sevenstart-menurepresentation")) return false;
     if(w->caption() == "aerothemeplasma-tabbox" && !w->isManaged()) return true;
+    if(effects->waylandDisplay() && !w->isWaylandClient() && w->window()->resourceName() == "") return true;
 	return (w->isOnScreenDisplay() || w->isFullScreen() || windowClass == "plasmashell" || windowClass == "kwin" || w == effects->activeWindow());
 }
 
