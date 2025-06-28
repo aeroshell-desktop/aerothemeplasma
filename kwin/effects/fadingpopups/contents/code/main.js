@@ -40,6 +40,12 @@ function isPopupWindow(window) {
     if(window.dialog && window.windowClass === "plasmashell plasmashell") {
         return false;
     }
+    if(window.dock && window.windowClass === "plasmashell plasmashell") {
+        return false;
+    }
+    if(window.desktop && window.windowClass === "plasmashell plasmashell") {
+        return false;
+    }
     if(blacklistNames.indexOf(window.caption) != -1) {
         return false;
     }
