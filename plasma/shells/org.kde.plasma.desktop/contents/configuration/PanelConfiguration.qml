@@ -28,6 +28,10 @@ ColumnLayout {
 
     readonly property int headingLevel: 2
 
+    Kirigami.Theme.colorSet: Kirigami.Theme.View
+    Kirigami.Theme.inherit: false
+
+
     property Item panelRuler: Ruler {
         id: ruler
 
@@ -78,7 +82,12 @@ ColumnLayout {
         }
     }
 
+    onParentChanged: {
+        let window = dialogRoot.Window.window
+        if(window) window.backgroundHints = 1;
+    }
     Component.onCompleted: {
+
         if (panel.lengthMode === Panel.Global.Custom) {
             Qt.callLater(()=> {
                 panelConfiguration.panelRulerView.visible = true
@@ -90,33 +99,41 @@ ColumnLayout {
     PlasmaExtras.PlasmoidHeading {
         RowLayout {
             anchors.fill: parent
+            anchors.topMargin: Kirigami.Units.smallSpacing
+            anchors.rightMargin: Kirigami.Units.smallSpacing
+            anchors.leftMargin: Kirigami.Units.smallSpacing
             spacing: Kirigami.Units.largeSpacing
 
             Kirigami.Heading {
                 Layout.leftMargin: Kirigami.Units.smallSpacing
+                Layout.bottomMargin: Kirigami.Units.smallSpacing / 2
                 text: i18nd("plasma_shell_org.kde.plasma.desktop", "Panel Settings")
                 textFormat: Text.PlainText
+                Kirigami.Theme.colorSet: Kirigami.Theme.View
+                Kirigami.Theme.inherit: false
             }
 
             Item { Layout.fillWidth: true }
 
-            PC3.ToolButton {
+            QQC2.Button {
                 text: i18nd("plasma_shell_org.kde.plasma.desktop", "Add Spacer")
                 icon.name: "distribute-horizontal-x"
+                Layout.bottomMargin: Kirigami.Units.smallSpacing / 2
 
-                PC3.ToolTip.text: i18nd("plasma_shell_org.kde.plasma.desktop", "Add spacer widget to the panel")
-                PC3.ToolTip.delay: Kirigami.Units.toolTipDelay
-                PC3.ToolTip.visible: hovered
+                QQC2.ToolTip.text: i18nd("plasma_shell_org.kde.plasma.desktop", "Add spacer widget to the panel")
+                QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
+                QQC2.ToolTip.visible: hovered
                 onClicked: configDialog.addPanelSpacer()
             }
 
-            PC3.ToolButton {
+            QQC2.Button {
                 text: i18nd("plasma_shell_org.kde.plasma.desktop", "Add Widgets…")
                 icon.name: "list-add"
+                Layout.bottomMargin: Kirigami.Units.smallSpacing / 2
 
-                PC3.ToolTip.text: i18nd("plasma_shell_org.kde.plasma.desktop", "Open the widget selector to drag and drop widgets to the panel")
-                PC3.ToolTip.delay: Kirigami.Units.toolTipDelay
-                PC3.ToolTip.visible: hovered
+                QQC2.ToolTip.text: i18nd("plasma_shell_org.kde.plasma.desktop", "Open the widget selector to drag and drop widgets to the panel")
+                QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
+                QQC2.ToolTip.visible: hovered
                 onClicked: {
                     configDialog.close()
                     configDialog.showAddWidgetDialog()
@@ -523,8 +540,8 @@ ColumnLayout {
                 y: modelData.virtualY + modelData.height / 2 - mainItem.height / 2 - margins.top
 
                 mainItem: PC3.ToolButton {
-                    width: Kirigami.Units.iconSizes.huge
-                    height: Kirigami.Units.iconSizes.huge
+                    width: Kirigami.Units.iconSizes.large
+                    height: Kirigami.Units.iconSizes.large
                     icon.name: root.iconSource
 
                     onClicked: setPositionButton.moveTo(root.onClickedLocation, Window.window)
@@ -635,13 +652,13 @@ ColumnLayout {
             anchors.right: parent.right
             spacing: Kirigami.Units.largeSpacing
 
-            PC3.ToolButton {
+            QQC2.Button {
                 text: i18ndc("plasma_shell_org.kde.plasma.desktop", "@action:button Delete the panel", "Delete Panel")
                 icon.name: "delete"
 
-                PC3.ToolTip.text: i18nd("plasma_shell_org.kde.plasma.desktop", "Remove this panel; this action is undo-able")
-                PC3.ToolTip.delay: Kirigami.Units.toolTipDelay
-                PC3.ToolTip.visible: hovered
+                QQC2.ToolTip.text: i18nd("plasma_shell_org.kde.plasma.desktop", "Remove this panel; this action is undo-able")
+                QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
+                QQC2.ToolTip.visible: hovered
 
                 onClicked: plasmoid.internalAction("remove").trigger()
             }
@@ -649,13 +666,13 @@ ColumnLayout {
 
             Item {Layout.fillWidth: true}
 
-            PC3.ToolButton {
+            QQC2.Button {
                 text: i18ndc("plasma_shell_org.kde.plasma.desktop", "@action:button Done configuring the panel", "Done")
                 icon.name: "dialog-ok-symbolic"
 
-                PC3.ToolTip.text: i18nd("plasma_shell_org.kde.plasma.desktop", "Close Panel Settings window and exit Edit Mode")
-                PC3.ToolTip.delay: Kirigami.Units.toolTipDelay
-                PC3.ToolTip.visible: hovered
+                QQC2.ToolTip.text: i18nd("plasma_shell_org.kde.plasma.desktop", "Close Panel Settings window and exit Edit Mode")
+                QQC2.ToolTip.delay: Kirigami.Units.toolTipDelay
+                QQC2.ToolTip.visible: hovered
 
                 onClicked: plasmoid.containment.corona.editMode = false
             }

@@ -178,40 +178,6 @@ MouseArea {
             height: width
             anchors.centerIn: parent
         }
-        Behavior on x {
-            enabled: !configurationArea.pressed
-            NumberAnimation {
-                duration: Kirigami.Units.longDuration
-                easing.type: Easing.InOutQuad
-            }
-        }
-        Behavior on y {
-            enabled: !configurationArea.pressed
-            NumberAnimation {
-                duration: Kirigami.Units.longDuration
-                easing.type: Easing.InOutQuad
-            }
-        }
-        Behavior on width {
-            enabled: !configurationArea.pressed
-            NumberAnimation {
-                duration: Kirigami.Units.longDuration
-                easing.type: Easing.InOutQuad
-            }
-        }
-        Behavior on height {
-            enabled: !configurationArea.pressed
-            NumberAnimation {
-                duration: Kirigami.Units.longDuration
-                easing.type: Easing.InOutQuad
-            }
-        }
-        Behavior on opacity {
-            NumberAnimation {
-                duration: Kirigami.Units.longDuration
-                easing.type: Easing.InOutQuad
-            }
-        }
     }
     PlasmaCore.PopupPlasmaWindow {
         id: tooltip
@@ -221,6 +187,8 @@ MouseArea {
         margin: configurationArea.Window.window?.lengthMode === 2 ? Kirigami.Units.gridUnit * 2 : Kirigami.Units.largeSpacing
         width: mainItem.implicitWidth + leftPadding + rightPadding
         height: mainItem.implicitHeight + topPadding + bottomPadding
+
+        backgroundHints: "SolidBackground"
 
         popupDirection: switch (Plasmoid.location) {
             case PlasmaCore.Types.TopEdge:
@@ -252,23 +220,31 @@ MouseArea {
             onEntered: hideTimer.stop();
             onExited:  hideTimer.restart();
 
+            Kirigami.Theme.colorSet: Kirigami.Theme.View
+            Kirigami.Theme.inherit: false
+
             ColumnLayout {
                 id: handleButtons
                 spacing: Kirigami.Units.smallSpacing
 
                 PlasmaExtras.PlasmoidHeading {
-                    leftPadding: Kirigami.Units.smallSpacing * 2
-                    rightPadding: Kirigami.Units.smallSpacing * 2
+                    topPadding: Kirigami.Units.smallSpacing * 2
+                    leftPadding: Kirigami.Units.smallSpacing * 4
+                    rightPadding: Kirigami.Units.smallSpacing * 4
+
+                    Layout.leftMargin: Kirigami.Units.largeSpacing * 2
+                    Layout.rightMargin: Kirigami.Units.largeSpacing * 2
 
                     contentItem: Kirigami.Heading {
                         id: label
-                        level: 3
+                        Kirigami.Theme.colorSet: Kirigami.Theme.View
+                        Kirigami.Theme.inherit: false
+
+                        level: 4
                         horizontalAlignment: Text.AlignHCenter
                         textFormat: Text.PlainText
                     }
                 }
-                Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
-                Kirigami.Theme.inherit: false
 
                 PlasmaComponents3.ToolButton {
                     Layout.fillWidth: true
