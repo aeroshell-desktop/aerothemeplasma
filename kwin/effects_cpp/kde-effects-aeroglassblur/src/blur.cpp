@@ -1165,6 +1165,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
             }
             else opaqueMaximize = maximizeState == MaximizeMode::MaximizeFull && windowClass != "kwin" && w->caption() != "sevenstart-menurepresentation";
         }
+        if(w->window()->resourceName() == "krunner" && w->window()->resourceClass() == "krunner") opaqueMaximize = true;
 
         if(w->isOnScreenDisplay()) opaqueMaximize = true;
         // X11 Alt+Tab window
