@@ -130,30 +130,22 @@ BlurEffect::BlurEffect() : m_sharedMemory("kwinaero")
         m_reflectPass.windowSizeLocation = m_reflectPass.shader->uniformLocation("windowSize");
         m_reflectPass.translateTextureLocation = m_reflectPass.shader->uniformLocation("translate");
         m_reflectPass.colorMatrixLocation = m_reflectPass.shader->uniformLocation("colorMatrix");
-    }
-    m_glowPass.shader = ShaderManager::instance()->generateShaderFromFile(
-        ShaderTrait::MapTexture,
-        QStringLiteral(":/effects/aeroblur/shaders/vertex.vert"),
-        QStringLiteral(":/effects/aeroblur/shaders/glow.frag"));
-    if (!m_glowPass.shader) {
-        qCWarning(KWIN_BLUR) << "Failed to load sideglow pass shader";
-        return;
-    } else {
-        m_glowPass.mvpMatrixLocation = m_glowPass.shader->uniformLocation("modelViewProjectionMatrix");
-        m_glowPass.colorMatrixLocation = m_glowPass.shader->uniformLocation("colorMatrix");
-		m_glowPass.opacityLocation   = m_glowPass.shader->uniformLocation("opacity");
-        m_glowPass.textureSizeLocation = m_glowPass.shader->uniformLocation("textureSize");
-        m_glowPass.windowPosLocation = m_glowPass.shader->uniformLocation("windowPos");
-        m_glowPass.windowSizeLocation = m_glowPass.shader->uniformLocation("windowSize");
-        m_glowPass.scaleYLocation = m_glowPass.shader->uniformLocation("scaleY");
+        m_reflectPass.reflectTextureLocation = m_reflectPass.shader->uniformLocation("texUnit");
+        // Glow
+        m_reflectPass.textureSizeLocation = m_reflectPass.shader->uniformLocation("textureSize");
+        m_reflectPass.scaleYLocation = m_reflectPass.shader->uniformLocation("scaleY");
+        m_reflectPass.glowTextureLocation = m_reflectPass.shader->uniformLocation("glowTexture");
+        m_reflectPass.glowEnableLocation = m_reflectPass.shader->uniformLocation("glowEnable");
+        m_reflectPass.glowOpacityLocation = m_reflectPass.shader->uniformLocation("glowOpacity");
+
     }
 
-    m_glowPass.sideGlowTexture = GLTexture::upload(QPixmap(QStringLiteral(":/effects/aeroblur/framecornereffect.png")));
-    m_glowPass.sideGlowTexture->setFilter(GL_LINEAR_MIPMAP_LINEAR);
-    m_glowPass.sideGlowTexture->setWrapMode(GL_CLAMP_TO_EDGE);
-    m_glowPass.sideGlowTexture_unfocus = GLTexture::upload(QPixmap(QStringLiteral(":/effects/aeroblur/framecornereffect-unfocus.png")));
-    m_glowPass.sideGlowTexture_unfocus->setFilter(GL_LINEAR_MIPMAP_LINEAR);
-    m_glowPass.sideGlowTexture_unfocus->setWrapMode(GL_CLAMP_TO_EDGE);
+    m_reflectPass.sideGlowTexture = GLTexture::upload(QPixmap(QStringLiteral(":/effects/aeroblur/framecornereffect.png")));
+    m_reflectPass.sideGlowTexture->setFilter(GL_LINEAR_MIPMAP_LINEAR);
+    m_reflectPass.sideGlowTexture->setWrapMode(GL_CLAMP_TO_EDGE);
+    m_reflectPass.sideGlowTexture_unfocus = GLTexture::upload(QPixmap(QStringLiteral(":/effects/aeroblur/framecornereffect-unfocus.png")));
+    m_reflectPass.sideGlowTexture_unfocus->setFilter(GL_LINEAR_MIPMAP_LINEAR);
+    m_reflectPass.sideGlowTexture_unfocus->setWrapMode(GL_CLAMP_TO_EDGE);
 
     initBlurStrengthValues();
     reconfigure(ReconfigureAll);
@@ -940,6 +932,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         renderInfo.framebuffers[0]->blitFromRenderTarget(renderTarget, viewport, dirtyRect, dirtyRect.translated(-backgroundRect.topLeft()));
     }
 
+    qCWarning(KWIN_BLUR) << m_iterationCount << " " << m_offset;
     // Upload the geometry: the first 6 vertices are used when downsampling and upsampling offscreen,
     // the remaining vertices are used when rendering on the screen.
     GLVertexBuffer *vbo = GLVertexBuffer::streamingBuffer();
@@ -1173,7 +1166,6 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         // Wayland Alt+Tab window
         if(effects->waylandDisplay() && !w->isWaylandClient() && w->window()->resourceName() == "") opaqueMaximize = false;
 
-
         if(opaqueMaximize)
         {
             getMaximizedColorization(m_aeroIntensity, m_aeroColorR, m_aeroColorG, m_aeroColorB, r, g, b);
@@ -1192,7 +1184,6 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         const QVector2D halfpixel(0.5 / (double)read->colorAttachment()->width(),
                                   0.5 / (double)read->colorAttachment()->height());
         m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].halfpixelLocation, halfpixel);
-
 
         m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].aeroColorRLocation, r);
         m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].aeroColorGLocation, g);
@@ -1221,10 +1212,8 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         }
 
         ShaderManager::instance()->popShader();
-
-        //bool opaqueMaximize = false;
-
         glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
         float finalOpacity = (float)opacity * (float)m_reflectionIntensity / 100.0f;
         if(opaqueMaximize)
@@ -1233,19 +1222,15 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
             if(!treatAsActive(w)) finalOpacity *= 0.5f;
         }
 
-        /*if (finalOpacity < 1.0) {
-            glBlendColor(0, 0, 0, finalOpacity);
-            glBlendFunc(GL_CONSTANT_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        }*/
-
 		QRect windowRect = w->frameGeometry().toRect();
 		QSize screenSize = KWin::effects->virtualScreenSize();
 		auto windowPos = windowRect.topLeft();
 		auto windowSize = windowRect.size();
 		GLTexture *reflectTex = m_reflectPass.reflectTexture.get();
-		if(reflectTex && finalOpacity != 0.0)
+        GLTexture *glowTex = !treatAsActive(w) ? m_reflectPass.sideGlowTexture_unfocus.get() : m_reflectPass.sideGlowTexture.get();
+        bool enableGlow = shouldHaveCornerGlow(w) && m_enableCornerGlow && glowTex && !opaqueMaximize;
+		if(reflectTex || enableGlow)
 		{
-            glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
             ShaderManager::instance()->pushShader(m_reflectPass.shader.get());
 
             QMatrix4x4 projectionMatrix = viewport.projectionMatrix();
@@ -1260,42 +1245,33 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 			m_reflectPass.shader->setUniform(m_reflectPass.translateTextureLocation, m_translateTexture ? float(1.0) : float(0.0));
             m_reflectPass.shader->setUniform(m_reflectPass.colorMatrixLocation, colorMat);
 
+            // Glow part
+            m_reflectPass.shader->setUniform(m_reflectPass.glowEnableLocation, enableGlow);
+            if(enableGlow)
+            {
+                const auto scale = viewport.scale();
+                bool scaleY = false;
+                if(backgroundRect.height() != windowSize.height() && !scaledOrTransformed(w, mask, data)) scaleY = true;
+                const QRectF pixelGeometry = snapToPixelGridF(scaledRect(QRectF(0, 0, glowTex->width(), glowTex->height()), scale));
+
+                m_reflectPass.shader->setUniform(m_reflectPass.glowEnableLocation, enableGlow);
+            	m_reflectPass.shader->setUniform(m_reflectPass.textureSizeLocation, QVector2D(pixelGeometry.width(), pixelGeometry.height()));
+            	m_reflectPass.shader->setUniform(m_reflectPass.scaleYLocation, scaleY);
+                m_reflectPass.shader->setUniform(m_reflectPass.glowOpacityLocation, float(opacity*0.8));
+
+                glUniform1i(m_reflectPass.glowTextureLocation, 1);
+                glActiveTexture(GL_TEXTURE1);
+                glowTex->bind();
+            }
+
+            glUniform1i(m_reflectPass.reflectTextureLocation, 0);
+            glActiveTexture(GL_TEXTURE0);
             reflectTex->bind();
 
             vbo->draw(GL_TRIANGLES, 6, vertexCount);
 
             ShaderManager::instance()->popShader();
 		}
-		if(shouldHaveCornerGlow(w) && m_enableCornerGlow)
-        {
-            glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-
-            GLTexture *glowTex = !treatAsActive(w) ? m_glowPass.sideGlowTexture_unfocus.get() : m_glowPass.sideGlowTexture.get();
-            if(glowTex && opacity != 0.0 && !opaqueMaximize)
-            {
-
-                ShaderManager::instance()->pushShader(m_glowPass.shader.get());
-                QMatrix4x4 projectionMatrix = viewport.projectionMatrix();
-                projectionMatrix.translate(deviceBackgroundRect.x(), deviceBackgroundRect.y());
-                const auto scale = viewport.scale();
-
-                bool scaleY = false;
-                if(backgroundRect.height() != windowSize.height() && !scaledOrTransformed(w, mask, data)) scaleY = true;
-                const QRectF pixelGeometry = snapToPixelGridF(scaledRect(QRectF(0, 0, glowTex->width(), glowTex->height()), scale));
-                m_glowPass.shader->setUniform(m_glowPass.mvpMatrixLocation, projectionMatrix);
-            	m_glowPass.shader->setUniform(m_glowPass.opacityLocation, float(opacity*0.8));
-            	m_glowPass.shader->setUniform(m_glowPass.windowPosLocation, QVector2D(deviceBackgroundRect.x(), deviceBackgroundRect.y()));
-            	m_glowPass.shader->setUniform(m_glowPass.windowSizeLocation, QVector2D(backgroundRect.width(), backgroundRect.height()));
-            	m_glowPass.shader->setUniform(m_glowPass.textureSizeLocation, QVector2D(pixelGeometry.width(), pixelGeometry.height()));
-            	m_glowPass.shader->setUniform(m_glowPass.scaleYLocation, scaleY);
-                m_glowPass.shader->setUniform(m_glowPass.colorMatrixLocation, colorMat);
-                glowTex->bind();
-                vbo->draw(GL_TRIANGLES, 6, vertexCount);
-
-                ShaderManager::instance()->popShader();
-
-            }
-        }
         glDisable(GL_BLEND);
     }
 

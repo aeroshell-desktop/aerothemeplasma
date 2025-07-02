@@ -111,23 +111,10 @@ private:
 private:
     struct
     {
+        std::unique_ptr<GLShader> shader;
+        std::unique_ptr<GLTexture> reflectTexture;
         std::unique_ptr<GLTexture> sideGlowTexture;
         std::unique_ptr<GLTexture> sideGlowTexture_unfocus;
-        std::unique_ptr<GLShader> shader;
-
-        int colorMatrixLocation;
-        int textureSizeLocation;
-        int windowPosLocation;
-        int windowSizeLocation;
-        int mvpMatrixLocation;
-        int opacityLocation;
-        int scaleYLocation;
-
-    } m_glowPass;
-    struct
-    {
-	std::unique_ptr<GLShader> shader;
-	std::unique_ptr<GLTexture> reflectTexture;
         int mvpMatrixLocation;
         int colorMatrixLocation;
         int screenResolutionLocation;
@@ -135,6 +122,14 @@ private:
         int windowSizeLocation;
         int opacityLocation;
         int translateTextureLocation;
+        int reflectTextureLocation;
+
+        // Glow
+        int glowTextureLocation;
+        int glowEnableLocation;
+        int textureSizeLocation;
+        int scaleYLocation;
+        int glowOpacityLocation;
     } m_reflectPass;
     struct
     {

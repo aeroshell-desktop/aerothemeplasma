@@ -2,8 +2,6 @@
 <qresource prefix="/effects/aeroblur/">
   <file>shaders/downsample.frag</file>
   <file>shaders/downsample_core.frag</file>
-  <file>shaders/glow.frag</file>
-  <file>shaders/glow_core.frag</file>
   <file>shaders/reflect.frag</file>
   <file>shaders/reflect_core.frag</file>
   <file>shaders/upsample.frag</file>
