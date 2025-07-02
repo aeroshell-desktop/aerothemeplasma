@@ -207,6 +207,10 @@ private:
     float m_aeroColorB;
     float m_aeroColorA;
 
+    float m_aeroColorROpaque;
+    float m_aeroColorGOpaque;
+    float m_aeroColorBOpaque;
+
     int m_aeroPrimaryBalance;
     int m_aeroSecondaryBalance;
     int m_aeroBlurBalance;

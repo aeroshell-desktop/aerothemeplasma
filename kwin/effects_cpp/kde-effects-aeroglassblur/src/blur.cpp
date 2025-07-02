@@ -316,6 +316,9 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
    		m_aeroColorB = fB;
         m_aeroColorA = (m_aeroIntensity - 26) / 191.0f;
 
+        getMaximizedColorization(m_aeroIntensity, m_aeroColorR, m_aeroColorG, m_aeroColorB, m_aeroColorROpaque, m_aeroColorGOpaque, m_aeroColorBOpaque);
+
+
 	};
 	bool skip = false;
 	bool readColor = readMemory(&skip) && m_firstTimeConfig;
@@ -932,7 +935,6 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         renderInfo.framebuffers[0]->blitFromRenderTarget(renderTarget, viewport, dirtyRect, dirtyRect.translated(-backgroundRect.topLeft()));
     }
 
-    qCWarning(KWIN_BLUR) << m_iterationCount << " " << m_offset;
     // Upload the geometry: the first 6 vertices are used when downsampling and upsampling offscreen,
     // the remaining vertices are used when rendering on the screen.
     GLVertexBuffer *vbo = GLVertexBuffer::streamingBuffer();
@@ -1168,10 +1170,12 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 
         if(opaqueMaximize)
         {
-            getMaximizedColorization(m_aeroIntensity, m_aeroColorR, m_aeroColorG, m_aeroColorB, r, g, b);
             basicAlpha = 1.0;
             basicCol = true;
             useTransparency = true;
+            r = m_aeroColorROpaque;
+            g = m_aeroColorGOpaque;
+            b = m_aeroColorBOpaque;
         }
 
         if(basicCol) selectedPass = AeroPasses::BASIC;
