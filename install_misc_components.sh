@@ -100,7 +100,7 @@ if [ "$answer" != "${answer#[Yy]}" ] ;then
         chmod +x ./compile.sh
         chmod +x ./install.sh
         ./compile.sh
-        pkexec ./install.sh
+        pkexec --keep-cwd ./install.sh
         echo "For more details, check out the project at https://github.com/furkrn/PlymouthVista"
     fi
 fi
