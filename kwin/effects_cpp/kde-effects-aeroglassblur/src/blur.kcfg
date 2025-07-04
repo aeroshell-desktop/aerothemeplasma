@@ -20,6 +20,9 @@
     <entry name="FirefoxHollowRegion" type="Bool">
         <default>true</default>
     </entry>
+    <entry name="OpaqueKrunner" type="Bool">
+        <default>true</default>
+    </entry>
     <entry name="BlurMatching" type="Bool">
         <default>true</default>
     </entry>

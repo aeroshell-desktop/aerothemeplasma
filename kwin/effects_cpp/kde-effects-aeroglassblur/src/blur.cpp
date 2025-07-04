@@ -358,6 +358,7 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
 
     m_firefoxCornerRadius = BlurConfig::firefoxCornerRadius();
     m_firefoxHollowRegion = BlurConfig::firefoxHollowRegion();
+    m_opaqueKrunner = BlurConfig::opaqueKrunner();
 
     m_blurMenus = BlurConfig::blurMenus();
     m_blurDocks = BlurConfig::blurDocks();
@@ -1166,7 +1167,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
             }
             else opaqueMaximize = maximizeState == MaximizeMode::MaximizeFull && windowClass != "kwin" && w->caption() != "sevenstart-menurepresentation";
         }
-        if(w->window()->resourceName() == "krunner" && w->window()->resourceClass() == "krunner") opaqueMaximize = true;
+        if(w->window()->resourceName() == "krunner" && w->window()->resourceClass() == "krunner" && m_opaqueKrunner) opaqueMaximize = true;
 
         if(w->isOnScreenDisplay()) opaqueMaximize = true;
         // X11 Alt+Tab window

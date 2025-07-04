@@ -189,6 +189,7 @@ private:
     int m_firefoxCornerRadius;
     bool m_firefoxHollowRegion;
 
+    bool m_opaqueKrunner;
     bool m_blurMatching;
     bool m_blurNonMatching;
     bool m_blurMenus;
