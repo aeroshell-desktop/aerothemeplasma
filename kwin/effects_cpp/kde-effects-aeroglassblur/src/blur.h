@@ -190,6 +190,7 @@ private:
     bool m_firefoxHollowRegion;
 
     bool m_opaqueKrunner;
+    bool m_opaqueOSD;
     bool m_blurMatching;
     bool m_blurNonMatching;
     bool m_blurMenus;

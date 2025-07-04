@@ -23,6 +23,9 @@
     <entry name="OpaqueKrunner" type="Bool">
         <default>true</default>
     </entry>
+    <entry name="OpaqueOSD" type="Bool">
+        <default>true</default>
+    </entry>
     <entry name="BlurMatching" type="Bool">
         <default>true</default>
     </entry>

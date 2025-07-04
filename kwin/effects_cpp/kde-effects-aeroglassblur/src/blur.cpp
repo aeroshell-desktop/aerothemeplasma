@@ -359,6 +359,7 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
     m_firefoxCornerRadius = BlurConfig::firefoxCornerRadius();
     m_firefoxHollowRegion = BlurConfig::firefoxHollowRegion();
     m_opaqueKrunner = BlurConfig::opaqueKrunner();
+    m_opaqueOSD = BlurConfig::opaqueOSD();
 
     m_blurMenus = BlurConfig::blurMenus();
     m_blurDocks = BlurConfig::blurDocks();
@@ -1169,7 +1170,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         }
         if(w->window()->resourceName() == "krunner" && w->window()->resourceClass() == "krunner" && m_opaqueKrunner) opaqueMaximize = true;
 
-        if(w->isOnScreenDisplay()) opaqueMaximize = true;
+        if(w->isOnScreenDisplay() && m_opaqueOSD) opaqueMaximize = true;
         // X11 Alt+Tab window
         if(w->caption() == "" && windowClass == "kwin") opaqueMaximize = false;
         // Wayland Alt+Tab window
