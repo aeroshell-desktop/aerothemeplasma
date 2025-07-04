@@ -66,8 +66,7 @@ public:
     QMatrix4x4 colorMatrix(const float &brightness, const float &saturation) const;
 
     //FF stuff
-    QRegion applyBlurRegion(KWin::EffectWindow *w);
-    QRegion getForcedNewRegion();
+    QRegion applyBlurRegion(KWin::EffectWindow *w, bool useFrame = false);
     bool isFirefoxWindowValid(KWin::EffectWindow *w);
 
     bool provides(Feature feature) override;
@@ -186,6 +185,10 @@ private:
     QStringList m_windowClasses;
     QStringList m_windowClassesColorization;
     QStringList m_firefoxWindows;
+
+    int m_firefoxCornerRadius;
+    bool m_firefoxHollowRegion;
+
     bool m_blurMatching;
     bool m_blurNonMatching;
     bool m_blurMenus;
@@ -250,8 +253,6 @@ private:
     static BlurManagerInterface *s_blurManager;
     static QTimer *s_blurManagerRemoveTimer;
     QSharedMemory m_sharedMemory;
-
-    KSvg::FrameSvg defaultSvg;
 
 };
 

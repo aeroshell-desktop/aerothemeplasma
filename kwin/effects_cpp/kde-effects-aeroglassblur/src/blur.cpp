@@ -14,6 +14,7 @@
 #include "core/pixelgrid.h"
 #include "core/rendertarget.h"
 #include "core/renderviewport.h"
+#include "core/output.h"
 #include "effect/effecthandler.h"
 #include "opengl/glplatform.h"
 #include "utils/xcbutils.h"
@@ -32,6 +33,8 @@
 #include <cstdlib>
 #include <QBuffer>
 #include <QDataStream>
+#include <QPainter>
+#include <QPainterPath>
 
 #include <KConfigGroup>
 #include <KSharedConfig>
@@ -149,8 +152,6 @@ BlurEffect::BlurEffect() : m_sharedMemory("kwinaero")
 
     initBlurStrengthValues();
     reconfigure(ReconfigureAll);
-    defaultSvg.setImagePath(QStringLiteral(":/effects/aeroblur/region.svg"));
-    defaultSvg.setUsingRenderingCache(false);
 
     if (effects->xcbConnection()) {
         net_wm_blur_region = effects->announceSupportProperty(s_blurAtomName, this);
@@ -354,6 +355,10 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
     m_windowClasses = BlurConfig::windowClasses().split("\n");
 	m_windowClassesColorization = BlurConfig::excludedColorization().split("\n");
     m_firefoxWindows = BlurConfig::blurFirefox().split("\n");
+
+    m_firefoxCornerRadius = BlurConfig::firefoxCornerRadius();
+    m_firefoxHollowRegion = BlurConfig::firefoxHollowRegion();
+
     m_blurMenus = BlurConfig::blurMenus();
     m_blurDocks = BlurConfig::blurDocks();
     m_paintAsTranslucent = BlurConfig::paintAsTranslucent();
@@ -389,27 +394,28 @@ bool BlurEffect::isFirefoxWindowValid(KWin::EffectWindow *w)
     return valid;
 }
 
-QRegion BlurEffect::getForcedNewRegion()
-{
-    defaultSvg.clearCache();
-    QPixmap alphaMask = defaultSvg.alphaMask();
-    const qreal dpr = alphaMask.devicePixelRatio();
-    // region should always be in logical pixels, resize pixmap to be in the logical sizes
-    if (alphaMask.devicePixelRatio() != 1.0) {
-        alphaMask = alphaMask.scaled(alphaMask.width() / dpr, alphaMask.height() / dpr);
-    }
-    return QRegion(QBitmap(alphaMask.mask()));
-}
-
-QRegion BlurEffect::applyBlurRegion(KWin::EffectWindow *w)
+QRegion BlurEffect::applyBlurRegion(KWin::EffectWindow *w, bool useFrame)
 {
     auto maximizeState = w->window()->maximizeMode();
-    defaultSvg.resizeFrame(w->size());
-    QRegion mask = defaultSvg.mask();
-    if(mask.boundingRect().size() != w->size().toSize() && maximizeState != MaximizeMode::MaximizeFull)
-    {
-        mask = getForcedNewRegion();
+    const auto scale = w->screen()->scale();
+    const int radius = maximizeState == MaximizeMode::MaximizeFull ? 0 : m_firefoxCornerRadius * scale;
+    QPainterPath path;
+    if(useFrame) {
+        path.addRoundedRect(0, 0, w->frameGeometry().width(), w->frameGeometry().height(), radius, radius);
+    } else {
+        path.addRoundedRect(0, 0, w->expandedGeometry().width(), w->expandedGeometry().height(), radius, radius);
     }
+
+    const int topMargin = 64 * scale;
+    const int margin = 9 * scale;
+
+    QRegion mask(path.toFillPolygon().toPolygon());
+    if(!m_firefoxHollowRegion || (mask.boundingRect().width() <= 2*margin || mask.boundingRect().height() < topMargin+margin)) return mask;
+    QRect hollowRect = mask.boundingRect();
+    hollowRect.setWidth(hollowRect.width() - 2*margin);
+    hollowRect.setHeight(hollowRect.height() - margin - topMargin);
+    QRegion hollowRegion(hollowRect);
+    mask ^= hollowRegion.translated(margin, topMargin);
     return mask;
 }
 void BlurEffect::updateBlurRegion(EffectWindow *w)
@@ -466,12 +472,12 @@ void BlurEffect::updateBlurRegion(EffectWindow *w)
         }
     }
 
-    if(isFirefoxWindowValid(w) && defaultSvg.isValid())
+    if(isFirefoxWindowValid(w))
     {
         if(!(content.has_value() || frame.has_value()))
         {
             if(isX11WithCSD)
-                frame = applyBlurRegion(w);
+                frame = applyBlurRegion(w, true);
             else
                 content = applyBlurRegion(w);
         }

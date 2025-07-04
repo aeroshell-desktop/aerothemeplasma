@@ -20,7 +20,7 @@
       </sizepolicy>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="blurWidget">
       <attribute name="title">
@@ -390,6 +390,36 @@
          <property name="text">
           <string>Paint windows as non-opaque (fixes artifacts for some transparent windows)</string>
          </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_FirefoxHollowRegion">
+         <property name="text">
+          <string>Don't render blur on the inside of Firefox windows (disabling this reduces performance)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_3" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QSpinBox" name="kcfg_FirefoxCornerRadius">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Firefox blur corner radius (radius gets DPI scaled by the effect)</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>

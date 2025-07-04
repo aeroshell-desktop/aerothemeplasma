@@ -19,7 +19,6 @@
   <file>reflection.png</file>
   <file>framecornereffect.png</file>
   <file>framecornereffect-unfocus.png</file>
-  <file>region.svg</file>
   <file>frame.svg</file>
   <file>frame-select.svg</file>
 </qresource>
