@@ -64,8 +64,8 @@ MouseArea {
             id: thumbnailList
 
             // check for null to get rid of null errors in console
-            property int maxThumbnailWidth: maxThumbnailItem == null ? 196 : maxThumbnailItem.implicitWidth
-            property int maxThumbnailHeight: maxThumbnailItem == null ? 142 : maxThumbnailItem.implicitHeight
+            property int maxThumbnailWidth: maxThumbnailItem == null ? 0 : maxThumbnailItem.implicitWidth
+            property int maxThumbnailHeight: maxThumbnailItem == null ? 0 : maxThumbnailItem.implicitHeight
             property Item maxThumbnailItem
 
             property int listWidth: contentWidth == 0 ? 196 : contentWidth
@@ -77,16 +77,21 @@ MouseArea {
                     if(isList) {
                         for(var i = 0; i < thumbnailList.count; i++) {
                             thumbnailItem = itemAtIndex(i);
-                            if(thumbnailItem.implicitWidth >= thumbnailList.maxThumbnailWidth)
-                                thumbnailList.maxThumbnailItem = thumbnailItem;
+                            if(thumbnailItem) {
+                                if(thumbnailItem.implicitWidth >= thumbnailList.maxThumbnailWidth)
+                                    thumbnailList.maxThumbnailItem = thumbnailItem;
+                            }
                         }
                     }
                     else {
+                        maxThumbnailItem = null;
                         for(var i = 0; i < thumbnailList.count; i++) {
                             thumbnailItem = itemAtIndex(i);
-                            console.log(thumbnailItem.implicitHeight);
-                            if(thumbnailItem.implicitHeight >= thumbnailList.maxThumbnailHeight)
-                                thumbnailList.maxThumbnailItem = thumbnailItem;
+                            if(thumbnailItem) {
+                                if(thumbnailItem.implicitHeight >= thumbnailList.maxThumbnailHeight)
+                                    thumbnailList.maxThumbnailItem = thumbnailItem;
+
+                            }
                         }
                     }
                 }
