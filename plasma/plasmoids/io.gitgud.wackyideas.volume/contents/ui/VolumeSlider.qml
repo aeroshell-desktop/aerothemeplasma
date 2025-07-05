@@ -40,22 +40,6 @@ PC3.Slider {
         target: control.visible ? control.volumeObject : null
     }
 
-    Behavior on volume {
-        NumberAnimation  {
-            id: animate
-            duration: Kirigami.Units.shortDuration
-            easing.type: Easing.Linear
-        }
-    }
-
-    // When a maximum volume limit is raised/lower, animate the change.
-    Behavior on to {
-        NumberAnimation {
-            duration: Kirigami.Units.shortDuration
-            easing.type: Easing.InOutQuad
-        }
-    }
-
     opacity: muted ? 0.5 : 1
     // Prevents the groove from showing through the handle
 
@@ -176,7 +160,7 @@ PC3.Slider {
                 width: greenBar.width
                 implicitHeight: greenBar.height
                 Behavior on implicitHeight {
-                    NumberAnimation { duration: grayBar.height > greenBar.height ? (animate.duration / 2) : 1 }
+                    NumberAnimation { duration: grayBar.height > greenBar.height ? (Kirigami.Units.shortDuration / 2) : 1 }
                 }
 
                 color: "gray"
