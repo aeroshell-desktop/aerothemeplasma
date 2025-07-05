@@ -84,7 +84,7 @@ MouseArea {
                         }
                     }
                     else {
-                        maxThumbnailItem = null;
+                        if(KWindowSystem.isPlatformWayland) maxThumbnailItem = null;
                         for(var i = 0; i < thumbnailList.count; i++) {
                             thumbnailItem = itemAtIndex(i);
                             if(thumbnailItem) {
