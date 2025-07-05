@@ -20,6 +20,9 @@
     <entry name="FirefoxHollowRegion" type="Bool">
         <default>true</default>
     </entry>
+    <entry name="FirefoxBlurTopMargin" type="Int">
+        <default>96</default>
+    </entry>
     <entry name="OpaqueKrunner" type="Bool">
         <default>true</default>
     </entry>

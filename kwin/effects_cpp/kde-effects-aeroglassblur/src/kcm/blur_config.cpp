@@ -42,6 +42,7 @@ BlurEffectConfig::BlurEffectConfig(QObject *parent, const KPluginMetaData &data)
     connect(ui.clear_pushButton, SIGNAL(clicked()), this, SLOT(clearTexturePath()));
 	connect(ui.showAccentColor_label, SIGNAL(linkActivated(QString)), this, SLOT(openColorMixer(QString)));
     connect(ui.kcfg_ReflectionIntensity, SIGNAL(valueChanged(int)), this, SLOT(on_kcfg_ReflectionIntensity_valueChanged(int)));
+    connect(ui.kcfg_FirefoxHollowRegion, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(on_kcfg_FirefoxHollowRegion_checkStateChanged(Qt::CheckState)));
 
 	m_window = new MainWindow(ui.kcfg_AccentColorName, ui.kcfg_EnableTransparency,
 							  ui.kcfg_AeroHue, ui.kcfg_AeroSaturation, ui.kcfg_AeroBrightness,
@@ -49,6 +50,7 @@ BlurEffectConfig::BlurEffectConfig(QObject *parent, const KPluginMetaData &data)
 	m_window->setWindowModality(Qt::WindowModality::WindowModal);
 
     ui.reflectionLabel->setText(QString::number(ui.kcfg_ReflectionIntensity->value()) + " %" );
+    on_kcfg_FirefoxHollowRegion_checkStateChanged(ui.kcfg_FirefoxHollowRegion->checkState());
 
 }
 void BlurEffectConfig::openColorMixer(QString str)
@@ -61,6 +63,10 @@ BlurEffectConfig::~BlurEffectConfig()
 	delete m_dialog;
 }
 
+void BlurEffectConfig::on_kcfg_FirefoxHollowRegion_checkStateChanged(Qt::CheckState state)
+{
+    ui.kcfg_FirefoxBlurTopMargin->setEnabled(state != Qt::Unchecked);
+}
 void BlurEffectConfig::on_kcfg_ReflectionIntensity_valueChanged(int value)
 {
     ui.reflectionLabel->setText(QString::number(ui.kcfg_ReflectionIntensity->value()) + " %" );

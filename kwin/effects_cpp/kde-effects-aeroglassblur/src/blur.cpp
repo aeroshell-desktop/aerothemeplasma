@@ -357,6 +357,7 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
     m_firefoxWindows = BlurConfig::blurFirefox().split("\n");
 
     m_firefoxCornerRadius = BlurConfig::firefoxCornerRadius();
+    m_firefoxBlurTopMargin = BlurConfig::firefoxBlurTopMargin();
     m_firefoxHollowRegion = BlurConfig::firefoxHollowRegion();
     m_opaqueKrunner = BlurConfig::opaqueKrunner();
     m_opaqueOSD = BlurConfig::opaqueOSD();
@@ -408,7 +409,7 @@ QRegion BlurEffect::applyBlurRegion(KWin::EffectWindow *w, bool useFrame)
         path.addRoundedRect(0, 0, w->expandedGeometry().width(), w->expandedGeometry().height(), radius, radius);
     }
 
-    const int topMargin = 64 * scale;
+    const int topMargin = m_firefoxBlurTopMargin * scale;
     const int margin = 9 * scale;
 
     QRegion mask(path.toFillPolygon().toPolygon());

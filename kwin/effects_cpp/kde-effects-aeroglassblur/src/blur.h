@@ -187,6 +187,7 @@ private:
     QStringList m_firefoxWindows;
 
     int m_firefoxCornerRadius;
+    int m_firefoxBlurTopMargin;
     bool m_firefoxHollowRegion;
 
     bool m_opaqueKrunner;

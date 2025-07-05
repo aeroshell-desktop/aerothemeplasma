@@ -38,6 +38,7 @@ private slots:
     void on_kcfg_AeroSaturation_valueChanged(int value);
     void on_kcfg_AeroBrightness_valueChanged(int value);
     void on_kcfg_ReflectionIntensity_valueChanged(int value);
+    void on_kcfg_FirefoxHollowRegion_checkStateChanged(Qt::CheckState state);
 
 private:
     ::Ui::BlurEffectConfig ui;
