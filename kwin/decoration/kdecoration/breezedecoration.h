@@ -272,7 +272,7 @@ bool Decoration::isPolkit() const
 }
 bool Decoration::hideIcon() const
 {
-    if(isGadgetExplorer() || isPolkit()) return true;
+    if(isPersonalizeKCM() || isGadgetExplorer() || isPolkit()) return true;
     return m_internalSettings->hideIcon() && !window()->isShaded();
 }
 
