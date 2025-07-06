@@ -8,6 +8,7 @@ set(kwin_aeroglassblur_config_SRCS
     colorwindow.h
     colorbutton.h
     colorbutton.cpp
+    qgraphicsgloweffect.cpp
     blur_config.qrc
     )
 

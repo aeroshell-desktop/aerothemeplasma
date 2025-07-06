@@ -44,7 +44,7 @@ BlurEffectConfig::BlurEffectConfig(QObject *parent, const KPluginMetaData &data)
     connect(ui.kcfg_ReflectionIntensity, SIGNAL(valueChanged(int)), this, SLOT(on_kcfg_ReflectionIntensity_valueChanged(int)));
     connect(ui.kcfg_FirefoxHollowRegion, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(on_kcfg_FirefoxHollowRegion_checkStateChanged(Qt::CheckState)));
 
-	m_window = new MainWindow(ui.kcfg_AccentColorName, ui.kcfg_EnableTransparency,
+	m_window = new MainWindow(ui.kcfg_AccentColorName, ui.kcfg_AccentColorGroup, ui.kcfg_EnableTransparency,
 							  ui.kcfg_AeroHue, ui.kcfg_AeroSaturation, ui.kcfg_AeroBrightness,
 							  ui.kcfg_AeroIntensity, ui.kcfg_CustomColor, this, nullptr);
 	m_window->setWindowModality(Qt::WindowModality::WindowModal);

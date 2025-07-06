@@ -7,8 +7,10 @@
 #include <QScreen>
 #include <QWindow>
 #include <iostream>
+#include <QScrollBar>
 
 #include "blur_config.h"
+
 
 // Clamps the value n into the interval [low, high].
 float constrain(float n, float low, float high) {
@@ -45,7 +47,7 @@ QColor mixColor(QColor col, double percentage) {
   return QColor(r1 + r2, g1 + g2, b1 + b2);
 }
 
-MainWindow::MainWindow(QSpinBox *spinbox, QCheckBox *checkbox,
+MainWindow::MainWindow(QSpinBox *spinbox, QSpinBox *spinboxg, QCheckBox *checkbox,
                        QSlider* hslider, QSlider* sslider, QSlider* vslider, QSlider* islider,
                        QLineEdit* custom, KCModule* config, QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -86,7 +88,12 @@ MainWindow::MainWindow(QSpinBox *spinbox, QCheckBox *checkbox,
   kcfg_AeroSaturation = sslider;
   kcfg_AeroBrightness = vslider;
   kcfg_CustomColor = custom;
+  kcfg_AccentColorGroup = spinboxg;
   config_parent = config;
+
+  if(kcfg_AccentColorGroup->value() >= colorGroups.size()) {
+      kcfg_AccentColorGroup->setValue(0);
+  }
 
   ui->kcfg_EnableTransparency->setChecked(checkbox->isChecked());
   // Setting attributes which will allow the window to have a transparent
@@ -99,20 +106,43 @@ MainWindow::MainWindow(QSpinBox *spinbox, QCheckBox *checkbox,
     "background: transparent;"
     "}"
   );
+  ui->centralwidget->setStyleSheet(
+    "QWidget#centralwidget {"
+    "background: transparent;"
+    "}"
+  );
 
-  /*this->winId();
-  KWindowEffects::enableBlurBehind(
-      this->windowHandle(), true, QRegion(0, 0, this->width(), this->height()));*/
-  fflush(stdout);
+  footer_color = QWidget::palette().window().color();
+  background_color = QWidget::palette().base().color();
 
-  QColor theme_color = QWidget::palette().window().color();
-  background_style = background_style.replace(
-      '!', "rgba(" + QString::number(theme_color.red()) + "," +
-               QString::number(theme_color.green()) + "," +
-               QString::number(theme_color.blue()) + "," + "255))");
+  QColor border_color = QWidget::palette().midlight().color();
 
-  ui->centralwidget->setStyleSheet(background_style);
+  // Using QToolBar to make the entire extended titlebar draggable
+  QLabel *titleLabel = new QLabel("<html><head/><body><p><span style=\" font-size:12pt;\">Change the color of your window borders, Start menu, and taskbar</span></p></body></html>");
+  QGraphicsGlowEffect *glow_effect = new QGraphicsGlowEffect();
+  glow_effect->setStrength(5);
+  glow_effect->setBlurRadius(8);
+  titleLabel->setGraphicsEffect(glow_effect);
+  titleLabel->setIndent(12);
+  titleLabel->setMargin(2);
+  ui->toolBar->addWidget(titleLabel);
 
+  ui->scrollAreaWidgetContents->setContentsMargins(128, 12, 128, 12);
+  ui->scrollArea->verticalScrollBar()->installEventFilter(this);
+
+  QColor light_text_color = QWidget::palette().brush(QPalette::Disabled, QPalette::PlaceholderText).color();
+  ui->colorPaletteLabel->setStyleSheet(
+    "QLabel#colorPaletteLabel {"
+    "color: " + light_text_color.name() + ";"
+    "}"
+  );
+
+  ui->footer->setStyleSheet(
+    "QWidget#footer {"
+    "background: " + footer_color.name() + ";"
+    "border-top: 1px solid " + border_color.name() + ";"
+    "}"
+  );
   // Setting up more UI stuff.
 
   ui->colorMixerGroupBox->setVisible(false);
@@ -142,36 +172,33 @@ MainWindow::MainWindow(QSpinBox *spinbox, QCheckBox *checkbox,
       QString::number(ui->saturation_Slider->value()));
   ui->brightness_label->setText(QString::number(ui->Lightness_Slider->value()));
 
-  // Predefined color values directly pulled from Windows 7, with the exception
-  // of Sunset, which is an original color value.
-  QStringList values = {
-      "6b74b8fc-Custom",   "6b74b8fc-Sky",     "a80046ad-Twilight",
-      "8032cdcd-Sea",      "6614a600-Leaf",    "6697d937-Lime",
-      "54fadc0e-Sun",      "80ff9c00-Pumpkin", "a8ce0f0f-Ruby",
-      "66ff0099-Fuchsia",  "70fcc7f8-Blush ",  "856e3ba1-Violet",
-      "528d5a94-Lavander", "6698844c-Taupe",   "a84f1b1b-Chocolate",
-      "80555555-Slate",    "54fcfcfc-Frost",   "78b3198d-Sunset",
-      "45409efe-Default",
-      "a3000000-Graphite",
-      "a8004ade-Blue",
-      "82008ca5-Teal",
-      "9cce0c0f-Red",
-      "a6ff7700-Orange",
-      "49f93ee7-Pink",
-      "cceff7f7-Frost",
-  };
+  groupedActions = new QActionGroup(nullptr);
+  groupedActions->setExclusive(true);
+  // Populate QMenu with groups
+  for(int i = 0; i < colorGroups.size(); i++) {
+    QAction *action = new QAction(colorGroups[i]);
+    action->setCheckable(true);
+    action->setActionGroup(groupedActions);
+    groupContextMenu.addAction(action);
+  }
+  connect(&groupContextMenu, &QMenu::triggered, this, &MainWindow::on_colorGroup_triggered);
+  connect(ui->colorGroupLabel, &QPushButton::clicked, this, &MainWindow::on_colorGroupLabel_clicked);
+  connect(ui->kcfg_AccentColorGroup, &QSpinBox::valueChanged, this, &MainWindow::on_colorGroupSpinBox_valueChanged);
+
+  ui->kcfg_AccentColorGroup->setValue(kcfg_AccentColorGroup->value());
+  ui->kcfg_AccentColorGroup->setVisible(false);
+  groupedActions->actions()[kcfg_AccentColorGroup->value()]->setChecked(true);
+
   for (int i = 0; i < values.size(); i++) {
     QStringList temp = values[i].split("-");
     predefined_colors.push_back(
-        ColorWindow(temp[1], QColor("#" + temp[0]), ui->groupBox, i));
+        ColorWindow(temp[1], QColor("#" + temp[0]), ui->groupBox, i, temp[2].toInt()));
   }
-
   // By default, the selected color is Sky.
   selected_color = kcfg_AccentColorName->value();
 
   // Creating a FlowLayout and storing all the colors there.
   colorLayout = new FlowLayout(ui->groupBox);
-  colorLayout->setContentsMargins(25, 25, 25, 25);
 
   for (unsigned int i = 0; i < predefined_colors.size(); i++) {
     colorLayout->addWidget(predefined_colors[i].getFrame());
@@ -183,6 +210,27 @@ MainWindow::MainWindow(QSpinBox *spinbox, QCheckBox *checkbox,
   predefined_colors[0].setColor(QColor::fromString(kcfg_CustomColor->text()));
   predefined_colors[selected_color].getFrameButton()->setSelected(true);
   changeColor(selected_color);
+
+  applyFilter();
+}
+void MainWindow::applyFilter()
+{
+    for(int i = 0; i < predefined_colors.size(); i++)
+    {
+        /*if(i == 0)
+        {
+            predefined_colors[i].setVisible(ui->kcfg_AccentColorGroup->value() == colorGroups.size()-1);
+            continue;
+        }*/
+        predefined_colors[i].setVisible(predefined_colors[i].colorGroup() == ui->kcfg_AccentColorGroup->value());
+    }
+}
+
+void MainWindow::on_colorGroupSpinBox_valueChanged(int value)
+{
+  QString actionText = groupedActions->actions()[value]->text();
+  ui->colorGroupLabel->setText(actionText + " ⏷");
+  applyFilter();
 }
 
 MainWindow::~MainWindow() {
@@ -191,10 +239,55 @@ MainWindow::~MainWindow() {
   }
   delete ui;
 }
+void MainWindow::on_colorGroupLabel_clicked()
+{
+  auto menuWidth = groupContextMenu.sizeHint().width();
+  auto position = ui->colorGroupLabel->mapToGlobal(QPoint(0,0));
+  position += QPoint(ui->colorGroupLabel->width(), ui->colorGroupLabel->height());
+  position -= QPoint(menuWidth, 0);
+  groupContextMenu.popup(position);
+}
 
+void MainWindow::on_colorGroup_triggered(QAction *action)
+{
+  int index = groupedActions->actions().indexOf(action);
+  ui->kcfg_AccentColorGroup->setValue(index);
+}
+
+bool MainWindow::eventFilter(QObject *o, QEvent *e)
+{
+    if(o == ui->scrollArea->verticalScrollBar())
+    {
+        if(e->type() == QEvent::Show || e->type() == QEvent::Hide)
+        {
+            ui->scrollAreaWidgetContents->setContentsMargins(128 - (e->type() == QEvent::Show ? ui->scrollArea->verticalScrollBar()->width() : 0), 12, 128, 12);
+        }
+    }
+    return QMainWindow::eventFilter(o, e);
+}
+void MainWindow::on_windowActiveChanged()
+{
+    if(window_handle) {
+        window_handle->setIcon(QIcon::fromTheme("preferences-desktop-theme-global"));
+        ui->frame->setStyleSheet(QString("QFrame#frame {\n") +
+        "border-image: url(\":/svgs/inner_borders_" + (window_handle->isActive() ? QStringLiteral("active") : QStringLiteral("inactive")) + ".png\") 2 2 2 2;\n" +
+        "border-top: 2px transparent;\n"   +
+        "border-left: 2px transparent;\n"  +
+        "border-bottom: 2px transparent;\n"+
+        "border-right: 2px transparent;\n" +
+        "background-color: " + background_color.name() + ";\n" +
+        "background-clip: padding;\n" +
+        "}\n");
+    }
+}
 void MainWindow::showEvent(QShowEvent *event)
 {
-    KWindowEffects::enableBlurBehind(this->windowHandle(), true, QRegion(0,0, 0, 0));
+    if(this->windowHandle()) {
+        KWindowEffects::enableBlurBehind(this->windowHandle(), true, QRegion(0,0, 0, 0));
+        window_handle = this->windowHandle();
+        connect(window_handle, SIGNAL(activeChanged()), this, SLOT(on_windowActiveChanged()));
+    }
+
 }
 /*
  * Returns the currently set color. Depending on the transparency settings, the
@@ -225,8 +318,11 @@ void MainWindow::resetToDefault() {
   // resetting the custom color
   predefined_colors[0].setColor(QColor::fromString(kcfg_CustomColor->text()));
   predefined_colors[selected_color].getFrameButton()->setSelected(false);
-  changeColor(kcfg_AccentColorName->value(), false);
+  changeColor(kcfg_AccentColorName->value(), true);
   predefined_colors[kcfg_AccentColorName->value()].getFrameButton()->setSelected(true);
+  ui->kcfg_AccentColorGroup->setValue(kcfg_AccentColorGroup->value());
+  groupedActions->actions()[kcfg_AccentColorGroup->value()]->setChecked(true);
+
   preventChanges = true;
   ui->kcfg_EnableTransparency->setChecked(kcfg_EnableTransparency->isChecked());
   preventChanges = false;
@@ -235,7 +331,11 @@ void MainWindow::resetToDefault() {
 void MainWindow::applyTemporarily() {
   KWin::BlurEffectConfig *conf = (KWin::BlurEffectConfig *)config_parent;
 
-  int intensity  = ui->alpha_slider->value();
+
+  int intensity;
+  if(predefined_colors[selected_color].getColor().alpha() < 26) intensity = predefined_colors[selected_color].getColor().alpha();
+  else intensity = ui->alpha_slider->value();
+  //int intensity  = ui->alpha_slider->value();
   int hue        = ui->hue_Slider->value();
   int saturation = ui->saturation_Slider->value();
   int brightness = ui->Lightness_Slider->value();
@@ -288,8 +388,8 @@ void MainWindow::changeCustomColor(bool apply) {
 void MainWindow::on_colorMixerLabel_linkActivated(const QString &link) {
   ui->colorMixerGroupBox->setVisible(!ui->colorMixerGroupBox->isVisible());
   ui->colorMixerLabel->setText(ui->colorMixerGroupBox->isVisible()
-                                   ? "<a href=\"no\">Hide color mixer</a>"
-                                   : "<a href=\"no\">Show color mixer</a>");
+                                   ? "<a style=\"color: #0066D4\" href=\"no\">Hide color mixer</a>"
+                                   : "<a style=\"color: #0066D4\" href=\"no\">Show color mixer</a>");
 }
 
 // Updates the color sliders and updates the custom color.
@@ -333,10 +433,12 @@ void MainWindow::applyChanges() {
   kcfg_CustomColor->setText(predefined_colors[0].getColor().name(QColor::HexArgb));
   kcfg_AccentColorName->setValue(selected_color);
   kcfg_EnableTransparency->setChecked(ui->kcfg_EnableTransparency->isChecked());
-  kcfg_AeroIntensity->setValue(ui->alpha_slider->value());
+  if(predefined_colors[selected_color].getColor().alpha() < 26) kcfg_AeroIntensity->setValue(predefined_colors[selected_color].getColor().alpha());
+  else kcfg_AeroIntensity->setValue(ui->alpha_slider->value());
   kcfg_AeroHue->setValue(ui->hue_Slider->value());
   kcfg_AeroSaturation->setValue(ui->saturation_Slider->value());
   kcfg_AeroBrightness->setValue(ui->Lightness_Slider->value());
+  kcfg_AccentColorGroup->setValue(predefined_colors[selected_color].colorGroup());
 
   KWin::BlurEffectConfig *conf = (KWin::BlurEffectConfig *)config_parent;
   conf->save();

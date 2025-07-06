@@ -25,6 +25,17 @@ void getColorBalances(int sliderPosition, int &primaryBalance, int &secondaryBal
 {
 	int pB = 0, sB = 0, bB = 0;
 
+	if(sliderPosition == 0)
+	{
+		pB = 100;
+		sB = 0;
+		bB = 100;
+		primaryBalance = pB;
+		secondaryBalance = sB;
+		blurBalance = bB;
+		printf("%d %d %d\n", pB, sB, bB);
+		return;
+	}
 	// https://github.com/ALTaleX531/dwm_colorization_calculator/blob/main/main.py
 	int balance = int((double(sliderPosition) / 255.0 - 0.1) / 0.75 * 100.0 + 10.0);
 

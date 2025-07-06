@@ -1,10 +1,11 @@
 #include "colorwindow.h"
 
-ColorWindow::ColorWindow(QString str, QColor col, QWidget* wnd, int i)
+ColorWindow::ColorWindow(QString str, QColor col, QWidget* wnd, int i, int group)
 {
     name = str;
     color = col;
     parent = wnd;
+    m_colorGroup = group;
 
     mainFrame = new QFrame(wnd);
     mainFrame->setMaximumSize(72, 72);
@@ -38,6 +39,10 @@ ColorWindow::ColorWindow(QString str, QColor col, QWidget* wnd, int i)
     mainFrame->setToolTip(this->name);
 
 
+}
+void ColorWindow::setVisible(bool visible)
+{
+    mainFrame->setVisible(visible);
 }
 
 void ColorWindow::setStyle()
@@ -84,6 +89,11 @@ void ColorWindow::setStyle()
     "}"
     );
 
+}
+
+int ColorWindow::colorGroup() const
+{
+    return m_colorGroup;
 }
 
 void ColorWindow::setColor(QColor c)

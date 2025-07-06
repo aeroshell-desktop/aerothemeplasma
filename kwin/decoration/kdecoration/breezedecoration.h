@@ -19,6 +19,7 @@
 #include <QVariant>
 #include <QVariantAnimation>
 #include <QByteArray>
+#include <iostream>
 
 #define INNER_BORDER_SIZE 2
 
@@ -264,18 +265,23 @@ bool Decoration::isPolkit() const
 }
 bool Decoration::hideIcon() const
 {
+    if(window()->windowClass() == "systemsettings systemsettings" && window()->caption().startsWith("aerothemeplasma-personalize")) return true;
     if(isGadgetExplorer() || isPolkit()) return true;
     return m_internalSettings->hideIcon() && !window()->isShaded();
 }
 
 bool Decoration::hideCaption() const
 {
+    // Personalization page
+    if(window()->windowClass() == "systemsettings systemsettings" && window()->caption().startsWith("aerothemeplasma-personalize")) return true;
     if(isGadgetExplorer()) return true;
     return m_internalSettings->hideCaption() && !window()->isShaded();
 }
 
 bool Decoration::hideInnerBorder() const
 {
+    // Personalization page
+    if(window()->windowClass() == "systemsettings systemsettings" && window()->caption().startsWith("aerothemeplasma-personalize")) return true;
     if(isGadgetExplorer()) return true;
     return m_internalSettings->hideInnerBorder() && !window()->isShaded();
 }

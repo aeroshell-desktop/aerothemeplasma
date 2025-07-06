@@ -20,7 +20,7 @@
 class ColorWindow
 {
 public:
-    explicit ColorWindow(QString, QColor, QWidget*, int);
+    explicit ColorWindow(QString, QColor, QWidget*, int, int);
     void setColor(QColor);
     QString getName();
     QColor getColor();
@@ -28,7 +28,8 @@ public:
     QPushButton* getButton();
     ColorButton* getFrameButton();
     void clear();
-
+    int colorGroup() const;
+    void setVisible(bool);
 
 private:
     void setStyle();
@@ -40,6 +41,8 @@ private:
     ColorButton* frameButton;
     QPushButton* childFrame;
     QGridLayout* layout;
+
+    int m_colorGroup = 0;
 
 };
 

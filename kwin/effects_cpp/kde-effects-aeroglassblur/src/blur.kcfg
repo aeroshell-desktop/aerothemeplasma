@@ -64,6 +64,9 @@
     <entry name="EnableCornerGlow" type="Bool">
         <default>true</default>
     </entry>
+    <entry name="AccentColorGroup" type="Int">
+        <default>0</default>
+    </entry>
     <entry name="AccentColorName" type="Int">
         <default>1</default>
     </entry>

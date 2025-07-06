@@ -318,8 +318,9 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
         m_aeroColorA = (m_aeroIntensity - 26) / 191.0f;
 
         getMaximizedColorization(m_aeroIntensity, m_aeroColorR, m_aeroColorG, m_aeroColorB, m_aeroColorROpaque, m_aeroColorGOpaque, m_aeroColorBOpaque);
-
-
+        if(m_aeroIntensity < 26) {
+            m_aeroColorA = m_aeroIntensity / 255.0f;
+        }
 	};
 	bool skip = false;
 	bool readColor = readMemory(&skip) && m_firstTimeConfig;
