@@ -38,8 +38,13 @@ int Decoration::decorationCount()
 {
     return g_sDecoCount;
 }
-void Decoration::updateShadow()
+void Decoration::updateShadow(bool reconfigured)
 {
+    if(reconfigured)
+    {
+        g_smod_shadow.reset();
+        g_smod_shadow_unfocus.reset();
+    }
     if(!internalSettings()->enableShadow())
     {
         setShadow(std::shared_ptr<KDecoration3::DecorationShadow>(nullptr));

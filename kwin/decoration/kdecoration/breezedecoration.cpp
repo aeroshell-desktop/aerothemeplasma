@@ -284,7 +284,7 @@ void Decoration::reconfigure()
     recalculateBorders();
 
     // shadow
-    updateShadow();
+    updateShadow(true);
 
     updateButtonsGeometryDelayed();
     update();
