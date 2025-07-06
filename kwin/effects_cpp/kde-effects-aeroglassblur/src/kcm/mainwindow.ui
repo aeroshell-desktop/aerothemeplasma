@@ -122,7 +122,7 @@
                <x>0</x>
                <y>0</y>
                <width>856</width>
-               <height>542</height>
+               <height>546</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -810,7 +810,20 @@ NOTE: This setting does NOT affect compositing settings.</string>
    <property name="styleSheet">
     <string notr="true">QToolBar {
 	background: transparent;
+	border: none;
 }</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::ToolBarArea::TopToolBarArea</set>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonStyle::ToolButtonTextOnly</enum>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
