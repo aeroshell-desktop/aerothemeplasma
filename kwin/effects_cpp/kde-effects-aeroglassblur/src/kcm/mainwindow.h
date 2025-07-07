@@ -96,7 +96,7 @@ private:
     QStringList values = {
 
         // Win7
-        "6b74b8fc-Custom-6",   "6b74b8fc-Sky-0",     "a80046ad-Twilight-0",
+        "6b74b8fc-Custom-7",   "6b74b8fc-Sky-0",     "a80046ad-Twilight-0",
         "8032cdcd-Sea-0",      "6614a600-Leaf-0",    "6697d937-Lime-0",
         "54fadc0e-Sun-0",      "80ff9c00-Pumpkin-0", "a8ce0f0f-Ruby-0",
         "66ff0099-Fuchsia-0",  "70fcc7f8-Blush-0 ",  "856e3ba1-Violet-0",
