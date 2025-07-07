@@ -24,6 +24,7 @@ Item {
     property string name:        model.blank ? "" : model.display
     property string nameWrapped: model.blank ? "" : model.displayWrapped
     property bool blank:         model.blank
+    property bool selected:      model.blank ? false : model.selected
     property bool isDir:           loader.item ? loader.item.isDir : false
     property QtObject popupDialog: loader.item ? loader.item.popupDialog    : null
     property Item iconArea:        loader.item ? loader.item.iconArea       : null
@@ -77,6 +78,13 @@ Item {
         asynchronous: true
     }
 
+    function updateDragImage() {
+        if (selected && !blank) {
+            loader.grabToImage(result => {
+                dir.addItemDragImage(positioner.map(index), main.x + loader.x, main.y + loader.y, loader.width, loader.height, result.image);
+            });
+        }
+    }
     Component {
         id: delegateImplementation
 
