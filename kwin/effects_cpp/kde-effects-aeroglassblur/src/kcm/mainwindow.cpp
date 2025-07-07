@@ -213,15 +213,11 @@ MainWindow::MainWindow(QSpinBox *spinbox, QSpinBox *spinboxg, QCheckBox *checkbo
 
   applyFilter();
 }
+
 void MainWindow::applyFilter()
 {
     for(int i = 0; i < predefined_colors.size(); i++)
     {
-        /*if(i == 0)
-        {
-            predefined_colors[i].setVisible(ui->kcfg_AccentColorGroup->value() == colorGroups.size()-1);
-            continue;
-        }*/
         predefined_colors[i].setVisible(predefined_colors[i].colorGroup() == ui->kcfg_AccentColorGroup->value());
     }
 }

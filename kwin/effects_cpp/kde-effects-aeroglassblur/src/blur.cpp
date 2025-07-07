@@ -771,8 +771,6 @@ bool BlurEffect::scaledOrTransformed(const EffectWindow *w, int mask, const Wind
 bool BlurEffect::shouldBlur(const EffectWindow *w, int mask, const WindowPaintData &data) const
 {
     QString windowClass = w->windowClass().split(' ')[0];
-    //qCWarning(KWIN_BLUR) << w->windowClass();
-    //printf("%d %s %s %s\n", w->windowType(), windowClass.toStdString().c_str(), w->isSpecialWindow() ? "specil true" : "specil false", w->caption().toStdString().c_str());
     if (effects->activeFullScreenEffect() && !w->data(WindowForceBlurRole).toBool()) {
         return false;
     }
@@ -1147,7 +1145,6 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         float r = m_aeroColorR;
         float g = m_aeroColorG;
         float b = m_aeroColorB;
-
 
         AeroPasses selectedPass = AeroPasses::AERO;
 
