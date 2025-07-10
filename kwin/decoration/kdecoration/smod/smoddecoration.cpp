@@ -377,10 +377,25 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRectF &repaintRegio
                 xpos = leftButtonsX + 2;
             }
 
+            bool isRTL = caption.isRightToLeft();
+            auto fixedAlignment = titleAlignment;
+            if(isRTL)
+            {
+                if(fixedAlignment == InternalSettings::AlignRight)
+                {
+                    fixedAlignment = InternalSettings::AlignLeft;
+                    xpos = leftButtonsX + 2;
+                }
+                else if(fixedAlignment == InternalSettings::AlignLeft)
+                {
+                    fixedAlignment = InternalSettings::AlignRight;
+                    xpos += captionRect.width() - blurWidth;
+                }
+            }
             if(!invertText)
             {
                 int alignmentOffset = 0;
-                if(titleAlignment == InternalSettings::AlignCenter || titleAlignment == InternalSettings::AlignCenterFullWidth)
+                if(fixedAlignment == InternalSettings::AlignCenter || fixedAlignment == InternalSettings::AlignCenterFullWidth)
                 {
                     alignmentOffset = -4;
                     if(m_rightButtons->geometry().intersects(QRect(xpos + alignmentOffset, captionRect.height() / 2 - blurHeight - 2, glowWidth, glowHeight)))
@@ -392,10 +407,16 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRectF &repaintRegio
                         xpos += captionRect.width()/2 - blurWidth/2;
                     }
                 }
-                else if(titleAlignment == InternalSettings::AlignRight)
+                else if(fixedAlignment == InternalSettings::AlignRight)
                 {
                     alignmentOffset = -2;
                 }
+
+                if(isRTL && titleAlignment == InternalSettings::AlignLeft)
+                {
+                    alignmentOffset += 16;
+                }
+
                 painter->translate(xpos + alignmentOffset, (captionRect.height() - glowHeight) / 2);
                 gl.render(painter);
                 painter->translate(-xpos - alignmentOffset, (-captionRect.height() + glowHeight) / 2);
@@ -403,15 +424,15 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRectF &repaintRegio
             }
             QPixmap text_pixmap = real_label.grab();
 
-            if(titleAlignment == InternalSettings::AlignRight)
+            if(fixedAlignment == InternalSettings::AlignRight)
             {
                 captionRect.translate(-12, -1);
             }
-            else if(titleAlignment == InternalSettings::AlignLeft)
+            else if(fixedAlignment == InternalSettings::AlignLeft)
             {
                 captionRect.translate(5, -1);
             }
-            else if(titleAlignment == InternalSettings::AlignCenterFullWidth || titleAlignment == InternalSettings::AlignCenter)
+            else if(fixedAlignment == InternalSettings::AlignCenterFullWidth || fixedAlignment == InternalSettings::AlignCenter)
             {
                 captionRect.translate(1, -1);
             }
