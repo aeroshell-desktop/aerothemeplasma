@@ -319,9 +319,9 @@ void MainWindow::resetToDefault() {
   ui->kcfg_AccentColorGroup->setValue(kcfg_AccentColorGroup->value());
   groupedActions->actions()[kcfg_AccentColorGroup->value()]->setChecked(true);
 
-  preventChanges = true;
+  //preventChanges = true;
   ui->kcfg_EnableTransparency->setChecked(kcfg_EnableTransparency->isChecked());
-  preventChanges = false;
+  //preventChanges = false;
 }
 
 void MainWindow::applyTemporarily() {
