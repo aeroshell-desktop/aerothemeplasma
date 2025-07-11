@@ -387,7 +387,11 @@ PlasmaCore.Dialog {
 				required property var model
 
 				text: "       " + model.display + "      "
-				onClicked: filteredMenuItemsModel.trigger(index)
+				onClicked: {
+					filteredMenuItemsModel.trigger(index)
+					root.visible = false;
+
+				}
 			}
 			onObjectAdded: (index, object) => {
 				if(object.model.decoration != "system-shutdown") {
