@@ -126,6 +126,8 @@ MainWindow::MainWindow(QSpinBox *spinbox, QSpinBox *spinboxg, QCheckBox *checkbo
   titleLabel->setIndent(12);
   titleLabel->setMargin(2);
   ui->toolBar->addWidget(titleLabel);
+  ui->toolBar->setContextMenuPolicy(Qt::PreventContextMenu);
+  ui->toolBar->toggleViewAction()->setEnabled(false);
 
   ui->scrollAreaWidgetContents->setContentsMargins(128, 12, 128, 12);
   ui->scrollArea->verticalScrollBar()->installEventFilter(this);
