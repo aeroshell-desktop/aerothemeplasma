@@ -79,7 +79,7 @@ Item {
             while(panel !== null && typeof panel.sevenTasksReference === "undefined") { // Find seventasks loader reference from the panel
                 panel = panel.parent;
             }
-            if(panel.sevenTasksReference) { // If found, add the pin/unpin menu item
+            if(panel?.sevenTasksReference) { // If found, add the pin/unpin menu item
                 const unpin = (panel.sevenTasksReference.applet.findTask(entry) !== -1);
                 var pinAction = {   // Add custom action
                                     icon: "pin",
