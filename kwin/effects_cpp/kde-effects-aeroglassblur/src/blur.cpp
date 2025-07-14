@@ -875,6 +875,13 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
     }
 
     QRect backgroundRect = blurShape.boundingRect();
+
+    /*
+     * The new way of downsampling works reliably for textures with
+     * even dimensions, so we shrink the bounding rectangle by 1
+     * on odd-sized regions. This helps prevent the blur shaking as
+     * the user resizes windows.
+     */
     if(backgroundRect.width() % 2 != 0)
         backgroundRect.setWidth(backgroundRect.width() - 1);
     if(backgroundRect.height() % 2 != 0)
