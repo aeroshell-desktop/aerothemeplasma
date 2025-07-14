@@ -261,6 +261,8 @@ bool Decoration::isGadgetExplorer() const
 bool Decoration::isPersonalizeKCM() const
 {
     if(window()->windowClass() == QStringLiteral("systemsettings systemsettings") && window()->caption().startsWith(QStringLiteral("aerothemeplasma-personalize"))) return true;
+    // standalone version
+    if(window()->windowClass() == QStringLiteral("aerothemeplasma-kcmloader aerothemeplasma-kcmloader") && window()->caption().startsWith(QStringLiteral("aerothemeplasma-personalize"))) return true;
     return false;
 }
 

@@ -12,9 +12,13 @@
 
 #include <KPluginFactory>
 #include "kwineffects_interface.h"
-
 #include "../hsvrgb.h"
 #include "../wackyfunc.h"
+
+#include <iostream>
+#include <QJsonDocument>
+#include <QTimer>
+#include <QWindow>
 
 namespace KWin
 {
@@ -44,14 +48,40 @@ BlurEffectConfig::BlurEffectConfig(QObject *parent, const KPluginMetaData &data)
     connect(ui.kcfg_ReflectionIntensity, SIGNAL(valueChanged(int)), this, SLOT(on_kcfg_ReflectionIntensity_valueChanged(int)));
     connect(ui.kcfg_FirefoxHollowRegion, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(on_kcfg_FirefoxHollowRegion_checkStateChanged(Qt::CheckState)));
 
-	m_window = new MainWindow(ui.kcfg_AccentColorName, ui.kcfg_AccentColorGroup, ui.kcfg_EnableTransparency,
-							  ui.kcfg_AeroHue, ui.kcfg_AeroSaturation, ui.kcfg_AeroBrightness,
-							  ui.kcfg_AeroIntensity, ui.kcfg_CustomColor, this, nullptr);
-	m_window->setWindowModality(Qt::WindowModality::WindowModal);
-
     ui.reflectionLabel->setText(QString::number(ui.kcfg_ReflectionIntensity->value()) + " %" );
     on_kcfg_FirefoxHollowRegion_checkStateChanged(ui.kcfg_FirefoxHollowRegion->checkState());
 
+    /*
+     * It turns out that System Settings, when loading a KCM plugin, doesn't actually
+     * pass any information into data (KPluginMetaData), at least not for KWin effects
+     * like this. As a result, data returns an empty JSON object, but we can use this
+     * to our advantage and invoke the KCM directly, passing custom JSON data that
+     * allows us to override the KCM's behavior.
+     *
+     * If we want to have JUST the KCM, we need to initialize the Colorization KCM
+     * subpage with this KCModule's widget as the parent in order for window
+     * modality to work properly. We can also just almost immediately spawn the
+     * Colorization KCM (the delay is needed to ensure correct window modality).
+     */
+    QJsonObject obj = data.rawData();
+    if(obj["standalone"].toBool())
+    {
+        m_window = new MainWindow(ui.kcfg_AccentColorName, ui.kcfg_AccentColorGroup, ui.kcfg_EnableTransparency,
+        						  ui.kcfg_AeroHue, ui.kcfg_AeroSaturation, ui.kcfg_AeroBrightness,
+        						  ui.kcfg_AeroIntensity, ui.kcfg_CustomColor, this, this->widget());
+        m_window->setWindowModality(Qt::WindowModality::ApplicationModal);
+        QTimer::singleShot(250, this, [&]() {
+            this-> m_window->show();
+        });
+
+    }
+    else
+    {
+        m_window = new MainWindow(ui.kcfg_AccentColorName, ui.kcfg_AccentColorGroup, ui.kcfg_EnableTransparency,
+        						  ui.kcfg_AeroHue, ui.kcfg_AeroSaturation, ui.kcfg_AeroBrightness,
+        						  ui.kcfg_AeroIntensity, ui.kcfg_CustomColor, this, nullptr);
+        m_window->setWindowModality(Qt::WindowModality::WindowModal);
+    }
 }
 void BlurEffectConfig::openColorMixer(QString str)
 {

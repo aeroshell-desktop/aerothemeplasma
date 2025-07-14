@@ -15,6 +15,8 @@ import org.kde.kirigami 2.20 as Kirigami
 import org.kde.kcmutils
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.configuration 2.0
+import org.kde.plasma.plasma5support as Plasma5Support
+
 
 Item {
     id: appearanceRoot
@@ -24,6 +26,27 @@ Item {
     property string currentWallpaper: ""
     property string containmentPlugin: ""
     property alias parentLayout: parentLayout
+
+    Plasma5Support.DataSource {
+        id: menu_executable
+        engine: "executable"
+        connectedSources: []
+        onNewData: (sourceName, data) => {
+            var exitCode = data["exit code"]
+            var exitStatus = data["exit status"]
+            var stdout = data["stdout"]
+            var stderr = data["stderr"]
+            exited(sourceName, exitCode, exitStatus, stdout, stderr)
+            disconnectSource(sourceName)
+        }
+        function exec(cmd) {
+            if (cmd) {
+                connectSource(cmd)
+            }
+        }
+        signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
+    }
+
 
     function saveConfig() {
         if (main.currentItem.saveConfig) {
@@ -78,19 +101,6 @@ Item {
             id: parentLayout // needed for twinFormLayouts to work in wallpaper plugins
             twinFormLayouts: main.currentItem.formLayout || []
             Layout.fillWidth: true
-            QQC2.ComboBox {
-                id: pluginComboBox
-                Layout.preferredWidth: Math.max(implicitWidth, wallpaperComboBox.implicitWidth)
-                Kirigami.FormData.label: i18nd("plasma_shell_org.kde.plasma.desktop", "Layout:")
-                enabled: !Plasmoid.immutable
-                model: configDialog.containmentPluginsConfigModel
-                textRole: "name"
-                onActivated: {
-                    var model = configDialog.containmentPluginsConfigModel.get(currentIndex)
-                    appearanceRoot.containmentPlugin = model.pluginName
-                    appearanceRoot.configurationChanged()
-                }
-            }
 
             RowLayout {
                 Layout.fillWidth: true
@@ -175,6 +185,103 @@ Item {
 
         Kirigami.Separator {
             Layout.fillWidth: true
+        }
+
+        RowLayout {
+
+
+            Layout.topMargin: Kirigami.Units.largeSpacing
+            Layout.bottomMargin: Kirigami.Units.largeSpacing
+            Layout.leftMargin: Kirigami.Units.gridUnit
+            Layout.rightMargin: Kirigami.Units.gridUnit
+            Layout.preferredWidth: root.availableWidth
+            uniformCellSizes: true
+
+            ColumnLayout {
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                Item {
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: Math.max(layoutIcon.width, layoutText.implicitWidth)
+                    Layout.preferredHeight: layoutIcon.height + layoutText.implicitHeight
+                    Kirigami.Icon {
+                        id: layoutIcon
+                        width: Kirigami.Units.iconSizes.large
+                        height: width
+                        anchors.centerIn: parent
+                        source: "user-desktop-symbolic"
+                        Text {
+                            id: layoutText
+                            anchors.top: parent.bottom
+                            anchors.topMargin: 1
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            color: Kirigami.Theme.linkColor
+                            font.underline: layoutMA.containsMouse
+                            text: {
+                                var str = i18nd("plasma_shell_org.kde.plasma.desktop", "Layout:")
+                                return str.slice(0, str.length-1);
+                            }
+                        }
+                    }
+                    MouseArea {
+                        id: layoutMA
+                        anchors.fill: parent
+                        anchors.margins: -Kirigami.Units.smallSpacing
+                        onClicked: pluginComboBox.popup.visible = !pluginComboBox.popup.visible;
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                    }
+                }
+                QQC2.ComboBox {
+                    id: pluginComboBox
+                    Layout.topMargin: Kirigami.Units.smallSpacing / 2
+                    //Layout.preferredWidth: Math.max(implicitWidth
+                    Layout.alignment: Qt.AlignHCenter
+                    background: Item {}
+                    contentItem: Text {
+                        text: pluginComboBox.displayText
+                        opacity: 0.66
+                        horizontalAlignment: Text.AlignHCenter
+                    }
+                    enabled: !Plasmoid.immutable
+                    model: configDialog.containmentPluginsConfigModel
+                    textRole: "name"
+                    onActivated: {
+                        var model = configDialog.containmentPluginsConfigModel.get(currentIndex)
+                        appearanceRoot.containmentPlugin = model.pluginName
+                        appearanceRoot.configurationChanged()
+                    }
+
+                }
+            }
+
+            FooterItem {
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                bottomMargin: pluginComboBox.height + parent.spacing
+                iconSource: "preferences-desktop-theme-global"
+                text: "Window Color"
+                command: "kstart aerothemeplasma-kcmloader kwin/effects/configs/kwin_aeroglassblur_config.so " + iconSource
+                execHelper: menu_executable
+            }
+            FooterItem {
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                bottomMargin: pluginComboBox.height + parent.spacing
+                iconSource: "application-x-theme"
+                text: "Window Decorations"
+                command: "kstart aerothemeplasma-kcmloader org.kde.kdecoration3.kcm/kcm_smoddecoration.so " + iconSource
+                execHelper: menu_executable
+            }
+            FooterItem {
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                bottomMargin: pluginComboBox.height + parent.spacing
+                iconSource: "preferences-sound"
+                text: "Sounds"
+                command: "kstart systemsettings kcm_soundtheme"
+                execHelper: menu_executable
+            }
         }
     }
 

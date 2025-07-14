@@ -3,6 +3,7 @@ misc/defaulttooltip/build
 misc/uac-polkitagent/build
 misc/plymouth/plymouth-theme-smod/build
 kwin/decoration/build
+plasma/aerothemeplasma-kcmloader/build
 plasma/plasmoids/src/volume_src/build
 plasma/plasmoids/src/sevenstart_src/build
 plasma/plasmoids/src/seventasks_src/build

@@ -68,7 +68,8 @@ Item {
         id: mainColumn
         flow: GridLayout.TopToBottom
         y: 25
-        width: parent.width
+        width: parent.width - Kirigami.Units.largeSpacing * 4
+        x: Kirigami.Units.largeSpacing * 2
 
         Repeater {
             id: actionsRepeater

@@ -33,6 +33,12 @@ sh $USE_SCRIPT $@
 cd "$CUR_DIR"
 echo "Done."
 
+echo "Compiling KCM loader..."
+cd "$PWD/plasma/aerothemeplasma-kcmloader"
+sh $USE_SCRIPT $@
+cd "$CUR_DIR"
+echo "Done."
+
 echo "Compiling KWin effects..."
 for filename in "$PWD/kwin/effects_cpp/"*; do
     cd "$filename"

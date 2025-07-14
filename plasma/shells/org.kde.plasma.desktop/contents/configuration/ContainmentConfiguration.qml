@@ -13,9 +13,9 @@ import org.kde.plasma.plasmoid 2.0
 AppletConfiguration {
     id: root
     isContainment: true
-    Layout.minimumWidth: Kirigami.Units.gridUnit * 35
+    Layout.minimumWidth: Kirigami.Units.gridUnit * 45
     Layout.minimumHeight: Kirigami.Units.gridUnit * 30
-    Layout.preferredWidth: Kirigami.Units.gridUnit * 32
+    Layout.preferredWidth: Kirigami.Units.gridUnit * 50
     Layout.preferredHeight: Kirigami.Units.gridUnit * 36
 
 //BEGIN model
