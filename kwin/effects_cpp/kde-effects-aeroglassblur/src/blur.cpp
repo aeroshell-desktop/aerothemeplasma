@@ -1113,7 +1113,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         projectionMatrix.ortho(QRectF(0.0, 0.0, backgroundRect.width(), backgroundRect.height()));
 
         m_upsamplePass.shader->setUniform(m_upsamplePass.mvpMatrixLocation, projectionMatrix);
-        m_upsamplePass.shader->setUniform(m_upsamplePass.offsetLocation, float(m_offset));
+        m_upsamplePass.shader->setUniform(m_upsamplePass.offsetLocation, float(m_offset / 2.5f));
 
         for (size_t i = renderInfo.framebuffers.size() - 1; i > 1; --i) {
             GLFramebuffer::popFramebuffer();
@@ -1206,7 +1206,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         const QVector2D halfpixel(0.5 / (double)read->colorAttachment()->width(),
                                   0.5 / (double)read->colorAttachment()->height());
         m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].halfpixelLocation, halfpixel);
-        m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].offsetLocation, float(m_offset));
+        m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].offsetLocation, float(m_offset / 2.5f));
 
         m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].aeroColorRLocation, r);
         m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].aeroColorGLocation, g);
