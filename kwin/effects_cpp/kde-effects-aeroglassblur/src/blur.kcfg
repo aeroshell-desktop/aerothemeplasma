@@ -6,7 +6,7 @@
     <kcfgfile arg="true"/>
     <group name="Effect-blurplus">
     <entry name="BlurStrength" type="Int">
-            <default>4</default>
+            <default>2</default>
     </entry>
     <entry name="WindowClasses" type="String">
         <default></default>

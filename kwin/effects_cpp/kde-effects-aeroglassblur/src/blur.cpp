@@ -234,8 +234,8 @@ void BlurEffect::initBlurStrengthValues()
     // {minOffset, maxOffset, expandSize}
     blurOffsets.append({1.0, 2.0, 10}); // Down sample size / 2
     blurOffsets.append({2.0, 3.0, 20}); // Down sample size / 4
-    blurOffsets.append({3.0, 5.0, 50}); // Down sample size / 8
-    blurOffsets.append({5.0, 7.0, 150}); // Down sample size / 16
+    blurOffsets.append({2.0, 5.0, 50}); // Down sample size / 8
+    blurOffsets.append({3.0, 8.0, 150}); // Down sample size / 16
     //blurOffsets.append({5.0, 8.0, 300}); // Down sample size / 32
     // blurOffsets.append({7.0, ?.0});       // Down sample size / 64
 
@@ -347,7 +347,7 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
 	}
 	m_reflectionIntensity = BlurConfig::reflectionIntensity();
 
-    int blurStrength = BlurConfig::blurStrength() - 1;
+    int blurStrength = BlurConfig::blurStrength()-1;
     m_iterationCount = blurStrengthValues[blurStrength].iteration;
     m_offset = blurStrengthValues[blurStrength].offset;
     m_expandSize = blurOffsets[m_iterationCount - 1].expandSize;
@@ -874,7 +874,11 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         blurShape.translate(std::round(data.xTranslation()), std::round(data.yTranslation()));
     }
 
-    const QRect backgroundRect = blurShape.boundingRect();
+    QRect backgroundRect = blurShape.boundingRect();
+    if(backgroundRect.width() % 2 != 0)
+        backgroundRect.setWidth(backgroundRect.width() - 1);
+    if(backgroundRect.height() % 2 != 0)
+        backgroundRect.setHeight(backgroundRect.height() - 1);
     const QRect deviceBackgroundRect = snapToPixelGrid(scaledRect(backgroundRect, viewport.scale()));
     QVariant opacityData = w->data(OPACITY_DATA);
     auto opacity = w->opacity() * data.opacity();
@@ -925,7 +929,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
                 return;
             }
             texture->setFilter(GL_LINEAR_MIPMAP_LINEAR);
-            texture->setWrapMode(GL_CLAMP_TO_EDGE);
+            texture->setWrapMode(GL_MIRRORED_REPEAT);
 
             auto framebuffer = std::make_unique<GLFramebuffer>(texture.get());
             if (!framebuffer->valid()) {
@@ -1102,7 +1106,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         projectionMatrix.ortho(QRectF(0.0, 0.0, backgroundRect.width(), backgroundRect.height()));
 
         m_upsamplePass.shader->setUniform(m_upsamplePass.mvpMatrixLocation, projectionMatrix);
-        m_upsamplePass.shader->setUniform(m_upsamplePass.offsetLocation, float(m_offset / 2.5f));
+        m_upsamplePass.shader->setUniform(m_upsamplePass.offsetLocation, float(m_offset));
 
         for (size_t i = renderInfo.framebuffers.size() - 1; i > 1; --i) {
             GLFramebuffer::popFramebuffer();
@@ -1195,6 +1199,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         const QVector2D halfpixel(0.5 / (double)read->colorAttachment()->width(),
                                   0.5 / (double)read->colorAttachment()->height());
         m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].halfpixelLocation, halfpixel);
+        m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].offsetLocation, float(m_offset));
 
         m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].aeroColorRLocation, r);
         m_aeroPasses[selectedPass].shader->setUniform(m_aeroPasses[selectedPass].aeroColorGLocation, g);
