@@ -136,7 +136,7 @@ BlurEffect::BlurEffect() : m_sharedMemory("kwinaero")
         m_reflectPass.reflectTextureLocation = m_reflectPass.shader->uniformLocation("texUnit");
         // Glow
         m_reflectPass.textureSizeLocation = m_reflectPass.shader->uniformLocation("textureSize");
-        m_reflectPass.scaleYLocation = m_reflectPass.shader->uniformLocation("scaleY");
+        m_reflectPass.useWaylandLocation = m_reflectPass.shader->uniformLocation("useWayland");
         m_reflectPass.glowTextureLocation = m_reflectPass.shader->uniformLocation("glowTexture");
         m_reflectPass.glowEnableLocation = m_reflectPass.shader->uniformLocation("glowEnable");
         m_reflectPass.glowOpacityLocation = m_reflectPass.shader->uniformLocation("glowOpacity");
@@ -1260,14 +1260,10 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
             m_reflectPass.shader->setUniform(m_reflectPass.glowEnableLocation, enableGlow);
             if(enableGlow)
             {
-                const auto scale = viewport.scale();
-                bool scaleY = false;
-                if(backgroundRect.height() != windowSize.height() && !scaledOrTransformed(w, mask, data)) scaleY = true;
-                const QRectF pixelGeometry = snapToPixelGridF(scaledRect(QRectF(0, 0, glowTex->width(), glowTex->height()), scale));
-
+                const bool useWayland = effects->waylandDisplay() != nullptr;
                 m_reflectPass.shader->setUniform(m_reflectPass.glowEnableLocation, enableGlow);
-            	m_reflectPass.shader->setUniform(m_reflectPass.textureSizeLocation, QVector2D(pixelGeometry.width(), pixelGeometry.height()));
-            	m_reflectPass.shader->setUniform(m_reflectPass.scaleYLocation, scaleY);
+            	m_reflectPass.shader->setUniform(m_reflectPass.textureSizeLocation, QVector2D(glowTex->width(), glowTex->height()));
+            	m_reflectPass.shader->setUniform(m_reflectPass.useWaylandLocation, useWayland);
                 m_reflectPass.shader->setUniform(m_reflectPass.glowOpacityLocation, float(opacity*0.8));
 
                 glUniform1i(m_reflectPass.glowTextureLocation, 1);

@@ -127,7 +127,7 @@ private:
         int glowTextureLocation;
         int glowEnableLocation;
         int textureSizeLocation;
-        int scaleYLocation;
+        int useWaylandLocation;
         int glowOpacityLocation;
     } m_reflectPass;
     struct

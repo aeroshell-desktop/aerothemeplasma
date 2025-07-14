@@ -10,7 +10,7 @@ uniform vec2 windowPos;
 
 // Glow
 uniform vec2 textureSize;
-uniform bool scaleY;
+uniform bool useWayland;
 uniform sampler2D glowTexture;
 uniform bool glowEnable;
 uniform float glowOpacity;
@@ -24,17 +24,21 @@ vec4 glowFragment()
     float xpos = clamp((gl_FragCoord.x - windowPos.x) / windowSize.x, 0, 1);
 
     float t_x = uv.x;
-    if(xpos > 0.5) t_x = 1 - uv.x;
-    else t_x = uv.x;
 
-    float t_y = uv.y;
-    if(scaleY) t_y = uv.y * windowSize.y;
-    else t_y = uv.y;
-    vec2 t_uv = vec2(windowSize.x * t_x / textureSize.x, windowSize.y * (1 - t_y) / textureSize.y);
-
-    //fragColor = texture(sampler, newUV) * opacity;
+    float t_y;
+    if(useWayland) {
+        t_y = clamp(((gl_FragCoord.y) - windowPos.y) / textureSize.y, 0, 1);
+    } else {
+        t_y = clamp(((screenResolution.y - gl_FragCoord.y) - windowPos.y) / textureSize.y, 0, 1);
+    }
+    vec2 t_uv = vec2(windowSize.x * t_x / textureSize.x, t_y);
 
     vec4 result = texture2D(glowTexture, t_uv) * glowOpacity;
+
+    // Grab from the other side as well
+    t_x = 1 - uv.x;
+    t_uv = vec2(windowSize.x * t_x / textureSize.x, t_y);
+    result += texture2D(glowTexture, t_uv) * glowOpacity;
     return result;
 }
 
