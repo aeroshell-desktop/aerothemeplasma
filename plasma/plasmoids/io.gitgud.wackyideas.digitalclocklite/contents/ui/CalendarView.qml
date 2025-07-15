@@ -188,7 +188,7 @@ PlasmaCore.Dialog {
 						id: monthView
 						today: root.tzDate
 						showWeekNumbers: Plasmoid.configuration.showWeekNumbers
-						firstDayOfWeek: Plasmoid.configuration.firstDayOfWeek
+						firstDayOfWeek: (Plasmoid.configuration.firstDayOfWeek == -1 ? Qt.locale().firstDayOfWeek : Plasmoid.configuration.firstDayOfWeek)
 						anchors.fill: parent
 					}
 				}
