@@ -390,7 +390,6 @@ PlasmaCore.Dialog {
 				onClicked: {
 					filteredMenuItemsModel.trigger(index)
 					root.visible = false;
-
 				}
 			}
 			onObjectAdded: (index, object) => {
@@ -609,17 +608,12 @@ PlasmaCore.Dialog {
 				id: allButtonsArea
 				hoverEnabled: true
 
-				property alias textLabel: showingAllProgramsText.text
 				property alias svgArrow: arrowDirection.elementId
 
 				Behavior on opacity {
 					NumberAnimation { easing.type: Easing.Linear; duration: animationDuration }
 				}
 				opacity: !searching
-				CrossFadeBehavior on textLabel {
-					fadeDuration: 200
-					easingType: "Linear"
-				}
 				CrossFadeBehavior on svgArrow {
 					fadeDuration: 200
 					easingType: "Linear"
@@ -720,7 +714,7 @@ PlasmaCore.Dialog {
 				}
 				Text {
 					id: showingAllProgramsText
-					text: showingAllPrograms ? "    Back" : "    All Programs"
+					text: "    All Programs"
 					font.pixelSize: 12
 					anchors.left: arrowDirection.right
 					anchors.leftMargin: Kirigami.Units.mediumSpacing
@@ -728,6 +722,25 @@ PlasmaCore.Dialog {
 					anchors.verticalCenterOffset: -1
 					style: Text.Sunken
 					styleColor: "transparent"
+					opacity: !showingAllPrograms
+					Behavior on opacity {
+						NumberAnimation { duration: 200 }
+					}
+				}
+				Text {
+					id: showingAllProgramsTextBack
+					text: "    Back"
+					font.pixelSize: 12
+					anchors.left: arrowDirection.right
+					anchors.leftMargin: Kirigami.Units.mediumSpacing
+					anchors.verticalCenter: parent.verticalCenter
+					anchors.verticalCenterOffset: -1
+					style: Text.Sunken
+					styleColor: "transparent"
+					opacity: showingAllPrograms
+					Behavior on opacity {
+						NumberAnimation { duration: 200 }
+					}
 				}
 			}
 			PlasmaExtras.ActionTextField {
