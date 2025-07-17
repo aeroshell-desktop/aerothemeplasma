@@ -1,4 +1,4 @@
-# AEROTHEMEPLASMA FOR KDE 6
+# AEROTHEMEPLASMA FOR KDE PLASMA 6
 
 ## Microsoft® Windows™ is a registered trademark of Microsoft® Corporation. This name is used for referential use only, and does not aim to usurp copyrights from Microsoft. Microsoft Ⓒ 2025 All rights reserved. All resources belong to Microsoft Corporation.
 
@@ -9,7 +9,7 @@ This is a project which aims to recreate the look and feel of Windows 7 as much 
 ATP is in constant development and testing, it has been tested on:
 
 - Arch Linux x64 and other Arch derivatives
-- Plasma 6.4.0, KDE Frameworks 6.15.0, Qt 6.9.1
+- Plasma 6.4.3, KDE Frameworks 6.16.0, Qt 6.9.1
 - 96 DPI scaling, multi monitor
 - X11, Wayland*
 
