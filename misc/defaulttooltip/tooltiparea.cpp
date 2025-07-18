@@ -192,7 +192,7 @@ void ToolTipArea::showToolTip()
         dlg->setFlags(flags | Qt::Dialog);
     } else {
         Qt::WindowFlags flags = dlg->flags();
-        dlg->setFlags(flags & ~Qt::Dialog);
+        dlg->setFlags((flags & ~Qt::Dialog) | Qt::ToolTip);
     }
 
     dlg->setVisible(true);
