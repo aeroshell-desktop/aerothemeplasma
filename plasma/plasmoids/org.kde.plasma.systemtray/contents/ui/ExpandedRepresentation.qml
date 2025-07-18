@@ -91,6 +91,11 @@ Item {
             id: hiddenItemsView
             Layout.preferredWidth: hiddenItemsView.width
 
+            onHiddenItemsCountChanged: {
+                if(visible && hiddenItemsCount == 0) {
+                    systemTrayState.expanded = false;
+                }
+            }
             visible: !systemTrayState.activeApplet
             onVisibleChanged: {
 
