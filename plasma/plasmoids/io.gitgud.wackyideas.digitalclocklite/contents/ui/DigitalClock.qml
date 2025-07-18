@@ -500,6 +500,7 @@ Item {
         PlasmaCore.ToolTipArea {
             id: timeToolTip
 
+            anchors.fill: parent
             mainText: {
                     var now = dataSource.data[plasmoid.configuration.lastSelectedTimezone]["DateTime"];
                     return Qt.formatDate(now, "dddd, MMMM dd, yyyy");
