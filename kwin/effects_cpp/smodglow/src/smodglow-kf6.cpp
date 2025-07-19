@@ -25,7 +25,10 @@ QMatrix4x4 SmodGlowEffect::colorMatrix(const float &brightness, const float &sat
 
     QMatrix4x4 brightnessMatrix;
     if (brightness != 1.0) {
-        brightnessMatrix.scale(brightness, brightness, brightness);
+        brightnessMatrix = QMatrix4x4(brightness, 0, 0, 0,
+                                      0, brightness, 0, 0,
+                                      0, 0, brightness, 0,
+                                      0, 0, 0, brightness);
     }
 
     return saturationMatrix * brightnessMatrix;
@@ -92,6 +95,14 @@ void SmodGlowEffect::paintWindow(const RenderTarget &renderTarget, const RenderV
 
     bool scaled = !qFuzzyCompare(data.xScale(), 1.0) && !qFuzzyCompare(data.yScale(), 1.0);
     bool translated = data.xTranslation() || data.yTranslation();
+    double hdr_brightness_correction = 1.0;
+
+    // HDR brightness must be handled by color management in the compositor.
+    if (w->screen()->highDynamicRange())
+    {
+        hdr_brightness_correction = w->screen()->brightnessSetting();
+    }
+
     if ((scaled || (translated || (mask & PAINT_WINDOW_TRANSFORMED))))
     {
         return;
@@ -121,7 +132,7 @@ void SmodGlowEffect::paintWindow(const RenderTarget &renderTarget, const RenderV
     int uniform_texturerect = m_shader->uniformLocation("texturerect");
     int uniform_colormatrix = m_shader->uniformLocation("colorMatrix");
     const auto scale = viewport.scale();
-    QMatrix4x4 colorMat = colorMatrix(data.brightness(), data.saturation());
+    QMatrix4x4 colorMat = colorMatrix(data.brightness() * hdr_brightness_correction, data.saturation());
 
     {
         float opacity = handler->m_min->hoverProgress() * w->opacity() * data.opacity();

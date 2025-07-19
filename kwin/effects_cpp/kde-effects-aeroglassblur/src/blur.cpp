@@ -852,6 +852,14 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 
     QMatrix4x4 transformedMatrix;
     QVariant winData = w->data(TRANSFORMATION_DATA);
+
+    // HDR brightness must be handled by color management in the compositor.
+    double hdr_brightness_correction = 1.0;
+    if (w->screen()->highDynamicRange())
+    {
+        hdr_brightness_correction = w->screen()->brightnessSetting();
+    }
+
     if(!winData.isNull())
     {
         transformedMatrix = winData.value<QMatrix4x4>();
@@ -1075,7 +1083,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
     }
 
     vbo->bindArrays();
-    QMatrix4x4 colorMat = colorMatrix(data.brightness(), data.saturation());
+    QMatrix4x4 colorMat = colorMatrix(data.brightness() * hdr_brightness_correction, data.saturation());
 
     {
         // The downsample pass of the dual Kawase algorithm: the background will be scaled down 50% every iteration.
@@ -1313,7 +1321,10 @@ QMatrix4x4 BlurEffect::colorMatrix(const float &brightness, const float &saturat
 
     QMatrix4x4 brightnessMatrix;
     if (brightness != 1.0) {
-        brightnessMatrix.scale(brightness, brightness, brightness);
+        brightnessMatrix = QMatrix4x4(brightness, 0, 0, 0,
+                                      0, brightness, 0, 0,
+                                      0, 0, brightness, 0,
+                                      0, 0, 0, brightness);
     }
 
     return saturationMatrix * brightnessMatrix;
