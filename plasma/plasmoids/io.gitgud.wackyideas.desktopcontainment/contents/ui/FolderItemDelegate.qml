@@ -539,14 +539,17 @@ Item {
                 Component {
                     id: frameComponent
 
-                    PlasmaExtras.Highlight {
-                        // Workaround for a bug where the frameComponent does not
-                        // get unloaded when items are dragged to a different
-                        // place on the desktop.
+                    KSvg.FrameSvgItem {
+                        imagePath: "widgets/viewitem"
                         visible: this === frameLoader.item && !Plasmoid.configuration.selectionStyle
-                        hovered: impl.iconAndLabelsShouldlookSelected
-                        pressed: model.selected
-                        active: Window.active
+                        property bool hovered: impl.iconAndLabelsShouldlookSelected
+                        property bool pressed: model.selected
+                        prefix: {
+                            if(hovered && pressed) return "selected+hover";
+                            if(hovered) return "hover";
+                            if(pressed) return "selected";
+                            return "normal";
+                        }
                     }
                 }
 
