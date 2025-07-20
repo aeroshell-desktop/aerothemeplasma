@@ -50,13 +50,6 @@ PlasmaCore.ToolTipArea {
     }
 
     TapHandler {
-        /*onPressedChanged: {
-            if (pressed) {
-                systemTrayState.expanded = !systemTrayState.expanded;
-                expandedRepresentation.hiddenLayout.currentIndex = -1;
-                //tooltip.wasExpanded = systemTrayState.expanded;
-            }
-        }*/
         onTapped: {
             systemTrayState.expanded = !systemTrayState.expanded;
             //systemTrayState.expanded = !tooltip.wasExpanded;
@@ -70,8 +63,6 @@ PlasmaCore.ToolTipArea {
         anchors.centerIn: parent
         width: expanderSize +1
         height: expanderSize
-        //width: Math.min(parent.width, parent.height)+1
-        //height: width-1
 
         // This is the Aero styled button texture used for the system tray expander.
         KSvg.FrameSvgItem {
@@ -100,61 +91,4 @@ PlasmaCore.ToolTipArea {
             }
         }
     }
-    /*Kirigami.Icon {
-        anchors.fill: parent
-
-        rotation: systemTrayState.expanded ? 180 : 0
-        Behavior on rotation {
-            RotationAnimation {
-                duration: tooltip.arrowAnimationDuration
-            }
-        }
-        opacity: systemTrayState.expanded ? 0 : 1
-        Behavior on opacity {
-            NumberAnimation {
-                duration: tooltip.arrowAnimationDuration
-            }
-        }
-
-        source: {
-            if (Plasmoid.location === PlasmaCore.Types.TopEdge) {
-                return "arrow-down";
-            } else if (Plasmoid.location === PlasmaCore.Types.LeftEdge) {
-                return "arrow-right";
-            } else if (Plasmoid.location === PlasmaCore.Types.RightEdge) {
-                return "arrow-left";
-            } else {
-                return "arrow-up";
-            }
-        }
-    }
-
-    Kirigami.Icon {
-        anchors.fill: parent
-
-        rotation: systemTrayState.expanded ? 0 : -180
-        Behavior on rotation {
-            RotationAnimation {
-                duration: tooltip.arrowAnimationDuration
-            }
-        }
-        opacity: systemTrayState.expanded ? 1 : 0
-        Behavior on opacity {
-            NumberAnimation {
-                duration: tooltip.arrowAnimationDuration
-            }
-        }
-
-        source: {
-            if (Plasmoid.location === PlasmaCore.Types.TopEdge) {
-                return "arrow-up";
-            } else if (Plasmoid.location === PlasmaCore.Types.LeftEdge) {
-                return "arrow-left";
-            } else if (Plasmoid.location === PlasmaCore.Types.RightEdge) {
-                return "arrow-right";
-            } else {
-                return "arrow-down";
-            }
-        }
-    }*/
 }
