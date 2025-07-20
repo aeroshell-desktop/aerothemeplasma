@@ -193,6 +193,9 @@ ContainmentItem {
                 }
             }
             items.includeByDefault: false
+            onCountChanged: {
+                root.hiddenLayout.model.invalidateFilter();
+            }
             groups: DelegateModelGroup {
                 id: unsortedItems
                 name: "unsorted"

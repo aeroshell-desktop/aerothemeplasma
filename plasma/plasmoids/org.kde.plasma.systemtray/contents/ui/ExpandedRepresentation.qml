@@ -94,6 +94,7 @@ Item {
             onHiddenItemsCountChanged: {
                 if(visible && hiddenItemsCount == 0) {
                     systemTrayState.expanded = false;
+                    layout.currentIndex = -1;
                 }
             }
             visible: !systemTrayState.activeApplet

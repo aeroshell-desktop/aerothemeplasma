@@ -50,13 +50,16 @@ PlasmaCore.ToolTipArea {
     }
 
     TapHandler {
-        onPressedChanged: {
+        /*onPressedChanged: {
             if (pressed) {
-                tooltip.wasExpanded = systemTrayState.expanded;
+                systemTrayState.expanded = !systemTrayState.expanded;
+                expandedRepresentation.hiddenLayout.currentIndex = -1;
+                //tooltip.wasExpanded = systemTrayState.expanded;
             }
-        }
+        }*/
         onTapped: {
-            systemTrayState.expanded = !tooltip.wasExpanded;
+            systemTrayState.expanded = !systemTrayState.expanded;
+            //systemTrayState.expanded = !tooltip.wasExpanded;
             expandedRepresentation.hiddenLayout.currentIndex = -1;
         }
     }
