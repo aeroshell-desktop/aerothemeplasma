@@ -473,7 +473,6 @@ PlasmaCore.Dialog {
 
         	CrossFadeBehavior on width {
 				fadeDuration: 200
-				easingType: "Linear"
 			}
         	Rectangle {
         		id: backgroundBorderLine
@@ -616,7 +615,6 @@ PlasmaCore.Dialog {
 				opacity: !searching
 				CrossFadeBehavior on svgArrow {
 					fadeDuration: 200
-					easingType: "Linear"
 				}
 				Layout.fillWidth: true
 				Layout.leftMargin: Kirigami.Units.smallSpacing
@@ -1035,7 +1033,7 @@ PlasmaCore.Dialog {
                 id: columnItems
                 spacing: 2
 				Layout.alignment: Qt.AlignTop
-				width: Math.max(cellWidthSide, columnItems.implicitWidth)
+				width: Math.max(root.cellWidthSide, columnItems.implicitWidth)
 
 				property var cfg_sidePanelVisibility: Plasmoid.configuration.sidePanelVisibility
 				property var sidePanelVisibility: {
@@ -1057,6 +1055,7 @@ PlasmaCore.Dialog {
 					model: sidePanelModels.firstCategory.length
 					visible: false // Messes with separator visibility checks
 					delegate: SidePanelItemDelegate {
+						id: firstCategoryDelegate
 						required property int index
 						itemText: sidePanelModels.firstCategory[index].itemText
 						itemIcon: sidePanelModels.firstCategory[index].itemIcon
@@ -1068,6 +1067,10 @@ PlasmaCore.Dialog {
 							separator2.updateVisibility();
 						}
 						Layout.fillWidth: true
+						onItemTextChanged: { // Fix bug where changing the username for some reason causes the item width to shrink to the text content
+							firstCategoryDelegate.Layout.fillWidth = false;
+							firstCategoryDelegate.Layout.fillWidth = true;
+						}
 					}
 
 				}

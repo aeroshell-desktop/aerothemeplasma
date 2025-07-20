@@ -106,8 +106,8 @@ Item {
             anchors.fill: parent
             acceptedButtons: Qt.LeftButton
             onPressed: {
-                root.visible = false;
                 KCM.KCMLauncher.openSystemSettings("kcm_users")
+                root.visible = false;
             }
             cursorShape: Qt.PointingHandCursor
         }
