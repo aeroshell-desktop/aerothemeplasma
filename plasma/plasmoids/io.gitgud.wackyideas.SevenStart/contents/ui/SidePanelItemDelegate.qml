@@ -22,6 +22,7 @@ Item {
     property string itemIcon: ""
     property string itemIconFallback: "unknown"
     property string executableString: ""
+    property string description: ""
     property bool executeProgram: false
     property alias textLabel: label
     //text: itemText
@@ -151,7 +152,39 @@ Item {
         }*/
         if(root.m_delayTimer.running) root.m_delayTimer.restart();
         else root.m_delayTimer.start();
+
+        if(focus) {
+            if(sidePanelDelegate.menuModel !== null) {
+                recentsMenuTimer.start();
+            } else if(toolTip.active) {
+                toolTipTimer.start();
+            }
+        } else {
+            toolTipTimer.stop();
+            toolTip.hideImmediately();
+            recentsMenuTimer.stop();
+        }
     }
+    Timer {
+        id: toolTipTimer
+        interval: Kirigami.Units.longDuration*3
+        onTriggered: {
+            toolTip.showToolTip();
+        }
+    }
+    PlasmaCore.ToolTipArea {
+        id: toolTip
+
+        anchors {
+            fill: parent
+        }
+
+        active: !contextMenu.enabled && sidePanelDelegate.description !== ""
+        interactive: false
+
+        mainText: sidePanelDelegate.description
+    }
+
     MouseArea {
         id: sidePanelMouseArea
         enabled: !root.hoverDisabled
@@ -161,6 +194,7 @@ Item {
         }
         onExited: {
             sidePanelDelegate.focus = false;
+            toolTip.hideImmediately();
         }
         onClicked: {
             root.visible = false;
@@ -177,7 +211,7 @@ Item {
     Timer {
         id: recentsMenuTimer
         interval: 500
-        running: sidePanelMouseArea.containsMouse && sidePanelDelegate.menuModel !== null
+        //running: sidePanelMouseArea.containsMouse && sidePanelDelegate.menuModel !== null
         onTriggered: contextMenu.openRelative();
     }
 
@@ -186,7 +220,7 @@ Item {
         enabled: sidePanelDelegate.menuModel !== null
         function onStatusChanged() {
             if(contextMenu.status === 3) {
-                sidePanelDelegate.focus = false;
+                //sidePanelDelegate.focus = false;
                 root.m_delayTimer.restart();
             }
         }

@@ -1059,6 +1059,7 @@ PlasmaCore.Dialog {
 						required property int index
 						itemText: sidePanelModels.firstCategory[index].itemText
 						itemIcon: sidePanelModels.firstCategory[index].itemIcon
+						description: sidePanelModels.firstCategory[index].description
 						executableString: sidePanelModels.firstCategory[index].executableString
 						visible: typeof columnItems.sidePanelVisibility[sidePanelModels.firstCategory[index].name] !== "undefined"
 						executeProgram: sidePanelModels.firstCategory[index].executeProgram
@@ -1088,6 +1089,7 @@ PlasmaCore.Dialog {
 					delegate: SidePanelItemDelegate {
 						required property int index
 						itemText: sidePanelModels.secondCategory[index].itemText
+						description: sidePanelModels.secondCategory[index].description
 						itemIcon: sidePanelModels.secondCategory[index].itemIcon
 						executableString: sidePanelModels.secondCategory[index].executableString
 						visible: typeof columnItems.sidePanelVisibility[sidePanelModels.secondCategory[index].name] !== "undefined"
@@ -1115,6 +1117,7 @@ PlasmaCore.Dialog {
 					delegate: SidePanelItemDelegate {
 						required property int index
 						itemText: sidePanelModels.thirdCategory[index].itemText
+						description: sidePanelModels.thirdCategory[index].description
 						itemIcon: sidePanelModels.thirdCategory[index].itemIcon
 						executableString: sidePanelModels.thirdCategory[index].executableString
 						visible: typeof columnItems.sidePanelVisibility[sidePanelModels.thirdCategory[index].name] !== "undefined"

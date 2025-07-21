@@ -24,6 +24,7 @@ Item {
         {
             name: "Home directory",
             itemText: Plasmoid.configuration.useFullName ? kuser.fullName : kuser.loginName,
+            description: "",
             itemIcon: "user-home",
             itemIconFallback: "unknown",
             executableString: StandardPaths.writableLocation(StandardPaths.HomeLocation),
@@ -33,6 +34,7 @@ Item {
         {
             name: "Documents",
             itemText: "Documents",
+            description: "Access letters, reports, notes and other kinds of documents.",
             itemIcon: "library-txt",
             itemIconFallback: "folder-library",
             executableString: StandardPaths.writableLocation(StandardPaths.DocumentsLocation),
@@ -42,6 +44,7 @@ Item {
         {
             name: "Pictures",
             itemText: "Pictures",
+            description: "View and organize digital pictures",
             itemIcon: "library-images",
             itemIconFallback: "folder-image",
             executableString: StandardPaths.writableLocation(StandardPaths.PicturesLocation),
@@ -51,6 +54,7 @@ Item {
         {
             name: "Music",
             itemText: "Music",
+            description: "Play music and other audio files.",
             itemIcon: "library-music",
             itemIconFallback: "folder-music",
             executableString: StandardPaths.writableLocation(StandardPaths.MusicLocation),
@@ -60,6 +64,7 @@ Item {
         {
             name: "Videos",
             itemText: "Videos",
+            description: "Watch home movies and other digital videos.",
             itemIcon: "library-video",
             itemIconFallback: "folder-videos",
             executableString: StandardPaths.writableLocation(StandardPaths.MoviesLocation),
@@ -69,6 +74,7 @@ Item {
         {
             name: "Downloads",
             itemText: "Downloads",
+            description: "Find Internet downloads and links to favorite websites.",
             itemIcon: "folder-download",
             itemIconFallback: "folder-download",
             executableString: StandardPaths.writableLocation(StandardPaths.HomeLocation) + "/Downloads",
@@ -82,6 +88,7 @@ Item {
         {
             name: "Games",
             itemText: "Games",
+            description: "Play and manage games on your computer.",
             itemIcon: "applications-games",
             itemIconFallback: "folder-games",
             executableString: "applications:///Games/",
@@ -91,6 +98,7 @@ Item {
         {
             name: "Recent Items",
             itemText: "Recent Items",
+            description: "",
             itemIcon: "document-open-recent",
             itemIconFallback: "folder-documents",
             executableString: "recentlyused:/",
@@ -100,6 +108,7 @@ Item {
         {
             name: "Computer",
             itemText: "Computer",
+            description: "See the disk drives and other hardware connected to your computer.",
             itemIcon: "computer",
             itemIconFallback: "unknown",
             executableString: "file:///.",
@@ -109,6 +118,7 @@ Item {
         {
             name: "Network",
             itemText: "Network",
+            description: "Access the computers and devices that are on your network.",
             itemIcon: "folder-network",
             itemIconFallback: "network-server",
             executableString: "remote:/",
@@ -121,6 +131,7 @@ Item {
         {
             name: "Control Panel",
 			itemText: "Control Panel",
+            description: "Change settings and customize the functionality of your computer.",
 			itemIcon: "preferences-system",
 			itemIconFallback: "preferences-desktop",
 			executableString: "systemsettings",
@@ -130,6 +141,7 @@ Item {
         {
             name: "Devices and Printers",
 			itemText: "Devices and Printers",
+            description: "View and manage devices, printers and print jobs",
 			itemIcon: "input_devices_settings",
 			itemIconFallback: "printer",
 			executableString: "systemsettings kcm_printer_manager",
@@ -139,6 +151,7 @@ Item {
         {
             name: "Default Programs",
 			itemText: "Default Programs",
+            description: "Choose default programs for web browsing, e-mail, playing music, and other activities.",
 			itemIcon: "preferences-desktop-default-applications",
 			itemIconFallback: "application-x-executable",
 			executableString: "systemsettings kcm_componentchooser",
@@ -148,6 +161,7 @@ Item {
         {
             name: "Help and Support",
 			itemText: "Help and Support",
+            description: "Find Help topics, tutorials, troubleshooting, and other support services.",
 			itemIcon: "help-browser",
 			itemIconFallback: "system-help",
 			executableString: "https://develop.kde.org/docs/",
@@ -157,6 +171,7 @@ Item {
         {
             name: "Run",
 			itemText: "Run...",
+            description: "Opens a program, folder, document, or web site.",
 			itemIcon: "krunner",
 			itemIconFallback: "system-run",
 			executableString: "krunner --replace",
