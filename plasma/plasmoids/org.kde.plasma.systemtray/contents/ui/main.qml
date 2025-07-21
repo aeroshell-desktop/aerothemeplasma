@@ -193,16 +193,16 @@ ContainmentItem {
                 }
             }
             items.includeByDefault: false
-            onCountChanged: {
-                Qt.callLater(() => root.hiddenLayout.model.invalidateFilter());
-            }
             groups: DelegateModelGroup {
                 id: unsortedItems
                 name: "unsorted"
 
                 includeByDefault: true
-                onChanged: {
+                onChanged: (removed, inserted) => {
                     activeModel.sort();
+                    if(inserted.length > 0) {
+                        root.hiddenLayout.model.invalidateFilter()
+                    }
                 }
             }
             delegate: ItemLoader {
