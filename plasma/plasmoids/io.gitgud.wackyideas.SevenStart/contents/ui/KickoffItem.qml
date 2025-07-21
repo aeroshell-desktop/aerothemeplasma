@@ -72,14 +72,15 @@ Item {
 
     onAboutToShowActionMenu: (actionMenu) => { // Loads context menu items here
         var actionList = hasActionList ? model.actionList : [];
-        if(kicker.isValidUrl(model.url)) { // If we have a launchable application, try allowing the user to pin it
+        if(model.favoriteId) { // If we have a launchable application, try allowing the user to pin it
             // Find seventasks instance, if available
-            const entry = kicker.convertUrl(model.url);
+            const entry = "applications:" + model.favoriteId; //kicker.convertUrl(model.url);
+            console.log(entry);
             var panel = kicker.parent;
             while(panel !== null && typeof panel.sevenTasksReference === "undefined") { // Find seventasks loader reference from the panel
                 panel = panel.parent;
             }
-            if(panel?.sevenTasksReference) { // If found, add the pin/unpin menu item
+            if(panel.sevenTasksReference) { // If found, add the pin/unpin menu item
                 const unpin = (panel.sevenTasksReference.applet.findTask(entry) !== -1);
                 var pinAction = {   // Add custom action
                                     icon: "pin",

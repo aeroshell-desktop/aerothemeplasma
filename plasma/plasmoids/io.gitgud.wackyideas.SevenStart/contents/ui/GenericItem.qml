@@ -50,9 +50,10 @@ Item {
 
   onAboutToShowActionMenu: actionMenu => {
     var actionList = allItem.hasActionList ? model.actionList : [];
-    if(kicker.isValidUrl(model.url)) { // If we have a launchable application, try allowing the user to pin it
+    if(model.favoriteId) { // If we have a launchable application, try allowing the user to pin it
       // Find seventasks instance, if available
-      const entry = kicker.convertUrl(model.url);
+      const entry = model.favoriteId; //kicker.convertUrl(model.url);
+      console.log(entry);
       var panel = kicker.parent;
       while(panel !== null && typeof panel.sevenTasksReference === "undefined") { // Find seventasks loader reference from the panel
         panel = panel.parent;
