@@ -164,6 +164,8 @@ ContainmentItem {
                     return value === PlasmaCore.Types.ActiveStatus;
                 }
             }
+            property int unsortedCount: unsortedItems.count;
+            property int sortedCount: items.count;
             function determinePosition(item) {
                 let lower = 0;
                 let upper = items.count
@@ -188,7 +190,7 @@ ContainmentItem {
                     const item = unsortedItems.get(0);
                     //var shouldInsert = item.model.itemId !== "" || (typeof item.model.hasApplet !== "undefined");
                     var i = determinePosition(item); //orderingManager.getItemOrder(item.model.itemId);
-                    item.groups = "items";
+                    item.groups =  "items";
                     items.move(item.itemsIndex, i);
                 }
             }
@@ -199,10 +201,10 @@ ContainmentItem {
 
                 includeByDefault: true
                 onChanged: (removed, inserted) => {
-                    activeModel.sort();
                     if(inserted.length > 0) {
                         root.hiddenLayout.model.invalidateFilter()
                     }
+                    activeModel.sort();
                 }
             }
             delegate: ItemLoader {
@@ -210,6 +212,7 @@ ContainmentItem {
                 width: tasksGrid.cellWidth
                 height: tasksGrid.cellHeight
                 property int visualIndex: DelegateModel.itemsIndex
+                visible: !DelegateModel.isUnresolved
                 minLabelHeight: 0
                 // We need to recalculate the stacking order of the z values due to how keyboard navigation works
                 // the tab order depends exclusively from this, so we redo it as the position in the list
@@ -284,8 +287,12 @@ ContainmentItem {
                 }
 
                 //depending on the form factor, we are calculating only one dimension, second is always the same as root/parent
-                implicitHeight: root.vertical ? cellHeight * Math.ceil(count / rowsOrColumns) : root.height
-                implicitWidth: !root.vertical ? cellWidth * Math.ceil(count / rowsOrColumns) : root.width
+                implicitHeight: {
+                    return root.vertical ? cellHeight * Math.ceil(count / rowsOrColumns) : root.height
+                }
+                implicitWidth: {
+                    return !root.vertical ? cellWidth * Math.ceil(count / rowsOrColumns) : root.width
+                }
 
                 readonly property int itemSize: {
                     if (autoSize) {
