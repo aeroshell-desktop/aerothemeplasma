@@ -182,7 +182,9 @@ Item {
         active: !contextMenu.enabled && sidePanelDelegate.description !== ""
         interactive: false
 
-        mainText: sidePanelDelegate.description
+        mainItem: Text {
+            text: sidePanelDelegate.description
+        }
     }
 
     MouseArea {
