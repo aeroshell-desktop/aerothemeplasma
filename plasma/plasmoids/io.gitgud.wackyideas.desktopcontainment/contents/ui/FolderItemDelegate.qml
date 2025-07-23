@@ -34,6 +34,7 @@ Item {
     property Item hoverArea:       loader.item ? loader.item.hoverArea      : null
     property Item frame:           loader.item ? loader.item.frame          : null
     property Item toolTip:         loader.item ? loader.item.toolTip        : null
+    property bool shouldShowToolTip: false
     Accessible.name: name
     Accessible.role: Accessible.Canvas
 
@@ -114,8 +115,9 @@ Item {
             // grabToImagebefore it gets the final width, making grabToImage fail because it's still 0x0
             onSelectedChanged: {
                 Qt.callLater(updateDragImage)
-                if(selected && (!toolTip.containsMouse)) {
+                if(selected && (!toolTip.containsMouse) && main.shouldShowToolTip) {
                     toolTipTimer.start();
+                    main.shouldShowToolTip = false;
                 } else {
                     toolTipTimer.stop();
                     toolTip.hideImmediately();

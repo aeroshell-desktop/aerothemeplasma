@@ -1085,6 +1085,7 @@ FocusScope {
 
                         if (newIndex !== -1) {
                             currentIndex = newIndex;
+                            if(event.modifiers === Qt.NoModifier) currentItem.shouldShowToolTip = true;
                             updateSelection(event.modifiers);
                         }
                     } else {
@@ -1096,6 +1097,7 @@ FocusScope {
                             return;
                         }
 
+                        if(event.modifiers === Qt.NoModifier) currentItem.shouldShowToolTip = true;
                         updateSelection(event.modifiers);
                     }
                 }
@@ -1111,6 +1113,7 @@ FocusScope {
 
                         if (newIndex !== -1) {
                             currentIndex = newIndex;
+                            if(event.modifiers === Qt.NoModifier) currentItem.shouldShowToolTip = true;
                             updateSelection(event.modifiers);
                         }
                     } else {
@@ -1122,6 +1125,7 @@ FocusScope {
                             return;
                         }
 
+                        if(event.modifiers === Qt.NoModifier) currentItem.shouldShowToolTip = true;
                         updateSelection(event.modifiers);
                     }
                 }
@@ -1133,6 +1137,7 @@ FocusScope {
 
                         if (newIndex !== -1) {
                             currentIndex = newIndex;
+                            if(event.modifiers === Qt.NoModifier) currentItem.shouldShowToolTip = true;
                             updateSelection(event.modifiers);
                         }
                     } else {
@@ -1143,7 +1148,7 @@ FocusScope {
                         if (oldIndex === currentIndex) {
                             return;
                         }
-
+                        if(event.modifiers === Qt.NoModifier) currentItem.shouldShowToolTip = true;
                         updateSelection(event.modifiers);
                     }
                 }
@@ -1155,6 +1160,7 @@ FocusScope {
 
                         if (newIndex !== -1) {
                             currentIndex = newIndex;
+                            if(event.modifiers === Qt.NoModifier) currentItem.shouldShowToolTip = true;
                             updateSelection(event.modifiers);
                         }
                     } else {
@@ -1166,6 +1172,7 @@ FocusScope {
                             return;
                         }
 
+                        if(event.modifiers === Qt.NoModifier) currentItem.shouldShowToolTip = true;
                         updateSelection(event.modifiers);
                     }
                 }
