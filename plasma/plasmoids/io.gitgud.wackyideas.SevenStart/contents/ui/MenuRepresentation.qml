@@ -664,6 +664,7 @@ PlasmaCore.Dialog {
 				}
 				onClicked: {
 					click(false);
+					activateAppViewTimer.stop();
 				}
 				function click(focusAppsView) {
 					if(searching)
