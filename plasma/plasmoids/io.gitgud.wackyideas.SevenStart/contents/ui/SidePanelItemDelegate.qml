@@ -56,7 +56,7 @@ Item {
 
     function findNext() {
         var i = findItem()+1;
-        if(i >= parent.visibleChildren.length-1) {
+        if(parent.visibleChildren[i].objectName == "PaddingItem") {
             return root.m_shutDownButton;
         }
         if(parent.visibleChildren[i].objectName == "SidePanelItemSeparator") {

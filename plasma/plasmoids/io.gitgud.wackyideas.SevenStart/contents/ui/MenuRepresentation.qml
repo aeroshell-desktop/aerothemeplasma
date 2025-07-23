@@ -1177,7 +1177,8 @@ PlasmaCore.Dialog {
 					if(columnItems.visibleChildren.length === 2) {
 						return searchField;
 					}
-					return columnItems.visibleChildren[columnItems.visibleChildren.length-2];
+
+					return columnItems.visibleChildren[columnItems.visibleChildren.length-3];
 				}
 			}
 			ListDelegate {
