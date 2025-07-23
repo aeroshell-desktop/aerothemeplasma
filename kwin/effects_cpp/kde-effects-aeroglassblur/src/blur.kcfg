@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
     http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
     <kcfgfile arg="true"/>
-    <group name="Effect-blurplus">
+    <group name="Effect-aeroglassblur">
     <entry name="BlurStrength" type="Int">
             <default>3</default>
     </entry>
