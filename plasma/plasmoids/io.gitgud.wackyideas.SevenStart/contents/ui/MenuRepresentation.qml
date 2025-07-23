@@ -1201,6 +1201,38 @@ PlasmaCore.Dialog {
 						leaveButtons.findUpItem().focus = true;
 					}
 				}
+				Timer {
+					id: shutdownTimer
+					interval: Kirigami.Units.longDuration*3
+					onTriggered: {
+						shutdownToolTip.showToolTip();
+					}
+				}
+				PlasmaCore.ToolTipArea {
+					id: shutdownToolTip
+
+					anchors {
+						fill: parent
+					}
+
+					interactive: false
+					location: {
+						var result = PlasmaCore.Types.Floating;
+						if(ma.containsMouse) result |= PlasmaCore.Types.Desktop;
+						return result;
+					}
+
+					mainItem: Text {
+						text: i18n("Closes all open programs, shuts down Linux, and then turns off your computer.")
+					}
+				}
+				onFocusChanged: {
+					if(focus) shutdownTimer.start();
+					else {
+						shutdownToolTip.hideImmediately();
+						shutdownTimer.stop();
+					}
+				}
 
 				Text {
 					id: shutDownText
@@ -1238,6 +1270,14 @@ PlasmaCore.Dialog {
 					acceptedButtons: Qt.LeftButton
 					hoverEnabled: true
 					anchors.fill: parent
+					propagateComposedEvents: true
+					onContainsMouseChanged: {
+						if(containsMouse) shutdownTimer.start();
+						else {
+							shutdownToolTip.hideImmediately();
+							shutdownTimer.stop();
+						}
+					}
 					onExited: {
 						shutdown.focus = false;
 					}
