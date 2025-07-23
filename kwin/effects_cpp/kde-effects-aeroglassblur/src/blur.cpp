@@ -802,6 +802,7 @@ bool BlurEffect::shouldForceBlur(const EffectWindow *w) const
     {
         return false;
     }
+    if(w->isTooltip()) return false;
 
     // Is it a Gadget window
     bool matches = (w->window()->resourceName() == "plasmashell" || w->window()->resourceClass() == "plasmashell") && w->caption() == "plasmashell_explorer";
