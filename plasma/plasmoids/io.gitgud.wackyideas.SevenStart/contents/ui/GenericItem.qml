@@ -50,7 +50,7 @@ Item {
   property var triggerModel
 
   onIsCurrentlySelectedChanged: {
-    if(isCurrentlySelected) {
+    if(isCurrentlySelected && toolTip.location) {
       toolTipTimer.start();
     } else {
       toolTipTimer.stop();
