@@ -24,7 +24,7 @@ Item {
         {
             name: "Home directory",
             itemText: Plasmoid.configuration.useFullName ? kuser.fullName : kuser.loginName,
-            description: "",
+            description: "Open your personal folder.",
             itemIcon: "user-home",
             itemIconFallback: "unknown",
             executableString: StandardPaths.writableLocation(StandardPaths.HomeLocation),
