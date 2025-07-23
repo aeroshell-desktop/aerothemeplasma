@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+pragma ComponentBehavior: Bound
 import QtQuick 2.15
 import QtQml 2.15
 
@@ -34,7 +35,9 @@ Behavior {
     property var exitValue: 0
     property var enterValue: exitValue
     property int fadeDuration: 300
-    property string easingType: "Quad"
+    //property string easingType: "Quad"
+    property var easingTypeIn: Easing.Linear
+    property var easingTypeOut: Easing.Linear
     property bool delayWhile: false
     property bool sequential: false
     onDelayWhileChanged: {
@@ -62,7 +65,7 @@ Behavior {
         properties: root.fadeProperties.join(',')
         duration: root.fadeDuration
         to: root.exitValue
-        easing.type: root.easingType === "Linear" ? Easing.Linear : Easing["In"+root.easingType]
+        easing.type: root.easingTypeIn //root.easingType === "Linear" ? Easing.Linear : Easing["In"+root.easingType]
     }
     property Component exitAnimation: defaultExitAnimation
 
@@ -73,7 +76,7 @@ Behavior {
         duration: root.fadeDuration
         from: root.enterValue
         to: root.fadeTarget[root.fadeProperties[0]]
-        easing.type: root.easingType === "Linear" ? Easing.Linear : Easing["Out"+root.easingType]
+        easing.type: root.easingTypeOut //=== "Linear" ? Easing.Linear : Easing["Out"+root.easingType]
     }
     property Component enterAnimation: defaultEnterAnimation
 

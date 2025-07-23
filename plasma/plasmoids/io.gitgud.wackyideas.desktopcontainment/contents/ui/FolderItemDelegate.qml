@@ -112,7 +112,15 @@ Item {
 
             // When a drop happens, a new item is created, and is set to selected
             // grabToImagebefore it gets the final width, making grabToImage fail because it's still 0x0
-            onSelectedChanged: Qt.callLater(updateDragImage)
+            onSelectedChanged: {
+                Qt.callLater(updateDragImage)
+                if(selected && (!toolTip.containsMouse)) {
+                    toolTipTimer.start();
+                } else {
+                    toolTipTimer.stop();
+                    toolTip.hideImmediately();
+                }
+            }
             function updateDragImage() {
                 if (selected && !blank) {
                     frameLoader.grabToImage(result => {
@@ -173,6 +181,14 @@ Item {
                 }
             }
 
+            Timer {
+                id: toolTipTimer
+                interval: 700
+                onTriggered: {
+                    toolTip.updateToolTip();
+                    toolTip.showToolTip();
+                }
+            }
             PlasmaCore.ToolTipArea {
                 id: toolTip
 
@@ -180,68 +196,47 @@ Item {
                         && popupDialog === null
                         && !model.blank
                 interactive: false
-                location: root.useListViewMode ? (Plasmoid.location === PlasmaCore.Types.LeftEdge ? PlasmaCore.Types.LeftEdge : PlasmaCore.Types.RightEdge) : Plasmoid.location
+                location: {
+                    if(toolTip.containsMouse) {
+                        return PlasmaCore.Types.Floating | PlasmaCore.Types.Desktop
+                    } else {
+                        return root.useListViewMode ? (Plasmoid.location === PlasmaCore.Types.LeftEdge ? PlasmaCore.Types.LeftEdge : PlasmaCore.Types.RightEdge) : Plasmoid.location
+                    }
+                }
                 z: 999
-                //anchors.fill: parent
-                Timer {
-                    id: showtooltip
-                    interval: 750
-                    onTriggered: {
-                        if(ma.containsMouse) {
-                            toolTip.showToolTip();
+                function updateToolTip() {
+                    if (toolTip.active && !model.blank) {
+
+                        toolTip.textFormat = Text.RichText;
+                        toolTip.mainText = model.display;
+
+                        if (model.size !== undefined) {
+                            toolTip.subText = model.type + "<br>" + "Size: " + model.size;
+                        } else {
+                            toolTip.subText = model.type;
                         }
                     }
+
                 }
-                MouseArea {
-                    id: ma
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    propagateComposedEvents: true
-                    onPositionChanged: (mouse) => {
-
-                        if (containsMouse && !model.blank) {
-
-                            if (toolTip.active) {
-
-                                toolTip.textFormat = Text.RichText;
-                                toolTip.mainText = model.display;
-
-                                if (model.size !== undefined) {
-                                    toolTip.subText = model.type + "<br>" + "Size: " + model.size;
-                                } else {
-                                    toolTip.subText = model.type;
-                                }
-                                showtooltip.start();
-                            }
-
-                            main.GridView.view.hoveredItem = main;
-                        }
-                        mouse.accepted = false;
-
+                onContainsMouseChanged: {
+                    if (containsMouse) {
+                        updateToolTip();
+                        main.GridView.view.hoveredItem = main;
+                    } else if(!containsMouse && main.GridView.view.hoveredItem === main) {
+                        toolTip.hideImmediately();
                     }
                 }
-
 
                 states: [
                     State { // icon view
                         when: !root.useListViewMode
 
-                        AnchorChanges {
-                            target: toolTip
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
-
                         PropertyChanges {
                             target: toolTip
-                            x: Kirigami.Units.smallSpacing
-                            y: Kirigami.Units.smallSpacing
-                            width: parent.width - Kirigami.Units.smallSpacing
-                            height: parent.height - Kirigami.Units.smallSpacing
-                            //width: Math.max(icon.paintedWidth, label.paintedWidth)
-                            //height: (label.y + label.paintedHeight)
-                            //y: frameLoader.y + icon.y
-                            //width: Math.max(icon.paintedWidth, label.paintedWidth)
-                            //height: (label.y + label.paintedHeight) - y
+                            x: frameLoader.x
+                            y: frameLoader.y
+                            width: frameLoader.width
+                            height: frameLoader.height
                         }
                     },
                     State { // list view

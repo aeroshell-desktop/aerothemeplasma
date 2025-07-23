@@ -69,9 +69,9 @@ ScrollView {
 
             for(let i in contentItem.children){
                 var gridItem = contentItem.children[i];
-                if (!gridItem || !gridItem.hasOwnProperty("item") || !gridItem.item.hasOwnProperty("labelHeight")) {
-                    continue;
-                }
+                if (!gridItem) continue;
+                if (!gridItem.hasOwnProperty("item")) continue;
+                if (!gridItem.item.hasOwnProperty("labelHeight")) continue;
 
                 if (gridItem.item.labelHeight > minHeight) {
                     minHeight = gridItem.item.labelHeight;

@@ -50,11 +50,12 @@ PlasmaCore.ToolTipArea {
 
     location: {
         if (inHiddenLayout) {
-            if (LayoutMirroring.enabled && Plasmoid.location !== PlasmaCore.Types.RightEdge) {
+            return PlasmaCore.Types.Floating | PlasmaCore.Types.Desktop;
+            /*if (LayoutMirroring.enabled && Plasmoid.location !== PlasmaCore.Types.RightEdge) {
                 return PlasmaCore.Types.LeftEdge;
             } else if (Plasmoid.location !== PlasmaCore.Types.LeftEdge) {
                 return PlasmaCore.Types.RightEdge;
-            }
+            }*/
         }
 
         return Plasmoid.location;

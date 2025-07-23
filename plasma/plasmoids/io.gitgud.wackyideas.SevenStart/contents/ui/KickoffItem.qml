@@ -243,6 +243,19 @@ Item {
         active: titleElement.truncated
         interactive: false
         mainText: model ? model.display : ""
+        location: {
+            var result = PlasmaCore.Types.Floating
+            if(ma.containsMouse) result |= PlasmaCore.Types.Desktop;
+            return result;
+        }
+    }
+    onIsCurrentChanged: {
+        if(isCurrent && !ma.containsMouse) {
+            toolTipTimer.start();
+        } else {
+            toolTipTimer.stop();
+            toolTip.hideImmediately();
+        }
     }
     Timer {
         id: toolTipTimer
@@ -264,8 +277,7 @@ Item {
                 listItem.listView.currentItem.delegateItem.toolTip.hideToolTip();
             }
             listItem.listView.currentIndex = model.index;
-            toolTipTimer.start();
-
+            Qt.callLater(() => toolTipTimer.start());
         }
         onExited: {
              toolTipTimer.stop();

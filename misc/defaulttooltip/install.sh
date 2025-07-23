@@ -46,6 +46,7 @@ cp tooltiparea.h ./build/$SRCDIR/src/declarativeimports/core/tooltiparea.h
 cp tooltiparea.cpp ./build/$SRCDIR/src/declarativeimports/core/tooltiparea.cpp
 cp tooltipdialog.cpp ./build/$SRCDIR/src/declarativeimports/core/tooltipdialog.cpp
 cp plasmawindow.cpp ./build/$SRCDIR/src/plasmaquick/plasmawindow.cpp
+cp popupplasmawindow.cpp ./build/$SRCDIR/src/plasmaquick/popupplasmawindow.cpp
 cd ./build/$SRCDIR/
 mkdir build
 cd build

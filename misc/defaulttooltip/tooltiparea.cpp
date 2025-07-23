@@ -159,29 +159,34 @@ void ToolTipArea::showToolTip()
     dlg->setMainItem(mainItem());
     dlg->setInteractive(m_interactive);
 
-    switch (location) {
-    case Plasma::Types::Floating:
-    case Plasma::Types::Desktop:
-    case Plasma::Types::FullScreen:
+    if(location == (Plasma::Types::Desktop | Plasma::Types::Floating)) {
         dlg->setFloating(true);
-        dlg->setPopupDirection(Qt::BottomEdge);
-        break;
-    case Plasma::Types::TopEdge:
-        dlg->setFloating(false);
-        dlg->setPopupDirection(Qt::BottomEdge);
-        break;
-    case Plasma::Types::BottomEdge:
-        dlg->setFloating(false);
-        dlg->setPopupDirection(Qt::TopEdge);
-        break;
-    case Plasma::Types::LeftEdge:
-        dlg->setFloating(false);
-        dlg->setPopupDirection(Qt::RightEdge);
-        break;
-    case Plasma::Types::RightEdge:
-        dlg->setFloating(false);
-        dlg->setPopupDirection(Qt::LeftEdge);
-        break;
+        dlg->setPopupDirection((Qt::Edge)0);
+    } else {
+        switch (location) {
+        case Plasma::Types::Desktop:
+        case Plasma::Types::FullScreen:
+        case Plasma::Types::Floating:
+            dlg->setFloating(true);
+            dlg->setPopupDirection(Qt::BottomEdge);
+            break;
+        case Plasma::Types::TopEdge:
+            dlg->setFloating(false);
+            dlg->setPopupDirection(Qt::BottomEdge);
+            break;
+        case Plasma::Types::BottomEdge:
+            dlg->setFloating(false);
+            dlg->setPopupDirection(Qt::TopEdge);
+            break;
+        case Plasma::Types::LeftEdge:
+            dlg->setFloating(false);
+            dlg->setPopupDirection(Qt::RightEdge);
+            break;
+        case Plasma::Types::RightEdge:
+            dlg->setFloating(false);
+            dlg->setPopupDirection(Qt::LeftEdge);
+            break;
+        }
     }
 
     dlg->setBackgroundHints(m_backgroundHints);

@@ -181,6 +181,11 @@ Item {
 
         active: !contextMenu.enabled && sidePanelDelegate.description !== ""
         interactive: false
+        location: {
+            var result = PlasmaCore.Types.Floating
+            if(sidePanelMouseArea.containsMouse || toolTip.containsMouse) result |= PlasmaCore.Types.Desktop;
+            return result;
+        }
 
         mainItem: Text {
             text: sidePanelDelegate.description

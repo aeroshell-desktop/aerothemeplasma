@@ -1067,6 +1067,7 @@ PlasmaCore.Dialog {
 					separator2.updateVisibility();
 				}
 				Repeater {
+					id: firstCategoryRepeater
 					model: sidePanelModels.firstCategory.length
 					visible: false // Messes with separator visibility checks
 					delegate: SidePanelItemDelegate {
@@ -1098,6 +1099,7 @@ PlasmaCore.Dialog {
 					Layout.bottomMargin: -1
 				}
 				Repeater {
+					id: secondCategoryRepeater
 					Layout.topMargin: -1
 					model: sidePanelModels.secondCategory.length
 					visible: false // Messes with separator visibility checks
@@ -1126,6 +1128,7 @@ PlasmaCore.Dialog {
 					Layout.bottomMargin: -1
 				}
 				Repeater {
+					id: thirdCategoryRepeater
 					model: sidePanelModels.thirdCategory.length
 					Layout.topMargin: -1
 					visible: false // Messes with separator visibility checks
@@ -1190,7 +1193,7 @@ PlasmaCore.Dialog {
 				size: iconSizeSide
 
 				KeyNavigation.tab: lockScreenDelegate
-				KeyNavigation.backtab: leaveButtons.findUpItem();
+				KeyNavigation.backtab: Qt.binding(() => { return leaveButtons.findUpItem(); });
 
 				Keys.onPressed: event => {
 					if(event.key == Qt.Key_Return) {
@@ -1235,6 +1238,7 @@ PlasmaCore.Dialog {
 						shutdownTimer.stop();
 					}
 				}
+
 
 				Text {
 					id: shutDownText
@@ -1322,7 +1326,6 @@ PlasmaCore.Dialog {
 						else return "rtl-normal";
 					}
 				}
-
 				onFocusChanged: {
 					if(lockScreenDelegate.focus)
 						contextMenu.openRelative();
