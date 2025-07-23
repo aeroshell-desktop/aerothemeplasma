@@ -648,6 +648,20 @@ PlasmaCore.Dialog {
 						searchField.focus = true;
 					}
 				}
+				Timer {
+					id: activateAppViewTimer
+					interval: Kirigami.Units.longDuration*4
+					onTriggered: {
+						allButtonsArea.click(false);
+					}
+				}
+				onContainsMouseChanged: {
+					if(containsMouse) {
+						activateAppViewTimer.start();
+					} else {
+						activateAppViewTimer.stop();
+					}
+				}
 				onClicked: {
 					click(false);
 				}
@@ -1266,14 +1280,30 @@ PlasmaCore.Dialog {
 						else return "rtl-normal";
 					}
 				}
+
 				onFocusChanged: {
 					if(lockScreenDelegate.focus)
 						contextMenu.openRelative();
+				}
+				Timer {
+					id: lockmaTimer
+					interval: 700
+					onTriggered: {
+						contextMenu.openRelative();
+					}
 				}
 				MouseArea {
 					id: lockma
 					enabled: !root.hoverDisabled
 					acceptedButtons: Qt.LeftButton
+
+					onContainsMouseChanged: {
+						if(containsMouse) {
+							lockmaTimer.start();
+						} else {
+							lockmaTimer.stop();
+						}
+					}
 					onClicked: {
 						contextMenu.openRelative();
 					}
