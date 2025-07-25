@@ -1,11 +1,11 @@
 /*
-    KWin - the KDE window manager
-    This file is part of the KDE project.
-
-    SPDX-FileCopyrightText: 2018 Vlad Zahorodnii <vlad.zahorodnii@kde.org>
-
-    SPDX-License-Identifier: GPL-2.0-or-later
-*/
+ *    KWin - the KDE window manager
+ *    This file is part of the KDE project.
+ *
+ *    SPDX-FileCopyrightText: 2018 Vlad Zahorodnii <vlad.zahorodnii@kde.org>
+ *
+ *    SPDX-License-Identifier: GPL-2.0-or-later
+ */
 
 "use strict";
 
@@ -27,6 +27,17 @@ var blacklistNames = [
     "aerothemeplasma-tabbox"
 ];
 
+function isContextMenu(window) {
+    // Wayland seriously has an insane way to represent context menus
+    //if(window.managed && window.popupWindow && window.windowType == -1 && ????)
+
+    if(window.managed) return false;
+    if(window.popupMenu || window.dropdownMenu) return true;
+    return false;
+}
+function belongsToPlasmashell(window) {
+    return window.windowClass == "plasmashell plasmashell" || window.windowClass == "plasmashell org.kde.plasmashell"
+}
 function isPopupWindow(window) {
 
     // If the window is blacklisted, don't animate it.
@@ -38,26 +49,29 @@ function isPopupWindow(window) {
         return false;
     }
     //console.log(window.windowClass + " " + window.dialog);
-    if(window.dialog && window.windowClass === "plasmashell plasmashell") {
+    if((window.dialog || window.windowType == 2) && belongsToPlasmashell(window)) {
         return false;
     }
-    if(window.dock && window.windowClass === "plasmashell plasmashell") {
+    if(window.dock && belongsToPlasmashell(window)) {
         return false;
     }
-    if(window.desktop && window.windowClass === "plasmashell plasmashell") {
+    if(window.desktop && belongsToPlasmashell(window)) {
         return false;
     }
     if(blacklistNames.indexOf(window.caption) != -1) {
         return false;
     }
+    if(window.appletPopup) return false;
     // Animate combo box popups, tooltips, popup menus, etc.
-    if (window.popupWindow) {
-        return true;
-    }
+
+    if(window.tooltip) return true;
 
     // Maybe the outline deserves its own effect.
     if (window.outline) {
         return true;
+    }
+    if (isContextMenu(window)) {
+        return false;
     }
 
     // Override-redirect windows are usually used for user interface
@@ -74,6 +88,7 @@ function isPopupWindow(window) {
         return true;
     }
 
+    if(window.popupWindow) return true;
     // Previously, there was a "monolithic" fade effect, which tried to
     // animate almost every window that was shown or hidden. Then it was
     // split into two effects: one that animates toplevel windows and
@@ -81,26 +96,38 @@ function isPopupWindow(window) {
     // special windows(e.g. notifications) because the monolithic version
     // was doing that.
     if (window.dock || window.splash || window.toolbar
-            || window.notification || window.onScreenDisplay
-            || window.criticalNotification
-            || window.appletPopup) {
+        || window.notification || window.onScreenDisplay
+        || window.criticalNotification) {
         return true;
-    }
+        }
 
-    return false;
+        return false;
 }
 
+var dropdownWindowList = 0;
 var fadingPopupsEffect = {
     loadConfig: function () {
         fadingPopupsEffect.fadeInDuration = animationTime(150);
-        fadingPopupsEffect.fadeOutDuration = animationTime(150) * 4;
+        fadingPopupsEffect.fadeOutDuration = animationTime(150) * 3;
     },
     slotWindowAdded: function (window) {
         if (effects.hasActiveFullScreenEffect) {
             return;
         }
+        for(var p in window) {
+            console.log(p + ": " + window[p]);
+        }
+        const context = isContextMenu(window);
         if (!isPopupWindow(window)) {
-            return;
+            if(context && dropdownWindowList > 0) {
+                dropdownWindowList++;
+                return;
+            } else if(!context) {
+                return;
+            }
+        }
+        if(context) {
+            dropdownWindowList++;
         }
         if (!window.visible) {
             return;
@@ -130,14 +157,14 @@ var fadingPopupsEffect = {
         if (!effect.grab(window, Effect.WindowClosedGrabRole)) {
             return;
         }
-            window.fadeOutAnimation = animate({
-                window: window,
-                curve: QEasingCurve.OutQuart,
-                duration: fadingPopupsEffect.fadeOutDuration,
-                type: Effect.Opacity,
-                from: 1.0,
-                to: 0.0
-            });
+        window.fadeOutAnimation = animate({
+            window: window,
+            curve: QEasingCurve.OutQuart,
+            duration: fadingPopupsEffect.fadeOutDuration,
+            type: Effect.Opacity,
+            from: 1.0,
+            to: 0.0
+        });
 
 
     },
@@ -154,6 +181,12 @@ var fadingPopupsEffect = {
             }
         }
     },
+    slotWindowDeleted: function(window) {
+        if(isContextMenu(window)) {
+            dropdownWindowList--;
+            if(dropdownWindowList < 0) dropdownWindowList = 0;
+        }
+    },
     init: function () {
         fadingPopupsEffect.loadConfig();
 
@@ -161,6 +194,7 @@ var fadingPopupsEffect = {
         effects.windowAdded.connect(fadingPopupsEffect.slotWindowAdded);
         effects.windowClosed.connect(fadingPopupsEffect.slotWindowClosed);
         effects.windowDataChanged.connect(fadingPopupsEffect.slotWindowDataChanged);
+        effects.windowDeleted.connect(fadingPopupsEffect.slotWindowDeleted);
     }
 };
 
