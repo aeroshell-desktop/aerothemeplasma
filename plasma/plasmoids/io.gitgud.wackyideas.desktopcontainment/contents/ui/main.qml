@@ -395,6 +395,26 @@ ContainmentItem {
             }
         }
 
+        property var contextActions: root.Plasmoid.contextualActions
+        property var inhibitChange: false
+        onContextActionsChanged: {
+            const actions = Plasmoid.contextualActions
+            if(!inhibitChange) {
+                inhibitChange = true;
+                Qt.callLater(() => { Plasmoid.contextualActions = [...actions, refreshAction]; inhibitChange = false; });
+            }
+        }
+        PlasmaCore.Action {
+            id: refreshAction
+            text: i18n("Refresh")
+            icon.name: "view-refresh"
+            shortcut: "alt+r"
+            onTriggered: {
+                folderViewLayer.model.refresh();
+                console.log("refreshing");
+            }
+        }
+
         PlasmaCore.Action {
             id: configAction
             text: i18n("Personalize")
