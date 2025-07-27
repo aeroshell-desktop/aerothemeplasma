@@ -284,6 +284,7 @@ Q_SIGNALS:
     void itemRenamed() const;
     void screenGeometryChanged() const;
     void selectionDone();
+    void hasRefreshed();
 
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;

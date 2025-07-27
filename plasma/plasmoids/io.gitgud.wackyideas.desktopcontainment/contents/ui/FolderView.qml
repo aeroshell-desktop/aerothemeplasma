@@ -172,6 +172,18 @@ FocusScope {
         function onSelectionDone() {
             main.generateDragImage();
         }
+
+        function onHasRefreshed() {
+            gridView.visible = false;
+            refreshGridView.start();
+        }
+    }
+    Timer {
+        id: refreshGridView
+        interval: 100
+        onTriggered: {
+            gridView.visible = true;
+        }
     }
 
     Connections {
@@ -1296,7 +1308,6 @@ FocusScope {
                         moves.push(to);
                     }
                 }
-                console.log(moves);
                 if (moves.length) {
                     // Update also the currentIndex, otherwise it
                     // is not set properly.

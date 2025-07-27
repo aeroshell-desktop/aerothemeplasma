@@ -2111,6 +2111,7 @@ void FolderModel::refresh()
 {
     m_errorString.clear();
     Q_EMIT errorStringChanged();
+    Q_EMIT hasRefreshed();
 
     m_dirModel->dirLister()->updateDirectory(m_dirModel->dirLister()->url());
 }
