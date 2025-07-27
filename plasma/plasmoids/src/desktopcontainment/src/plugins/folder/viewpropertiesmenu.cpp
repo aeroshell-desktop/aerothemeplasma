@@ -18,33 +18,33 @@ ViewPropertiesMenu::ViewPropertiesMenu(QObject *parent)
 {
     m_menu = new QMenu();
 
-    QMenu *menu = m_menu->addMenu(QIcon::fromTheme(QStringLiteral("view-sort")), i18n("Sort By"));
+    m_sortMenu = new QMenu(i18n("Sort By"));
     m_sortMode = new QActionGroup(this);
     connect(m_sortMode, &QActionGroup::triggered, this, &ViewPropertiesMenu::sortModeChanged);
-    QAction *action = menu->addAction(i18nc("@item:inmenu Sort icons manually", "Unsorted"));
+    QAction *action = m_sortMenu->addAction(i18nc("@item:inmenu Sort icons manually", "Unsorted"));
     action->setCheckable(true);
     action->setData(-1);
     m_sortMode->addAction(action);
-    action = menu->addAction(i18nc("@item:inmenu Sort icons by name", "Name"));
+    action = m_sortMenu->addAction(i18nc("@item:inmenu Sort icons by name", "Name"));
     action->setCheckable(true);
     action->setData(int(KDirModel::Name));
     m_sortMode->addAction(action);
-    action = menu->addAction(i18nc("@item:inmenu Sort icons by size", "Size"));
+    action = m_sortMenu->addAction(i18nc("@item:inmenu Sort icons by size", "Size"));
     action->setCheckable(true);
     action->setData(int(KDirModel::Size));
     m_sortMode->addAction(action);
-    action = menu->addAction(i18nc("@item:inmenu Sort icons by file type", "Type"));
+    action = m_sortMenu->addAction(i18nc("@item:inmenu Sort icons by file type", "Type"));
     action->setCheckable(true);
     action->setData(int(KDirModel::Type));
     m_sortMode->addAction(action);
-    action = menu->addAction(i18nc("@item:inmenu Sort icons by date", "Date"));
+    action = m_sortMenu->addAction(i18nc("@item:inmenu Sort icons by date", "Date"));
     action->setCheckable(true);
     action->setData(int(KDirModel::ModifiedTime));
     m_sortMode->addAction(action);
-    menu->addSeparator();
-    m_sortDesc = menu->addAction(i18nc("@item:inmenu Sort icons in descending order", "Descending"), this, &ViewPropertiesMenu::sortDescChanged);
+    m_sortMenu->addSeparator();
+    m_sortDesc = m_sortMenu->addAction(i18nc("@item:inmenu Sort icons in descending order", "Descending"), this, &ViewPropertiesMenu::sortDescChanged);
     m_sortDesc->setCheckable(true);
-    m_sortDirsFirst = menu->addAction(i18nc("@item:inmenu Sort icons with folders first", "Folders First"), this, &ViewPropertiesMenu::sortDirsFirstChanged);
+    m_sortDirsFirst = m_sortMenu->addAction(i18nc("@item:inmenu Sort icons with folders first", "Folders First"), this, &ViewPropertiesMenu::sortDirsFirstChanged);
     m_sortDirsFirst->setCheckable(true);
 
     m_iconSizeMenu = m_menu->addMenu(QIcon::fromTheme(QStringLiteral("transform-scale")), i18n("Icon Size"));
@@ -103,11 +103,16 @@ ViewPropertiesMenu::ViewPropertiesMenu(QObject *parent)
 ViewPropertiesMenu::~ViewPropertiesMenu()
 {
     delete m_menu;
+    delete m_sortMenu;
 }
 
 QObject *ViewPropertiesMenu::menu() const
 {
     return m_menu;
+}
+QObject *ViewPropertiesMenu::sortMenu() const
+{
+    return m_sortMenu;
 }
 
 bool ViewPropertiesMenu::showLayoutActions() const

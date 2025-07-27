@@ -19,6 +19,7 @@ class ViewPropertiesMenu : public QObject
     QML_ELEMENT
 
     Q_PROPERTY(QObject *menu READ menu CONSTANT)
+    Q_PROPERTY(QObject *sortMenu READ sortMenu CONSTANT)
 
     Q_PROPERTY(bool showLayoutActions READ showLayoutActions WRITE setShowLayoutActions NOTIFY showLayoutActionsChanged)
     Q_PROPERTY(bool showLockAction READ showLockAction WRITE setShowLockAction NOTIFY showLockActionChanged)
@@ -39,6 +40,7 @@ public:
     ~ViewPropertiesMenu() override;
 
     QObject *menu() const;
+    QObject *sortMenu() const;
 
     bool showLayoutActions() const;
     void setShowLayoutActions(bool show);
@@ -91,6 +93,7 @@ Q_SIGNALS:
     void iconSizeChanged();
 
 private:
+    QMenu *m_sortMenu;
     QMenu *m_menu;
     QMenu *m_arrangementMenu;
     QActionGroup *m_arrangement;
