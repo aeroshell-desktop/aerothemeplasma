@@ -191,74 +191,6 @@ Item {
                     toolTip.showToolTip();
                 }
             }
-            PlasmaCore.ToolTipArea {
-                id: toolTip
-
-                active: (Plasmoid.configuration.toolTips || label.truncated)
-                        && popupDialog === null
-                        && !model.blank
-                interactive: false
-                location: {
-                    if(toolTip.containsMouse) {
-                        return PlasmaCore.Types.Floating | PlasmaCore.Types.Desktop
-                    } else {
-                        return root.useListViewMode ? (Plasmoid.location === PlasmaCore.Types.LeftEdge ? PlasmaCore.Types.LeftEdge : PlasmaCore.Types.RightEdge) : Plasmoid.location
-                    }
-                }
-                z: 999
-                function updateToolTip() {
-                    if (toolTip.active && !model.blank) {
-
-                        toolTip.textFormat = Text.RichText;
-                        toolTip.mainText = model.display;
-
-                        if (model.size !== undefined) {
-                            toolTip.subText = model.type + "<br>" + "Size: " + model.size;
-                        } else {
-                            toolTip.subText = model.type;
-                        }
-                    }
-
-                }
-                onContainsMouseChanged: {
-                    if (containsMouse) {
-                        updateToolTip();
-                        main.GridView.view.hoveredItem = main;
-                    } else if(!containsMouse && main.GridView.view.hoveredItem === main) {
-                        toolTip.hideImmediately();
-                    }
-                }
-
-                states: [
-                    State { // icon view
-                        when: !root.useListViewMode
-
-                        PropertyChanges {
-                            target: toolTip
-                            x: frameLoader.x
-                            y: frameLoader.y
-                            width: frameLoader.width
-                            height: frameLoader.height
-                        }
-                    },
-                    State { // list view
-                        when: root.useListViewMode
-
-                        AnchorChanges {
-                            target: toolTip
-                            anchors.horizontalCenter: undefined
-                        }
-
-                        PropertyChanges {
-                            target: toolTip
-                            x: frameLoader.x
-                            y: frameLoader.y
-                            width: frameLoader.width
-                            height: frameLoader.height
-                        }
-                    }
-                ]
-            }
 
             Loader {
                 id: frameLoader
@@ -602,6 +534,82 @@ Item {
                 }
 
             }
+
+            PlasmaCore.ToolTipArea {
+                id: toolTip
+
+                active: (Plasmoid.configuration.toolTips || label.truncated)
+                && popupDialog === null
+                && !model.blank
+                interactive: false
+                location: {
+                    if(toolTip.containsMouse) {
+                        return PlasmaCore.Types.Floating | PlasmaCore.Types.Desktop
+                    } else {
+                        return root.useListViewMode ? (Plasmoid.location === PlasmaCore.Types.LeftEdge ? PlasmaCore.Types.LeftEdge : PlasmaCore.Types.RightEdge) : Plasmoid.location
+                    }
+                }
+                z: 999
+                function updateToolTip() {
+                    if (toolTip.active && !model.blank) {
+
+                        toolTip.textFormat = Text.RichText;
+                        toolTip.mainText = model.display;
+
+                        if (model.size !== undefined) {
+                            toolTip.subText = model.type + "<br>" + "Size: " + model.size;
+                        } else {
+                            toolTip.subText = model.type;
+                        }
+                    }
+
+                }
+                MouseArea {
+                    id: toolTipMA
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onPositionChanged: {
+                        if (containsMouse) {
+                            toolTip.updateToolTip();
+                            main.GridView.view.hoveredItem = main;
+                        } else if(!containsMouse && main.GridView.view.hoveredItem === main) {
+                            toolTip.hideImmediately();
+                        }
+                    }
+
+                }
+
+                states: [
+                    State { // icon view
+                        when: !root.useListViewMode
+
+                        PropertyChanges {
+                            target: toolTip
+                            x: frameLoader.x
+                            y: frameLoader.y
+                            width: frameLoader.width
+                            height: frameLoader.height
+                        }
+                    },
+                    State { // list view
+                        when: root.useListViewMode
+
+                        AnchorChanges {
+                            target: toolTip
+                            anchors.horizontalCenter: undefined
+                        }
+
+                        PropertyChanges {
+                            target: toolTip
+                            x: frameLoader.x
+                            y: frameLoader.y
+                            width: frameLoader.width
+                            height: frameLoader.height
+                        }
+                    }
+                ]
+            }
+
 
             Column {
                 id: actions
