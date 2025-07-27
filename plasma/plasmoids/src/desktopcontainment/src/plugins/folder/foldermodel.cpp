@@ -508,7 +508,7 @@ void FolderModel::setUsedByContainment(bool used)
 
         if (action) {
             action->setText(i18n("Refresh"));
-            action->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
+            action->setIcon(QIcon());
         }
 
         m_screenMapper->disconnect(this);
@@ -1826,6 +1826,8 @@ void FolderModel::updateActions()
         if (QAction *newMenuAction = m_actionCollection.action(QStringLiteral("newMenu"))) {
             newMenuAction->setEnabled(itemProperties.supportsWriting());
             newMenuAction->setVisible(!isTrash);
+            newMenuAction->setText(i18n("New"));
+            newMenuAction->setIcon(QIcon());
         }
     }
 
@@ -1857,17 +1859,21 @@ void FolderModel::updateActions()
         const QString pasteText = KIO::pasteActionText(QApplication::clipboard()->mimeData(), &enable, rootItem());
 
         if (enable) {
-            paste->setText(pasteText);
+            //paste->setText(pasteText);
+            paste->setText(i18n("&Paste"));
             paste->setEnabled(true);
         } else {
             paste->setText(i18n("&Paste"));
             paste->setEnabled(false);
         }
+        paste->setIcon(QIcon());
 
         if (QAction *pasteTo = m_actionCollection.action(QStringLiteral("pasteto"))) {
             pasteTo->setVisible(itemProperties.isDirectory() && itemProperties.supportsWriting());
             pasteTo->setEnabled(paste->isEnabled());
-            pasteTo->setText(paste->text());
+            //pasteTo->setText(paste->text());
+            pasteTo->setText(i18n("&Paste"));
+            pasteTo->setIcon(QIcon());
         }
     }
 
