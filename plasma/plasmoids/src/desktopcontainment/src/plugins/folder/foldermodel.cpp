@@ -507,8 +507,8 @@ void FolderModel::setUsedByContainment(bool used)
         QAction *action = m_actionCollection.action(QStringLiteral("refresh"));
 
         if (action) {
-            action->setText(m_usedByContainment ? i18n("&Refresh Desktop") : i18n("&Refresh View"));
-            action->setIcon(m_usedByContainment ? QIcon::fromTheme(QStringLiteral("user-desktop")) : QIcon::fromTheme(QStringLiteral("view-refresh")));
+            action->setText(i18n("Refresh"));
+            action->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
         }
 
         m_screenMapper->disconnect(this);

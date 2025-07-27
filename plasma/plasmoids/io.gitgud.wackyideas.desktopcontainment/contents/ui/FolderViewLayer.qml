@@ -18,7 +18,7 @@ import io.gitgud.wackyideas.desktopcontainment.folder as Folder
 FocusScope {
     id: folderViewLayerComponent
 
-    property var sharedActions: ["newMenu", "paste", "undo", "emptyTrash"]
+    property var sharedActions: ["newMenu", "paste", "undo", "emptyTrash", "refresh"]
     property Component folderViewDialogComponent: Qt.createComponent("FolderViewDialog.qml", Qt.Asynchronous, root)
 
     property Item view: folderView
