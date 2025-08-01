@@ -41,12 +41,7 @@ if [ ! -d ./build/${SRCDIR} ]; then
 	echo "Extracted $ARCHIVE"
 fi
 
-cp DefaultToolTip.qml ./build/$SRCDIR/src/declarativeimports/core/private/DefaultToolTip.qml
-cp tooltiparea.h ./build/$SRCDIR/src/declarativeimports/core/tooltiparea.h
-cp tooltiparea.cpp ./build/$SRCDIR/src/declarativeimports/core/tooltiparea.cpp
-cp tooltipdialog.cpp ./build/$SRCDIR/src/declarativeimports/core/tooltipdialog.cpp
-cp plasmawindow.cpp ./build/$SRCDIR/src/plasmaquick/plasmawindow.cpp
-cp popupplasmawindow.cpp ./build/$SRCDIR/src/plasmaquick/popupplasmawindow.cpp
+cp -r src ./build/$SRCDIR/
 cd ./build/$SRCDIR/
 mkdir build
 cd build
