@@ -50,12 +50,16 @@ Item {
 
     readonly property bool lockedByKiosk: !KAuthorized.authorize("editable_desktop_icons")
 
+    implicitHeight: layout.height
+
     KIconThemes.IconDialog {
         id: iconDialog
         onIconNameChanged: cfg_icon = iconName || "folder-symbolic";
     }
 
     Kirigami.FormLayout {
+        id: layout
+
         anchors {
             top: parent.top
             left: parent.left
