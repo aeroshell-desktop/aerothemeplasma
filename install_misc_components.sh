@@ -19,12 +19,14 @@ echo "Done."
 #Sounds
 echo "Unpacking sound themes..."
 SOUNDS_DIR="$HOME/.local/share/sounds"
+mkdir -p "$SOUNDS_DIR"
 tar -xf "$PWD/misc/sounds/sounds.tar.gz" --directory "$SOUNDS_DIR"
 echo "Done."
 
 #Icons
 echo "Unpacking icon theme..."
 ICONS_DIR="$HOME/.local/share/icons"
+mkdir -p "$ICONS_DIR"
 tar -xf "$PWD/misc/icons/Windows 7 Aero.tar.gz" --directory "$ICONS_DIR"
 echo "Done."
 
@@ -37,6 +39,7 @@ echo "Done."
 #Mimetype
 echo "Installing mimetypes..."
 MIMETYPE_DIR="$HOME/.local/share/mime/packages"
+mkdir -p "$MIMETYPE_DIR"
 for filename in "$PWD/misc/mimetype/"*; do
     cp -r "$filename" "$MIMETYPE_DIR"
 done
@@ -69,6 +72,7 @@ echo "Done."
 echo "Do you want to install custom branding for Info Center? (y/N)"
 read answer
 BRANDING_DIR="$HOME/.config/kdedefaults"
+mkdir -p "$BRANDING_DIR"
 
 if [ "$answer" != "${answer#[Yy]}" ] ;then
     for filename in "$PWD/misc/branding/"*; do
