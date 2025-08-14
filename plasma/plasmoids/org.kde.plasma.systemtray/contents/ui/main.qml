@@ -153,12 +153,22 @@ ContainmentItem {
                 saveConfiguration();
             }*/
         }
+        Timer {
+            id: updateTimer
+            interval: 100
+            onTriggered: {
+                root.hiddenLayout.model.invalidateFilter()
+                shownItemsModel.invalidateFilter();
+            }
+        }
 
         DelegateModel {
             id: activeModel
             model: KItemModels.KSortFilterProxyModel {
+                id: shownItemsModel
                 sourceModel: Plasmoid.systemTrayModel
                 filterRoleName: "effectiveStatus"
+
                 filterRowCallback: (sourceRow, sourceParent) => {
                     let value = sourceModel.data(sourceModel.index(sourceRow, 0, sourceParent), filterRole);
                     return value === PlasmaCore.Types.ActiveStatus;
@@ -203,8 +213,10 @@ ContainmentItem {
                 onChanged: (removed, inserted) => {
                     if(inserted.length > 0) {
                         root.hiddenLayout.model.invalidateFilter()
+                        shownItemsModel.invalidateFilter();
                     }
                     activeModel.sort();
+                    updateTimer.start();
                 }
             }
             delegate: ItemLoader {
