@@ -58,6 +58,8 @@ FocusScope {
     property var dialog: null
     property Item editor: null
 
+    property bool renamed: false
+
     property int previouslySelectedItemIndex: -1
 
     function positionViewAtBeginning() {
@@ -174,8 +176,12 @@ FocusScope {
         }
 
         function onHasRefreshed() {
-            gridView.visible = false;
-            refreshGridView.start();
+            if(main.renamed) {
+                main.renamed = false;
+            } else {
+                gridView.visible = false;
+                refreshGridView.start();
+            }
         }
     }
     Timer {
@@ -1356,6 +1362,7 @@ FocusScope {
 
                 onCommit: {
                     if (targetItem) {
+                        main.renamed = true;
                         dir.rename(positioner.map(targetItem.index), text);
                         targetItem = null;
                         gridView.forceActiveFocus();
