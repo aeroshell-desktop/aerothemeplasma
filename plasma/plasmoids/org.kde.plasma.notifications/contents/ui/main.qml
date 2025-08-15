@@ -39,6 +39,7 @@ PlasmoidItem {
 
     readonly property int effectiveStatus: historyModel.activeJobsCount > 0
                      || historyModel.unreadNotificationsCount > 0
+                     || historyModel.dismissedResidentNotificationsCount > 0
                      || Globals.inhibited ? PlasmaCore.Types.ActiveStatus
                                           : PlasmaCore.Types.PassiveStatus
     onEffectiveStatusChanged: {
@@ -176,6 +177,7 @@ PlasmoidItem {
         groupMode: NotificationManager.Notifications.GroupApplicationsFlat
         groupLimit: 2
         expandUnread: true
+        ignoreBlacklistDuringInhibition: true
         blacklistedDesktopEntries: notificationSettings.historyBlacklistedApplications
         blacklistedNotifyRcNames: notificationSettings.historyBlacklistedServices
         urgencies: {
@@ -187,7 +189,7 @@ PlasmoidItem {
             return urgencies;
         }
 
-        onCountChanged: count => {
+        onCountChanged: {
             if (count === 0) {
                 closePlasmoid();
             }
@@ -209,7 +211,7 @@ PlasmoidItem {
     }
 
     function closePlasmoid() {
-        if (root.hideOnWindowDeactivate) {
+        if (root.hideOnWindowDeactivate && !(root.width > root.switchWidth && root.height > root.switchHeight)) {
             root.expanded = false;
         }
     }
@@ -262,5 +264,8 @@ PlasmoidItem {
         // "Configure" button open the KCM instead, like we do in the Bluetooth
         // and Networks applets
         Plasmoid.setInternalAction("configure", configureAction)
+    }
+    Component.onDestruction: {
+        Globals.forget(root);
     }
 }

@@ -34,6 +34,11 @@ QtObject {
     property bool inhibited: false
 
     onInhibitedChanged: {
+        if (!inhibited) {
+            const urgency = notificationSettings.lowPriorityHistory ? NotificationManager.Notifications.LowUrgency : NotificationManager.Notifications.NormalUrgency;
+            popupNotificationsModel.showInhibitionSummary(urgency, notificationSettings.historyBlacklistedApplications, notificationSettings.historyBlacklistedServices);
+        }
+
         var pa = pulseAudio.item;
         if (!pa) {
             return;
@@ -175,6 +180,7 @@ QtObject {
         }
         positionPopups()
     }
+    onObstructingDialogChanged: repositionTimer.start()
 
     // The raw width of the popup's content item, the Dialog itself adds some margins
     // Make it wider when on the top or the bottom center, since there's more horizontal
@@ -199,6 +205,11 @@ QtObject {
         ratePlasmoids();
     }
 
+    function forget(plasmoid) {
+        // this doesn't Q_EMIT a change, only in ratePlasmoids() it will detect the change
+        globals.plasmoidItems = globals.plasmoidItems.filter(p => p !== plasmoid);
+        ratePlasmoids();
+    }
     // Sorts plasmoids based on a heuristic to find a suitable plasmoid to follow when placing popups
     function ratePlasmoids() {
         var plasmoidScore = function(plasmoidItem) {
@@ -266,6 +277,9 @@ QtObject {
             if (notificationSettings.notificationsInhibitedByApplication) {
                 inhibited |= true;
             }
+            if (notificationSettings.inhibitNotificationsWhenFullscreen) {
+                inhibited |= notificationSettings.fullscreenFocused;
+            }
 
             if (notificationSettings.inhibitNotificationsWhenScreensMirrored) {
                 inhibited |= notificationSettings.screensMirrored;
@@ -278,6 +292,7 @@ QtObject {
     function revokeInhibitions() {
         notificationSettings.notificationsInhibitedUntil = undefined;
         notificationSettings.revokeApplicationInhibitions();
+        notificationSettings.fullscreenFocused = false;
         // overrules current mirrored screen setup, updates again when screen configuration changes
         notificationSettings.screensMirrored = false;
 
@@ -405,6 +420,7 @@ QtObject {
         limit: plasmoid ? (Math.ceil(globals.screenRect.height / (Kirigami.Units.iconSizes.small * 4))) : 0
         showExpired: false
         showDismissed: false
+        showAddedDuringInhibition: false
         blacklistedDesktopEntries: notificationSettings.popupBlacklistedApplications
         blacklistedNotifyRcNames: notificationSettings.popupBlacklistedServices
         whitelistedDesktopEntries: globals.inhibited ? notificationSettings.doNotDisturbPopupWhitelistedApplications : []
