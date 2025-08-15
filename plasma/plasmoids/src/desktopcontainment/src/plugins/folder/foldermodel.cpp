@@ -393,7 +393,7 @@ void FolderModel::setUrl(const QString &url)
 
     watcher = new QFileSystemWatcher(this);
     addDirectoriesRecursively(resolvedNewUrl.toString(), watcher);
-    connect(watcher, &QFileSystemWatcher::directoryChanged, this, &FolderModel::refresh);
+    connect(watcher, &QFileSystemWatcher::directoryChanged, this, [=]() { this->refresh(); } );
 
     if (dragging()) {
         m_urlChangedWhileDragging = true;
@@ -1719,7 +1719,7 @@ void FolderModel::createActions()
 
     QAction *refresh = new QAction(QIcon::fromTheme(QStringLiteral("view-refresh")), i18n("&Refresh View"), this);
     refresh->setShortcut(QKeySequence(QKeySequence::Refresh));
-    connect(refresh, &QAction::triggered, this, &FolderModel::refresh);
+    connect(refresh, &QAction::triggered, this, [refresh, this]() { this->refresh(true); });
 
     QAction *rename = KStandardAction::renameFile(this, &FolderModel::requestRename, this);
     QAction *trash = KStandardAction::moveToTrash(this, &FolderModel::moveSelectedToTrash, this);
@@ -2113,11 +2113,11 @@ void FolderModel::pasteTo()
     KIO::paste(QApplication::clipboard()->mimeData(), urls.first());
 }
 
-void FolderModel::refresh()
+void FolderModel::refresh(bool isExplicit)
 {
     m_errorString.clear();
     Q_EMIT errorStringChanged();
-    Q_EMIT hasRefreshed();
+    Q_EMIT hasRefreshed(isExplicit);
 
     m_dirModel->dirLister()->updateDirectory(m_dirModel->dirLister()->url());
 }

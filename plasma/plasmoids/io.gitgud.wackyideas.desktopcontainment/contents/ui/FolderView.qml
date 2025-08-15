@@ -58,8 +58,6 @@ FocusScope {
     property var dialog: null
     property Item editor: null
 
-    property bool renamed: false
-
     property int previouslySelectedItemIndex: -1
 
     function positionViewAtBeginning() {
@@ -175,10 +173,8 @@ FocusScope {
             main.generateDragImage();
         }
 
-        function onHasRefreshed() {
-            if(main.renamed) {
-                main.renamed = false;
-            } else {
+        function onHasRefreshed(isExplicit) {
+            if(isExplicit) {
                 gridView.visible = false;
                 refreshGridView.start();
             }
@@ -1075,7 +1071,7 @@ FocusScope {
                     } else if (event.matches(StandardKey.Undo)) {
                         dir.undo();
                     } else if (event.matches(StandardKey.Refresh)) {
-                        dir.refresh();
+                        dir.refresh(true);
                     } else if (event.matches(StandardKey.SelectAll)) {
                         positioner.setRangeSelected(0, count - 1);
                     } else {
@@ -1362,7 +1358,6 @@ FocusScope {
 
                 onCommit: {
                     if (targetItem) {
-                        main.renamed = true;
                         dir.rename(positioner.map(targetItem.index), text);
                         targetItem = null;
                         gridView.forceActiveFocus();

@@ -243,7 +243,7 @@ public:
     Q_INVOKABLE void cut();
     Q_INVOKABLE void deleteSelected();
     Q_INVOKABLE void undo();
-    Q_INVOKABLE void refresh();
+    Q_INVOKABLE void refresh(bool isExplicit = false);
     Q_INVOKABLE void createFolder();
 
     bool screenUsed();
@@ -284,7 +284,7 @@ Q_SIGNALS:
     void itemRenamed() const;
     void screenGeometryChanged() const;
     void selectionDone();
-    void hasRefreshed();
+    void hasRefreshed(bool isExplicit);
 
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
