@@ -155,7 +155,7 @@ ContainmentItem {
         }
         Timer {
             id: updateTimer
-            interval: 100
+            interval: 50
             onTriggered: {
                 root.hiddenLayout.model.invalidateFilter()
                 shownItemsModel.invalidateFilter();
@@ -211,10 +211,10 @@ ContainmentItem {
 
                 includeByDefault: true
                 onChanged: (removed, inserted) => {
-                    if(inserted.length > 0) {
+                    /*if(inserted.length > 0) {
                         root.hiddenLayout.model.invalidateFilter()
                         shownItemsModel.invalidateFilter();
-                    }
+                    }*/
                     activeModel.sort();
                     updateTimer.start();
                 }
