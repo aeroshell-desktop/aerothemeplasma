@@ -350,7 +350,7 @@
           <item row="0" column="2">
            <widget class="QLabel" name="label_noblur">
             <property name="text">
-             <string>Regex matching Classes That should not apply blur:</string>
+             <string>Classes of windows to not apply blur (regex):</string>
             </property>
            </widget>
           </item>
