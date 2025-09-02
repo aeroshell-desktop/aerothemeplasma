@@ -823,6 +823,9 @@ bool BlurEffect::shouldNotBlur(const EffectWindow *w) const
     const QString resourceClass = w->window()->resourceClass();
 
     for (const QString &pattern : m_noBlurWindowClasses) {
+        if (pattern.isEmpty()) {
+            continue;
+        }
         QRegularExpression regex(pattern);
         if (regex.match(resourceName).hasMatch() || regex.match(resourceClass).hasMatch()) {
             return true;
