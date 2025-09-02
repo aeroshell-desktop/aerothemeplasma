@@ -98,6 +98,7 @@ private:
     bool decorationSupportsBlurBehind(const EffectWindow *w) const;
     bool shouldBlur(const EffectWindow *w, int mask, const WindowPaintData &data) const;
     bool shouldForceBlur(const EffectWindow *w) const;
+    bool shouldNotBlur(const EffectWindow *w) const;
     bool scaledOrTransformed(const EffectWindow *w, int mask, const WindowPaintData &data) const;
     bool shouldHaveCornerGlow(const EffectWindow *w) const;
     void updateBlurRegion(EffectWindow *w);
@@ -183,6 +184,7 @@ private:
     int m_offset;
     int m_expandSize;
     QStringList m_windowClasses;
+    QStringList m_noBlurWindowClasses;
     QStringList m_windowClassesColorization;
     QStringList m_firefoxWindows;
 
