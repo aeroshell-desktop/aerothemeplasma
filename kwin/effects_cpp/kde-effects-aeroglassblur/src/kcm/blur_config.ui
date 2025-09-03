@@ -332,7 +332,7 @@
       <layout class="QVBoxLayout">
        <item>
         <widget class="QWidget" name="widget" native="true">
-         <layout class="QFormLayout" name="formLayout_3">
+         <layout class="QGridLayout" name="formLayout_3">
           <item row="0" column="0">
            <widget class="QLabel" name="classLabel">
             <property name="text">
@@ -347,6 +347,13 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_noblur">
+            <property name="text">
+             <string>Classes of windows to not apply blur (regex):</string>
+            </property>
+           </widget>
+          </item>
           <item row="1" column="0">
            <widget class="QPlainTextEdit" name="kcfg_WindowClasses">
             <property name="toolTip">
@@ -356,6 +363,13 @@
           </item>
           <item row="1" column="1">
            <widget class="QPlainTextEdit" name="kcfg_BlurFirefox">
+            <property name="toolTip">
+             <string>One window class per line.</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QPlainTextEdit" name="kcfg_NoBlurWindowClasses">
             <property name="toolTip">
              <string>One window class per line.</string>
             </property>

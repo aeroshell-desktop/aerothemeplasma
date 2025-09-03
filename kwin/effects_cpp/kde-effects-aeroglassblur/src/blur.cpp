@@ -35,6 +35,7 @@
 #include <QDataStream>
 #include <QPainter>
 #include <QPainterPath>
+#include <QRegularExpression>
 
 #include <KConfigGroup>
 #include <KSharedConfig>
@@ -354,6 +355,7 @@ void BlurEffect::reconfigure(ReconfigureFlags flags)
     m_blurMatching = BlurConfig::blurMatching();
     m_blurNonMatching = BlurConfig::blurNonMatching();
     m_windowClasses = BlurConfig::windowClasses().split("\n");
+    m_noBlurWindowClasses = BlurConfig::noBlurWindowClasses().split("\n");
 	m_windowClassesColorization = BlurConfig::excludedColorization().split("\n");
     m_firefoxWindows = BlurConfig::blurFirefox().split("\n");
 
@@ -462,28 +464,30 @@ void BlurEffect::updateBlurRegion(EffectWindow *w)
         frame = decorationBlurRegion(w);
     }
 
-    // https://github.com/taj-ny/kwin-effects-forceblur/pull/128/files
-    const auto isX11WithCSD = effects->xcbConnection() && (w->frameGeometry() != w->bufferGeometry());
-    if (shouldForceBlur(w) && !(w->isTooltip())) {
+    if (!shouldNotBlur(w)) {
+        // https://github.com/taj-ny/kwin-effects-forceblur/pull/128/files
+        const auto isX11WithCSD = effects->xcbConnection() && (w->frameGeometry() != w->bufferGeometry());
+        if (shouldForceBlur(w) && !(w->isTooltip())) {
 
-        if(!isX11WithCSD)
-        {
-            content = w->expandedGeometry().translated(-w->x(), -w->y()).toRect();
+            if(!isX11WithCSD)
+            {
+                content = w->expandedGeometry().translated(-w->x(), -w->y()).toRect();
+            }
+            if (isX11WithCSD || w->decoration())
+            {
+                frame = w->frameGeometry().translated(-w->x(), -w->y()).toRect();
+            }
         }
-        if (isX11WithCSD || w->decoration())
-        {
-            frame = w->frameGeometry().translated(-w->x(), -w->y()).toRect();
-        }
-    }
 
-    if(isFirefoxWindowValid(w))
-    {
-        if(!(content.has_value() || frame.has_value()))
+        if(isFirefoxWindowValid(w))
         {
-            if(isX11WithCSD)
-                frame = applyBlurRegion(w, true);
-            else
-                content = applyBlurRegion(w);
+            if(!(content.has_value() || frame.has_value()))
+            {
+                if(isX11WithCSD)
+                    frame = applyBlurRegion(w, true);
+                else
+                    content = applyBlurRegion(w);
+            }
         }
     }
 
@@ -813,6 +817,24 @@ bool BlurEffect::shouldForceBlur(const EffectWindow *w) const
     return (matches && m_blurMatching) || (!matches && m_blurNonMatching);
 }
 
+bool BlurEffect::shouldNotBlur(const EffectWindow *w) const
+{
+    const QString resourceName = w->window()->resourceName();
+    const QString resourceClass = w->window()->resourceClass();
+
+    for (const QString &pattern : m_noBlurWindowClasses) {
+        if (pattern.isEmpty()) {
+            continue;
+        }
+        QRegularExpression regex(pattern);
+        if (regex.match(resourceName).hasMatch() || regex.match(resourceClass).hasMatch()) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void BlurEffect::drawWindow(const RenderTarget &renderTarget, const RenderViewport &viewport, EffectWindow *w, int mask, const QRegion &region, WindowPaintData &data)
 {
     blur(renderTarget, viewport, w, mask, region, data);
@@ -847,6 +869,9 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 
     BlurEffectData &blurInfo = it->second;
     BlurRenderData &renderInfo = blurInfo.render[m_currentScreen];
+    if (shouldNotBlur(w)) {
+        return;
+    }
     if (!shouldBlur(w, mask, data)) {
         return;
     }
