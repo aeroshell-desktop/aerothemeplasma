@@ -88,8 +88,9 @@ Item
     MediaPlayer {
         id: startupSound
         property bool playSound: !executable.fileExists && config.boolValue("playSound")
-        audioOutput: AudioOutput {}
-        //autoPlay: false
+        audioOutput: AudioOutput {
+            volume: 1.0
+        }
         source: "Assets/session-start.wav"
     }
     Component
@@ -600,42 +601,42 @@ Item
                         anchors.centerIn: parent
                     }
                 }
+                
+                QQC2.Label
+                {
+                    id: userNameLabel
 
-                    QQC2.Label
-                    {
-                        id: userNameLabel
-
-                        anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
                     anchors.top: userpic.bottom
 
-                        text: ""
-                        color: "white"
+                    text: ""
+                    color: "white"
 
-                        font.pixelSize: 23
-                        font.kerning: false
-                        renderType: Text.NativeRendering
-                        font.hintingPreference: Font.PreferVerticalHinting
+                    font.pixelSize: 23
+                    font.kerning: false
+                    renderType: Text.NativeRendering
+                    font.hintingPreference: Font.PreferVerticalHinting
                     font.weight: Font.Medium
 
-                        layer.enabled: true
-                        layer.effect: DropShadow
-                        {
-                            verticalOffset: 1
-                            color: "#ef000000"
-                            radius: 9
-                            samples: 80
-                        }
+                    layer.enabled: true
+                    layer.effect: DropShadow
+                    {
+                        verticalOffset: 1
+                        color: "#ef000000"
+                        radius: 9
+                        samples: 80
                     }
+                }
 
                 Item
-                    {
+                {
                     id: loginbox
 
-                        anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
                     anchors.top: userNameLabel.bottom
-                        anchors.topMargin: 8
-
-                        width: 225
+                    anchors.topMargin: 8
+                    
+                    width: 225
                     height: 24
 
 
