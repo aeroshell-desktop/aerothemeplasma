@@ -601,15 +601,6 @@ Item
                     }
                 }
 
-
-                Item
-                {
-                    id: loginbox
-
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.top: userpic.bottom
-                    anchors.topMargin: 4
-
                     QQC2.Label
                     {
                         id: userNameLabel
@@ -636,34 +627,30 @@ Item
                         }
                     }
 
-                    QQC2.TextField
+                Item
                     {
-                        id: password
+                    id: loginbox
 
-                        anchors.top: userNameLabel.bottom
                         anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: userNameLabel.bottom
                         anchors.topMargin: 8
 
                         width: 225
-                        height: 25
+                    height: 24
 
-                        leftPadding: 7
 
-                        font.pointSize:
-                        {
-                            if (password.length > 0)
-                            {
-                                return 7
-                            }
+                    QQC2.TextField {
+                        id: password
 
-                            return 9
-                        }
-                        //font.family: mainfont.name
+                        anchors.fill: parent
+
+                        bottomPadding: 0
+                        topPadding: 0
+                        
+                        font.pointSize: 9
 
                         placeholderTextColor: "#555"
-
-                        background: Image
-                        {
+                        background: Image {
                             source:
                             {
                                 if (password.focus) return "Assets/input-focus.png"
