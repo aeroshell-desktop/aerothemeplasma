@@ -88,8 +88,9 @@ Item
     MediaPlayer {
         id: startupSound
         property bool playSound: !executable.fileExists && config.boolValue("playSound")
-        audioOutput: AudioOutput {}
-        //autoPlay: false
+        audioOutput: AudioOutput {
+            volume: 1.0
+        }
         source: "Assets/session-start.wav"
     }
     Component
@@ -600,70 +601,57 @@ Item
                         anchors.centerIn: parent
                     }
                 }
+                
+                QQC2.Label
+                {
+                    id: userNameLabel
 
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: userpic.bottom
+
+                    text: ""
+                    color: "white"
+
+                    font.pixelSize: 23
+                    font.kerning: false
+                    renderType: Text.NativeRendering
+                    font.hintingPreference: Font.PreferVerticalHinting
+                    font.weight: Font.Medium
+
+                    layer.enabled: true
+                    layer.effect: DropShadow
+                    {
+                        verticalOffset: 1
+                        color: "#ef000000"
+                        radius: 9
+                        samples: 80
+                    }
+                }
 
                 Item
                 {
                     id: loginbox
 
                     anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.top: userpic.bottom
-                    anchors.topMargin: 4
+                    anchors.top: userNameLabel.bottom
+                    anchors.topMargin: 8
+                    
+                    width: 225
+                    height: 24
 
-                    QQC2.Label
-                    {
-                        id: userNameLabel
 
-                        anchors.horizontalCenter: parent.horizontalCenter
-
-                        text: ""
-                        color: "white"
-
-                        //font.family: mainfont.name
-                        font.pixelSize: 23
-                        font.kerning: false
-                        renderType: Text.NativeRendering
-                        font.hintingPreference: Font.PreferVerticalHinting
-                        //font.weight: Font.Medium
-
-                        layer.enabled: true
-                        layer.effect: DropShadow
-                        {
-                            verticalOffset: 1
-                            color: "#ef000000"
-                            radius: 9
-                            samples: 80
-                        }
-                    }
-
-                    QQC2.TextField
-                    {
+                    QQC2.TextField {
                         id: password
 
-                        anchors.top: userNameLabel.bottom
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.topMargin: 8
+                        anchors.fill: parent
 
-                        width: 225
-                        height: 25
-
-                        leftPadding: 7
-
-                        font.pointSize:
-                        {
-                            if (password.length > 0)
-                            {
-                                return 7
-                            }
-
-                            return 9
-                        }
-                        //font.family: mainfont.name
+                        bottomPadding: 0
+                        topPadding: 0
+                        
+                        font.pointSize: 9
 
                         placeholderTextColor: "#555"
-
-                        background: Image
-                        {
+                        background: Image {
                             source:
                             {
                                 if (password.focus) return "Assets/input-focus.png"
