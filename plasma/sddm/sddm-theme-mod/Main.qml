@@ -606,16 +606,16 @@ Item
                         id: userNameLabel
 
                         anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: userpic.bottom
 
                         text: ""
                         color: "white"
 
-                        //font.family: mainfont.name
                         font.pixelSize: 23
                         font.kerning: false
                         renderType: Text.NativeRendering
                         font.hintingPreference: Font.PreferVerticalHinting
-                        //font.weight: Font.Medium
+                    font.weight: Font.Medium
 
                         layer.enabled: true
                         layer.effect: DropShadow
