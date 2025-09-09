@@ -406,3 +406,5 @@ void Button::updateAnimationState(bool hovered)
 }
 
 } // namespace
+
+#include "breezebutton.moc"

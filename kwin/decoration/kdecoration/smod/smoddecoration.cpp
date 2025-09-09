@@ -354,7 +354,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRectF &repaintRegio
 
         FrameTexture gl(l, r, t, b, glowWidth, glowHeight, &glow, c->isActive() ? margins.active_opacity : margins.inactive_opacity);
 
-        int leftButtonsX = (hideIcon() ? -5 : m_leftButtons->geometry().x());
+        int leftButtonsX = (hideIcon() ? -5 : (m_leftButtons->geometry().x()));
 
         if(!caption.trimmed().isEmpty())
         {
@@ -374,7 +374,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRectF &repaintRegio
             }
             else
             {
-                xpos = leftButtonsX + 2;
+                xpos = captionRect.left() - (l/2);
             }
 
             bool isRTL = caption.isRightToLeft();
@@ -392,6 +392,7 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRectF &repaintRegio
                     xpos += captionRect.width() - blurWidth;
                 }
             }
+
             if(!invertText)
             {
                 int alignmentOffset = 0;
