@@ -283,9 +283,10 @@ void Decoration::smodPaintTitleBar(QPainter *painter, const QRectF &repaintRegio
         bool invertText = internalSettings()->invertTextColor() && c->isMaximized();
 
         QRect captionRect(m_leftButtons->geometry().right(), 0, m_rightButtons->geometry().left() - m_leftButtons->geometry().right() - 4, borderTop());
-        QString caption = settings()->fontMetrics().elidedText(c->caption(), Qt::ElideMiddle, captionRect.width());
-        QStringList programname = caption.split(" — ");
-        caption.remove(" — " + programname.at(programname.size()-1));
+        QString rawCaption = c->caption();
+        QStringList programname = rawCaption.split(" — ");
+        rawCaption.remove(" — " + programname.at(programname.size()-1));
+        QString caption = settings()->fontMetrics().elidedText(rawCaption, Qt::ElideMiddle, captionRect.width());
         QFontMetrics fm(settings()->font());
         QString fixedCaption = caption;
         auto rect = fm.boundingRect(fixedCaption.replace(QRegularExpression("\\p{Extended_Pictographic}", QRegularExpression::UseUnicodePropertiesOption), "█"));
