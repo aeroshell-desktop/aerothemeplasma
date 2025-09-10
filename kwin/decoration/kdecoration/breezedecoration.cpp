@@ -518,6 +518,12 @@ void Decoration::onTabletModeChanged(bool mode)
 }
 
 //________________________________________________________________
+int Decoration::captionWidth() const
+{
+    return captionRect().first.width();
+}
+
+//________________________________________________________________
 int Decoration::captionHeight() const
 {
     return hideTitleBar() ? borderTop() : borderTop() - settings()->smallSpacing() * (Metrics::TitleBar_BottomMargin + Metrics::TitleBar_TopMargin) - 1;

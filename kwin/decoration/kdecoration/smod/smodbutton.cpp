@@ -132,7 +132,7 @@ namespace Breeze
             index = btnGroup->buttons().indexOf(this);
 
             QString btnGroupPos = "right";
-            if(btnGroup->pos().x() < decoration()->titleBar().width()/2) btnGroupPos = "left";
+            if(btnGroup->pos().x() < deco->captionWidth()/2) btnGroupPos = "left";
 
             const auto internalSettingsButtons = btnGroupPos == "left"
                                                         ? decoration()->settings()->decorationButtonsLeft()

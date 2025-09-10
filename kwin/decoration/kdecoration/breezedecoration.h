@@ -69,7 +69,8 @@ public:
         return m_animation->duration();
     }
 
-    //* caption height
+    //* caption sizes
+    int captionWidth() const;
     int captionHeight() const;
 
     //* button height
