@@ -54,8 +54,7 @@ void Decoration::setOpacity(qreal value)
         return;
     }
     m_opacity = value;
-    update();
-}
+    update();}
 QString Decoration::themeName()
 {
     return SMOD::currentlyRegisteredPath;
@@ -385,13 +384,27 @@ void Decoration::updateButtonsGeometry()
 {
     const auto s = settings();
 
-    // left buttons
+    // left buttons positioning
     if (!m_leftButtons->buttons().isEmpty()) {
-        const int vPadding = isMaximized() ? 0 : s->smallSpacing() * Metrics::TitleBar_TopMargin;
-        const int hPadding = 0; //s->smallSpacing() * Metrics::TitleBar_SideMargin;
-        m_leftButtons->setPos(QPointF(hPadding + borderLeft(), vPadding));
+        const int vPadding = isMaximized() ? -1 : 1;
+        const int lessPadding = g_sizingmargins.frameLeftSizing().inset;
+        auto r_m = sizingMargins().leftSide();
+        m_leftButtons->setPos(QPointF(
+            borderLeft() + (isMaximized() ? 4 : 0) - lessPadding + ((hideInnerBorder() && !isMaximized()) ? r_m.margin_left : 0), vPadding));
+
+        m_leftButtons->setSpacing(g_sizingmargins.commonSizing().caption_button_spacing);
+    }
+    foreach (QPointer<KDecoration3::DecorationButton> button, m_leftButtons->buttons()) {
+        static_cast<Button *>(button.data())->updateGeometry();
     }
 
+    if(g_sizingmargins.commonSizing().caption_button_align_vcenter)
+    {
+        auto p = m_leftButtons->pos();
+        m_leftButtons->setPos(QPointF(p.x(), borderTop() / 2.0f - m_leftButtons->geometry().height() / 2.0f));
+    }
+
+    // right buttons positioning
     if (!m_rightButtons->buttons().isEmpty()) {
         const int vPadding = isMaximized() ? -1 : 1;
         const int lessPadding = g_sizingmargins.frameRightSizing().inset;
@@ -436,6 +449,24 @@ QRect Decoration::buttonRect(KDecoration3::DecorationButtonType button) const
     int width = 0;
     switch (button)
     {
+        case KDecoration3::DecorationButtonType::ApplicationMenu:
+            intendedWidth = g_sizingmargins.menuSizing().width;
+            break;
+        case KDecoration3::DecorationButtonType::OnAllDesktops:
+            intendedWidth = g_sizingmargins.pinSizing().width;
+            break;
+        case KDecoration3::DecorationButtonType::Shade:
+            intendedWidth = g_sizingmargins.shadeSizing().width;
+            break;
+        case KDecoration3::DecorationButtonType::KeepAbove:
+            intendedWidth = g_sizingmargins.overlapSizing().width;
+            break;
+        case KDecoration3::DecorationButtonType::KeepBelow:
+            intendedWidth = g_sizingmargins.underlapSizing().width;
+            break;
+        case KDecoration3::DecorationButtonType::ContextHelp:
+            intendedWidth = g_sizingmargins.helpSizing().width;
+            break;
         case KDecoration3::DecorationButtonType::Minimize:
             intendedWidth = g_sizingmargins.minimizeSizing().width;
             break;
@@ -452,6 +483,7 @@ QRect Decoration::buttonRect(KDecoration3::DecorationButtonType button) const
             break;
     }
     if(button == KDecoration3::DecorationButtonType::Menu) width = 16;
+    else if(button == KDecoration3::DecorationButtonType::Spacer) width = 8;
     else width = (int)((float)titlebarHeight() * ((float)intendedWidth / 21.0) + 0.5f);
     return QRect(0, 0, width, height);
 }
@@ -483,6 +515,12 @@ void Decoration::onTabletModeChanged(bool mode)
     m_tabletMode = mode;
     recalculateBorders();
     updateButtonsGeometry();
+}
+
+//________________________________________________________________
+int Decoration::captionWidth() const
+{
+    return captionRect().first.width();
 }
 
 //________________________________________________________________

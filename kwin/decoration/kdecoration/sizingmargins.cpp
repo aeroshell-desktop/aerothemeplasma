@@ -37,6 +37,8 @@ void SizingMargins::loadSizingMargins()
     m_commonSizing.alternative                  = settings.value("Common/alternative",                  false).toBool();
     m_commonSizing.enable_glow                  = settings.value("Common/enable_glow",                  false).toBool();
     m_commonSizing.caption_button_align_vcenter = settings.value("Common/caption_button_align_vcenter", false).toBool();
+    m_commonSizing.group_buttons                = settings.value("Common/group_buttons",                false).toBool();
+
 
     // CloseSizing
     m_closeSizing.width                 = settings.value("Close/width",              49).toInt();
@@ -81,6 +83,76 @@ void SizingMargins::loadSizingMargins()
     m_minimizeSizing.content_right      = settings.value("Minimize/content_right",    1).toInt() - 1;
     m_minimizeSizing.content_top        = settings.value("Minimize/content_top",      2).toInt() - 1;
     m_minimizeSizing.content_bottom     = settings.value("Minimize/content_bottom",   4).toInt() - 1;
+
+    // These next 5 buttons will just use the minimize button
+    // sizing margins, except for the content parts.
+
+    // HelpSizing
+    m_helpSizing.width                  = settings.value("Help/width",               29).toInt();
+    m_helpSizing.margin_left            = m_minimizeSizing.margin_left;
+    m_helpSizing.margin_top             = m_minimizeSizing.margin_top;
+    m_helpSizing.margin_right           = m_minimizeSizing.margin_right;
+    m_helpSizing.margin_bottom          = m_minimizeSizing.margin_bottom;
+    m_helpSizing.content_left           = settings.value("Help/content_left",         3).toInt() - 1;
+    m_helpSizing.content_right          = settings.value("Help/content_right",        1).toInt() - 1;
+    m_helpSizing.content_top            = settings.value("Help/content_top",          2).toInt() - 1;
+    m_helpSizing.content_bottom         = settings.value("Help/content_bottom",       4).toInt() - 1;
+
+    // OverlapSizing
+    m_overlapSizing.width               = settings.value("Overlap/width",            29).toInt();
+    m_overlapSizing.margin_left         = m_minimizeSizing.margin_left;
+    m_overlapSizing.margin_top          = m_minimizeSizing.margin_top;
+    m_overlapSizing.margin_right        = m_minimizeSizing.margin_right;
+    m_overlapSizing.margin_bottom       = m_minimizeSizing.margin_bottom;
+    m_overlapSizing.content_left        = settings.value("Shade/content_left",        3).toInt() - 1;
+    m_overlapSizing.content_right       = settings.value("Shade/content_right",       1).toInt() - 1;
+    m_overlapSizing.content_top         = settings.value("Shade/content_top",         2).toInt() - 1;
+    m_overlapSizing.content_bottom      = settings.value("Shade/content_bottom",      4).toInt() - 1;
+
+    // UnderlapSizing
+    m_underlapSizing.width              = settings.value("Underlap/width",           29).toInt();
+    m_underlapSizing.margin_left        = m_minimizeSizing.margin_left;
+    m_underlapSizing.margin_top         = m_minimizeSizing.margin_top;
+    m_underlapSizing.margin_right       = m_minimizeSizing.margin_right;
+    m_underlapSizing.margin_bottom      = m_minimizeSizing.margin_bottom;
+    m_underlapSizing.content_left       = settings.value("Shade/content_left",        3).toInt() - 1;
+    m_underlapSizing.content_right      = settings.value("Shade/content_right",       1).toInt() - 1;
+    m_underlapSizing.content_top        = settings.value("Shade/content_top",         2).toInt() - 1;
+    m_underlapSizing.content_bottom     = settings.value("Shade/content_bottom",      4).toInt() - 1;
+
+    // ShadeSizing
+    m_shadeSizing.width                 = settings.value("Shade/width",              29).toInt();
+    m_shadeSizing.margin_left           = m_minimizeSizing.margin_left;
+    m_shadeSizing.margin_top            = m_minimizeSizing.margin_top;
+    m_shadeSizing.margin_right          = m_minimizeSizing.margin_right;
+    m_shadeSizing.margin_bottom         = m_minimizeSizing.margin_bottom;
+    m_shadeSizing.content_left          = settings.value("Shade/content_left",        3).toInt() - 1;
+    m_shadeSizing.content_right         = settings.value("Shade/content_right",       1).toInt() - 1;
+    m_shadeSizing.content_top           = settings.value("Shade/content_top",         2).toInt() - 1;
+    m_shadeSizing.content_bottom        = settings.value("Shade/content_bottom",      4).toInt() - 1;
+
+    // PinSizing
+    m_pinSizing.width                   = settings.value("Pin/width",                29).toInt();
+    m_pinSizing.margin_left             = m_minimizeSizing.margin_left;
+    m_pinSizing.margin_top              = m_minimizeSizing.margin_top;
+    m_pinSizing.margin_right            = m_minimizeSizing.margin_right;
+    m_pinSizing.margin_bottom           = m_minimizeSizing.margin_bottom;
+    m_pinSizing.content_left            = settings.value("Pin/content_left",          3).toInt() - 1;
+    m_pinSizing.content_right           = settings.value("Pin/content_right",         1).toInt() - 1;
+    m_pinSizing.content_top             = settings.value("Pin/content_top",           2).toInt() - 1;
+    m_pinSizing.content_bottom          = settings.value("Pin/content_bottom",        4).toInt() - 1;
+
+    // MenuSizing
+    m_menuSizing.width                  = settings.value("Menu/width",               29).toInt();
+    m_menuSizing.margin_left            = m_minimizeSizing.margin_left;
+    m_menuSizing.margin_top             = m_minimizeSizing.margin_top;
+    m_menuSizing.margin_right           = m_minimizeSizing.margin_right;
+    m_menuSizing.margin_bottom          = m_minimizeSizing.margin_bottom;
+    m_menuSizing.content_left           = settings.value("Menu/content_left",         3).toInt() - 1;
+    m_menuSizing.content_right          = settings.value("Menu/content_right",        1).toInt() - 1;
+    m_menuSizing.content_top            = settings.value("Menu/content_top",          2).toInt() - 1;
+    m_menuSizing.content_bottom         = settings.value("Menu/content_bottom",       4).toInt() - 1;
+
 
     m_frameLeftSizing.width             = settings.value("FrameLeft/width",           8).toInt();
     m_frameLeftSizing.inset             = settings.value("FrameLeft/inset",           2).toInt();
@@ -139,6 +211,30 @@ ShadowSizing SizingMargins::shadowSizing() const
 CommonSizing SizingMargins::commonSizing() const
 {
     return m_commonSizing;
+}
+ButtonSizingMargins SizingMargins::menuSizing() const
+{
+    return m_pinSizing;
+}
+ButtonSizingMargins SizingMargins::pinSizing() const
+{
+    return m_pinSizing;
+}
+ButtonSizingMargins SizingMargins::shadeSizing() const
+{
+    return m_shadeSizing;
+}
+ButtonSizingMargins SizingMargins::overlapSizing() const
+{
+    return m_overlapSizing;
+}
+ButtonSizingMargins SizingMargins::underlapSizing() const
+{
+    return m_underlapSizing;
+}
+ButtonSizingMargins SizingMargins::helpSizing() const
+{
+    return m_helpSizing;
 }
 ButtonSizingMargins SizingMargins::maximizeSizing() const
 {

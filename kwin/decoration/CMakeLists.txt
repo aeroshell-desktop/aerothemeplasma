@@ -17,6 +17,7 @@ include(GNUInstallDirs)
 find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH}  ${CMAKE_SOURCE_DIR}/cmake)
 
+set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -156,8 +157,6 @@ function(build_Qt6)
         find_package(KDecoration3 REQUIRED)
         add_subdirectory(kdecoration)
     endif()
-
-    ki18n_install(po)
 
     unset(QUERY_EXECUTABLE CACHE)
 endfunction()

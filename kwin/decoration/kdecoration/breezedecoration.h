@@ -19,7 +19,6 @@
 #include <QVariant>
 #include <QVariantAnimation>
 #include <QByteArray>
-#include <iostream>
 
 #define INNER_BORDER_SIZE 2
 
@@ -40,6 +39,9 @@ class DecorationButtonGroup;
 
 namespace Breeze
 {
+
+class Button;
+
 class MYSHAREDLIB_EXPORT Decoration : public KDecoration3::Decoration
 {
     Q_OBJECT
@@ -67,7 +69,8 @@ public:
         return m_animation->duration();
     }
 
-    //* caption height
+    //* caption sizes
+    int captionWidth() const;
     int captionHeight() const;
 
     //* button height
@@ -122,7 +125,7 @@ public:
     //@}
 
 Q_SIGNALS:
-    void buttonHoverStatus(KDecoration3::DecorationButtonType button, bool hovered, QPoint pos);
+    void buttonHoverStatus(KDecoration3::DecorationButtonType button, bool isFlipped, QString textureType, bool hovered, QPoint pos);
 
 public Q_SLOTS:
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
@@ -261,11 +264,8 @@ bool Decoration::isGadgetExplorer() const
 bool Decoration::isPersonalizeKCM() const
 {
     if(window()->windowClass() == QStringLiteral("systemsettings systemsettings") && window()->caption().startsWith(QStringLiteral("aerothemeplasma-personalize"))) return true;
-    // standalone version
-    if(window()->windowClass() == QStringLiteral("aerothemeplasma-kcmloader aerothemeplasma-kcmloader") && window()->caption().startsWith(QStringLiteral("aerothemeplasma-personalize"))) return true;
     return false;
 }
-
 bool Decoration::isPolkit() const
 {
     const auto c = window();
@@ -274,7 +274,7 @@ bool Decoration::isPolkit() const
 }
 bool Decoration::hideIcon() const
 {
-    if(isPersonalizeKCM() || isGadgetExplorer() || isPolkit()) return true;
+    if(isGadgetExplorer() || isPolkit()) return true;
     return m_internalSettings->hideIcon() && !window()->isShaded();
 }
 

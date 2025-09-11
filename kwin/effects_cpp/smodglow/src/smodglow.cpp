@@ -140,10 +140,10 @@ void SmodGlowEffect::registerWindow(const EffectWindow *w)
 
 #if TESTING_NEW_DPI
     auto connection = connect(smoddecoration, &SmodDecoration::buttonHoveredChanged, this,
-        [w, this](KDecoration3::DecorationButtonType button, bool hovered, QPoint pos, int dpi) {
+        [w, this](KDecoration3::DecorationButtonType button, bool isFlipped, bool hovered, QPoint pos, int dpi) {
 #else
     auto connection = connect(smoddecoration, &SmodDecoration::buttonHoverStatus, this,
-        [w, this](KDecoration3::DecorationButtonType button, bool hovered, QPoint pos) {
+        [w, this](KDecoration3::DecorationButtonType button, bool isFlipped, QString textureType, bool hovered, QPoint pos) {
         int dpi = m_current_dpi;
 #endif
 
@@ -151,6 +151,90 @@ void SmodGlowEffect::registerWindow(const EffectWindow *w)
 
         switch (button)
         {
+            case KDecoration3::DecorationButtonType::ApplicationMenu:
+            {
+                anim = this->windows.value(w)->m_menu;
+
+#if RIGHT_SIDE_ORIGIN
+                anim->pos = -(pos + QPoint(MINMAXGLOW_SML, MINMAXGLOW_SMT));
+#else
+                anim->pos = pos - QPoint(MINMAXGLOW_SML + (isFlipped ? 1 : 0), MINMAXGLOW_SMT);
+#endif
+                anim->m_isFlipped = isFlipped;
+                anim->m_textureType = textureType.split(QStringLiteral("-")).takeFirst();
+
+                break;
+            }
+            case KDecoration3::DecorationButtonType::OnAllDesktops:
+            {
+                anim = this->windows.value(w)->m_pin;
+
+#if RIGHT_SIDE_ORIGIN
+                anim->pos = -(pos + QPoint(MINMAXGLOW_SML, MINMAXGLOW_SMT));
+#else
+                anim->pos = pos - QPoint(MINMAXGLOW_SML + (isFlipped ? 1 : 0), MINMAXGLOW_SMT);
+#endif
+                anim->m_isFlipped = isFlipped;
+                anim->m_textureType = textureType.split(QStringLiteral("-")).takeFirst();
+
+                break;
+            }
+            case KDecoration3::DecorationButtonType::Shade:
+            {
+                anim = this->windows.value(w)->m_shade;
+
+#if RIGHT_SIDE_ORIGIN
+                anim->pos = -(pos + QPoint(MINMAXGLOW_SML, MINMAXGLOW_SMT));
+#else
+                anim->pos = pos - QPoint(MINMAXGLOW_SML + (isFlipped ? 1 : 0), MINMAXGLOW_SMT);
+#endif
+                anim->m_isFlipped = isFlipped;
+                anim->m_textureType = textureType.split(QStringLiteral("-")).takeFirst();
+
+                break;
+            }
+            case KDecoration3::DecorationButtonType::KeepBelow:
+            {
+                anim = this->windows.value(w)->m_underlap;
+
+#if RIGHT_SIDE_ORIGIN
+                anim->pos = -(pos + QPoint(MINMAXGLOW_SML, MINMAXGLOW_SMT));
+#else
+                anim->pos = pos - QPoint(MINMAXGLOW_SML + (isFlipped ? 1 : 0), MINMAXGLOW_SMT);
+#endif
+                anim->m_isFlipped = isFlipped;
+                anim->m_textureType = textureType.split(QStringLiteral("-")).takeFirst();
+
+                break;
+            }
+            case KDecoration3::DecorationButtonType::KeepAbove:
+            {
+                anim = this->windows.value(w)->m_overlap;
+
+#if RIGHT_SIDE_ORIGIN
+                anim->pos = -(pos + QPoint(MINMAXGLOW_SML, MINMAXGLOW_SMT));
+#else
+                anim->pos = pos - QPoint(MINMAXGLOW_SML + (isFlipped ? 1 : 0), MINMAXGLOW_SMT);
+#endif
+                anim->m_isFlipped = isFlipped;
+                anim->m_textureType = textureType.split(QStringLiteral("-")).takeFirst();
+
+                break;
+            }
+            case KDecoration3::DecorationButtonType::ContextHelp:
+            {
+                anim = this->windows.value(w)->m_help;
+
+#if RIGHT_SIDE_ORIGIN
+                anim->pos = -(pos + QPoint(MINMAXGLOW_SML, MINMAXGLOW_SMT));
+#else
+                anim->pos = pos - QPoint(MINMAXGLOW_SML + (isFlipped ? 1 : 0), MINMAXGLOW_SMT);
+#endif
+                anim->m_isFlipped = isFlipped;
+                anim->m_textureType = textureType.split(QStringLiteral("-")).takeFirst();
+
+                break;
+            }
             case KDecoration3::DecorationButtonType::Minimize:
             {
                 anim = this->windows.value(w)->m_min;
@@ -158,8 +242,11 @@ void SmodGlowEffect::registerWindow(const EffectWindow *w)
 #if RIGHT_SIDE_ORIGIN
                 anim->pos = -(pos + QPoint(MINMAXGLOW_SML, MINMAXGLOW_SMT));
 #else
-                anim->pos = pos - QPoint(MINMAXGLOW_SML, MINMAXGLOW_SMT);
+                anim->pos = pos - QPoint(MINMAXGLOW_SML + (isFlipped ? 1 : 0), MINMAXGLOW_SMT);
 #endif
+                anim->m_isFlipped = isFlipped;
+                anim->m_textureType = textureType.split(QStringLiteral("-")).takeFirst();
+
                 break;
             }
             case KDecoration3::DecorationButtonType::Maximize:
@@ -168,8 +255,11 @@ void SmodGlowEffect::registerWindow(const EffectWindow *w)
 #if RIGHT_SIDE_ORIGIN
                 anim->pos = -(pos + QPoint(MINMAXGLOW_SML, MINMAXGLOW_SMT));
 #else
-                anim->pos = pos - QPoint(MINMAXGLOW_SML, MINMAXGLOW_SMT);
+                anim->pos = pos - QPoint(MINMAXGLOW_SML + (isFlipped ? 1 : 0), MINMAXGLOW_SMT);
 #endif
+                anim->m_isFlipped = isFlipped;
+                anim->m_textureType = textureType.split(QStringLiteral("-")).takeFirst();
+
                 break;
             }
             case KDecoration3::DecorationButtonType::Close:
@@ -180,6 +270,9 @@ void SmodGlowEffect::registerWindow(const EffectWindow *w)
 #else
                 anim->pos = pos - QPoint(CLOSEGLOW_SML, CLOSEGLOW_SMT);
 #endif
+                anim->m_isFlipped = isFlipped;
+                anim->m_textureType = textureType.split(QStringLiteral("-")).takeFirst();
+
                 break;
             }
             default:
@@ -277,6 +370,12 @@ void SmodGlowEffect::prePaintWindow(EffectWindow *w, WindowPrePaintData &data, s
     /*qDebug() << "Min texture: " << m_texture_minimize.get()->size();
     qDebug() << "Max texture: " << m_texture_maximize.get()->size();
     qDebug() << "Close texture: " << m_texture_close.get()->size();*/
+    QSize menu_size = smoddecoration->buttonRect(KDecoration3::DecorationButtonType::ApplicationMenu).size();
+    QSize pin_size = smoddecoration->buttonRect(KDecoration3::DecorationButtonType::OnAllDesktops).size();
+    QSize shade_size = smoddecoration->buttonRect(KDecoration3::DecorationButtonType::Shade).size();
+    QSize underlap_size = smoddecoration->buttonRect(KDecoration3::DecorationButtonType::KeepAbove).size();
+    QSize overlap_size = smoddecoration->buttonRect(KDecoration3::DecorationButtonType::KeepAbove).size();
+    QSize help_size = smoddecoration->buttonRect(KDecoration3::DecorationButtonType::ContextHelp).size();
     QSize min_size = smoddecoration->buttonRect(KDecoration3::DecorationButtonType::Minimize).size();
     QSize max_size = smoddecoration->buttonRect(KDecoration3::DecorationButtonType::Maximize).size();
     QSize close_size = smoddecoration->buttonRect(KDecoration3::DecorationButtonType::Close).size();
@@ -284,12 +383,24 @@ void SmodGlowEffect::prePaintWindow(EffectWindow *w, WindowPrePaintData &data, s
     qDebug() << "Max button: " << max_size;
     qDebug() << "Close button: " << close_size;*/
 
+    menu_size += QSize(MINMAXGLOW_SML*2+1, MINMAXGLOW_SMT*2);
+    pin_size += QSize(MINMAXGLOW_SML*2+1, MINMAXGLOW_SMT*2);
+    shade_size += QSize(MINMAXGLOW_SML*2+1, MINMAXGLOW_SMT*2);
+    underlap_size += QSize(MINMAXGLOW_SML*2+1, MINMAXGLOW_SMT*2);
+    overlap_size += QSize(MINMAXGLOW_SML*2+1, MINMAXGLOW_SMT*2);
+    help_size += QSize(MINMAXGLOW_SML*2+1, MINMAXGLOW_SMT*2);
     close_size += QSize(CLOSEGLOW_SML*2, CLOSEGLOW_SMT*2);
     min_size += QSize(MINMAXGLOW_SML*2+1, MINMAXGLOW_SMT*2);
     max_size += QSize(MINMAXGLOW_SML*2+1, MINMAXGLOW_SMT*2);
     /*qDebug() << "Min size: " << min_size;
     qDebug() << "Max size: " << max_size;
     qDebug() << "Close size: " << close_size;*/
+    handler->m_menu_rect  = QRect(origin + handler->m_menu->pos,  underlap_size);
+    handler->m_pin_rect  = QRect(origin + handler->m_pin->pos,  underlap_size);
+    handler->m_shade_rect  = QRect(origin + handler->m_shade->pos,  underlap_size);
+    handler->m_underlap_rect  = QRect(origin + handler->m_underlap->pos,  underlap_size);
+    handler->m_overlap_rect  = QRect(origin + handler->m_overlap->pos,  overlap_size);
+    handler->m_help_rect  = QRect(origin + handler->m_help->pos,  help_size);
     handler->m_min_rect   = QRect(origin + handler->m_min->pos,   min_size);
     handler->m_max_rect   = QRect(origin + handler->m_max->pos,   max_size);
     handler->m_close_rect = QRect(origin + handler->m_close->pos, close_size);
@@ -299,6 +410,12 @@ void SmodGlowEffect::prePaintWindow(EffectWindow *w, WindowPrePaintData &data, s
     handler->m_close_rect = QRect(origin + handler->m_close->pos, m_texture_close.get()->size());*/
 
     QRegion newPaint = QRegion();
+    newPaint |= handler->m_menu_rect;
+    newPaint |= handler->m_pin_rect;
+    newPaint |= handler->m_shade_rect;
+    newPaint |= handler->m_underlap_rect;
+    newPaint |= handler->m_overlap_rect;
+    newPaint |= handler->m_help_rect;
     newPaint |= handler->m_min_rect;
     newPaint |= handler->m_max_rect;
     newPaint |= handler->m_close_rect;
