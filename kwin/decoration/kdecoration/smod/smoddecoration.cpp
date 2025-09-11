@@ -102,6 +102,7 @@ void Decoration::smodPaint(QPainter *painter, const QRectF &repaintRegion)
 
 void Decoration::smodPaintGlow(QPainter *painter, const QRectF &repaintRegion)
 {
+    Q_UNUSED(repaintRegion);
     const auto c = window();
 
     int SIDEBAR_HEIGHT = qMax(25, (int)(size().height() / 4));
