@@ -105,7 +105,6 @@ ForegroundVisited=128,0,128
 [General]
 ColorScheme=BreezeClassic
 Name=Aero
-TitlebarIsAccentColored=true
 shadeSortColumn=true
 
 [KDE]
