@@ -43,9 +43,9 @@ using KDecoration3::ColorRole;
 
 static SizingMargins g_sizingmargins;
 static QString g_themeName = "Aero";
-//static int g_shadowStrength = 255;
+static int g_shadowStrength = 255;
 static QColor g_shadowColor = Qt::black;
-//static int g_lastBorderSize;
+static int g_lastBorderSize;
 
 //________________________________________________________________
 void Decoration::setOpacity(qreal value)
@@ -294,7 +294,7 @@ void Decoration::reconfigure()
         QList<QVariant> args;
         args.append("smodglow");
         message.setArguments(args);
-        QDBusConnection::sessionBus().send(message);
+        bool result = QDBusConnection::sessionBus().send(message);
     }
 
 }

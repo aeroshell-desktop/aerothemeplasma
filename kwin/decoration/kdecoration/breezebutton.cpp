@@ -67,8 +67,6 @@ Button::Button(QObject *parent, const QVariantList &args)
 
 void Button::smodPaintGlow(QPainter *painter, const QRectF &repaintArea)
 {
-    Q_UNUSED(painter);
-    Q_UNUSED(repaintArea);
     return;
 }
 
