@@ -29,7 +29,6 @@ struct CommonSizing
     bool enable_glow;
     int caption_button_spacing;
     bool caption_button_align_vcenter;
-    bool group_buttons;                 // Whether buttons should be grouped depending on their placement
 };
 
 struct ShadowSizing
@@ -80,13 +79,6 @@ public:
     ShadowSizing shadowSizing() const;
     CommonSizing commonSizing() const;
 
-    ButtonSizingMargins menuSizing() const;
-    ButtonSizingMargins pinSizing() const;
-    ButtonSizingMargins shadeSizing() const;
-    ButtonSizingMargins overlapSizing() const;
-    ButtonSizingMargins underlapSizing() const;
-
-    ButtonSizingMargins helpSizing() const;
     ButtonSizingMargins maximizeSizing() const;
     ButtonSizingMargins minimizeSizing() const;
     ButtonSizingMargins closeSizing() const;
@@ -113,13 +105,6 @@ private:
     ShadowSizing m_shadowSizing;
     CommonSizing m_commonSizing;
 
-    ButtonSizingMargins m_menuSizing;
-    ButtonSizingMargins m_pinSizing;
-    ButtonSizingMargins m_shadeSizing;
-    ButtonSizingMargins m_underlapSizing;
-    ButtonSizingMargins m_overlapSizing;
-
-    ButtonSizingMargins m_helpSizing;
     ButtonSizingMargins m_maximizeSizing;
     ButtonSizingMargins m_minimizeSizing;
     ButtonSizingMargins m_closeSizing;

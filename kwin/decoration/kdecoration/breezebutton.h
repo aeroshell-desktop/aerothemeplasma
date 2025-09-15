@@ -10,7 +10,6 @@
 #include "breezedecoration.h"
 #include <KDecoration3/DecorationButton>
 
-#include <QObject>
 #include <QHash>
 #include <QImage>
 #include <QHoverEvent>
@@ -109,8 +108,8 @@ public:
 
     void smodPaintGlow(QPainter *painter, const QRectF &repaintArea);
     void updateGeometry();
-Q_SIGNALS:
-    void buttonHoverStatus(KDecoration3::DecorationButtonType button, bool isFlipped, QString textureType,  bool hovered, QPoint pos);
+signals:
+    void buttonHoverStatus(KDecoration3::DecorationButtonType button, bool hovered, QPoint pos);
 
 protected:
     void hoverEnterEvent(QHoverEvent *event) override;
@@ -151,15 +150,8 @@ private:
     //* icon size
     QSize m_iconSize;
 
-    //* status or smthing idk
-    bool m_isToggled{false};
-    bool m_isMirrored{false};
-    bool m_isFlipped{false};
-    QString m_textureType{};
-
     //* active state change opacity
     qreal m_opacity = 0;
-    int index = -1;
 
     QPointer<QPropertyAnimation> m_hoverAnimation;
     qreal m_hoverProgress;
