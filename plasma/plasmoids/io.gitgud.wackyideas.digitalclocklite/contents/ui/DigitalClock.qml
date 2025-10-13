@@ -530,6 +530,7 @@ Item {
         id: contentItem
         anchors.verticalCenter: main.verticalCenter
         anchors.horizontalCenter: main.horizontalCenter
+        anchors.alignWhenCentered: true
 
         Grid {
             id: labelsGrid
@@ -562,7 +563,7 @@ Item {
                     hintingPreference: Font.PreferFullHinting
                 }
                 minimumPixelSize: 1
-                style: Text.Outline
+                style: Screen.devicePixelRatio == 1.0 ? Text.Outline : Text.Raised
                 styleColor: "transparent"
                 text: {
                     // get the time for the given timezone from the dataengine
@@ -605,7 +606,7 @@ Item {
                 font.hintingPreference: Font.PreferFullHinting
                 minimumPixelSize: 1
 
-                style: Text.Outline
+                style: Screen.devicePixelRatio == 1.0 ? Text.Outline : Text.Raised
                 styleColor: "transparent"
                 visible: false
                 horizontalAlignment: Text.AlignHCenter
@@ -624,7 +625,7 @@ Item {
             font.pixelSize: timeLabel.font.pixelSize
             font.hintingPreference: Font.PreferFullHinting
             minimumPixelSize: 1
-            style: Text.Outline
+            style: Screen.devicePixelRatio == 1.0 ? Text.Outline : Text.Raised
             styleColor: "transparent"
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
