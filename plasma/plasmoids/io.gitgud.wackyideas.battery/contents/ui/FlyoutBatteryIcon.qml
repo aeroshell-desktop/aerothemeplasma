@@ -16,9 +16,6 @@ Item {
     property int percent
     property bool pluggedIn
     property string batteryType
-    property bool active: false
-    property string powerProfileIconName: ""
-    property int health
     property bool broken
 
     // Icon for current charge level, charging status, and optionally power
@@ -27,14 +24,13 @@ Item {
     Kirigami.Icon {
         id: mainBattery
         anchors.fill: parent
-        source: root.hasBattery ? fillElement(root.percent, root.health, root.broken) : "flyout-battery-missing"
+        source: root.hasBattery ? fillElement(root.percent, root.broken) : "flyout-battery-missing"
         visible: !otherBatteriesIcon.visible
-        active: root.active
 
-        function fillElement(p: int, h: int, b: bool): string {
+        function fillElement(p: int, b: bool): string {
             let name = "flyout-"
 
-            if(b && typeof h !== "undefined") {
+            if(b) {
                 return "flyout-battery-missing"
             }
 
@@ -68,14 +64,13 @@ Item {
     Kirigami.Icon {
         anchors.fill: parent
         visible: !otherBatteriesIcon.visible && source != ""
-        active: root.active
         source: {
 
-            if(batterymonitor.isPluggedIn) {
+            if(root.pluggedIn) {
                 return "flyout-battery-charging"
-            } else if(mainBattery.source === "flyout-battery-000") {
+            } else if(root.percent <= 5) {
                 return "flyout-battery-critical";
-            } else if(mainBattery.source === "flyout-battery-010") {
+            } else if(root.percent < 15) {
                 return "flyout-battery-caution";
             }
 
@@ -89,7 +84,6 @@ Item {
         anchors.fill: parent
         source: elementForType(root.batteryType)
         visible: source !== ""
-        active: root.active
 
         function elementForType(t: string): string {
             switch(t) {

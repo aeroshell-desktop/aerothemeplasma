@@ -10,28 +10,33 @@ import QtQuick.Layouts
 import org.kde.plasma.components as PlasmaComponents3
 import org.kde.kirigami as Kirigami
 
-RowLayout {
+ColumnLayout {
+
     property alias iconSource: iconItem.source
     property alias text: label.text
-    property int leftPadding: 0
-
     spacing: Kirigami.Units.smallSpacing
 
-    Kirigami.Icon {
-        id: iconItem
-        Layout.preferredWidth: Kirigami.Units.iconSizes.small
-        Layout.preferredHeight: Kirigami.Units.iconSizes.small
-        Layout.leftMargin: leftPadding
-        Layout.alignment: Qt.AlignTop
-        visible: valid
+    RowLayout {
+
+        spacing: Kirigami.Units.smallSpacing
+
+        Kirigami.Icon {
+            id: iconItem
+            Layout.preferredWidth: Kirigami.Units.iconSizes.small
+            Layout.preferredHeight: Kirigami.Units.iconSizes.small
+            Layout.alignment: Qt.AlignTop
+            visible: valid
+        }
+
+        PlasmaComponents3.Label {
+            id: label
+            Layout.fillWidth: true
+            textFormat: Text.PlainText
+            wrapMode: Text.WordWrap
+            elide: Text.ElideRight
+            maximumLineCount: 4
+            opacity: 0.75
+        }
     }
 
-    PlasmaComponents3.Label {
-        id: label
-        Layout.fillWidth: true
-        //font: Kirigami.Theme.smallFont
-        wrapMode: Text.WordWrap
-        elide: Text.ElideRight
-        maximumLineCount: 4
-    }
 }

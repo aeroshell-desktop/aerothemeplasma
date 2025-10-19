@@ -2,6 +2,7 @@
     SPDX-FileCopyrightText: 2011 Sebastian Kügler <sebas@kde.org>
     SPDX-FileCopyrightText: 2011 Viranch Mehta <viranch.mehta@gmail.com>
     SPDX-FileCopyrightText: 2013 Kai Uwe Broulik <kde@privat.broulik.de>
+    SPDX-FileCopyrightText: 2023 Natalie Clarius <natalie.clarius@kde.org>
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
@@ -14,99 +15,138 @@ import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.workspace.components as WorkspaceComponents
 import org.kde.kirigami as Kirigami
 
+import org.kde.plasma.private.battery
+
 MouseArea {
     id: root
 
-    property real itemSize: Math.min(root.height, root.width/view.count)
-    readonly property bool isConstrained: Plasmoid.formFactor === PlasmaCore.Types.Vertical || Plasmoid.formFactor === PlasmaCore.Types.Horizontal
-    property real brightnessError: 0
-    property QtObject batteries
+    readonly property bool isConstrained: [PlasmaCore.Types.Vertical, PlasmaCore.Types.Horizontal].includes(Plasmoid.formFactor)
+        || Plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentForcesSquarePlasmoids
+    property int batteryPercent: 0
+    property bool batteryPluggedIn: false
     property bool hasBatteries: false
-    required property bool isSetToPerformanceMode
-    required property bool isSetToPowerSaveMode
+    property bool hasInternalBatteries: false
+    property bool hasCumulative: false
+    property bool isBrokenBattery: false
+
     required property bool isSomehowFullyCharged
+    required property bool isDischarging
+
+    required property bool isManuallyInhibited
+    required property bool isInDefaultPowerProfile
+    required property bool isInPowersaveProfile
+    required property bool isInBalancedProfile
+    required property bool isInPerformanceProfile
+
+    property alias model: view.model
 
     activeFocusOnTab: true
     hoverEnabled: true
-
-    property bool wasExpanded
 
     Accessible.name: Plasmoid.title
     Accessible.description: `${toolTipMainText}; ${toolTipSubText}`
     Accessible.role: Accessible.Button
 
-    onPressed: wasExpanded = batterymonitor.expanded
-    onClicked: batterymonitor.expanded = !wasExpanded
+    property string activeProfileIconSrc: isInPowersaveProfile   ? "battery-profile-powersave-symbolic"
+                                        : isInBalancedProfile    ? "speedometer"
+                                        : isInPerformanceProfile ? "battery-profile-performance-symbolic"
+                                        : Plasmoid.icon
 
-    // "No Batteries" case
+    readonly property string powerModeIconSrc: Plasmoid.icon
+
+    // Shown for no batteries or manual inhibition while not discharging
     Kirigami.Icon {
+        id: powerModeIcon
+
         anchors.fill: parent
-        visible: !root.hasBatteries
-        source: Plasmoid.icon
+
+        visible: root.isConstrained && (!root.hasInternalBatteries)
+        source: root.powerModeIconSrc
+        active: root.containsMouse
+    }
+    // Shown for no batteries or manual inhibition while not discharging
+    Kirigami.Icon {
+        id: brokenBattery
+
+        anchors.fill: parent
+
+        visible: root.isConstrained && root.isBrokenBattery
+        source: "battery-missing"
         active: root.containsMouse
     }
 
-    // We have any batteries; show their status
-    //Should we consider turning this into a Flow item?
-    Row {
-        visible: root.hasBatteries
-        anchors.centerIn: parent
-        Repeater {
-            id: view
+    Item {
+        id: overallBatteryInfo
 
-            model: root.isConstrained ? 1 : root.batteries
+        anchors.fill: parent
 
-            Item {
-                id: batteryContainer
+        visible: root.isConstrained && !powerModeIcon.visible && root.hasInternalBatteries
 
-                property int percent: root.isConstrained ? pmSource.data["Battery"]["Percent"] : model["Percent"]
-                property bool pluggedIn: pmSource.data["AC Adapter"] && pmSource.data["AC Adapter"]["Plugged in"] && (root.isConstrained || model["Is Power Supply"])
+        // Show normal battery icon
+        WorkspaceComponents.BatteryIcon {
+            id: overallBatteryIcon
 
-                height: root.itemSize
-                width: root.width/view.count
+            anchors.fill: parent
 
-                property real iconSize: Math.min(width, height)
+            active: root.containsMouse
+            hasBattery: root.hasCumulative
+            percent: root.batteryPercent
+            pluggedIn: root.batteryPluggedIn
+            powerProfileIconName: root.isInDefaultPowerProfile ? ""
+                                : root.isInPowersaveProfile    ? "powersave"
+                                : root.isInBalancedProfile     ? "balanced"
+                                : root.isInPerformanceProfile  ? "performance"
+                                : ""
+        }
 
-                // "Held on a Power Profile mode while plugged in" use case; show the
-                // icon of the active mode so the user can notice this at a glance
-                /*Kirigami.Icon {
-                    id: powerProfileModeIcon
+    }
 
-                    anchors.fill: parent
+    //Show all batteries
+    GridView {
+        id: view
 
-                    visible: batteryContainer.pluggedIn && (root.isSetToPerformanceMode || root.isSetToPowerSaveMode)
-                    source: root.isSetToPerformanceMode
-                        ? "battery-profile-performance-symbolic"
-                        : "battery-profile-powersave-symbolic"
-                    active: root.containsMouse
-                }*/
+        visible: !root.isConstrained
 
-                // Show normal battery icon
-                BatteryIcon {
-                    id: batteryIcon
+        anchors.fill: parent
 
-                    anchors.centerIn: parent
-                    height: batteryContainer.iconSize
-                    width: height
+        contentHeight: height
+        contentWidth: width
 
-                    active: root.containsMouse
-                    visible: root.hasBatteries//!(batteryContainer.pluggedIn && (root.isSetToPerformanceMode || root.isSetToPowerSaveMode))
-                    hasBattery: root.hasBatteries
-                    percent: batteryContainer.percent
-                    pluggedIn: batteryContainer.pluggedIn
-                    broken: batterymonitor.isBroken
-                    health: batterymonitor.batteryCapacity
-                }
+        cellWidth: Math.min(height, width)
+        cellHeight: cellWidth
 
-                WorkspaceComponents.BadgeOverlay {
-                    anchors.bottom: parent.bottom
-                    anchors.right: parent.right
+        // Don't block events from MouseArea, and don't let users drag the batteries around
+        interactive: false
 
-                    visible: Plasmoid.configuration.showPercentage && !root.isSomehowFullyCharged
+        clip: true
 
-                    text: i18nc("battery percentage below battery icon", "%1%", percent)
-                    icon: batteryIcon
-                }
+        // We have any batteries; show their status
+        delegate: Item {
+            id: batteryContainer
+
+            width: view.cellWidth
+            height: view.cellHeight
+
+            // Show normal battery icon
+            WorkspaceComponents.BatteryIcon {
+                id: batteryIcon
+
+                anchors.fill: parent
+
+                active: root.containsMouse
+                hasBattery: PluggedIn
+                percent: Percent
+                pluggedIn: ChargeState === BatteryControlModel.Charging
+            }
+
+            WorkspaceComponents.BadgeOverlay {
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+
+                visible: Plasmoid.configuration.showPercentage && !root.isSomehowFullyCharged
+
+                text: i18nc("battery percentage below battery icon", "%1%", Percent)
+                icon: batteryIcon
             }
         }
     }

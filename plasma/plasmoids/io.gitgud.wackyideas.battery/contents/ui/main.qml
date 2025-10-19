@@ -3,6 +3,7 @@
     SPDX-FileCopyrightText: 2011 Viranch Mehta <viranch.mehta@gmail.com>
     SPDX-FileCopyrightText: 2013-2015 Kai Uwe Broulik <kde@privat.broulik.de>
     SPDX-FileCopyrightText: 2021-2022 ivan tkachenko <me@ratijas.tk>
+    SPDX-FileCopyrightText: 2023 Natalie Clarius <natalie.clarius@kde.org>
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
@@ -11,102 +12,68 @@ import QtQuick
 import QtQuick.Layouts
 
 import org.kde.coreaddons as KCoreAddons
-import org.kde.kcmutils // KCMLauncher
-import org.kde.config // KAuthorized
-import org.kde.notification
+import org.kde.kcmutils as KCMUtils
+import org.kde.config as KConfig
 import org.kde.plasma.core as PlasmaCore
-import org.kde.plasma.plasma5support as P5Support
 import org.kde.plasma.plasmoid
 import org.kde.kirigami as Kirigami
 import org.kde.kitemmodels as KItemModels
 
-import "logic.js" as Logic
+import org.kde.plasma.private.batterymonitor
+import org.kde.plasma.private.battery
 
 PlasmoidItem {
     id: batterymonitor
 
-    property QtObject pmSource: P5Support.DataSource {
-        id: pmSource
-        engine: "powermanagement"
-        connectedSources: sources
-        onSourceAdded: source => {
-            disconnectSource(source);
-            connectSource(source);
-        }
-        onSourceRemoved: source => {
-            disconnectSource(source);
-        }
-        onDataChanged: {
-            Logic.updateInhibitions(batterymonitor, pmSource);
-        }
-    }
-    property QtObject batteries: KItemModels.KSortFilterProxyModel {
-        id: batteries
-        filterRoleName: "Is Power Supply"
-        sortOrder: Qt.DescendingOrder
-        sourceModel: KItemModels.KSortFilterProxyModel {
-            sortRoleName: "Pretty Name"
-            sortOrder: Qt.AscendingOrder
-            sortCaseSensitivity: Qt.CaseInsensitive
-            sourceModel: P5Support.DataModel {
-                dataSource: pmSource
-                sourceFilter: "Battery[0-9]+"
-            }
-        }
+    PowerProfilesControl {
+        id: powerProfilesControl
+
+        readonly property bool isInBalancedProfile: activeProfile === "balanced"
+        readonly property bool isInPerformanceProfile: activeProfile === "performance"
+        readonly property bool isInPowersaveProfile: activeProfile === "power-saver"
+        readonly property bool isHeldOnPowerProfile: profileHolds.length > 0
+        readonly property string defaultPowerProfile: configuredProfile ? configuredProfile : "balanced"
+        readonly property bool isInDefaultPowerProfile: !activeProfile || activeProfile === defaultPowerProfile
     }
 
+    BatteryControlModel {
+        id: batteryControl
+
+        readonly property int remainingTime: smoothedRemainingMsec
+        readonly property bool isSomehowFullyCharged: pluggedIn && state === BatteryControlModel.FullyCharged
+    }
+
+    KItemModels.KSortFilterProxyModel {
+        id: brokenBatteriesModel
+        sourceModel: batteryControl
+
+        function containsBrokenBattery(sourceRow, sourceParent) {
+            const capacityRole = sourceModel.KItemModels.KRoleNames.role("Capacity");
+            const powerSupplyRole = sourceModel.KItemModels.KRoleNames.role("IsPowerSupply");
+            const capacity = sourceModel.data(sourceModel.index(sourceRow, 0, sourceParent), capacityRole);
+            const powerSupply = sourceModel.data(sourceModel.index(sourceRow, 0, sourceParent), powerSupplyRole);
+            return powerSupply === true && (capacity > 0 && capacity < 50);
+        }
+        filterRowCallback: (sourceRow, sourceParent) => containsBrokenBattery(sourceRow, sourceParent)
+    }
 
 
-    property int batteryCapacity: batteries.sourceModel.sourceModel.dataSource.data["Battery0"] !== undefined ? batteries.sourceModel.sourceModel.dataSource.data["Battery0"].Capacity : 0
-    readonly property bool isBroken: batteryCapacity > 0 && batteryCapacity < 50
-    readonly property bool hasBatteries: batteries.count > 0 && pmSource.data["Battery"]["Has Cumulative"]
-    readonly property bool kcmAuthorized: KAuthorized.authorizeControlModule("powerdevilprofilesconfig")
-    readonly property bool kcmEnergyInformationAuthorized: KAuthorized.authorizeControlModule("kcm_energyinfo")
-    readonly property bool isPluggedIn: pmSource.data["AC Adapter"]["Plugged in"]
-    readonly property bool isSomehowFullyCharged: (pmSource.data["AC Adapter"]["Plugged in"] && pmSource.data["Battery"]["State"] === "FullyCharged") ||
-                                                   // When we are using a charge threshold, the kernel
-                                                   // may stop charging within a percentage point of the actual threshold
-                                                   // and this is considered correct behavior, so we have to handle
-                                                   // that. See https://bugzilla.kernel.org/show_bug.cgi?id=215531.
-                                                   (pmSource.data["AC Adapter"]["Plugged in"]
-                                                   && typeof pmSource.data["Battery"]["Charge Stop Threshold"] === "number"
-                                                   && (pmSource.data.Battery.Percent  >= pmSource.data["Battery"]["Charge Stop Threshold"] - 1
-                                                       && pmSource.data.Battery.Percent  <= pmSource.data["Battery"]["Charge Stop Threshold"] + 1)
-                                                   // Also, Upower may give us a status of "Not charging" rather than
-                                                   // "Fully charged", so we need to account for that as well. See
-                                                   // https://gitlab.freedesktop.org/upower/upower/-/issues/142.
-                                                   && (pmSource.data["Battery"]["State"] === "NoCharge" || pmSource.data["Battery"]["State"] === "FullyCharged"))
-    readonly property int remainingTime: Number(pmSource.data["Battery"]["Smoothed Remaining msec"])
+    InhibitionControl {
+        id: inhibitionControl
+    }
 
-    readonly property var profiles: pmSource.data["Power Profiles"] ? (pmSource.data["Power Profiles"]["Profiles"] || []) : []
-    property bool isManuallyInPerformanceMode: false // to be set on power profile requested through the applet
-    property bool isManuallyInPowerSaveMode: false // to be set on power profile requested through the applet
-    readonly property bool isSomehowInPerformanceMode: actuallyActiveProfile === "performance"// Don't care about whether it was manually one or due to holds
-    readonly property bool isSomehowInPowerSaveMode: actuallyActiveProfile === "power-saver" // Don't care about whether it was manually one or due to holds
-    readonly property bool isHeldOnPerformanceMode: isSomehowInPerformanceMode && activeProfileHolds.length > 0
-    readonly property bool isHeldOnPowerSaveMode: isSomehowInPowerSaveMode && activeProfileHolds.length > 0
+    readonly property bool kcmAuthorized: KConfig.KAuthorized.authorizeControlModule("powerdevilprofilesconfig")
+    readonly property bool kcmEnergyInformationAuthorized: KConfig.KAuthorized.authorizeControlModule("kcm_energyinfo")
 
-    readonly property bool inPanel: (Plasmoid.location === PlasmaCore.Types.TopEdge
-        || Plasmoid.location === PlasmaCore.Types.RightEdge
-        || Plasmoid.location === PlasmaCore.Types.BottomEdge
-        || Plasmoid.location === PlasmaCore.Types.LeftEdge)
+    readonly property bool inPanel: [
+        PlasmaCore.Types.TopEdge,
+        PlasmaCore.Types.RightEdge,
+        PlasmaCore.Types.BottomEdge,
+        PlasmaCore.Types.LeftEdge,
+    ].includes(Plasmoid.location)
+    readonly property bool compactInPanel: inPanel && !!compactRepresentationItem?.visible
 
-    property bool powermanagementDisabled: false
-
-    // List of active power management inhibitions (applications that are
-    // blocking sleep and screen locking).
-    //
-    // type: [{
-    //  Icon: string,
-    //  Name: string,
-    //  Reason: string,
-    // }]
-    property var inhibitions: []
-    property bool manuallyInhibited: false
-    readonly property var activeProfileHolds: pmSource.data["Power Profiles"] ? (pmSource.data["Power Profiles"]["Profile Holds"] || []) : []
-    readonly property string actuallyActiveProfile: pmSource.data["Power Profiles"] ? (pmSource.data["Power Profiles"]["Current Profile"] || "") : ""
-
-    function symbolicizeIconName(iconName) {
+    function symbolicizeIconName(iconName: string): string {
         const symbolicSuffix = "-symbolic";
         if (iconName.endsWith(symbolicSuffix)) {
             return iconName;
@@ -115,24 +82,44 @@ PlasmoidItem {
         return iconName + symbolicSuffix;
     }
 
+    signal inhibitionChangeRequested(bool inhibit)
+
+    onInhibitionChangeRequested: inhibit => {
+        inhibitionControl.isSilent = expanded; // show OSD only when the plasmoid isn't expanded since the changing switch is feedback enough
+
+        if (inhibit) {
+            const reason = i18n("The battery applet has enabled suppressing sleep and screen locking");
+            inhibitionControl.inhibit(reason)
+        } else {
+            inhibitionControl.uninhibit()
+        }
+    }
+
+    signal activateProfileRequested(string profile)
+
+    onActivateProfileRequested: profile => {
+        powerProfilesControl.isSilent = expanded;
+
+        if (profile === powerProfilesControl.activeProfile) {
+            return;
+        }
+        powerProfilesControl.setProfile(profile);
+    }
+
     switchWidth: Kirigami.Units.gridUnit * 10
     switchHeight: Kirigami.Units.gridUnit * 10
 
-    Plasmoid.title: "More power options"//hasBatteries ? i18n("Power and Battery") : i18n("Power Management")
+    Plasmoid.title: i18n("More power options")
 
-    LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
+    LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
     Plasmoid.status: {
-        if (powermanagementDisabled) {
+        if (inhibitionControl.isManuallyInhibited || !powerProfilesControl.isInDefaultPowerProfile) {
             return PlasmaCore.Types.ActiveStatus;
         }
 
-        if (pmSource.data.Battery["Has Cumulative"] && pmSource.data["Battery"]["State"] === "Discharging") {
-            return PlasmaCore.Types.ActiveStatus;
-        }
-
-        if (isManuallyInPerformanceMode || isManuallyInPowerSaveMode || isHeldOnPerformanceMode || isHeldOnPowerSaveMode) {
+        if (batteryControl.hasCumulative && (batteryControl.state === BatteryControlModel.Discharging || batteryControl.state === BatteryControlModel.Charging)) {
             return PlasmaCore.Types.ActiveStatus;
         }
 
@@ -140,20 +127,24 @@ PlasmoidItem {
     }
 
     toolTipMainText: {
-        if (!hasBatteries) {
+        if (batteryControl.hasInternalBatteries && !batteryControl.hasCumulative) {
+            return i18n("Battery is not present in the bay");
+        }
+
+        if (!batteryControl.hasInternalBatteries) {
             return Plasmoid.title
-        } else if (isSomehowFullyCharged) {
+        } else if (batteryControl.isSomehowFullyCharged) {
             return i18n("Fully Charged");
         }
 
-        const percent = pmSource.data.Battery.Percent;
-        if (pmSource.data["AC Adapter"] && pmSource.data["AC Adapter"]["Plugged in"]) {
-            const state = pmSource.data.Battery.State;
-            if (state === "NoCharge") {
+        const percent = batteryControl.percent;
+        if (batteryControl.pluggedIn) {
+            const state = batteryControl.state;
+            if (state === BatteryControlModel.NoCharge) {
                 return i18n("Battery at %1%, not Charging", percent);
-            } else if (state === "Discharging") {
+            } else if (state === BatteryControlModel.Discharging) {
                 return i18n("Battery at %1%, plugged in but still discharging", percent);
-            } else if (state === "Charging") {
+            } else if (state === BatteryControlModel.Charging) {
                 return i18n("Battery at %1%, Charging", percent);
             }
         }
@@ -164,45 +155,51 @@ PlasmoidItem {
         const parts = [];
 
         // Add special text for the "plugged in but still discharging" case
-        if (pmSource.data["AC Adapter"] && pmSource.data["AC Adapter"]["Plugged in"] && pmSource.data.Battery.State === "Discharging") {
+        if (batteryControl.pluggedIn && batteryControl.state === BatteryControlModel.Discharging) {
             parts.push(i18n("The power supply is not powerful enough to charge the battery"));
         }
 
-        if (batteries.count === 0) {
+        if (!batteryControl.hasBatteries) {
             parts.push(i18n("No Batteries Available"));
-        } else if (remainingTime > 0) {
-            const remainingTimeString = KCoreAddons.Format.formatDuration(remainingTime, KCoreAddons.FormatTypes.HideSeconds);
-            if (pmSource.data["Battery"]["State"] === "FullyCharged") {
-                // Don't add anything
-            } else if (pmSource.data["AC Adapter"] && pmSource.data["AC Adapter"]["Plugged in"] && pmSource.data.Battery.State === "Charging") {
-                parts.push(i18nc("time until fully charged - HH:MM","%1 until fully charged", remainingTimeString));
-            } else {
-                parts.push(i18nc("remaining time left of battery usage - HH:MM","%1 remaining", remainingTimeString));
-            }
-        } else if (pmSource.data.Battery.State === "NoCharge" && !isSomehowFullyCharged) {
-            parts.push(i18n("Not charging"));
-        } // otherwise, don't add anything
-
-        if (powermanagementDisabled) {
-            parts.push(i18n("Automatic sleep and screen locking are disabled"));
+        } else if (batteryControl.hasInternalBatteries) {
+            if (batteryControl.remainingTime > 0) {
+                const remainingTimeString = KCoreAddons.Format.formatDuration(batteryControl.remainingTime, KCoreAddons.FormatTypes.HideSeconds);
+                if (batteryControl.state === BatteryControlModel.FullyCharged) {
+                    // Don't add anything
+                } else if (batteryControl.pluggedIn && batteryControl.state === BatteryControlModel.Charging) {
+                    parts.push(i18nc("time until fully charged - HH:MM", "%1 until fully charged", remainingTimeString));
+                } else {
+                    parts.push(i18nc("remaining time left of battery usage - HH:MM", "%1 remaining", remainingTimeString));
+                }
+            } else if (batteryControl.state === BatteryControlModel.NoCharge && !batteryControl.isSomehowFullyCharged) {
+                parts.push(i18n("Not charging"));
+            } // otherwise, don't add anything
         }
 
-        if (isSomehowInPerformanceMode) {
-            if (isHeldOnPerformanceMode) {
+        if (inhibitionControl.isManuallyInhibited) {
+            parts.push(i18n("Automatic sleep and screen locking are disabled; middle-click to re-enable"));
+        } else {
+            parts.push(i18n("Middle-click to disable automatic sleep and screen locking"));
+        }
+
+        if (powerProfilesControl.isInPerformanceProfile) {
+            if (powerProfilesControl.isHeldOnPowerProfile) {
                 parts.push(i18np("An application has requested activating Performance mode",
                                  "%1 applications have requested activating Performance mode",
-                                 activeProfileHolds.length));
+                                 powerProfilesControl.profileHolds.length));
             } else {
-                parts.push(i18n("System is in Performance mode"));
+                parts.push(i18n("System is in Performance mode; scroll to change"));
             }
-        } else if (isSomehowInPowerSaveMode) {
-            if (isHeldOnPowerSaveMode) {
+        } else if (powerProfilesControl.isInPowersaveProfile) {
+            if (powerProfilesControl.isHeldOnPowerProfile) {
                 parts.push(i18np("An application has requested activating Power Save mode",
                                 "%1 applications have requested activating Power Save mode",
-                                activeProfileHolds.length));
+                                powerProfilesControl.profileHolds.length));
             } else {
-                parts.push(i18n("System is in Power Save mode"));
+                parts.push(i18n("System is in Power Save mode; scroll to change"));
             }
+        } else if (powerProfilesControl.isInBalancedProfile) {
+            parts.push(i18n("System is in Balanced Power mode; scroll to change"));
         }
 
         return parts.join("\n");
@@ -210,10 +207,10 @@ PlasmoidItem {
 
     Plasmoid.icon: {
         let iconName;
-        if (hasBatteries) {
+        if (batteryControl.hasBatteries) {
             iconName = "battery-full";
         } else {
-            iconName = "battery-profile-performance";
+            iconName = "preferences-system-power-management";
         }
 
         if (inPanel) {
@@ -224,88 +221,89 @@ PlasmoidItem {
     }
 
     compactRepresentation: CompactRepresentation {
-        hasBatteries: batterymonitor.hasBatteries
-        batteries: batterymonitor.batteries
-        isSetToPerformanceMode: batterymonitor.isHeldOnPerformanceMode || batterymonitor.isManuallyInPerformanceMode
-        isSetToPowerSaveMode: batterymonitor.isHeldOnPowerSaveMode || batterymonitor.isManuallyInPowerSaveMode
-        isSomehowFullyCharged: batterymonitor.isSomehowFullyCharged
+        batteryPercent: batteryControl.percent
+        batteryPluggedIn: batteryControl.pluggedIn
+        hasBatteries: batteryControl.hasBatteries
+        hasInternalBatteries: batteryControl.hasInternalBatteries
+        hasCumulative: batteryControl.hasCumulative
+
+        isSomehowFullyCharged: batteryControl.isSomehowFullyCharged
+        isDischarging: !batteryControl.pluggedIn
+
+        isManuallyInhibited: inhibitionControl.isManuallyInhibited
+        isInDefaultPowerProfile: powerProfilesControl.isInDefaultPowerProfile
+        isInPowersaveProfile: powerProfilesControl.isInPowersaveProfile
+        isInBalancedProfile: powerProfilesControl.isInBalancedProfile
+        isInPerformanceProfile: powerProfilesControl.isInPerformanceProfile
+
+        model: batteryControl
+
+        acceptedButtons: Qt.LeftButton | Qt.MiddleButton
+        property bool wasExpanded: false
+        onPressed: wasExpanded = batterymonitor.expanded
+        onClicked: mouse => {
+            if (mouse.button === Qt.MiddleButton) {
+                batterymonitor.inhibitionChangeRequested(!inhibitionControl.isManuallyInhibited);
+            } else {
+                batterymonitor.expanded = !wasExpanded;
+            }
+        }
+
+        onWheel: wheel => {
+            if (!powerProfilesControl.isPowerProfileDaemonInstalled) {
+                return;
+            }
+
+            let { profiles } = powerProfilesControl;
+            if (profiles.length === 0) {
+                return;
+            }
+
+            let { activeProfile } = powerProfilesControl;
+            let newProfile = activeProfile;
+
+            const delta = (wheel.inverted ? 1 : -1) * (wheel.angleDelta.y ? wheel.angleDelta.y : -wheel.angleDelta.x);
+            // Magic number 120 for common "one click"
+            // See: https://qt-project.org/doc/qt-5/qml-qtquick-wheelevent.html#angleDelta-prop
+            const steps = Math.round(delta/120);
+            const newProfileIndex = Math.max(0, Math.min(profiles.length - 1, profiles.indexOf(activeProfile) + steps));
+            batterymonitor.activateProfileRequested(profiles[newProfileIndex])
+        }
     }
 
     fullRepresentation: PopupDialog {
         id: dialogItem
 
-        readonly property var appletInterface: batterymonitor
+        readonly property var pmControl: inhibitionControl
+
+        //readonly property var appletInterface: batterymonitor
         readonly property int flyoutIntendedWidth: 16 * 15
+        model: batteryControl
 
-        Layout.minimumWidth: 16 * 10
-
-        Layout.minimumHeight: Kirigami.Units.gridUnit * 5
-        Layout.maximumHeight: Kirigami.Units.gridUnit * 40
-        Layout.preferredHeight: implicitHeight
-
-        model: batteries
-
-        pluggedIn: pmSource.data["AC Adapter"] !== undefined && pmSource.data["AC Adapter"]["Plugged in"]
-        remainingTime: batterymonitor.remainingTime
-        activeProfile: batterymonitor.actuallyActiveProfile
-        inhibitions: batterymonitor.inhibitions
-        manuallyInhibited: batterymonitor.manuallyInhibited
-        inhibitsLidAction: pmSource.data["PowerDevil"] && pmSource.data["PowerDevil"]["Is Lid Present"] && !pmSource.data["PowerDevil"]["Triggers Lid Action"] ? true : false
-        profilesInstalled: pmSource.data["Power Profiles"] ? pmSource.data["Power Profiles"]["Installed"] : false
-        profiles: pmSource.data["Power Profiles"] ? (pmSource.data["Power Profiles"]["Profiles"] || []) : []
-        inhibitionReason: pmSource.data["Power Profiles"] ? (pmSource.data["Power Profiles"]["Performance Inhibited Reason"] || "") : ""
-        degradationReason: pmSource.data["Power Profiles"] ? (pmSource.data["Power Profiles"]["Performance Degraded Reason"] || "") : ""
-        profileHolds: batterymonitor.activeProfileHolds
-
-        onInhibitionChangeRequested: inhibit => {
-            const service = pmSource.serviceForSource("PowerDevil");
-            if (inhibit) {
-                const reason = i18n("The battery applet has enabled system-wide inhibition");
-                const op1 = service.operationDescription("beginSuppressingSleep");
-                op1.reason = reason;
-                const op2 = service.operationDescription("beginSuppressingScreenPowerManagement");
-                op2.reason = reason;
-
-                const job1 = service.startOperationCall(op1);
-                const job2 = service.startOperationCall(op2);
-            } else {
-                const op1 = service.operationDescription("stopSuppressingSleep");
-                const op2 = service.operationDescription("stopSuppressingScreenPowerManagement");
-
-                const job1 = service.startOperationCall(op1);
-                const job2 = service.startOperationCall(op2);
-            }
-            Logic.updateInhibitions(batterymonitor, pmSource);
-        }
-        onPowerManagementChanged: disabled => {
-            batterymonitor.powermanagementDisabled = disabled
-        }
-
-        Notification {
-            id: powerProfileError
-            componentName: "plasma_workspace"
-            eventId: "warning"
-            iconName: "speedometer"
-            title: i18n("Power Management")
-        }
+        isManuallyInhibited: inhibitionControl.isManuallyInhibited
+        isManuallyInhibitedError: inhibitionControl.isManuallyInhibitedError
+        pluggedIn: batteryControl.pluggedIn
+        chargeStopThreshold: batteryControl.chargeStopThreshold
+        remainingTime: batteryControl.remainingTime
+        activeProfile: powerProfilesControl.activeProfile
+        activeProfileError: powerProfilesControl.profileError
+        inhibitions: inhibitionControl.inhibitions
+        blockedInhibitions: inhibitionControl.blockedInhibitions
+        inhibitsLidAction: inhibitionControl.isLidPresent && !inhibitionControl.triggersLidAction
+        profilesInstalled: powerProfilesControl.isPowerProfileDaemonInstalled
+        profiles: powerProfilesControl.profiles
+        inhibitionReason: powerProfilesControl.inhibitionReason
+        degradationReason: powerProfilesControl.degradationReason
+        profileHolds: powerProfilesControl.profileHolds
+        isTlpInstalled: powerProfilesControl.isTlpInstalled
+        containsBrokenBatteries: brokenBatteriesModel.count > 0
 
         onActivateProfileRequested: profile => {
-            dialogItem.activeProfile = profile;
-            const service = pmSource.serviceForSource("PowerDevil");
-            const op = service.operationDescription("setPowerProfile");
-            op.profile = profile;
+            batterymonitor.activateProfileRequested(profile);
+        }
 
-            const job = service.startOperationCall(op);
-            job.finished.connect(job => {
-                dialogItem.activeProfile = Qt.binding(() => actuallyActiveProfile);
-                if (!job.result) {
-                    powerProfileError.text = i18n("Failed to activate %1 mode", profile);
-                    powerProfileError.sendEvent();
-                    return;
-                }
-                batterymonitor.isManuallyInPerformanceMode = profile == "performance";
-                batterymonitor.isManuallyInPowerSaveMode = profile == "power-saver";
-            });
+        onInhibitionChangeRequested: inhibit => {
+            batterymonitor.inhibitionChangeRequested(inhibit);
         }
     }
 
@@ -314,34 +312,20 @@ PlasmoidItem {
             text: i18n("&Show Energy Information…")
             icon.name: "documentinfo"
             visible: batterymonitor.kcmEnergyInformationAuthorized
-            onTriggered: KCMLauncher.openInfoCenter("kcm_energyinfo")
-        }/*,
-        PlasmaCore.Action {
-            text: i18n("Show Battery Percentage on Icon When Not Fully Charged")
-            icon.name: "format-number-percent"
-            visible: batterymonitor.hasBatteries
-            checkable: true
-            checked: Plasmoid.configuration.showPercentage
-            onTriggered: checked => {
-                Plasmoid.configuration.showPercentage = checked
-            }
-        }*/
+            onTriggered: checked => KCMUtils.KCMLauncher.openInfoCenter("kcm_energyinfo")
+        }
     ]
 
     PlasmaCore.Action {
         id: configureAction
-        text: i18n("&Configure Energy Saving…")
+        text: i18n("&Configure Power Management…")
         icon.name: "configure"
-        shortcut: "alt+d, s"
-        onTriggered: {
-            KCMLauncher.openSystemSettings("kcm_powerdevilprofilesconfig");
+        onTriggered: checked => {
+            KCMUtils.KCMLauncher.openSystemSettings("kcm_powerdevilprofilesconfig");
         }
     }
 
     Component.onCompleted: {
-        Logic.updateInhibitions(batterymonitor, pmSource)
-
         Plasmoid.setInternalAction("configure", configureAction);
-
     }
 }
