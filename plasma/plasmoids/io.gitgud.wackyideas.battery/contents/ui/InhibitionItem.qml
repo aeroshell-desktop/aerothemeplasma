@@ -117,6 +117,8 @@ QtControls.ItemDelegate {
             Separator {
                 visible: root.inhibitions.length > 0 || root.blockedInhibitions.length > 0 || root.inhibitsLidAction
                 Layout.fillWidth: true
+                Layout.leftMargin: -Kirigami.Units.largeSpacing
+                Layout.rightMargin: -Kirigami.Units.largeSpacing
             }
             // list of inhibitions
             ColumnLayout {
@@ -134,21 +136,6 @@ QtControls.ItemDelegate {
                     iconSource: "computer-laptop"
                     text: i18nc("Minimize the length of this string as much as possible", "Your laptop is configured not to sleep when closing the lid while an external monitor is connected.")
                 }
-
-                // list of automatic inhibitions
-                /*PlasmaComponents3.Label {
-                    id: inhibitionExplanation
-                    Layout.fillWidth: true
-                    visible: root.inhibitions.length > 1
-                    font: Kirigami.Theme.smallFont
-                    wrapMode: Text.WordWrap
-                    elide: Text.ElideRight
-                    maximumLineCount: 3
-                    text: i18np("%1 application is currently blocking sleep and screen locking:",
-                                "%1 applications are currently blocking sleep and screen locking:",
-                                root.inhibitions.length)
-                    textFormat: Text.PlainText
-                }*/
 
                 Repeater {
                     model: root.inhibitions
@@ -236,37 +223,8 @@ QtControls.ItemDelegate {
                                 }
                             }
                         }
-
-                        /*Item {
-                            visible: permanentlyBlocked
-                            width: blockButton.width
-                            height: blockButton.height
-                            Layout.alignment: Qt.AlignRight
-
-                            PlasmaComponents3.Button {
-                                id: blockButton
-                                text: i18nc("@action:button Prevent an app from blocking automatic sleep and screen locking after inactivity", "Unblock")
-                                icon.name: "edit-delete-remove"
-                                onClicked:
-                            }
-                        }*/
                     }
                 }
-
-                // list of blocked inhibitions
-                /*PlasmaComponents3.Label {
-                    id: blockedInhibitionExplanation
-                    Layout.fillWidth: true
-                    visible: root.blockedInhibitions.length > 1
-                    font: Kirigami.Theme.smallFont
-                    wrapMode: Text.WordWrap
-                    elide: Text.ElideRight
-                    maximumLineCount: 3
-                    text: i18np("%1 application has been prevented from blocking sleep and screen locking:",
-                                "%1 applications have been prevented from blocking sleep and screen locking:",
-                                root.blockedInhibitions.length)
-                    textFormat: Text.PlainText
-                }*/
 
                 Repeater {
                     model: root.blockedInhibitions
@@ -340,19 +298,6 @@ QtControls.ItemDelegate {
                             }
                         }
 
-                        /*Item {
-                            visible: !permanently
-                            width: unblockButton.width
-                            height: unblockButton.height
-                            Layout.alignment: Qt.AlignRight
-
-                            PlasmaComponents3.Button {
-                                id: unblockButton
-                                text: i18nc("@action:button Undo preventing an app from blocking automatic sleep and screen locking after inactivity", "Block Again")
-                                icon.name: "dialog-cancel"
-                                onClicked: pmControl.unblockInhibition(app, reason, false)
-                            }
-                        }*/
                     }
                 }
             }
