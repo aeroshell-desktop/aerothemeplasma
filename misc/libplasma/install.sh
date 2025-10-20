@@ -34,26 +34,35 @@ fi
 
 if [ ! -d ./build/${SRCDIR} ]; then
 	rm -rf build
-	mkdir build
+	mkdir -p build
 	echo "Downloading $ARCHIVE"
 	curl $URL -o ./build/$ARCHIVE
 	tar -xvf ./build/$ARCHIVE -C ./build/
 	echo "Extracted $ARCHIVE"
 fi
 
+PWDDIR=$(pwd)
 cp -r src ./build/$SRCDIR/
 cd ./build/$SRCDIR/
-mkdir build
+mkdir -p build
 cd build
-echo "Stopping plasmashell to prevent crashes. Will be restarted after the script has finished."
-killall plasmashell
 cmake -DCMAKE_INSTALL_PREFIX=/usr .. $USE_NINJA
-cmake --build . --target corebindingsplugin # Implicitly compiles plasmaquick
-sudo cp ./bin/org/kde/plasma/core/libcorebindingsplugin.so $INSTALLDST
+cmake --build . --target corebindingsplugin
 
+TMPDIR="/opt/aerothemeplasma/tmp"
+sudo mkdir -p $TMPDIR
+sudo cp ./bin/org/kde/plasma/core/libcorebindingsplugin.so $TMPDIR
 for filename in "$PWD/bin/libPlasma"*; do
-	echo "Copying $filename to $LIBDIR"
-	sudo cp "$filename" "$LIBDIR"
+	echo "Copying $filename to $TMPDIR"
+	sudo cp "$filename" "$TMPDIR"
 done
-setsid plasmashell --replace &
-echo "Done."
+
+cd $PWDDIR
+sudo cp apply $TMPDIR
+sudo chmod +x "$TMPDIR/apply"
+sudo cp apply-libplasma-patches.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable apply-libplasma-patches.service
+
+echo "Libraries have been compiled and moved to $TMPDIR. Restart your computer to apply the changes."
+echo "In case Plasma crashes and/or fails to load after installing these patches, simply reinstall the libplasma package from your respective distro."

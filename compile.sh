@@ -14,7 +14,7 @@ if [[ -z "$(command -v ninja)" ]]; then
     fi
 fi
 
-cd "$PWD/misc/defaulttooltip"
+cd "$PWD/misc/libplasma"
 sh $USE_SCRIPT $@
 cd "$CUR_DIR"
 #echo "Compiling plasmoids..."

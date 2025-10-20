@@ -3,7 +3,7 @@
 ## TABLE OF CONTENTS
 
 1. [Prerequisites](#preq)
-2. [Getting Started](#started)
+2. [Getting started](#started)
 3. [Compiling](#compile)
 4. [Plasma components](#plasma)
 5. [KWin components](#kwin)
@@ -56,6 +56,8 @@ $ cd aerothemeplasma
 ```
 
 It's highly recommended to use git for downloading AeroThemePlasma as updating becomes much easier.
+
+There are two ways to install AeroThemePlasma: Using the provided install scripts, and manual installation. In both cases, further configuration is required by the user.
 
 ## Compiling <a name="compile"></a>
 
@@ -139,7 +141,7 @@ $ chmod +x install_plasma_components.sh && ./install_plasma_components.sh # Requ
 
 ### Note for SevenTasks:
 
-SevenTasks relies on modifications found in `misc/defaulttooltip` in order to work properly. Make sure that they're compiled and installed correctly before enabling SevenTasks.
+SevenTasks relies on modifications found in `misc/libplasma` in order to work properly. Make sure that they're compiled and installed correctly before enabling SevenTasks.
 
 ### Manual
 
@@ -254,21 +256,20 @@ $ chmod +x add_rule.sh && ./add_rule.sh
 1. Apply the Global Theme after installing everything. Make sure to restart KDE Plasma and KWin as well, by restarting your session.
 2. On a fresh KDE install, **remove** the default panel and add the "AeroThemePlasma Taskbar" panel using Edit mode. You can also manually configure the panel for a finer setup.
 3. Right click on the desktop and open "Desktop and Wallpaper", and select "Desktop (Win7)" under Layout, and apply the changes.
-4. When updating KDE Plasma, usually through a full system upgrade, recompiling KWin effects and the DefaultToolTip component is necessary.
-5. In System Settings -> Colors & Themes -> Colors, set "Accent color from color scheme"
-6. In System Settings -> Session -> Desktop Session, uncheck the "Ask for confirmation" option.
-7. In System Settings -> Keyboard -> Shortcuts, under KWin, disable the "Peek at Desktop" shortcut, and remap the "MinimizeAll" to Meta+D
-8. In System Settings -> Colors & Themes -> Cursors -> Configure Launch Feedback, set Cursor feedback to "None"
-9. In System Settings -> Fonts, configure the fonts as shown here:
+4. In System Settings -> Colors & Themes -> Colors, set "Accent color from color scheme"
+5. In System Settings -> Session -> Desktop Session, uncheck the "Ask for confirmation" option.
+6. In System Settings -> Keyboard -> Shortcuts, under KWin, disable the "Peek at Desktop" shortcut, and remap the "MinimizeAll" to Meta+D
+7. In System Settings -> Colors & Themes -> Cursors -> Configure Launch Feedback, set Cursor feedback to "None"
+8. In System Settings -> Fonts, configure the fonts as shown here:
 
 <img src="screenshots/fontconfig.png">
 
 The following steps are optional:
 
-10. To enable full font hinting just for Segoe UI, move the `fontconfig` folder to `~/.config`. This will enable full font hinting for Segoe UI while keeping slight font hinting for other fonts. Additionally, append `QML_DISABLE_DISTANCEFIELD=1` into `/etc/environment` in order for this to be properly applied. _While full font hinting makes the font rendering look sharper and somewhat closer to Windows 7's ClearType, on Linux this option causes noticeably faulty kerning. This has been a [prominent](https://github.com/OpenTTD/OpenTTD/issues/11765) [issue](https://gitlab.gnome.org/GNOME/pango/-/issues/656) [for](https://gitlab.gnome.org/GNOME/pango/-/issues/463) [several](https://gitlab.gnome.org/GNOME/pango/-/issues/404) [years](https://github.com/harfbuzz/harfbuzz/issues/2394) [now](https://www.phoronix.com/news/HarfBuzz-Hinting-Woe) and while the situation has improved from being unreadable to just being ugly, a complete solution for this doesn't seem to be coming anytime soon._
-11. For Wine users it's recommended to install the [VistaVG Ultimate](https://www.deviantart.com/vishal-gupta/art/VistaVG-Ultimate-57715902) msstyles theme.
-12. To install custom branding at the Info Center, move `kcm-about-distrorc` from the `branding` folder to `~/.config/kdedefaults/`, then edit the file's `LogoPath` entry to point to the absolute path of `kcminfo.png`.
-13. Add the following to `~/.bashrc` to get bash to look more like the command prompt on Windows:
+9. To enable full font hinting just for Segoe UI, move the `fontconfig` folder to `~/.config`. This will enable full font hinting for Segoe UI while keeping slight font hinting for other fonts. Additionally, append `QML_DISABLE_DISTANCEFIELD=1` into `/etc/environment` in order for this to be properly applied. _While full font hinting makes the font rendering look sharper and somewhat closer to Windows 7's ClearType, on Linux this option causes noticeably faulty kerning. This has been a [prominent](https://github.com/OpenTTD/OpenTTD/issues/11765) [issue](https://gitlab.gnome.org/GNOME/pango/-/issues/656) [for](https://gitlab.gnome.org/GNOME/pango/-/issues/463) [several](https://gitlab.gnome.org/GNOME/pango/-/issues/404) [years](https://github.com/harfbuzz/harfbuzz/issues/2394) [now](https://www.phoronix.com/news/HarfBuzz-Hinting-Woe) and while the situation has improved from being unreadable to just being ugly, a complete solution for this doesn't seem to be coming anytime soon._
+10. For Wine users it's recommended to install the [VistaVG Ultimate](https://www.deviantart.com/vishal-gupta/art/VistaVG-Ultimate-57715902) msstyles theme.
+11. To install custom branding at the Info Center, move `kcm-about-distrorc` from the `branding` folder to `~/.config/kdedefaults/`, then edit the file's `LogoPath` entry to point to the absolute path of `kcminfo.png`.
+12. Add the following to `~/.bashrc` to get bash to look more like the command prompt on Windows:
 
 ```bash
 PS1='C:${PWD//\//\\\\}> '
