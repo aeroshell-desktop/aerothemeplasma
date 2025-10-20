@@ -55,27 +55,7 @@ $ git clone https://gitgud.io/wackyideas/aerothemeplasma.git aerothemeplasma
 $ cd aerothemeplasma
 ```
 
-Whenever a new update is released, update the downloaded repository by pulling the new changes:
-
-```bash
-$ cd /path/to/aerothemeplasma
-$ git pull
-```
-
-and re-run the install scripts:
-
-```sh
-$ sh compile.sh
-$ sh install_plasmoids.sh
-$ sh install_plasmoids.sh --no-compile # If there's no need to recompile the C++ parts of the plasmoids, you can just run this
-$ sh install_kwin_components.sh
-$ sh install_plasma_components.sh
-$ sh install_misc_components.sh # Usually not required to run again
-```
-
-Typically it's enough to run the first four scripts after ATP has been updated, although it's recommended to check new commits to see what has actually changed. 
-
-When doing a full system upgrade, KWin effects and `libplasma` modifications tend to stop working. Running `compile.sh` after a full system upgrade is required for them to work again (assuming no breaking upstream changes).
+It's highly recommended to use git for downloading AeroThemePlasma as updating becomes much easier.
 
 ## Compiling <a name="compile"></a>
 
@@ -118,6 +98,31 @@ If compiling individual KWin effects by running their respective `install.sh` sc
 $ ./install.sh --wayland --ninja
 $ sh install.sh --wayland --ninja # Or like this
 ```
+
+### Updating AeroThemePlasma
+
+Whenever a new update is released, update the downloaded repository by pulling the new changes:
+
+```bash
+$ cd /path/to/aerothemeplasma
+$ git pull
+```
+
+and re-run the install scripts:
+
+```sh
+$ sh compile.sh
+$ sh install_plasmoids.sh
+$ sh install_plasmoids.sh --no-compile # If there's no need to recompile the C++ parts of the plasmoids, you can just run this
+$ sh install_kwin_components.sh
+$ sh install_plasma_components.sh
+$ sh install_misc_components.sh # Usually not required to run again
+```
+
+Typically it's enough to run the first four scripts after ATP has been updated, although it's recommended to check new commits to see what has actually changed. 
+
+When doing a full system upgrade, KWin effects and `libplasma` modifications tend to stop working. Running `compile.sh` after a full system upgrade is required for them to work again (assuming no breaking upstream changes).
+
 
 ## Plasma components <a name="plasma"></a>
 
@@ -249,25 +254,12 @@ $ chmod +x add_rule.sh && ./add_rule.sh
 1. Apply the Global Theme after installing everything. Make sure to restart KDE Plasma and KWin as well, by restarting your session.
 2. On a fresh KDE install, **remove** the default panel and add the "AeroThemePlasma Taskbar" panel using Edit mode. You can also manually configure the panel for a finer setup.
 3. Right click on the desktop and open "Desktop and Wallpaper", and select "Desktop (Win7)" under Layout, and apply the changes.
-4. Disable the following entries in the system tray settings:
-
-   - Power and Battery
-   - Networks
-   - Keyboard Layout
-   - Audio Volume
-
-   And enable the following entries:
-
-   - Battery
-   - Network Management
-   - Sound Mixer
-
-5. When updating KDE Plasma, usually through a full system upgrade, recompiling KWin effects and the DefaultToolTip component is necessary.
-6. In System Settings -> Colors & Themes -> Colors, set "Accent color from color scheme"
-7. In System Settings -> Session -> Desktop Session, uncheck the "Ask for confirmation" option.
-8. In System Settings -> Keyboard -> Shortcuts, under KWin, disable the "Peek at Desktop" shortcut, and remap the "MinimizeAll" to Meta+D
-9. In System Settings -> Colors & Themes -> Cursors -> Configure Launch Feedback, set Cursor feedback to "None"
-10. In System Settings -> Fonts, configure the fonts as shown here:
+4. When updating KDE Plasma, usually through a full system upgrade, recompiling KWin effects and the DefaultToolTip component is necessary.
+5. In System Settings -> Colors & Themes -> Colors, set "Accent color from color scheme"
+6. In System Settings -> Session -> Desktop Session, uncheck the "Ask for confirmation" option.
+7. In System Settings -> Keyboard -> Shortcuts, under KWin, disable the "Peek at Desktop" shortcut, and remap the "MinimizeAll" to Meta+D
+8. In System Settings -> Colors & Themes -> Cursors -> Configure Launch Feedback, set Cursor feedback to "None"
+9. In System Settings -> Fonts, configure the fonts as shown here:
 
 <img src="screenshots/fontconfig.png">
 
