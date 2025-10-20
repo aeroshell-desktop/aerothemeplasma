@@ -57,14 +57,14 @@ QtControls.ItemDelegate {
     // could visually look as if it were on the same distance from the bar as
     // they are from the slider.
     property PlasmaComponents3.Slider matchHeightOfSlider: PlasmaComponents3.Slider {}
-    readonly property real extraMargin: Math.max(0, Math.floor((matchHeightOfSlider.height - chargeBar.height) / 2))
+    readonly property real extraMargin: Math.max(0, Math.floor((matchHeightOfSlider.height) / 2))
 
     background.visible: false
     //highlighted: activeFocus
     hoverEnabled: false
     text: batteryPrettyName
 
-    Accessible.description: `${isPowerSupplyLabel.text} ${percentLabel.text}; ${details.Accessible.description}`
+    Accessible.description: `${batteryPrettyName} ${batteryPercent}%; ${pluggedIn ? i18n("plugged in") : i18n("not plugged in")}`
 
     contentItem: RowLayout {
         spacing: Kirigami.Units.smallSpacing

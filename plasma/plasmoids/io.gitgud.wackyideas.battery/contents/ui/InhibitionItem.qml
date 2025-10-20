@@ -60,7 +60,7 @@ QtControls.ItemDelegate {
         title: i18n("Power Management")
     }
 
-    Accessible.description: pmStatusLabel.text
+    Accessible.description: isManuallyInhibited ? i18n("Sleep and Screen Locking is manually blocked") : i18n("Sleep and Screen Locking is unblocked")
     Accessible.role: Accessible.CheckBox
     onFocusChanged: {
         if(focus) {
