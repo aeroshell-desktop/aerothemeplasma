@@ -15,13 +15,15 @@ ATP is in constant development and testing, it has been tested on:
 
 *AeroThemePlasma currently lacks full Wayland support, which may result in Wayland-specific issues. 
 
-## This project overwrites a small number of [system](https://gitgud.io/wackyideas/aerothemeplasma/-/tree/master/misc/defaulttooltip) [files](https://gitgud.io/wackyideas/aerothemeplasma/-/tree/master/misc/uac-polkitagent), it's always recommended to make backups of your system just in case. I am not responsible for broken systems, please proceed with caution.
+## This project overwrites a small number of [system](https://gitgud.io/wackyideas/aerothemeplasma/-/tree/master/misc/libplasma) [files](https://gitgud.io/wackyideas/aerothemeplasma/-/tree/master/misc/uac-polkitagent), it's always recommended to make backups of your system just in case. I am not responsible for broken systems, please proceed with caution.
 
 The Plasma 5 version of ATP is available as a tag in this repository, however it is unmaintained and no longer supported.
 
 If you find my work valuable consider donating:
 
 <a href='https://ko-fi.com/M4M2NJ9PJ' target='_blank'><img height='42' style='border:0px;height:42px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+
+[GitHub mirror](https://github.com/WackyIdeas/aerothemeplasma)
 
 ## Installation
 
