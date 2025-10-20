@@ -2,41 +2,46 @@
 
 CUR_DIR=$(pwd)
 
+# Sanity check to see if the proper tools are installed
 if [[ -z "$(command -v tar)" ]]; then
     echo "tar not found. Stopping."
+    exit
+fi
+if [[ -z "$(command -v unzip)" ]]; then
+    echo "unzip not found. Stopping."
     exit
 fi
 
 TMP_DIR="/tmp/atp"
 mkdir -p "$TMP_DIR"
 
-# Kvantum
+# Installs the Kvantum theme.
 echo "Installing Kvantum theme..."
 KV_DIR="$HOME/.config"
 cp -r "$PWD/misc/kvantum/Kvantum" "$KV_DIR"
 echo "Done."
 
-#Sounds
+# Installs the sound themes.
 echo "Unpacking sound themes..."
 SOUNDS_DIR="$HOME/.local/share/sounds"
 mkdir -p "$SOUNDS_DIR"
 tar -xf "$PWD/misc/sounds/sounds.tar.gz" --directory "$SOUNDS_DIR"
 echo "Done."
 
-#Icons
+# Installs the icon theme.
 echo "Unpacking icon theme..."
 ICONS_DIR="$HOME/.local/share/icons"
 mkdir -p "$ICONS_DIR"
 tar -xf "$PWD/misc/icons/Windows 7 Aero.tar.gz" --directory "$ICONS_DIR"
 echo "Done."
 
-#Cursors
+# Installs the cursor theme. Requires admin privileges as this theme gets installed globally so SDDM can use it.
 echo "Unpacking cursor theme..."
 CURSOR_DIR="/usr/share/icons"
 pkexec tar -xf "$PWD/misc/cursors/aero-drop.tar.gz" --directory "$CURSOR_DIR"
 echo "Done."
 
-#Mimetype
+# Installs the modified mimetype associations.
 echo "Installing mimetypes..."
 MIMETYPE_DIR="$HOME/.local/share/mime/packages"
 mkdir -p "$MIMETYPE_DIR"
@@ -47,12 +52,14 @@ update-mime-database "$HOME/.local/share/mime"
 echo "Done."
 
 
-#Optional
-echo "Do you want to install a custom font configuration for Segoe UI fonts? (y/N)"
+# Optional components
+echo "Do you want to install a custom font configuration for Segoe UI fonts? (Recommended) (y/N)"
 read answer
 FONTCONF_DIR="$HOME/.config"
 
 if [ "$answer" != "${answer#[Yy]}" ] ;then
+
+    # Installs custom fontconfig to tweak Segoe UI.
     if test -f "$FONTCONF_DIR/fontconfig/fonts.conf"; then
         echo "Backing up fonts.conf to fonts.conf.old"
         cp -r "$FONTCONF_DIR/fontconfig/fonts.conf" "$FONTCONF_DIR/fontconfig/fonts.conf.old"
@@ -60,15 +67,18 @@ if [ "$answer" != "${answer#[Yy]}" ] ;then
     echo "Installing custom font configuration..."
     cp -r "$PWD/misc/fontconfig/" "$FONTCONF_DIR"
 
+    # Defines QML_DISABLE_DISTANCEFIELD environment variable which generally enhances the font rendering.
     HAS_VAR=$(grep "QML_DISABLE_DISTANCEFIELD" /etc/environment)
     echo "Adding QML_DISABLE_DISTANCEFIELD=1 to /etc/environment"
     if [[ -n "$HAS_VAR" ]]; then
         echo "Variable already added, skipping..."
     else
-        pkexec echo "QML_DISABLE_DISTANCEFIELD=1" >> /etc/environment
+	    pkexec sh -c "echo \"QML_DISABLE_DISTANCEFIELD=1\" >> /etc/environment"
     fi
 fi
 echo "Done."
+
+# Installs custom branding for the system settings info page.
 echo "Do you want to install custom branding for Info Center? (y/N)"
 read answer
 BRANDING_DIR="$HOME/.config/kdedefaults"
@@ -82,6 +92,7 @@ if [ "$answer" != "${answer#[Yy]}" ] ;then
 fi
 echo "Done."
 
+# Installs the terminal font.
 echo "Do you want to install the command prompt font (Terminal Vector)? (y/N)"
 read answer
 if [ "$answer" != "${answer#[Yy]}" ] ;then
@@ -91,6 +102,7 @@ if [ "$answer" != "${answer#[Yy]}" ] ;then
 fi
 echo "Done."
 
+# Installs the Plymouth theme.
 echo "Do you want to install the Plymouth theme? (y/N)"
 read answer
 if [ "$answer" != "${answer#[Yy]}" ] ;then

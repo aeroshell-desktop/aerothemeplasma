@@ -9,7 +9,7 @@ This is a project which aims to recreate the look and feel of Windows 7 as much 
 ATP is in constant development and testing, it has been tested on:
 
 - Arch Linux x64 and other Arch derivatives
-- Plasma 6.4.4, KDE Frameworks 6.17.0, Qt 6.9.1
+- Plasma 6.4.5, KDE Frameworks 6.19.0, Qt 6.10.0
 - 96 DPI scaling, multi monitor
 - X11, Wayland*
 

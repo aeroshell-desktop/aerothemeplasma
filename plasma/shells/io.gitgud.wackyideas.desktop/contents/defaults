@@ -1,5 +1,5 @@
 [Desktop]
-Containment=org.kde.plasma.folder
+Containment=io.gitgud.wackyideas.desktopcontainment
 ToolBox=
 RuntimePlatform=Desktop
 
@@ -8,7 +8,7 @@ RightButton;NoModifier=org.kde.contextmenu
 MiddleButton;NoModifier=org.kde.paste
 
 [Panel]
-Containment=org.kde.panel
+Containment=io.gitgud.wackyideas.panel
 ToolBox=org.kde.paneltoolbox
 [Panel][ContainmentActions]
 RightButton;NoModifier=org.kde.contextmenu

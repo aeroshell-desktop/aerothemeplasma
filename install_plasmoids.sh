@@ -1,8 +1,13 @@
 #!/bin/bash
 
+# You can pass the following arguments to this script:
+# --ninja       Uses Ninja for faster compilation
+# --no-compile  Skips compilation entirely
+
 CUR_DIR=$(pwd)
 USE_SCRIPT="install.sh"
 
+# Sanity check to see if the proper tools are installed.
 if [[ -z "$(command -v kpackagetool6)" ]]; then
     echo "kpackagetool6 not found. Stopping."
     exit
@@ -19,6 +24,9 @@ if [[ -z "$(command -v ninja)" ]]; then
     fi
 fi
 
+# Skips the build process of plasmoids that have C++ components
+# Most of the time, recompiling isn't needed as most changes are done
+# on the QML side.
 if [[ $1 == '--no-compile' ]]; then
     echo "Skipping compilation..."
 else
@@ -33,6 +41,7 @@ else
     done
 fi
 
+# Installs or upgrades plasmoids using kpackagetool6
 function install_plasmoid {
     PLASMOID=$(basename "$1")
     if [[ $PLASMOID == 'src' ]]; then

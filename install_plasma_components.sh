@@ -2,6 +2,7 @@
 
 CUR_DIR=$(pwd)
 
+# Sanity check to see if the proper tools are installed.
 if [[ -z "$(command -v kpackagetool6)" ]]; then
     echo "kpackagetool6 not found. Stopping."
     exit
@@ -15,6 +16,7 @@ if [[ -z "$(command -v sddmthemeinstaller)" ]]; then
     exit
 fi
 
+# Function that installs/upgrades KDE packages.
 # install_component $filename "Plasma/Shell"
 function install_component {
     COMPONENT=$(basename "$1")
@@ -30,30 +32,37 @@ function install_component {
     cd "$CUR_DIR"
 }
 
-#killall plasmashell
 
-# LNF
+# Installs the Global Theme (Look and feel).
 install_component "$PWD/plasma/look-and-feel/authui7" "Plasma/LookAndFeel"
 # Layout template
 install_component "$PWD/plasma/layout-templates/io.gitgud.wackyideas.taskbar" "Plasma/LayoutTemplate"
 # Plasma Style
 install_component "$PWD/plasma/desktoptheme/Seven-Black" "Plasma/Theme"
 # Shell
-install_component "$PWD/plasma/shells/org.kde.plasma.desktop" "Plasma/Shell"
+install_component "$PWD/plasma/shells/io.gitgud.wackyideas.desktop" "Plasma/Shell"
 
-# Color scheme
+# Installs the color scheme.
 echo -e "Installing color scheme..."
 COLOR_DIR="$HOME/.local/share/color-schemes"
 mkdir -p "$COLOR_DIR"
 cp "$PWD/plasma/color_scheme/Aero.colors" "$COLOR_DIR"
 #plasma-apply-colorscheme Aero
 
-# SMOD
+# Installs the SMOD folder which contains resources used by other ATP components.
 echo -e "Installing SMOD resources..."
 pkexec cp -r "$PWD/plasma/smod" "/usr/share/"
-# SDDM
-echo -e "Installing SDDM theme..."
+
+# Installs the SDDM theme, as well as the SDDM entries required for ATP.
+echo -e "Installing login manager entries..."
 cd "plasma/sddm"
+sudo cp "entries/aerothemeplasma.desktop" /usr/share/wayland-sessions/
+sudo cp "entries/aerothemeplasmax11.desktop" /usr/share/xsessions/
+sudo cp "entries/startatp" /usr/bin/startatp
+sudo cp "entries/startatp-wayland" /usr/bin/startatp-wayland
+sudo chmod +x /usr/bin/startatp
+sudo chmod +x /usr/bin/startatp-wayland
+echo -e "Installing SDDM theme..."
 tar -zcvf "sddm-theme-mod.tar.gz" "sddm-theme-mod"
 sddmthemeinstaller -i "sddm-theme-mod.tar.gz"
 rm "sddm-theme-mod.tar.gz"

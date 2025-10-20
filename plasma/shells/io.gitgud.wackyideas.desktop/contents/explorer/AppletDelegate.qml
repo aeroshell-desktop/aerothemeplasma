@@ -46,14 +46,11 @@ Item {
         imagePath: "widgets/viewitem"
         prefix: {
             var isSelected = delegate.GridView.view.currentIndex == index;
-            if(isSelected && hoverHandler.hovered) return "selected+hover";
+            if(isSelected && toolTip.containsMouse) return "selected+hover";
             if(isSelected) return "selected";
-            if(hoverHandler.hovered) return "hover";
+            if(toolTip.containsMouse) return "hover";
             return "";
         }
-    }
-    HoverHandler {
-        id: hoverHandler
     }
 
     TapHandler {
@@ -72,15 +69,19 @@ Item {
     }
 
     PlasmaCore.ToolTipArea {
+        id: toolTip
         anchors.fill: parent
-        visible: model.running
-        mainText: model.running + " added"
-    }
-    PlasmaCore.ToolTipArea {
-        anchors.fill: parent
-        visible: !model.isSupported
-        mainText: i18n("Unsupported Widget")
-        subText: model.unsupportedMessage
+        active: model.running || !model.isSupported
+        mainText: {
+            if(model.running) {
+                return model.running + " added"
+            }
+            else {
+                return i18n("Unsupported Widget")
+            }
+        }
+        subText: !model.isSupported ? model.unsupportedMessage : null
+        location: PlasmaCore.Types.Floating | PlasmaCore.Types.Desktop
     }
 
     // Avoid repositioning delegate item after dragFinished

@@ -103,7 +103,7 @@
         "Description[zh_CN]": "桌面视图小工具",
         "Description[zh_TW]": "桌面檢視設備",
         "Icon": "user-desktop",
-        "Id": "org.kde.plasma.desktop",
+        "Id": "io.gitgud.wackyideas.desktop",
         "License": "GPL-2.0+",
         "Name": "Desktop",
         "Name[af]": "Werkskerm",

@@ -2,11 +2,13 @@
 
 CUR_DIR=$(pwd)
 
+# Sanity check to see if the proper tools are installed.
 if [[ -z "$(command -v kpackagetool6)" ]]; then
     echo "kpackagetool6 not found. Stopping."
     exit
 fi
 
+# Function that installs/upgrades KDE packages.
 # install_component $filename "Plasma/Shell"
 function install_component {
     COMPONENT=$(basename "$1")
@@ -46,6 +48,7 @@ KWIN_DIR="$HOME/.local/share/kwin"
 cp -r "$PWD/kwin/outline" "$KWIN_DIR"
 echo "Done."
 
+# Use symlinks so the KWin components are visible under both Wayland and X11.
 LOCAL_DIR="$HOME/.local/share"
 cd "$LOCAL_DIR"
 echo "Making kwin-x11 and kwin-wayland symlinks..."

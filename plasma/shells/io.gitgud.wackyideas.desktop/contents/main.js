@@ -1,5 +1,5 @@
 
-loadTemplate("org.kde.plasma.desktop.defaultPanel")
+loadTemplate("io.gitgud.wackyideas.taskbar")
 
 var desktopsArray = desktopsForActivity(currentActivity());
 for( var j = 0; j < desktopsArray.length; j++) {

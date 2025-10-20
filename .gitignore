@@ -20,4 +20,5 @@ kwin/effects_cpp/smodglow/build-wl
 kwin/effects_cpp/aeroglide/build-wl
 kwin/effects_cpp/startupfeedback/build-wl
 kwin/effects_cpp/minimize3d/build-wl
+kwin/effects_cpp/minimize3d
 experimental/
