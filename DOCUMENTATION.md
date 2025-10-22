@@ -173,6 +173,16 @@ kvantumpreview -style [qstyle]
 
 Running without passing `-style` will simply load the application with the currently applied QStyle. 
 
+### Testing notifications 
+
+```bash
+notify-send -a Dolphin -h string:desktop-entry:org.kde.dolphin "Lorem ipsum dolor sit amet" "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." -i org.kde.dolphin --action=inline-reply="Reply" --action="Test"
+```
+
+This will spawn a notification with a sufficiently long body, presenting as Dolphin, and provides actions in the form of regular actions and inline replies. 
+
+In order to test thumbnail previews for notifications, one or more URLs need to be passed to the notification as well. This can't be done in the terminal (to my knowledge, at least), so some kind of scripting or the use of KNotification is required.
+
 ## Logging 
 
 ### From the terminal
