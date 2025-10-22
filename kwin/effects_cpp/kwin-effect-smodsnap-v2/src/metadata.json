@@ -5,7 +5,7 @@
                 "Name": "Souris"
             }
         ],
-        "Category": "Appearance",
+        "Category": "AeroThemePlasma",
         "Description": "Show an animation when a resizable window is dragged to a screen edge",
         "EnabledByDefault": false,
         "Id": "smodsnap",

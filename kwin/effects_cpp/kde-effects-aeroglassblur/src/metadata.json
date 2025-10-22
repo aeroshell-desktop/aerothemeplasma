@@ -5,7 +5,7 @@
                 "Name": "WackyIdeas"
             }
         ],
-        "Category": "Appearance",
+        "Category": "AeroThemePlasma",
         "Description": "Blurs the background behind windows in the style of Windows 7 and Vista. Conflicts with the original blur effect!",
         "EnabledByDefault": false,
         "License": "GPL",
