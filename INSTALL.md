@@ -220,7 +220,7 @@ $ chmod +x add_rule.sh && ./add_rule.sh
   - Inactive Inner Window Actions, Left click: Activate, raise and pass click
 - In Window Behavior -> Task Switcher:
   - Main: Thumbnail Seven, Include "Show Desktop" entry
-  - Alternative: Flip Switch, Forward shortcut: Meta+Tab
+  - Alternative: Flip 3D, Forward shortcut: Meta+Tab
 - In Window Behavior -> KWin Scripts:
   - Enable Minimize All, SMOD Peek (**Wayland users should keep SMOD Peek disabled as it doesn't work and can cause freezing**)
 - In Window Behavior -> Desktop Effects, enable the following:
