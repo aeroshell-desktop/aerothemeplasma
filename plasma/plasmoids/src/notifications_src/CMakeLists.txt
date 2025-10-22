@@ -28,7 +28,7 @@ find_package(KF6Svg)
 find_package(KF6Config)
 find_package(Plasma)
 find_package(PlasmaQuick)
-find_package(LibNotificationManager)
+find_package(LibNotificationManager REQUIRED)
 
 find_package(Qt6WaylandClient COMPONENTS Private)
 find_package(PlasmaWaylandProtocols)
