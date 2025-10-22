@@ -48,7 +48,7 @@
                 "Name[zh_TW]": "Lubos Lunak, Kai Uwe Broulik, Martin Gräßlin"
             }
         ],
-        "Category": "Appearance",
+        "Category": "AeroThemePlasma",
         "Description": "Smoothly fade to the desktop when logging in",
         "Description[ar]": "اظهار سطح المكتب بنعومة عند الولوج",
         "Description[be]": "Плаўнае зацямненне працоўнага стала падчас уваходу",
@@ -93,7 +93,7 @@
         "Description[zh_TW]": "登入時平順地淡入桌面",
         "EnabledByDefault": true,
         "Icon": "preferences-system-windows-effect-login",
-        "Id": "login",
+        "Id": "loginaero",
         "License": "GPL",
         "Name": "Login",
         "Name[ar]": "ولوج",

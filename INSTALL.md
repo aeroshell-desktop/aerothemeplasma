@@ -223,19 +223,13 @@ $ chmod +x add_rule.sh && ./add_rule.sh
   - Alternative: Flip 3D, Forward shortcut: Meta+Tab
 - In Window Behavior -> KWin Scripts:
   - Enable Minimize All, SMOD Peek (**Wayland users should keep SMOD Peek disabled as it doesn't work and can cause freezing**)
-- In Window Behavior -> Desktop Effects, enable the following:
-  - Aero Glass Blur
-  - Desaturate Unresponsive Applications
-  - SMOD Glow 
-  - SMOD Snap
-  - Dim Screen for Administrator Mode
-  - Animations for SevenTasks Thumbnails
+- In Window Behavior -> Desktop Effects, enable **all** effects in the AeroThemePlasma category. Additionally enable the "Desaturate Unresponsive Applications" effect.
 - In Window Behavior -> Desktop Effects, **disable** the following:
   - Background Contrast
   - Blur
-  - Maximize
   - Dialog Parent
   - Dim Inactive
+  - Dim Screen for Administrator Mode (From Focus category)
   
 5. Configure KWin animations to the following:
 

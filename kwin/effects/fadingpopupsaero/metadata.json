@@ -50,7 +50,7 @@
                 "Name[zh_TW]": "Vlad Zahorodnii"
             }
         ],
-        "Category": "Appearance",
+        "Category": "AeroThemePlasma",
         "Description": "Make popups smoothly fade in and out when they are shown or hidden",
         "Description[ar]": "اجعل النوافذ المنبثقة تظهر وتتلاشى بنعومة عند إظهاراها وإخفائها",
         "Description[be]": "Плаўнае згасанне або з'яўленне выплыўных акон",
@@ -93,7 +93,7 @@
         "Description[zh_TW]": "讓彈出視窗在顯示或隱藏的時候平滑地淡入或淡出",
         "EnabledByDefault": true,
         "Icon": "preferences-system-windows-effect-fadingpopups",
-        "Id": "fadingpopups",
+        "Id": "fadingpopupsaero",
         "License": "GPL",
         "Name": "Fading Popups",
         "Name[ar]": "تتلاشى النوافذ المنبثقة",
@@ -136,6 +136,7 @@
         "Name[x-test]": "xxFading Popupsxx",
         "Name[zh_CN]": "气泡显隐渐变动画",
         "Name[zh_TW]": "淡化彈出視窗"
+
     },
     "X-KDE-Ordering": 60,
     "X-Plasma-API": "javascript"

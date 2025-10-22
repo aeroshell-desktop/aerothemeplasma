@@ -3,9 +3,6 @@
     "KPlugin": {
         "Authors": [
             {
-                "Name": "catpswin56"
-            },
-            {
                 "Email": "mart@kde.org",
                 "Name": "Marco Martin",
                 "Name[ar]": "ماركو مارتن",
@@ -52,9 +49,12 @@
                 "Name[x-test]": "xxMarco Martinxx",
                 "Name[zh_CN]": "Marco Martin",
                 "Name[zh_TW]": "Marco Martin"
+            },
+            {
+                "Name": "catpswin56"
             }
         ],
-        "Category": "Appearance",
+        "Category": "AeroThemePlasma",
         "Description": "Effect that adds the animations for window previews in SevenTasks",
         "EnabledByDefault": true,
         "Icon": "preferences-system-windows-effect-morphingpopups",

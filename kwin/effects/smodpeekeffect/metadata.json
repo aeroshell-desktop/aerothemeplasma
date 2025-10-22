@@ -6,7 +6,7 @@
                 "Name": "Souris"
             }
         ],
-        "Category": "Show Desktop Animation",
+        "Category": "AeroThemePlasma",
         "Description": "Fade windows to reveal the desktop",
         "EnabledByDefault": false,
         "Id": "smodpeekeffect",

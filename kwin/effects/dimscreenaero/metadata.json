@@ -52,7 +52,7 @@
                 "Name[zh_TW]": "Martin Flöser, Vlad Zahorodnii"
             }
         ],
-        "Category": "Focus",
+        "Category": "AeroThemePlasma",
         "Description": "Darkens the entire screen when requesting root privileges",
         "Description[ar]": "يعتم كامل الشاشة عند طلب صلاحيات الجذر",
         "Description[be]": "Зацямненне ўсяго экрана пры запытванні правоў суперкарыстальніка",
@@ -101,7 +101,7 @@
         "Description[zh_TW]": "請求 root 權限時將整個螢幕變暗",
         "EnabledByDefault": false,
         "Icon": "preferences-system-windows-effect-dimscreen",
-        "Id": "dimscreen",
+        "Id": "dimscreenaero",
         "License": "GPL",
         "Name": "Dim Screen for Administrator Mode",
         "Name[ar]": "يعتم الشاشة لنمط المدير",
