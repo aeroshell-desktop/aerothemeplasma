@@ -20,12 +20,12 @@ RowLayout {
     spacing: 8
     Image {
         id: loadingspinner
-        source: "../images/100/spin"+spinnum+".png"
+        source: "../images/100/spin"+root.spinnum+".png"
     }
     Label {
         id: welcomeLbl
         z: 1
-        text: statusText
+        text: root.statusText
         color: "#FFFFFF"
         font.pointSize: 18
         renderType: Text.NativeRendering
@@ -43,11 +43,13 @@ RowLayout {
         }
     }
 
-    SequentialAnimation {
+    Timer {
         id: spinner
-        running: speen
-        loops: Animation.Infinite
-        NumberAnimation { target: root; property: "spinnum"; to: 17; duration: 900 }
-        NumberAnimation { target: root; property: "spinnum"; to: 0; duration: 0 }
+        running: root.speen
+        repeat: true
+        onTriggered: {
+            root.spinnum = (root.spinnum + 1) % 17;
+        }
+        interval: 53
     }
 }

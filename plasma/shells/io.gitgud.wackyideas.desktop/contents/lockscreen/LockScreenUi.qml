@@ -139,9 +139,9 @@ Item {
         }
         function onSucceeded() {
             if (lockScreenUi.hadPrompt) {
+                successTimer.start();
                 blackRect.opacity = 1;
                 lockSuccess.play();
-                successTimer.start();
             } else {
                 currentPage = 4;
                 noPasswordArea.forceActiveFocus();
@@ -395,9 +395,10 @@ Item {
             enabled: !graceLockTimer.running
             onPasswordResult: (password) => {
                 // Switch to the 'Welcome' screen
-                currentPage = 1;
                 authenticator.startAuthenticating();
                 authenticator.respond(password);
+                lockScreenUi.hadPrompt = true;
+                currentPage = 1;
             }
 
             notificationMessage: {
