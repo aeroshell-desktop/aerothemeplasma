@@ -71,15 +71,19 @@ ScrollView {
         }
         delegate: ItemLoader {
             id: itemloader
-            GridView.onRemove: SequentialAnimation {
-                PropertyAction { target: itemloader; property: "GridView.delayRemove"; value: true }
-                NumberAnimation { target: itemloader; property: "opacity"; to: 0; duration: 25; easing.type: Easing.InOutQuad }
-                PropertyAction { target: itemloader; property: "GridView.delayRemove"; value: false }
+            GridView.onRemove: {
+                removeAnim.start();
             }
             //GridView.delayRemove: true
             width: hiddenTasks.cellWidth
             height: hiddenTasks.cellHeight
             minLabelHeight: 0//hiddenTasks.minLabelHeight
+            SequentialAnimation {
+                id: removeAnim
+                PropertyAction { target: itemloader; property: "GridView.delayRemove"; value: true }
+                NumberAnimation { target: itemloader; property: "opacity"; to: 0; duration: 25; easing.type: Easing.InOutQuad }
+                PropertyAction { target: itemloader; property: "GridView.delayRemove"; value: false }
+            }
         }
 
         keyNavigationEnabled: true
