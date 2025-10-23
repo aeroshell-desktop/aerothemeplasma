@@ -69,7 +69,7 @@ PlasmaCore.Dialog {
 
 		if(Plasmoid.location === PlasmaCore.Types.BottomEdge) {
 			x = pos.x - calendar.width / 2 + root.width / 2
-			y = pos.y - calendar.height;
+			y = pos.y - calendar.height - flyoutMargin;
 		} else if(Plasmoid.location === PlasmaCore.Types.TopEdge) {
 			x = pos.x - calendar.width / 2 + root.width / 2
 			y = availScreen.y + flyoutMargin //pos.y - calendar.height;
@@ -82,11 +82,11 @@ PlasmaCore.Dialog {
 		}
 
 		if(x <= availScreen.x) x = availScreen.x + flyoutMargin;
-		if(x + calendar.width - screen.x >= availScreen.x + availScreen.width) {
+		if(x + calendar.width - availScreen.x >= availScreen.x + availScreen.width) {
 			x = screen.x + availScreen.width - calendar.width - flyoutMargin;
 		}
 		if(y <= availScreen.y) y = availScreen.y + flyoutMargin;
-		if(y + calendar.height - screen.y >= availScreen.y + availScreen.height) {
+		if(y + calendar.height - availScreen.y >= availScreen.y + availScreen.height) {
 			y = screen.y + availScreen.height - calendar.height - flyoutMargin;
 		}
 

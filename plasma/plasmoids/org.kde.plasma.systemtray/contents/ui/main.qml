@@ -155,7 +155,7 @@ ContainmentItem {
         }
         Timer {
             id: updateTimer
-            interval: 50
+            interval: 100
             onTriggered: {
                 root.hiddenLayout.model.invalidateFilter()
                 shownItemsModel.invalidateFilter();
@@ -216,7 +216,10 @@ ContainmentItem {
                         shownItemsModel.invalidateFilter();
                     }*/
                     activeModel.sort();
-                    updateTimer.start();
+                    if(activeModel.count != shownItemsModel.count) {
+                        root.hiddenLayout.model.invalidateFilter()
+                        shownItemsModel.invalidateFilter();
+                    }
                 }
             }
             delegate: ItemLoader {
@@ -351,7 +354,8 @@ ContainmentItem {
 
                 if(Plasmoid.location === PlasmaCore.Types.BottomEdge) {
                     x = pos.x - width / 2 + (expandedRepresentation.hiddenLayout.visible ? flyoutMargin + Kirigami.Units.smallSpacing/2 : currentHighlight.width / 2);
-                    y = pos.y - height;
+                    y = pos.y - height - flyoutMargin;
+                    console.log("y: " + y);
 
                 } else if(Plasmoid.location === PlasmaCore.Types.LeftEdge) {
                     y = pos.y - height / 2 + flyoutMargin;
@@ -367,12 +371,13 @@ ContainmentItem {
                 }
 
                 if(x <= availScreen.x) x = availScreen.x + flyoutMargin;
-                if((x + dialog.width - screen.x) >= availScreen.x + availScreen.width) {
+                if((x + dialog.width - availScreen.x) >= availScreen.x + availScreen.width) {
                     x = screen.x + availScreen.width - dialog.width - flyoutMargin;
                 }
                 if(y <= availScreen.y) y = availScreen.y + flyoutMargin;
-                if((y + dialog.height - screen.y) >= availScreen.y + availScreen.height) {
+                if((y + dialog.height - availScreen.y) >= availScreen.y + availScreen.height) {
                     y = screen.y + availScreen.height - dialog.height - flyoutMargin;
+                    console.log(y);
                 }
                 /*if(root.vertical) {
                     if(pos.x > dialog.x) dialog.x -= flyoutMargin;

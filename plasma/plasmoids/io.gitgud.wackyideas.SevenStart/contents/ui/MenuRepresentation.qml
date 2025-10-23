@@ -182,11 +182,11 @@ PlasmaCore.Dialog {
 		}
 
 		if(x < availScreen.x) x = availScreen.x;
-		if(x + root.width - screen.x >= availScreen.x + availScreen.width) {
+		if(x + root.width - availScreen.x >= availScreen.x + availScreen.width) {
 			x = screen.x + availScreen.width - root.width;
 		}
 		if(y < availScreen.y) y = availScreen.y;
-		if(y + root.height - screen.y >= availScreen.y + availScreen.height) {
+		if(y + root.height - availScreen.y >= availScreen.y + availScreen.height) {
 			y = screen.y + availScreen.height - root.height;
 		}
 	}
