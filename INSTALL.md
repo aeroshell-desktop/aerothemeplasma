@@ -27,7 +27,7 @@ Since Plasma 6.4, the X11 session has been separated from the main codebase. On 
 
 KSysGuard has been officially deprecated by KDE, however an unofficial [port](https://github.com/zvova7890/ksysguard6) exists for Qt6, which can be installed using the [AUR](https://aur.archlinux.org/packages/ksysguard6-git) package on Arch-based distros.
 
-### Note: Dependencies for other disros besides Arch Linux have been provided by contributors and aren't updated frequently, which may result in incorrect or missing dependencies.
+### Note: Dependencies for other distros besides Arch Linux have been provided by contributors and aren't updated frequently, which may result in incorrect or missing dependencies.
 
 ### Fedora KDE
 
