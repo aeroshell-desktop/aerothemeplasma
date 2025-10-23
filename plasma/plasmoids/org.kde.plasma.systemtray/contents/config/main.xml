@@ -26,7 +26,7 @@
         <default>false</default>
     </entry>
     <entry name="knownItems" type="StringList" hidden="true">
-      <default>org.kde.plasma.battery,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.volume,org.kde.plasma.notifications</default>
+      <default>org.kde.plasma.battery,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.volume</default>
     </entry>
     <entry name="scaleIconsToFit" type="bool">
       <label>Whether to automatically scale System Tray icons to fix the available thickness of the panel. If false, tray icons will be capped at the smallMedium size (22px) and become a two-row/column layout when the panel is thick.</label>

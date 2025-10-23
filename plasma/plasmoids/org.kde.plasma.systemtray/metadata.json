@@ -156,7 +156,7 @@
         "Name[zh_TW]": "系統匣",
         "Website": "https://www.kde.org/plasma-desktop"
     },
-    "NoDisplay": true,
+    "NoDisplay": false,
     "X-Plasma-API-Minimum-Version": "6.0",
     "X-Plasma-ContainmentType": "CustomEmbedded"
 }
