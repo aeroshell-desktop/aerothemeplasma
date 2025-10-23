@@ -98,6 +98,10 @@ PlasmaCore.Dialog {
 		// random unpredictable values, so we can safely allow the popup icon to show up.
 		iconUser.x = root.x + sidePanel.x+sidePanel.width/2-Kirigami.Units.iconSizes.huge/2 + Kirigami.Units.smallSpacing/2 - 1;
 		iconUser.y = root.y-Kirigami.Units.iconSizes.huge/2 + Kirigami.Units.smallSpacing;
+		console.log("avatar");
+		console.log(iconUser.x + " " + iconUser.y);
+		console.log("root");
+		console.log(root.x + " " + root.y);
 		firstTimePopup = true;
 	}
 
@@ -109,7 +113,6 @@ PlasmaCore.Dialog {
 	}
     onVisibleChanged: {
 		popupPosition();
-		console.log(root.y - panelSvg.margins.top + " " + Plasmoid.containment.availableScreenRect.y)
         if (!visible) {
             reset();
         } else {
@@ -166,28 +169,29 @@ PlasmaCore.Dialog {
 		var pos = kicker.mapToGlobal(kicker.x, kicker.y);
 		var availScreen = Plasmoid.containment.availableScreenRect;
 		var screen = kicker.screenGeometry;
+		var availableScreenGeometry = Qt.rect(availScreen.x + screen.x, availScreen.y + screen.y, availScreen.width, availScreen.height);
 
 		if(Plasmoid.location === PlasmaCore.Types.BottomEdge) {
 			x = pos.x;
 			y = pos.y - root.height;
 		} else if(Plasmoid.location === PlasmaCore.Types.TopEdge) {
 			x = pos.x;
-			y = availScreen.y;
+			y = availableScreenGeometry.y;
 		} else if(Plasmoid.location === PlasmaCore.Types.LeftEdge) {
-			x = availScreen.x;
+			x = availableScreenGeometry.x;
 			y = pos.y;
 		} else if(Plasmoid.location === PlasmaCore.Types.RightEdge) {
 			x = pos.x - root.width;
 			y = pos.y;
 		}
 
-		if(x < availScreen.x) x = availScreen.x;
-		if(x + root.width - availScreen.x >= availScreen.x + availScreen.width) {
-			x = screen.x + availScreen.width - root.width;
+		if(x < availableScreenGeometry.x) x = availableScreenGeometry.x;
+		if(x + root.width >= availableScreenGeometry.x + availScreen.width) {
+			x = availableScreenGeometry.x + availScreen.width - root.width;
 		}
-		if(y < availScreen.y) y = availScreen.y;
-		if(y + root.height - availScreen.y >= availScreen.y + availScreen.height) {
-			y = screen.y + availScreen.height - root.height;
+		if(y < availableScreenGeometry.y) y = availableScreenGeometry.y;
+		if(y + root.height >= availableScreenGeometry.y + availScreen.height) {
+			y = availableScreenGeometry.y + availScreen.height - root.height;
 		}
 	}
 

@@ -346,16 +346,17 @@ ContainmentItem {
 
             onWidthChanged: setDialogPosition();
             onHeightChanged: setDialogPosition();
+
             function setDialogPosition() {
                 var rootPos = root.mapToGlobal(root.x, root.y);
                 var pos = root.mapToGlobal(currentHighlight.x, currentHighlight.y);
                 var availScreen = Plasmoid.containment.availableScreenRect;
                 var screen = root.screenGeometry;
+                var availableScreenGeometry = Qt.rect(availScreen.x + screen.x, availScreen.y + screen.y, availScreen.width, availScreen.height);
 
                 if(Plasmoid.location === PlasmaCore.Types.BottomEdge) {
                     x = pos.x - width / 2 + (expandedRepresentation.hiddenLayout.visible ? flyoutMargin + Kirigami.Units.smallSpacing/2 : currentHighlight.width / 2);
                     y = pos.y - height - flyoutMargin;
-                    console.log("y: " + y);
 
                 } else if(Plasmoid.location === PlasmaCore.Types.LeftEdge) {
                     y = pos.y - height / 2 + flyoutMargin;
@@ -370,23 +371,16 @@ ContainmentItem {
                     y = rootPos.y + root.height + flyoutMargin;
                 }
 
-                if(x <= availScreen.x) x = availScreen.x + flyoutMargin;
-                if((x + dialog.width - availScreen.x) >= availScreen.x + availScreen.width) {
-                    x = screen.x + availScreen.width - dialog.width - flyoutMargin;
+                if(x < availableScreenGeometry.x) x = availableScreenGeometry.x + flyoutMargin;
+                if(x + dialog.width >= availableScreenGeometry.x + availScreen.width) {
+                    x = availableScreenGeometry.x + availScreen.width - dialog.width - flyoutMargin;
                 }
-                if(y <= availScreen.y) y = availScreen.y + flyoutMargin;
-                if((y + dialog.height - availScreen.y) >= availScreen.y + availScreen.height) {
-                    y = screen.y + availScreen.height - dialog.height - flyoutMargin;
-                    console.log(y);
+                if(y < availableScreenGeometry.y) y = availableScreenGeometry.y + flyoutMargin;
+                if(y + dialog.height >= availableScreenGeometry.y + availScreen.height) {
+                    y = availableScreenGeometry.y + availScreen.height - dialog.height - flyoutMargin;
                 }
-                /*if(root.vertical) {
-                    if(pos.x > dialog.x) dialog.x -= flyoutMargin;
-                    else dialog.x += flyoutMargin;
-                } else {
-                    if(pos.y > dialog.y) dialog.y -= flyoutMargin;
-                    else dialog.y += flyoutMargin;
-                }*/
             }
+
             onYChanged: {
                 if(!firstTimePopup) { setDialogPosition(); }
                 firstTimePopup = true;

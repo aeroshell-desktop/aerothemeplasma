@@ -62,33 +62,73 @@ PlasmaCore.Dialog {
         popupPosition();
     }
         
+
+        /*function popupPosition() {
+		 *                var pos = kicker.mapToGlobal(kicker.x, kicker.y);
+		 *                var availScreen = Plasmoid.containment.availableScreenRect;
+		 *                var screen = kicker.screenGeometry;
+		 *                var availableScreenGeometry = Qt.rect(availScreen.x + screen.x, availScreen.y + screen.y, availScreen.width, availScreen.height);
+		 *
+		 *                if(Plasmoid.location === PlasmaCore.Types.BottomEdge) {
+		 *                    x = pos.x;
+		 *                    y = pos.y - root.height;
+} else if(Plasmoid.location === PlasmaCore.Types.TopEdge) {
+	x = pos.x;
+	y = availableScreenGeometry.y;
+} else if(Plasmoid.location === PlasmaCore.Types.LeftEdge) {
+	x = availableScreenGeometry.x;
+	y = pos.y;
+} else if(Plasmoid.location === PlasmaCore.Types.RightEdge) {
+	x = pos.x - root.width;
+	y = pos.y;
+}
+
+if(x < availableScreenGeometry.x) x = availableScreenGeometry.x;
+if(x + root.width >= availableScreenGeometry.x + availScreen.width) {
+	x = availableScreenGeometry.x + availScreen.width - root.width;
+}
+if(y < availableScreenGeometry.y) y = availableScreenGeometry.y;
+if(y + root.height >= availableScreenGeometry.y + availScreen.height) {
+	y = availableScreenGeometry.y + availScreen.height - root.height;
+}
+}*/
+
 	function popupPosition() {
 		var pos = root.mapToGlobal(root.x, root.y);
 		var availScreen = Plasmoid.containment.availableScreenRect;
 		var screen = root.screenGeometry;
+		var availableScreenGeometry = Qt.rect(availScreen.x + screen.x, availScreen.y + screen.y, availScreen.width, availScreen.height);
 
 		if(Plasmoid.location === PlasmaCore.Types.BottomEdge) {
 			x = pos.x - calendar.width / 2 + root.width / 2
 			y = pos.y - calendar.height - flyoutMargin;
 		} else if(Plasmoid.location === PlasmaCore.Types.TopEdge) {
 			x = pos.x - calendar.width / 2 + root.width / 2
-			y = availScreen.y + flyoutMargin //pos.y - calendar.height;
+			y = availableScreenGeometry.y + flyoutMargin //pos.y - calendar.height;
 		} else if(Plasmoid.location === PlasmaCore.Types.LeftEdge) {
 			y = pos.y - calendar.height / 2 + root.height / 2
-			x = availScreen.x + flyoutMargin
+			x = availableScreenGeometry.x + flyoutMargin
 		} else if(Plasmoid.location === PlasmaCore.Types.RightEdge) {
 			y = pos.y - calendar.height / 2 + root.height / 2
-			x = availScreen.x + availScreen.width - flyoutMargin - calendar.width
+			x = availableScreenGeometry.x + availScreen.width - flyoutMargin - calendar.width
 		}
 
-		if(x <= availScreen.x) x = availScreen.x + flyoutMargin;
+		if(x < availableScreenGeometry.x) x = availableScreenGeometry.x + flyoutMargin;
+		if(x + calendar.width >= availableScreenGeometry.x + availScreen.width) {
+			x = availableScreenGeometry.x + availScreen.width - calendar.width - flyoutMargin;
+		}
+		if(y < availableScreenGeometry.y) y = availableScreenGeometry.y + flyoutMargin;
+		if(y + calendar.height >= availableScreenGeometry.y + availScreen.height) {
+			y = availableScreenGeometry.y + availScreen.height - calendar.height - flyoutMargin;
+		}
+		/*if(x <= availScreen.x) x = availScreen.x + flyoutMargin;
 		if(x + calendar.width - availScreen.x >= availScreen.x + availScreen.width) {
 			x = screen.x + availScreen.width - calendar.width - flyoutMargin;
 		}
 		if(y <= availScreen.y) y = availScreen.y + flyoutMargin;
 		if(y + calendar.height - availScreen.y >= availScreen.y + availScreen.height) {
 			y = screen.y + availScreen.height - calendar.height - flyoutMargin;
-		}
+		}*/
 
 	}
 
