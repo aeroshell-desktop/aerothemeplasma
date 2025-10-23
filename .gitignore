@@ -3,6 +3,7 @@ misc/libplasma/build
 misc/uac-polkitagent/build
 misc/plymouth/plymouth-theme-smod/build
 kwin/decoration/build
+plasma/sddm/login-sessions/build
 plasma/aerothemeplasma-kcmloader/build
 plasma/plasmoids/src/systemtray_src/build
 plasma/plasmoids/src/notifications_src/build

@@ -1,7 +1,8 @@
 [Desktop Entry]
-Exec=/usr/bin/startatp-wayland
-TryExec=/usr/bin/startatp-wayland
+Exec=${CMAKE_INSTALL_FULL_BINDIR}/startatp-wayland
+TryExec=${CMAKE_INSTALL_FULL_BINDIR}/startatp-wayland
 DesktopNames=KDE
 Name=AeroThemePlasma (Wayland)
 Comment=KDE Plasma running AeroThemePlasma
 X-KDE-PluginInfo-Version=6.4.4
+

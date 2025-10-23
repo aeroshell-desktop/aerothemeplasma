@@ -7,6 +7,10 @@ if [[ -z "$(command -v kpackagetool6)" ]]; then
     echo "kpackagetool6 not found. Stopping."
     exit
 fi
+if [[ -z "$(command -v cmake)" ]]; then
+    echo "CMake not found. Stopping."
+    exit
+fi
 if [[ -z "$(command -v tar)" ]]; then
     echo "tar not found. Stopping."
     exit
@@ -55,14 +59,10 @@ pkexec cp -r "$PWD/plasma/smod" "/usr/share/"
 
 # Installs the SDDM theme, as well as the SDDM entries required for ATP.
 echo -e "Installing login manager entries..."
-cd "plasma/sddm"
-sudo cp "entries/aerothemeplasma.desktop" /usr/share/wayland-sessions/
-sudo cp "entries/aerothemeplasmax11.desktop" /usr/share/xsessions/
-sudo cp "entries/startatp" /usr/bin/startatp
-sudo cp "entries/startatp-wayland" /usr/bin/startatp-wayland
-sudo chmod +x /usr/bin/startatp
-sudo chmod +x /usr/bin/startatp-wayland
+cd "plasma/sddm/login-sessions"
+sh install.sh
 echo -e "Installing SDDM theme..."
+cd "$CUR_DIR/plasma/sddm"
 tar -zcvf "sddm-theme-mod.tar.gz" "sddm-theme-mod"
 sddmthemeinstaller -i "sddm-theme-mod.tar.gz"
 rm "sddm-theme-mod.tar.gz"
