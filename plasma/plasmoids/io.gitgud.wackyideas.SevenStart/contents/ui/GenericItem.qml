@@ -81,7 +81,6 @@ Item {
               panel.sevenTasksReference.applet.pinTask(entry);
             }
           }};
-          actionList.push(pinAction);
           actionList = [...actionList, pinAction]; // Use spread operator and pass that to the fillActionMenu function
       }
     }
