@@ -86,7 +86,7 @@ ColumnLayout {
         section.delegate: ListItem {
             required property string section
             separator: true
-            separatorText.text: section
+            separatorText.text: section === i18n("Available") ? i18n("Available connections") : section
         }
         highlight: PlasmaExtras.Highlight { }
         highlightMoveDuration: 0

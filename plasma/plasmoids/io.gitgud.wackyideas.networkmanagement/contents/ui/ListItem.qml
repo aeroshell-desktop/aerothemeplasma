@@ -24,9 +24,10 @@ MouseArea {
     property alias separatorText: sepText
 
     width: parent.width
+    opacity: separatorText.text !== i18n("Connected")
 
     // Sections have spacing above but not below. Will use 2 of them below.
-    height: separator ? /*separatorLine.height + Kirigami.Units.smallSpacing * 3*/ Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing : parent.height
+    height: separator ? (separatorText.text === i18n("Connected") ? 0 : Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing) : parent.height
     hoverEnabled: true
 
     Rectangle {

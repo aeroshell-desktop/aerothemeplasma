@@ -309,9 +309,10 @@ ExpandableListItem {
         /* Separator is part of section, which is visible only when available connections exist. Need to determine
            if there is a connection in use, to show Separator. Otherwise need to hide it from the top of the list.
            Connections in use are always on top, only need to check the first one. */
-        if (appletProxyModel.data(appletProxyModel.index(0, 0), PlasmaNM.NetworkModel.SectionRole) !== "Available connections") {
+
+        if (appletProxyModel.data(appletProxyModel.index(0, 0), PlasmaNM.NetworkModel.SectionRole) !== i18n("Available")) {
             if (connectionView.showSeparator != true) {
-                connectionView.showSeparator = true
+                connectionView.showSeparator = true;
             }
             return
         }
