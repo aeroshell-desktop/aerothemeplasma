@@ -17,7 +17,7 @@ Kirigami.Page {
 
     signal settingValueChanged()
 
-    title: kcm.name
+    //title: kcm.name
     topPadding: 0
     leftPadding: 0
     rightPadding: 0
