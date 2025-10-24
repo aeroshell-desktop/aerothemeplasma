@@ -112,16 +112,6 @@ PlasmoidItem {
     }
     //property var detailsWindow: null
 
-    Connections {
-        target: handler
-        function onHotspotCreated() {
-            hotspotAction.checked = true
-        }
-
-        function onHotspotDisabled() {
-            hotspotAction.checked = false
-        }
-    }
     Plasmoid.contextualActions: [
         PlasmaCore.Action {
             text: i18n("Enable Wi-Fi")
@@ -160,18 +150,16 @@ PlasmoidItem {
         },
         PlasmaCore.Action {
             id: hotspotAction
-            text: PlasmaNM.Configuration.hotspotConnectionPath ? i18n("Disable Hotspot") : i18n("Create Hotspot")
+            text: i18n("Hotspot")
             priority: PlasmaCore.Action.LowPriority
             checkable: true
-            //checked: PlasmaNM.Configuration.airplaneModeEnabled
+            checked: handler.hotspotActive
             visible: handler.hotspotSupported
 
             onTriggered: checked => {
                 if (PlasmaNM.Configuration.hotspotConnectionPath) {
-                    checked = false;
                     handler.stopHotspot();
                 } else {
-                    checked = true;
                     handler.createHotspot();
                 }
             }

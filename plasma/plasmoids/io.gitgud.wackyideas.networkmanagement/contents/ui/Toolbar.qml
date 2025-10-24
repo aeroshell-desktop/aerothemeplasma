@@ -137,7 +137,7 @@ ColumnLayout {
             visible: availableDevices.modemDeviceAvailable || availableDevices.wirelessDeviceAvailable
 
             KeyNavigation.left: wwanSwitchButton.visible ? wwanSwitchButton : wwanSwitchButton.KeyNavigation.left
-            KeyNavigation.right: hotspotButton.visible ? hotspotButton : hotspotButton.KeyNavigation.right
+            KeyNavigation.right: searchTextField
 
             text: i18n("Airplane mode")
             onToggled: {
@@ -172,50 +172,6 @@ ColumnLayout {
 
         }
 
-    }
-    PlasmaComponents3.ToolButton {
-        id: hotspotButton
-
-        visible: false //handler.hotspotSupported
-        checkable: true
-
-        text: i18n("Hotspot")
-        icon.name: "network-wireless-on"
-
-        KeyNavigation.left: planeModeSwitchButton.visible ? planeModeSwitchButton : planeModeSwitchButton.KeyNavigation.left
-        KeyNavigation.right: searchTextField
-
-        onClicked: {
-            if (PlasmaNM.Configuration.hotspotConnectionPath) {
-                checked = false
-                handler.stopHotspot()
-            } else {
-                checked = true
-                handler.createHotspot()
-            }
-        }
-
-        PlasmaComponents3.ToolTip {
-            id: tooltip
-        }
-
-        Connections {
-            target: handler
-            function onHotspotCreated() {
-                hotspotButton.checked = true
-                tooltip.text = i18n("Disable Hotspot")
-            }
-
-            function onHotspotDisabled() {
-                hotspotButton.checked = false
-                tooltip.text = i18n("Create Hotspot")
-            }
-        }
-
-        Component.onCompleted: {
-            checked = PlasmaNM.Configuration.hotspotConnectionPath
-            tooltip.text = PlasmaNM.Configuration.hotspotConnectionPath ? i18n("Disable Hotspot") : i18n("Create Hotspot")
-        }
     }
 
     TextField {
