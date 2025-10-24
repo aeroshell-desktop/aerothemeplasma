@@ -37,7 +37,7 @@ function createFavoriteActions(i18n, favoriteModel, favoriteId) {
 
 
     if (favoriteModel.activities === undefined ||
-        favoriteModel.activities.runningActivities.length <= 1) {
+        favoriteModel.activities?.runningActivities?.length <= 1) {
         var action = {};
 
     if (favoriteModel.isFavorite(favoriteId)) {
@@ -128,7 +128,7 @@ function createFavoriteActions(i18n, favoriteModel, favoriteId) {
 
             // Adding the items for each activity
 
-            activities.forEach(function(activityId) {
+            activities?.forEach(function(activityId) {
                 addActivityItem(activityId, favoriteModel.activityNameForId(activityId));
             });
 

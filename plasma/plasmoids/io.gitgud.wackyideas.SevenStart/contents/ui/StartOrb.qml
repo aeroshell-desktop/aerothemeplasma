@@ -15,7 +15,6 @@ import org.kde.coreaddons as KCoreAddons // kuser
 import org.kde.plasma.private.shell 2.0
 
 import org.kde.kwindowsystem 1.0
-import org.kde.plasma.private.quicklaunch 1.0
 
 import org.kde.kirigami 2.13 as Kirigami
 
