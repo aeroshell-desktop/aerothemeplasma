@@ -1,0 +1,27 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "sebas@kde.org",
+                "Name": "Sebastian Kügler"
+            }
+        ],
+        "Category": "Multimedia",
+        "Description": "Media Player Controls",
+        "Description[pl]": "Obsługa odtwarzacza multimedialnego",
+        "EnabledByDefault": true,
+        "Icon": "applications-multimedia",
+        "Id": "org.kde.plasma.mediacontroller.test",
+        "License": "GPL-2.0+",
+        "Name": "Media Player",
+        "Name[pl]": "Odtwarzacz multimedialny",
+        "Website": "https://www.kde.org/plasma-desktop"
+    },
+    "X-Plasma-DBusActivationService": "org.mpris.MediaPlayer2.*",
+    "X-Plasma-NotificationAreaCategory": "ApplicationStatus",
+    "X-Plasma-Provides": [
+        "org.kde.plasma.multimediacontrols"
+    ],
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "KPackageStructure": "Plasma/Applet"
+}

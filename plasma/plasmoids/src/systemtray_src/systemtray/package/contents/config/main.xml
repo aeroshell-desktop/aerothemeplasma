@@ -13,6 +13,10 @@
       <label>All plasmoid items that are explicitly enabled in the systray. It's a comma-separated string list of plasmoid plugin ids.</label>
       <default></default>
     </entry>
+    <entry name="disabledStatusNotifiers" type="StringList">
+      <label>All StatusNotifier items that shouldn't be visible at all. It's a comma-separated string list of StatusNotifier ids.</label>
+      <default>org.kde.plasma.battery,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.volume,org.kde.plasma.notifications</default>
+    </entry>
     <entry name="hiddenItems" type="StringList">
       <label>All items that are hidden, forced always in the popup. It's a comma-separated string list of unique identifiers that are either plasmoid plugin ids or StatusNotifier ids.</label>
       <default></default>

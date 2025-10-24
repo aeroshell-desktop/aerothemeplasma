@@ -1,0 +1,26 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "wilderkde@gmail.com",
+                "Name": "Viranch Mehta, Jacopo De Simoi"
+            }
+        ],
+        "Category": "System Information",
+        "Description": "Notifications and access for new devices",
+        "Description[pl]": "Powiadamia i daje dostęp do nowych urządzeń",
+        "EnabledByDefault": true,
+        "Icon": "device-notifier",
+        "Id": "org.kde.plasma.devicenotifier.test",
+        "License": "GPL-2.0+",
+        "Name": "Device Notifier",
+        "Name[pl]": "Powiadomienia o urządzeniach",
+        "Website": "https://userbase.kde.org/Plasma/DeviceNotifier"
+    },
+    "X-Plasma-NotificationAreaCategory": "Hardware",
+    "X-Plasma-Provides": [
+        "org.kde.plasma.removabledevices"
+    ],
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "KPackageStructure": "Plasma/Applet"
+}

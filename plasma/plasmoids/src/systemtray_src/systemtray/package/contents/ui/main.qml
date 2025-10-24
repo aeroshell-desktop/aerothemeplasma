@@ -379,8 +379,14 @@ ContainmentItem {
                 if(y + dialog.height >= availableScreenGeometry.y + availScreen.height) {
                     y = availableScreenGeometry.y + availScreen.height - dialog.height - flyoutMargin;
                 }
+                /*if(root.vertical) {
+                    if(pos.x > dialog.x) dialog.x -= flyoutMargin;
+                    else dialog.x += flyoutMargin;
+                } else {
+                    if(pos.y > dialog.y) dialog.y -= flyoutMargin;
+                    else dialog.y += flyoutMargin;
+                }*/
             }
-
             onYChanged: {
                 if(!firstTimePopup) { setDialogPosition(); }
                 firstTimePopup = true;

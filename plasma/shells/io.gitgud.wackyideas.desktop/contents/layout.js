@@ -92,10 +92,10 @@ var langIds = ["as",    // Assamese
                "zh_TW"] // Traditional Chinese
 
 if (langIds.indexOf(languageId) != -1) {
-    panel.addWidget("org.kde.plasma.keyboardlayout");
+    panel.addWidget("io.gitgud.wackyideas.keyboardlayout");
 }
 
-panel.addWidget("org.kde.plasma.systemtray")
+panel.addWidget("io.gitgud.wackyideas.systemtray")
 panel.addWidget("io.gitgud.wackyideas.digitalclocklite")
 panel.addWidget("io.gitgud.wackyideas.win7showdesktop")
 

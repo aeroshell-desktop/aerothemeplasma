@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+<kcfg>
+    <group name="Activate">
+        <entry name="x" type="int" />
+        <entry name="y" type="int" />
+    </group>
+    <group name="SecondaryActivate">
+        <entry name="x" type="int" />
+        <entry name="y" type="int" />
+    </group>
+    <group name="Scroll">
+        <entry name="delta" type="int" />
+        <entry name="direction" type="string" />
+    </group>
+    <group name="ContextMenu">
+        <entry name="x" type="int" />
+        <entry name="y" type="int" />
+    </group>
+</kcfg>
