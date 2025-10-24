@@ -34,6 +34,7 @@ find_package(Qt6WaylandClient COMPONENTS Private)
 find_package(PlasmaWaylandProtocols)
 find_package(Wayland REQUIRED COMPONENTS Client)
 
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build)
 
 find_package(KF6 REQUIRED COMPONENTS
     I18n
