@@ -278,6 +278,7 @@ PlasmoidItem {
 
         //readonly property var appletInterface: batterymonitor
         readonly property int flyoutIntendedWidth: 16 * 15
+        readonly property int flyoutImplicitHeight: dialogItem.contentItem.implicitHeight
         model: batteryControl
 
         isManuallyInhibited: inhibitionControl.isManuallyInhibited
@@ -287,8 +288,9 @@ PlasmoidItem {
         remainingTime: batteryControl.remainingTime
         activeProfile: powerProfilesControl.activeProfile
         activeProfileError: powerProfilesControl.profileError
-        inhibitions: inhibitionControl.inhibitions
-        blockedInhibitions: inhibitionControl.blockedInhibitions
+        requestedInhibitions: inhibitionControl.requestedInhibitions
+        //inhibitions: inhibitionControl.inhibitions
+        //blockedInhibitions: inhibitionControl.blockedInhibitions
         inhibitsLidAction: inhibitionControl.isLidPresent && !inhibitionControl.triggersLidAction
         profilesInstalled: powerProfilesControl.isPowerProfileDaemonInstalled
         profiles: powerProfilesControl.profiles

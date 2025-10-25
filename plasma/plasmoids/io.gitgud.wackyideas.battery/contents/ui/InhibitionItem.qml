@@ -25,6 +25,10 @@ QtControls.ItemDelegate {
 
     signal inhibitionChangeRequested(bool inhibit)
 
+    property var requestedInhibitions: []
+    readonly property bool hasActiveIdleInhibitions: root.requestedInhibitions.some((inh) => inh.active && inh.what.includes("idle"))
+    readonly property bool hasActiveSleepInhibitions: root.requestedInhibitions.some((inh) => inh.active && inh.what.includes("sleep"))
+    readonly property bool hasActiveInhibitions: root.hasActiveIdleInhibitions || root.hasActiveSleepInhibitions
     property bool isManuallyInhibited
     property bool isManuallyInhibitedError
     // List of active power management inhibitions (applications that are
@@ -36,8 +40,6 @@ QtControls.ItemDelegate {
     //  Icon: string,
     //  Reason: string,
     // }]
-    property var inhibitions: []
-    property var blockedInhibitions: []
     property bool inhibitsLidAction
 
     function baseName(name) {
@@ -115,7 +117,7 @@ QtControls.ItemDelegate {
             }
 
             Separator {
-                visible: root.inhibitions.length > 0 || root.blockedInhibitions.length > 0 || root.inhibitsLidAction
+                visible: (inhibitionRepeater.count > 0) ||  root.inhibitsLidAction
                 Layout.fillWidth: true
                 Layout.leftMargin: -Kirigami.Units.largeSpacing
                 Layout.rightMargin: -Kirigami.Units.largeSpacing
@@ -126,7 +128,7 @@ QtControls.ItemDelegate {
 
                 Layout.fillWidth: true
                 spacing: 0
-                visible: root.inhibitsLidAction || root.blockedInhibitions.length > 0 || root.inhibitions.length > 0
+                visible: (inhibitionRepeater.count > 0) ||  root.inhibitsLidAction
 
                 InhibitionHint {
                     readonly property var pmControl: root.pmControl
@@ -138,38 +140,38 @@ QtControls.ItemDelegate {
                 }
 
                 Repeater {
-                    model: root.inhibitions
+                    id: inhibitionRepeater
+                    model: root.requestedInhibitions
 
                     InhibitionHint {
-                        property string icon: modelData.Icon
-                            || (KWindowSystem.KWindowSystem.isPlatformWayland ? "wayland" : "xorg")
-                        property string app: modelData.Name
-                        property string name: modelData.PrettyName
-                        property string reason: modelData.Reason
-                        property bool permanentlyBlocked: {
-                            return root.blockedInhibitions.some(function (blockedInhibition) {
-                                return blockedInhibition.Name === app && blockedInhibition.Reason === reason && blockedInhibition.Permanently;
-                            });
-                        }
+                        id: inhibitionDelegate
 
+                        required property string icon
+                        required property string appName
+                        required property string prettyName
+                        required property string reason
+                        required property bool active
+                        required property bool allowed
                         Layout.fillWidth: true
-                        iconSource: icon
+                        iconSource: icon || (KWindowSystem.KWindowSystem.isPlatformWayland ? "wayland" : "xorg")
                         text: {
-                            if (root.inhibitions.length === 1) {
-                                if (reason && name) {
-                                    return i18n("%1 is currently blocking sleep and screen locking (%2)", root.baseName(name), reason)
-                                } else if (name) {
-                                    return i18n("%1 is currently blocking sleep and screen locking (unknown reason)", root.baseName(name))
+                            if (!allowed) {
+                                return i18nc("Application name; reason", "%1 has been prevented from blocking sleep and screen locking for %2", root.baseName(prettyName), reason)
+                            } else if (root.requestedInhibitions.length === 1) {
+                                if (reason && prettyName) {
+                                    return i18n("%1 is currently blocking sleep and screen locking (%2)", root.baseName(prettyName), reason)
+                                } else if (prettyName) {
+                                    return i18n("%1 is currently blocking sleep and screen locking (unknown reason)", root.baseName(prettyName))
                                 } else if (reason) {
                                     return i18n("An application is currently blocking sleep and screen locking (%1)", reason)
                                 } else {
                                     return i18n("An application is currently blocking sleep and screen locking (unknown reason)")
                                 }
                             } else {
-                                if (reason && name) {
-                                    return i18nc("Application name: reason for preventing sleep and screen locking", "%1: %2", root.baseName(name), reason)
-                                } else if (name) {
-                                    return i18nc("Application name: reason for preventing sleep and screen locking", "%1: unknown reason", root.baseName(name))
+                                if (reason && prettyName) {
+                                    return i18nc("Application name: reason for preventing sleep and screen locking", "%1: %2", root.baseName(prettyName), reason)
+                                } else if (prettyName) {
+                                    return i18nc("Application name: reason for preventing sleep and screen locking", "%1: unknown reason", root.baseName(prettyName))
                                 } else if (reason) {
                                     return i18nc("Application name: reason for preventing sleep and screen locking", "Unknown application: %1", reason)
                                 } else {
@@ -188,38 +190,19 @@ QtControls.ItemDelegate {
 
                             QtControls.Button {
                                 id: blockMenuButton
-                                text: i18nc("@action:button Prevent an app from blocking automatic sleep and screen locking after inactivity", "Unblock")
-                                Accessible.role: permanentlyBlocked ? Accessible.Button : Accessible.ButtonMenu
+                                text: inhibitionDelegate.allowed ? i18nc("@action:button Prevent an app from blocking automatic sleep and screen locking after inactivity", "Unblock") : i18nc("@action:button Undo preventing an app from blocking automatic sleep and screen locking after inactivity", "Block Again")
                                 hoverEnabled: true
                                 flat: true
                                 background: null
                                 padding: 0
                                 contentItem: QtControls.Label {
-                                    text: "<a style=\"color: #0066cc; text-decoration: " + ((blockMenuButton.hovered || blockMenuButton.focus) ? "underline" : "none") + "; \" href=\"hi\">" + blockMenuButton.text + (!permanentlyBlocked ? " 🞃" : "") + "</a>"
+                                    text: "<a style=\"color: #0066cc; text-decoration: " + ((blockMenuButton.hovered || blockMenuButton.focus) ? "underline" : "none") + "; \" href=\"hi\">" + blockMenuButton.text + "</a>"
                                     textFormat: Text.RichText
                                     verticalAlignment: Text.AlignTop
                                 }
                                 //height: Kirigami.Theme.defaultFont.pointSize + Kirigami.Units.mediumSpacing * 2
                                 onClicked: {
-                                    if(permanentlyBlocked) {
-                                        pmControl.blockInhibition(app, reason, true)
-                                    } else {
-                                        blockMenuButtonMenu.open()
-                                    }
-                                }
-                            }
-
-                            PlasmaExtras.Menu {
-                                id: blockMenuButtonMenu
-
-                                PlasmaExtras.MenuItem {
-                                    text: i18nc("@action:button Prevent an app from blocking automatic sleep and screen locking after inactivity", "Only this time")
-                                    onClicked: pmControl.blockInhibition(app, reason, false)
-                                }
-
-                                PlasmaExtras.MenuItem {
-                                    text: i18nc("@action:button Prevent an app from blocking automatic sleep and screen locking after inactivity", "Every time for this app and reason")
-                                    onClicked: pmControl.blockInhibition(app, reason, true)
+                                    pmControl.setInhibitionAllowed(inhibitionDelegate.appName, inhibitionDelegate.reason, !inhibitionDelegate.allowed);
                                 }
                             }
                         }
