@@ -160,14 +160,10 @@ KCMUtils.ScrollViewKCM {
         }
     }
 
+
     // Frameless style for the InlineMessage is not visually compatible here
     header: ColumnLayout {
         spacing: Kirigami.Units.smallSpacing
-
-        Kirigami.SearchField {
-            id: filterField
-            Layout.fillWidth: true
-        }
 
         Kirigami.InlineMessage {
             id: disablingSniMessage
@@ -199,41 +195,129 @@ KCMUtils.ScrollViewKCM {
         }
     }
 
-    view: ListView {
-        id: itemsList
+    view: Flickable {
 
-        property real visibilityColumnWidth: Kirigami.Units.gridUnit
-        property real keySequenceColumnWidth: Kirigami.Units.gridUnit
-        readonly property int iconSize: Kirigami.Units.iconSizes.smallMedium
 
-        clip: true
-
-        model: KItemModels.KSortFilterProxyModel {
-            filterString: filterField.text
-            filterCaseSensitivity: Qt.CaseInsensitive
-            Component.onCompleted: sourceModel = Plasmoid.configSystemTrayModel // avoid unnecessary binding, it causes loops
+        Text {
+            id: description
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.topMargin: Kirigami.Units.smallSpacing
+            anchors.leftMargin: Kirigami.Units.gridUnit*2
+            anchors.rightMargin: Kirigami.Units.gridUnit*2
+            wrapMode: Text.WordWrap
+            text: i18n("If you choose to disable certain icons and notifications, you won't be notified about changes or updates. To view hidden icons at any time, click the arrow next to the notification area on the taskbar")
         }
-        reuseItems: true
+        Rectangle {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: description.bottom
+            anchors.bottom: parent.bottom
+            anchors.margins: Kirigami.Units.gridUnit * 2
+            anchors.topMargin: Kirigami.Units.largeSpacing*2
+            border.color: "#202020"
+            border.width: 1
+            Kirigami.SearchField {
+                id: filterField
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.margins: Kirigami.Units.mediumSpacing
+                height: implicitHeight
+            }
+            QQC2.ScrollView {
+                anchors.margins: Kirigami.Units.largeSpacing
+                anchors.rightMargin: 1
+                anchors.bottomMargin: 1
+                anchors.top: filterField.bottom
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
 
-        section {
-            property: "category"
-            delegate: Kirigami.ListSectionHeader {
-                required property string section
+                ListView {
+                    id: itemsList
 
-                text: iconsPage.categoryName(section)
-                width: itemsList.width
+                    property real visibilityColumnWidth: Kirigami.Units.gridUnit
+                    property real keySequenceColumnWidth: Kirigami.Units.gridUnit
+                    readonly property int iconSize: Kirigami.Units.iconSizes.small
+
+                    clip: true
+
+                    header: ColumnLayout {
+                        spacing: Kirigami.Units.smallSpacing
+                        RowLayout {
+                            Layout.preferredWidth: itemsList.width
+                            spacing: Kirigami.Units.smallSpacing
+                            uniformCellSizes: true
+
+                            Text {
+                                text: i18nc("Name of the system tray entry", "Icons") // qmllint disable unqualified
+                                textFormat: Text.PlainText
+                                font.bold: true
+                                opacity: 0.8
+                                elide: Text.ElideRight
+                                Layout.fillWidth: true
+                            }
+                            Text {
+                                text: i18n("Behaviors") // qmllint disable unqualified
+                                textFormat: Text.PlainText
+                                font.bold: true
+                                opacity: 0.8
+                                Layout.preferredWidth: itemsList.visibilityColumnWidth
+                                Layout.leftMargin: Kirigami.Units.iconSizes.small + Kirigami.Units.smallSpacing
+                                Component.onCompleted: itemsList.visibilityColumnWidth = Math.max(implicitWidth, itemsList.visibilityColumnWidth)
+                            }
+                            Text {
+                                text: i18n("Shortcut") // qmllint disable unqualified
+                                textFormat: Text.PlainText
+                                font.bold: true
+                                opacity: 0.8
+                                Layout.preferredWidth: itemsList.keySequenceColumnWidth
+                                Layout.leftMargin: Kirigami.Units.smallSpacing
+                                Component.onCompleted: itemsList.keySequenceColumnWidth = Math.max(implicitWidth, itemsList.keySequenceColumnWidth)
+                            }
+                        }
+                        Rectangle {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 1
+                            color: "#cccccc"
+                        }
+
+                    }
+
+                    model: KItemModels.KSortFilterProxyModel {
+                        filterString: filterField.text
+                        filterCaseSensitivity: Qt.CaseInsensitive
+                        Component.onCompleted: sourceModel = Plasmoid.configSystemTrayModel // avoid unnecessary binding, it causes loops
+                    }
+                    reuseItems: true
+
+                    section {
+                        property: "category"
+                        delegate: Kirigami.ListSectionHeader {
+                            required property string section
+
+                            text: iconsPage.categoryName(section)
+                            width: itemsList.width
+                        }
+                    }
+
+                    delegate: TrayItemDelegate {}
+                }
             }
         }
-
-        delegate: TrayItemDelegate {}
     }
 
     // Re-add separator line between footer and list view
     //extraFooterTopPadding: true
-    footer: QQC2.CheckBox {
-        id: showAllCheckBox
-        text: i18n("Always show all entries") // qmllint disable unqualified
-        Layout.alignment: Qt.AlignVCenter
+    footer: RowLayout {
+        QQC2.CheckBox {
+            id: showAllCheckBox
+            text: i18n("Always show all icons and notifications on the taskbar") // qmllint disable unqualified
+            Layout.alignment: Qt.AlignTop
+            Layout.leftMargin: Kirigami.Units.gridUnit * 2 - Kirigami.Units.largeSpacing
+        }
     }
 
     /*!
@@ -251,7 +335,7 @@ KCMUtils.ScrollViewKCM {
 
         width: itemsList.width
 
-        Kirigami.Theme.useAlternateBackgroundColor: true
+        //Kirigami.Theme.useAlternateBackgroundColor: true
 
         // Don't need highlight, hover, or pressed effects
         highlighted: false
