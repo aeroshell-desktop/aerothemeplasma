@@ -29,6 +29,7 @@ Rectangle {
     LayoutMirroring.childrenInherit: true
 
     color: Kirigami.Theme.backgroundColor
+    Kirigami.Theme.colorSet: Kirigami.Theme.View
 
     property bool isContainment: false
 
@@ -39,7 +40,7 @@ Rectangle {
     function closing() {
         if (applyButton.enabled) {
             messageDialog.item = null;
-            messageDialog.open();
+            messageDialog.show();
             return false;
         }
         return true;
@@ -262,7 +263,7 @@ Rectangle {
             function openCategory(item) {
                 if (applyButton.enabled) {
                     messageDialog.item = item;
-                    messageDialog.open();
+                    messageDialog.show();
                     return;
                 }
                 open(item)
@@ -383,11 +384,12 @@ Rectangle {
             left: verticalSeparator.right
             right: parent.right
             bottom: parent.bottom
+            topMargin: Kirigami.Units.largeSpacing
         }
 
         pageStack.globalToolBar.style: Kirigami.ApplicationHeaderStyle.None
         wideScreen: true
-        //pageStack.globalToolBar.separatorVisible: bottomSeparator.visible
+        //pageStack.globalToolBar.separatorVisible: false
         //pageStack.globalToolBar.colorSet: Kirigami.Theme.View
         property var currentConfigPage: null
         onCurrentConfigPageChanged: {
@@ -397,16 +399,35 @@ Rectangle {
         }
         property bool isAboutPage: false
 
-        Kirigami.PromptDialog {
+
+        Window {
             id: messageDialog
             property var item
-            title: i18nd("plasma_shell_org.kde.plasma.desktop", "Apply Settings")
-            subtitle: i18nd("plasma_shell_org.kde.plasma.desktop", "The settings of the current module have changed. Do you want to apply the changes or discard them?")
-            standardButtons: Kirigami.Dialog.Apply | Kirigami.Dialog.Discard | Kirigami.Dialog.Cancel
-            onApplied: {
-                applyAction.trigger()
-                discarded();
+            modality: Qt.WindowModal
+            title: i18n("Confirm changes")
+            minimumWidth: contents.implicitWidth
+            maximumWidth: minimumWidth
+            minimumHeight: contents.implicitHeight
+            maximumHeight: minimumHeight
+            flags: Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowCloseButtonHint | Qt.Dialog
+            onClosing: {
+
             }
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                height: dialogButtons.implicitHeight + dialogButtons.Layout.bottomMargin + dialogButtons.Layout.topMargin
+                color: "#f0f0f0"
+                Rectangle {
+                    height: 1
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: anchors.top
+                    color: "#dfdfdf"
+                }
+            }
+            signal discarded();
             onDiscarded: {
                 if (item) {
                     root.open(item);
@@ -416,17 +437,111 @@ Rectangle {
                     configDialog.close();
                 }
             }
+
+            ColumnLayout {
+                id: contents
+                anchors.fill: parent
+                spacing: Kirigami.Units.largeSpacing
+                RowLayout {
+                    Layout.leftMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
+                    Layout.topMargin: Kirigami.Units.largeSpacing
+                    Layout.rightMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
+                    Layout.bottomMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
+                    spacing: Kirigami.Units.largeSpacing
+                    Kirigami.Icon {
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.medium
+                        Layout.preferredHeight: width
+                        source: "dialog-warning"
+                    }
+                    Text {
+                        Layout.alignment: Qt.AlignTop | Qt.AlignLeft
+                        text: i18nd("plasma_shell_org.kde.plasma.desktop", "The settings of the current module have changed. Do you want to apply the changes or discard them?")
+                        color: "#0033bc"
+                        font.pixelSize: 16
+                        renderType: Text.NativeRendering
+                        font.hintingPreference: Font.PreferFullHinting
+                        font.kerning: false
+                        layer.enabled: true
+                    }
+                }
+                RowLayout {
+                    id: dialogButtons
+                    spacing: Kirigami.Units.mediumSpacing
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignRight
+                    Layout.bottomMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
+                    Layout.topMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
+                    Layout.rightMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
+                    QQC2.Button {
+                        id: apply
+                        text: i18n("Apply")
+                        Layout.preferredHeight: 21
+                        KeyNavigation.right: discard
+                        Keys.onPressed: event => {
+                            if(event.key == Qt.Key_Enter || event.key == Qt.Key_Return) {
+                                clicked(null);
+                            }
+                        }
+                        onClicked: {
+                            applyAction.trigger();
+                            messageDialog.discarded();
+                        }
+                    }
+                    QQC2.Button {
+                        id: discard
+                        text: i18n("Discard")
+                        KeyNavigation.left: apply
+                        KeyNavigation.right: cancel
+                        Keys.onPressed: event => {
+                            if(event.key == Qt.Key_Enter || event.key == Qt.Key_Return) {
+                                clicked(null);
+                            }
+                        }
+                        Layout.preferredHeight: 21
+                        onClicked: {
+                            messageDialog.discarded();
+                        }
+                    }
+                    QQC2.Button {
+                        id: cancel
+                        text: i18n("Cancel")
+                        focus: true
+                        KeyNavigation.left: discard
+                        Keys.onPressed: event => {
+                            if(event.key == Qt.Key_Enter || event.key == Qt.Key_Return) {
+                                clicked(null);
+                            }
+                        }
+                        Layout.preferredHeight: 21
+                        onClicked: {
+                            messageDialog.close();
+                        }
+                    }
+                }
+            }
         }
 
         footer: QQC2.Pane {
 
             padding: Kirigami.Units.largeSpacing
 
+            background: Rectangle {
+                color: Kirigami.Theme.backgroundColor
+                Kirigami.Theme.colorSet:  Kirigami.Theme.Window
+                Kirigami.Theme.inherit: false
+                Rectangle {
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    height: 1
+                    color: "#bababe"
+                }
+
+            }
             contentItem: RowLayout {
                 id: buttonsRow
                 spacing: Kirigami.Units.smallSpacing
 
-                Kirigami.Theme.colorSet:  Kirigami.Theme.View
                 Item {
                     Layout.fillWidth: true
                 }
