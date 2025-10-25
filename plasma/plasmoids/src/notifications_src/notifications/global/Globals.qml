@@ -518,7 +518,7 @@ QtObject {
             required property string notifyRcName
             required property string desktopEntry
 
-            readonly property bool isTransient: model.transient // "transient" is a reserved keyword, cannot declare it as required property
+            readonly property bool isTransient: model?.transient // "transient" is a reserved keyword, cannot declare it as required property
             readonly property bool hasSomeActions: (hasDefaultAction || false) || (actionLabels || []).length > 0 || (configureActionLabel || "").length > 0 || (hasReplyAction || false)
 
             popupWidth: globals.popupWidth
