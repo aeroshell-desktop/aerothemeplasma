@@ -165,6 +165,12 @@ The `--test` parameter can be omitted for slightly more realistic results.
 
 Runs the lock screen in testing mode, opening a lock screen window for every display.
 
+### Ctrl+Alt+Del screen
+
+```bash
+/usr/lib/ksmserver-logout-greeter --windowed
+```
+
 ### Qt test application 
 
 ```bash
