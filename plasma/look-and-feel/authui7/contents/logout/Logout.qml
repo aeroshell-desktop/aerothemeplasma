@@ -26,6 +26,7 @@ Image {
     signal rebootRequested()
     signal cancelRequested()
     signal lockScreenRequested()
+    fillMode: Image.PreserveAspectCrop
 
     SessionManagement {
         id: sessMan
@@ -86,6 +87,16 @@ Image {
             Repeater {
                 id: list
 
+                function modelText(modelIndex) {
+                    var labels = [
+                        i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Lock this computer"),
+                        i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Switch User"),
+                        i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Log off"),
+                        i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Change a password..."),
+                        i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Start Task Manager")
+                    ];
+                    return labels[modelIndex];
+                }
                 function trigger(modelIndex) {
                     switch(modelIndex) {
                         case(0):
@@ -108,23 +119,7 @@ Image {
                     }
                 }
 
-                model: ListModel {
-                    ListElement {
-                        text: "Lock this computer"
-                    }
-                    ListElement {
-                        text: "Switch User"
-                    }
-                    ListElement {
-                        text: "Log off"
-                    }
-                    ListElement {
-                        text: "Change a password..."
-                    }
-                    ListElement {
-                        text: "Start Task Manager"
-                    }
-                }
+                model: 5
                 delegate: Item {
                     Layout.fillWidth: true
                     Layout.preferredHeight: 30
@@ -161,7 +156,7 @@ Image {
                             source: "../images/command-" + (delegateMa.containsMouse ? "hover" : "normal") + ".png"
                         }
                         QQC2.Label {
-                            text: model.text
+                            text: list.modelText(model.index);
                             color: "white"
                             font.pointSize: 12
                             renderType: Text.NativeRendering
@@ -208,7 +203,7 @@ Image {
 
                     anchors.centerIn: parent
 
-                    text: "Cancel"
+                    text: i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Cancel")
                     color: "white"
                     font.pointSize: 12
                     renderType: Text.NativeRendering
@@ -333,26 +328,26 @@ Image {
                     Component.onCompleted: {
                         if(maysd) {
                             var menuitem = powerMenu.createMenuItem();
-                            menuitem.text = "Restart";
+                            menuitem.text = i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Restart");
                             menuitem.triggered.connect(() => { root.rebootRequested() });
                             powerMenu.addAction(menuitem);
                             powerMenu.addItem(powerMenu.createMenuSeparator());
                         }
                         if(spdMethods.SuspendState) {
                             menuitem = powerMenu.createMenuItem();
-                            menuitem.text = "Sleep";
+                            menuitem.text = i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Sleep");
                             menuitem.triggered.connect(() => { root.sleepRequested() });
                             powerMenu.addAction(menuitem);
                         }
                         if(spdMethods.HibernateState) {
                             menuitem = powerMenu.createMenuItem();
-                            menuitem.text = "Hibernate";
+                            menuitem.text = i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Hibernate");
                             menuitem.triggered.connect(() => { root.hibernateRequested() });
                             powerMenu.addAction(menuitem);
                         }
                         if(maysd) {
                             menuitem = powerMenu.createMenuItem();
-                            menuitem.text = "Shut down";
+                            menuitem.text = i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Shut down");
                             menuitem.triggered.connect(() => { root.haltRequested() });
                             powerMenu.addAction(menuitem);
                         }
