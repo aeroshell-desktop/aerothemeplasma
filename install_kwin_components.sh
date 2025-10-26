@@ -24,6 +24,10 @@ function install_component {
     cd "$CUR_DIR"
 }
 
+# Installs the SMOD folder which contains resources used by other ATP components.
+echo -e "Installing SMOD resources..."
+pkexec cp -r "$PWD/kwin/smod" "/usr/share/"
+
 echo "Installing KWin effects (JS)..."
 for filename in "$PWD/kwin/effects/"*; do
     install_component "$filename" "KWin/Effect"

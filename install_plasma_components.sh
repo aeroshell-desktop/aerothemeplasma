@@ -53,10 +53,6 @@ mkdir -p "$COLOR_DIR"
 cp "$PWD/plasma/color_scheme/Aero.colors" "$COLOR_DIR"
 #plasma-apply-colorscheme Aero
 
-# Installs the SMOD folder which contains resources used by other ATP components.
-echo -e "Installing SMOD resources..."
-pkexec cp -r "$PWD/plasma/smod" "/usr/share/"
-
 # Installs the SDDM theme, as well as the SDDM entries required for ATP.
 echo -e "Installing login manager entries..."
 cd "plasma/sddm/login-sessions"

@@ -131,9 +131,7 @@ After that, follow these steps:
 
 ### Plasma components
 
-1. Move the `smod` folder to `~/.local/share`, and/or `/usr/share/` for a system-wide installation. This will install the resources required by many other components.
-
-2. Move the folders `desktoptheme`, `look-and-feel`, `plasmoids`, `layout-templates`, `shells` into `~/.local/share/plasma`. If the folder doesn't exist, create it. These folders contain the following:
+1. Move the folders `desktoptheme`, `look-and-feel`, `plasmoids`, `layout-templates`, `shells` into `~/.local/share/plasma`. If the folder doesn't exist, create it. These folders contain the following:
 
    - Plasma Style
    - Global Theme (more accurately, just the lock screen)
@@ -145,20 +143,21 @@ After that, follow these steps:
 
 SevenTasks relies on modifications found in `misc/libplasma` in order to work properly. Make sure that they're compiled and installed correctly before enabling SevenTasks.
 
-3. Compile all the C++ components found in the `plasmoids/src` directory like this for each source directory:
+2. Compile all the C++ components found in the `plasmoids/src` directory like this for each source directory:
 
 ```bash
 $ sh install.sh --ninja
 ```
 
-4. Move `sddm/sddm-theme-mod` to `/usr/share/sddm/themes`. Optionally, to enable the Vista start screen, set `enableStartup=true` in `theme.conf.user`
-5. Move `sddm/entries/aerothemeplasma.desktop` to `/usr/share/wayland-sessions`, and `sddm/entries/aerothemeplasmax11.desktop` to `/usr/share/xsessions`. This will install the SDDM entries required for ATP.
+3. Move `sddm/sddm-theme-mod` to `/usr/share/sddm/themes`. Optionally, to enable the Vista start screen, set `enableStartup=true` in `theme.conf.user`
+4. Move `sddm/entries/aerothemeplasma.desktop` to `/usr/share/wayland-sessions`, and `sddm/entries/aerothemeplasmax11.desktop` to `/usr/share/xsessions`. This will install the SDDM entries required for ATP.
 5. Import and apply the color scheme through System Settings.
 
 ### KWin components
 
-1. Move `effects`, `tabbox`, `outline`, `scripts` to `~/.local/share/kwin`.
-2. Run the following inside `~/.local/share/`:
+1. Move the `smod` folder to `~/.local/share`, and/or `/usr/share/` for a system-wide installation. This will install the resources required by many other components.
+2. Move `effects`, `tabbox`, `outline`, `scripts` to `~/.local/share/kwin`.
+3. Run the following inside `~/.local/share/`:
 
 ```bash
 $ ln -s kwin kwin-x11
