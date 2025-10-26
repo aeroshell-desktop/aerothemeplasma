@@ -456,6 +456,8 @@ Rectangle {
                     Text {
                         Layout.alignment: Qt.AlignTop | Qt.AlignLeft
                         text: i18nd("plasma_shell_org.kde.plasma.desktop", "The settings of the current module have changed. Do you want to apply the changes or discard them?")
+                        Layout.maximumWidth: Kirigami.Units.gridUnit*20
+                        wrapMode: Text.WordWrap
                         color: "#0033bc"
                         font.pixelSize: 16
                         renderType: Text.NativeRendering
