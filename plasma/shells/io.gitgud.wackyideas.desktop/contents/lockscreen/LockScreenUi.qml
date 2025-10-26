@@ -134,7 +134,7 @@ Item {
             if (root.notification) {
                 root.notification += "\n"
             }
-            setWrongPasswordScreen("The user name or password is incorrect.");
+            setWrongPasswordScreen(i18nd("plasma_lookandfeel_org.kde.lookandfeel", "The user name or password is incorrect."));
             lockScreenUi.hadPrompt = false;
         }
         function onSucceeded() {
@@ -197,11 +197,6 @@ Item {
         active: false
         source: "ChangeSession.qml"
         visible: false
-    }
-
-    WallpaperFader {
-        anchors.fill: parent
-        source: wallpaper
     }
 
     Loader {

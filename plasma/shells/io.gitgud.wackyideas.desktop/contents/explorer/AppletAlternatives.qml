@@ -24,7 +24,7 @@ Window {
     //hideOnWindowDeactivate: true
     //backgroundHints: (alternativesHelper.applet.Plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentPrefersOpaqueBackground) ? PlasmaCore.Dialog.SolidBackground : PlasmaCore.Dialog.StandardBackground
 
-    title:  i18nd("plasma_shell_org.kde.plasma.desktop", "Alternative Widgets")
+    title: i18nd("plasma_shell_org.kde.plasma.desktop", "Alternative Widgets")
 
     modality: Qt.ApplicationModal
     Component.onCompleted: {

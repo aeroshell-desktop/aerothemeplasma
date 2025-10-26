@@ -92,7 +92,7 @@ ColumnLayout {
         font.pointSize: 9
 
         width: implicitWidth
-        text: "Locked"
+        text: i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Locked")
         color: "white"
         horizontalAlignment: Text.AlignCenter
         renderType: Text.NativeRendering

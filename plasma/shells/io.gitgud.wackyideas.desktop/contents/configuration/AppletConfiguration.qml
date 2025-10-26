@@ -404,7 +404,7 @@ Rectangle {
             id: messageDialog
             property var item
             modality: Qt.WindowModal
-            title: i18n("Confirm changes")
+            title: i18nd("plasma_shell_org.kde.plasma.desktop", "Confirm changes")
             minimumWidth: contents.implicitWidth
             maximumWidth: minimumWidth
             minimumHeight: contents.implicitHeight
@@ -476,7 +476,7 @@ Rectangle {
                     Layout.rightMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
                     QQC2.Button {
                         id: apply
-                        text: i18n("Apply")
+                        text: i18nd("plasma_shell_org.kde.plasma.desktop", "Apply")
                         Layout.preferredHeight: 21
                         KeyNavigation.right: discard
                         Keys.onPressed: event => {
@@ -491,7 +491,7 @@ Rectangle {
                     }
                     QQC2.Button {
                         id: discard
-                        text: i18n("Discard")
+                        text: i18nd("plasma_shell_org.kde.plasma.desktop", "Discard")
                         KeyNavigation.left: apply
                         KeyNavigation.right: cancel
                         Keys.onPressed: event => {
@@ -506,7 +506,7 @@ Rectangle {
                     }
                     QQC2.Button {
                         id: cancel
-                        text: i18n("Cancel")
+                        text: i18nd("plasma_shell_org.kde.plasma.desktop", "Cancel")
                         focus: true
                         KeyNavigation.left: discard
                         Keys.onPressed: event => {

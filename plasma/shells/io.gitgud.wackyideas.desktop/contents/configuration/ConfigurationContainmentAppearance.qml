@@ -260,7 +260,7 @@ Item {
                 Layout.alignment: Qt.AlignHCenter
                 bottomMargin: pluginComboBox.height + parent.spacing
                 iconSource: "preferences-desktop-theme-global"
-                text: "Window Color"
+                text: i18nd("plasma_shell_org.kde.plasma.desktop", "Window Color")
                 command: "kstart aerothemeplasma-kcmloader kwin/effects/configs/kwin_aeroglassblur_config.so " + iconSource
                 execHelper: menu_executable
             }
@@ -269,7 +269,7 @@ Item {
                 Layout.alignment: Qt.AlignHCenter
                 bottomMargin: pluginComboBox.height + parent.spacing
                 iconSource: "application-x-theme"
-                text: "Window Decorations"
+                text: i18nd("plasma_shell_org.kde.plasma.desktop", "Window Decorations")
                 command: "kstart aerothemeplasma-kcmloader org.kde.kdecoration3.kcm/kcm_smoddecoration.so " + iconSource
                 execHelper: menu_executable
             }
@@ -278,7 +278,7 @@ Item {
                 Layout.alignment: Qt.AlignHCenter
                 bottomMargin: pluginComboBox.height + parent.spacing
                 iconSource: "preferences-sound"
-                text: "Sounds"
+                text: i18nd("plasma_shell_org.kde.plasma.desktop", "Sounds")
                 command: "kstart systemsettings kcm_soundtheme"
                 execHelper: menu_executable
             }

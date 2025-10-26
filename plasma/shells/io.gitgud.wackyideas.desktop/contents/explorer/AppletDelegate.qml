@@ -34,6 +34,7 @@ Item {
     readonly property string description: model.description
     readonly property string category: model.category
     readonly property string license: model.license
+    property int running: model.running
 
     readonly property bool local: model.local
 
@@ -74,10 +75,9 @@ Item {
         active: model.running || !model.isSupported
         mainText: {
             if(model.running) {
-                return model.running + " added"
-            }
-            else {
-                return i18n("Unsupported Widget")
+                return i18nd("plasma_shell_org.kde.plasma.desktop", "%1 added", model.running)
+            } else {
+                return i18nd("plasma_shell_org.kde.plasma.desktop", "Unsupported Widget")
             }
         }
         subText: !model.isSupported ? model.unsupportedMessage : null

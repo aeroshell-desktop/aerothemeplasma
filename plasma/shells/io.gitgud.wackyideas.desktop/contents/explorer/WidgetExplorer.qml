@@ -207,7 +207,7 @@ PC3.Page {
     Window {
         id: confirmationDialog
         modality: Qt.ApplicationModal
-        title: "Desktop Gadgets"
+        title: i18nd("plasma_shell_org.kde.plasma.desktop", "Desktop Gadgets")
         minimumWidth: contents.implicitWidth
         maximumWidth: minimumWidth
         minimumHeight: contents.implicitHeight
@@ -248,7 +248,7 @@ PC3.Page {
                 }
                 Text {
                     Layout.alignment: Qt.AlignTop | Qt.AlignLeft
-                    text: "Do you want to uninstall " + widgetsOptions.visualParent.name + "?";
+                    text: i18nd("plasma_shell_org.kde.plasma.desktop", "Do you want to uninstall %1?", widgetsOptions.visualParent?.name);
                     color: "#0033bc"
                     font.pixelSize: 16
                     renderType: Text.NativeRendering
@@ -267,7 +267,7 @@ PC3.Page {
                 Layout.rightMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
                 QQC2.Button {
                     id: uninstall
-                    text: "Uninstall"
+                    text: i18nd("plasma_shell_org.kde.plasma.desktop", "Uninstall")
                     Layout.preferredHeight: 21
                     KeyNavigation.right: no_uninstall
                     Keys.onPressed: event => {
@@ -294,7 +294,7 @@ PC3.Page {
                 }
                 QQC2.Button {
                     id: no_uninstall
-                    text: "Don't uninstall"
+                    text: i18nd("plasma_shell_org.kde.plasma.desktop", "Don't uninstall")
                     focus: true
                     KeyNavigation.left: uninstall
                     Keys.onPressed: event => {
@@ -349,13 +349,13 @@ PC3.Page {
         id: widgetsOptions
         placement: PlasmaExtras.Menu.BottomPosedRightAlignedPopup
         PlasmaExtras.MenuItem {
-            text: "Add"
+            text: i18nd("plasma_shell_org.kde.plasma.desktop", "Add")
             onClicked: {
                 if(widgetsOptions.visualParent) widgetExplorer.addApplet(widgetsOptions.visualParent.pluginName)
             }
         }
         PlasmaExtras.MenuItem {
-            text: "Uninstall"
+            text: i18nd("plasma_shell_org.kde.plasma.desktop", "Uninstall")
             visible: widgetsOptions.visualParent && widgetsOptions.visualParent.local
 
             onClicked: {
@@ -441,7 +441,7 @@ PC3.Page {
                         Layout.bottomMargin: 1
                         Layout.leftMargin: Kirigami.Units.gridUnit+1
                         Layout.rightMargin: Kirigami.Units.gridUnit+1
-                        text: "Page " + pageSwitcher.currentPage + " of " + pageSwitcher.maxPages
+                        text: i18nd("plasma_shell_org.kde.plasma.desktop", "Page %1 of %2", pageSwitcher.currentPage, pageSwitcher.maxPages);
                         renderType: Text.NativeRendering
                         font.hintingPreference: Font.PreferFullHinting
                         font.kerning: false
@@ -461,13 +461,12 @@ PC3.Page {
                 Item {
                     Layout.fillWidth: true
                 }
-
                 PC3.TextField {
                     id: searchInput
+                    focus: false
                     Layout.fillWidth: true
                     Layout.maximumWidth: 201
                     Layout.preferredHeight: 23
-                    focus: false
                     leftPadding: Kirigami.Units.smallSpacing*1.5
                     bottomPadding: Kirigami.Units.smallSpacing-1
                     verticalAlignment: Qt.AlignTop
@@ -512,16 +511,22 @@ PC3.Page {
 
                     Component.onCompleted: if (!Kirigami.InputMethod.willShowOnActive) { forceActiveFocus() }
                     hoverEnabled: true
-                    onPressed: event => {
-                        if(dropdown_ma.containsMouse)
-                            event.accepted = false;
-                        else event.accepted = true;
+
+                    MouseArea {
+                        id: dropdown_ma
+                        anchors.top: parent.top
+                        anchors.right: parent.right
+                        anchors.bottom: parent.bottom
+                        width: filterWidgets.width
+                        z: 99
+                        hoverEnabled: true
+                        onClicked: {
+                            categoriesDialog.model = widgetExplorer.filterModel
+                            categoriesDialog.openRelative();
+                        }
                     }
-                    onReleased: event => {
-                        if(dropdown_ma.containsMouse)
-                            event.accepted = false;
-                        else event.accepted = true;
-                    }
+
+
                     background:	KSvg.FrameSvgItem {
                         anchors.fill: parent
                         anchors.left: parent.left
@@ -537,11 +542,11 @@ PC3.Page {
 
                         Text {
                             anchors.fill: parent
-                            anchors.leftMargin: Kirigami.Units.smallSpacing
+                            anchors.leftMargin: Kirigami.Units.mediumSpacing
                             anchors.bottomMargin: 2
                             font.italic: true
                             color: "#707070"
-                            text: i18n(" Search gadgets")
+                            text: i18nd("plasma_shell_org.kde.plasma.desktop", "Search gadgets")
                             verticalAlignment: Text.AlignVCenter
                             visible: !searchInput.activeFocus && searchInput.text == ""
                             style: Text.Outline
@@ -606,15 +611,6 @@ PC3.Page {
                             imagePath: Qt.resolvedUrl("../svgs/dropdown.svg");
                             elementId: "dropdown-arrow"
                         }
-                        MouseArea {
-                            id: dropdown_ma
-                            anchors.fill: filterWidgets
-                            hoverEnabled: true
-                            onClicked: {
-                                categoriesDialog.model = widgetExplorer.filterModel
-                                categoriesDialog.openRelative();
-                            }
-                        }
                     }
 
                 }
@@ -656,7 +652,7 @@ PC3.Page {
                 GlowText {
                     id: showDetailsText
                     Layout.bottomMargin: 1
-                    text: (main.showingDetails ? "Hide" : "Show") + " details"
+                    text: main.showingDetails ? i18nd("plasma_shell_org.kde.plasma.desktop", "Hide details") : i18nd("plasma_shell_org.kde.plasma.desktop", "Show details")
                     MouseArea {
                         id: details_ma
                         anchors.fill: parent
@@ -692,8 +688,8 @@ PC3.Page {
                     KeyNavigation.right: morePlasmoidsLink_link
                     KeyNavigation.left: expandButton
                     KeyNavigation.priority: KeyNavigation.BeforeItem
-                    text: "Install gadgets from local file"
-                    action: widgetExplorer.widgetsMenuActions[2].trigger
+                    text: i18nd("plasma_shell_org.kde.plasma.desktop", "Install gadgets from local file")
+                    action: widgetExplorer?.widgetsMenuActions[2].trigger
                 }
             }
             RowLayout {
@@ -717,8 +713,8 @@ PC3.Page {
                     KeyNavigation.backtab: installFromLocal_link
                     KeyNavigation.left: installFromLocal_link
                     KeyNavigation.priority: KeyNavigation.BeforeItem
-                    text: "Get more gadgets online"
-                    action: widgetExplorer.widgetsMenuActions[0].trigger
+                    text: i18nd("plasma_shell_org.kde.plasma.desktop", "Get more gadgets online")
+                    action: widgetExplorer?.widgetsMenuActions[0].trigger
                 }
             }
         }
