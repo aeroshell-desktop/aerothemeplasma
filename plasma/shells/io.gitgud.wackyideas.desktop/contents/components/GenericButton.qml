@@ -19,6 +19,16 @@ Control {
     property int iconSize: Kirigami.Units.iconSizes.smallMedium;
     property alias label: btnLabel
 
+    implicitWidth: {
+        if(text !== "") return label.implicitWidth + Kirigami.Units.largeSpacing*2;
+        else return iconSize + Kirigami.Units.largeSpacing;
+    }
+
+    implicitHeight: {
+        if(text !== "") return label.implicitHeight + Kirigami.Units.largeSpacing;
+        else return iconSize + Kirigami.Units.largeSpacing;
+    }
+
     Keys.priority: Keys.AfterItem
     Keys.onPressed: (event) => {
         if(event.key == Qt.Key_Return) {
