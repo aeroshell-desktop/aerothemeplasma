@@ -14,6 +14,7 @@ import org.kde.ksvg as KSvg
 
 import org.kde.notificationmanager as NotificationManager
 import plasma.applet.io.gitgud.wackyideas.notifications as NotificationsApplet
+import org.kde.kwindowsystem
 
 import "delegates" as Delegates
 
@@ -35,16 +36,24 @@ NotificationsApplet.NotificationWindow {
     property int intendedY
 
     onVisibleChanged: {
-        if(visible) {
-            if(x != intendedX) x = intendedX;
-            if(y != intendedY) y = intendedY;
+        if(visible && KWindowSystem.isPlatformX11) {
+            if(x != intendedX) {
+                x = intendedX;
+            }
+            if(y != intendedY) {
+                y = intendedY;
+            }
         }
     }
     onXChanged: {
-        if(x != intendedX) x = intendedX;
+        if(x != intendedX && KWindowSystem.isPlatformX11) {
+            x = intendedX;
+        }
     }
     onYChanged: {
-        if(y != intendedY) y = intendedY;
+        if(y != intendedY && KWindowSystem.isPlatformX11) {
+            y = intendedY;
+        }
     }
 
     property int modelTimeout
