@@ -415,7 +415,7 @@ QtObject {
                 }
             }
 
-            popup.visible = visible;
+            Qt.callLater(() => { popup.visible = visible; });
         }
     }
 
