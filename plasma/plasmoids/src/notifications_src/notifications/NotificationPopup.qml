@@ -30,6 +30,23 @@ NotificationsApplet.NotificationWindow {
 
     property alias modelInterface: notificationItem.modelInterface
 
+    // Fixes the notification windows being shown at (0, 0) randomly
+    property int intendedX
+    property int intendedY
+
+    onVisibleChanged: {
+        if(visible) {
+            if(x != intendedX) x = intendedX;
+            if(y != intendedY) y = intendedY;
+        }
+    }
+    onXChanged: {
+        if(x != intendedX) x = intendedX;
+    }
+    onYChanged: {
+        if(y != intendedY) y = intendedY;
+    }
+
     property int modelTimeout
     property int dismissTimeout
 
