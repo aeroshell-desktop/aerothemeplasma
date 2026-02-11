@@ -1,17 +1,24 @@
 #!/bin/bash
 CUR_DIR=$(pwd)
+QDBUS_BIN="qdbus6"
 
 # Sanity check to see if the proper tools are installed.
 if [[ -z "$(command -v kpackagetool6)" ]]; then
     echo "kpackagetool6 not found. Stopping."
     exit
 fi
-if [[ -z "$(command -v qdbus6)" ]]; then
-    echo "qdbus6 not found. Stopping."
+if [[ -n "$(command -v qdbus6)" ]]; then # Arch
+    QDBUS_BIN=$(command -v qdbus6)
+elif [[ -n "$(command -v qdbus-qt6)" ]]; then # Fedora
+    QDBUS_BIN=$(command -v qdbus-qt6)
+else
+    echo "qdbus6 not found."
+    echo "qdbus-qt6 not found."
+    echo "Stopping."
     exit
 fi
 
-PLASMASHELL=$(qdbus6 org.kde.plasmashell /PlasmaShell shell)
+PLASMASHELL=$($QDBUS_BIN org.kde.plasmashell /PlasmaShell shell)
 
 if [ $PLASMASHELL == "io.gitgud.wackyideas.desktop" ]; then
     echo -e "You shouldn't run the uninstall script from AeroThemePlasma itself."
@@ -254,4 +261,3 @@ echo "Done."
 
 echo -e "Uninstallation complete."
 echo -e "In order to uninstall the libplasma and polkit agent modifications, simply reinstall those packages using your distro's package manager."
-
