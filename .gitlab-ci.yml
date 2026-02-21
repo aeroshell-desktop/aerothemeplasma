@@ -8,6 +8,7 @@ build-linux-x64:
   before_script:
     - pacman-key --init
     - pacman -Syu --needed --noconfirm ninja cmake gcc gcc-libs glibc kcoreaddons kcrash kdbusaddons ki18n kirigami knotifications kwindowsystem polkit-qt6 qt6-base qt6-declarative extra-cmake-modules libplasma plasma-pa plasma-nm plasma-workspace kdoctools qt6-virtualkeyboard qt6-multimedia qt6-5compat qt6-wayland plasma-wayland-protocols plasma5support knotifyconfig
+    - ln -s /usr/share/wayland/wayland.xml /wayland.xml # Ugly hack to make the xml file visible to cmake during the build process
   script:
     - cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=lib -B build .
     - cmake --build build
