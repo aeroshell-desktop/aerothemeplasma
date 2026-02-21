@@ -87,7 +87,7 @@ cp build/install_manifest.txt "$CUR_DIR/manifest/icons_install_manifest.txt"
 cd "$CUR_DIR/repos"
 
 # Aerothemeplasma sounds
-git clone https://gitgud.io/aeroshell/atp/aerothemeplasma-icons aerothemeplasma-sounds
+git clone https://gitgud.io/aeroshell/atp/aerothemeplasma-sounds aerothemeplasma-sounds
 cd aerothemeplasma-sounds
 git pull
 cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -B build . || exit 1
