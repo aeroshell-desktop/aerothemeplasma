@@ -154,6 +154,10 @@ This will go through almost every build directory and run `sudo make uninstall` 
 $ sudo pacman -Sy libplasma
 ```
 
+### Fonts 
+
+On Arch Linux, use [this script](https://gitgud.io/aeroshell/aeroshell-workspace/-/blob/Plasma/6.6/scripts/install_fonts_arch.sh) to extract fonts and install them as an Arch package from a valid Windows 7 ISO. A 32-bit Windows 7 ISO is recommended for faster download speeds.
+
 ## Optional <a name="optional"></a>
 
 1. For Wine users it's recommended to install the [VistaVG Ultimate](https://www.deviantart.com/vishal-gupta/art/VistaVG-Ultimate-57715902) msstyles theme.
