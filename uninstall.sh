@@ -46,4 +46,6 @@ for path in ${BUILD_FILES[@]}; do
     uninstall_cmake_component "$path"
 done
 
+kwriteconfig6 --file "~/.config/aerothemeplasmarc" --group OOTB --key wizardRun --type bool false
+
 echo "Done. To complete the uninstallation, reinstall KDE Plasma's 'libplasma' package."
