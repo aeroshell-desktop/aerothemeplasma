@@ -2,6 +2,14 @@
 CUR_DIR=$(pwd)
 QDBUS_BIN="qdbus6"
 
+SU_CMD=sudo
+if [[ -z "$(command -v $SU_CMD)" ]]; then
+    SU_CMD=doas
+    if [[ -z "$(command -v $SU_CMD)" ]]; then
+        echo "Neither sudo or doas were detected on the system."
+        exit
+    fi
+fi
 # Sanity check to see if the proper tools are installed.
 if [[ -z "$(command -v kpackagetool6)" ]]; then
     echo "kpackagetool6 not found. Stopping."
@@ -61,7 +69,7 @@ function uninstall_cmake_component {
         if [ -f "build.ninja" ]; then
             BUILD_TOOL=ninja
         fi
-        sudo $BUILD_TOOL uninstall
+        $SU_CMD $BUILD_TOOL uninstall
         echo -e "Done."
         cd "$CUR_DIR"
     fi
@@ -219,7 +227,7 @@ if [ ! -z "$(grep -rni "aerothemeplasma" "$BRANDING_DIR/kcm-about-distrorc")" ];
 fi
 
 CURSOR_DIR="/usr/share/icons/aero-drop"
-uninstall_prompt "Cursor theme (requires sudo privileges)" "$CURSOR_DIR"
+uninstall_prompt "Cursor theme (requires admin privileges)" "$CURSOR_DIR"
 if [ "$?" == 1 ]; then
     echo "Uninstalling cursor theme..."
     pkexec rm -r "$CURSOR_DIR"
@@ -227,7 +235,7 @@ if [ "$?" == 1 ]; then
 fi
 
 SDDM_DIR="/usr/share/sddm/themes/sddm-theme-mod"
-uninstall_prompt "SDDM theme (requires sudo privileges)" "$SDDM_DIR"
+uninstall_prompt "SDDM theme (requires admin privileges)" "$SDDM_DIR"
 if [ "$?" == 1 ]; then
     echo "Uninstalling SDDM theme..."
     pkexec rm -r "$SDDM_DIR"
@@ -235,7 +243,7 @@ if [ "$?" == 1 ]; then
 fi
 
 SMOD_DIR="/usr/share/smod"
-uninstall_prompt "SMOD files (requires sudo privileges)" "$SMOD_DIR"
+uninstall_prompt "SMOD files (requires admin privileges)" "$SMOD_DIR"
 if [ "$?" == 1 ]; then
     echo "Uninstalling SMOD files..."
     pkexec rm -r "$SMOD_DIR"
@@ -247,7 +255,7 @@ if [ ! -d ${LIBDIR} ]; then
 	LIBDIR="/usr/lib64/"
 fi
 APPLET_DIR="${LIBDIR}qt6/plugins/plasma/applets/"
-uninstall_prompt "Plasma applets (requires sudo privileges)" "${APPLET_DIR}/io.gitgud.wackyideas."*
+uninstall_prompt "Plasma applets (requires admin privileges)" "${APPLET_DIR}/io.gitgud.wackyideas."*
 if [ "$?" == 1 ]; then
     echo "Uninstalling Plasma applet plugins..."
     pkexec rm -r "${APPLET_DIR}/io.gitgud.wackyideas."*
