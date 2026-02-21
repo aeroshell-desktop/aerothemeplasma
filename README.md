@@ -9,13 +9,13 @@ This is a project which aims to recreate the look and feel of Windows 7 as much 
 ATP is in constant development and testing, it has been tested on:
 
 - Arch Linux x64 and other Arch derivatives
-- Plasma 6.5.0, KDE Frameworks 6.19.0, Qt 6.10.0
+- Plasma 6.6.0, KDE Frameworks 6.23.0, Qt 6.10.2
 - 96 DPI scaling, multi monitor
 - X11, Wayland*
 
 *AeroThemePlasma currently lacks full Wayland support, which may result in Wayland-specific issues. 
 
-## This project overwrites a small number of [system](https://gitgud.io/wackyideas/aerothemeplasma/-/tree/master/misc/libplasma) [files](https://gitgud.io/wackyideas/aerothemeplasma/-/tree/master/misc/uac-polkitagent), it's always recommended to make backups of your system just in case. I am not responsible for broken systems, please proceed with caution.
+## This software comes "as is" without warranty of any kind. It's always recommended to make backups of your system just in case. I am not responsible for broken systems, please proceed with caution.
 
 The Plasma 5 version of ATP is available as a tag in this repository, however it is unmaintained and no longer supported.
 
@@ -59,6 +59,7 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 - [AngelBruni](https://github.com/angelbruni) for contributing several SVG textures, most notably the clock in DigitalClockLite Seven
 - [ricewind012](https://github.com/ricewind012/) for .bashrc Microsoft Windows header
 - [furkrn](https://gitgud.io/furkrn) for creating and maintaining the [Plymouth theme](https://github.com/furkrn/PlymouthVista)
+- [IcyGuidance](https://gitgud.io/IcyGuidance) for designing the notification badges in SevenTasks
 
 ### Special Thanks 
 

@@ -1,8 +1,0 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource prefix="/svgs">
-  <file>frame.svg</file>
-  <file>frame-select.svg</file>
-  <file>inner_borders_inactive.png</file>
-  <file>inner_borders_active.png</file>
-</qresource>
-</RCC>

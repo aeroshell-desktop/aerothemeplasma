@@ -40,7 +40,7 @@ import org.kde.kirigami 2.13 as Kirigami
 	location: "Floating"
 
     type: "Notification"
-    title: "seventasks-floatingorb"
+    title: "aeroshell-floatingorb"
 
     // Positions are defined later when the plasmoid has been fully loaded, to prevent undefined behavior.
 	x: 0

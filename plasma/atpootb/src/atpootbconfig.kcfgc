@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: 2025 WackyIdeas <wackyideas@disroot.org>
+# SPDX-License-Identifier: LGPL-2.0-or-later
+
+File=atpootbconfig.kcfg
+ClassName=atpootbConfig
+Mutators=true
+DefaultValueGetters=true
+GenerateProperties=true
+ParentInConstructor=true
+Singleton=true

@@ -1,8 +1,0 @@
-[Unit]
-Description=Apply AeroThemePlasma libplasma patches
-Before=
-[Service]
-Type=simple
-ExecStart=/opt/aerothemeplasma/tmp/apply
-[Install]
-WantedBy=multi-user.target

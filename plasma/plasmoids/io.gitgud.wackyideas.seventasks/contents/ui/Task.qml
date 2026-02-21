@@ -12,7 +12,7 @@ import org.kde.ksvg 1.0 as KSvg
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.kirigami 2.20 as Kirigami
-import org.kde.plasma.private.taskmanager as TaskManagerApplet
+import aeroshell.taskmanager as TaskManagerApplet
 import org.kde.plasma.plasmoid 2.0
 import Qt5Compat.GraphicalEffects
 
@@ -32,7 +32,7 @@ PlasmaCore.ToolTipArea {
     location: Plasmoid.location
     backgroundHints: showPreviews ? "StandardBackground" : "SolidBackground"
     interactive: showPreviews
-    windowTitle: showPreviews ? "seventasks-tooltip" : ""
+    windowTitle: showPreviews ? "aeroshell-thumbnail" : ""
 
     onContainsMouseChanged: (containsMouse) => {
         if(tasksRoot.toolTipOpen && !showPreviews) {
@@ -296,7 +296,7 @@ PlasmaCore.ToolTipArea {
     onSmartLauncherEnabledChanged: {
         if (smartLauncherEnabled && !smartLauncherItem) {
             const smartLauncher = Qt.createQmlObject(`
-import org.kde.plasma.private.taskmanager as TaskManagerApplet
+import aeroshell.taskmanager as TaskManagerApplet
 
 TaskManagerApplet.SmartLauncherItem { }
 `, task);
@@ -605,6 +605,7 @@ TaskManagerApplet.SmartLauncherItem { }
         onTapped: leftClick()
 
         function leftClick() {
+
             if(tasksRoot.pinnedToolTipOpen) {
                 task.hideImmediately();
                 tasksRoot.pinnedToolTipOpen = false;
@@ -1367,6 +1368,20 @@ TaskManagerApplet.SmartLauncherItem { }
 
                 onSourceChanged: {
                     containerRect.glowColor = Plasmoid.getDominantColor(iconBox.source);
+                    badge.badgeColor = containerRect.glowColor
+                }
+
+                Badge {
+                    id: badge
+                    visible: task.smartLauncherItem && task.smartLauncherItem.countVisible
+                    number: task.smartLauncherItem.count
+                    anchors.top: parent.top
+                    anchors.right: parent.right
+                    anchors.rightMargin: (tasksRoot.height <= 30) ? -Kirigami.Units.largeSpacing : -Kirigami.Units.smallSpacing
+                    anchors.topMargin: (tasksRoot.height <= 30) ? -Kirigami.Units.smallSpacing : 0
+                    Component.onCompleted: {
+                        badgeColor = containerRect.glowColor
+                    }
                 }
             }
 

@@ -32,6 +32,7 @@ find_package(Qt6 CONFIG REQUIRED COMPONENTS
 )
 
 find_package(KF6CoreAddons)
+remove_definitions(-DQT_NO_CAST_FROM_ASCII)
 
 add_subdirectory(src)
 

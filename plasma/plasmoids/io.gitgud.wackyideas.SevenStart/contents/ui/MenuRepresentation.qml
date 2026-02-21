@@ -48,7 +48,7 @@ PlasmaCore.Dialog {
     flags: Qt.WindowStaysOnTopHint //| Qt.Popup // Set to popup so that it is still considered a plasmoid popup, despite being a floating dialog window.
 	hideOnWindowDeactivate: true
 
-	title: "sevenstart-menurepresentation"
+	title: "aeroshell-menurepresentation"
     
     backgroundHints: PlasmaCore.Types.NoBackground
 
@@ -98,10 +98,6 @@ PlasmaCore.Dialog {
 		// random unpredictable values, so we can safely allow the popup icon to show up.
 		iconUser.x = root.x + sidePanel.x+sidePanel.width/2-Kirigami.Units.iconSizes.huge/2 + Kirigami.Units.smallSpacing/2 - 1;
 		iconUser.y = root.y-Kirigami.Units.iconSizes.huge/2 + Kirigami.Units.smallSpacing;
-		console.log("avatar");
-		console.log(iconUser.x + " " + iconUser.y);
-		console.log("root");
-		console.log(root.x + " " + root.y);
 		firstTimePopup = true;
 	}
 
@@ -288,7 +284,7 @@ PlasmaCore.Dialog {
 				location: "Floating"
 
 				type: "Notification"
-				title: "seventasks-floatingavatar"
+				title: "aeroshell-floatingavatar"
 				x: 0
 				y: 0
 				backgroundHints: PlasmaCore.Types.NoBackground // To prevent the dialog background SVG from being rendered, we want a fully transparent window.
@@ -1249,7 +1245,7 @@ PlasmaCore.Dialog {
 					text: i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Shut down")
 
 					font.pixelSize: 12
-					color: searching ? shutdownTextColor : PlasmaCore.Theme.textColor
+					color: searching ? shutdownTextColor : Kirigami.Theme.textColor
 					anchors.horizontalCenter: parent.horizontalCenter
 					anchors.verticalCenter: parent.verticalCenter
 					anchors.verticalCenterOffset: -1

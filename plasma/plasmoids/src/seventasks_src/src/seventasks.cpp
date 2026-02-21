@@ -55,7 +55,7 @@ QColor SevenTasks::getDominantColor(QVariant src)
 {
 	QColor defaultHighlight(55, 194, 255, 255); // This is the default blue color used for highlighting monochrome icons.
     QIcon ico = qvariant_cast<QIcon>(src);
-    if(ico.isNull()) ico = QIcon::fromTheme("exec");
+    if(ico.isNull()) ico = QIcon::fromTheme(QStringLiteral("exec"));
     
     QList<QRgb> histogram[3][3][3];
     QSize size;

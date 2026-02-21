@@ -1,0 +1,9 @@
+[Domain]
+Name=AeroThemePlasma OOTB Experience
+Icon=kauth-example
+URL=https://gitgud.io/wackyideas/aerothemeplasma
+
+[io.gitgud.wackyideas.ootb.apply]
+Name=Apply Cursor Theme
+Description=Set global default cursor theme required for SDDM
+Policy=auth_admin

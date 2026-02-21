@@ -1,0 +1,22 @@
+image: "archlinux:latest"
+
+stages:
+  - build
+
+build-linux-x64:
+  stage: build
+  before_script:
+    - pacman-key --init
+    - pacman -Syu --needed --noconfirm ninja cmake gcc gcc-libs glibc kcoreaddons kcrash kdbusaddons ki18n kirigami knotifications kwindowsystem polkit-qt6 qt6-base qt6-declarative extra-cmake-modules libplasma plasma-pa plasma-nm plasma-workspace kdoctools qt6-virtualkeyboard qt6-multimedia qt6-5compat qt6-wayland plasma-wayland-protocols plasma5support knotifyconfig
+  script:
+    - cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=lib -B build .
+    - cmake --build build
+    - DESTDIR=out cmake --install build
+  artifacts:
+    untracked: false
+    when: on_success
+    access: all
+    expire_in: 6 mos
+    paths:
+      - out/
+

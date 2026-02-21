@@ -17,12 +17,13 @@ import org.kde.kirigami 2.20 as Kirigami
 import org.kde.kitemmodels as KItemModels
 
 import org.kde.taskmanager as TaskManager
-import org.kde.plasma.private.taskmanager as TaskManagerApplet
+import aeroshell.taskmanager as TaskManagerApplet
 import org.kde.plasma.workspace.dbus as DBus
 import org.kde.plasma.plasma5support as Plasma5Support
 
 import org.kde.kquickcontrolsaddons
 import org.kde.kwindowsystem
+import org.kde.notificationmanager as NotificationManager
 
 import "code/layoutmetrics.js" as LayoutMetrics
 import "code/tools.js" as TaskTools
@@ -71,6 +72,14 @@ PlasmoidItem {
         }
     ]
 
+    NotificationManager.Notifications {
+        id: historyModel
+        showExpired: true
+        showDismissed: true
+        showJobs: true
+        groupLimit: 2
+        expandUnread: true
+    }
 
     onIconsOnlyChanged: {
         iconGeometryTimer.start();
@@ -448,6 +457,10 @@ PlasmoidItem {
             Drag.onDragFinished: tasks.dragSource = null;
         }
 
+        KSvg.Svg {
+            id: badgeRing
+            imagePath: Qt.resolvedUrl("svgs/badge.svgz")
+        }
         KSvg.FrameSvgItem {
             id: taskFrame
 

@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/assets">
+        <file>img/inner_borders_active.png</file>
+        <file>img/inner_borders_inactive.png</file>
+        <file>img/back_125.png</file>
+        <file>img/back.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,15 @@
+[Sounds]
+Theme=Windows 7
+
+[General]
+AccentColor=0,0,0,0
+accentColorFromWallpaper=false
+ColorScheme=Aero
+
+[Icons]
+Theme=Windows 7 Aero
+
+[KDE]
+widgetStyle=kvantum
+
+

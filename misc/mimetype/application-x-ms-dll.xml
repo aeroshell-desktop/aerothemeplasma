@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
-    <mime-type type="application/x-ms-dll">
-        <comment>Dynamic link library file</comment>
-        <icon name="application-x-sharedlib"/>
-        <glob-deleteall/>
-        <glob pattern="*.dll"/>
-    </mime-type>
-</mime-info>

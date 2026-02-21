@@ -15,6 +15,7 @@ target_link_libraries(io.gitgud.wackyideas.SevenStart
                       Qt6::Quick
                       KF6::I18n
                       KF6::WindowSystem
+                      KF6::Kirigami
                       Plasma
                       PlasmaQuick
                       KF6::Svg

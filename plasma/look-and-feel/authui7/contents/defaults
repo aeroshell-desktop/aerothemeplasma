@@ -8,10 +8,13 @@ Theme=Windows 7 Aero
 widgetStyle=kvantum
 
 [kwinrc][WindowSwitcher]
-LayoutName=thumbnail_seven
+LayoutName=thumbnail_aero
 
 [plasmarc][Theme]
 name=Seven-Black
+
+[kcminputrc][Mouse]
+cursorTheme=aero-drop
 
 [kwinrc][org.kde.kdecoration2]
 library=org.smod.smod

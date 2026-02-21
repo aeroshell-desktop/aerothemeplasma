@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=/usr/bin/atpootb
+Name=AeroThemePlasma OOTB Experience
+Terminal=false
+Type=Application
+X-KDE-autostart-after=panel
+StartupNotify=true

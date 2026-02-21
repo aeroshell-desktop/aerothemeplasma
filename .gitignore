@@ -5,6 +5,7 @@ misc/plymouth/plymouth-theme-smod/build
 kwin/decoration/build
 plasma/sddm/login-sessions/build
 plasma/aerothemeplasma-kcmloader/build
+plasma/atpootb/build
 plasma/plasmoids/src/systemtray_src/build
 plasma/plasmoids/src/notifications_src/build
 plasma/plasmoids/src/volume_src/build
@@ -25,3 +26,6 @@ kwin/effects_cpp/startupfeedback/build-wl
 kwin/effects_cpp/minimize3d/build-wl
 kwin/effects_cpp/minimize3d
 experimental/
+build
+repos
+manifest

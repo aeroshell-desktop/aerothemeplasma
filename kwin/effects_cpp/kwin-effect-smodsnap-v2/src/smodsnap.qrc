@@ -1,7 +1,0 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource prefix="/effects/smodsnap/shaders">
-  <file alias="shader.frag">../shaders/shader.frag</file>
-  <file alias="shader_core.frag">../shaders/shader_core.frag</file>
-</qresource>
-</RCC>
-

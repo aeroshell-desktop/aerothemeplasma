@@ -115,11 +115,11 @@ protected:
         QEvent::Type t = event->type();
         if (t == QEvent::MouseButtonDblClick || t == QEvent::MouseButtonPress /*|| t == QEvent::MouseButtonRelease*/)
         {
-            emit mouseEventDetected();
+            Q_EMIT mouseEventDetected();
         }
         return QObject::eventFilter(watched, event);
     }
-signals:
+Q_SIGNALS:
     void mouseEventDetected();
 };
 
