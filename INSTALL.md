@@ -327,3 +327,6 @@ kpackagetool6 -t "KWin/WindowSwitcher" -r "thumbnail_seven"
 - Delete the SDDM theme at `/usr/share/sddm/themes/sddm-theme-mod`
 - Delete the SMOD files at `/usr/share/smod` and `~/.local/share/smod`
 - Delete `/opt/aerothemeplasma`
+
+- To undo the font rendering modifications, delete the ~/.config/fontconfig/fonts.conf file provided by the previous versions of ATP.
+- Remove the line QML_DISABLE_DISTANCEFIELD=1 from /etc/environment
