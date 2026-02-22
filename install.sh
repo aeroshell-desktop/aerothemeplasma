@@ -45,10 +45,14 @@ cd "$CUR_DIR/repos"
 git clone https://gitgud.io/aeroshell/smod.git smod
 cd smod
 git pull
-bash install.sh $NINJA_PARAM
+bash install.sh $@
 cp build/install_manifest.txt "$CUR_DIR/manifest/smod_install_manifest.txt"
-cp smodglow/build/install_manifest.txt "$CUR_DIR/manifest/smodglow_install_manifest.txt"
-cp smodglow/build-wl/install_manifest.txt "$CUR_DIR/manifest/smodglow-x11_install_manifest.txt"
+cp smodglow/build-wl/install_manifest.txt "$CUR_DIR/manifest/smodglow_install_manifest.txt"
+
+if [[ ! "$*" == *"--skip-x11"* ]]
+then
+    cp smodglow/build/install_manifest.txt "$CUR_DIR/manifest/smodglow-x11_install_manifest.txt"
+fi
 cd "$CUR_DIR/repos"
 
 # Aeroshell Workspace
@@ -70,10 +74,13 @@ cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DKWIN_BUILD_WAYLAND=ON -B build . ||
 cmake --build build || exit 1
 $SU_CMD cmake --install build || exit 1
 cp build/install_manifest.txt "$CUR_DIR/manifest/aeroshell-kwin-components_install_manifest.txt"
-cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DKWIN_BUILD_WAYLAND=OFF -DKWIN_INSTALL_MISC=OFF -B build_x11 . || exit 1
-cmake --build build_x11 || exit 1
-$SU_CMD cmake --install build_x11 || exit 1
-cp build_x11/install_manifest.txt "$CUR_DIR/manifest/aeroshell-kwin-components-x11_install_manifest.txt"
+if [[ ! "$*" == *"--skip-x11"* ]]
+then
+    cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DKWIN_BUILD_WAYLAND=OFF -DKWIN_INSTALL_MISC=OFF -B build_x11 . || exit 1
+    cmake --build build_x11 || exit 1
+    $SU_CMD cmake --install build_x11 || exit 1
+    cp build_x11/install_manifest.txt "$CUR_DIR/manifest/aeroshell-kwin-components-x11_install_manifest.txt"
+fi
 cd "$CUR_DIR/repos"
 
 # Aerothemeplasma icons
