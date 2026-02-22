@@ -46,7 +46,7 @@ if(KAUTH_ACTIONS_QML)
 else()
     message("Disabled KAuth")
 endif()
-configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
+configure_file(config.h.cmake src/config.h)
 
 qt_policy(SET QTP0001 NEW)
 
