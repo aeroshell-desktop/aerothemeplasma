@@ -34,7 +34,7 @@ if [ $PLASMASHELL == "io.gitgud.wackyideas.desktop" ]; then
     exit
 fi
 
-BUILD_FILES=("kwin/decoration/build" 
+BUILD_FILES=(
    "plasma/sddm/login-sessions/build" 
    "plasma/aerothemeplasma-kcmloader/build" 
    "plasma/plasmoids/src/systemtray_src/build" 
@@ -43,17 +43,22 @@ BUILD_FILES=("kwin/decoration/build"
    "plasma/plasmoids/src/sevenstart_src/build" 
    "plasma/plasmoids/src/seventasks_src/build" 
    "plasma/plasmoids/src/desktopcontainment/build" 
-   "kwin/effects_cpp/kde-effects-aeroglassblur/build" 
-   "kwin/effects_cpp/kwin-effect-smodsnap-v2/build" 
-   "kwin/effects_cpp/smodglow/build" 
-   "kwin/effects_cpp/aeroglide/build" 
-   "kwin/effects_cpp/startupfeedback/build" 
-   "kwin/effects_cpp/kde-effects-aeroglassblur/build-wl" 
-   "kwin/effects_cpp/kwin-effect-smodsnap-v2/build-wl" 
-   "kwin/effects_cpp/smodglow/build-wl" 
-   "kwin/effects_cpp/aeroglide/build-wl" 
-   "kwin/effects_cpp/startupfeedback/build-wl" 
 )
+
+KWIN_EFFECTS=(
+    dimscreenaero
+    fadingpopupsaero
+    loginaero
+    seventasks-thumbnails
+    smodpeekeffect
+    squashaero
+)
+KWIN_TABBOX=(
+    flip3d
+    thumbnail_seven
+)
+
+KWIN_SCRIPT=smodpeekscript
 
 function uninstall_cmake_component {
     if [ ! -f "$CUR_DIR/$1/install_manifest.txt" ]; then
@@ -181,8 +186,8 @@ fi
 uninstall_prompt "KWin JS effects"
 if [ "$?" == 1 ]; then
     echo "Uninstalling KWin effects (JS)..."
-    for filename in "$PWD/kwin/effects/"*; do
-        uninstall_component "$filename" "KWin/Effect"
+    for entry in ${KWIN_EFFECTS[@]}; do
+        uninstall_component "$entry" "KWin/Effect"
     done
     echo "Done."
 fi
@@ -190,17 +195,15 @@ fi
 uninstall_prompt "KWin scripts"
 if [ "$?" == 1 ]; then
     echo "Uninstalling KWin scripts..."
-    for filename in "$PWD/kwin/scripts/"*; do
-        uninstall_component "$filename" "KWin/Script"
-    done
+    uninstall_component "smodpeekscript" "KWin/Script"
     echo "Done."
 fi
 
 uninstall_prompt "KWin task switchers"
 if [ "$?" == 1 ]; then
     echo "Uninstalling KWin task switchers..."
-    for filename in "$PWD/kwin/tabbox/"*; do
-        uninstall_component "$filename" "KWin/WindowSwitcher"
+    for entry in ${KWIN_TABBOX[@]}; do
+        uninstall_component "$entry" "KWin/WindowSwitcher"
     done
     echo "Done."
 fi
