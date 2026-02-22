@@ -70,7 +70,7 @@ On Ubuntu, additional dependencies for X11 include:
 
 ## Migration notice <a name="migration"></a>
 
-AeroThemePlasma has moved to an installation method based on CMake, meant to simplify the entire process, as well as make it easier for distro packaging in the future. The old install scripts are deprecated and no longer work. It's highly recommended to first uninstall the old instance of AeroThemePlasma following these steps:
+AeroThemePlasma has moved to an installation method based on CMake, meant to simplify the entire process, as well as make it easier for distro packaging in the future. The old install scripts are deprecated and no longer work. It's highly recommended to first uninstall the old instance of AeroThemePlasma following these steps, **before pulling in new changes from this repo**:
 
 1. Run the uninstall script:
 
