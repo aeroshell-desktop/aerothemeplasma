@@ -39,6 +39,14 @@ find_package(KWin REQUIRED COMPONENTS
     kwin
 )
 
+set(KAUTH_ACTIONS_QML true CACHE BOOL "Build with KAuth prompts")
+
+if(KAUTH_ACTIONS_QML)
+    message("Enabled KAuth")
+else()
+    message("Disabled KAuth")
+endif()
+configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
 qt_policy(SET QTP0001 NEW)
 

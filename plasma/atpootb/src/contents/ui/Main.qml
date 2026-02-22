@@ -223,6 +223,7 @@ Window {
             }
         }
         BasicPage {
+            id: sddmAction
             pageTitle: i18n("SDDM Theme")
             buttonText: i18n("Apply")
             QQC2.Label {
@@ -253,6 +254,7 @@ Window {
             }
         }
         BasicPage {
+            id: cursorAction
             pageTitle: i18n("Cursor Theme")
             buttonText: i18n("Apply")
             QQC2.Label {
@@ -282,62 +284,6 @@ Window {
                 App.setCursorThemeSDDM();
             }
         }
-        /*BasicPage {
-            pageTitle: i18n("Additional Options")
-            QQC2.Label {
-                text: i18n("Select additional customization options for AeroThemePlasma.")
-                font.family: "Segoe UI"
-            }
-            QQC2.Frame {
-                id: checkBoxFrame
-                property Item currentCheckbox: null
-                Layout.fillWidth: true
-                function setCurrentCheckBox(self) {
-                    if(self.focus || self.hovered) {
-                        checkBoxFrame.currentCheckbox = self;
-                    } else if(!self.hovered && checkBoxFrame.currentCheckbox === self) {
-                        checkBoxFrame.currentCheckbox = null;
-                    }
-                }
-                ColumnLayout {
-                    spacing: 2
-
-                    QQC2.CheckBox {
-                        id: mimetypeCheckBox
-                        hoverEnabled: true
-                        font.family: "Segoe UI"
-                        property string description: i18n("This setting will locally override mimetype file associations for Windows™ executables (.exe, .dll, etc.) with file associations that have appropriate icon representations for each respective type.\n\nThis setting is recommended, especially if icon previews are disabled for these types.")
-                        text: i18n("Fix file associatons for Windows™ executables and libraries")
-                        onHoveredChanged: {
-                            checkBoxFrame.setCurrentCheckBox(mimetypeCheckBox)
-                        }
-                        onFocusChanged: {
-                            checkBoxFrame.setCurrentCheckBox(mimetypeCheckBox)
-                        }
-                    }
-                    QQC2.CheckBox {
-                        id: brandingCheckBox
-                        hoverEnabled: true
-                        font.family: "Segoe UI"
-                        property string description: i18n("This setting will locally override the branding found in the system settings (KInfoCenter), replacing the distribution name and logo with AeroThemePlasma's branding.\n\nFor more authentic branding, see [Linver](https://gitgud.io/wackyideas/linver).")
-                        text: i18n("Use AeroThemePlasma branding for Info Center")
-                        onHoveredChanged: {
-                            checkBoxFrame.setCurrentCheckBox(brandingCheckBox)
-                        }
-                        onFocusChanged: {
-                            checkBoxFrame.setCurrentCheckBox(brandingCheckBox)
-                        }
-                    }
-                }
-            }
-            QQC2.Label {
-                Layout.fillWidth: true
-                wrapMode: Text.WordWrap
-                textFormat: Text.MarkdownText
-                text: checkBoxFrame.currentCheckbox?.description || ""
-                font.family: "Segoe UI"
-            }
-        }*/
         BasicPage {
             pageTitle: i18n("Completing the AeroThemePlasma Setup Wizard")
             buttonText: i18n("Finish")
@@ -352,6 +298,12 @@ Window {
             onNext: {
                 App.saveOotbConfig(true);
                 Qt.quit();
+            }
+        }
+        Component.onCompleted: {
+            if(!KAUTH_ACTIONS_QML) {
+                sddmAction.parent = null;
+                cursorAction.parent = null;
             }
         }
     }

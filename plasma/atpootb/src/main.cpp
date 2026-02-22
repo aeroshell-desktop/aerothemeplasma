@@ -22,7 +22,7 @@
 #include <thread>
 #include <chrono>
 #include <cstdlib>
-
+#include "config.h"
 #include "atpootbconfig.h"
 
 using namespace Qt::Literals::StringLiterals;
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
     auto config = atpootbConfig::self();
 
     qmlRegisterSingletonInstance("io.gitgud.wackyideas.atpootb.private", 1, 0, "Config", config);
-
+    engine.rootContext()->setContextProperty("KAUTH_ACTIONS_QML", QVariant(KAUTH_ACTIONS_QML));
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.loadFromModule("io.gitgud.wackyideas.atpootb", u"Main");
 
