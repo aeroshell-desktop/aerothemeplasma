@@ -71,13 +71,13 @@ cd "$CUR_DIR/repos"
 git clone https://gitgud.io/aeroshell/aeroshell-kwin-components.git aeroshell-kwin-components
 cd aeroshell-kwin-components
 git pull
-cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DKWIN_BUILD_WAYLAND=ON -B build . || exit 1
+cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -DKWIN_BUILD_WAYLAND=ON -B build . || exit 1
 cmake --build build || exit 1
 $SU_CMD cmake --install build || exit 1
 cp build/install_manifest.txt "$CUR_DIR/manifest/aeroshell-kwin-components_install_manifest.txt"
 if [[ ! "$*" == *"--skip-x11"* ]]
 then
-    cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DKWIN_BUILD_WAYLAND=OFF -DKWIN_INSTALL_MISC=OFF -B build_x11 . || exit 1
+    cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -DKWIN_BUILD_WAYLAND=OFF -DKWIN_INSTALL_MISC=OFF -B build_x11 . || exit 1
     cmake --build build_x11 || exit 1
     $SU_CMD cmake --install build_x11 || exit 1
     cp build_x11/install_manifest.txt "$CUR_DIR/manifest/aeroshell-kwin-components-x11_install_manifest.txt"
@@ -106,13 +106,13 @@ cd "$CUR_DIR/repos"
 
 # Aerothemeplasma
 cd "$CUR_DIR"
-cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=$LIBEXEC_DIR -B build . || exit 1
+cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=$LIBEXEC_DIR -B build . || exit 1
 cmake --build build || exit 1
 $SU_CMD cmake --install build || exit 1
 cp build/install_manifest.txt "$CUR_DIR/manifest/aerothemeplasma_install_manifest.txt"
 if [[ ! "$*" == *"--skip-x11"* ]]
 then
-    cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=$LIBEXEC_DIR -DINSTALL_X11_COMPONENTS=ON -B build_x11 . || exit 1
+    cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=$LIBEXEC_DIR -DINSTALL_X11_COMPONENTS=ON -B build_x11 . || exit 1
     cmake --build build_x11 || exit 1
     $SU_CMD cmake --install build_x11 || exit 1
     cp build_x11/install_manifest.txt "$CUR_DIR/manifest/aerothemeplasma-x11_install_manifest.txt"
