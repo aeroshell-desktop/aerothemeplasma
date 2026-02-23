@@ -114,13 +114,15 @@ You can also run the install script like this:
 $ chmod +x install.sh && ./install.sh
 ```
 
-## NOTE
+# NOTE FOR OTHER DISTROS
 
 The script relies on `LIBEXEC_DIR` in order to determine the location of `/usr/$LIBEXEC_DIR/plasma-dbus-run-session-if-needed`, needed for the Wayland session to properly start. By default, this is set to `lib`. If you're installing ATP on a distribution where this is different, such as Fedora, this needs to be set to the appropriate value for your specific distribution. For example, on Fedora, `LIBEXEC_DIR` should be `libexec`:
 
 ```bash
 $ LIBEXEC_DIR=libexec bash install.sh --ninja
 ```
+
+Additionally, for distros that don't ship the X11 version of KWin, pass the argument `--skip-x11` to the install script in order to avoid building components that depend on X11. 
 
 The script will ask for admin privileges for file installation. Do **NOT** run any of the provided install scripts with sudo/doas or as root.
 
