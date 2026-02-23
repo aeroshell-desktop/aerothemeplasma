@@ -23,6 +23,7 @@ if [[ -z "$(command -v $SU_CMD)" ]]; then
     fi
 fi
 
+
 if [ -z $LIBEXEC_DIR ]; then
         LIBEXEC_DIR=lib
 fi
@@ -109,6 +110,13 @@ cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=$LIBEXEC_D
 cmake --build build || exit 1
 $SU_CMD cmake --install build || exit 1
 cp build/install_manifest.txt "$CUR_DIR/manifest/aerothemeplasma_install_manifest.txt"
+if [[ ! "$*" == *"--skip-x11"* ]]
+then
+    cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=$LIBEXEC_DIR -DINSTALL_X11_COMPONENTS=ON -B build_x11 . || exit 1
+    cmake --build build_x11 || exit 1
+    $SU_CMD cmake --install build_x11 || exit 1
+    cp build_x11/install_manifest.txt "$CUR_DIR/manifest/aerothemeplasma-x11_install_manifest.txt"
+fi
 cd "$CUR_DIR/repos"
 
 # libplasma last
