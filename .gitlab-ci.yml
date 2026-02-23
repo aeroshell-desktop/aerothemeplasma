@@ -13,6 +13,9 @@ build-linux-x64:
     - cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=lib -B build .
     - cmake --build build
     - DESTDIR=out cmake --install build
+    - cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=lib -DINSTALL_X11_COMPONENTS=ON -B build_x11 .
+    - cmake --build build_x11
+    - DESTDIR=out cmake --install build_x11
   artifacts:
     untracked: false
     when: on_success
