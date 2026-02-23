@@ -69,7 +69,7 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 
 - [Geckium](https://github.com/angelbruni/Geckium) by AngelBruni
 - [Aero UserChrome](https://gitgud.io/souris/aero-userchrome) by Souris (Geckium in combination with Aero UserChrome works well with AeroThemePlasma)
-- [VistaThemePlasma](https://gitgud.io/catpswin56/vistathemeplasma/) by catpswin56
+- [VistaThemePlasma](https://gitgud.io/aeroshell/vtp/vistathemeplasma/) by catpswin56
 - [LonghornThemePlasma](https://gitgud.io/catpswin56/longhornthemeplasma) by catpswin56
 - [VB1ThemePlasma](https://gitgud.io/catpswin56/vista-beta-plasma) by catpswin56
 - [Harmony](https://gitgud.io/catpswin56/harmony) by catpswin56
@@ -78,10 +78,11 @@ Huge thanks to everyone who helped out along the way by contributing, testing, p
 - [SMOD Themes](https://gitgud.io/catpswin56/smod-themes) by catpswin56, a collection of themes that can be used with the SMOD window decoration theme
 - [Ice2K.sys](https://toiletflusher.neocities.org/ice2k/) by 0penrc
 - [Sevulet](https://gitgud.io/snailatte/sevulet) by [snailatte](https://gitgud.io/snailatte)
+- [AeroThemePlasma-Nix](https://github.com/nyakase/aerothemeplasma-nix/) by [nyakase](https://github.com/nyakase)
 
 ## Vista variant
 
-Initially I wanted to make a Vista variant of AeroThemePlasma but [catpswin56](https://gitgud.io/catpswin56) beat me to it, use [VistaThemePlasma](https://gitgud.io/catpswin56/vistathemeplasma/) if you want a Vista theme.
+Initially I wanted to make a Vista variant of AeroThemePlasma but [catpswin56](https://gitgud.io/catpswin56) beat me to it, use [VistaThemePlasma](https://gitgud.io/aeroshell/vtp/vistathemeplasma) if you want a Vista theme.
 
 ## Screenshots
 
