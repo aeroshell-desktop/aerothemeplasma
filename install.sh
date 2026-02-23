@@ -25,7 +25,11 @@ fi
 
 
 if [ -z $LIBEXEC_DIR ]; then
-        LIBEXEC_DIR=lib
+    LIBEXEC_DIR=lib
+fi
+
+if [[ "$(command -v dnf)" ]]; then # Automatically change for Fedora
+    LIBEXEC_DIR=libexec
 fi
 
 mkdir -p repos
