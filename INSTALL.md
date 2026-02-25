@@ -103,7 +103,7 @@ It's highly recommended to use git for downloading AeroThemePlasma as updating b
 Run the following script:
 
 ```sh
-$ bash install.sh --ninja # Pass --ninja to reduce build times
+$ bash install.sh [--ninja]  [--skip-x11] # --ninja to reduce build times, --skip-x11 to skip building X11 components
 ``` 
 
 This will clone every repository needed for AeroThemePlasma and build everything from source.
@@ -111,7 +111,7 @@ This will clone every repository needed for AeroThemePlasma and build everything
 You can also run the install script like this:
 
 ```bash
-$ chmod +x install.sh && ./install.sh
+$ chmod +x install.sh && ./install.sh 
 ```
 
 # NOTE FOR OTHER DISTROS
