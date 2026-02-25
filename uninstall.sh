@@ -22,6 +22,7 @@ BUILD_FILES=(
         "repos/smod/smodglow/build-wl"
         "repos/uac-polkit-agent/build"
         "build"
+        "build_x11"
 )
 
 function uninstall_cmake_component {
