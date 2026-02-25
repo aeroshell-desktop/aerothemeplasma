@@ -39,6 +39,10 @@ int main(int argc, char *argv[])
             return -1;
         }
     }
+    else
+    {
+        return -2;
+    }
     KConfig ootbConfig(QStringLiteral("aerothemeplasmarc"));
     bool firstTime = ootbConfig.group(QStringLiteral("OOTB")).readEntry(QStringLiteral("wizardRun"), false);
 
