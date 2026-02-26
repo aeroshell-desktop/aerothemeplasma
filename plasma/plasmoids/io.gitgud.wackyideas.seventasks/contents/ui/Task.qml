@@ -1377,7 +1377,7 @@ TaskManagerApplet.SmartLauncherItem { }
                     number: task.smartLauncherItem.count
                     anchors.top: parent.top
                     anchors.right: parent.right
-                    anchors.rightMargin: (tasksRoot.height <= 30) ? -Kirigami.Units.largeSpacing : -Kirigami.Units.smallSpacing
+                    anchors.rightMargin: (tasksRoot.height <= 30) ? (-Kirigami.Units.largeSpacing + (label.visible ? Kirigami.Units.smallSpacing : 0)) : -Kirigami.Units.smallSpacing
                     anchors.topMargin: (tasksRoot.height <= 30) ? -Kirigami.Units.smallSpacing : 0
                     Component.onCompleted: {
                         badgeColor = containerRect.glowColor
