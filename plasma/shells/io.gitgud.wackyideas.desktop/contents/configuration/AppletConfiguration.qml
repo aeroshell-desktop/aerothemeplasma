@@ -7,14 +7,14 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-import QtQuick 2.15
-import QtQuick.Controls 2.15 as QQC2
-import QtQuick.Layouts 1.15
+import QtQuick
+import QtQuick.Controls as QQC2
+import QtQuick.Layouts
 
 import org.kde.kirigami as Kirigami
-import org.kde.kitemmodels 1.0 as KItemModels
-import org.kde.plasma.configuration 2.0
-import org.kde.plasma.plasmoid 2.0
+import org.kde.kitemmodels as KItemModels
+import org.kde.plasma.configuration
+import org.kde.plasma.plasmoid
 
 Rectangle {
     id: root
@@ -111,7 +111,20 @@ Rectangle {
         app.isAboutPage = false;
         root.currentSource = item.source
 
-        if (item.source) {
+        if (item.configUiModule && item.configUiComponent) {
+            root.currentSource = item.configUiModule + item.configUiComponent; // Just for the highlight status
+            const config = Plasmoid.configuration; // type: KConfigPropertyMap
+
+            const props = {
+                "title": item.name,
+            };
+
+            config.keys().forEach(key => {
+                props["cfg_" + key] = config[key];
+            });
+
+            pushReplace(Qt.createComponent(item.configUiModule, item.configUiComponent), props);
+        } else if (item.source) {
             app.isAboutPage = item.source === Qt.resolvedUrl("AboutPlugin.qml");
 
             if (isContainment) {
@@ -293,8 +306,8 @@ Rectangle {
                     spacing: Kirigami.Units.largeSpacing
                     property bool highlighted: {
                         if (app.pageStack.currentItem) {
-                            if (model.kcm && app.pageStack.currentItem.kcm) {
-                                return model.kcm == app.pageStack.currentItem.kcm
+                            if (model.configUiModule && model.configUiComponent) {
+                                return root.currentSource == (model.configUiModule + model.configUiComponent)
                             } else {
                                 return root.currentSource == model.source
                             }
