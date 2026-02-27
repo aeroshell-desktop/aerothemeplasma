@@ -33,6 +33,7 @@ PlasmoidItem {
 
     property bool volumeFeedback: config.audioFeedback
     property bool globalMute: config.globalMute
+    property bool globalMuteSources: config.globalMuteSources
     property string displayName: i18n("Audio Volume")
     property QtObject draggedStream: null
     property QtObject mixerWindow: null
@@ -366,6 +367,15 @@ PlasmoidItem {
             checked: globalMute
             onTriggered: {
                 GlobalService.globalMute();
+            }
+        },
+        PlasmaCore.Action {
+            text: i18n("Force mute all input devices")
+            icon.name: "microphone-sensitivity-muted" + (Qt.application.layoutDirection === Qt.RightToLeft ? "-rtl" : "");
+            checkable: true
+            checked: globalMuteSources
+            onTriggered: {
+                GlobalService.globalMuteSources();
             }
         },
         PlasmaCore.Action {
