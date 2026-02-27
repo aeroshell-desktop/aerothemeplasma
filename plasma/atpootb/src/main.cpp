@@ -79,9 +79,12 @@ int main(int argc, char *argv[])
     aboutData.addAuthor(i18nc("@info:credit", "WackyIdeas"),
                         i18nc("@info:credit", "Maintainer"),
                         u"wackyideas@disroot.org"_s,
-                        u"https://gitgud.io/wackyideas/aerothemeplasma"_s);
+                        u"https://gitgud.io/aeroshell/atp/aerothemeplasma"_s);
+    aboutData.setOrganizationDomain("gitgud.io");
+    aboutData.setDesktopFileName("__ATPOOTB");
     //aboutData.setTranslator(i18nc("NAME OF TRANSLATORS", "Your names"), i18nc("EMAIL OF TRANSLATORS", "Your emails"));
     KAboutData::setApplicationData(aboutData);
+
     QGuiApplication::setWindowIcon(QIcon::fromTheme(u"io.gitgud.wackyideas.atpootb"_s));
     QCoreApplication::setApplicationName(QStringLiteral("__ATPOOTB"));
 
