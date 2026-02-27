@@ -124,7 +124,7 @@ ContainmentItem {
             return;
         }
 
-        Plasmoid.applets.forEach(applet => applet.expanded = false);
+        Containment.applets.forEach(applet => applet.expanded = false);
         const component = Qt.createComponent("ConfigOverlay.qml");
         root.configOverlay = component.createObject(root, {
             "anchors.fill": dropArea,
@@ -525,7 +525,7 @@ ContainmentItem {
     }
     MouseArea {
         anchors.fill: parent
-        visible: Plasmoid.corona.editMode && !Plasmoid.userConfiguring
+        visible: Containment.corona.editMode && !Plasmoid.userConfiguring
         hoverEnabled: true
         onClicked: Plasmoid.internalAction("configure").trigger()
         Rectangle {
