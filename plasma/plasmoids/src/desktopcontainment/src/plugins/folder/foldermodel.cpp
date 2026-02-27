@@ -1154,7 +1154,7 @@ void FolderModel::dragSelectedInternal(int x, int y)
     DragTracker::self()->setDragInProgress(nullptr, false);
     m_urlChangedWhileDragging = false;
 
-    if (m_dirModel->dirLister()->url() == currentUrl) {
+    if (m_dirModel->dirLister()->url() == currentUrl && !m_dragIndexes.isEmpty()) {
         const QModelIndex first(m_dragIndexes.first());
         const QModelIndex last(m_dragIndexes.last());
         m_dragIndexes.clear();
