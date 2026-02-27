@@ -110,6 +110,10 @@ PlasmoidItem {
         anchors.topMargin: -Kirigami.Units.smallSpacing
         focus: true
     }
+
+    PlasmaNM.QrcaHandler {
+        id: qrca
+    }
     //property var detailsWindow: null
 
     Plasmoid.contextualActions: [
@@ -168,6 +172,14 @@ PlasmoidItem {
                 checked = PlasmaNM.Configuration.hotspotConnectionPath
             }
 
+        },
+        PlasmaCore.Action {
+            id: qrAction
+            text: i18n("Scan Wifi QR Code")
+            icon.name: "view-barcode-qr"
+            priority: PlasmaCore.Action.LowPriority
+            visible: qrca.available
+            onTriggered: qrca.launch()
         },
         PlasmaCore.Action {
             text: i18n("Open Network Login Page…")
