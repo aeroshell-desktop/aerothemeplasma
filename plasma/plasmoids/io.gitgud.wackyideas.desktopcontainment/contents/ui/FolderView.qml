@@ -1343,6 +1343,10 @@ FocusScope {
 
             folderModel: dir
 
+            optimalStripes: Math.floor((gridView.flow === GridView.FlowLeftToRight)
+            ? (gridView.height / gridView.cellHeight)
+            : (gridView.width / gridView.cellWidth))
+
             perStripe: Math.floor((gridView.flow === GridView.FlowLeftToRight)
                 ? (gridView.width / gridView.cellWidth)
                 : (gridView.height / gridView.cellHeight))

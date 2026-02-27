@@ -886,8 +886,22 @@ void FolderModel::rename(int row, const QString &name)
     }
 
     QModelIndex idx = index(row, 0);
+    const QString filename = data(idx, UrlRole).toString();
+    Q_EMIT itemAboutToRename(filename);
     m_dirModel->setData(mapToSource(idx), name, Qt::EditRole);
-    connect(m_dirModel, &KDirModel::dataChanged, this, &FolderModel::itemRenamed, Qt::SingleShotConnection);
+    connect(
+        m_dirModel,
+        &KDirModel::dataChanged,
+        this,
+        [=, this](const QModelIndex &topLeft, const QModelIndex &bottomRight, const QList<int> &roles) {
+            Q_UNUSED(roles)
+            QString newFilename;
+            if (topLeft == bottomRight) {
+                newFilename = data(mapFromSource(topLeft), UrlRole).toString();
+            }
+            Q_EMIT itemRenamed(filename, newFilename);
+        },
+        Qt::SingleShotConnection);
 }
 
 int FolderModel::fileExtensionBoundary(int row)
@@ -1247,7 +1261,8 @@ void FolderModel::drop(QQuickItem *target, QObject *dropEvent, int row, bool sho
             return;
         }
 
-        setSortMode(-1);
+        setUnsortedModeOnDrop();
+        //setSortMode(-1);
 
         for (const auto &url : mimeData->urls()) {
             m_dropTargetPositions.insert(url.fileName(), dropPos);
@@ -1271,7 +1286,8 @@ void FolderModel::drop(QQuickItem *target, QObject *dropEvent, int row, bool sho
 
     if (m_usedByContainment && !m_screenMapper->sharedDesktops()) {
         if (isDropBetweenSharedViews(mimeData->urls(), dropTargetFolderUrl)) {
-            setSortMode(-1);
+            setUnsortedModeOnDrop();
+            //setSortMode(-1);
             const QList<QUrl> urls = mimeData->urls();
             for (const auto &url : urls) {
                 m_dropTargetPositions.insert(url.fileName(), dropPos);
@@ -1459,6 +1475,22 @@ QVariant FolderModel::data(const QModelIndex &index, int role) const
     }
 
     return QSortFilterProxyModel::data(index, role);
+}
+
+void FolderModel::setUnsortedModeOnDrop()
+{
+    // The positioner will override old icon layout by
+    // sorted icon layout after drag and drop operation.
+    if (m_sortMode != -1) {
+        m_unsortedModeOnDrop = true;
+        setSortMode(-1);
+        m_unsortedModeOnDrop = false;
+    }
+}
+
+bool FolderModel::unsortedModeOnDrop()
+{
+    return m_unsortedModeOnDrop;
 }
 
 int FolderModel::indexForUrl(const QUrl &url) const

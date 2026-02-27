@@ -1,8 +1,8 @@
 /*
-    SPDX-FileCopyrightText: 2014 Eike Hein <hein@kde.org>
-
-    SPDX-License-Identifier: GPL-2.0-or-later
-*/
+ *    SPDX-FileCopyrightText: 2014 Eike Hein <hein@kde.org>
+ *
+ *    SPDX-License-Identifier: GPL-2.0-or-later
+ */
 
 #pragma once
 
@@ -23,13 +23,26 @@ class Positioner : public QAbstractItemModel
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
     Q_PROPERTY(FolderModel *folderModel READ folderModel WRITE setFolderModel NOTIFY folderModelChanged)
     Q_PROPERTY(int perStripe READ perStripe WRITE setPerStripe NOTIFY perStripeChanged)
+    Q_PROPERTY(int optimalStripes MEMBER m_optimalStripes)
 
-public:
-    enum LoadAndApplyFlags {
-        None,
-        SkipPerStripeUpdate
+    struct PositionsHeader {
+        int numStripes;
+        int perStripe;
     };
 
+    struct GridPosition {
+        bool operator==(const GridPosition &other) const = default;
+
+        int stripe;
+        int pos;
+    };
+
+    struct ChangedPosition {
+        QSet<QString> visitedResolutions;
+        GridPosition gridPosition;
+    };
+
+public:
     explicit Positioner(QObject *parent = nullptr);
     ~Positioner() override;
 
@@ -42,7 +55,7 @@ public:
     int perStripe() const;
     void setPerStripe(int perStripe);
 
-    QStringList positions() const; // Used in unit tests
+    QStringList positions() const;
 
     Q_INVOKABLE int map(int row) const;
 
@@ -62,7 +75,7 @@ public:
      * @param flags is used for handling if the PerStripe value is updated
      * on load.
      */
-    void loadAndApplyPositionsConfig(const LoadAndApplyFlags flags = LoadAndApplyFlags::None);
+    void loadAndApplyPositionsConfig(const QString &resolution = QString());
 
     /**
      * Saves the positions in m_positions to a configuration file
@@ -96,7 +109,9 @@ public:
 
     bool screenInUse() const;
 
-#ifdef BUILD_TESTING
+    bool updateResolution();
+
+    #ifdef BUILD_TESTING
     QHash<int, int> proxyToSourceMapping() const
     {
         return m_proxyToSource;
@@ -105,7 +120,7 @@ public:
     {
         return m_sourceToProxy;
     }
-#endif
+    #endif
 
 Q_SIGNALS:
     void enabledChanged() const;
@@ -114,7 +129,6 @@ Q_SIGNALS:
     void appletChanged() const;
 
 private Q_SLOTS:
-    void updateResolution();
     void sourceStatusChanged();
     void sourceDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QList<int> &roles);
     void sourceModelAboutToBeReset();
@@ -127,7 +141,8 @@ private Q_SLOTS:
     void sourceRowsMoved(const QModelIndex &sourceParent, int sourceStart, int sourceEnd, const QModelIndex &destinationParent, int destinationRow);
     void sourceRowsRemoved(const QModelIndex &parent, int first, int last);
     void sourceLayoutChanged(const QList<QPersistentModelIndex> &parents, QAbstractItemModel::LayoutChangeHint hint);
-    void onItemRenamed();
+    void onItemAboutToRename(const QString &filename);
+    void onItemRenamed(const QString &filename, const QString &newFilename);
     void onListingCompleted();
 
 private:
@@ -139,24 +154,33 @@ private:
     // Converts data from folderModel to proxy data
     void convertFolderModelData();
     // Turns proxyToSource data into positions QStringList
-    void updatePositionsList();
-    void flushPendingChanges();
+    void updatePositionsList(int perStripeForPositions = 0);
+    void flushPendingChanges(bool inserted);
     void connectSignals(FolderModel *model);
     void disconnectSignals(FolderModel *model);
     bool configurationHasResolution(const QString &resolution) const;
     QString loadConfigData() const;
+    void loadChangedPositions();
+    QByteArray prepareAndGetChangedPositionsJson();
+    QPair<bool, bool> restoreChangedPositions();
+    void maybeRestoreAndApplyChangedPositions(bool forceConvertAndSave);
 
     bool m_enabled;
     FolderModel *m_folderModel;
 
     int m_perStripe;
+    int m_optimalStripes = 0;
 
     QModelIndexList m_pendingChanges;
     bool m_ignoreNextTransaction;
 
-    QStringList m_positions;
+    std::optional<PositionsHeader> m_positionsHeader;
+    QHash<QString, GridPosition> m_positions;
     bool m_deferApplyPositions;
+    bool m_deferRestoreChangedPositions = false;
     QVariantList m_deferMovePositions;
+
+    QHash<QString, std::optional<ChangedPosition>> m_changedPositions;
 
     QHash<int, int> m_proxyToSource;
     QHash<int, int> m_sourceToProxy;
@@ -165,6 +189,8 @@ private:
     QString m_resolution;
 
     Plasma::Applet *m_applet = nullptr;
+
+    std::optional<QPair<QString, GridPosition>> m_toRename;
 
     friend class PositionerTest;
 };

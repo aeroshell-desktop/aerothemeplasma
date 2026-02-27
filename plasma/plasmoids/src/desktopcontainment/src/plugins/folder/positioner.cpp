@@ -1,26 +1,43 @@
 /*
-    SPDX-FileCopyrightText: 2014 Eike Hein <hein@kde.org>
-
-    SPDX-License-Identifier: GPL-2.0-or-later
-*/
+ *    SPDX-FileCopyrightText: 2014 Eike Hein <hein@kde.org>
+ *
+ *    SPDX-License-Identifier: GPL-2.0-or-later
+ */
 
 #include "positioner.h"
 #include "foldermodel.h"
 
 #include <cstdlib>
+#include <ranges>
 
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QTimer>
 
+using namespace Qt::StringLiterals;
+
+namespace PositionsConstants
+{
+    // Stripes and items per stripe
+    constexpr qsizetype headerSize = 2;
+
+    // filename, stripe, pos
+    constexpr qsizetype bucketSize = 3;
+
+    // Offsets in bucket
+    constexpr qsizetype filenameOffset = 0;
+    constexpr qsizetype stripeOffset = 1;
+    constexpr qsizetype posOffset = 2;
+}
+
 Positioner::Positioner(QObject *parent)
-    : QAbstractItemModel(parent)
-    , m_enabled(false)
-    , m_folderModel(nullptr)
-    , m_perStripe(0)
-    , m_ignoreNextTransaction(false)
-    , m_deferApplyPositions(false)
+: QAbstractItemModel(parent)
+, m_enabled(false)
+, m_folderModel(nullptr)
+, m_perStripe(0)
+, m_ignoreNextTransaction(false)
+, m_deferApplyPositions(false)
 {
 }
 
@@ -47,6 +64,8 @@ void Positioner::setEnabled(bool enabled)
         endResetModel();
 
         Q_EMIT enabledChanged();
+
+        setPerStripe(m_perStripe);
     }
 }
 
@@ -68,7 +87,6 @@ void Positioner::setFolderModel(QObject *folderModel)
 
         if (m_folderModel) {
             connectSignals(m_folderModel);
-            updateResolution();
             if (m_enabled) {
                 initMaps();
             }
@@ -77,6 +95,8 @@ void Positioner::setFolderModel(QObject *folderModel)
         endResetModel();
 
         Q_EMIT folderModelChanged();
+
+        setPerStripe(m_perStripe);
     }
 }
 
@@ -87,25 +107,73 @@ int Positioner::perStripe() const
 
 void Positioner::setPerStripe(int perStripe)
 {
-    if (m_perStripe != perStripe && perStripe > 0) {
-        m_perStripe = perStripe;
-        // Make sure we have the correct resolution and positions
-        // loaded before changing the stripe, so we modify the right positions
-        updateResolution();
-        Q_EMIT perStripeChanged();
-        if (m_enabled && screenInUse()) {
-            loadAndApplyPositionsConfig(LoadAndApplyFlags::SkipPerStripeUpdate);
-            // If no longer defering positions, update them
-            if (!m_deferApplyPositions) {
-                updatePositionsList();
+    // Make sure we have screen in use before perStripe update
+    // to make sure we update correct positions
+    if (perStripe > 0 && screenInUse()) {
+        const bool perStripeUpdated = m_perStripe != perStripe;
+        const bool resolutionUpdated = updateResolution();
+        const int prevPerStripe = m_perStripe;
+        if (perStripeUpdated) {
+            m_perStripe = perStripe;
+            Q_EMIT perStripeChanged();
+        }
+        const bool unsortedModeOnDrop = m_folderModel->unsortedModeOnDrop();
+        if (m_enabled && (perStripeUpdated || resolutionUpdated) && !unsortedModeOnDrop) {
+            const bool existingResolution = configurationHasResolution(m_resolution);
+            if (existingResolution) {
+                loadAndApplyPositionsConfig();
+            } else if (m_applet && m_positions.isEmpty()) {
+                // We don't have any positions yet, restore them from last used resolution
+                const QString lastResolution = m_applet->config().group(QStringLiteral("General")).readEntry(QStringLiteral("lastResolution"));
+                if (configurationHasResolution(lastResolution)) {
+                    loadAndApplyPositionsConfig(lastResolution);
+                }
             }
+            // If no longer deferring positions, update them
+            if (!m_deferApplyPositions) {
+                // If it's a new resolution, preserve icon positions by using previous "perStripe" (if available)
+                updatePositionsList(existingResolution ? 0 : prevPerStripe);
+                maybeRestoreAndApplyChangedPositions(!existingResolution);
+            } else {
+                m_deferRestoreChangedPositions = true;
+            }
+        } else if (m_enabled && unsortedModeOnDrop) {
+            // If we performed drag and drop operation on sorted mode - remove config for all resolutions
+            // "savePositionsConfig()" will be called soon, so don't save here
+            m_changedPositions.clear();
+            m_applet->config().group(u"General"_s).deleteEntry(u"positions"_s);
+        }
+        if (resolutionUpdated && m_resolution.isEmpty()) {
+            // When the resolution disappears, we load icons from the last used resolution and wait for it to be delivered
+            // This happens when changing the primary screen when the screens have different resolutions
+            connect(
+                m_folderModel,
+                &FolderModel::screenGeometryChanged,
+                this,
+                [this] {
+                    setPerStripe(m_perStripe);
+                },
+                Qt::SingleShotConnection);
         }
     }
 }
 
 QStringList Positioner::positions() const
 {
-    return m_positions;
+    QStringList positions;
+
+    if (m_positionsHeader.has_value()) {
+        positions.reserve(PositionsConstants::headerSize + m_positions.size() * PositionsConstants::bucketSize);
+        positions.append(QString::number(m_positionsHeader->numStripes));
+        positions.append(QString::number(m_positionsHeader->perStripe));
+        for (auto &&[filename, gridPos] : std::as_const(m_positions).asKeyValueRange()) {
+            positions.append(filename);
+            positions.append(QString::number(gridPos.stripe));
+            positions.append(QString::number(gridPos.pos));
+        }
+    }
+
+    return positions;
 }
 
 int Positioner::map(int row) const
@@ -131,20 +199,20 @@ int Positioner::nearestItem(int currentIndex, Qt::ArrowType direction)
     int vDirection = 0;
 
     switch (direction) {
-    case Qt::LeftArrow:
-        hDirection = -1;
-        break;
-    case Qt::RightArrow:
-        hDirection = 1;
-        break;
-    case Qt::UpArrow:
-        vDirection = -1;
-        break;
-    case Qt::DownArrow:
-        vDirection = 1;
-        break;
-    default:
-        return -1;
+        case Qt::LeftArrow:
+            hDirection = -1;
+            break;
+        case Qt::RightArrow:
+            hDirection = 1;
+            break;
+        case Qt::UpArrow:
+            vDirection = -1;
+            break;
+        case Qt::DownArrow:
+            vDirection = 1;
+            break;
+        default:
+            return -1;
     }
 
     QList<int> rows(m_proxyToSource.keys());
@@ -324,7 +392,7 @@ void Positioner::reset()
 
     endResetModel();
 
-    m_positions = QStringList();
+    m_positions.clear();
     updatePositionsList();
     savePositionsConfig();
 }
@@ -438,6 +506,9 @@ int Positioner::move(const QVariantList &moves, bool save)
             const QModelIndex &toIdx = index(move.to, 0);
             Q_EMIT dataChanged(toIdx, toIdx);
         }
+
+        // Start tracking moved file
+        m_changedPositions[m_folderModel->data(m_folderModel->index(move.sourceRow, 0), FolderModel::UrlRole).toString()] = std::nullopt;
     }
 
     if (newEnd < oldCount - 1) {
@@ -457,13 +528,14 @@ int Positioner::move(const QVariantList &moves, bool save)
     return toIndices.constFirst();
 }
 
-void Positioner::updatePositionsList()
+void Positioner::updatePositionsList(int perStripeForPositions)
 {
-    QStringList positions;
-
     if (m_enabled && screenInUse() && m_perStripe > 0) {
-        positions.append(QString::number(1 + ((rowCount() - 1) / m_perStripe)));
-        positions.append(QString::number(m_perStripe));
+        if (perStripeForPositions <= 0)
+            perStripeForPositions = m_perStripe;
+
+        m_positionsHeader.emplace(PositionsHeader{.numStripes = 1 + ((rowCount() - 1) / m_perStripe), .perStripe = m_perStripe});
+        m_positions.clear();
 
         QHashIterator<int, int> it(m_proxyToSource);
 
@@ -476,12 +548,10 @@ void Positioner::updatePositionsList()
                 return;
             }
 
-            positions.append(name);
-            positions.append(QString::number(qMax(0, it.key() / m_perStripe)));
-            positions.append(QString::number(qMax(0, it.key() % m_perStripe)));
-        }
-        if (positions != m_positions) {
-            m_positions = positions;
+            m_positions[name] = {
+                .stripe = qMax(0, it.key() / perStripeForPositions),
+                .pos = qMax(0, it.key() % perStripeForPositions),
+            };
         }
     }
 }
@@ -490,9 +560,13 @@ void Positioner::sourceStatusChanged()
 {
     if (m_deferApplyPositions && m_folderModel->status() != FolderModel::Listing) {
         convertFolderModelData();
-        // If no longer defering positions, update them
+        // If no longer deferring positions, update them
         if (!m_deferApplyPositions) {
             updatePositionsList();
+            if (m_deferRestoreChangedPositions) {
+                maybeRestoreAndApplyChangedPositions(false);
+                m_deferRestoreChangedPositions = false;
+            }
         }
     }
 
@@ -504,7 +578,7 @@ void Positioner::sourceStatusChanged()
         m_deferMovePositions.clear();
         // Load the configuration to make sure any of the moved items that are in the configuration
         // are in their correct place after deferred movements
-        loadAndApplyPositionsConfig(SkipPerStripeUpdate);
+        loadAndApplyPositionsConfig();
     }
 }
 
@@ -683,7 +757,7 @@ void Positioner::sourceRowsInserted(const QModelIndex &parent, int first, int la
         m_ignoreNextTransaction = false;
     }
 
-    flushPendingChanges();
+    flushPendingChanges(true);
 
     // Don't generate new positions data if we're waiting for listing to
     // complete to apply initial positions.
@@ -718,7 +792,7 @@ void Positioner::sourceRowsRemoved(const QModelIndex &parent, int first, int las
         m_ignoreNextTransaction = false;
     }
 
-    flushPendingChanges();
+    flushPendingChanges(false);
 
     if (screenInUse()) {
         // Load current config
@@ -805,8 +879,8 @@ int Positioner::firstFreeRow() const
 
 void Positioner::convertFolderModelData()
 {
-    // if no screen or position count is 2 or smaller, we have no positions to convert
-    if (!screenInUse() && m_positions.count() <= 2) {
+    // If no screen or no positions, we have nothing to convert
+    if (!screenInUse() || m_positions.isEmpty()) {
         return;
     }
     // We were called while the source model is listing. Defer applying positions
@@ -823,48 +897,25 @@ void Positioner::convertFolderModelData()
     m_proxyToSource.clear();
     m_sourceToProxy.clear();
 
-    const QStringList positions = m_positions.mid(2);
-
-    if (positions.size() % 3 != 0) {
-        return;
-    }
+    const int folderModelRowCount = m_folderModel->rowCount();
 
     QHash<QString, int> sourceIndices;
+    sourceIndices.reserve(folderModelRowCount);
 
-    for (int i = 0; i < m_folderModel->rowCount(); ++i) {
+    for (int i = 0; i < folderModelRowCount; ++i) {
         sourceIndices.insert(m_folderModel->data(m_folderModel->index(i, 0), FolderModel::UrlRole).toString(), i);
     }
 
-    QString name;
-    int stripe = -1;
-    int pos = -1;
-    int sourceIndex = -1;
-    int index = -1;
-    bool ok = false;
-    int offset = 0;
-
     // Restore positions for items that still fit.
-    for (int i = 0; i < positions.size() / 3; ++i) {
-        offset = i * 3;
-        pos = positions[offset + 2].toInt(&ok);
-        if (!ok) {
-            return;
-        }
-
-        if (pos <= m_perStripe) {
-            name = positions[offset];
-            stripe = positions[offset + 1].toInt(&ok);
-            if (!ok) {
-                return;
-            }
-
+    for (auto &&[name, gridPos] : std::as_const(m_positions).asKeyValueRange()) {
+        if (gridPos.pos <= m_perStripe) {
             if (!sourceIndices.contains(name)) {
                 continue;
-            } else {
-                sourceIndex = sourceIndices.value(name);
             }
 
-            index = (stripe * m_perStripe) + pos;
+            const int sourceIndex = sourceIndices.value(name);
+
+            const int index = (gridPos.stripe * m_perStripe) + gridPos.pos;
 
             if (m_proxyToSource.contains(index)) {
                 continue;
@@ -876,23 +927,15 @@ void Positioner::convertFolderModelData()
     }
 
     // Find new positions for items that didn't fit.
-    for (int i = 0; i < positions.size() / 3; ++i) {
-        offset = i * 3;
-        pos = positions[offset + 2].toInt(&ok);
-        if (!ok) {
-            return;
-        }
-
-        if (pos > m_perStripe) {
-            name = positions[offset];
-
+    for (auto &&[name, gridPos] : std::as_const(m_positions).asKeyValueRange()) {
+        if (gridPos.pos > m_perStripe) {
             if (!sourceIndices.contains(name)) {
                 continue;
-            } else {
-                sourceIndex = sourceIndices.take(name);
             }
 
-            index = firstFreeRow();
+            const int sourceIndex = sourceIndices.take(name);
+
+            int index = firstFreeRow();
 
             if (index == -1) {
                 index = lastRow() + 1;
@@ -908,7 +951,7 @@ void Positioner::convertFolderModelData()
     while (it.hasNext()) {
         it.next();
 
-        index = firstFreeRow();
+        int index = firstFreeRow();
 
         if (index == -1) {
             index = lastRow() + 1;
@@ -922,7 +965,7 @@ void Positioner::convertFolderModelData()
     m_deferApplyPositions = false;
 }
 
-void Positioner::flushPendingChanges()
+void Positioner::flushPendingChanges(bool inserted)
 {
     if (m_pendingChanges.isEmpty()) {
         return;
@@ -932,6 +975,10 @@ void Positioner::flushPendingChanges()
 
     for (const QModelIndex &index : std::as_const(m_pendingChanges)) {
         if (index.row() <= last) {
+            if (inserted) {
+                // Start tracking a new file
+                m_changedPositions[data(index, FolderModel::UrlRole).toString()] = std::nullopt;
+            }
             Q_EMIT dataChanged(index, index);
         }
     }
@@ -950,6 +997,8 @@ void Positioner::setApplet(Plasma::Applet *applet)
         Q_ASSERT(!m_applet);
         m_applet = applet;
 
+        loadChangedPositions();
+
         Q_EMIT appletChanged();
     }
 }
@@ -962,21 +1011,38 @@ bool Positioner::screenInUse() const
     return m_folderModel->screenUsed();
 }
 
-void Positioner::loadAndApplyPositionsConfig(const LoadAndApplyFlags flags)
+void Positioner::loadAndApplyPositionsConfig(const QString &resolution)
 {
-    if (m_applet && screenInUse() && !m_resolution.isEmpty()) {
+    const QString &resolutionToLoad = resolution.isEmpty() ? m_resolution : resolution;
+    if (m_applet && m_enabled && screenInUse() && !resolutionToLoad.isEmpty()) {
         // The old configuration has commas with escape characters, so clean up those from the config
         auto confdata = loadConfigData();
         const QJsonDocument doc = QJsonDocument::fromJson(confdata.toUtf8());
-        QStringList positions = doc[m_resolution].toVariant().toStringList();
 
-        m_positions = positions;
-        // In case our row and m_perStripe values are out of sync, update them here
-        // The can get out of sync due to FolderView.qml and positioner.cpp both handling them
-        // If we have the first two values of positions, we have the perStripe value
-        if (flags != LoadAndApplyFlags::SkipPerStripeUpdate && m_positions.length() >= 2) {
-            m_perStripe = m_positions[1].toInt();
-            Q_EMIT perStripeChanged();
+        const auto positions = doc[resolutionToLoad].toVariant().toStringList();
+        m_positionsHeader.reset();
+        m_positions.clear();
+        if (positions.size() >= PositionsConstants::headerSize && (positions.size() - PositionsConstants::headerSize) % PositionsConstants::bucketSize == 0) {
+            bool okNumStripes = false;
+            bool okPerStripe = false;
+            m_positionsHeader = {.numStripes = positions[0].toInt(&okNumStripes), .perStripe = positions[1].toInt(&okPerStripe)};
+            if (okNumStripes && okPerStripe) {
+                for (qsizetype offset = PositionsConstants::headerSize; offset < positions.size(); offset += PositionsConstants::bucketSize) {
+                    bool okStripe = false;
+                    bool okPos = false;
+                    const auto name = positions[offset + PositionsConstants::filenameOffset];
+                    const auto stripe = positions[offset + PositionsConstants::stripeOffset].toInt(&okStripe);
+                    const auto pos = positions[offset + PositionsConstants::posOffset].toInt(&okPos);
+                    if (!name.isEmpty() && okStripe && okPos) {
+                        m_positions[name] = {
+                            .stripe = stripe,
+                            .pos = pos,
+                        };
+                    }
+                }
+            } else {
+                m_positionsHeader.reset();
+            }
         }
 
         convertFolderModelData();
@@ -985,7 +1051,7 @@ void Positioner::loadAndApplyPositionsConfig(const LoadAndApplyFlags flags)
 
 void Positioner::savePositionsConfig()
 {
-    if (m_applet && screenInUse()) {
+    if (m_applet && m_enabled && screenInUse() && !m_resolution.isEmpty()) {
         auto confdata = loadConfigData();
         auto doc = QJsonDocument::fromJson(confdata.toUtf8());
         QJsonObject root;
@@ -996,35 +1062,39 @@ void Positioner::savePositionsConfig()
             }
         }
         // Append our new item
-        root.insert(m_resolution, QJsonArray::fromStringList(m_positions));
+        root.insert(m_resolution, QJsonArray::fromStringList(positions()));
 
         const QByteArray data = QJsonDocument(root).toJson(QJsonDocument::Compact);
-        m_applet->config().group(QStringLiteral("General")).writeEntry(QStringLiteral("positions"), data);
+        auto config = m_applet->config().group(QStringLiteral("General"));
+        config.writeEntry(QStringLiteral("lastResolution"), m_resolution);
+        config.writeEntry(QStringLiteral("positions"), data);
+        config.writeEntry(u"changedPositions"_s, prepareAndGetChangedPositionsJson());
         Q_EMIT m_applet->configNeedsSaving();
     }
 }
 
-void Positioner::updateResolution()
+bool Positioner::updateResolution()
 {
-    if (m_folderModel) {
-        QString resolution = QStringLiteral("%1x%2").arg(QString::number(floor(m_folderModel->screenGeometry().width())),
-                                                         QString::number(floor(m_folderModel->screenGeometry().height())));
-        if (resolution != QStringLiteral("0x0")) {
-            if (m_resolution != resolution) {
-                m_resolution = resolution;
-                if (configurationHasResolution(m_resolution)) {
-                    loadAndApplyPositionsConfig();
-                }
-                if (!m_deferApplyPositions) {
-                    updatePositionsList();
-                }
-            }
-        }
+    const QString prevResolution = m_resolution;
+    QSize size;
+    if (m_enabled && screenInUse()) {
+        Q_ASSERT(m_folderModel);
+        const QSizeF sizeF = m_folderModel->screenGeometry().size();
+        size = QSize(std::floor(sizeF.width()), std::floor(sizeF.height()));
     }
+    if (size.isEmpty()) {
+        m_resolution.clear();
+    } else {
+        m_resolution = QStringLiteral("%1x%2").arg(size.width()).arg(size.height());
+    }
+    return m_resolution != prevResolution;
 }
 
 bool Positioner::configurationHasResolution(const QString &resolution) const
 {
+    if (resolution.isEmpty()) {
+        return false;
+    }
     auto confdata = loadConfigData();
     if (confdata.isEmpty()) {
         return false;
@@ -1038,14 +1108,184 @@ QString Positioner::loadConfigData() const
     QString confdata;
     if (m_applet) {
         confdata =
-            m_applet->config().group(QStringLiteral("General")).readEntry(QStringLiteral("positions")).replace(QStringLiteral("\\,"), QStringLiteral(","));
+        m_applet->config().group(QStringLiteral("General")).readEntry(QStringLiteral("positions")).replace(QStringLiteral("\\,"), QStringLiteral(","));
     }
     return confdata;
 }
 
-void Positioner::onItemRenamed()
+void Positioner::loadChangedPositions()
+{
+    const auto jsonArr = QJsonDocument::fromJson(m_applet->config().group(u"General"_s).readEntry(u"changedPositions"_s).toUtf8()).object();
+
+    m_changedPositions.clear();
+    m_changedPositions.reserve(jsonArr.size());
+
+    for (auto it = jsonArr.begin(), itEnd = jsonArr.end(); it != itEnd; ++it) {
+        const auto filename = it.key();
+        if (filename.isEmpty()) {
+            continue;
+        }
+
+        const auto values = it.value().toVariant().toStringList();
+        if (values.size() != 3) {
+            continue;
+        }
+
+        const auto visitedResolutions = values[0].split(','_L1, Qt::SkipEmptyParts);
+        bool okStripeOffset = false;
+        bool okPosOffset = false;
+        ChangedPosition changedPosition{
+            .visitedResolutions = {visitedResolutions.constBegin(), visitedResolutions.constEnd()},
+            .gridPosition = {.stripe = values[1].toInt(&okStripeOffset), .pos = values[2].toInt(&okPosOffset)},
+        };
+        if (!okStripeOffset || !okPosOffset) {
+            continue;
+        }
+
+        m_changedPositions[filename] = std::move(changedPosition);
+    }
+}
+
+QByteArray Positioner::prepareAndGetChangedPositionsJson()
+{
+    // This method must be called with up-to-date "m_positions" list
+
+    QJsonObject jsonObj;
+    QStringList toRemove;
+
+    for (auto &&[filename, changedPosition] : m_changedPositions.asKeyValueRange()) {
+        if (auto positionsIt = m_positions.constFind(filename); positionsIt != m_positions.constEnd()) {
+            if (!changedPosition.has_value()) {
+                // Fill empty changed positions slot with current data (it means it started to be tracked recently)
+                changedPosition.emplace(ChangedPosition{
+                    .visitedResolutions = {m_resolution},
+                    .gridPosition = positionsIt.value(),
+                });
+            }
+
+            jsonObj[filename] = QJsonArray::fromStringList({
+                QStringList(changedPosition->visitedResolutions.constBegin(), changedPosition->visitedResolutions.constEnd()).join(','_L1),
+                                                           QString::number(changedPosition->gridPosition.stripe),
+                                                           QString::number(changedPosition->gridPosition.pos),
+            });
+        } else {
+            toRemove.push_back(filename);
+        }
+    }
+
+    // Remove all disappeared files from changed positions
+    for (auto &&filename : std::as_const(toRemove)) {
+        m_changedPositions.remove(filename);
+    }
+
+    return QJsonDocument(jsonObj).toJson(QJsonDocument::Compact);
+}
+
+QPair<bool, bool> Positioner::restoreChangedPositions()
+{
+    bool visited = false;
+    bool restored = false;
+
+    auto positionsContains = [this](const GridPosition &otherGridPos) {
+        return std::ranges::any_of(std::as_const(m_positions), [otherGridPos](auto &&gridPos) {
+            return gridPos == otherGridPos;
+        });
+    };
+
+    auto getOptimalStripes = [this] {
+        // Optimal number of stripes to prevent scroll bar if we don't have it yet
+        return qMax(m_optimalStripes, m_positionsHeader.value_or(PositionsHeader()).numStripes);
+    };
+
+    auto canUpdateGridPos = [&, optimalStripes = getOptimalStripes()](const GridPosition currGridPos, GridPosition &newGridPos) {
+        if (currGridPos == newGridPos) {
+            // Position has not been changed
+            return false;
+        }
+
+        bool checkAgain = false;
+
+        if (newGridPos.pos >= m_perStripe) {
+            // Icon will be repositioned automatically, so clip to maximum position
+            newGridPos.pos = m_perStripe > 0 ? m_perStripe - 1 : currGridPos.pos;
+            checkAgain = true;
+        }
+
+        if (newGridPos.stripe >= optimalStripes) {
+            // Scroll bar will appear, so use maximum possible stripe
+            newGridPos.stripe = optimalStripes > 0 ? optimalStripes - 1 : currGridPos.stripe;
+            checkAgain = true;
+        }
+
+        if (checkAgain && currGridPos == newGridPos) {
+            // Position has not been changed
+            return false;
+        }
+
+        if (positionsContains(newGridPos)) {
+            // Ignore position changes which overlaps existing position
+            return false;
+        }
+
+        return true;
+    };
+
+    for (auto &&[filename, changedPosition] : m_changedPositions.asKeyValueRange()) {
+        if (!changedPosition.has_value() || changedPosition->visitedResolutions.contains(m_resolution)) {
+            continue;
+        }
+
+        if (auto positionsIt = m_positions.find(filename); positionsIt != m_positions.end()) {
+            auto newGridPos = changedPosition->gridPosition;
+            if (canUpdateGridPos(positionsIt.value(), newGridPos)) {
+                positionsIt.value() = newGridPos;
+                restored = true;
+            }
+        }
+
+        // Mark current resolution as visited (we don't want to attempt to restore it again)
+        changedPosition->visitedResolutions.insert(m_resolution);
+        visited = true;
+    }
+
+    return {visited, restored};
+}
+
+void Positioner::maybeRestoreAndApplyChangedPositions(bool forceConvertAndSave)
+{
+    // Restore positions which has been changed by the user at different resolution
+    const auto [visited, restored] = restoreChangedPositions();
+    if (forceConvertAndSave || restored) {
+        convertFolderModelData();
+        savePositionsConfig();
+    } else if (visited) {
+        savePositionsConfig();
+    }
+}
+
+void Positioner::onItemAboutToRename(const QString &filename)
+{
+    // Store old item position
+    if (auto positionsIt = m_positions.constFind(filename); positionsIt != m_positions.constEnd()) {
+        m_toRename = {filename, positionsIt.value()};
+    }
+}
+
+void Positioner::onItemRenamed(const QString &filename, const QString &newFilename)
 {
     updatePositionsList();
+    // "m_toRename" has 3 items: filename, row, stripe-pos
+    if (m_toRename.has_value() && m_toRename->first == filename && filename != newFilename) {
+        // Restore item position after rename
+        if (auto positionsIt = m_positions.find(newFilename); positionsIt != m_positions.end()) {
+            // Assign two items: row, stripe-pos
+            positionsIt->stripe = m_toRename->second.stripe;
+            positionsIt->pos = m_toRename->second.pos;
+            convertFolderModelData();
+        }
+    }
+    m_toRename.reset();
+    m_changedPositions[newFilename] = std::nullopt;
     savePositionsConfig();
 }
 
@@ -1072,8 +1312,8 @@ void Positioner::connectSignals(FolderModel *model)
     connect(model, &QAbstractItemModel::layoutChanged, this, &Positioner::sourceLayoutChanged, Qt::UniqueConnection);
     connect(m_folderModel, &FolderModel::urlChanged, this, &Positioner::reset, Qt::UniqueConnection);
     connect(m_folderModel, &FolderModel::statusChanged, this, &Positioner::sourceStatusChanged, Qt::UniqueConnection);
+    connect(m_folderModel, &FolderModel::itemAboutToRename, this, &Positioner::onItemAboutToRename, Qt::UniqueConnection);
     connect(m_folderModel, &FolderModel::itemRenamed, this, &Positioner::onItemRenamed, Qt::UniqueConnection);
-    connect(m_folderModel, &FolderModel::screenGeometryChanged, this, &Positioner::updateResolution, Qt::UniqueConnection);
     connect(m_folderModel, &FolderModel::listingCompleted, this, &Positioner::onListingCompleted, Qt::UniqueConnection);
 }
 
@@ -1090,8 +1330,8 @@ void Positioner::disconnectSignals(FolderModel *model)
     disconnect(model, &QAbstractItemModel::layoutChanged, this, &Positioner::sourceLayoutChanged);
     disconnect(m_folderModel, &FolderModel::urlChanged, this, &Positioner::reset);
     disconnect(m_folderModel, &FolderModel::statusChanged, this, &Positioner::sourceStatusChanged);
+    disconnect(m_folderModel, &FolderModel::itemAboutToRename, this, &Positioner::onItemAboutToRename);
     disconnect(m_folderModel, &FolderModel::itemRenamed, this, &Positioner::onItemRenamed);
-    disconnect(m_folderModel, &FolderModel::screenGeometryChanged, this, &Positioner::updateResolution);
     disconnect(m_folderModel, &FolderModel::listingCompleted, this, &Positioner::onListingCompleted);
 }
 

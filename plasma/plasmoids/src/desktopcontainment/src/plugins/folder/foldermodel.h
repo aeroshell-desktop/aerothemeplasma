@@ -252,6 +252,8 @@ public:
 
     QRectF screenGeometry();
 
+    bool unsortedModeOnDrop();
+
 Q_SIGNALS:
     void urlChanged() const;
     void listingCompleted() const;
@@ -281,7 +283,8 @@ Q_SIGNALS:
     void popupMenuAboutToShow(KIO::DropJob *dropJob, QMimeData *mimeData, int x, int y);
     void selectionChanged() const;
     void showHiddenFilesChanged() const;
-    void itemRenamed() const;
+    void itemAboutToRename(const QString &filename) const;
+    void itemRenamed(const QString &filename, const QString &newFilename) const;
     void screenGeometryChanged() const;
     void selectionDone();
     void hasRefreshed(bool isExplicit);
@@ -305,6 +308,9 @@ private Q_SLOTS:
     void invalidateIfComplete();
     void invalidateFilterIfComplete();
     void newFileMenuItemCreated(const QUrl &url);
+
+private:
+    void setUnsortedModeOnDrop();
 
 private:
     struct DragImage {
@@ -352,6 +358,7 @@ private:
     bool m_sortDirsFirst;
     bool m_parseDesktopFiles;
     bool m_previews;
+    bool m_unsortedModeOnDrop = false;
     // An empty previewPlugin list means use default.
     // We don't want to leak that fact to the QML side, however, so the property stays empty
     // and internally we operate on effectivePreviewPlugins instead.
