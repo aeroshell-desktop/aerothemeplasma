@@ -260,6 +260,7 @@ FocusScope {
 
     MouseEventListener {
         id: listener
+        enabled: !Plasmoid.containment.corona.editMode
 
         anchors {
             topMargin: backButton !== null ? backButton.height : undefined
