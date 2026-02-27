@@ -2,20 +2,20 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
-import org.kde.coreaddons 1.0 as KCoreAddons
+import org.kde.coreaddons as KCoreAddons
 import org.kde.kcmutils as KCMUtils
 
-import org.kde.kirigami 2.20 as Kirigami
-import org.kde.plasma.components 3.0 as PlasmaComponents3
-import org.kde.plasma.extras 2.0 as PlasmaExtras
+import org.kde.kirigami as Kirigami
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.plasma.extras as PlasmaExtras
 import org.kde.plasma.networkmanagement as PlasmaNM
-import org.kde.plasma.plasmoid 2.0
+import org.kde.plasma.plasmoid
 
 Window {
     id: detailsWindow
     title: networkName + " Status"
     color: "#f0f0f0"
-    property color borderColor: "#b4b4b4"
+    property color borderColor: "#898c95"
     property alias tabBar: tabs
     minimumWidth: 360
     maximumWidth: 360
@@ -130,7 +130,7 @@ Window {
         anchors.leftMargin: Kirigami.Units.mediumSpacing
         anchors.rightMargin: Kirigami.Units.mediumSpacing
         anchors.bottomMargin: Kirigami.Units.mediumSpacing+1
-        anchors.topMargin: Kirigami.Units.smallSpacing
+        anchors.topMargin: Kirigami.Units.smallSpacing/2
         z: -1
         border.color: detailsWindow.borderColor
         border.width: 1

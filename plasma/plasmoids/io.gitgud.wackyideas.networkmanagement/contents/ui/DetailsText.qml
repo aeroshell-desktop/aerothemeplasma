@@ -10,12 +10,12 @@ import QtQuick.Layouts
 
 import QtQuick.Effects
 
-import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddons
-import org.kde.kirigami 2.20 as Kirigami
-import org.kde.plasma.extras 2.0 as PlasmaExtras
-import org.kde.plasma.components 3.0 as PlasmaComponents3
+import org.kde.kquickcontrolsaddons as KQuickControlsAddons
+import org.kde.kirigami as Kirigami
+import org.kde.plasma.extras as PlasmaExtras
+import org.kde.plasma.components as PlasmaComponents3
 import org.kde.plasma.networkmanagement as PlasmaNM
-import org.kde.plasma.plasmoid 2.0
+import org.kde.plasma.plasmoid
 
 
 MouseArea {
@@ -62,8 +62,9 @@ MouseArea {
         onTriggered: {
             detailsMA.getModelIndex();
             connectionState = detailsMA.connectionModel.data(modelIndex, PlasmaNM.NetworkModel.ConnectionStateRole);
-            details = detailsMA.connectionModel.data(modelIndex, PlasmaNM.NetworkModel.ConnectionDetailsRole);
+            details = detailsMA.connectionModel.data(modelIndex, PlasmaNM.NetworkModel.ConnectionDetailsModelRole);
 
+            detailsMA.Accessible.description = details.accessibilityDescription();
             if(connectionState === PlasmaNM.Enums.Activated) {
                 txBytes = detailsMA.connectionModel.data(modelIndex, PlasmaNM.NetworkModel.TxBytesRole);
                 rxBytes = detailsMA.connectionModel.data(modelIndex, PlasmaNM.NetworkModel.RxBytesRole);
@@ -123,11 +124,12 @@ MouseArea {
         anchors.left: parent.left
         anchors.right: parent.right
         spacing: Kirigami.Units.largeSpacing+1
+        Kirigami.Theme.colorSet: Kirigami.Theme.View
+        Kirigami.Theme.inherit: false
         PlasmaComponents3.Label {
             font: Kirigami.Theme.defaultFont
-            text: "Connection"
+            text: i18n("Connection")
             textFormat: Text.PlainText
-            color: "black"
         }
         Rectangle {
             Layout.preferredHeight: 1
@@ -146,24 +148,69 @@ MouseArea {
         anchors.leftMargin: Kirigami.Units.largeSpacing*2-1
         anchors.rightMargin: Kirigami.Units.largeSpacing*2-1
         anchors.topMargin: Kirigami.Units.smallSpacing
-
         Repeater {
             id: repeater
 
-            model: details.length
+            model: details
 
-            PlasmaComponents3.Label {
+            delegate: Item {
+                id: delegateItem
+
+                // Required properties from ConnectionDetailsModel
+                required property bool isSection
+                required property string sectionTitle
+                required property string detailLabel
+                required property string detailValue
+                Kirigami.Theme.colorSet: Kirigami.Theme.View
+                Kirigami.Theme.inherit: false
+
                 Layout.fillWidth: true
-                required property int index
-                readonly property bool isContent: index % 2
+                Layout.columnSpan: 2
+                Layout.preferredHeight: {
+                    if (delegateItem.detailLabel || delegateItem.detailValue) {
+                        return detailLabelItem.implicitHeight;
+                    }
+                    return 0; // Hide empty items
+                }
 
-                elide: isContent ? Text.ElideRight : Text.ElideNone
-                font: Kirigami.Theme.defaultFont
-                horizontalAlignment: isContent ? Text.AlignRight : Text.AlignLeft
-                text: isContent ? details[index] : `${details[index]}:`
-                textFormat: Text.PlainText
-                //opacity: isContent ? 1 : 0.6
-                color: "black"
+                // Detail Label
+                PlasmaComponents3.Label {
+                    id: detailLabelItem // Renamed from labelItem
+                    anchors.left: parent.left
+                    anchors.right: parent.horizontalCenter
+                    anchors.rightMargin: detailsGrid.columnSpacing / 2
+
+                    visible: !delegateItem.isSection && (delegateItem.detailLabel || delegateItem.detailValue)
+                    elide: Text.ElideNone
+                    font: Kirigami.Theme.defaultFont
+                    horizontalAlignment: Text.AlignLeft
+                    text: `${delegateItem.detailLabel}:`
+                    textFormat: Text.PlainText
+                }
+
+                // Detail Value
+                PlasmaComponents3.Label {
+                    id: detailValueItem
+                    anchors.left: parent.horizontalCenter
+                    anchors.leftMargin: detailsGrid.columnSpacing / 2
+                    anchors.right: parent.right
+
+                    visible: !delegateItem.isSection && (delegateItem.detailLabel || delegateItem.detailValue)
+                    elide: Text.ElideRight
+                    font: Kirigami.Theme.defaultFont
+                    horizontalAlignment: Text.AlignRight
+                    text: delegateItem.detailValue
+                    textFormat: Text.PlainText
+                    opacity: 1
+
+                    MouseArea {
+                        anchors.fill: parent
+                        acceptedButtons: Qt.RightButton
+                        onPressed: mouse => {
+                            contextMenu.show(this, detailValueItem.text, mouse.x, mouse.y);
+                        }
+                    }
+                }
             }
         }
     }
@@ -175,11 +222,12 @@ MouseArea {
         anchors.right: parent.right
         spacing: Kirigami.Units.largeSpacing+1
         visible: detailsMA.connectionState === PlasmaNM.Enums.Activated
+        Kirigami.Theme.colorSet: Kirigami.Theme.View
+        Kirigami.Theme.inherit: false
         PlasmaComponents3.Label {
             font: Kirigami.Theme.defaultFont
-            text: "Activity"
+            text: i18n("Activity")
             textFormat: Text.PlainText
-            color: "black"
         }
         Rectangle {
             Layout.preferredHeight: 1
@@ -205,7 +253,7 @@ MouseArea {
             Layout.bottomMargin: Kirigami.Units.largeSpacing+2
             Layout.rightMargin: Kirigami.Units.largeSpacing
             spacing: Kirigami.Units.mediumSpacing
-            Text { text: "Sent" }
+            Text { text: i18n("Sent") }
             Rectangle { Layout.preferredHeight: 2; Layout.preferredWidth: 20; color: "#a0a0a0" }
             //Layout.alignment: Qt.AlignVCenter
         }
@@ -246,9 +294,9 @@ MouseArea {
             }
         }
         Rectangle { Layout.bottomMargin: Kirigami.Units.largeSpacing+2; Layout.preferredHeight: 2; Layout.preferredWidth: 20; color: "#a0a0a0" }
-        Text { text: "Received"; Layout.alignment: Qt.AlignRight; Layout.bottomMargin: Kirigami.Units.largeSpacing+2 }
+        Text { text: i18n("Received"); Layout.alignment: Qt.AlignRight; Layout.bottomMargin: Kirigami.Units.largeSpacing+2 }
 
-        Text { text: "Bytes:"; Layout.fillWidth: true }
+        Text { text: i18n("Bytes:"); Layout.fillWidth: true }
         Text {
             id: txText
             text: detailsMA.numberWithCommas(detailsMA.txBytes)

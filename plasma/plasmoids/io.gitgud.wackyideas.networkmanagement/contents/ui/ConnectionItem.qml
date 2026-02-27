@@ -9,14 +9,14 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
-import org.kde.coreaddons 1.0 as KCoreAddons
+import org.kde.coreaddons as KCoreAddons
 import org.kde.kcmutils as KCMUtils
 
-import org.kde.kirigami 2.20 as Kirigami
-import org.kde.plasma.components 3.0 as PlasmaComponents3
-import org.kde.plasma.extras 2.0 as PlasmaExtras
+import org.kde.kirigami as Kirigami
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.plasma.extras as PlasmaExtras
 import org.kde.plasma.networkmanagement as PlasmaNM
-import org.kde.plasma.plasmoid 2.0
+import org.kde.plasma.plasmoid
 
 import org.kde.networkmanager as NMQt
 
@@ -44,10 +44,13 @@ ExpandableListItem {
                !(mainWindow.networkStatus.connectivity === NMQt.NetworkManager.Full ||
                mainWindow.networkStatus.connectivity === NMQt.NetworkManager.Portal)) return "network-type-public";
             else {
-                var details = model.ConnectionDetails;
-                var privateIp = details.length >= 1 ? details[1] : ""
-                if(privateIp.startsWith("192.168")) return "network-type-home";
-                else return "network-type-work";
+                var details = model.ConnectionDetailsModel;
+                var indList = details.match(details.index(0, 0), PlasmaNM.ConnectionDetailsModel.DetailLabelRole, i18nd("plasmanetworkmanagement-libs", "IPv4 Address"));
+                if(indList.length > 0) {
+                    var privateIp = details.data(indList[0], PlasmaNM.ConnectionDetailsModel.DetailValueRole);
+                    if(privateIp.startsWith("192.168")) return "network-type-home";
+                }
+                return "network-type-work"
             }
         } else {
             return model.ConnectionIcon + "-flyout";
