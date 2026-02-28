@@ -143,7 +143,9 @@ PlasmoidItem {
     switchHeight: Plasmoid.formFactor === PlasmaCore.Types.Vertical ? 1 : Kirigami.Units.gridUnit * 10
 
     onExpandedChanged: expanded => {
-        if (!expanded) {
+        if (expanded) {
+            Notifications.Globals.popupNotificationsModel.hideInhibitionSummary();
+        } else {
             historyModel.lastRead = undefined; // reset to now
             historyModel.collapseAllGroups();
         }
