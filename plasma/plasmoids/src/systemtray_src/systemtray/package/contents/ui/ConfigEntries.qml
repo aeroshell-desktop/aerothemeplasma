@@ -34,10 +34,10 @@ KCMUtils.ScrollViewKCM {
         }
     }
 
-    property var cfg_shownItems: []
-    property var cfg_hiddenItems: []
-    property var cfg_extraItems: []
-    property var cfg_disabledStatusNotifiers: []
+    property list<string> cfg_shownItems: []
+    property list<string> cfg_hiddenItems: []
+    property list<string> cfg_extraItems: []
+    property list<string> cfg_disabledStatusNotifiers: []
     property alias cfg_showAllItems: showAllCheckBox.checked
 
     // We can share one combobox model across all delegates, they all have the same options
