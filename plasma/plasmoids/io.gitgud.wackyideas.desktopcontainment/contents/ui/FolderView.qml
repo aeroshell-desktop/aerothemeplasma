@@ -1351,6 +1351,12 @@ FocusScope {
             perStripe: Math.floor((gridView.flow === GridView.FlowLeftToRight)
                 ? (gridView.width / gridView.cellWidth)
                 : (gridView.height / gridView.cellHeight))
+
+            Component.onCompleted: {
+                positioner.updateResolution();
+                positioner.loadAndApplyPositionsConfig();
+            }
+
         }
 
         Folder.ItemViewAdapter {
