@@ -258,7 +258,7 @@ PlasmaCore.Dialog {
                 // Crude way of manually eliding...
                 var elided = false;
                 textMetrics.text = Qt.binding(function() {
-                    return mAction.text;
+                    return mAction.text.replace("&", "&&");
                 });
 
                 while (textMetrics.width > maximumWidth) {
