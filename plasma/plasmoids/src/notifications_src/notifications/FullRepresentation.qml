@@ -500,7 +500,7 @@ PlasmaExtras.Representation {
                         applicationIconSource: delegate.applicationIconName
                         originName: delegate.originName || ""
 
-                        time: delegate.updated || delegate.created
+                        time: isNaN(delegate.updated) ? delegate.created : delegate.updated
 
                         // configure button on every single notifications is bit overwhelming
                         configurable: !inGroup && delegate.configurable
