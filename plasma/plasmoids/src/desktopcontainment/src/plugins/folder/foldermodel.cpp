@@ -347,7 +347,19 @@ void FolderModel::newFileMenuItemCreated(const QUrl &url)
         m_menuPosition = {};
         m_dropTargetPositionsCleanup->start();
     }
+    setCreatingNewItems(false);
 }
+void FolderModel::newFileMenuItemRejected(const QUrl &url)
+{
+    Q_UNUSED(url);
+    setCreatingNewItems(false);
+}
+void FolderModel::newFileMenuItemCreationStarted(const QUrl &url)
+{
+    Q_UNUSED(url);
+    setCreatingNewItems(true);
+}
+
 
 QString FolderModel::url() const
 {
@@ -407,6 +419,19 @@ void FolderModel::setUrl(const QString &url)
 QUrl FolderModel::resolvedUrl() const
 {
     return m_dirModel->dirLister()->url();
+}
+
+bool FolderModel::creatingNewItems() const
+{
+    return m_creatingNewItems;
+}
+
+void FolderModel::setCreatingNewItems(bool enabled)
+{
+    if (m_creatingNewItems != enabled) {
+        m_creatingNewItems = enabled;
+        Q_EMIT creatingNewItemsChanged();
+    }
 }
 
 QUrl FolderModel::resolve(const QString &url)
@@ -1760,7 +1785,12 @@ void FolderModel::createActions()
 
     m_newMenu = new KNewFileMenu(this);
     m_newMenu->setModal(false);
+    // Disallow closing the popup when action to open the dialog is triggered
+    connect(m_newMenu, &KNewFileMenu::directoryCreationStarted, this, &FolderModel::newFileMenuItemCreationStarted);
+    connect(m_newMenu, &KNewFileMenu::fileCreationStarted, this, &FolderModel::newFileMenuItemCreationStarted);
     connect(m_newMenu, &KNewFileMenu::directoryCreated, this, &FolderModel::newFileMenuItemCreated);
+    connect(m_newMenu, &KNewFileMenu::directoryCreationRejected, this, &FolderModel::newFileMenuItemRejected);
+    connect(m_newMenu, &KNewFileMenu::fileCreationRejected, this, &FolderModel::newFileMenuItemRejected);
     connect(m_newMenu, &KNewFileMenu::fileCreated, this, &FolderModel::newFileMenuItemCreated);
 
     m_actionCollection.addAction(QStringLiteral("newMenu"), m_newMenu);

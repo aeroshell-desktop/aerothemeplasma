@@ -53,7 +53,7 @@ Item {
     }
 
     function closePopup() {
-        if (popupDialog) {
+        if (popupDialog && popupDialog.allowClosing) {
             popupDialog.requestDestroy();
             loader.item.popupDialog = null;
         }

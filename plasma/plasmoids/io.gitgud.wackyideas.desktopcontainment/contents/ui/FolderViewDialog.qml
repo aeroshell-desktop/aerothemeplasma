@@ -36,7 +36,7 @@ Folder.SubDialog {
     property alias url: folderView.url
 
     location: PlasmaCore.Types.Floating
-    hideOnWindowDeactivate: (childDialog === null)
+    hideOnWindowDeactivate: (allowClosing && (childDialog === null))
 
     onContainsMouseChanged: {
         if (containsMouse) {
@@ -76,6 +76,10 @@ Folder.SubDialog {
                     dialog.destroy();
                 }
             }
+            onCreatingNewItemsChanged: {
+                dialog.allowClosing = !creatingNewItems;
+            }
+
         }
     }
 
