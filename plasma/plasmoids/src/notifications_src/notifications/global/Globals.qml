@@ -35,6 +35,9 @@ QtObject {
     property bool inhibited: false
 
     onInhibitedChanged: {
+
+        NotificationManager.Server.inhibited = inhibited;
+
         if (!inhibited) {
             const urgency = notificationSettings.lowPriorityHistory ? NotificationManager.Notifications.LowUrgency : NotificationManager.Notifications.NormalUrgency;
             popupNotificationsModel.showInhibitionSummary(urgency, notificationSettings.historyBlacklistedApplications, notificationSettings.historyBlacklistedServices);
@@ -774,14 +777,6 @@ QtObject {
         function onHeightChanged() {
             globals.repositionTimer.start();
         }
-    }
-
-    // Keeps the Inhibited property on DBus in sync with our inhibition handling
-    property Binding serverInhibitedBinding: Binding {
-        target: NotificationManager.Server
-        property: "inhibited"
-        value: globals.inhibited
-        restoreMode: Binding.RestoreBinding
     }
 
     function toggleDoNotDisturbMode() {
