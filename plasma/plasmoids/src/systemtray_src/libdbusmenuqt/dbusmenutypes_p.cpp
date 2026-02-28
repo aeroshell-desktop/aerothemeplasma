@@ -69,7 +69,7 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, DBusMenuLayoutIte
     while (!argument.atEnd()) {
         QDBusVariant dbusVariant;
         argument >> dbusVariant;
-        QDBusArgument childArgument = dbusVariant.variant().value<QDBusArgument>();
+        auto childArgument = dbusVariant.variant().value<QDBusArgument>();
 
         DBusMenuLayoutItem child;
         childArgument >> child;

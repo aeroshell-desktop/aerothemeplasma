@@ -50,7 +50,7 @@ static constexpr const char *DBUSMENU_PROPERTY_ICON_DATA_HASH = "_dbusmenu_icon_
 
 static QAction *createKdeTitle(QAction *action, QWidget *parent)
 {
-    QToolButton *titleWidget = new QToolButton(nullptr);
+    auto *titleWidget = new QToolButton(nullptr);
     QFont font = titleWidget->font();
     font.setBold(true);
     titleWidget->setFont(font);
@@ -59,7 +59,7 @@ static QAction *createKdeTitle(QAction *action, QWidget *parent)
     titleWidget->setDown(true);
     titleWidget->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
-    QWidgetAction *titleAction = new QWidgetAction(parent);
+    auto *titleAction = new QWidgetAction(parent);
     titleAction->setDefaultWidget(titleWidget);
     return titleAction;
 }
@@ -81,7 +81,7 @@ public:
     QDBusPendingCallWatcher *refresh(int id)
     {
         auto call = m_interface->GetLayout(id, 1, QStringList());
-        QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, q);
+        auto *watcher = new QDBusPendingCallWatcher(call, q);
         watcher->setProperty(DBUSMENU_PROPERTY_ID, id);
         QObject::connect(watcher, &QDBusPendingCallWatcher::finished, q, &DBusMenuImporter::slotGetLayoutFinished);
 
@@ -105,7 +105,7 @@ public:
     QAction *createAction(int id, const QVariantMap &_map, QWidget *parent)
     {
         QVariantMap map = _map;
-        QAction *action = new QAction(parent);
+        auto *action = new QAction(parent);
         action->setProperty(DBUSMENU_PROPERTY_ID, id);
 
         QString type = map.take(QStringLiteral("type")).toString();
@@ -122,7 +122,7 @@ public:
         if (!toggleType.isEmpty()) {
             action->setCheckable(true);
             if (toggleType == QLatin1String("radio")) {
-                QActionGroup *group = new QActionGroup(action);
+                auto *group = new QActionGroup(action);
                 group->addAction(action);
             }
         }
@@ -232,7 +232,7 @@ public:
 
     void updateActionShortcut(QAction *action, const QVariant &value)
     {
-        QDBusArgument arg = value.value<QDBusArgument>();
+        auto arg = value.value<QDBusArgument>();
         DBusMenuShortcut dmShortcut;
         arg >> dmShortcut;
         QKeySequence keySequence = dmShortcut.toKeySequence();
@@ -425,7 +425,7 @@ void DBusMenuImporter::slotGetLayoutFinished(QDBusPendingCallWatcher *watcher)
             });
 
             connect(action, &QAction::triggered, this, [id, this]() {
-                sendClickedEvent(id);
+                actionActivated(id);
             });
 
             if (QMenu *menuAction = action->menu()) {
@@ -450,6 +450,11 @@ void DBusMenuImporter::slotGetLayoutFinished(QDBusPendingCallWatcher *watcher)
     Q_EMIT menuUpdated(menu);
 }
 
+void DBusMenuImporter::actionActivated(int id)
+{
+    sendClickedEvent(id);
+}
+
 void DBusMenuImporter::sendClickedEvent(int id)
 {
     d->sendEvent(id, QStringLiteral("clicked"));
@@ -470,7 +475,7 @@ void DBusMenuImporter::updateMenu(QMenu *menu)
     int id = action->property(DBUSMENU_PROPERTY_ID).toInt();
 
     auto call = d->m_interface->AboutToShow(id);
-    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
+    auto *watcher = new QDBusPendingCallWatcher(call, this);
     watcher->setProperty(DBUSMENU_PROPERTY_ID, id);
     connect(watcher, &QDBusPendingCallWatcher::finished, this, &DBusMenuImporter::slotAboutToShowDBusCallFinished);
 
@@ -508,7 +513,7 @@ void DBusMenuImporter::slotAboutToShowDBusCallFinished(QDBusPendingCallWatcher *
 
 void DBusMenuImporter::slotMenuAboutToHide()
 {
-    QMenu *menu = qobject_cast<QMenu *>(sender());
+    auto *menu = qobject_cast<QMenu *>(sender());
     Q_ASSERT(menu);
 
     QAction *action = menu->menuAction();
@@ -520,7 +525,7 @@ void DBusMenuImporter::slotMenuAboutToHide()
 
 void DBusMenuImporter::slotMenuAboutToShow()
 {
-    QMenu *menu = qobject_cast<QMenu *>(sender());
+    auto *menu = qobject_cast<QMenu *>(sender());
     Q_ASSERT(menu);
 
     updateMenu(menu);

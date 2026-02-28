@@ -44,16 +44,11 @@ public:
 
     QAbstractItemModel *configSystemTrayModel();
 
-    // Invokable utilities
+    // Invocable utilities
     /**
      * Given an AppletInterface pointer, shows a proper context menu for it
      */
     Q_INVOKABLE void showPlasmoidMenu(QQuickItem *appletInterface, int x, int y);
-
-    /**
-     * Shows the context menu for a statusnotifieritem
-     */
-    Q_INVOKABLE void showStatusNotifierContextMenu(KJob *job, QQuickItem *statusNotifierIcon);
 
     /**
      * Find out global coordinates for a popup given local MouseArea
@@ -74,6 +69,14 @@ public:
     Q_INVOKABLE void stackItemBefore(QQuickItem *newItem, QQuickItem *beforeItem);
 
     Q_INVOKABLE void stackItemAfter(QQuickItem *newItem, QQuickItem *afterItem);
+
+    Q_INVOKABLE void activate(const QString &service, QPoint pos, QQuickItem *statusNotifierIcon);
+
+    Q_INVOKABLE void secondaryActivate(const QString &service, QPoint pos);
+
+    Q_INVOKABLE void openContextMenu(const QString &service, QPoint pos, QQuickItem *statusNotifierIcon);
+
+    Q_INVOKABLE void scroll(const QString &service, int delta, const QString &direction);
 
 private Q_SLOTS:
     // synchronizes with configuration and deletes not allowed applets

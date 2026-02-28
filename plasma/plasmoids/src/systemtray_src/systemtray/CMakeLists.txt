@@ -7,9 +7,7 @@ include_directories(../statusnotifierwatcher)
 set(systemtray_SRCS
     dbusserviceobserver.cpp dbusserviceobserver.h
     plasmoidregistry.cpp plasmoidregistry.h
-    statusnotifieritemjob.cpp statusnotifieritemjob.h
     statusnotifieritemhost.cpp statusnotifieritemhost.h
-    statusnotifieritemservice.cpp statusnotifieritemservice.h
     statusnotifieritemsource.cpp statusnotifieritemsource.h
     systemtraysettings.cpp systemtraysettings.h
     systemtraytypes.cpp
@@ -47,7 +45,6 @@ target_link_libraries(systemtray_static
         KF6::WindowSystem
         KF6::XmlGui
         Plasma::Plasma
-        Plasma::Plasma5Support
         Plasma::PlasmaQuick
         dbusmenuqt
 )

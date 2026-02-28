@@ -14,7 +14,6 @@
 
 #include <KPluginMetaData>
 #include <Plasma/Plasma>
-#include <Plasma5Support/Service>
 
 namespace Plasma
 {
@@ -112,7 +111,6 @@ class StatusNotifierModel : public BaseModel
 public:
     enum class Role {
         DataEngineSource = static_cast<int>(BaseModel::BaseRole::LastBaseRole) + 100,
-        Service,
         AttentionIcon,
         AttentionIconName,
         AttentionMovieName,
@@ -137,11 +135,6 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    struct Item {
-        QString source;
-        Plasma5Support::Service *service = nullptr;
-    };
-
 public Q_SLOTS:
     void addSource(const QString &source);
     void removeSource(const QString &source);
@@ -152,9 +145,8 @@ private:
     void init();
 
     StatusNotifierItemHost *m_sniHost = nullptr;
-    QList<Item> m_items;
+    QList<QString> m_items;
 };
-Q_DECLARE_TYPEINFO(StatusNotifierModel::Item, Q_RELOCATABLE_TYPE);
 
 /**
  * @brief Cantenating model for system tray, that can expose multiple data models as one.

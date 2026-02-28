@@ -74,8 +74,15 @@ protected:
      */
     virtual QIcon iconForName(const QString &);
 
+    /**
+     * Called when an action is activated. The default implementation
+     * sends the event to the exporter
+     */
+    virtual void actionActivated(int id);
+
+    void sendClickedEvent(int id);
+
 private Q_SLOTS:
-    void sendClickedEvent(int);
     void slotMenuAboutToShow();
     void slotMenuAboutToHide();
     void slotAboutToShowDBusCallFinished(QDBusPendingCallWatcher *);

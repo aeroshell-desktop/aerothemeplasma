@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include <Plasma5Support/DataContainer>
 #include <QDBusPendingCallWatcher>
 #include <QMenu>
 #include <QString>
@@ -24,7 +23,6 @@ class StatusNotifierItemSource : public QObject
 public:
     StatusNotifierItemSource(const QString &service, QObject *parent);
     ~StatusNotifierItemSource() override;
-    Plasma5Support::Service *createService();
 
     void activate(int x, int y);
     void secondaryActivate(int x, int y);
@@ -54,7 +52,6 @@ Q_SIGNALS:
     void dataUpdated();
 
 private Q_SLOTS:
-    void contextMenuReady();
     void refreshMenu();
     void refresh();
     void performRefresh();
@@ -73,8 +70,8 @@ private:
     QString m_servicename;
     QTimer m_refreshTimer;
     KIconLoader *m_customIconLoader;
-    DBusMenuImporter *m_menuImporter;
-    org::kde::StatusNotifierItem *m_statusNotifierItemInterface;
+    std::unique_ptr<DBusMenuImporter> m_menuImporter;
+    std::unique_ptr<org::kde::StatusNotifierItem> m_statusNotifierItemInterface;
     bool m_refreshing : 1;
     bool m_needsReRefreshing : 1;
 
