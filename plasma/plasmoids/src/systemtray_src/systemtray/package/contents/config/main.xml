@@ -11,7 +11,7 @@
     </entry>
     <entry name="extraItems" type="StringList">
       <label>All plasmoid items that are explicitly enabled in the systray. It's a comma-separated string list of plasmoid plugin ids.</label>
-      <default></default>
+      <default>io.gitgud.wackyideas.notifications</default>
     </entry>
     <entry name="disabledStatusNotifiers" type="StringList">
       <label>All StatusNotifier items that shouldn't be visible at all. It's a comma-separated string list of StatusNotifier ids.</label>
