@@ -87,7 +87,29 @@ It's advisable to also consult [Uninstalling AeroThemePlasma (old)](#uninstall_o
 
 ### Arch Linux 
 
-*AUR packages coming soon*
+The following packages are now on the AUR:
+
+```
+aerothemeplasma-desktop-git
+aerothemeplasma-desktop-x11-git
+aerothemeplasma-icons-git
+aerothemeplasma-sounds-git
+aeroshell-workspace-git
+aeroshell-kwin-components-x11-git
+aeroshell-kwin-components-git
+aeroshell-smodglow-x11-git
+aeroshell-smod-git
+aeroshell-libplasma-git
+uac-polkit-agent-git 
+```
+
+They can be installed using any AUR helper of your choice: 
+
+```bash
+yay -S aerothemeplasma-desktop-x11 uac-polkit-agent aerothemeplasma-desktop aeroshell-libplasma aeroshell-workspace aeroshell-kwin-components aeroshell-smod aeroshell-smodglow-x11 aerothemeplasma-sounds aerothemeplasma-icons
+```
+
+If you've previously installed ATP from source, it's likely that you will be met with errors on installation as a result of file conflicts on your filesystem. It's recommended to uninstall ATP from source before moving to the AUR packages. 
 
 ### From source 
 
