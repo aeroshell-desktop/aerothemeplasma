@@ -50,7 +50,7 @@ cd "$CUR_DIR/repos"
 git clone https://gitgud.io/aeroshell/uac-polkit-agent.git uac-polkit-agent
 cd uac-polkit-agent
 git pull
-cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -B build . || exit 1
+cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=$LIBEXEC_DIR -B build . || exit 1
 cmake --build build || exit 1
 $SU_CMD cmake --install build || exit 1
 cp build/install_manifest.txt "$CUR_DIR/manifest/uac-polkit-agent_install_manifest.txt"
