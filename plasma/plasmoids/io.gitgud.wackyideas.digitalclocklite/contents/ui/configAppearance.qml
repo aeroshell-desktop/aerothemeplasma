@@ -20,16 +20,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import QtQuick 2.15
+import QtQuick
 import QtQuick.Controls as QtControls
-import QtQuick.Layouts 1.15 as QtLayouts
-import QtQuick.Dialogs 6.3 as QtDialogs
-import org.kde.plasma.plasmoid 2.0
+import QtQuick.Layouts as QtLayouts
+import QtQuick.Dialogs as QtDialogs
+import org.kde.plasma.plasmoid
 import org.kde.plasma.core as PlasmaCore
 import org.kde.kcmutils // For KCMLauncher
 import org.kde.config // For KAuthorized
-import org.kde.kirigami 2.20 as Kirigami
-import org.kde.plasma.workspace.calendar 2.0 as PlasmaCalendar
+import org.kde.kirigami as Kirigami
+import org.kde.plasma.workspace.calendar as PlasmaCalendar
 
 SimpleKCM {
     id: appearancePage

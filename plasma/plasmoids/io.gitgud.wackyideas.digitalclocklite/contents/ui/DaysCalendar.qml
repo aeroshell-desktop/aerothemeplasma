@@ -7,14 +7,14 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-import QtQuick 2.2
-import QtQuick.Layouts 1.1
-import QtQuick.Controls as QQC1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls as QQC2
 
-import org.kde.plasma.workspace.calendar 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents3
-import org.kde.plasma.extras 2.0 as PlasmaExtras
+import org.kde.plasma.workspace.calendar
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.plasma.extras as PlasmaExtras
 import org.kde.ksvg as KSvg
 import org.kde.kirigami as Kirigami
 

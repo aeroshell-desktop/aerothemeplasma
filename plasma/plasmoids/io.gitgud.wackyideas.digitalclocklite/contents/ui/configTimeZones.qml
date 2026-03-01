@@ -5,12 +5,12 @@
  */
 
 import QtQuick
-import QtQuick.Controls 2.15 as QQC2
-import QtQuick.Layouts 1.15
+import QtQuick.Controls as QQC2
+import QtQuick.Layouts
 
-import org.kde.kquickcontrolsaddons 2.0 // For kcmshell
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.private.digitalclock 1.0
+import org.kde.kquickcontrolsaddons  // For kcmshell
+import org.kde.plasma.plasmoid
+import org.kde.plasma.private.digitalclock
 import org.kde.kirigami as Kirigami
 
 import org.kde.kcmutils as KCMUtils

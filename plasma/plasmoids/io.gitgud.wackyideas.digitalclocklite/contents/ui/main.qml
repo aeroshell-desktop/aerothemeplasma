@@ -15,25 +15,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import QtQuick 2.15
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 import org.kde.plasma.plasmoid
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.plasma5support as P5Support
-import org.kde.kirigami 2.20 as Kirigami
-import org.kde.plasma.private.digitalclock 1.0
-import org.kde.kquickcontrolsaddons 2.0
-import org.kde.plasma.workspace.calendar 2.0 as PlasmaCalendar
-import org.kde.ksvg 1.0 as KSvg
+import org.kde.kirigami as Kirigami
+import org.kde.plasma.private.digitalclock
+import org.kde.kquickcontrolsaddons
+import org.kde.plasma.workspace.calendar as PlasmaCalendar
+import org.kde.ksvg as KSvg
+import org.kde.plasma.clock
 
 import org.kde.kcmutils // KCMLauncher
 import org.kde.config // KAuthorized
-
-//import org.kde.plasma.components 2.0 as PlasmaComponents
-//import org.kde.plasma.extras 2.0 as PlasmaExtras
-
-
-//import org.kde.plasma.calendar 2.0 as PlasmaCalendar
 
 PlasmoidItem {
     id: root
@@ -42,27 +37,25 @@ PlasmoidItem {
     width: Kirigami.Units.iconSizes.small * 10
     height: Kirigami.Units.iconSizes.small * 4
     property string dateFormatString: setDateFormatString()
-    property date tzDate: {
-        const data = dataSource.data[Plasmoid.configuration.lastSelectedTimezone];
-        if (data === undefined) {
-            return new Date();
-        }
-        // get the time for the given timezone from the dataengine
-        const now = data["DateTime"];
-        // get current UTC time
-        const msUTC = now.getTime() + (now.getTimezoneOffset() * 60000);
-        // add the dataengine TZ offset to it
-        return new Date(msUTC + (data["Offset"] * 1000));
-    }
+    readonly property var currentTime: currentClock.dateTime
+    readonly property string currentTimezone: currentClock.timeZone
 
     function initTimezones() {
-        const tz = []
-
+        const tz = [];
         if (Plasmoid.configuration.selectedTimeZones.indexOf("Local") === -1) {
             tz.push("Local");
         }
         root.allTimezones = tz.concat(Plasmoid.configuration.selectedTimeZones);
-        dataSource.connectedSources = root.allTimezones;
+    }
+
+    Clock {
+        id: currentClock
+        timeZone: Plasmoid.configuration.lastSelectedTimezone
+    }
+
+    Clock {
+        id: systemClock
+        // not defining a timezone keeps it up to date with the system timezone
     }
 
     preferredRepresentation: fullRepresentation
@@ -80,16 +73,14 @@ PlasmoidItem {
 
     //We need Local to be *always* present, even if not disaplayed as
     //it's used for formatting in ToolTip.dateTimeChanged()
-    property var allTimezones
+    property list<string> allTimezones
     Connections {
         target: Plasmoid.configuration
         function onSelectedTimeZonesChanged() { root.initTimezones(); }
     }
     Component {
         id: mainRepresentation
-        CalendarView {
-            
-        }
+        CalendarView { }
     }
     Component {
         id: smallRepresentation
@@ -98,15 +89,6 @@ PlasmoidItem {
     }
 
     hideOnWindowDeactivate: !Plasmoid.configuration.pin
-
-
-    P5Support.DataSource {
-        id: dataSource
-        engine: "time"
-        connectedSources: allTimezones
-        interval: 1000 //Plasmoid.configuration.showSeconds ? 1000 : 60000
-        intervalAlignment: P5Support.Types.NoAlignment //Plasmoid.configuration.showSeconds ? P5Support.Types.NoAlignment : P5Support.Types.AlignToMinute
-    }
 
     function setDateFormatString() {
         // remove "dddd" from the locale format string

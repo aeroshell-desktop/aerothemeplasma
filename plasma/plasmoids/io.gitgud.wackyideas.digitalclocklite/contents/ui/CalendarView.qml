@@ -15,17 +15,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import QtQuick 2.15
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.workspace.calendar 2.0 as PlasmaCalendar
-import org.kde.plasma.components 3.0 as PlasmaComponents3
-import org.kde.plasma.extras 2.0 as PlasmaExtras
+import org.kde.plasma.plasmoid
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.workspace.calendar as PlasmaCalendar
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.plasma.extras as PlasmaExtras
+import org.kde.plasma.clock as PlasmaClock
+import org.kde.plasma.private.digitalclock
 
-import org.kde.ksvg 1.0 as KSvg
-import org.kde.kirigami 2.20 as Kirigami
+import org.kde.ksvg as KSvg
+import org.kde.kirigami as Kirigami
 import Qt5Compat.GraphicalEffects
 
 PlasmaCore.Dialog {
@@ -61,37 +63,7 @@ PlasmaCore.Dialog {
     onWidthChanged: {
         popupPosition();
     }
-        
 
-        /*function popupPosition() {
-		 *                var pos = kicker.mapToGlobal(kicker.x, kicker.y);
-		 *                var availScreen = Plasmoid.containment.availableScreenRect;
-		 *                var screen = kicker.screenGeometry;
-		 *                var availableScreenGeometry = Qt.rect(availScreen.x + screen.x, availScreen.y + screen.y, availScreen.width, availScreen.height);
-		 *
-		 *                if(Plasmoid.location === PlasmaCore.Types.BottomEdge) {
-		 *                    x = pos.x;
-		 *                    y = pos.y - root.height;
-} else if(Plasmoid.location === PlasmaCore.Types.TopEdge) {
-	x = pos.x;
-	y = availableScreenGeometry.y;
-} else if(Plasmoid.location === PlasmaCore.Types.LeftEdge) {
-	x = availableScreenGeometry.x;
-	y = pos.y;
-} else if(Plasmoid.location === PlasmaCore.Types.RightEdge) {
-	x = pos.x - root.width;
-	y = pos.y;
-}
-
-if(x < availableScreenGeometry.x) x = availableScreenGeometry.x;
-if(x + root.width >= availableScreenGeometry.x + availScreen.width) {
-	x = availableScreenGeometry.x + availScreen.width - root.width;
-}
-if(y < availableScreenGeometry.y) y = availableScreenGeometry.y;
-if(y + root.height >= availableScreenGeometry.y + availScreen.height) {
-	y = availableScreenGeometry.y + availScreen.height - root.height;
-}
-}*/
 
 	function popupPosition() {
 		var pos = root.mapToGlobal(root.x, root.y);
@@ -121,21 +93,11 @@ if(y + root.height >= availableScreenGeometry.y + availScreen.height) {
 		if(y + calendar.height >= availableScreenGeometry.y + availScreen.height) {
 			y = availableScreenGeometry.y + availScreen.height - calendar.height - flyoutMargin;
 		}
-		/*if(x <= availScreen.x) x = availScreen.x + flyoutMargin;
-		if(x + calendar.width - availScreen.x >= availScreen.x + availScreen.width) {
-			x = screen.x + availScreen.width - calendar.width - flyoutMargin;
-		}
-		if(y <= availScreen.y) y = availScreen.y + flyoutMargin;
-		if(y + calendar.height - availScreen.y >= availScreen.y + availScreen.height) {
-			y = screen.y + availScreen.height - calendar.height - flyoutMargin;
-		}*/
-
 	}
-
 
     readonly property bool showAgenda: Plasmoid.configuration.enabledCalendarPlugins.length > 0
 
-    property int _minimumWidth: 336//(showAgenda ? agendaViewWidth : Kirigami.Units.largeSpacing) + monthViewWidth
+    property int _minimumWidth: 336
     property int _minimumHeight: 247
 
     readonly property int agendaViewWidth: _minimumHeight
@@ -157,8 +119,6 @@ if(y + root.height >= availableScreenGeometry.y + availScreen.height) {
     }
 
     FocusScope {
-
-
 		Kirigami.Theme.colorSet: Kirigami.Theme.View
 		Kirigami.Theme.inherit: false
         Layout.minimumWidth: _minimumWidth
@@ -167,10 +127,13 @@ if(y + root.height >= availableScreenGeometry.y + availScreen.height) {
         Layout.maximumHeight: _minimumHeight
         Layout.preferredWidth: _minimumWidth
         Layout.preferredHeight: _minimumHeight
+		PlasmaClock.Clock {
+			id: plasmaClock
+			timeZone: Plasmoid.configuration.lastSelectedTimezone
+			trackSeconds: true
+		}
 
-		//colorGroup: PlasmaCore.Theme.ToolTipColorGroup
 		anchors.fill: parent
-		//This is the long date that appears on top of the dialog, pressing on it will set the calendar to the current day.
 
 		ColumnLayout {
 
@@ -188,12 +151,6 @@ if(y + root.height >= availableScreenGeometry.y + availScreen.height) {
 				id: longDateLabel
 
 				Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-				/*anchors {
-					left: parent.left
-					right: parent.right
-					top: parent.top
-					topMargin: Kirigami.Units.smallSpacing*2
-				}*/
 				width: paintedWidth
 				horizontalAlignment: Text.AlignHCenter
 
@@ -226,7 +183,7 @@ if(y + root.height >= availableScreenGeometry.y + availScreen.height) {
 
 					CustomMonthView {
 						id: monthView
-						today: root.tzDate
+						today: plasmaClock.dateTime
 						showWeekNumbers: Plasmoid.configuration.showWeekNumbers
 						firstDayOfWeek: (Plasmoid.configuration.firstDayOfWeek == -1 ? Qt.locale().firstDayOfWeek : Plasmoid.configuration.firstDayOfWeek)
 						anchors.fill: parent
@@ -269,12 +226,10 @@ if(y + root.height >= availableScreenGeometry.y + availScreen.height) {
 						anchors.left: parent.left
 						anchors.right: parent.right
 						anchors.leftMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing*2
-						//anchors.bottomMargin: Kirigami.Units.mediumSpacing
 						horizontalAlignment: Text.AlignHCenter
-						text: Qt.formatTime(clockWidget.currentDate, main.use24hFormat ? "hh:mm:ss" : "h:mm:ss AP")
+						text: Qt.formatTime(plasmaClock.dateTime, main.use24hFormat ? "hh:mm:ss" : "h:mm:ss AP")
 					}
 				}
-
 
 				//This is the side panel that appears on the right of the calendar view, showing holidays, events, reminders, etc. in a list.
 				//Replaces the large graphical clock on the right on Windows 7's equivalent panel.
@@ -338,16 +293,8 @@ if(y + root.height >= availableScreenGeometry.y + availScreen.height) {
 						function onEnabledCalendarPluginsChanged() {
 							PlasmaCalendar.EventPluginsManager.enabledPlugins = Plasmoid.configuration.enabledCalendarPlugins;
 							eventPluginsManager.enabledPlugins = Plasmoid.configuration.enabledCalendarPlugins;
-							//console.log(PlasmaCalendar.EventPluginsManager.enabledPlugins);
-							//console.log(eventPluginsManager.enabledPlugins);
 						}
 					}
-
-					/*Binding {
-						target: Plasmoid
-						property: "hideOnWindowDeactivate"
-						value: !Plasmoid.configuration.pin
-					}*/
 
 					TextMetrics {
 						id: dateLabelMetrics
@@ -550,7 +497,6 @@ if(y + root.height >= availableScreenGeometry.y + availScreen.height) {
 				}
 			}
 		}
-		
 
 		Rectangle {
 			id: plasmoidFooter
@@ -563,9 +509,7 @@ if(y + root.height >= availableScreenGeometry.y + availScreen.height) {
 				bottomMargin: dialogSvg.margins.bottom
 
 			}
-			//visible: container.appletHasFooter
-			height: 40 + Kirigami.Units.smallSpacing / 2 //+ container.footerHeight + Kirigami.Units.smallSpacing
-			//height: trayHeading.height + container.headingHeight + (container.headingHeight === 0 ? 0 : Kirigami.Units.smallSpacing/2)
+			height: 40 + Kirigami.Units.smallSpacing / 2
 			color: "#f1f5fb"
 			Rectangle {
 				id: plasmoidFooterBorder
@@ -590,8 +534,8 @@ if(y + root.height >= availableScreenGeometry.y + availScreen.height) {
 				}
 
 				horizontalAlignment: Text.AlignHCenter
-				text: "Change date and time settings..."
-				color: "#0066cc" //heading_ma.containsPress ? "#90e7ff" : (heading_ma.containsMouse ? "#b6ffff" : Kirigami.Theme.textColor)
+				text: i18n("Change date and time settings...")
+				color: "#0066cc"
 				font.underline: link_ma.containsMouse
 				level: 5
 				MouseArea {
@@ -634,7 +578,5 @@ if(y + root.height >= availableScreenGeometry.y + availScreen.height) {
 		    calendar.backgroundHints = 2; //Sets the background type to 'Solid' in order to make use of the alternative dialog style.
 										  //The same is done to the system tray, giving the two plasmoids a consistent look and feel.
 		    popupPosition();
-		    //x = pos.x;
-		    //y = pos.y;
 		}
 }

@@ -18,13 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import QtQuick 2.0
+import QtQuick
 import QtQuick.Controls as QtControls
-import QtQuick.Layouts 1.0 as QtLayouts
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.workspace.calendar 2.0 as PlasmaCalendar
+import QtQuick.Layouts as QtLayouts
+import org.kde.plasma.plasmoid
+import org.kde.plasma.workspace.calendar as PlasmaCalendar
 import org.kde.kcmutils as KCM
-import org.kde.kirigami 2.20 as Kirigami
+import org.kde.kirigami as Kirigami
 
 KCM.SimpleKCM {
     id: calendarPage

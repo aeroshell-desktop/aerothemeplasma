@@ -1,36 +1,30 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Layouts 1.1
-import QtQuick.Window 2.15
+import QtQuick.Layouts
+import QtQuick.Window
 import org.kde.plasma.core as PlasmaCore
-import org.kde.plasma.plasmoid 2.0
-import org.kde.ksvg 1.0 as KSvg
-import org.kde.kirigami 2.5 as Kirigami // For Settings.tabletMode
+import org.kde.plasma.plasmoid
+import org.kde.ksvg as KSvg
+import org.kde.kirigami as Kirigami // For Settings.tabletMode
+import org.kde.plasma.clock as PlasmaClock
+import org.kde.plasma.private.digitalclock
 
 Item {
     id: clockItem
 
+	PlasmaClock.Clock {
+		id: plasmaClock
+		timeZone: Plasmoid.configuration.lastSelectedTimezone
+		trackSeconds: true
+	}
     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
-    property date currentDate: {
-        // get the time for the given timezone from the dataengine
-        var now = dataSource.data[Plasmoid.configuration.lastSelectedTimezone]["DateTime"];
-        // get current UTC time
-        var msUTC = now.getTime() + (now.getTimezoneOffset() * 60000);
-        // add the dataengine TZ offset to it
-        var currentTime = new Date(msUTC + (dataSource.data[Plasmoid.configuration.lastSelectedTimezone]["Offset"] * 1000));
-        return currentTime
-    }
     KSvg.SvgItem {
         id: clockface
         svg: clockSvg
         elementId: "clockface"
         anchors.fill: parent
-        /*anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter*/
     }
-
-
 
     // Rects
     Rectangle {
@@ -46,7 +40,7 @@ Item {
         transform: Rotation {
             origin.x: 0
             origin.y: 18
-            angle: 360 * (currentDate.getSeconds() / 60) + 180
+            angle: 360 * (plasmaClock.dateTime.getSeconds() / 60) + 180
         }
     }
 
@@ -65,12 +59,12 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: minuteHand.height/2
-        anchors.horizontalCenterOffset: currentDate.getMinutes() > 45 || currentDate.getMinutes() <= 15 ? 2 : 0
+        anchors.horizontalCenterOffset: plasmaClock.dateTime.getMinutes() > 45 || plasmaClock.dateTime.getMinutes() <= 15 ? 2 : 0
         antialiasing: true
         transform: Rotation {
             origin.x: 0
             origin.y: 0
-            angle: 360 * (currentDate.getMinutes() / 60) + 180
+            angle: 360 * (plasmaClock.dateTime.getMinutes() / 60) + 180
         }
     }
 
@@ -94,7 +88,7 @@ Item {
         transform: Rotation {
             origin.x: 0
             origin.y: 0
-            angle: 360 * ((currentDate.getHours() % 12) / 12 + currentDate.getMinutes() / (12*60)) + 180
+            angle: 360 * ((plasmaClock.dateTime.getHours() % 12) / 12 + plasmaClock.dateTime.getMinutes() / (12*60)) + 180
         }
     }
     KSvg.SvgItem {
