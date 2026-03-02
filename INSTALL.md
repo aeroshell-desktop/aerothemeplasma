@@ -196,6 +196,7 @@ echo -e "Microsoft Windows [Version 6.1.7600]\nCopyright (c) 2009 Microsoft Corp
 3. In the terminal emulator of your choice (e.g Konsole), set the font to [TerminalVector](https://www.yohng.com/software/terminalvector.html), size 9pt. Disable smooth font rendering and bold text, reduce the line spacing and margins to 0px, set the cursor shape to underline, and enable cursor blinking.
 
 4. Install [PlymouthVista](https://github.com/furkrn/PlymouthVista) which supports Windows 7 boot animations, and features a more detailed setup guide.
+5. Install [ExecBin](https://gitgud.io/catpswin56/execbin) for a more accurate "Run..." application.
 
 ## GTK <a name="gtk"></a>
 
