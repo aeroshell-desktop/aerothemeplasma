@@ -209,6 +209,8 @@ void App::applyLookAndFeel()
     kdeglobalsConfig.sync();
 
     EffectsModel model;
+    model.setData(model.findByPluginId("smodpeekscript"), Qt::Checked, EffectsModel::StatusRole);
+    model.setData(model.findByPluginId("minimizeall"), Qt::Checked, EffectsModel::StatusRole);
     model.setData(model.findByPluginId("aeroglassblur"), Qt::Checked, EffectsModel::StatusRole);
     model.setData(model.findByPluginId("aeroglide"), Qt::Checked, EffectsModel::StatusRole);
     model.setData(model.findByPluginId("smodglow"), Qt::Checked, EffectsModel::StatusRole);
