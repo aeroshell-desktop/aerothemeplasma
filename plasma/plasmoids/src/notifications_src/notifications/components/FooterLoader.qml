@@ -18,6 +18,9 @@ Loader {
     property Item iconContainerItem
 
     Layout.fillWidth: true
+    // implicitHeight, while used when preferredHeight is not set (-1),
+    // this does not propagate properly through the Loader.
+    Layout.preferredHeight: implicitHeight
 
     visible: active && sourceComponent !== null
 
