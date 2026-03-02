@@ -41,6 +41,9 @@
       <default>true</default>
     </entry>
 
+    <entry name="defaultRunnerApp" type="String">
+      <default>krunner --replace</default>
+    </entry>
     <entry name="appNameFormat" type="Int">
       <default>0</default>
     </entry>

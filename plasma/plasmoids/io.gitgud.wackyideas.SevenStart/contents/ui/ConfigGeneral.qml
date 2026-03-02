@@ -17,20 +17,20 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
  ***************************************************************************/
 
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick
+import QtQuick.Controls
 import QtQuick.Dialogs
 import QtQuick.Layouts
 
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents
 import org.kde.kcmutils as KCM
-import org.kde.draganddrop 2.0 as DragDrop
-import org.kde.kirigami 2.3 as Kirigami
-import org.kde.plasma.plasmoid 2.0
+import org.kde.draganddrop as DragDrop
+import org.kde.kirigami as Kirigami
+import org.kde.plasma.plasmoid
 
 import org.kde.iconthemes as KIconThemes
-import org.kde.plasma.private.kicker 0.1 as Kicker
+import org.kde.plasma.private.kicker as Kicker
 
 KCM.SimpleKCM {
     id: configGeneral
@@ -61,6 +61,8 @@ KCM.SimpleKCM {
 
     property alias cfg_numberRows: numberRows.value
     property alias cfg_orbWidth: orbWidth.value
+
+    property alias cfg_defaultRunnerApp: defaultRunnerApp.currentValue
 
     component CustomGroupBox: GroupBox {
         id: gbox
@@ -115,7 +117,7 @@ KCM.SimpleKCM {
                 RowLayout {
 
                     Text {
-                        text: "Orb size (0 for default/no scaling):"
+                        text: i18n("Orb size (0 for default/no scaling):")
                     }
                     SpinBox{
                         id: orbWidth
@@ -213,6 +215,20 @@ KCM.SimpleKCM {
                 CheckBox {
                     id: enableShadow
                     text: i18n("Enable shadow")
+                }
+                RowLayout {
+                    Text {
+                        text: i18n("Choose runner for the 'Run' entry")
+                    }
+                    ComboBox {
+                        id: defaultRunnerApp
+                        model: [
+                            { value: "krunner --replace", text: i18n("KRunner")},
+                            { value: "execbin", text: i18n("Execbin")},
+                        ]
+                        textRole: "text"
+                        valueRole: "value"
+                    }
                 }
             }
         }
