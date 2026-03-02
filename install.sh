@@ -26,10 +26,12 @@ fi
 
 if [ -z $LIBEXEC_DIR ]; then
     LIBEXEC_DIR=lib
+    UAC_LIBEXEC_DIR=lib
 fi
 
 if [[ "$(command -v dnf)" ]]; then # Automatically change for Fedora
     LIBEXEC_DIR=libexec
+    UAC_LIBEXEC_DIR=libexec/kf6
 fi
 
 mkdir -p repos
@@ -50,7 +52,7 @@ cd "$CUR_DIR/repos"
 git clone https://gitgud.io/aeroshell/uac-polkit-agent.git uac-polkit-agent
 cd uac-polkit-agent
 git pull
-cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=$LIBEXEC_DIR -B build . || exit 1
+cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=$UAC_LIBEXEC_DIR -B build . || exit 1
 cmake --build build || exit 1
 $SU_CMD cmake --install build || exit 1
 cp build/install_manifest.txt "$CUR_DIR/manifest/uac-polkit-agent_install_manifest.txt"
