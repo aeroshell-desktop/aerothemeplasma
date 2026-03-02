@@ -248,6 +248,7 @@ void App::applyLookAndFeel()
     // Apply Kvantum theme (Windows7Aero)
     qInfo() << QProcess::execute("kvantummanager", { "--set", "Windows7Aero" });
     qInfo() << QProcess::execute("plasma-apply-cursortheme", { "aero-drop", "--size", "32" });
+    qInfo() << QProcess::execute("aeroshell_update_default_rules", { "aeroshell.rules" });
 
 }
 void App::saveOotbConfig(bool reset)

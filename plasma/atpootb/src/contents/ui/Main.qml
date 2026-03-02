@@ -17,7 +17,7 @@ Window {
     id: mainWindow
     objectName: "MainWindow";
     visible: true
-    property string __title: i18n("AeroThemePlasma Out of the Box Experience")
+    property string __title: i18n("Set up AeroThemePlasma")
     title: __title
 
     color: "transparent"
