@@ -1,12 +1,11 @@
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
-import Qt5Compat.GraphicalEffects 1.0
+import QtQuick
+import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
 import QtQuick.Controls as QQC2
-import org.kde.plasma.components 3.0 as PlasmaComponents3
-import org.kde.plasma.extras 2.0 as PlasmaExtras
-import org.kde.kirigami 2.20 as Kirigami
-import SddmComponents 2.0
-
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.plasma.extras as PlasmaExtras
+import org.kde.kirigami as Kirigami
+import SddmComponents
 
 QQC2.Menu {
     id: sessionMenu
@@ -97,13 +96,6 @@ QQC2.Menu {
                 color: "white"
             }
         }
-        /*layer.enabled: true
-        layer.effect: DropShadow {
-            horizontalOffset: 3
-            verticalOffset: 3
-            radius: 4.0
-            color: "#60000000"
-        }*/
 
     }
 

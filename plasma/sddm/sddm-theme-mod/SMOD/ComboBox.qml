@@ -22,7 +22,7 @@
 *
 ***************************************************************************/
 
-import QtQuick 2.0
+import QtQuick
 
 FocusScope {
     id: container

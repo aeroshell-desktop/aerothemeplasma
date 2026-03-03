@@ -1,15 +1,14 @@
-import QtQuick 2.4
+import QtQuick
 import QtQuick.Controls
-//import QtQuick.Controls.Styles
-import QtQuick.Layouts 1.1
+import QtQuick.Layouts
 import QtQuick.Dialogs
-import QtQuick.Window 2.1
+import QtQuick.Window
 import Qt5Compat.GraphicalEffects
 
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents
-import org.kde.plasma.extras 2.0 as PlasmaExtras
+import org.kde.plasma.components as PlasmaComponents
+import org.kde.plasma.extras as PlasmaExtras
 import org.kde.ksvg as KSvg
 
 Control {
@@ -59,7 +58,6 @@ Control {
         width: genericButton.iconSize
         height: width
         animated: false
-        //usesPlasmaTheme: false
         source: genericButton.iconSource
         visible: genericButton.iconSource !== ""
     }
@@ -75,7 +73,6 @@ Control {
 	color: "white"
         layer.enabled: genericButton.text !== ""
         layer.effect: DropShadow {
-            //visible: !softwareRendering
             horizontalOffset: 0
             verticalOffset: 1
             radius: 6

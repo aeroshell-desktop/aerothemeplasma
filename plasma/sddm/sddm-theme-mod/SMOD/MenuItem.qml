@@ -3,20 +3,10 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-/*
- QQC2.Control* {
- height: Kirigami.Units.iconSizes.smallMedium
- width: parent.width
- onImplicitWidthChanged: session.contentItem.contentItem.childrenChanged()
- Rectangle {
-
- }
- }*/
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Templates as T
 import org.kde.ksvg as KSvg
-//NOTE: importing PlasmaCore is necessary in order to make KSvg load the current Plasma Theme
 import org.kde.plasma.core as PlasmaCore
 import org.kde.kirigami as Kirigami
 
