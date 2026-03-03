@@ -3,15 +3,6 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-/*
- QQC2.Control* {
- height: Kirigami.Units.iconSizes.smallMedium
- width: parent.width
- onImplicitWidthChanged: session.contentItem.contentItem.childrenChanged()
- Rectangle {
-
- }
- }*/
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Templates as T
