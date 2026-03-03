@@ -1,18 +1,15 @@
-import QtQuick 2.15
-import SddmComponents 2.0
-import QtQuick.Layouts 1.15
-import Qt5Compat.GraphicalEffects 1.0
+import QtQuick
+import SddmComponents
+import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
 import QtQuick.Controls as QQC2
 import "SMOD" as SMOD
-//import org.kde.plasma.core as PlasmaCore
-import org.kde.plasma.components 3.0 as PlasmaComponents3
-import org.kde.plasma.extras 2.0 as PlasmaExtras
-import org.kde.kirigami 2.20 as Kirigami
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.plasma.extras as PlasmaExtras
+import org.kde.kirigami as Kirigami
 import org.kde.plasma.plasma5support as Plasma5Support
 import org.kde.kitemmodels as KItemModels
 
-//import org.kde.plasma.workspace.components 2.0 as PW
-//import org.kde.plasma.private.keyboardindicator as KeyboardIndicator
 import QtMultimedia
 
 Item
@@ -289,7 +286,7 @@ Item
 
                 session.addItem(menuitem);
                 menuitem = session.createMenuItem();
-                menuitem.text = "On-Screen Keyboard"
+                menuitem.text = i18nd("aerothemeplasma-sddm-theme", "On-Screen Keyboard")
                 menuitem.checkable = false;
                 menuitem.icon.source = Qt.resolvedUrl("Assets/keyboard.png");
                 menuitem.triggered.connect(() => {
@@ -659,7 +656,7 @@ Item
                             }
                         }
 
-                        placeholderText: "Password"
+                        placeholderText: i18nd("aerothemeplasma-sddm-theme", "Password")
                         selectByMouse: true
                         echoMode : TextInput.Password
                         inputMethodHints: Qt.ImhSensitiveData | Qt.ImhNoPredictiveText
@@ -811,7 +808,7 @@ Item
 
                 contentItem: Text
                 {
-                    text: "Switch User"
+                    text: i18nd("aerothemeplasma-sddm-theme", "Switch User")
                     color: "white"
 
                     //font.family: mainfont.name
@@ -888,7 +885,7 @@ Item
                 anchors.verticalCenterOffset: 126
                 anchors.horizontalCenterOffset: 14
 
-                text: "The user name or password is incorrect."
+                text: i18nd("aerothemeplasma-sddm-theme", "The user name or password is incorrect.")
                 renderType: Text.NativeRendering
                 Layout.alignment: Qt.AlignHCenter
                 font.pointSize: 9
@@ -935,7 +932,7 @@ Item
 
                 contentItem: Text
                 {
-                    text: "OK"
+                    text: i18nd("aerothemeplasma-sddm-theme", "OK")
                     color: "white"
 
                     //font.family: mainfont.name
@@ -988,17 +985,10 @@ Item
             implicitHeight: 28
             label.font.pointSize: 9
             label.font.capitalization: Font.AllUppercase
-            //focusPolicy: Qt.TabFocus
             Accessible.description: i18ndc("plasma_lookandfeel_org.kde.lookandfeel", "Button to change keyboard layout", "Switch layout")
             KeyNavigation.backtab: rebootButton
             KeyNavigation.tab: pages.currentIndex === Main.LoginPage.SelectUser ? listView : password
             KeyNavigation.down: pages.currentIndex === Main.LoginPage.SelectUser ? listView : password
-            /*PW.KeyboardLayoutSwitcher {
-                id: keyboardLayoutSwitcher
-
-                anchors.fill: parent
-                acceptedButtons: Qt.NoButton
-            }*/
 
             text: keyboard.layouts[currentIndex].shortName
             onClicked: currentIndex = (currentIndex + 1) % keyboard.layouts.length
@@ -1056,8 +1046,6 @@ Item
         {
             if(session.visible) session.close();
             else session.open();
-            //session.visible = !session.visible
-            //session.enabled = session.visible
         }
 
         Keys.onReturnPressed:
@@ -1093,12 +1081,10 @@ Item
         KeyNavigation.tab: shutdownButton
         KeyNavigation.right: shutdownButton
         Item
-    {
+        {
         anchors.bottom: parent.top
         anchors.left: parent.left
-        //anchors.bottom: parent.bottom
         anchors.bottomMargin: -32
-        //anchors.leftMargin: 94
 
         visible: pages.currentIndex != Main.LoginPage.LoginFailed
         enabled: visible
@@ -1214,7 +1200,7 @@ Item
 
             QQC2.ToolTip.visible: hovered
             QQC2.ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-            QQC2.ToolTip.text: qsTr("Shut down")
+            QQC2.ToolTip.text: i18nd("aerothemeplasma-sddm-theme", "Shut down")
         }
 
         QQC2.Button
@@ -1271,31 +1257,31 @@ Item
 
                 Component.onCompleted: {
                     var menuitem = powerMenu.createMenuItem();
-                    menuitem.text = "Restart";
+                    menuitem.text = i18nd("aerothemeplasma-sddm-theme", "Restart");
                     menuitem.triggered.connect(() => { sddm.reboot() });
                     powerMenu.addAction(menuitem);
                     powerMenu.addItem(powerMenu.createMenuSeparator());
 
                     if(sddm.canSuspend) {
                         menuitem = powerMenu.createMenuItem();
-                        menuitem.text = "Sleep";
+                        menuitem.text = i18nd("aerothemeplasma-sddm-theme", "Sleep");
                         menuitem.triggered.connect(() => { sddm.suspend() });
                         powerMenu.addAction(menuitem);
                     }
                     if(sddm.canHibernate) {
                         menuitem = powerMenu.createMenuItem();
-                        menuitem.text = "Hibernate";
+                        menuitem.text = i18nd("aerothemeplasma-sddm-theme", "Hibernate");
                         menuitem.triggered.connect(() => { sddm.hibernate() });
                         powerMenu.addAction(menuitem);
                     }
                     if(sddm.canHybridSleep) {
                         menuitem = powerMenu.createMenuItem();
-                        menuitem.text = "Hybrid Sleep";
+                        menuitem.text = i18nd("aerothemeplasma-sddm-theme", "Hybrid Sleep");
                         menuitem.triggered.connect(() => { sddm.hybridSleep() });
                         powerMenu.addAction(menuitem);
                     }
                     menuitem = powerMenu.createMenuItem();
-                    menuitem.text = "Shut down";
+                    menuitem.text = i18nd("aerothemeplasma-sddm-theme", "Shut down");
                     menuitem.triggered.connect(() => { sddm.powerOff() });
                     powerMenu.addAction(menuitem);
                 }
