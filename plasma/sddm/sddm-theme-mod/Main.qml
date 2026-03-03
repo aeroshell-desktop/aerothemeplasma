@@ -616,7 +616,6 @@ Item
                     font.kerning: false
                     renderType: Text.NativeRendering
                     font.hintingPreference: Font.PreferVerticalHinting
-                    font.weight: Font.Medium
 
                     layer.enabled: true
                     layer.effect: DropShadow
