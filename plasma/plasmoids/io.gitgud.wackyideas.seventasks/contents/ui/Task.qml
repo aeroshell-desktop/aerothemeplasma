@@ -1305,7 +1305,7 @@ TaskManagerApplet.SmartLauncherItem { }
             property string basePrefix: {
                 if(model.IsLauncher) return "";
                 if(attentionIndicator.requiresAttention && Plasmoid.configuration.disableHottracking) return "attention";
-                if(isActive && !(attentionIndicator.requiresAttention || attentionFadeOut.running)) return "active";
+                if((isActive || jumpListOpen) && !(attentionIndicator.requiresAttention || attentionFadeOut.running)) return "active";
                 return "normal";
             }
             prefix: (basePrefix + ((isHovered && !attentionIndicator.requiresAttention) ? "-hover" : ""))
