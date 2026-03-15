@@ -56,7 +56,7 @@ Item {
 
     Image {
         id: bgtexture
-        source: "/usr/share/sddm/themes/" + sddm.currentSDDMTheme + "/background"
+        source: sddm.currentBackground
         anchors.fill: parent
     }
 

@@ -32,7 +32,7 @@ Image {
     AeroShellUtils.SDDM { id: sddm }
 
     fillMode: Image.PreserveAspectCrop
-    source: "/usr/share/sddm/themes/" + sddm.currentSDDMTheme + "/background"
+    source: sddm.currentBackground
 
     Plasma5Support.DataSource {
         id: executable

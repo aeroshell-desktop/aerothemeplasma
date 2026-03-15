@@ -17,6 +17,8 @@ import org.kde.kcmutils as KCM
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.components as PC
 
+import aeroshell.utils as AeroShellUtils
+
 import "../components"
 
 Item {
@@ -34,11 +36,13 @@ Item {
         anchors.fill: parent
     }
 
+    AeroShellUtils.SDDM { id: sddm }
+
     Image {
         id: bg
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
-        source: "/usr/share/sddm/themes/sddm-theme-mod/bgtexture.jpg"
+        source: sddm.currentBackground
     }
 
     Rectangle {

@@ -198,7 +198,7 @@ Item {
     Image {
         id: wallpaper
         anchors.fill: parent
-        source: "/usr/share/sddm/themes/" + sddm.currentSDDMTheme + "/background"
+        source: sddm.currentBackground
     }
 
     Item {
