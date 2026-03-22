@@ -2,19 +2,6 @@
 CUR_DIR=${PWD}
 
 SU_CMD=sudo
-USE_NINJA=
-NINJA_PARAM=
-if [[ "$*" == *"--ninja"* ]]
-then
-    if [[ -z "$(command -v ninja)" ]]; then
-        echo "Attempted to build using Ninja, but Ninja was not found on the system. Falling back to GNU Make."
-    else
-        echo "Compiling using Ninja"
-        USE_NINJA="-G Ninja"
-        NINJA_PARAM="--ninja"
-    fi
-fi
-
 if [[ -z "$(command -v $SU_CMD)" ]]; then
     SU_CMD=doas
     if [[ -z "$(command -v $SU_CMD)" ]]; then
@@ -42,7 +29,7 @@ cd repos
 git clone https://gitgud.io/aeroshell/libplasma.git libplasma
 cd libplasma
 git pull
-cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -B build . || exit 1
+cmake -DCMAKE_INSTALL_PREFIX=/usr -B build . || exit 1
 cmake --build build || exit 1
 $SU_CMD cmake --install build || exit 1
 cp build/install_manifest.txt "$CUR_DIR/manifest/libplasma_install_manifest.txt"
@@ -52,7 +39,7 @@ cd "$CUR_DIR/repos"
 git clone https://gitgud.io/aeroshell/uac-polkit-agent.git uac-polkit-agent
 cd uac-polkit-agent
 git pull
-cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=$UAC_LIBEXEC_DIR -B build . || exit 1
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=$UAC_LIBEXEC_DIR -B build . || exit 1
 cmake --build build || exit 1
 $SU_CMD cmake --install build || exit 1
 cp build/install_manifest.txt "$CUR_DIR/manifest/uac-polkit-agent_install_manifest.txt"
@@ -76,7 +63,7 @@ cd "$CUR_DIR/repos"
 git clone https://gitgud.io/aeroshell/aeroshell-workspace.git aeroshell-workspace
 cd aeroshell-workspace
 git pull
-cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -B build . || exit 1
+cmake -DCMAKE_INSTALL_PREFIX=/usr -B build . || exit 1
 cmake --build build || exit 1
 $SU_CMD cmake --install build || exit 1
 $SU_CMD update-mime-database "/usr/local/share/mime"
@@ -87,13 +74,13 @@ cd "$CUR_DIR/repos"
 git clone https://gitgud.io/aeroshell/aeroshell-kwin-components.git aeroshell-kwin-components
 cd aeroshell-kwin-components
 git pull
-cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -DKWIN_BUILD_WAYLAND=ON -B build . || exit 1
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DKWIN_BUILD_WAYLAND=ON -B build . || exit 1
 cmake --build build || exit 1
 $SU_CMD cmake --install build || exit 1
 cp build/install_manifest.txt "$CUR_DIR/manifest/aeroshell-kwin-components_install_manifest.txt"
 if [[ ! "$*" == *"--skip-x11"* ]]
 then
-    cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -DKWIN_BUILD_WAYLAND=OFF -DKWIN_INSTALL_MISC=OFF -B build_x11 . || exit 1
+    cmake -DCMAKE_INSTALL_PREFIX=/usr -DKWIN_BUILD_WAYLAND=OFF -DKWIN_INSTALL_MISC=OFF -B build_x11 . || exit 1
     cmake --build build_x11 || exit 1
     $SU_CMD cmake --install build_x11 || exit 1
     cp build_x11/install_manifest.txt "$CUR_DIR/manifest/aeroshell-kwin-components-x11_install_manifest.txt"
@@ -104,7 +91,7 @@ cd "$CUR_DIR/repos"
 git clone https://gitgud.io/aeroshell/aeroshell-sddm-kcm.git aeroshell-sddm-kcm
 cd aeroshell-sddm-kcm
 git pull
-cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -B build . || exit 1
+cmake -DCMAKE_INSTALL_PREFIX=/usr -B build . || exit 1
 cmake --build build || exit 1
 $SU_CMD cmake --install build || exit 1
 cp build/install_manifest.txt "$CUR_DIR/manifest/aeroshell-sddm-kcm_install_manifest.txt"
@@ -114,7 +101,7 @@ cd "$CUR_DIR/repos"
 git clone https://gitgud.io/aeroshell/atp/aerothemeplasma-icons aerothemeplasma-icons
 cd aerothemeplasma-icons
 git pull
-cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -B build . || exit 1
+cmake -DCMAKE_INSTALL_PREFIX=/usr -B build . || exit 1
 cmake --build build || exit 1
 $SU_CMD cmake --install build || exit 1
 cp build/install_manifest.txt "$CUR_DIR/manifest/icons_install_manifest.txt"
@@ -124,7 +111,7 @@ cd "$CUR_DIR/repos"
 git clone https://gitgud.io/aeroshell/atp/aerothemeplasma-sounds aerothemeplasma-sounds
 cd aerothemeplasma-sounds
 git pull
-cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -B build . || exit 1
+cmake -DCMAKE_INSTALL_PREFIX=/usr -B build . || exit 1
 cmake --build build || exit 1
 $SU_CMD cmake --install build || exit 1
 cp build/install_manifest.txt "$CUR_DIR/manifest/sounds_install_manifest.txt"
@@ -132,13 +119,13 @@ cd "$CUR_DIR/repos"
 
 # Aerothemeplasma
 cd "$CUR_DIR"
-cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=$LIBEXEC_DIR -B build . || exit 1
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=$LIBEXEC_DIR -B build . || exit 1
 cmake --build build || exit 1
 $SU_CMD cmake --install build || exit 1
 cp build/install_manifest.txt "$CUR_DIR/manifest/aerothemeplasma_install_manifest.txt"
 if [[ ! "$*" == *"--skip-x11"* ]]
 then
-    cmake $USE_NINJA -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=$LIBEXEC_DIR -DINSTALL_X11_COMPONENTS=ON -B build_x11 . || exit 1
+    cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=$LIBEXEC_DIR -DINSTALL_X11_COMPONENTS=ON -B build_x11 . || exit 1
     cmake --build build_x11 || exit 1
     $SU_CMD cmake --install build_x11 || exit 1
     cp build_x11/install_manifest.txt "$CUR_DIR/manifest/aerothemeplasma-x11_install_manifest.txt"
