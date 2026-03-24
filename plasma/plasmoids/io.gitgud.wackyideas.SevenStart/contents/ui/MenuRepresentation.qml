@@ -50,14 +50,17 @@ PlasmaCore.Dialog {
 
 	title: "aeroshell-menurepresentation"
     
-    backgroundHints: PlasmaCore.Types.NoBackground
+	shadowBordersSync: false
+	shadowEnabled: Plasmoid.configuration.enableShadow
+	marginsEnabled: false
+	customImagePath: Qt.resolvedUrl("svgs/dialog.svgz")
 
     property int iconSize: Kirigami.Units.iconSizes.medium
     property int iconSizeSide: Kirigami.Units.iconSizes.smallMedium
     property int cellWidth: 254 // Width for all standard menu items.
     property int cellWidthSide: 139 // Width for sidebar menu items.
-    property int cellHeight: iconSize + Kirigami.Units.smallSpacing + (Math.max(highlightItemSvg.margins.top + highlightItemSvg.margins.bottom,
-                                                    				   highlightItemSvg.margins.left + highlightItemSvg.margins.right)) - Kirigami.Units.smallSpacing/2
+    property int cellHeight: iconSize + Kirigami.Units.smallSpacing - Kirigami.Units.smallSpacing/2
+
 	property int cellCount: Plasmoid.configuration.numberRows + faves.getFavoritesCount()
     property bool searching: (searchField.text != "")
     property bool showingAllPrograms: false
@@ -89,7 +92,6 @@ PlasmaCore.Dialog {
 	property alias m_lockButton: lockma
 	property alias m_searchField: searchField
 	property alias m_delayTimer: delayTimer
-	property alias dialogBackgroundTexture: dialogBackground
 
 	property bool newItemsAvailable: filteredNewItems.count > 0
 
@@ -101,12 +103,6 @@ PlasmaCore.Dialog {
 		firstTimePopup = true;
 	}
 
-	onXChanged: {
-		Plasmoid.syncBorders(Qt.rect(x, y, width, height), Plasmoid.location);
-	}
-	onYChanged: {
-		Plasmoid.syncBorders(Qt.rect(x, y, width, height), Plasmoid.location);
-	}
     onVisibleChanged: {
 		popupPosition();
         if (!visible) {
@@ -116,11 +112,6 @@ PlasmaCore.Dialog {
 			searchField.forceActiveFocus();
 			rootModel.refresh();
 			setFloatingAvatarPosition();
-			Plasmoid.setDialogAppearance(root, dialogBackground.mask);
-
-			if(!firstTimeShadowSetup) {
-				shadow_fix.start()
-			}
         }
 
 		resetRecents(); // Resets the recents model to prevent errors and crashes.
@@ -128,15 +119,11 @@ PlasmaCore.Dialog {
     onHeightChanged: {
 		popupPosition();
 		setFloatingAvatarPosition();
-		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
-		Plasmoid.syncBorders(Qt.rect(x, y, width, height), Plasmoid.location);
     }
 
     onWidthChanged: {
 		popupPosition();
 		setFloatingAvatarPosition();
-		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
-		Plasmoid.syncBorders(Qt.rect(x, y, width, height), Plasmoid.location);
     }
 
     onSearchingChanged: {
@@ -228,16 +215,6 @@ PlasmaCore.Dialog {
 			filterRowCallback: (sourceRow, sourceParent) => containsNewItem(sourceRow, sourceParent)
 		}
 
-
-		Timer {
-			id: shadow_fix
-			interval: 25
-			onTriggered: {
-				Plasmoid.enableShadow(Plasmoid.configuration.enableShadow);
-				Plasmoid.syncBorders(Qt.rect(dashWindow.x, dashWindow.y, dashWindow.width, dashWindow.height), Plasmoid.location);
-				firstTimeShadowSetup = true;
-			}
-		}
 		Timer { // Janky wayland problems require janky solutions
 			id: wayland_fix
 			interval: 25
@@ -279,18 +256,18 @@ PlasmaCore.Dialog {
 		Item {
 			PlasmaCore.Dialog {
         		id: iconUser
-        		//flags: Qt.WindowStaysOnTopHint// | Qt.BypassWindowManagerHint  // To prevent the icon from animating its opacity when its visibility is changed
-        		//type: "Notification" // So that we don't have to rely on this
-				location: "Floating"
 
+        		x: 0
+        		y: 0
+
+				location: "Floating"
 				type: "Notification"
 				title: "aeroshell-floatingavatar"
-				x: 0
-				y: 0
 				backgroundHints: PlasmaCore.Types.NoBackground // To prevent the dialog background SVG from being rendered, we want a fully transparent window.
-				//visualParent: root
+
 				visible: root.visible && !searching && compositingEnabled && !root.isTouchingTopEdge() //Plasmoid.location != PlasmaCore.Types.TopEdge
 				opacity: iconUser.visible && firstTimePopup // To prevent even more NP-hard unpredictable behavior
+
 				mainItem: FloatingIcon {
 					id: compositingIcon
 					visible: compositingEnabled
@@ -424,14 +401,6 @@ PlasmaCore.Dialog {
 						return PlasmaExtras.Menu.RightPosedBottomAlignedPopup;
 				}
 			}
-		}
-
-
-		KSvg.FrameSvgItem {
-			id: dialogBackground
-			anchors.fill: parent
-			imagePath: Qt.resolvedUrl("svgs/dialog.svgz");
-			//opacity: 0
 		}
 
         Rectangle {
@@ -1381,6 +1350,5 @@ PlasmaCore.Dialog {
 		faves.listView.currentIndex = -1;
 		
 		popupPosition();
-		Plasmoid.setDialogAppearance(root, dialogBackground.mask);
 	}
 }
