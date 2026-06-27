@@ -106,8 +106,10 @@ Item {
         function newWatermark() {
             var component = Qt.createComponent("WatermarkConfigure.qml");
 
+
             watermarkConfigure = component.createObject(root, { purpose: "new" });
             watermarkConfigure.done.connect(watermarkManager.addWatermark);
+            watermarkConfigure.show();
         }
 
         function modify(index: int) {
@@ -123,6 +125,7 @@ Item {
                 horizontalAlignment: watermark.horizontalAlignment
             });
             watermarkConfigure.done.connect(watermarkManager.setWatermark);
+            watermarkConfigure.show();
         }
 
         function moveDown(index: int) {

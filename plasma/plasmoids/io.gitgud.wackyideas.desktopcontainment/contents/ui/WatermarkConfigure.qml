@@ -24,8 +24,13 @@ Window {
     height: column.height
     maximumWidth: width
     maximumHeight: height
+    modality: Qt.WindowModal
 
     title: i18n("Desktop")
+
+    onClosing: {
+        destroy();
+    }
 
     FontMetrics { id: systemFont; font: color.font }
 
