@@ -107,7 +107,7 @@ To install most of these, the commands to run after cloning are: `mkdir build; c
 - [Aero KolourPaint](https://invent.kde.org/albert-tomanek/kolourpaint/-/tree/saribbon-aero) by Albert Tomanek
 
 ### Other Aero Apps
-- _Watch this space_
+- [Aero App Store](https://gitgud.io/atmk/app-store/-/tree/flatpak?ref_type=heads) by Albert Tomanek
 
 ### Development Libraries
 - [libAeroQt](https://gitgud.io/atmk/libaero-qt) -- Re-usable QtWidgets and QML components for writing Aero apps. Also contains function to make glassy window headers.
