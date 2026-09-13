@@ -1017,6 +1017,12 @@ FocusScope {
                 Behavior on contentX { id: smoothX; enabled: false; SmoothedAnimation { velocity: 700 } }
                 Behavior on contentY { id: smoothY; enabled: false; SmoothedAnimation { velocity: 700 } }
 
+                property string searchString: ""
+                Timer {
+                    id: typeAheadTimer
+                    interval: 500 // Resets search string after 0.5 seconds of inactivity
+                    onTriggered: searchString = ""
+                }
                 Keys.onReturnPressed: event => {
                     if (event.modifiers === Qt.AltModifier) {
                         dir.openPropertiesDialog();
@@ -1099,6 +1105,40 @@ FocusScope {
                         dir.refresh(true);
                     } else if (event.matches(StandardKey.SelectAll)) {
                         positioner.setRangeSelected(0, count - 1);
+                    } else if ( (root.isPopup || Plasmoid.configuration.useTypeAhead) && event.text.length === 1 && event.modifiers === Qt.NoModifier) {
+                        typeAheadTimer.restart();
+                        const charPressed = event.text.toLowerCase();
+
+                        if (searchString.length >= 1 && searchString.indexOf(charPressed) !== 0) {
+                            searchString += charPressed;
+                        } else if (searchString !== charPressed) {
+                            searchString = charPressed;
+                        }
+
+                        let matches = [];
+                        for (let i = 0; i < gridView.count; i++) {
+                            const itemData = positioner.data(positioner.index(i, 0), Qt.DisplayRole);
+                            if (itemData && itemData.toLowerCase().indexOf(searchString) === 0) {
+                                matches.push(i);
+                            }
+                        }
+
+                        if (matches.length > 0) {
+                            let nextIdx = matches[0];
+                            if (searchString.length === 1) {
+                                for (let j = 0; j < matches.length; j++) {
+                                    if (matches[j] > gridView.currentIndex) {
+                                        nextIdx = matches[j];
+                                        break;
+                                    }
+                                }
+                            }
+                            currentIndex = nextIdx;
+                            dir.clearSelection();
+                            dir.setSelected(positioner.map(nextIdx));
+                        } else {
+                            searchString = charPressed;
+                        }
                     } else {
                         event.accepted = false;
                     }
@@ -1269,6 +1309,11 @@ FocusScope {
             previewPlugins: Plasmoid.configuration.previewPlugins
             applet: Plasmoid
 
+            onSelectionChanged: {
+                if(gridView.currentIndex === -1) {
+                    gridView.searchString = "";
+                }
+            }
             onListingCompleted: {
                 if (!gridView.model && root.expanded) {
                     gridView.model = positioner;

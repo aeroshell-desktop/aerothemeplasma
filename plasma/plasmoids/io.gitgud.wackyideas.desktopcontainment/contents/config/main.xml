@@ -147,6 +147,10 @@
       <label>Use drop shadows for icons on the desktop.</label>
       <default>false</default>
     </entry>
+    <entry name="useTypeAhead" type="Bool">
+      <label>Select icons on the desktop by typing their names.</label>
+      <default>true</default>
+    </entry>
   </group>
 
   <group name="Watermark">

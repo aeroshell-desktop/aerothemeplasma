@@ -46,6 +46,7 @@ Item {
     property alias cfg_iconShadows: iconShadows.checked
 
     property alias cfg_selectionStyle: selectionStyle.currentIndex
+    property alias cfg_useTypeAhead: typeAhead.checked
 
 
     readonly property bool lockedByKiosk: !KAuthorized.authorize("editable_desktop_icons")
@@ -314,6 +315,7 @@ Item {
             text: i18n("Show selection markers")
         }
 
+
         CheckBox {
             id: popups
             visible: !isPopup
@@ -361,6 +363,11 @@ Item {
                 i18nc("@item:inlistbox how the selection should be", "Classic"),
             ]
         }
+        CheckBox {
+            id: typeAhead
+            text: i18n("Select items by typing on the desktop")
+        }
+
 
         CheckBox {
             id: previews
