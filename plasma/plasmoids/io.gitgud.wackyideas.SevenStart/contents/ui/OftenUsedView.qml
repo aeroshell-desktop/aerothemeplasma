@@ -77,12 +77,25 @@ Item {
         baseView.currentIndex = -1;
     }
     Connections {
-        target: kicker
+        target: Plasmoid
 
         function onExpandedChanged() {
-            if (!kicker.expanded) {
+            if (!Plasmoid.expanded) {
                 baseView.currentIndex = -1;
             }
+        }
+    }
+    /*
+     * The KSortFilterProxyModel has a nasty behavior (with this particular
+     * source model) where only the first row will be updated (twice instantly),
+     * which invalidates the index list. In that case, we want a full update
+     * instead of a partial update, so the filtering can update the index map.
+     */
+    Timer {
+        id: refreshTimer
+        interval: 50
+        onTriggered: {
+            Qt.callLater(() => { recentUsageModel.refresh()});
         }
     }
 
@@ -96,25 +109,43 @@ Item {
         interactive: contentHeight > height
         //model: recentUsageModel //rootModel.modelForRow(0)
         model: KItemModels.KSortFilterProxyModel {
+            id: sortModel
             sourceModel: recentUsageModel
             property var favoritesModel: globalFavorites
             property int favoritesCount: sourceModel.favoritesModel.count
             property int favoritesFound: 0
+            /*
+             * Because the trigger function relies on the original model's
+             * index values, we need a way to map the index values from the filtered
+             * model to the values from the source model.
+             */
+            property list<int> originalIndexList
             onFavoritesCountChanged: Qt.callLater(() => { sourceModel.refresh()});
             onCountChanged: Qt.callLater(() => {
                 if(count > Plasmoid.configuration.numberRows) sourceModel.refresh();
             })
             function trigger(index, str, ptr) {
-                sourceModel.trigger(index, str, ptr);
+                if(typeof originalIndexList[index] !== "undefined") {
+                    sourceModel.trigger(originalIndexList[index], str, ptr);
+                }
             }
             filterRowCallback: function(source_row, source_parent) {
-                if(source_row == 0) favoritesFound = 0;
+                if(source_row == 0) {
+                    refreshTimer.start();
+                    originalIndexList.length = 0;
+                    favoritesFound = 0;
+                } else {
+                    refreshTimer.stop();
+                }
 				const FavoriteIdRole = sourceModel.KItemModels.KRoleNames.role("favoriteId");
 				const favoriteId = sourceModel.data(sourceModel.index(source_row, 0, source_parent), FavoriteIdRole);
                 var hasFavorite = favoritesIds.idList.indexOf(favoriteId) === -1
                 if(!hasFavorite) favoritesFound++;
-
-                return hasFavorite && source_row < (Plasmoid.configuration.numberRows+favoritesFound)// - sourceModel.favoritesModel.count;
+                var shouldAccept = hasFavorite && source_row < (Plasmoid.configuration.numberRows+favoritesFound);
+                if(shouldAccept) {
+                    originalIndexList.push(source_row);
+                }
+                return shouldAccept;// - sourceModel.favoritesModel.count;
             };
 
         }
