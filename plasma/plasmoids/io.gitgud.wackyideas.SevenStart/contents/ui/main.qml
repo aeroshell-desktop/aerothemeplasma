@@ -49,7 +49,7 @@ PlasmoidItem {
     toolTipSubText: ""
 
     CompactRepresentation { id: compactRepresentation; anchors.fill: parent }
-    MenuRepresentation { id: menuRepresentation }
+    //MenuRepresentation { id: menuRepresentation }
 
     // Used to run separate programs through this plasmoid.
     Plasma5Support.DataSource {
