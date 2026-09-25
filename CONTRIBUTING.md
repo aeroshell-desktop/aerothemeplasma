@@ -19,4 +19,14 @@ Things that are helpful when writing an issue:
     
 ## Merge requests
 
-Merge requests should only be done on the [GitGud](https://gitgud.io/wackyideas/aerothemeplasma) repo as the GitHub repository is only a mirror.
+Merge requests should only be done on the [GitGud](https://gitgud.io/aeroshell/atp/aerothemeplasma) repo as the GitHub repository is only a mirror.
+
+## Usage of AI/LLMs 
+
+For the record, I personally have never used AI in any capacity for any of my projects, and I don't intend to start now. This section pertains to AI usage by outside contributors, via merge requests, opening issues and sending patches.
+
+For context, the project has started receiving a small amount of AI-assisted merge requests, and as a result I imagine it'd be a good idea to actually take a stance on this, because I wasn't sure how to handle this for a long time, up until now. After some more consideration and thoughts on the topic, after some revisions of this section, and after a long discussion with the community, the clear and final policy is this: 
+
+### __Please do NOT use AI/LLMs in any context (writing text, code, testing, image/resource generation, and so on) regarding AeroShell and AeroThemePlasma.__ 
+
+Open merge requests that have AI usage in them will be closed, apologies for the inconvenience. Thank you for understanding. 
