@@ -1,7 +1,5 @@
 # AeroThemePlasma
 
-## HIATUS NOTICE: This is a long overdue announcement, but development will slow down significantly as a result of real life priorities I have to take care of first. Estimated time until I continue development is unknown, but don't expect anything significant in the following few months, until August, probably. Thank you for your patience and support.
-
 ## Microsoft® Windows™ is a registered trademark of Microsoft® Corporation. This name is used for referential use only, and does not aim to usurp copyrights from Microsoft. Microsoft Ⓒ 2025 All rights reserved. All resources belong to Microsoft Corporation.
 
 ## Introduction
@@ -13,9 +11,7 @@ ATP is in constant development and testing, it has been tested on:
 - Arch Linux x64 and other Arch derivatives
 - Plasma 6.8.0, KDE Frameworks 6.30.0, Qt 6.11.2
 - 96 DPI scaling, multi monitor
-- X11, Wayland*
-
-*AeroThemePlasma currently lacks full Wayland support, which may result in Wayland-specific issues. Proper Wayland support is planned for Plasma 6.8
+- Wayland, X11 (Before Plasma 6.8)
 
 ## This software comes "as is" without warranty of any kind. It's always recommended to make backups of your system just in case. I am not responsible for broken systems, please proceed with caution.
 
