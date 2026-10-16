@@ -67,7 +67,7 @@ git checkout $BRANCH_VERSION
 cmake -DCMAKE_INSTALL_PREFIX=/usr -B build . || exit 1
 cmake --build build || exit 1
 $SU_CMD cmake --install build || exit 1
-$SU_CMD update-mime-database "/usr/local/share/mime"
+$SU_CMD update-mime-database "/usr/share/mime"
 cp build/install_manifest.txt "$CUR_DIR/manifest/aeroshell-workspace_install_manifest.txt"
 cd "$CUR_DIR/repos"
 
