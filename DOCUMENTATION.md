@@ -29,13 +29,13 @@ Ultimately, this project doesn't change the fact that the underlying operating s
 
 ### Are we Wayland yet?
 
-Kinda.
+Mostly! Since 6.8, AeroThemePlasma no longer provides an X11 session.
 
 AeroThemePlasma should largely work on Wayland, save for some visual quirks that haven't been ironed out yet. There are certain issues that Wayland presents that makes development on it a bit cumbersome, as well as KWin lacking features that ATP relies on under X11. See [Current Wayland issues](#wayland) for specific details. 
 
 ### What about HiDPI?
 
-Currently AeroThemePlasma works best on 100% scaling, but work is slowly being made towards HiDPI support. However, there are some unavoidable issues with HiDPI that ATP can't get around unfortunately, such as [QTBUG-135833](https://bugreports.qt.io/browse/QTBUG-135833) and certain Wayland problems.
+Currently AeroThemePlasma works best on 100% scaling, but work is slowly being made towards HiDPI support. However, there are some unavoidable issues with HiDPI that ATP can't get around unfortunately, such as [QTBUG-135833](https://bugreports.qt.io/browse/QTBUG-135833).
 
 ### What distros are supported? 
 
@@ -85,8 +85,7 @@ When developing most things related to ATP (and KDE in general), it's useful to 
 
 ```bash
 alias restart-plasma='setsid plasmashell --replace'
-alias restart-kwin_x11='setsid kwin_x11 --replace'
-alias restart-kwin_wayland='setsid kwin_wayland --replace'
+alias restart-kwin='setsid kwin_wayland --replace'
 ```
 
 Which can then be used like any other command in the terminal:
@@ -97,9 +96,9 @@ restart-plasma
 
 Note however that restarting KWin when using Wayland **will restart the entire compositor, which may result in certain applications being killed**. 
 
-### Starting a nested Wayland session within X11
+### Starting a nested Wayland session
 
-A KWin Wayland session can be loaded within an X11 environment using the following command: 
+A nested KWin Wayland session can be loaded using the following command: 
 
 ```bash
 dbus-run-session kwin_wayland --width 1366 --height 768 --xwayland "plasmashell"
@@ -109,10 +108,16 @@ This spawns a nested Wayland session with the resolution of 1366x768, while also
 
 ### Get window information 
 
-For X11-specific window properties, use `xprop`. KWin can also query windows using the following command (works on both X11 and Wayland):
+For X11-specific window properties (for applications running in XWayland), use `xprop`. KWin can also query windows using the following command (works on both X11 and Wayland):
 
 ```bash
 qdbus6 org.kde.KWin /KWin queryWindowInfo
+```
+
+And additionally `kwindowprop`:
+
+```bash
+kwindowprop 
 ```
 
 ### KWin effects 
@@ -245,4 +250,4 @@ Some of these issues are fixable but not a lot of effort has been put into doing
 5. ~~SevenStart's blur region often lags behind or doesn't appear at all upon opening the menu. This can likely be fixed by restructuring SevenStart in some way, but not much time has been spent fixing this bug.~~
 6. SevenStart's floating orb positioning fails only sometimes. Additionally, because Wayland doesn't allow client windows to raise themselves, in some cases the floating orb will appear permanently stuck underneath the panel and its child windows until the shell is restarted.
 6. Aero Peek is not visible on Wayland, although the windows do properly fade in and out of view. This should most likely be replaced with a proper KWin effect that renders the Aero Peek windows in place of regular windows. 
-7. HiDPI is not properly supported for SMOD. See #252 for more details. This is an issue for both X11 and Wayland, but X11 has an easier workaround as KDecoration3 on X11 ignores DPI scaling entirely.
+7. ~~HiDPI is not properly supported for SMOD. See #252 for more details. This is an issue for both X11 and Wayland, but X11 has an easier workaround as KDecoration3 on X11 ignores DPI scaling entirely.~~
