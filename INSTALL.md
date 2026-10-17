@@ -14,6 +14,8 @@
 
 It's necessary to have KDE Plasma already installed on your system (plasma-workspace and plasma-desktop) in order to get all the Plasma-specific dependencies for AeroThemePlasma.
 
+Make sure that you're using SDDM instead of Plasma Login Manager, as Plasma Login Manager does _not_ support custom frontends like SDDM does.
+
 ### Arch Linux
 
 Required packages:
