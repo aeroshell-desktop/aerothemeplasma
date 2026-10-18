@@ -38,8 +38,8 @@ SimpleKCM {
 
     signal configurationChanged
 
-    property string cfg_fontFamily
-    property string cfg_fontSize
+    property font cfg_font
+    property alias cfg_useDefaultFont: useDefaultFont.checked
     property alias cfg_boldText: boldCheckBox.checked
     property string cfg_timeFormat: ""
     property alias cfg_italicText: italicCheckBox.checked
@@ -55,46 +55,6 @@ SimpleKCM {
     property alias cfg_use24hFormat: use24hFormat.checkState
     property alias cfg_showPinButton: showPinButton.checked
 
-    onCfg_fontFamilyChanged: {
-        // HACK by the time we populate our model and/or the ComboBox is finished the value is still undefined
-        if (cfg_fontFamily) {
-            for (var i = 0, j = fontsModel.count; i < j; ++i) {
-                if (fontsModel.get(i).value == cfg_fontFamily) {
-                    fontFamilyComboBox.currentIndex = i
-                    break
-                }
-            }
-        }
-    }
-
-    ListModel {
-        id: fontsModel
-        Component.onCompleted: {
-            var arr = [] // use temp array to avoid constant binding stuff
-            arr.push({text: i18nc("Use default font", "Default"), value: ""})
-
-            var fonts = Qt.fontFamilies()
-            var foundIndex = 0
-            for (var i = 0, j = fonts.length; i < j; ++i) {
-                arr.push({text: fonts[i], value: fonts[i]})
-            }
-            append(arr)
-        }
-    }
-    
-    ListModel {
-        id: fontSizesModel
-        Component.onCompleted: {
-            var arr = [] // use temp array to avoid constant binding stuff
-            arr.push({text: i18n("Use default font size"), value: ""})
-
-            var sizes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '26', '28', '36', '48', '72']
-            for (var i = 0, j = sizes.length; i < j; ++i) {
-                arr.push({text: sizes[i], value: sizes[i]})
-            }
-            append(arr)
-        }
-    }
 
     QtLayouts.ColumnLayout {
         anchors.left: parent.left
@@ -227,71 +187,71 @@ SimpleKCM {
         
         QtLayouts.RowLayout {
             QtLayouts.Layout.fillWidth: true
-            
-            QtControls.Label {
-                text: i18n("  Font size px: ")
+
+            QtControls.CheckBox {
+                id: useDefaultFont
+                text: i18n("Use default font")
+
             }
-            
-            QtControls.ComboBox {
-                        id: fontSizeComboBox
-                        QtLayouts.Layout.fillWidth: true
-                        // ComboBox's sizing is just utterly broken
-                        QtLayouts.Layout.minimumWidth: Kirigami.Units.iconSizes.small * 10
-                        model: fontSizesModel
-                        // doesn't autodeduce from model because we manually populate it
-                        textRole: "text"
 
-                        onCurrentIndexChanged: {
-                            var current = model.get(currentIndex)
-                            if (current) {
-                                cfg_fontSize = current.value
-                                appearancePage.configurationChanged()
-                            }
-                        }
+            QtControls.TextField {
+                enabled: !useDefaultFont.checked
+                readOnly: true
+                text: i18nc("@info The selected font family (%1) and font size (%2)", "%1 %2 pt", font.family, font.pointSize)
+                font: fontDialog.selectedFont
             }
-        }
 
-        QtLayouts.RowLayout {
-            QtLayouts.Layout.fillWidth: true
-
-            QtControls.Label {
-                text: i18n("  Font style:")
-            }
-            
-
-            QtControls.ComboBox {
-                id: fontFamilyComboBox
-                QtLayouts.Layout.fillWidth: true
-                // ComboBox's sizing is just utterly broken
-                QtLayouts.Layout.minimumWidth: Kirigami.Units.iconSizes.small * 10
-                model: fontsModel
-                // doesn't autodeduce from model because we manually populate it
-                textRole: "text"
-
-                onCurrentIndexChanged: {
-                    var current = model.get(currentIndex)
-                    if (current) {
-                        cfg_fontFamily = current.value
-                        appearancePage.configurationChanged()
-                    }
+            QtControls.Button {
+                id: fontChooserButton
+                enabled: !useDefaultFont.checked
+                text: i18n("Select Font...")
+                display: QtControls.AbstractButton.IconOnly
+                icon.name: "kfontview"
+                onClicked: {
+                    fontDialog.open();
+                }
+                QtControls.ToolTip {
+                    visible: fontChooserButton.hovered
+                    text: fontChooserButton.text
                 }
             }
-
+            
             QtControls.Button {
                 id: boldCheckBox
                 //tooltip: i18n("Bold text")
                 icon.name: "format-text-bold"
+                display: QtControls.AbstractButton.IconOnly
                 checkable: true
                 //Accessible.name: tooltip
+                QtControls.ToolTip {
+                    visible: boldCheckBox.hovered
+                    text: i18n("Bold")
+                }
             }
 
             QtControls.Button {
                 id: italicCheckBox
                 //tooltip: i18n("Italic text")
                 icon.name: "format-text-italic"
+                display: QtControls.AbstractButton.IconOnly
                 checkable: true
                 //Accessible.name: tooltip
+                QtControls.ToolTip {
+                    visible: italicCheckBox.hovered
+                    text: i18n("Italic")
+                }
             }
+        }
+    }
+
+    QtDialogs.FontDialog {
+        id: fontDialog
+        title: i18nc("@title:window", "Select Font")
+
+        selectedFont: (!appearancePage.cfg_font || appearancePage.cfg_font.family === "") ? Kirigami.Theme.defaultFont : appearancePage.cfg_font
+
+        onAccepted: {
+            appearancePage.cfg_font = selectedFont;
         }
     }
 
@@ -300,20 +260,6 @@ SimpleKCM {
             timezoneCodeRadio.checked = true;
         } else {
             timezoneCityRadio.checked = true;
-        }
-
-        for(var i = 0; i < fontsModel.count; i++) {
-            if(fontsModel.get(i).value == Plasmoid.configuration.fontFamily) {
-                fontFamilyComboBox.currentIndex = i;
-                break;
-            }
-        }
-        for(var i = 0; i < fontSizesModel.count; i++) {
-
-            if(fontSizesModel.get(i).value == Plasmoid.configuration.fontSize) {
-                fontSizeComboBox.currentIndex = i;
-                break;
-            }
         }
 
         boldCheckBox.checked = Plasmoid.configuration.boldText;

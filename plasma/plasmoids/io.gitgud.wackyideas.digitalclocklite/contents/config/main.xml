@@ -28,13 +28,12 @@
     <entry name="customFormat" type="string">
       <default>dd.MM.yyyy</default>
     </entry>
-    <entry name="fontFamily" type="string">
+    <entry name="useDefaultFont" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="font" type="Font">
       <label>Font family. e.g "arial". The system font is used if this is not set.</label>
       <default></default>
-    </entry>
-    <entry name="fontSize" type="Int">
-      <label>Font size described in pixels.</label>
-      <default>9</default>
     </entry>
     <entry name="boldText" type="Bool">
       <label>Sets the font to bold.</label>

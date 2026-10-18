@@ -547,10 +547,10 @@ Item {
 
                 renderType: Text.NativeRendering
                 font {
-                    family: Plasmoid.configuration.fontFamily || Kirigami.Theme.defaultFont.family
+                    family: Plasmoid.configuration.useDefaultFont ? Kirigami.Theme.defaultFont.family : (Plasmoid.configuration.font.family || Kirigami.Theme.defaultFont.family)
                     weight: Plasmoid.configuration.boldText ? Font.Bold : Kirigami.Theme.defaultFont.weight
                     italic: Plasmoid.configuration.italicText
-                    pointSize: (Plasmoid.configuration.fontSize || Kirigami.Theme.defaultFont.pointSize)
+                    pointSize: Plasmoid.configuration.useDefaultFont ? Kirigami.Theme.defaultFont.pointSize : (Plasmoid.configuration.font.pointSize || Kirigami.Theme.defaultFont.pointSize)
                     hintingPreference: Font.PreferFullHinting
                 }
                 minimumPixelSize: 1
