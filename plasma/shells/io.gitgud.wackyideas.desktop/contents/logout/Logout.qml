@@ -131,7 +131,7 @@ Image {
                     KSvg.FrameSvgItem {
                         anchors.fill: parent
 
-                        imagePath: Qt.resolvedUrl("../../../../../look-and-feel/authui7/contents/svgs/command.svg");
+                        imagePath: Qt.resolvedUrl("../svgs/command.svg");
                         prefix: delegateMa.containsMouse ? (delegateMa.containsPress ? "pressed" : "hover") : ""
                     }
 
@@ -155,7 +155,7 @@ Image {
                         Image {
                             id: delegateArrow
 
-                            source: "../../../../../look-and-feel/authui7/contents/images/command-" + (delegateMa.containsMouse ? "hover" : "normal") + ".png"
+                            source: "../images/command-" + (delegateMa.containsMouse ? "hover" : "normal") + ".png"
                         }
                         QQC2.Label {
                             text: list.modelText(model.index);
@@ -197,7 +197,7 @@ Image {
 
                 Layout.topMargin: 35
 
-                imagePath: Qt.resolvedUrl("../../../../../look-and-feel/authui7/contents/svgs/button.svg")
+                imagePath: Qt.resolvedUrl("../svgs/button.svg")
                 prefix: (activeFocus ? "focus-" : "") + state
 
                 QQC2.Label {
@@ -255,10 +255,10 @@ Image {
                 Layout.preferredWidth: 40
                 Layout.preferredHeight: 28
 
-                imagePath: Qt.resolvedUrl("../../../../../look-and-feel/authui7/contents/svgs/button.svg")
+                imagePath: Qt.resolvedUrl("../svgs/button.svg")
                 prefix: (activeFocus ? "focus-" : "") + state
 
-                Image { anchors.centerIn: parent; source: "../../../../../look-and-feel/authui7/contents/images/access-glyph.png" }
+                Image { anchors.centerIn: parent; source: "../images/access-glyph.png" }
 
                 MouseArea {
                     id: accessMa
@@ -292,9 +292,9 @@ Image {
 
                 Layout.rightMargin: -Kirigami.Units.smallSpacing - 1
 
-                source: "../../../../../look-and-feel/authui7/contents/images/power-" + state + ".png"
+                source: "../images/power-" + state + ".png"
 
-                Image { anchors.centerIn: parent; source: "../../../../../look-and-feel/authui7/contents/images/power-glyph.png" }
+                Image { anchors.centerIn: parent; source: "../images/power-glyph.png" }
 
                 MouseArea {
                     id: powerMa
@@ -317,9 +317,9 @@ Image {
                     return "normal"
                 }
 
-                source: "../../../../../look-and-feel/authui7/contents/images/powerRight-" + state + ".png"
+                source: "../images/powerRight-" + state + ".png"
 
-                Image { anchors.centerIn: parent; source: "../../../../../look-and-feel/authui7/contents/images/powerRight-glyph.png" }
+                Image { anchors.centerIn: parent; source: "../images/powerRight-glyph.png" }
 
 
                 Menu {
@@ -383,6 +383,6 @@ Image {
             horizontalCenter: parent.horizontalCenter
         }
 
-        source: "../../../../../look-and-feel/authui7/contents/images/watermark.png"
+        source: "../images/watermark.png"
     }
 }
