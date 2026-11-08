@@ -158,7 +158,7 @@ NotificationsApplet.NotificationWindow {
 
             opacity: {
                 if(focusListener.containsMouse) return 1;
-                if(notificationItem.modelInterface.remainingTime < effectiveTimeout / 4) {
+                if(Kirigami.Units.longDuration > 1 && notificationItem.modelInterface.remainingTime < effectiveTimeout / 4) {
                     return (4 * notificationItem.modelInterface.remainingTime / effectiveTimeout);
                 }
                 return 1;
